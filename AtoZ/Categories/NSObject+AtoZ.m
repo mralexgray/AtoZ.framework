@@ -163,15 +163,15 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	objc_removeAssociatedObjects(self);
 }
 - (BOOL)    hasAssociatedValueForKey : (NSS*)k 											{
-	return (objc_getAssociatedObject(self,(__bridge const void *)k) != nil);
+	return objc_getAssociatedObject(self,(__bridge const void*)k) != nil;
 }
 -   (id)       associatedValueForKey :	(NSS*)k orSetTo:(id)def 					{ /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
 	return [self associatedValueForKey:k orSetTo:def policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 -   (id)       associatedValueForKey : (NSS*)k orSetTo:(id)def policy:(PLCY)p {
-	if ( [self hasAssociatedValueForKey:k] ) return objc_getAssociatedObject(self,(__bridge const void *)k);
-	[self setAssociatedValue:def forKey:k policy:p];
-	return def;
+
+	return [self hasAssociatedValueForKey:k] ? objc_getAssociatedObject(self,(__bridge const void*)k)
+    : (id)([self setAssociatedValue:def forKey:k policy:p], def);
 }												@end
 
 @interface AZValueTransformer ()		@property (nonatomic, copy) id (^transformBlock)(id value);	@end
@@ -184,6 +184,9 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 @end
 
 @implementation NSObject (AtoZ)
+
+
+- (BOOL) ISA:(Class)k {  return [self ISKINDA:ISACLASS(k) ? k : [k class]]; }
 
 + (void)load {
 	 [$ swizzleMethod:@selector(setValue:forKey:) with:@selector(swizzleSetValue:forKey:) in:self.class];
@@ -208,7 +211,7 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 //};
 //@synthesizeAssGetSet(NSObject,uuid,AZGETTER,blockGetter)
 
-- (NSS*) uuid	 												{ return  [self associatedValueForKey:AZSELSTR orSetTo:NSS.newUniqueIdentifier]; }
+- (NSS*) uuid { return  [self associatedValueForKey:AZSELSTR orSetTo:NSS.newUniqueIdentifier]; }
 
 @dynamic undefinedKeys;
 
@@ -1641,8 +1644,8 @@ static const char * getPropertyType(objc_property_t property) {
 }
 */
 - (void)setClass:(Class)aClass {
-	NSAssert(class_getInstanceSize([self class]) == class_getInstanceSize(aClass), @"Classes must be the same size to swizzle.");
-	object_setClass(self, aClass);
+//	NSAssert(class_getInstanceSize([self class]) == class_getInstanceSize(aClass), @"Classes must be the same size to swizzle.");
+	if (aClass) object_setClass(self, aClass);
 }
 
 + (instancetype)newFromDictionary:(NSD *)dic {
@@ -1766,8 +1769,11 @@ static const char * getPropertyType(objc_property_t property) {
 
 - (NSIMG *)imageValue;
 {
-	if ([self isKindOfClass:NSIMG.class]) return (NSIMG *)self;
-	NSIMG * i = [self isKindOfClass:NSC.class] ? [NSIMG swatchWithColor:(NSC *)self size:AZSizeFromDimension(256)] : nil;
+	if (ISA(self,NSIMG)) return (NSIMG*)self;
+	NSIMG * i = ISA(self,NSC) ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDimension(256)] :
+  ISA(self,NSS) ? [NSIMG imageForSize:AZSizeFromDimension(100) withDrawingBlock:^{
+    [(NSS*)self drawAtPoint:NSZeroPoint withAttributes:NSAS.defaults];
+  }] : nil;
 	return i ? : [self respondsToString:@"image"] ? [self valueForKey:@"image"] : nil;
 }
 
@@ -2275,6 +2281,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	if (NSClassFromString(className) != nil) return [[[NSClassFromString(className) alloc] init] autorelease];
 	else return nil;
 }
+
 
 // Return a C-string with a selector's return type
 // may extend this idea to return a class

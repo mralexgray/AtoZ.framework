@@ -2,7 +2,13 @@
 //  NSString+AtoZ.h
 //  AtoZ
 
+
 #import "NSString+SymlinksAndAliases.h"
+
+
+@interface NSData (AtoZ)
+@property (RONLY) NSS* UTF8String;
+@end
 
 
 @interface NSParagraphStyle (AtoZ)
@@ -44,6 +50,8 @@
 							 *	urlEncoded,
 							 *	urlDecoded,
 							 * MD5String;
+
+@property (RONLY) NSData *UTF8Data;
 
 - (NSS*) parseXMLTag:(NSS*) tag;
 //- (NSS*)decodeAllPercentEscapes;
@@ -148,6 +156,8 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 - (NSRNG) rangeOfAny:(SET*)strings;
 /*** Returns this string splitted by lines. * Shortcut for componentsSeperatedByString:@"\n" */
 @property (RONLY) NSA * lines;
+/*** Returns this string splitted by carriage return + newline. * Shortcut for componentsSeperatedByString:@"\r\n" */
+@property (RONLY) NSA *eolines;
 
 /*** Returns this string splitted by whitespaces.  Shortcut for componentsSeperatedByString:@" " Empty elements will not be part of the array */
 @property (RONLY) NSA * words;

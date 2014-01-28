@@ -1,9 +1,96 @@
 
 //#define SYNTHESIZE_CONSTS #undef SYNTHESIZE_CONSTS
+
 #import "AtoZ.h"
 #import "Bootstrap.h"
 
+@implementation KSHTMLWriter (extras)
+- (void) writeDocReady:(id)a {
 
+	[self writeJavascript:[[[a isKindOfClass:NSArray.class]?a :@[a] reduce:@"docReady = function(){\n".mutableCopy withBlock:^id(id sum, id obj) {
+		return sum = [sum stringByAppendingFormat:@"\n%@\n",[obj stringByReplacingOccurrencesOfString:@";" withString:@"\n"]];
+	}]stringByAppendingString:@"\n};"] useCDATA:NO];
+}
+
+-(NSMS*) markup { id x = objc_getAssociatedObject(self, _cmd); if (!x) { x = (self.markup = NSMS.new); } return x; }
+- (void) setMarkup:(NSMS*) markup { objc_setAssociatedObject(self, @selector(markup), markup, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+- (void) preview {
+
+	NSS* p = [AtoZ tempFilePathWithExtension:@"html"];
+	[self.markup writeToFile:p atomically:YES encoding:NSUTF8StringEncoding error:nil];
+	[AZWORKSPACE openFile:p];
+}
+@end
+
+
+
+
+@implementation Gridly
+
+- (id) init { NSMS* writer = NSMS.new;
+
+	if (self != [super initWithOutputWriter:writer]) return nil;
+
+//	 	_dQ = dispatch_queue_create("SQ",NULL);
+//		_listenSocket =  [ASOCK.alloc initWithSocketQueue:_dQ];
+
+	[self writeDocumentOfType:KSHTMLWriterDocTypeHTML_5	encoding:NSUTF8StringEncoding head:^{
+
+		[self writeElement:@"title" text:@"AtoZ Gridly"];
+		[self writeStyleElementWithCSSString:	@".gridly {position: relative; width: 960px; }\
+																						.brick.small { width: 15%; height: 140px;	}\
+																						.brick.large { width: 300px; height: 300px; }\
+																						.indicator { width:50px; height:45px; background-color:black; float:right; bottom:0; right:0; }"];
+		[@[	@"http://mrgray.com/jq", @"http://mrgray.com/a2z/AtoZ/AtoZHelper/gridly-socket.js"] do:^(id obj) {	[self writeJavascriptWithSrc:obj encoding:NSUTF8StringEncoding]; }];
+
+//		[self writeDocReady:@" \
+//		baseline = $(window).width(); $('.brick').watch('width', function(){ $(this).css(height:$(this).width()); });\
+//		$(window).on('resize', function(){ scale = $(window).width/baseline; $('.brick').css('background-color', randomColor()); $('.brick').width(300*scale); return $('.gridly').gridly({  base: (width / 4), gutter: 20,  columns: 4 }); });\
+//		stopShit = function(e){e.preventDefault(); e.stopPropagation(); }; \
+//    brick = \"<div class='brick small'><div class='delete'>X</div></div>\"; \
+//   $('.gridly  .brick').on('click',function(e){ stopShit(e); $(this).toggleClass('small large');  size = $(this).hasClass('small')? 140 : 300;$(this).data({'width':size,'height':size});\
+//		return $('.gridly').gridly('layout'); }); \
+//   $('.gridly .delete').on('click',function(e){ stopShit(e); $(this).closest('.brick').remove(); return $('.gridly').gridly('layout'); }); \
+//   $('.add')           .on('click',function(e){ stopShit(e); $('.gridly').append(brick); return $('.gridly').gridly();  }); \
+//   //return $('.gridly').gridly('layout'); "];
+//		//@"(function(){$(function(){var a;a=\"<div class='brick small'><div class='delete'>&times;</div></div>\";$(document).on(\"click\",\".gridly .brick\",function(c){var d,b;c.preventDefault();c.stopPropagation();d=$(this);d.toggleClass(\"small\");d.toggleClass(\"large\");if(d.hasClass(\"small\")){b=140}if(d.hasClass(\"large\")){b=300}d.data(\"width\",b);d.data(\"height\",b);return $(\".gridly\").gridly(\"layout\")});$(document).on(\"click\",\".gridly .delete\",function(b){var c;b.preventDefault();b.stopPropagation();c=$(this);c.closest(\".brick\").remove();return $(\".gridly\").gridly(\"layout\")});$(document).on(\"click\",\".add\",function(b){b.preventDefault();b.stopPropagation();$(\".gridly\").append(a);return $(\".gridly\").gridly()});return $(\".gridly\").gridly()})}).call(this);"]];
+	} body:^{
+		[self writeElement:@"div" className:@"container" content:^{
+			[self writeElement:@"section" className:@"example" content:^{
+				[self writeElement:@"div" className:@"gridly" content:^{
+					[[@0 to:@8] eachWithIndex:^(id obj, NSInteger idx) {
+						[self writeElement:@"div" classes:@[@"brick",[obj integerValue] % 2 ? @"small" : @"large"] content:^{ [self writeElement:@"div" classes:@[@"inidcator"] content:^{}]; }];
+
+					}];
+				}];
+			}];
+		}];
+	}];
+	self.markup = writer;
+	return self;
+}
+
+@end
+
+/*
+		NSS* docReady = [@[
+			[AZJSVar varNamed:@"brick" value:@"\"<div class='brick small'><div class='delete'>&times;</div></div>\""],
+			[AZJQueryMethod javascriptWithSelector:@"document"	function:@"on"			method:@"'click', '.gridly .brick'"
+																		callback:@[	@"function(event){ var $this, size;	event.preventDefault();\n	event.stopPropagation();",
+																								@"$this = $(this); $this.toggleClass('small'); $this.toggleClass('large');",
+																								@"if ($this.hasClass('small')) { size = 140;} if ($this.hasClass('large')) {		 size = 300;}",
+																								@"this.data('width', size);	$this.data('height', size);",	@"return $('.gridly').gridly('layout'); }"]],
+			[AZJQueryMethod javascriptWithSelector:@"document"	function:@"on"	 method:@"'click', '.gridly .delete'"
+																		callback:@[	@"function(event){	var $this;	event.preventDefault(); event.stopPropagation();",
+																								@"$this = $(this);	$this.closest('.brick').remove();return $('.gridly').gridly('layout');}"]],
+			[AZJQueryMethod javascriptWithSelector:@"document" function:@"on"		 method:@"'click', '.add'"
+																		callback:@[	@"function(event) {	event.preventDefault();	event.stopPropagation();",
+																								@"$('.gridly').append(brick);	return $('.gridly').gridly(); }"]],
+			[AZJQueryMethod javascriptWithSelector:@".gridly"	function:@"gridly" method:@"{ base:60,gutter:20,columns:12 }"	callback:nil]
+		] componentsJoinedByString:@"\n"];
+		[self writeJavascript: [AZJSVar varNamed:@"docReady" value:JATExpand(@"function(){ {0}}",docReady)] useCDATA:NO];
+
+*/
 @interface 	  Bootstrap ()
 @property (nonatomic, strong) 	KSHTMLWriter 	*writer;
 @property 			 NSMS * mString;
@@ -11,7 +98,7 @@
 @property (copy) void(^stringDelegate)(id);
 
 //- (id)initWithUserStyles:(NSS*)css script:(NSS*)script andInnerHTML:(NSS*) html  calling:(BKSenderBlock)block;
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id))block;
+//+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id))block;
 
 @end
 
@@ -76,15 +163,12 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	block(string);
 }
 */
-- (NSS*) htmlWithBody:(NSS*)bod
-{
+- (NSS*) htmlWithBody:(NSS*)bod { _mString = NSMS.new;
 
-
-	_mString = NSMS.new;
 	_writer = [KSHTMLWriter.alloc initWithOutputWriter:_mString docType:KSHTMLWriterDocTypeHTML_5 encoding:NSUTF8StringEncoding];
-	[_writer startDocumentWithDocType:@"html" encoding:NSUTF8StringEncoding];
 
-	[_writer writeElement:@"head" content:^{
+	[_writer startDocumentWithDocType:@"html" encoding:NSUTF8StringEncoding];
+	[_writer             writeElement:@"head" content:^{
 		[_writer writeElement:@"title" text:@"recorder"];
 		[@[JQUERY, BOOTSTRAP_JS] do:^(id obj) {
 			[_writer writeJavascriptWithSrc:obj encoding:NSUTF8StringEncoding];
@@ -115,7 +199,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	}];
 
 	_html = _mString.copy;
-	NSLog(@"bootstrap2block:  %@", _html);
+//	NSLog(@"bootstrap2block:  %@", _html);
 	//	_stringDelegate(_html);
 	return _html;
 }
@@ -1036,73 +1120,102 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
  */
 
 
-NSString * const custHTML = @""
-"<!-- Part 1: Wrap all page content here -->"
-"<div id='wrap'>"
-""
-"  <!-- Fixed navbar -->"
-"  <div class='navbar navbar-fixed-top'>"
-"	<div class='navbar-inner'>"
-"	  <div class='container'>"
-"		<button type='button' class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>"
-"		  <span class='icon-bar'></span>"
-"		  <span class='icon-bar'></span>"
-"		  <span class='icon-bar'></span>"
-"		</button>"
-"		<a class='brand' href='#'>Project name</a>"
-"		<div class='nav-collapse collapse'>"
-"		  <ul class='nav'>"
-"			<li class='active'><a href='#'>Home</a></li>"
-"			<li><a href='#about'>About</a></li>"
-"			<li><a href='#contact'>Contact</a></li>"
-"			<li class='dropdown'>"
-"			  <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Dropdown <b class='caret'></b></a>"
-"			  <ul class='dropdown-menu'>"
-"				<li><a href='#'>Action</a></li>"
-"				<li><a href='#'>Another action</a></li>"
-"				<li><a href='#'>Something else here</a></li>"
-"				<li class='divider'></li>"
-"				<li class='nav-header'>Nav header</li>"
-"				<li><a href='#'>Separated link</a></li>"
-"				<li><a href='#'>One more separated link</a></li>"
-"			  </ul>"
-"			</li>"
-"		  </ul>"
-"		</div><!--/.nav-collapse -->"
-"	  </div>"
-"	</div>"
-"  </div>"
-""
-"  <!-- Begin page content -->"
-"  <div class='container'>"
-"	<div class='page-header'>"
-"	  <h1>Sticky footer with fixed navbar</h1>"
-"	</div>"
-"	<p class='lead'>Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added within <code>#wrap</code> with <code>padding-top: 60px;</code> on the <code>.container</code>.</p>"
-"	<p>Back to <a href='./sticky-footer.html'>the sticky footer</a> minus the navbar.</p>"
-"  </div>";
+NSString * const custHTML = @"\n\
+<!-- Part 1: Wrap all page content here -->\n\
+<div id='wrap'>\n\
+\n\
+  <!-- Fixed navbar -->\n\
+  <div class='navbar navbar-fixed-top'>\n\
+	<div class='navbar-inner'>\n\
+	  <div class='container'>\n\
+		<button type='button' class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>\n\
+		  <span class='icon-bar'></span>\n\
+		  <span class='icon-bar'></span>\n\
+		  <span class='icon-bar'></span>\n\
+		</button>\n\
+		<a class='brand' href='#'>Project name</a>\n\
+		<div class='nav-collapse collapse'>\n\
+		  <ul class='nav'>\n\
+			<li class='active'><a href='#'>Home</a></li>\n\
+			<li><a href='#about'>About</a></li>\n\
+			<li><a href='#contact'>Contact</a></li>\n\
+			<li class='dropdown'>\n\
+			  <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Dropdown <b class='caret'></b></a>\n\
+			  <ul class='dropdown-menu'>\n\
+				<li><a href='#'>Action</a></li>\n\
+				<li><a href='#'>Another action</a></li>\n\
+				<li><a href='#'>Something else here</a></li>\n\
+				<li class='divider'></li>\n\
+				<li class='nav-header'>Nav header</li>\n\
+				<li><a href='#'>Separated link</a></li>\n\
+				<li><a href='#'>One more separated link</a></li>\n\
+			  </ul>\n\
+			</li>\n\
+		  </ul>\n\
+		</div><!--/.nav-collapse -->\n\
+	  </div>\n\
+	</div>\n\
+  </div>\n\
+\n\
+  <!-- Begin page content -->\n\
+  <div class='container'>\n\
+	<div class='page-header'>\n\
+	  <h1>Sticky footer with fixed navbar</h1>\n\
+	</div>\n\
+	<p class='lead'>Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added within <code>#wrap</code> with <code>padding-top: 60px;</code> on the <code>.container</code>.</p>\n\
+	<p>Back to <a href='./sticky-footer.html'>the sticky footer</a> minus the navbar.</p>\n\
+  </div>";
 
-NSString * const custHTMLFOOT = @""
-"  	<div id='push'></div>"
-"	</div>"
-"	<div id='footer'>"
-"  	<div class='container'>"
-"			<p class='muted credit'>Example courtesy <a href='http://martinbean.co.uk'>Martin Bean</a> and"
-"																  <a href='http://ryanfait.com/sticky-footer/'>Ryan Fait</a>.</p>"
-"  	</div>"
-"	</div>";
+NSString * const custHTMLFOOT = @"\n\
+  	<div id='push'></div>\n\
+	</div>\n\
+	<div id='footer'>\n\
+  	<div class='container'>\n\
+			<p class='muted credit'>Example courtesy <a href='http://martinbean.co.uk'>Martin Bean</a> and\n\
+																  <a href='http://ryanfait.com/sticky-footer/'>Ryan Fait</a>.</p>\n\
+  	</div>\n\
+	</div>";
 
 
-NSString * const custHTMLRECORDER = @""
-"  <div id='wrapper'>"
-"<h1><a href='http://github.com/jwagener/recorder'>Recorder Example</a></h1>"
-"<p>"
-"This is a very basic example for the Recorder.js. Checkout <a href='http://github.com/jwagener/recorder'>GitHub</a> for details and have a look at the source for this file.  Start by clicking record:"
-"</p><div>"
-"  <a href='javascript:record()'  id='record'					   >Record</a>"
-"  <a href='javascript:play()'	id='play'   >Play</a> "
-"  <a href='javascript:stop()'	id='stop'   >Stop</a>"
-"  <a href='javascript:upload()'  id='upload' >Upload to SoundCloud</a>"
-"</div>"
-"<span id='time'>0:00</span>"
-"</div>";
+NSString * const custHTMLRECORDER = @"\n\
+ <div id='wrapper'>\n\
+<h1><a href='http://github.com/jwagener/recorder'>Recorder Example</a></h1>\n\
+<p>\n\
+This is a very basic example for the Recorder.js. Checkout <a href='http://github.com/jwagener/recorder'>GitHub</a> for details and have a look at the source for this file.  Start by clicking record:\n\
+</p><div>\n\
+  <a href='javascript:record()'  id='record'					   >Record</a>\n\
+  <a href='javascript:play()'	id='play'   >Play</a> \n\
+  <a href='javascript:stop()'	id='stop'   >Stop</a>\n\
+  <a href='javascript:upload()'  id='upload' >Upload to SoundCloud</a>\n\
+</div>\n\
+<span id='time'>0:00</span>\n\
+</div>";
+
+
+
+/*
+@implementation AZJS
+- (NSS*) description { return self.stringValue; }
+- (NSS*) stringValue { return [NSException raise:@"Problemo" format:@"need to implement this"], nil; }
+@end
+
+@implementation  AZJSVar
++ (instancetype) varNamed:(NSS*)name value:(NSS*)val {AZJSVar *s = self.new;  s.varName = name, s.value = val;return s; }
+- (NSS*) stringValue {  return  [_varName stringByAppendingFormat:@" = %@;", _value]; }
+@end
+
+@interface  AZJQueryMethod ()
+@property (readonly) NSS * callBackString;
+@end
+@implementation AZJQueryMethod
++(instancetype) javascriptWithSelector:(NSS*)select function:(NSS*)f method:(NSS*)m callback:(NSA*)callback{
+
+	AZJQueryMethod *s = self.new;  s.selector = select, s.function = f; s.method = m; s.callback = callback ?: nil; return s;
+}
+- (NSString*) callBackString { if (!_callback) return @""; return  [@", " stringByAppendingString:[_callback componentsJoinedByString:@"\n"]]; }
+- (NSS*) stringValue {
+
+	return JATExpand(@"$({_selector}).{_function}( {_method} {3});", _selector,_function, _method, self.callBackString);
+}
+@end
+*/

@@ -8,6 +8,36 @@
 
 #import "NSNotificationCenter+AtoZ.h"
 
+
+void PostUserNote(NSString*note, ...){ azva_list_to_nsarray(note,vals);
+
+	if (vals.count) [NSUserNotificationCenter postNote:vals[0]?:@"NULL NOTIFICATION" info:vals[1]?:@"No additional information provided.."];
+}
+
+
+@implementation																				NSUserNotificationCenter (MBWebSocketServer)
+
++ (void) postNote:(NSS*)t info:(NSS*)i {
+
+	SEL sel = @selector(userNotificationCenter:shouldPresentNotification:);
+
+	id<NSUserNotificationCenterDelegate> del = self.defaultUserNotificationCenter.delegate ?: (id<NSUserNotificationCenterDelegate>)self.defaultUserNotificationCenter;
+	if (![del respondsToSelector:sel]) {
+		IMP imp = imp_implementationWithBlock(^BOOL(id _self, SEL sel, NSUserNotificationCenter*c,NSUserNotification*n){ return YES; });
+		class_addMethod([del class],sel,imp,"c@:@:@");
+		//	  NSLog(@"delegate:%@ responds..... %@",self.defaultUserNotificationCenter.delegate, [del respondsToSelector:sel] ? @"YES": @"NO");
+	}
+	NSUserNotification *note	= NSUserNotification.new;
+	note.contentImage					= NSIMG.randomMonoIcon;
+	note.title								= t;
+	note.informativeText			= i ?: AZAPPINFO[@"CFBundleName"] ?: [AZAPP_ID pathExtension];
+	note.soundName						= NSUserNotificationDefaultSoundName;
+	[self.defaultUserNotificationCenter deliverNotification:note];
+	NSLog(@"Posted user notification %@", note);
+
+}														  @end
+
+
 @implementation NSNotificationCenter (MainThread)
 
 - (void)postNotificationOnMainThread:(NSNotification *)notification

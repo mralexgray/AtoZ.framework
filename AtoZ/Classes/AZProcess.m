@@ -472,18 +472,15 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return processes;
 }
 
-- (void)doProcargs
-{
-	id args = [NSMutableArray array];
-	id env = [NSMutableDictionary dictionary];
-	int mib[3];
+- (void)doProcargs {
 
-	// make sure this is only executed once for an instance
-	if (command)
-		return;
+	NSMutableArray     * args = NSMutableArray.new;
+	NSMutableDictionary * env = NSMutableDictionary.new;	int mib[3];
+
+	if (command)return; 	// make sure this is only executed once for an instance
 
 	if (major_version >= 8) { // kernel version >= 8.0 (Mac OS X 10.4 - Tiger)
-							  // a newer sysctl selector is available -- it includes the number of arguments as an integer at the beginning of the buffer
+  // a newer sysctl selector is available -- it includes the number of arguments as an integer at the beginning of the buffer
 		mib[0] = CTL_KERN;
 		mib[1] = KERN_PROCARGS2;
 		mib[2] = process;
@@ -571,23 +568,15 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 										// check if we need to annotate
 										if (createAnnotation && (! annotation)) {
-											NSString *pathExtension = [itemString pathExtension];
+											NSString *pathExtension = itemString.pathExtension;
 
-											if ([pathExtension isEqualTo:@"wdgt"]) { // for DashboardClient
-												annotation = [lastPathComponent stringByDeletingPathExtension];
-											} else if ([pathExtension isEqualTo:@"widget"]) { // for Konfabulator
-												annotation = [lastPathComponent stringByDeletingPathExtension];
-											} else if ([pathExtension isEqualTo:@"jar"]) { // for java
-												annotation = lastPathComponent;
-											}
+											annotation =
+                        [pathExtension isEqualToAnyOf:@[@"widget",@"wdgt"]] ? lastPathComponent.stringByDeletingPathExtension // for DashboardClient // for Konfabulator
+                      : [pathExtension isEqualTo:@"jar"]    ? lastPathComponent : annotation; // for java
 										}
 									}
-								} else {
-									argumentCount--;
-								}
-							} else {
-								//NSLog(@"AZProcess: doProcArgs: couldn't convert 0x%08x (0x%08x) [%d of %d] = '%s' (%d) to NSString", currentItem, buffer, currentItem - buffer, length, currentItem, currentItem);
-							}
+								} else argumentCount--;
+							} else NSLog(@"AZProcess: doProcArgs: couldn't convert 0x%08x (0x%08x) [%d of %d] = '%s' (%d) to NSString", currentItem, buffer, currentItem - buffer, length, currentItem, currentItem);
 						}
 
 						currentItem = cp + 1;
@@ -612,7 +601,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 				if (index != NSNotFound)
 					env[[string substringToIndex:index]] = [string substringFromIndex:index + 1];
 			}
-			args = [args subarrayWithRange:NSMakeRange(0, i + 1)];
+			args = [args subarrayWithRange:NSMakeRange(0, i + 1)].mutableCopy;
 		} else {
 			// we're using the older sysctl selector, so we just guess by looking for an '=' in the argument
 			int i;
@@ -623,12 +612,9 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 					break;
 				env[[string substringToIndex:index]] = [string substringFromIndex:index + 1];
 			}
-			args = [args subarrayWithRange:NSMakeRange(0, i + 1)];
+			args = [args subarrayWithRange:NSMakeRange(0, i + 1)].mutableCopy;
 		}
-	} else {
-		parserFailure = YES;
-	}
-
+	} else parserFailure = YES;
 	if (parserFailure) {
 		// probably caused by a zombie or exited process, but could also be bad data in the process arguments buffer
 		// try to get the accounting name to partially recover from the error
@@ -638,13 +624,12 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 		if (sysctl(mib, 4, &info, &length, NULL, 0) < 0) {
 			command = [[[NSString alloc] init] autorelease];
-			//NSLog(@"AZProcess: doProcArgs: no command");
+			NSLog(@"AZProcess: doProcArgs: no command");
 		} else {
 			command = [[[NSString alloc] initWithCString:info.kp_proc.p_comm encoding:NSUTF8StringEncoding] autorelease];
-			//NSLog(@"AZProcess: doProcArgs: info.kp_proc.p_comm = %s", info.kp_proc.p_comm);
+			NSLog(@"AZProcess: doProcArgs: info.kp_proc.p_comm = %s", info.kp_proc.p_comm);
 		}
 	}
-
 	//NSLog(@"AZProcess: doProcArgs: command = '%@', annotation = '%@', args = %@, env = %@", command, annotation, [args description], [env description]);
 
 	[command retain];
@@ -660,21 +645,14 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 @implementation AZProcess
 
-+ (void)initialize {
-	AZMachStatsInit();
-	[super initialize];
-}
++ (void)initialize {	AZMachStatsInit();	[super initialize]; }
 
 - (id)initWithProcessIdentifier:(int)pid {
-	if (self = [super init]) {
-		process = pid;
-		if (task_for_pid(mach_task_self(), process, &task) != KERN_SUCCESS)
-			task = MACH_PORT_NULL;
-		if ([self state] == AZProcessStateExited) {
-			[self release];
-			return nil;
-		}
-	}
+
+	if (!(self = super.init)) return nil; process = pid;
+  if (task_for_pid(mach_task_self(), process, &task) != KERN_SUCCESS)
+    task = MACH_PORT_NULL;
+  if ([self state] == AZProcessStateExited)  return [self release], nil;
 	return self;
 }
 
@@ -718,15 +696,16 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return [self processesForThirdLevelName:KERN_PROC_RUID value:ruid];
 }
 
-+ (NSArray *)processesForCommand:(NSString *)comm {
-	NSArray *all = [self allProcesses];
-	NSMutableArray *result = [NSMutableArray array];
-	int i, count = [all count];
-	for (i = 0; i < count; i++)
-		if ([[all[i] command] isEqualToString:comm])
-			[result addObject:all[i]];
-	return result;
+NSArray *_processesForCommandInsensitive(NSString* comm, BOOL insensitive) {
+
+  return [AZProcess.allProcesses filter:^BOOL(AZProcess *command) {
+   return SameString(insensitive ? command.command.lowercaseString : command.command, insensitive ? comm.lowercaseString : comm);
+  }];
 }
+
++ (NSArray*) processesForCommandInsensitive:(NSString*)comm { return _processesForCommandInsensitive(comm, YES); }
++ (NSArray *)processesForCommand:(NSString *)comm { return _processesForCommandInsensitive(comm, NO); }
+
 
 + (AZProcess *)processForCommand:(NSString *)comm {
 	NSArray *processes = [self processesForCommand:comm];
@@ -992,6 +971,16 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return kill(process, signal) == 0;
 }
 
++ (BOOL)killAllProcessesForCommand:(NSString*)comm insensitive:(BOOL)insensitive {
+
+  __block BOOL success = YES;
+  [insensitive ? [self processesForCommandInsensitive:comm] : [self processesForCommand:comm] each:^(AZProcess *proc) {
+    if (success) success = [proc kill:9];
+    else [proc kill:9];
+
+  }];
+  return success;
+}
 @end
 
 @implementation AZProcess (MachTaskEvents)

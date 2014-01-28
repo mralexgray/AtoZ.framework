@@ -1,9 +1,3 @@
-//	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension } 
-//@property (STRNG) CATransition *transition;
-//@property (STRNG) NSA *transitions;
-//	[self.window setAcceptsMouseMovedEvents:YES];
-//	[self.window makeFirstResponder:_targetView];
-//	[self createScrollLayer];
 
 #import "TestBedDelegate.h"
 
@@ -22,27 +16,29 @@
 -  (void) awakeFromNib {
 	[_menu   loadStatusMenu];
 	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
-	[NSC randomPaletteAnimationBlock:^(NSColor *c) { _colorWell.color = c; }];
+	[NSC randomPaletteAnimationBlock:^(NSColor *c) {
+
+    NSLog(@"randomPaletteAnimationBlock:%@", c.nameOfColor);
+    _colorWell.color = c;
+  }];
 	
 }
--   (IBA) setViewFromPopUp:(id)sender	{	NSS *selecto = [sender titleOfSelectedItem];
+-   (IBA) setViewFromPopUp:(id)sender	{ NSView * view;
 
-	id view = 	SameString(selecto,     @"General") ? [_genVC 	= _genVC 	?: NEWVC(GeneralVC) view] :
-			   	SameString(selecto, 		     @"UI") ? [_uiVC 	= _uiVC 		?: NEWVC(UIVC) 	  view] :
-					SameString(selecto,      @"Colors") ? [_colorVC = _colorVC 	?: NEWVC(ColorVC)   view] :
-					SameString(selecto, 	  @"Facebook") ? [_fbV 		= _fbV 		?: NEWVC(FBVC)  	  view] :
-					SameString(selecto, 		   @"TUIV") ? [_tuiVC 	= _tuiVC 	?: NEWVC(TUIVVC)    view] :
-					SameString(selecto, @"BPODialTest") ? BPODialTest.new : nil;
-
+  objswitch([sender titleOfSelectedItem])
+  objcase(@"General")       view = [_genVC    = _genVC    ?: NEWVC(GeneralVC) view];
+	objcase(@"UI")            view = [_uiVC     = _uiVC 		?: NEWVC(UIVC)      view];
+	objcase(@"Colors")        view = [_colorVC  = _colorVC 	?: NEWVC(ColorVC)   view];
+	objcase(@"Facebook")      view = [_fbV      = _fbV      ?: NEWVC(FBVC)  	  view];
+	objcase(@"TUIV")          view = [_tuiVC    = _tuiVC    ?: NEWVC(TUIVVC)    view];
+	objcase(@"BPODialTest")   view = (NSView*)BPODialTest.new;
+  endswitch
 	view && [view ISKINDA:NSView.class] ?
-		NSLog(@"selecto:%@  view:%@", selecto,[view subviews]),
-												[view setFrame:_targetView.bounds],
-												[_targetView swapSubs:view] :
-	[view ISKINDA:[NSWindowController class]] ? ^{
-		_windowControllers = _windowControllers ?: NSMA.new;
-		[_windowControllers addObject:view];
-		[[view window]display];
-		[[view window]makeKeyAndOrderFront:nil];
+		NSLog(@"view:%@",[view subviews]), [view setFrame:_targetView.bounds], [_targetView swapSubs:view] :
+    [view ISKINDA:[NSWindowController class]] ? ^{
+      [  _windowControllers = _windowControllers ?: NSMA.new addObject:view];
+      [view.window display];
+      [view.window makeKeyAndOrderFront:nil];
 		
 			NSLog(@"View: %@, etc %@", view, [view window]);
 		}() : nil;
@@ -52,6 +48,12 @@
 @end
 
 
+//	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension }
+//@property (STRNG) CATransition *transition;
+//@property (STRNG) NSA *transitions;
+//	[self.window setAcceptsMouseMovedEvents:YES];
+//	[self.window makeFirstResponder:_targetView];
+//	[self createScrollLayer];
 
 //- (NSMD*) model 								{  return _model = _model ?:  ^{
 //		NSA* icons = [NSIMG.monoIcons withMaxItems:30];

@@ -10,10 +10,12 @@
 
 @interface TUIView (Dimensions)
 
+
 // Size
-@property (nonatomic, assign) CGF width;
-@property (nonatomic, assign) CGF height;
-@property (nonatomic, assign) NSSZ size;
+@property (nonatomic) CGF width;
+@property (nonatomic) CGF height;
+@property (nonatomic) NSSZ size;
+@property (nonatomic) CGF originX, originY;
 
 - (void) setWidth:  (CGF) t;
 - (void) setHeight: (CGF) t;

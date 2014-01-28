@@ -18,18 +18,17 @@
 @property (RONLY)    OSCornerType 	outsideCorners;
 @end
 
-
 @interface AZWindowTabViewPrivate : NSView
-@property (STR) 				   CAL * contentLayer,
-											 * tabLayer;
-@property (RONLY)   			 NSIMG * indicator;
-@property (RONLY) 		   	NSR	tabRect;
+@property           CAL * contentLayer,
+                        * tabLayer;
+@property (RONLY) NSIMG * indicator;
+@property (RONLY) 	NSR	  tabRect;
 @property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
 @end
 
 @implementation AZWindowTabViewPrivate
 
--   (id) initInWindow:    (NSW*)w withContent:(CAL*)content andTab:(CAL*)tab {
+-      (id) initInWindow:(NSW*)w withContent:(CAL*)cnt andTab:(CAL*)tab {
 
 	if (self != [super initWithFrame:w.contentRect]) return nil;
 	CAL *l 				= CAL.new;
@@ -37,8 +36,8 @@
 	self.wantsLayer 	= YES;
 	l.loM 				= self;
 	l.backgroundColor = LINEN.CGColor;
-	[l addSublayer:self.contentLayer = content 	?: [CAL layerWithFrame:self.bounds]];
-	[l addSublayer:self.tabLayer 		= tab 		?: [CAL layerWithFrame:self.bounds]];
+	[l addSublayer:self.contentLayer  = cnt ?: [CAL layerWithFrame:self.bounds]];
+	[l addSublayer:self.tabLayer      = tab ?: [CAL layerWithFrame:self.bounds]];
 	[@[self.contentLayer, self.tabLayer] each:^(CAL* obj) {
 		obj.borderWidth = 5;
 		obj.delegate 	= self;
@@ -49,8 +48,8 @@
 		obj.filters = @[blurFilter];
 
 //		obj.compositingFilter = [CIFilter filterWithName:@"CIDifferenceBlendMode"];;
-		if (!tab 	 && obj == self.tabLayer) 		obj.bgC = cgRANDOMGRAY;
-		if (!content && obj == self.contentLayer) obj.bgC 	= cgRANDOMCOLOR;
+		if (!tab && obj == self.tabLayer) 		obj.bgC   = cgRANDOMGRAY;
+		if (!cnt && obj == self.contentLayer) obj.bgC 	= cgRANDOMCOLOR;
 	}];	//v ?: (NSV*)[AZGrid.alloc initWithFrame:AZInsetRect(w.contentRect, 10)]];
 	[self observeFrameChangeUsingBlock:^{	[l setNeedsLayout];  }];
 
@@ -101,7 +100,7 @@
 	//	[tab bind:@"tabRect" toObject:w withKeyPath:@"slideState" transform:^id(id state) {		}];
 		//	return tab;
 }
-- (NSMenu*)menuForEvent:(NSEvent *)event {	NSMenu *m = [NSMenu.alloc initWithTitle:@"Process"];	m.dark = YES;
+- (NSMenu*) menuForEvent:          (NSE*)e {	NSMenu *m = [NSMenu.alloc initWithTitle:@"Process"];	m.dark = YES;
 
 	[m addItems:[NSA arrayWithArrays:
 		@[@[[	NSMenuI.alloc initWithTitle:@"HugeVageen" action:@selector(terminate:) keyEquivalent:@"q"],
@@ -122,7 +121,7 @@
 	}];
 	return m;
 }
-- (void) layoutSublayersOfLayer:(CALayer *)layer {			
+-    (void) layoutSublayersOfLayer:(CALayer *)layer {
 
 	CGF hot = 20; //((AZWT*)self.window).AZMinDim(_inSize)((AZWindowTab*)self.window).inSize)*2)//grabInset*2;
 	AZA align = ((AZWT *)self.window).insideEdge;
@@ -172,12 +171,12 @@
 
 - (instancetype) init {
 
-	if (self != [super initWithContentRect:self.defaultFrame styleMask:NSBorderlessWindowMask|NSResizableWindowMask
-											 backing:NSBackingStoreBuffered defer:NO]) return nil;
-	self.contentView = self.tab = [AZWTV.alloc initInWindow:self withContent:nil andTab:nil];
-	self.level  	  = NSScreenSaverWindowLevel; // NSFloatingWindowLevel;
-	self.delegate    = (id<NSWindowDelegate>)self;
-
+	if (!(self = [super initWithContentRect:self.defaultFrame styleMask:NSBorderlessWindowMask|NSResizableWindowMask
+											 backing:NSBackingStoreBuffered defer:NO])) return nil;
+	self.contentView  = self.tab = [AZWTV.alloc initInWindow:self withContent:nil andTab:nil];
+	self.level        = NSScreenSaverWindowLevel; // NSFloatingWindowLevel;
+	self.delegate     = (id<NSWindowDelegate>)self;
+  self.acceptsMouseMovedEvents = YES;
 	[self  addObserverForKeyPaths:@[NSWindowDidBecomeKeyNotification,NSWindowDidResignKeyNotification] task:^(id obj, NSString *keyPath) {
 		[obj setSlideState:SameString(NSWindowDidResignKeyNotification, keyPath) ? AZOut : AZIn];
 		NSLog(keyPath);
@@ -298,12 +297,14 @@
 
 #pragma mark - NSResponder
 
-- (BOOL)canBecomeKeyWindow 		{ return YES; }
-- (BOOL)acceptsMouseMovedEvents  { return YES; }
-- (BOOL)acceptsFirstResponder		{ return YES; }
+- (BOOL) canBecomeKeyWindow       { return YES; }
+- (BOOL) acceptsMouseMovedEvents  { return YES; }
+- (BOOL) acceptsFirstResponder		{ return YES; }
 
 - (void) overrideViewResponder	{
-	[[@[self.contentView] arrayByAddingObjectsFromArray:[self.contentView allSubviews]]each:^(id obj) {
+
+//  NSA *views = @[self.contentView];// arrayByAddingObjectsFromArray:[self.contentView allSubviews]];
+	[[self.contentView allSubviews] each:^(id obj) {
 		if ([obj acceptsFirstMouse:nil] != YES)
 			[obj az_overrideSelector:@selector(acceptsFirstMouse:) withBlock:(__bridge void *)^BOOL (id _self, NSE *e) {
 				return NSLog(@"i am azframeworks' bitch.. i will acceptfirstMouse! %@ %@", e, [_self class]), YES;

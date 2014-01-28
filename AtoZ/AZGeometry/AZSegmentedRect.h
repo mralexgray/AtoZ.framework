@@ -8,7 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZGeometry.h"
-#import "AtoZ.h"
+#import "AtoZ.h"  // Do not change..  Weirdly essential.
+
 
 @class AZPoint, AZSize,  AZRect;
 @interface AZSegmentedRect : AZRect {	NSP segments;			BOOL emptyBorder;

@@ -10,10 +10,8 @@
 
 @interface Service : NSObject
 
-@property (retain)  NSImage * image;
-@property (retain) NSString * plist,
-									 * identifier,
-									 * plistFilename;
+@property  NSImage * image;
+@property NSString *  plist, * identifier, * plistFilename;
 
 - (id) initWithOptions:(NSDictionary*) options;
 

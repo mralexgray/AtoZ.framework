@@ -7,7 +7,6 @@
 //
 
 #import "ServiceManager.h"
-#import "SegmentButton.h"
 #import "Service.h"
 #import "ServiceController.h"
 
@@ -15,7 +14,7 @@
 
 - (void) awakeFromNib {
 
-	[_brew log];
+//	[_brew log];
 //	self.brew = AZHomeBrew.sharedInstance;
 //	[_tc bind:NSContentArrayBinding toObject:_brew withKeyPath:@"availabke" nilValue:AZNULL];
 //

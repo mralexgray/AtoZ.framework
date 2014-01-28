@@ -1,6 +1,36 @@
 
 #import "AZCLI.h"
 #import "AZGrid.h"
+#import "AtoZUmbrella.h"
+
+
+static NSString* _AZCurrentUser;
+static NSUI _AZCurrentUserID;
+
+void(^fillInTheBlanks)() = ^{
+
+  char buf[256]; BOOL ok; uid_t _uid;
+  SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("GetConsoleUser"), NULL, NULL);
+  assert(store != NULL);
+//  CFStringRef name =
+  _AZCurrentUser = (__bridge NSS*)SCDynamicStoreCopyConsoleUser(store, &_uid, NULL);
+  _AZCurrentUserID = _uid;
+//  CFRelease(store);
+// if (name != NULL) {
+//  ok = CFStringGetCString(name, buf, 256, kCFStringEncodingUTF8); //  assert(ok == true);
+//  CFRelease(name);
+//  } else  strcpy(buf, "<none>");
+//  _AZCurrentUser = [NSS stringWithUTF8String:buf];
+};
+NSUI  AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
+NSS * AZCurrentUser() { return _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
+
+NSString * AZReadStdin () { NSFileHandle *input;  NSData *inData;
+	input = NSFileHandle.fileHandleWithStandardInput;
+	inData = input.availableData;
+	return [[NSS stringWithUTF8Data:inData] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
+}
+
 
 static NSApplication *sharedApp;		static NSMenuItem *appMenuItem;	static NSMenu *menubar,*appMenu;
 static dispatch_once_t onceToken;	static AZCLIMenu *meths, *fws;	static NSMD	*selectionDecoder;
@@ -79,7 +109,7 @@ typedef id(^eval)(id blockArgs, ...);
 		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:OSBottomLeftCorner|OSBottomRightCorner] fillWithColor:RANDOMCOLOR];
 	}];
 }
--       (IBA) toggleConsole:(id)s	{	[NSLogConsole.sharedConsole performString:[NSLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; } /* NSLOGCONSOLE - UNUSED */
+-       (IBA) toggleConsole:(id)s	{	[AZLogConsole.sharedConsole performString:[AZLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; } /* AZLogConsole - UNUSED */
 
 -      (void) envTest						{	struct winsize w;	ioctl(0, TIOCGWINSZ, &w);
 
@@ -95,7 +125,7 @@ typedef id(^eval)(id blockArgs, ...);
 - (VoidBlock) stringFunctions				{
 
 	return ^{	NSS*w =  NSS.randomBadWord;	[AZTalker say:w];
-					AZCLogFormat("The sum of 50 + 25 is %s", [AZLOGSHARED colorizeString:w withColor:GREEN].colorLogString.UTF8String);
+					AZCLogFormat("The sum of 50 + 25 is %s", [AZLog colorizeString:w withColor:GREEN].colorLogString.UTF8String);
    };
 }
 @end
@@ -117,7 +147,7 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 		return outString 	= [[outString withString:zNL] withString:
 								  [m.defaultCollection reduce:@"" withBlock:^id(id sum, AZCLIMenuItem* obj){ i++; NSS*outP; // Allow goruped indexes.
 			return  ( outP = [[(i % cols) == 0 ? @"\n" : @"" withString: [$(@"%lu: ", i) paddedTo:maxIndex]]withString: // pad index
-								  [AZLOGSHARED colorizeString:[obj.display paddedTo:maxlen] withColor:obj.color].clr] )
+								  [AZLog colorizeString:[obj.display paddedTo:maxlen] withColor:obj.color].clr] )
 							   ? [sum withString:outP]
 								: sum;
 	}]]; }];
@@ -370,9 +400,9 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 	
 		[NSApp run];
 
-//		[NSLogConsole sharedConsole];
-//		[NSLogConsole.sharedConsole setDelegate: self];
-//		[[NSLogConsole sharedConsole] open];
+//		[AZLogConsole sharedConsole];
+//		[AZLogConsole.sharedConsole setDelegate: self];
+//		[[AZLogConsole sharedConsole] open];
 		//	DDLogInfo(@"Warming up printer (post-customization)"); // Pink !
 		
 	}
@@ -387,8 +417,8 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object:_stdinFileHandle = AZSTDIN];
 	NSArray *allPaths 		= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
  	NSString *documentsDIR 	= [allPaths objectAtIndex:0];
-	NSLogConsole.sharedConsole.delegate = term;	
-	[NSLogConsole.sharedConsole open];
+	AZLogConsole.sharedConsole.delegate = term;	
+	[AZLogConsole.sharedConsole open];
 	_logConsoleHandle 	= [NSFileHandle fileHandleWithStandardOutput];
 	freopen([_logConsoleHandle cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
 	window.title 				= AZPROCNAME;

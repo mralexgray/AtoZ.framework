@@ -47,6 +47,11 @@
 
 @end
 
+@interface AZInvocationGrabber : NSProxy { id _target; NSInvocation *_invocation;	}
+@property				  NSInvocation * invocation;
+@property                   id   target;
+@end
+
 
  // thanks Landon Fuller
 #define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))

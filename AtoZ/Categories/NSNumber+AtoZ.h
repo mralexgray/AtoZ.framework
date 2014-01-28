@@ -47,6 +47,8 @@
 
 - (NSA*) times:(id (^)(void))block;
 
+@property (readonly) NSA* toArray;
+
 - (NSA*) to:(NSNumber*) to;
 - (NSA*) to:(NSNumber*) to by:(NSNumber*) by;
 

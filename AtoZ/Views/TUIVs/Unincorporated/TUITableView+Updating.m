@@ -7,9 +7,11 @@
 //
 
 #import "TUITableView+Updating.h"
-//#import "TUITableViewCell+Private.h"
-//#import "UIView+MTAnimation.h"
+#import "TUIView+Dimensions.h"
+#import <TwUI/TUITableViewCell+Private.h>
+#import <TwUI/UIView+MTAnimation.h>
 #import <objc/runtime.h>
+#import <AtoZ/AtoZ.h>
 
 
 static const char updateOperationsKey;
@@ -317,21 +319,21 @@ static const char updatingKey;
             cell.updateEndAlpha = 1;
         }
         else if (_rowAnimation == TUITableViewRowAnimationRight) {
-            cell.x += cell.width;
+            cell.originX += cell.width;
         }
         else if (_rowAnimation == TUITableViewRowAnimationLeft) {
-            cell.x -= cell.width;
+            cell.originX -= cell.width;
         }
         else if (_rowAnimation == TUITableViewRowAnimationTop) {
             [_tableView sendSubviewToBack:cell];
             [self wrapCellInClipView:cell insert:YES];
-            cell.y     += cell.height;
+            cell.originY     += cell.height;
             cell.alpha  = 0;
         }
         else if (_rowAnimation == TUITableViewRowAnimationBottom) {
             [_tableView sendSubviewToBack:cell];
             [self wrapCellInClipView:cell insert:YES];
-            cell.y     -= cell.height;
+            cell.originY     -= cell.height;
             cell.alpha  = 0;
         }
         else if (_rowAnimation == TUITableViewRowAnimationMiddle) {
@@ -339,7 +341,7 @@ static const char updatingKey;
         }
         else if (_rowAnimation == TUITableViewRowAnimationGravityDrop) {
             [_tableView bringSubviewToFront:cell];
-            cell.y                      = [_tableView visibleRect].origin.y + [_tableView visibleRect].size.height;
+            cell.originY                      = [_tableView visibleRect].origin.y + [_tableView visibleRect].size.height;
             _animationTimingFunction    = kMTEaseOutExpo;
             _animationDuration          = 0.75;
         }

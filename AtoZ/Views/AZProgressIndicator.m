@@ -1,11 +1,142 @@
 
-//  AZProgressIndicator.m
-//  AtoZ
-
-//  Created by Alex Gray on 6/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZProgressIndicator.h"
 #import <objc/runtime.h>
+
+
+#define DEFAULT_radius [self radius]
+#define DEFAULT_angle 30
+
+#define DEFAULT_inset self.height / 20
+//#define DEFAULT_stripeWidth self.stripeWidth
+
+
+#define DEFAULT_barColor              GRAY1 //self.color.contrastingForegroundColor// [NSC r:25.0/255.0 g:29.0/255.0 b:33.0/255.0 a:1.0]
+// Top of progress BG
+#define DEFAULT_lighterProgressColor  [self.color colorWithBrightnessMultiplier:5]//[NSC r:223.0/255.0 g:237.0/255.0 b:180.0/255.0 a:1.0]
+// Bottom of progress BG
+#define DEFAULT_darkerProgressColor   RED//[self.color colorWithBrightnessMultiplier:1]//WHITE //[NSC r:156.0/255.0 g:200.0/255.0 b:84.0/255.0 a:1.0]
+#define DEFAULT_lighterStripeColor    [self.color colorWithBrightnessMultiplier:.8]  ///YELLOW //[self.color colorWithBrightnessMultiplier:2] //:[NSC r:182.0/255.0 g:216.0/255.0 b:86.0/255.0 a:1.0]
+
+#define DEFAULT_darkerStripeColor     [self.color colorWithBrightnessMultiplier:.3]
+#define DEFAULT_shadowColor           BLACK //[NSC r:223.0/255.0 g:238.0/255.0 b:181.0/255.0 a:1.0]
+
+@implementation AZProgressBar // LBProgressBar
+
+@synthesize progressOffset, animator;
+
+-(void)setDoubleValue:(double)value {
+
+  if (!self.isDisplayedWhenStopped && (value >= self.maxValue || value <= self.minValue)) [self stopAnimation:self];
+  [super setDoubleValue:value];
+}
+- (CGF) radius      { return self.height / 3; }
+- (CGF) stripeWidth { return _stripeWidth = _stripeWidth ?: self.width/20; }
+
+
+
+-(id)initWithFrame:(NSRect)r {
+
+  return self = [super initWithFrame:r] ? self.doubleValue = 100, progressOffset = 0,
+  self.autoresizingMask = NSViewWidthSizable|NSViewMinXMargin|NSViewMaxXMargin,
+  _color = RANDOMCOLOR,// [NSC r:126.0/255.0 g:187.0/255.0 b:55.0/255.0 a:1.0],
+  self : nil;
+}
+
+
+-(void)drawRect:(NSRect)dirtyRect {
+
+  self.progressOffset = (self.progressOffset > (2*self.stripeWidth)-1) ? 0 : ++self.progressOffset;
+
+  CGF distance = self.maxValue - self.minValue,
+         value = self.doubleValue ? self.doubleValue / distance : 0;
+
+  // BEZEL
+  [NSGC state:^{ //white shadow
+    [NSBezierPath clipRect:NSMakeRect(0, self.height/2, self.width, self.height/2)];
+    [[NSBezierPath bezierPathWithRoundedRect:AZRectBy(self.width-1, self.height-1) radius:self.radius] strokeWithColor:GRAY2];
+  }];
+  //rounded rect
+  [[NSBP roundRectPath:AZRectBy(self.width, self.height-1) radius:self.radius] fillWithColor:DEFAULT_barColor];
+ // drawBezel];
+  if (!value) return;
+  AZRect *bounds = [AZRect rectWithX:DEFAULT_inset andY:DEFAULT_inset width:self.width * value-2 * DEFAULT_inset height:(self.height-2*DEFAULT_inset)-1];
+
+  [[NSBP roundRectPath:bounds.r radius:self.radius] // drawProgressWithBounds
+   fillGradientFrom:DEFAULT_lighterProgressColor to:DEFAULT_darkerProgressColor angle:90];
+
+  // drawStripesInBounds:(NSRect)
+  NSBezierPath* allStripes = [@(bounds.width/(2*self.stripeWidth)+(2*_stripeWidth)).toArray reduce:NSBP.bezierPath withBlock:^id(NSBP* sum, NSN* obj) {
+    [sum appendBezierPath:[self stripeWithOrigin:AZP(obj.fV*2*_stripeWidth+self.progressOffset, DEFAULT_inset) bounds:bounds.r]]; // stripe
+    return sum;
+  }];
+  //clip
+  NSBezierPath* clipPath = [NSBP roundRectPath:bounds.r radius:self.radius];
+  [clipPath addClip];
+  [clipPath setClip];
+  [allStripes fillGradientFrom:DEFAULT_lighterStripeColor to:DEFAULT_darkerStripeColor angle:90];
+
+  // drawShadowInBounds:
+  NSBezierPath* shadow = NSBP.bezierPath;
+  [shadow moveToPoint:AZP(0,2)];
+  [shadow lineToPoint:AZP(bounds.width, 2)];
+  [shadow strokeWithColor:DEFAULT_shadowColor];
+}
+
+-(NSBezierPath*)stripeWithOrigin:(NSPoint)origin bounds:(NSRect)frame {
+
+  float offset = _stripeWidth + (_stripeWidth/10);
+
+  NSBezierPath* rect = NSBP.bezierPath;
+  [rect moveToPoint:origin];
+  [rect lineToPoint:NSMakePoint(origin.x + self.stripeWidth,   origin.y)];
+  [rect lineToPoint:NSMakePoint(origin.x + self.stripeWidth - offset, self.height)];
+  [rect lineToPoint:NSMakePoint(origin.x - offset,                  origin.y + self.height)];
+  [rect lineToPoint:origin];
+  return rect;
+}
+
+
+
+//-(void)drawBezel {
+//  [NSGraphicsContext state:^{ //white shadow
+//    [NSBezierPath clipRect:NSMakeRect(0, self.height/2, self.width, self.height/2)];
+//    [[NSBezierPath bezierPathWithRoundedRect:AZRectBy(self.width-1, self.height-1) radius:self.radius] strokeWithColor:GRAY2];
+//  }];
+//  //rounded rect
+//  [[NSBP roundRectPath:AZRectBy(self.width, self.height-1) radius:self.radius] fillWithColor:DEFAULT_barColor];
+//  CGContextRef context = (CGContextRef)AZGRAPHICSCTX.graphicsPort;
+//  //inner glow
+//  CGMutablePathRef glow = CGPathCreateMutable();
+//  CGPathMoveToPoint   (glow, NULL, self.radius,      0);
+//  CGPathAddLineToPoint(glow, NULL, maxX-self.radius, 0);
+////  [[NSC r:17.0/255.0 g:20.0/255.0 b:23.0/255.0 a:1.0]
+//  [RED set];
+//  CGContextAddPath  (context, glow);
+//  CGContextDrawPath (context, kCGPathStroke);
+//  CGPathRelease     (glow);
+//}
+
+
+#pragma mark Actions
+
+-(void)startAnimation:(id)sender {  if (self.animator) return;
+
+  self.animator = [NSTimer scheduledTimerWithTimeInterval:1.0/30 target:self selector:@selector(activateAnimation:) userInfo:nil repeats:YES];
+}
+-(void) stopAnimation:(id)sender          { self.animator = nil; }
+-(void) activateAnimation:(NSTimer*)timer { self.needsDisplay = YES; }
+
+- (void) click:       (NSE*)e { if (_clickable) self.doubleValue = self.windowPoint.x / self.width * self.maxValue; }
+- (void) mouseDragged:(NSE*)e { [self click:e]; }
+- (void) mouseDown:   (NSE*)e { [self click:e];
+
+  e.modifierFlags & NSShiftKeyMask ? self.color = RANDOMCOLOR : nil;
+}
+
+- (void) scrollWheel:(NSEvent*)e { self.height += e.deltaY; }
+@end
+
+
 
 @interface AZProgressIndicator (PrivateBusiness)
 - (void)makeIndeterminatePole;
@@ -27,11 +158,11 @@
 		[self setCornerRadius: 15];
 		[self setFontSize: 11];
 		[self setProgressTextAlign: 2];
-		[self setProgressHolderColor: [NSColor colorWithCalibratedWhite:1	 alpha: 0.500]];
-		[self setProgressColor: [NSColor randomColor]];//[NSColor colorWithCalibratedRed:0.076 green:0.076 blue:0.071 alpha:1.000]];
-		[self setBackgroundTextColor: [NSColor colorWithCalibratedWhite:0 alpha:1]];
-		[self setFrontTextColor: [NSColor colorWithCalibratedWhite:1 alpha:1]];
-		[self setShadowColor: [NSColor colorWithCalibratedWhite:0.160 alpha: 0.300]];
+		[self setProgressHolderColor: GRAY5];
+		[self setProgressColor: [NSColor randomColor]];//[NSColor r:0.076 g:0.076 b:0.071 alpha:1.000]];
+		[self setBackgroundTextColor: [NSColor white:0 a:1]];
+		[self setFrontTextColor: [NSColor white:1 a:1]];
+		[self setShadowColor: [NSColor white:0.160 a:0.300]];
 		[self setShadowBlur: 4.0];
 		
 		 [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(cycle) userInfo:nil repeats:YES];	
@@ -283,5 +414,6 @@
 	[super setFrame:frameRect];
 	[self makeIndeterminatePole];
 }
+
 
 @end

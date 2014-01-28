@@ -51,26 +51,21 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 */
 
 
-@interface NSWindow (AtoZ)
-- (void) setFrame:(NSR)frame;
-+ (id) hitTest: (NSE*) event;
-+ (id) hitTestPoint:(NSP)location;
+@interface NSWindow		(AtoZ)
++ (NSW*) borderlessWindowWithContentRect: (NSRect)aRect;
++   (id) hitTest:			(NSE*) event;
++   (id) hitTestPoint:(NSP)location;
 + (NSA*) appWindows;
-@property (readonly) NSR bounds;
-+ (NSWindow*) borderlessWindowWithContentRect: (NSRect)aRect;
 
-
-@property (weak) CAL *layer;
-- (void) setLayer: (CAL*) layer;
-
+- (void) setFrame:		(NSR)frame;
+@property (readonly) NSR   bounds;
+@property						 CAL * layer;
 @property (readonly) CGR contentRect;
-// Origin X
 @property (readonly) CGF originX, originY;
-
 // Size
-@property (nonatomic, assign) CGF width;
-@property (nonatomic, assign) CGF height;
-@property (nonatomic, assign) NSSZ size;
+@property (nonatomic) CGF width;
+@property (nonatomic) CGF height;
+@property (nonatomic) NSSZ size;
 
 - (void) setWidth: (CGF) t;
 - (void) setHeight: (CGF) t;

@@ -1462,14 +1462,14 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
     [p stroke];
 }
 
-// -----------------------------------------------------------------------------
+
 //		bezierPathWithRoundRectInRect:radius:
 //				  This method adds the traditional Macintosh rounded-rectangle to
 //				  NSBezierPath's repertoire.
 //
 //		REVISIONS:
 //				  2004-02-04		witness Created.
-// -----------------------------------------------------------------------------
+
 
 + (NSBezierPath *)bezierPathWithRoundRectInRect:(NSR)rect radius:(CGFloat)radius {
     // Make sure radius doesn't exceed a maximum size to avoid artifacts:

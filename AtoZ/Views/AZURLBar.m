@@ -66,7 +66,7 @@
 		[self.superview addSubview:self.consoleSplit = [AGNSSplitView.alloc initWithFrame:self.bounds]];
 		_consoleSplit.arMASK = NSSIZEABLE;
 		[_consoleSplit setVertical:YES];
-		_consoleSplit.subviews = @[self, _console = [NSLogConsoleView.alloc initWithFrame:self.bounds]];
+		_consoleSplit.subviews = @[self, _console = [AZLogConsoleView.alloc initWithFrame:self.bounds]];
 		_console.arMASK = NSSIZEABLE;
 		[_consoleSplit setPosition:_consoleSplit.width -50 ofDividerAtIndex:0];
 		[_console logString:NSS.dicksonBible file:NULL lineNumber:1];

@@ -58,7 +58,32 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 @end
 
+@implementation NSSet (AtoZ)
+
+- (id)filterOne:(BOOL(^)(id))block {   __block id x = nil;
+
+  [self.allObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {  if (block(obj)) x = obj;  if (x != nil) *stop = YES;  }];
+  return x;
+}
+@end
+
 @implementation NSArray (AtoZ)
+
+-  (NST*) enumerateWithInterval:(NSTI)time repeat:(BOOL)repeat usingBlock:(AZObjIdxStopBlock)block {
+
+  __block NSUInteger idx = 0;
+  __block BOOL stop = NO;
+  __block NST *t = [NSTimer scheduledTimerWithTimeInterval:time block:^(NSTimer *timer) {
+
+    block([self normal:idx],idx,stop);
+    idx++;
+    if (stop) [t invalidate];
+
+ 	} repeats:repeat];
+
+  return t;
+}
+-(NSS*)joinedByNewlines { return [self componentsJoinedByString:@"\n"]; }
 
 - (id) assertedValueAtIndex:(NSUI)idx isKindOf:(Class)k {
 
@@ -701,11 +726,28 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 	return index;
 }
 
+- (id)filterNonNil:(id(^)(id))block { __block id x = nil;
+
+	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		 x = block(obj);
+		 if (x) *stop = YES;
+	}];
+	return x;
+}
+
 
 - (NSA*) filter:(BOOL (^)(id object))blk {
     return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL)blk(o); }];
 }
 
+- (id) filterOneBlockObject:(id(^)(id object))block {
+
+  __block id x = nil;
+  [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    *stop = ((x = block(obj)));
+  }];
+  return x;
+}
 - (id)filterOne:(BOOL (^)(id))block {
 	BOOL yeah = NO;
    for (id anO in self) { yeah = block(anO); if (yeah == YES) return anO; }
@@ -1122,7 +1164,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 -(NSD*)mapToDictForgivingly:(AZKeyPair*(^)(id))block {	NSMD * mappedD = NSMD.new;
-	for (id object in self)  { AZKP *kp = block(object); (!kp) ?: [mappedD sV:kp.key fK:kp.value]; }
+	for (id object in self)  { AZKP *kp; if ((kp = block(object))) mappedD[kp.key] = kp.value; }
 	return mappedD;
 }
 

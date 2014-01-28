@@ -1,14 +1,14 @@
 //	[AZNOTCENTER addObserver:self selector:@selector(setFakeStdin:)
-//	name:@"NSLogConsoleFakeStdin" object:nil ];
+//	name:@"AZLogConsoleFakeStdin" object:nil ];
 //  Created by Patrick Geiller on 16/08/08.
 
-#import "NSLogConsole.h"
+#import "AZLogConsole.h"
 #import <ScriptingBridge/ScriptingBridge.h>
 
 BOOL 	inited = NO;
-void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.sharedConsole updateLogWithFile:file lineNumber:line];}
+void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.sharedConsole updateLogWithFile:file lineNumber:line];}
 
-@implementation NSLogConsole
+@implementation AZLogConsole
 - (void) setTerminal:(NSMAS*)term	{
 	_terminal = term;
 	if ([_delegate respondsToSelector:@selector(textWasEntered:)]) [_delegate textWasEntered:term.string];
@@ -38,13 +38,13 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 - (void) dataAvailable:(NSNOT*)note	{
 	NSData *data = note.userInfo[NSFileHandleNotificationDataItem];
 	NSLog(@"data: %@", data);
-	[NSLogConsole.sharedConsole updateLogWithFile:"" lineNumber:0];
+	[AZLogConsole.sharedConsole updateLogWithFile:"" lineNumber:0];
 	printf("%snslog logged,babay!", _fakeStdin.UTF8String);
 }	// NSLog will generate an event posted in the next run loop run
 
 - (void) open								{
-	if (!_window && ![NSBundle loadNibNamed:@"NSLogConsole" owner:self])
-		return NSLog(@"NSLogConsole.nib not loaded");
+	if (!_window && ![NSBundle loadNibNamed:@"AZLogConsole" owner:self])
+		return NSLog(@"AZLogConsole.nib not loaded");
 	[_window responds:@"setBottomCornerRounded:" do:^{ [_window setBottomCornerRounded:NO]; }];
 	_windowTitle ?	[_window setTitle:_windowTitle] : nil;
 	[_window orderFront:self];
@@ -181,7 +181,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 		static id singleton = NULL; @synchronized(self){ if (!singleton){ singleton = [self.alloc init]; }	} return singleton;
 }
 @end
-@implementation NSLogConsoleView	{
+@implementation AZLogConsoleView	{
 // A message might trigger console opening, BUT the WebView will take time to load and won't be able to display messages yet. Queue them - they will be unqueued when WebView has loaded.
 	id		messageQueue;	BOOL	webViewLoaded;
 }
@@ -196,13 +196,13 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [NSLogConsole.shared
 	[self setFrameLoadDelegate:self];
 
 	// Load html page
-	id path = [AZBUNDLE pathForResource:@"NSLogConsole" ofType:@"html"];
+	id path = [AZBUNDLE pathForResource:@"AZLogConsole" ofType:@"html"];
 	[[self mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
 
 	// Navigation notification
 	[self setPolicyDelegate:self];
 }
-- (void) webView:(WV*)view windowScriptObjectAvailable:(WebScriptObject*)wso	{	[wso setValue:self forKey:@"NSLogConsoleView"];
+- (void) webView:(WV*)view windowScriptObjectAvailable:(WebScriptObject*)wso	{	[wso setValue:self forKey:@"AZLogConsoleView"];
 } //	JS avail. Reg. our custom js object in hosted page
 - (void) webView:(WV*)x didFinishLoadForFrame:(WebFrame*)f			{		webViewLoaded	= YES;
 

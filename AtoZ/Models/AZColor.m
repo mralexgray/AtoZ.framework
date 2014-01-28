@@ -7,16 +7,18 @@
 //
 
 #import "AZColor.h"
+#import "AtoZ.h"
 
 @implementation AZColor
 //@synthesize     brightness,     saturation,hue, count, name,color, hueComponent,   total;
++ (instancetype)colorWithColor:(NSColor *)color {  AZColor *cc = self.instance;    cc.color		= color; return cc; }
 
 
 + (instancetype)instanceWithColor:(NSColor *)color count:(NSUI)c total:(NSUI)totes {
     AZColor *cc = self.class.instance;
-    cc.color = color;
-    cc.count = c;
-    cc.total = totes;
+    cc.color		= color;
+    cc.count		= c;
+    cc.total		= totes;
     return cc;
 }
 
@@ -24,8 +26,9 @@
 }
 
 + (instancetype)instanceWithObject:(NSDictionary *)dic {
+
     if (!dic[@"color"]) return nil;
-    AZColor *color = [[self class] instanceWithColor:dic[@"color"]];
+    AZColor *color = [self.class instanceWithColor:dic[@"color"]];
     color.name        =  dic [@"name"] ? dic [@"name"] : @"";
     color.count   =  dic [@"count"] ? [dic [@"count"] intValue] : 0;
     color.total   =  dic [@"percent"] ? (color.count / [dic [@"percent"] floatValue]) : 1;

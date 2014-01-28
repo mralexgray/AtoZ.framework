@@ -25,7 +25,7 @@
 @interface NSDate (AtoZ)
 
 + (NSS*)dayOfWeek;
-
++ (NSS*) now;
 
 - (NSUInteger)daysAgo;
 - (NSUInteger)daysAgoAgainstMidnight;

@@ -1,5 +1,14 @@
 
+#import <Zangetsu/Zangetsu.h>
 #import "AtoZMacroDefines.h"
+//#import "AtoZTypes.h"
+//#import "BaseModel.h"
+
+
+#define NSAPPLICATIONMAIN int main(int argc, char *argv[]) { return NSApplicationMain(argc, (const char **)argv); }
+#define NSAPPACTIVATE [NSApp activateIgnoringOtherApps:YES], [NSApplication.sharedApplication.mainWindow makeKeyAndOrderFront:nil]
+
+#define AZHOSTNAME NSHost.currentHost.name
 
 /** INSTEAD OF NASTY BLOCK SETTERS AND GETTERS FOR DYNAMIC DELEGATES... */
 
@@ -35,11 +44,13 @@
 		- (BOOL) something { id x = FETCH; return x ? [x boolValue] : NO; }
 */
 
+
 #define REFERENCE(sel,obj) objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_ASSIGN)
 #define COPY(sel,obj) 		objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_COPY)
 #define SAVE(sel,obj) 		objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 #define OPEN(sel) 			objc_getAssociatedObject(self, sel)
 #define FETCH       			objc_getAssociatedObject(self, _cmd)
+#define FETCH_OR(X)        FETCH ?: X
 
 
 
@@ -532,6 +543,7 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define  	AZFWRESOURCES 	[AZFWORKBUNDLE resourcePath]
 #define    	  AZAPPBUNDLE 	NSBundle.mainBundle
 #define 			 AZAPPINFO  [AZAPPBUNDLE infoDictionary]
+#define 			 AZAPPNAME   [AZAPPBUNDLE objectForInfoDictionaryKey:@"CFBundleDisplayName"]
 #define 			 AZAPP_ID   [AZAPPBUNDLE objectForInfoDictionaryKey:@"CFBundleIdentifier"]
 #define 	  AZAPPRESOURCES 	[NSBundle.mainBundle resourcePath]
 
@@ -563,6 +575,9 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define   	 AZCURRENTCTX 	AZGRAPHICSCTX
 #define   	 AZQTZCONTEXT 	[NSGraphicsContext.currentContext graphicsPort]
 #define    	  AZSHAREDAPP 	NSApplication.sharedApplication
+#define    	  AZAPPWINDOW [AZSHAREDAPP mainWindow]
+#define    	    AZAPPVIEW ((NSView*)[AZAPPWINDOW contentView])
+#define     AZCONTENTVIEW(V) ((NSView*)[V contentView])
 #define     	AZWEBPREFS 	WebPreferences.standardPreferences
 #define     	AZPROCINFO 	NSProcessInfo.processInfo
 #define     	AZPROCNAME 	[NSProcessInfo.processInfo processName]
@@ -700,6 +715,8 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define zTAB @"\t"
 #define zSPC @" "
 
+#define ASOCK GCDAsyncSocket
+
 //1 #define LOG_EXPR(_X_) do{\
 //2 	__typeof__(_X_) _Y_ = (_X_);\
 //3 	const char * _TYPE_CODE_ = @encode(__typeof__(_X_));\
@@ -737,6 +754,8 @@ AZToStringFromTypeAndValue(@encode(typeof(_X_)), &_Y_);})
 //#define loMismo isEqualToString
 
 #define AZTEMPD 					NSTemporaryDirectory()
+#define AZTEMPFILE(EXT) 	[AtoZ tempFilePathWithExtension:$(@"%s",#EXT)]
+
 #define CLSSBNDL					[NSBundle bundleForClass:[self class]]
 #define AZBUNDLE					[NSBundle bundleForClass:[AtoZ class]]
 #define APP_NAME 					[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleName"]
@@ -1019,6 +1038,8 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 	for( id azva_arg = FIRST_ARG_NAME;	azva_arg != nil;  azva_arg = va_arg(azva_args, id ) )	azva_block(azva_arg); \
 	va_end(azva_args); }
 
+#define AZVA_ARRAY(FIRST_ARG_NAME,ARRAY_NAME) azva_list_to_nsarray(FIRST_ARG_NAME,ARRAY_NAME)
+
 /***	Convert a variable argument list into array. An autorel. NSMA will be created in current scope w/ the specified name.
  @param FIRST_ARG_NAME The name of the first argument in the vararg list.
  @param ARRAY_NAME The name of the array to create in the current scope.	 */
@@ -1087,6 +1108,14 @@ _AZUnimplementedMethod(_cmd,self,__FILE__,__LINE__)
 #define AZUnimplementedFunction() \
 _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 
+
+/* instance variable    NSMutableArray *thingies;  in @implementation  ARRAY_ACCESSORS(thingies,Thingies) */
+
+#define ARRAY_ACCESSORS(lowername, capsname) \
+	- (NSUInteger)countOf ## capsname { return [lowername count]; } \
+	- (id)objectIn ## capsname ## AtIndex: (NSUInteger)index { return [lowername objectAtIndex: index]; } \
+	- (void)insertObject: (id)obj in ## capsname ## AtIndex: (NSUInteger)index { [lowername insertObject: obj atIndex: index]; } \
+	- (void)removeObjectFrom ## capsname ## AtIndex: (NSUInteger)index { [lowername removeObjectAtIndex: index]; }
 
 //#define objc_dynamic_cast(obj,cls) \
 //    ([obj isKindOfClass:(Class)objc_getClass(#cls)] ? (cls *)obj : NULL)

@@ -10,7 +10,24 @@
 
 @interface NSBundle (AtoZ)
 
-
+/*
+ BuildMachineOSBuild = 13A598;
+    CFBundleDevelopmentRegion = English;
+    CFBundleExecutable = "dump_info_plist";
+    CFBundleIdentifier = "ch.pitaya.dump_info_plist";
+    CFBundleInfoDictionaryVersion = "6.0";
+    CFBundleName = "dump_info_plist";
+    CFBundleShortVersionString = "1.2.3";
+    CFBundleVersion = "1.2.3";
+    DTCompiler = "com.apple.compilers.llvm.clang.1_0";
+    DTPlatformBuild = 5A2053;
+    DTPlatformVersion = GM;
+    DTSDKBuild = 13A595;
+    DTSDKName = "macosx10.9";
+    DTXcode = 0501;
+    DTXcodeBuild = 5A2053;
+*/
++ (id) infoPlist;
 + (void) loadAZFrameworks;
 
 +( NSB*) bundleForApplicationName:					(NSS*)appName;

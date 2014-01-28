@@ -14,6 +14,13 @@
 #define FORCE_LOAD	1
 
 
+#import <AtoZ/AtoZ.h>
+#import <SansNib.h>
+
+//#import <unistd.h>
+//#import <stdio.h>
+
+
 // GAMEPLAN   
 // AZWINDOW Tabs surround screen,
 // MenuAPp Instance runs controller status item and dropdown window...
@@ -27,12 +34,12 @@
 	NSNumber *ddd = @(inputTwo);
 */
 
-
-int main(int argc, char *argv[], char** envp) { @autoreleasepool {	[NSApplication sharedApplication];	
+// This is the actual full declaration of main() on OS X. The "apple"  parameter is the path to the executable, i.e. _NSGetProgname().
+int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	AZSHAREDAPP;
+//int main(int argc, char *argv[], char** envp)
 
 #ifdef XCODE_COLORS
-
-		int res;	setenv("XCODE_COLORS", "YES", &res);
+int res;	setenv("XCODE_COLORS", "YES", &res);
 
 #endif
 #ifdef PRINT_ENV

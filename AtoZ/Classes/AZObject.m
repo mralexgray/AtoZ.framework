@@ -2,27 +2,58 @@
 
 #import "AZObject.h"
 
+#define logAsInstance NSLog(@"%@ \"s%@\"", NSStringFromSelector(_cmd), NSStringFromClass(self.class))
+#define logAsClass NSLog(@"%@ \"s%@\"", NSStringFromSelector(_cmd), NSStringFromClass(self))
 
 @concreteprotocol(IBSingleton)
 
-- (id) init 									{ return self; }
-- (id) _init 									{ return [super init]; }
+//+(void) initialize { NSString *specialP = [NSStringFromClass(self) substringBefore:@"_ProtocolMethodContainer"];
+//
+//	Protocol *p = NSProtocolFromString(specialP);
+//
+//	NSLog(@"Initializing (%@)... %@ \"%@\"", specialP, NSStringFromSelector(_cmd), NSStringFromClass(self));
+//
+//	unsigned count = NULL;
+//
+//	Class *listing = NULL;
+//	listing = ext_copyClassListConformingToProtocol (p, &count);
+//	if (listing && count) {
+//			for (int i = 0; i < count; i++) {
+//				NSS* lilConformer = NSStringFromClass(listing[i]);
+//					if (![lilConformer containsString:@"_ProtocolMethodContainer"]) NSLog(@"FOund %@", lilConformer);
+//			}
+//	}
+//	free(listing);
+//
+//}
+
+- (id)  init										{ logAsInstance; return self;																				}
+- (id) _init										{ logAsInstance; return [super init];																}
 //_alloc is important, because otherwise the object wouldn't be allocated
-+ (id) _alloc 									{ return [[self class].superclass allocWithZone:NULL]; }
-+ (id) alloc									{ return self.sharedInstance; }
-+ (id) allocWithZone: (NSZone*)zone 	{ return self.sharedInstance; }
-+ (instancetype)sharedInstance {  __strong static id _sharedInstance = nil;
-    static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{ _sharedInstance = [[self _alloc] _init];
-	if ([[self class] instancesRespondToSelector:@selector(setUp)])
-		[(id<IBSingleton>)_sharedInstance setUp];
++ (id) _alloc										{	logAsClass; return [self.class.superclass allocWithZone:NULL];	}
++ (id)  alloc										{ logAsClass; return self.sharedInstance;													}
++ (id) allocWithZone:(NSZone*)z	{ logAsClass; return self.sharedInstance;													}
+
++ (instancetype)sharedInstance	{ logAsClass;
+
+	__strong static id _sharedInstance = nil; static dispatch_once_t uno;
+
+	dispatch_once(&uno, ^{ _sharedInstance = [[self _alloc] _init];
+
+		if ([self instancesRespondToSelector:@selector(setUp)]) {
+			NSLog(@"Running setup for Shared \"%@\"", NSStringFromClass(self));
+			[(id<IBSingleton>)_sharedInstance setUp];
+		}
 	});
+	NSLog(@"Fiished setup for Shared \"%@\"", NSStringFromClass(self));
 	return _sharedInstance;
 }
+
 @end
 
+
 @concreteprotocol(AZPlistRepresentation)
-- (NSDictionary *)plistRepresentation {	// this is the base class, just return a new dictionary with our values
+- (NSD*)plistRepresentation {	// this is the base class, just return a new dictionary with our values
 	return [[self.propertyNames filter:^BOOL(id aKey) { return [self valueWasSetForKey:aKey]; }]
 							 mapToDictionary:^id(NSS* propName) {	return [self vFK:propName]; }];
 }

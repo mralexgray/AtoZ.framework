@@ -36,6 +36,31 @@ LAYERS FOR DUMDUMS
 - (id)init { if (!(self = [super init])) return nil; self.delegate = self; [self setNeedsDisplay]; return self; }
 
 
+
+Complexity
+This blog is intended to be a repository of solutions and concepts to simplify common application development tasks. As an independent iPhone and Mac developer, I will naturally mostly target Objective-C.
+This first post will describe the background - where I’m coming from, and what I’m trying to do.
+Complexity
+
+Clearly our goal should be to create great software that a user can just pick up and use. Where ‘pick up’ = ‘buy this version' and 'use' = 'likely to buy the next version’. In order to achieve that goal, we must refine our ideas as to how the software is used.
+Prototype. Keep it simple: restrict the initial scope of the problem - sacrifice functionality. This automatically keeps down the complexity.
+Feature growth. The functionality is fleshed out to something that is useful. Complexity explodes.
+Clean-up. Now that the idea is better understood, simplify it to its bare essentials.
+Complexity comes in two fronts:
+Complexity to develop and maintain the application.
+Complexity to use the application.
+Both of these must be considered together - they are inseparable. One starts with the idea of what the application is to do, and a rough idea of how the user would achieve that. This is stage 1. There is only one thing that can be known for certain at this stage: the initial idea will be wrong. So, we must implement this initial idea, to see what it is like - to understand how exactly it is wrong. We identify the problems, and come up with solutions to them. These solutions come under stage 2 - we are adding complexity. We then implement these solutions, and evaluate the idea again. This allows us to discover which of these solutions are wrong or incomplete, and so we come up with other solutions to fix or patch them. By the time we are happy that the application loosely achieves the original concept, both the user interface and the code base will have exploded with complexity.
+This is where one might be tempted to stop (and is where most commercial and home brew application development work stops). However, if you do that, be fully aware of the consequences.
+Since you came up with the app, you know how to use it. Great - that makes one! The more complex it is to use, the more time it will take to explain how to use it, and the less likely a user will be able to pick it up by themselves. Easy - you write documentation, right? The more documentation a user needs to read in order to use your app, the less likely they are to buy it, or to continue to use it. And the more time it will take you to write adequate documentation, and the less time you’ll have for doing the stuff you enjoy.
+Since you wrote the code, you know how it works - it’s already loaded into your head. But your memory is leaky - in a few months time, you will not remember how all of your app works. The more complex it is, the longer it will take you to load it back into your head. Furthermore, the more complex it is, the more inertia your code has - the more time it takes to extend it or to change it.
+In order to achieve the goal of powerful but simple to use software, we must refine our ideas as to how the software is used. The easiest way to do that is to come up with lots of solutions to the same problem, try them out, then choose the best one. The more solutions we try, the more we understand the problem, and the better our solutions will become. And the corollary: The more complex the code base is, the longer it takes to try out each solution. The less solutions we try, the less well we’ll understand the problem, and the less likely we’ll be able to come up with a simple UI.
+The overall message here is that complexity is not always bad - it is a natural part of the evolution of an idea. We aren’t creating toys. However, it also represents the limit of an idea - we each have a finite ability to tolerate complexity. Reducing unnecessary complexity allows an idea to be taken further. This applies to our users too - the less complex the tools we give them, the more of their capacity they can dedicate to exploring their idea. This is the main message of this blog, and the meaning behind its name *.
+* Due to this blog being written for fun, articles will not have gone through many editing passes, so the wording will at times be overly complex. The irony is not lost.
+
+
+from http://complexityculler.tumblr.com/post/270334824/complexity#disqus_thread
+
+
 # ConciseKit
 
 A set of Objective-C additions and macros that lets you to write code more quickly.
@@ -2325,7 +2350,7 @@ typedef struct {
 
 @end
 
-@interface NSLogConsole : AZSingleton
+@interface AZLogConsole : AZSingleton
 {
     NSString *windowTitle;
     BOOL autoOpens;
@@ -2334,7 +2359,7 @@ typedef struct {
     int _original_stderr;
     unsigned long long _fileOffset;
     NSFileHandle *_fileHandle;
-    NSLogConsoleView *_webView;
+    AZLogConsoleView *_webView;
     id _searchField;
     id _po;
     NSString *_logPath;
@@ -2344,7 +2369,7 @@ typedef struct {
 @property(retain, nonatomic) NSString *logPath; // @synthesize logPath=_logPath;
 @property __weak id po; // @synthesize po=_po;
 @property __weak id searchField; // @synthesize searchField=_searchField;
-@property __weak NSLogConsoleView *webView; // @synthesize webView=_webView;
+@property __weak AZLogConsoleView *webView; // @synthesize webView=_webView;
 @property(retain, nonatomic) NSFileHandle *fileHandle; // @synthesize fileHandle=_fileHandle;
 @property unsigned long long fileOffset; // @synthesize fileOffset=_fileOffset;
 @property int original_stderr; // @synthesize original_stderr=_original_stderr;
@@ -2366,7 +2391,7 @@ typedef struct {
 
 @end
 
-@interface NSLogConsoleView : WebView
+@interface AZLogConsoleView : WebView
 {
     BOOL webViewLoaded;
     id _messageQueue;

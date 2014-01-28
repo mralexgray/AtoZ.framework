@@ -1,4 +1,5 @@
 //#import "AZGeometryViewController.h"
+
 #import "GeneralVC.h"
 #import "UIVC.h"
 #import "ColorVC.h"
@@ -7,22 +8,19 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate,NSWindowDelegate>
 
-// MENU BAR
-@property (USF) IBOutlet MenuAppController	*menu;
-
+@property (USF) IBOutlet MenuAppController * menu;          // MENU BAR
+@property (USF) IBOutlet     AtoZColorWell * colorWell;
 
 - (IBAction)newTab:(id)sender;
-@property (USF) IBOutlet AtoZColorWell		*colorWell;
 
-@property (STR) GeneralVC			* genVC;
-@property (STR) UIVC					* uiVC;
-@property (STR) ColorVC				* colorVC;
-@property (STR) FBVC					* fbV;
-@property (STR) TUIVVC				* tuiVC;
+@property    GeneralVC * genVC;
+@property         UIVC * uiVC;
+@property      ColorVC * colorVC;
+@property         FBVC * fbV;
+@property       TUIVVC * tuiVC;
 
-@property (RONLY) NSMutableArray   * windowControllers;
-@property (STR) NSTimer   			* colorFade;
-
+@property (RONLY) NSMA * windowControllers;
+@property NST       	 * colorFade;
 
 @property (ASS) IBOutlet NSW * 	window;
 @property (ASS) IBOutlet NSV *	contentView;

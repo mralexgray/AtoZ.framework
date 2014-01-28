@@ -9,11 +9,11 @@
 	<key>CFBundleDisplayName</key>
 	<string>AtoZ</string>
 	<key>CFBundleGetInfoString</key>
-	<string></string>
+	<string>The all Inclusive cruise of Umbrella-Frameworks.</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>atoz.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.mrgray.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -29,7 +29,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2012 mrgray.com, inc. All rights reserved.</string>
+	<string>Copyright © 2014 mrgray.com, inc. Do the fuck what you want license.</string>
 	<key>NSPrincipalClass</key>
 	<string>AtoZ</string>
 </dict>

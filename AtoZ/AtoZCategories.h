@@ -43,6 +43,8 @@
 #import "NSView+AtoZ.h"
 #import "NSOutlineView+AtoZ.h"
 #import "NSTask+OneLineTasksWithOutput.h"
+#import "BETaskHelper.h"
+
 #import "NSEvent+AtoZ.h"
 #import "NSApplication+AtoZ.h"
 #import "NSURL+AtoZ.h"
@@ -56,5 +58,6 @@
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
 
+#import "KSHTMLWriter+AtoZ.h"
 
 #endif

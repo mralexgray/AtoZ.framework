@@ -479,6 +479,9 @@ NSP 	AZPointDistanceToBorderOfRect			(NSP point, NSR rect)	{
 NSP 	AZPointFromDim								(CGF val)					{
 	return (NSP){val,val};
 }
+
+NSP AZP(CGF x, CGF y) { return (NSP){x,y}; }
+
 #pragma mark - NSSZ Functions
 NSR 	AZRectBy						(CGF boundX, CGF boundY)	{
 	return NSMakeRect(0,0,boundX, boundY);

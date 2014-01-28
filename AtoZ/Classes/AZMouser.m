@@ -2,7 +2,7 @@
 //#import "AtoZ.h
 #include <string.h>
 
-bool bDragging = false;		int bMouseSpeed = 4;			/* MOUSE MOVEMENT */
+bool bDragging = false;		NSI bMouseSpeed = 4;			/* MOUSE MOVEMENT */
 
 CGPoint mouseLoc() {
 	CGEventRef event = CGEventCreate(NULL);
@@ -31,14 +31,14 @@ void moveVia( int x, int y ) {	moveTo(CGPointMake(x,y)); }
 void moveTo ( CGPoint dest ) {
 	CGPoint currLoc = mouseLoc();
 	CGPoint destLoc = dest;
-	float x = currLoc.x;
-	float y = currLoc.y;
-	float xrat, yrat;
+	CGF x = currLoc.x;
+	CGF y = currLoc.y;
+	CGF xrat, yrat;
 
-	int diffX = abs(currLoc.x - destLoc.x);
-	int diffY = abs(currLoc.y - destLoc.y);
-	int dirX = currLoc.x > destLoc.x ? -1 : 1;
-	int dirY = currLoc.y > destLoc.y ? -1 : 1;
+	NSI diffX = abs(currLoc.x - destLoc.x);
+	NSI diffY = abs(currLoc.y - destLoc.y);
+	NSI dirX = currLoc.x > destLoc.x ? -1 : 1;
+	NSI dirY = currLoc.y > destLoc.y ? -1 : 1;
 
 	if (diffX == 0 && diffY == 0) {
 		return;
@@ -60,8 +60,8 @@ void moveTo ( CGPoint dest ) {
 		}
 	}
 
-	int xArrived = 0, yArrived = 0, diff;
-	float accelerant;
+	NSI xArrived = 0, yArrived = 0, diff;
+	CGF accelerant;
 	while (!xArrived && !yArrived) {
 		diffX = abs(destLoc.x - x);
 		diffY = abs(destLoc.y - y);
@@ -175,7 +175,7 @@ void dragTo ( CGPoint dest ) {
 	[NSApp activateIgnoringOtherApps:YES];
 	moveTo ( a );
 	sleep(3);					// start at A
-//	float delta = AZDistanceFromPoint(a, z);
+//	CGF delta = AZDistanceFromPoint(a, z);
 //	switch (self.orientation)
 //		{case AZDockOrientBottom: {
 //			moveVia( a.x, self.screenSize.height ); 		// Coax to edge (bottom)
@@ -199,8 +199,8 @@ void dragTo ( CGPoint dest ) {
 
 
 - (NSA*) coaxPointsForPoints:(CGPoint)point to:(CGPoint)dest {
-	float dist = AZDistanceFromPoint(point, dest);
-	float large = [self largeValue];
+	CGF dist = AZDistanceFromPoint(point, dest);
+	CGF large = [self largeValue];
 	switch (self.orientation) {
 		case AZDockOrientBottom: {
 		return @[	$point(	 point),							// start at A
@@ -223,8 +223,8 @@ void dragTo ( CGPoint dest ) {
 
 - (NSA*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
 {
-	float distance = distanceFromPoint(a,b);
-	float radius = 25;
+	CGF distance = distanceFromPoint(a,b);
+	CGF radius = 25;
 	//	return [[@0 to:@20]arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 	NSBezierPath *originalPath = [NSBezierPath bezierPath];
 	[originalPath appendBezierPathWithArcFromPoint:a toPoint:b radius:radius];
@@ -330,7 +330,7 @@ void typeString(char *str) {
 	Ascii2KeyCodeTable ttable;
 	InitAscii2KeyCodeTable(&ttable);
 
-	int i;
+	NSI i;
 	char chr;
 	for (i = 0; i < strlen(str); i++) {
 		chr = str[i];
@@ -632,8 +632,8 @@ void AZDoubleClick(CGPoint point) {
  CGPoint ourLoc = CGEventGetLocation(ourEvent);
  //	[args setObject:[NSNumber numberWithInteger:temp] forKey:@"x"];
  //	[args setObject:[NSNumber numberWithInteger:temp] forKey:@"y"];
- //	int x = [((NSNumber*) [args valueForKey:@"x"])intValue];
- //	int y = [((NSNumber*) [args valueForKey:@"y"])intValue];
+ //	NSI x = [((NSNumber*) [args valueForKey:@"x"])intValue];
+ //	NSI y = [((NSNumber*) [args valueForKey:@"y"])intValue];
  // The data structure CGPoint represents a point in a two-dimensional coordinate system.  Here, X and Y distance from upper left, in pixels.
  
  CGPoint startPoint = xy;
@@ -727,8 +727,8 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 @end
 */
 /* void processCommand(const char *cmd) {
-	int tmpx, tmpy, btn;
-	float tmpInterval;
+	NSI tmpx, tmpy, btn;
+	CGF tmpInterval;
 	UInt32 tmpkc;
 	char str[CMD_STRING_MAXLEN];
 
@@ -836,7 +836,7 @@ void print_msg(const char *msg) {
 #define CMD_STRING_MAXLEN 256
 void pathForArc(CGContextRef context, CGRect r, int startAngle, int arcAngle)
 {
-	float start, end;
+	CGF start, end;
 	CGAffineTransform matrix;
 
 	// Save the context's state because we are going to scale it
@@ -869,7 +869,7 @@ void pathForArc(CGContextRef context, CGRect r, int startAngle, int arcAngle)
 	// but leaves the path, since the path is not part of the graphics state.
 	CGContextRestoreGState(context);
 }
-//void mouseWarp(	int posX, int posY ) 		{
+//void mouseWarp(	NSI posX, int posY ) 		{
 //	CGPoint dest = { .x = posX, .y = posY };
 //	CGWarpMouseCursorPosition(dest);
 //	if (bDragging) {

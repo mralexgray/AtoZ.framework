@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUI,BarProgressPhase) { AZProgressPhaseNone = 0, AZProgressPhas
 
 @interface AZWebView : WebView //<AZURLBarDelegate>
 @property AGNSSplitView *split, *consoleSplit;
-@property NSLogConsoleView  *console;
+@property AZLogConsoleView  *console;
 @property (nonatomic, weak) IBOutlet AZURLBar *urlBar;
 - (void)urlBar:(AZURLBar *)urlBar didRequestURL:(NSURL *)url;
 - (BOOL)urlBar:(AZURLBar *)urlBar isValidRequestStringValue:(NSString *)requestString;

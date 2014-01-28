@@ -231,6 +231,8 @@ NSP AZPointFromDim ( CGF val );
 // converts a float to a rect of equal sized sizes of dim;
 NSR AZRectFromDim ( CGF dim );
 
+NSP AZP(CGF x, CGF y);
+
 //  Makes Rect 0, 0, boundsX, boundsY  easy syntax AZRectBy ( 200,233)
 NSR AZRectBy ( CGF boundX, CGF boundY );
 

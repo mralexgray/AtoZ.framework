@@ -13,6 +13,21 @@ JREnumDefine		(AZOrient );
 //JROptionsDefine	(AZ_arc);
 
 
+
+void drawResizeHandleInRect(NSR frame) {
+
+	[[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.5] set];
+	NSBezierPath *resizePath = [NSBezierPath bezierPath];
+	float margin = 2.0f;
+	[resizePath moveToPoint:NSMakePoint(frame.size.width - margin, 14.0f)];
+	[resizePath lineToPoint:NSMakePoint(frame.size.width - 14.0f, margin)];
+	[resizePath moveToPoint:NSMakePoint(frame.size.width - margin, 10.0f)];
+	[resizePath lineToPoint:NSMakePoint(frame.size.width - 10.0f, margin)];
+	[resizePath moveToPoint:NSMakePoint(frame.size.width - margin, 6.0f)];
+	[resizePath lineToPoint:NSMakePoint(frame.size.width - 6.0f, margin)];
+	[resizePath stroke];
+}
+
 extern void instrumentObjcMessageSends(BOOL);
 
 NSString* AZTrace(void(^block)(void)) {
@@ -503,22 +518,27 @@ NSS * googleSearchFor(NSS *string) {
 //	NSLog(@"result: %@", content);
 //	return content;
 }
-NSS * WANIP() {
-	NSERR *error		= nil;  NSScanner *theScanner; NSS *externalIP, *text, *noway = @"External IP N/A";
-	NSURL *iPURL	   = $URL(@"http://www.dyndns.org/cgi-bin/check_ip.cgi");
-	NSS *theIpHtml	   = [NSS stringWithContentsOfURL:iPURL encoding:NSUTF8StringEncoding error:&error];
-	if (error) return noway;
-	theScanner		  = [NSScanner scannerWithString:theIpHtml];
-	while (!theScanner.isAtEnd) {
-		[theScanner scanUpToString:@"<" intoString:NULL];					// find start of tag
-		[theScanner scanUpToString:@">" intoString:&text];				   // find end of tag
-		// replace the found tag with a space  (you can filter multi-spaces out later if you wish)
-		theIpHtml		= [theIpHtml stringByReplacingOccurrencesOfString:$(@"%@>", text) withString:@" "];
-		NSA *ipItmsArr		  = theIpHtml.words;
-		NSUI aIdx	= [ipItmsArr indexOfObject:@"Address:"];   externalIP  = ipItmsArr [ ++aIdx ];
-	}
-	return externalIP ? externalIP : noway;
+NSS * WANIP() { // <html><head><title>Current IP Check</title></head><body>Current IP Address: 69.86.139.253</body></html>
+
+	NSERR *error						= nil;
+	NSURL *iPURL						= $URL(@"http://www.dyndns.org/cgi-bin/check_ip.cgi");
+//							*theIpHtml	= [NSS stringWithContentsOfURL: encoding:NSUTF8StringEncoding error:&error];
+
+	AZHTMLParser *p = [AZHTMLParser.alloc initWithContentsOfURL:iPURL error:&error];
+	if (error) return @"External IP N/A";
+	return [p.body.contents substringAfter:@"Address: "];
 }
+//	NSScanner *theScanner		= [NSScanner scannerWithString:theIpHtml];
+//	while (!theScanner.isAtEnd) {
+//		[theScanner scanUpToString:@"<" intoString:NULL];					// find start of tag
+//		[theScanner scanUpToString:@">" intoString:&text];				   // find end of tag
+//		// replace the found tag with a space  (you can filter multi-spaces out later if you wish)
+//		theIpHtml		= [theIpHtml stringByReplacingOccurrencesOfString:$(@"%@>", text) withString:@" "];
+//		NSA *ipItmsArr		  = theIpHtml.words;
+//		NSUI aIdx	= [ipItmsArr indexOfObject:@"Address:"];   externalIP  = ipItmsArr [ ++aIdx ];
+//	}
+//	return externalIP ? externalIP : noway;
+
 char * GetPrivateIP() {
 	struct hostent *h;
 	char hostname[100];
@@ -3226,6 +3246,47 @@ static int get_image_symbol_count(const struct ImageLoaderMachO* image) {
 	return -1;
 }
 
+//	CALayer *l 		  	= CALayer.layer;
+//	l.frame   				= [self.window.contentView frame];
+//	l.backgroundColor = [NSColor white:.3 a:.8].CGColor;
+//	[self.window.contentView setLayer:l];
+//	[self.window.contentView setWantsLayer:YES];
+
+void AZSpinnerInViewWithColor(NSV * view, NSC * color) { CAL * vL, * status,* sMask; CABA *rot;
+
+	vL								= CALayer.layer, status= CALayer.layer, sMask = CALayer.layer;
+	vL.frame					= view.bounds;
+	view.layer				= vL;
+	view.wantsLayer		= YES;
+ rot								= [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+	rot.duration			= 5;
+	rot.beginTime			= 0;
+//	rot.fillMode = kCAFillModeBackwards;
+	rot.autoreverses			= NO;
+	rot.repeatCount				= HUGE_VALF;
+	rot.toValue						= @(-M_PI*2);
+	status.frame					= sMask.frame = NSMakeRect(10,10, 20, 20);
+//	[status addSublayer:sMask];
+	NSImage * i						= [NSImage imageNamed:NSImageNameRefreshFreestandingTemplate];
+	i.size								= status.frame.size;
+//	[i lockFocusBlock:^(NSImage *i) {
+	[i lockFocus];
+		[color set];
+		NSRectFillUsingOperation(status.bounds,NSCompositeSourceAtop);
+//	}];
+	[i unlockFocus];
+	//bestRepresentationForRect:self.frame context:NSGraphicsContext.currentContext hints:nil];
+//	sMask.
+	status.contents				= i;
+	status.edgeAntialiasingMask = NSMaxXEdge|NSMinXEdge|NSMaxYEdge|NSMinYEdge;
+//	sMask.anchorPoint = NSMakePoint(0,0);
+//	status.mask = sMask;
+	status.backgroundColor = NSColor.clearColor.CGColor;
+//	status.borderColor = NSColor.blackColor.CGColor;
+//	status.borderWidth = 4;
+	[view.layer addSublayer:status];
+	[status addAnimation:rot forKey:@"transform"];
+}
 /*	Usage:
  
  lookup_function_pointers("UIKit", "_UIKBGetKeyboardByName", &fptr, "_fntable.12345", &array, NULL);

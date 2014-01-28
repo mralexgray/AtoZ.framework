@@ -225,9 +225,8 @@ typedef void(^bSelf)(id);
 - (CAL*)hitTestEvent:(NSEvent*)e inView:(NSView*)v;
 
 - (void) toggleLasso:(BOOL)state;
-
-- (id) lassoLayerForLayer:(CAL*)layer;
-
+//- (id) lassoLayerForLayer:(CAL*)layer;
++ (CAShapeLayer*)lassoLayerForLayer:(CAL*)layer;
 
 - (CAL*) selectionLayerForLayer:(CAL*)layer;
 - (CAT3D)makeTransformForAngle:(CGF)angle;

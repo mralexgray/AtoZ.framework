@@ -10,6 +10,8 @@
 
 @interface WebView (AtoZ)
 
+- (void) loadJQ;
+
 - (void) makeMobile;
 
 - (void) loadFileAtPath:(NSS*)path;
@@ -17,6 +19,11 @@
 - (NSImage *)snapshot;
 
 -(void)appendTagToBody:(NSS*)tagName InnerHTML:(NSS*)innerHTML;
+-(void)appendTag:(NSS*)tagName attrs:(NSD*)attrs inner:(NSS*)innerHTML;
 
+- (void) evaluate:(NSS*)jsString;
+- (void) evaluateScriptAt:(NSS*)urlString;
+- (void) injectCSSAt:(NSS*)urlString;
+- (void) injectCSS:(NSS*)css;
 @end
 

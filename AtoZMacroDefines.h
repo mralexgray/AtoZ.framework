@@ -303,29 +303,29 @@
 #define          NSBLO NSBlockOperation
 #define           NSTC NSTableColumn
 #define       NSPUBUTT NSPopUpButton
-#define            NSR NSRect
-#define           NSPI NSProgressIndicator
-#define        NSSPLTV NSSplitView
-#define          NSTSK NSTask
-#define            NSS NSString
-#define           NSIV NSImageView
-#define          NSBWM NSBorderlessWindowMask
-#define           NSDO NSDragOperation
-#define         NSSEGC NSSegmentedControl
-#define            NST NSTimer
-#define          NSRNG NSRange
-#define          NSMIS NSMutableIndexSet
-#define         NSTBAR NSToolbar
-#define           NSSZ NSSize
-#define          NSAPP NSApplication
-#define           NSDE NSDirectoryEnumerator
-#define          NSVAL NSValue
-#define       NSDCLASS NSDictionary.class
-#define           NSFH NSFileHandle
-#define         NSBUTT NSButton
-#define       NSURLRES NSURLResponse
-#define            NSV NSView
-#define            NSA NSArray
+    #define            NSR NSRect
+    #define           NSPI NSProgressIndicator
+    #define        NSSPLTV NSSplitView
+    #define          NSTSK NSTask
+    #define            NSS NSString
+    #define           NSIV NSImageView
+    #define          NSBWM NSBorderlessWindowMask
+    #define           NSDO NSDragOperation
+    #define         NSSEGC NSSegmentedControl
+    #define            NST NSTimer
+    #define          NSRNG NSRange
+    #define          NSMIS NSMutableIndexSet
+    #define         NSTBAR NSToolbar
+    #define           NSSZ NSSize
+    #define          NSAPP NSApplication
+    #define           NSDE NSDirectoryEnumerator
+    #define          NSVAL NSValue
+    #define       NSDCLASS NSDictionary.class
+    #define           NSFH NSFileHandle
+    #define         NSBUTT NSButton
+    #define       NSURLRES NSURLResponse
+    #define            NSV NSView
+    #define            NSA NSArray
 
 #pragma mark - CoreAnimation
 

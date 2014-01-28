@@ -10,6 +10,8 @@
 
 @implementation NSNumber (AtoZ)
 
+- (NSA*) toArray { return [@0 to:self]; }
+
 + (NSNumber *) numberWithBytes:(const void *) bytes objCType:(const char *) type {
 	if( ! strcmp( type, @encode( char ) ) ) {
 		char *val = (char *) bytes;

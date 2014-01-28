@@ -1,0 +1,6 @@
+framework module AtoZ [system] {
+  umbrella header "AtoZ.h"
+  export *
+  module * { export * }
+}
+

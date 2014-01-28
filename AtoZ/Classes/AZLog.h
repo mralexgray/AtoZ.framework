@@ -1,80 +1,125 @@
 
 #import "BaseModel.h"
 #import "AtoZUmbrella.h"
-
-JREnumDeclare( LogEnv, 	LogEnvXcodeColor,		LogEnvXcodeNOColor,	LogEnvTTY,
-								LogEnvTTYColor,		LogEnvTTY256,			LogEnvUnknown 		);
-
-NSD* 	AZEnv 						( char** envp			  );
-void 	AZLogEnv						( char** envp			  );
-  id 	LogStackAndReturn		  	( id toLog				  );	// USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
-  id 	LogAndReturn			  	( id toLog		  		  ); 	// = ^(id toLog) { AZLOG(toLog); return toLog; };
-  id 	LogAndReturnWithCaller 	( id toLog, SEL caller );
-void 	QuietLog 				  	( NSS *format, ...	  );
-
-@interface		     NSString  (AtoZColorLog)
-
-@property (RONLY) const char * cchar;
-@property (RONLY) 	    NSS * colorLogString;  // TTY formatted NSString with Associated Color Info included
-- (void) setLogBackground	  : (id)color;
-- (void) setLogForeground	  : (id)color;
-
-@end
-@interface 					AZLog : BaseModel
-
-@property (nonatomic)  LogEnv   logEnv;
-
-- (NSA*) 		rgbColorValues	: (id)color;
-
-- (NSS*) 		colorizeString	: (NSS*)string
-						  withColor : (id)color;
-
-- (NSS*) 	   colorizeString : (NSS*)string
-							   front : (id)front
-						       back : (id)back;
-
-- (NSA*) 	colorizeAndReturn : (id)colorsAndThings, ... NS_REQUIRES_NIL_TERMINATION;
-
-- (void)           logInColor : (id)color
-								 file : (const char*)filename
-								 line : (int)line
-								 func : (const char*)funcName
-				           format : (id)format, ... 			NS_REQUIRES_NIL_TERMINATION;
-
-- (void) 			   logThese : (const char*)pretty    /* Pass a variadic list of Colors, and Objects, in any order! */
-							  things : (id)colorsAndThings,...	NS_REQUIRES_NIL_TERMINATION;
-@end
+#import "NSColor+AtoZ.h"
 
 #define 	AZLOGSHARED 		[AZLog sharedInstance]
 
-
+CLANG_IGNORE(-Wunused-variable)
 static NSString *dLog = nil;
-#define LGLVL 0
+CLANG_POP
 
-#ifdef DEBUG 
-#undef LGLVL
+JREnumDeclare( LogEnv, 	LogEnvXcodeColor,		LogEnvXcodeNOColor,		LogEnvTTY,
+												LogEnvTTYColor,			LogEnvTTY256,					LogEnvUnknown,
+												LogEnvError	);
+
+@interface       NSLogMessage : NSObject
+@property (readonly)			 id   JSONRepresentation;
+@property (readonly)   NSDate * date;
+@property (readonly) NSString * message, *severityString,
+															* function,
+														  * file;
+@property (readonly)	 NSData * data;
+@property							    NSN * line,
+															* severity;
++ (instancetype) messageWithLog:(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUInteger)sev;
+@end
+
+@interface 					   AZLog : BaseModel
+@property (RONLY)			LogEnv   logEnv;
+
+- (void) logMessage:(NSLogMessage*)msg;
+
+/*** Get a color from a string, a color, or an rgb tuple.
+	@param color An NSString name of, or hex representation of a color, an NSColor, or and NSArray of RGB values.
+	@return An sarray of r, g, b NSNumber floats representing the color ie. 0 - 255  (not 0-1);
+*/
++ (NSA*) 		rgbColorValues	: (id)   color;
++ (NSS*) 		colorizeString	: (NSS*)string
+									withColor : (id)   color;
++ (NSS*) 	   colorizeString : (NSS*)string
+							        front : (id)   front
+						           back : (id)    back;
+
+/*** @param colorsAndThings (VA_LIST) colors + objects, in any order, TRMINATED BY NIL
+		 @return  wiull use those colors to log those objects! */
+//- (NSA*) COLORIZE:(id) colorsAndThings, ...  {
+
++ (NSA*) 	colorizeAndReturn : (id)  colorsAndThings, ... NS_REQUIRES_NIL_TERMINATION;
+- (void)         logInColor : (id)					  color
+											 file : (const char*)filename
+								       line : (int)					   line
+											 func : (const char*)funcName
+				             format : (id)					 format, ... NS_REQUIRES_NIL_TERMINATION;
+- (void) 			     logThese : (const char*)  pretty    /* Pass a variadic list of Colors, and Objects, in any order! */
+							       things : (id)  colorsAndThings,...	NS_REQUIRES_NIL_TERMINATION;
+@end
+
+@interface		     NSString  (AtoZColorLog)
+@property (RONLY) const char * cchar;
+@property (RONLY) 	     NSS * colorLogString;  // TTY formatted NSString with Associated Color Info included
+- (void)    setLogBackground : (id)color;
+- (void)    setLogForeground : (id)color;
+@end
+
+NSD* 	AZEnv										(char** envp);
+void 	AZLogEnv								(char** envp);
+  id 	LogStackAndReturn				(id toLog);		// USAGE: .... return (NSA*)logAndReturn( [NSArray arrayWithArrays:@[blah,blahb]] );
+  id 	LogAndReturn						(id toLog); 	// = ^(id toLog) { AZLOG(toLog); return toLog; };
+  id 	LogAndReturnWithCaller 	(id toLog, SEL caller);
+void 	QuietLog								(NSS *format,...);
+
+
+#define __VSTR(x) (__bridge const void*)x
+#define LOG_CALLER_VERBOSE NO		// Rediculous logging of calling method
+#define LOG_CALLER_INFO	YES		// Slighlty less annoying logging of calling method
+
+//#ifndef NDEBUG
+//extern void _NSSetLogCStringFunction(void (*)(const char *string, unsigned length, BOOL withSyslogBanner));
+//static void PrintNSLogMessage(const char *string, unsigned length, BOOL withSyslogBanner) {	puts(string);	}
+//static void HackNSLog(void) __attribute__((constructor));
+//static void HackNSLog(void) {	_NSSetLogCStringFunction(PrintNSLogMessage);	}
+//#endif
+
+//#ifdef DEBUG
+//#ifdef LGLVL
+//#undef LGLVL
+//#endif
 #define LGLVL 7
-#endif
+//#else
+//#define LGLVL 0
+//#endif
 
-#define DEBUGBUFFER(...)  dLog = [[dLog && dLog.length ? dLog : @"" stringByAppendingFormat:__VA_ARGS__]stringByAppendingString:@" ... "]
+#define DEBUGBUFFER(fmt...) 	^{ id x = (dLog && dLog.length) ? dLog : @""; dLog = [[x stringByAppendingString:[NSS stringWithFormat:fmt arguments:__VA_ARGS__]] stringByAppendingString:@" ... "]; }()
 
-#define DEBUGLOG(...) ^id{  if (LGLVL>5) { NSString *toLog = @""; if (dLog != nil) toLog = [dLog copy]; if (toLog.length) dLog = nil; \
-												 printf("%s\n",[[toLog stringByAppendingFormat:__VA_ARGS__] UTF8String]); } return (id)nil;  }()
+#define DEBUGLOG(fmt...) \
+	[AZSHAREDLOG logMessage: \
+		[NSLogMessage messageWithLog: \
+			[NSS stringWithFormat:fmt arguments:__VA_ARGS__] \
+			file:__FILE__ \
+			func:__PRETTY_FUNCTION__ \
+			line:__LINE__ \
+			sev:3 \
+		] \
+	]
+			
 
+
+//											{ NSString *toLog = @""; \
+//													if (dLog != nil) toLog = [dLog copy]; if (toLog.length) dLog = nil; \
+//												 printf("%s\n",[[toLog stringByAppendingFormat:__VA_ARGS__] UTF8String]); } return (id)nil;  }()
 
 #define	NSLog(fmt...) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt,nil]
 
 #define	AZLOG(x) 			NSLog(@"%@", x)
-#define 	COLORIZE(x...) 	[AZLOGSHARED colorizeAndReturn:x]
+#define 	COLORIZE(x...) 	[AZLog colorizeAndReturn:x]
 #define _AZColorLog(x) 		[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:x];
 #define 	LOGWARN(fmt...) 	[AZLOGSHARED logInColor:RANDOMCOLOR file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil];
 #define 	LOGCOLORS(X...) 	[AZLOGSHARED logThese:__PRETTY_FUNCTION__ things:X]
 #define	COLORLOG(fmt...)	[AZLOGSHARED logThese:__PRETTY_FUNCTION__ things:fmt, nil]
 
-
 //		IS_OBJECT(_X_) ? $(@"\n\nAttempting a \"blockDescription\":%@",[_X_ blockDescription]) : @"");	} while(0)
 //	strcmp(_TYPE_CODE_,"@?") ? $(@"\n\nAttempting a \"blockDescription\":%@",[(id)(_X_) blockDescription]) : @"");	} while(0)
-
 
 #pragma mark - STACKTRACE
 // STACK MACRO: "UIKit 0x00540c89 -[UIApplication _callInitializationDelegatesForURL:payload:suspended:] + 1163"
@@ -287,3 +332,23 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
  }
  #endif
  */
+
+
+
+
+#import		<Foundation/Foundation.h>
+#import		<Cocoa/Cocoa.h>
+#include	<asl.h>
+#include	<notify.h>
+#include	<notify_keys.h>
+#include	<sys/time.h>
+
+
+//Watch ASL logg without blocking!  Via "watchlog"
+
+@interface				 AZASLLogger : NSTreeController
+- (void)								 watch ;					// Starts it.
+@property (nonatomic) NSWindow * show ;		// NSOutlineView in a window.
+@end
+
+

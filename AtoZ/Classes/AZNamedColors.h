@@ -8,9 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface  NSColorList (Dictionary)
+@property (readonly) NSDictionary *dictionary;
+@end
+
+
 @interface AZNamedColors : NSColorList
 
-+(AZNamedColors *)namedColors;
+
++ (AZNamedColors *)namedColors;
 
 +(NSString *)nameOfColor:(NSColor *)color;
 +(NSString *)nameOfColor:(NSColor *)color savingDistance:(NSColor **)distance;

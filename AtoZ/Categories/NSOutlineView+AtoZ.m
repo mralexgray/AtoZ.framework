@@ -434,7 +434,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 @implementation NSTreeController (NSTreeController_WCExtensions)
 // returns an array of all the NSTreeNode objects maintained by the receiver
 - (NSArray *)treeNodes; {
-	return [[self.arrangedObjects childNodes] reduce:@[] withBlock:^id(id sum, NSTreeNode *node){
+	return [(NSA*)[self.arrangedObjects childNodes] reduce:@[] withBlock:^id(id sum, NSTreeNode *node){
 		sum = [sum arrayByAddingObject:node];
 		return node.isLeaf ? sum : [sum arrayByAddingObjectsFromArray:node.descendants];
 	}];

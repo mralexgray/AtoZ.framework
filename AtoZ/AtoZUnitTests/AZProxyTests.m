@@ -14,7 +14,7 @@
 
 	_proxy = [AZProxy proxyForObjects:@[NSMutableArray.new,NSMutableString.new]];
 	XCTAssertNotNil(_proxy, @"Shouldn't be nil");
-   [_proxy appendString:@"This "];
+	[_proxy appendString:@"This "];
 	[_proxy appendString:@"is "];
 	[_proxy addObject:@[@"This is a test!"]];
 	[_proxy appendString:@"a "];
@@ -28,10 +28,6 @@
 	XCTAssertEqualObjects(_proxy[0][0], @"This is a test!", @"Appending failed, got: '%@'", _proxy);
 	//	NSLog(@"Appending successful. Proxy:%@", _proxy);
 	
-}
-- (void)testExample
-{
-	XCTFail(@"Unit tests are not implemented yet in AtoZUnitTests");
 }
 
 @end

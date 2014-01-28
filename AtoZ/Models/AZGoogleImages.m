@@ -35,8 +35,9 @@ AZPROP(AZHTMLParser,parser);
 
 	NSERR *e = nil; _urls = _urls ?: NSMA.new; NSUI startCt = _urls.count;
 
-	self.parser 			= [AZHTMLParser.alloc initWithContentsOfURL:self.url error:&e];
-	if (e) return (void)DEBUGLOG(@"error with URL request to google!");;
+	self.parser	= [AZHTMLParser.alloc initWithContentsOfURL:self.url error:&e];
+	if (e) return LOGCOLORS(@"error with URL request to google!", ORANGE,nil);;
+	
 	NSS * sentinel	= @"imgres?imgurl=", *f2=@"<a href=\"/imgres?imgurl=", *f3=@"&amp;imgrefurl=";
 	NSA * nodes 	= [_parser.body findChildrenWithAttribute:@"id" matchingName:@"ires" allowPartial:FALSE];
 
@@ -63,7 +64,10 @@ AZPROP(AZHTMLParser,parser);
 	AZGoogleQuery *azq = [BASECOLLECTION objectWithValue:query forKey:@"query"] ?: AZGoogleQuery.new;
 											  [azq startTiming];
 	azq.imageUrlsBlock = block;
-	azq.query	 		 = query;	  [azq loadMoreURLs];
+	azq.query					 = query;
+	[AZSSOQ addOperationWithBlock:
+		[NSBlockOperation blockOperationWithBlock:^{ [azq loadMoreURLs]; }]
+	];
 	[BASECOLLECTION containsObject: azq] ? nil : 
    [BASECOLLECTION      addObject: azq];
 	return azq;

@@ -1,6 +1,7 @@
 
 
 #import "AtoZ.h"
+#import "NSObject+AtoZ.h"
 #import "NSObject+Properties.h"
 
 const char * property_getTypeString		  ( objc_property_t property ) {
@@ -263,19 +264,19 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	free( (void *)str );
 	return ( result );
 }
-+ (NSA*) propertyNames									{
-
-   unsigned int propertyCount;
-   objc_property_t *properties = class_copyPropertyList([self class], &propertyCount);
-	if (!propertyCount) return free( properties ), nil;
-	NSMutableArray *list = NSMA.new;
-	for (unsigned int i = 0; i < propertyCount; i++)
-	{
-   	NSString *selector = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding] ;
-		if (selector) [list addObject:selector];
-	}
-	return free( properties ), list;
-}
++ (NSA*) propertyNames									{ return [self getPropertyListForClass]; }
+//
+//   unsigned int propertyCount;
+//   objc_property_t *properties = class_copyPropertyList([self class], &propertyCount);
+//	if (!propertyCount) return free( properties ), nil;
+//	NSMutableArray *list = NSMA.new;
+//	for (unsigned int i = 0; i < propertyCount; i++)
+//	{
+//   	NSString *selector = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding] ;
+//		if (selector) [list addObject:selector];
+//	}
+//	return free( properties ), list;
+//}
 - (NSD*) propertyNamesAndTypes						{ return [self.class propertyNamesAndTypes]; }
 + (NSD*) propertyNamesAndTypes						{
 

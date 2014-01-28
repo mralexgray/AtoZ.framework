@@ -215,7 +215,7 @@
 	//@end
 
 	//- (void) debugLayers:(NSA*)layers{
-		/*	1=open, 0=closed  */				//if (0)	 [[NSLogConsole sharedConsole] open];
+		/*	1=open, 0=closed  */				//if (0)	 [[AZLogConsole sharedConsole] open];
 	//	[layers enumerateObjectsUsingBlock:^(CALayer* obj, NSUInteger idx, BOOL *stop) {
 	//		obj.borderColor = cgRANDOMCOLOR;
 	//		obj.borderWidth = RAND_FLOAT_VAL(3,8);

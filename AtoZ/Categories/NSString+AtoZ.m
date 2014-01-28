@@ -9,6 +9,11 @@
 #import "NSString+AtoZ.h"
 #import "AtoZModels.h"
 
+
+@implementation NSData (AtoZ)
+- (NSS*) UTF8String { return [NSS stringWithUTF8Data:self]; }
+@end
+
 @implementation NSParagraphStyle (AtoZ)
 + (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d {	NSMutableParagraphStyle *s;
 	return [s = self.defaultParagraphStyle.mutableCopy setPropertiesWithDictionary:d], s;
@@ -341,6 +346,9 @@ NSString *stringForBrightness( CGF brightness )	{	return
 		s = [s stringByReplacingCharactersInRange:r withString:@""];
 	return s;
 }
+
+- (NSData*) UTF8Data { return [self dataUsingEncoding:NSUTF8StringEncoding]; }
+
 - (NSS*) parseXMLTag:(NSS*)tag						{       return [self substringBetweenPrefix:$(@"<%@>", tag) andSuffix:$(@"</%@>", tag)]; }
 - (NSS*) unescapeQuotes								 	{
 	return [self stringByReplacingOccurrencesOfString:@"\"" withString:@""];
@@ -786,9 +794,8 @@ finish:
 	return re;
 }
 
-- (NSA*)lines      {
-	return [self componentsSeparatedByString:@"\n"];
-}
+- (NSA*)lines      {	return [self componentsSeparatedByString:@"\n"];		}
+- (NSA*)eolines    {	return [self componentsSeparatedByString:@"\r\n"];	}
 
 - (NSA*)wordsWithRanges {
 	NSMutableArray *re = NSMutableArray.array;
@@ -1341,9 +1348,11 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 @end
 
 @implementation NSAttributedString (AtoZ)
-+ (NSD*) defaults {
++ (NSD*) defaults { static NSD *ds = nil;
 
-	return @{NSForegroundColorAttributeName:WHITE, NSFontAttributeName:[AtoZ.controlFont fontWithSize:22], NSFontSizeAttribute:@22};
+	return ds = ds ?: @{NSForegroundColorAttributeName:WHITE,
+											NSFontAttributeName:[AtoZ.controlFont fontWithSize:22],
+											NSFontSizeAttribute:@22};
 }
 @end
 

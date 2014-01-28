@@ -1,37 +1,47 @@
 
-//  NSArray+AtoZ.h
-//  AtoZ
-
 #import "AtoZUmbrella.h"
 #import "KVOMap/KVOMap.h"
 
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSArray (EnumExtensions)
-
-- (NSString*) stringWithEnum: (NSUInteger) enumVal;
-- (NSUInteger) enumFromString: (NSString*) strVal default: (NSUInteger) def;
-- (NSUInteger) enumFromString: (NSString*) strVal;
-
+- (NSS*) stringWithEnum:(NSUI)enumVal;
+- (NSUI) enumFromString:(NSS*)strVal;
+- (NSUI) enumFromString:(NSS*)strVal default:(NSUI)def;
 @end
+
 @interface  NSArray (NSTableDataSource)
-- (id) tableView:(NSTableView*)aTableView objectValueForTableColumn:(NSTableColumn*)aTableColumn row:(NSI)rowIndex;
+-  (id) tableView:(NSTV*)tv objectValueForTableColumn:(NSTC*)tc row:(NSI)idx;
 - (NSI) numberOfRowsInTableView:(NSTableView *)aTableView;
 @end
 
 @interface NSArray (AtoZCLI)
 - (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
-- (NSS*) formatAsListWithPadding:(NSUI)characters;
+- (NSS*)      formatAsListWithPadding:(NSUI)characters;
 @end
 
-
 #define AZKP AZKeyPair
-@interface AZKeyPair : NSO
-+ (instancetype) key:(id)k value:(id)v;
+/** Abbreviated, AZKP, these re good for returning a Key pair to a dictionary from an array block.  
+	  Designated init. + (instancetype) key:(id)k value:(id)v; */
+@interface AZKeyPair : NSO + (instancetype) key:(id)k value:(id)v;
 @property (copy) id key, value;
 @end
 
+@interface NSSet (AtoZ)
+- (id)filterOne:(BOOL (^)(id object))block;
+@end
+
 @interface NSArray (AtoZ)
+
+@property (RONLY) NSS * joinedByNewlines;
+
+/** Iterates objects with Timer, executing a block on each step.
+ @param time Speed of the timer interval
+ @param repeat Should it loop?
+ @param block A three-arguent, void return block.  Gives iterated object, its index, and a STOP pointer for the timer.
+ @return Returns an NSTimer, for future invalidation, etc.
+ */
+-  (NST*) enumerateWithInterval:(NSTI)time repeat:(BOOL)repeat usingBlock:(AZObjIdxStopBlock)block;
 
 -  (NSS*)  stringAtIdx:(NSUI)idx;
 - (NSMS*) mstringAtIdx:(NSUI)idx;
@@ -153,6 +163,13 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 /*** Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary */
 - (NSA*)filter:(BOOL (^)(id object))block;
+
+/*** Returns the first object (non-nil) from the block.  Not necessarily the object passed in, but somethig. */
+- (id)filterOneBlockObject:(id(^)(id object))block;
+
+
+// returns  the first non-nil response.
+- (id)filterNonNil:(id(^)(id))block;
 
 - (NSUI)indexOfFirstObjectPassing:(BOOL(^)(id obj))block;
 

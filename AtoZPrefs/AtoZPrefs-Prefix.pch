@@ -7,4 +7,20 @@
 	#import <PreferencePanes/PreferencePanes.h>
 	#import <Foundation/Foundation.h>
 	#import <AtoZ/AtoZ.h>
+	#import "AtoZPrefs.h"
+
+#define fm NSFileManager.defaultManager
+#define URLFORDOMAIN(X) [fm URLForDirectory:X inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:e]
+
+NS_INLINE NSError* LogError  (NSError  *e)                { NSLog( @"Error: %@", e); return e; }
+NS_INLINE NSError* NewError  (NSString *m)                { return [NSError errorWithDomain: @"AtoZAgent" code:0 userInfo: @{NSLocalizedDescriptionKey : m}]; }
+NS_INLINE BOOL NO_AssignError(NSError **dst, NSError *src){ if(dst) *dst = src; return NO; }
+NS_INLINE BOOL NO_LogError   (NSError **e)                { if(e) LogError(*e); return NO; }
+
+#define agentName "AtoZAgent"
+#define agentLabel @"com.mrgray.AtoZAgent"
+#define launchctlPath @"/bin/launchctl"
+
+
 #endif
+

@@ -15,13 +15,38 @@
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
-	<string>BNDL</string>
+	<string>AAPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>AtoZ</string>
+	<key>CFBundleURLName</key>
+	<string>AtoZ</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>AtoZ Control Panel</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>atozprefs</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>AtoZ</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>atoz</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>LSIsAppleDefaultForScheme</key>
+	<true/>
+	<key>NSAppleScriptEnabled</key>
+	<string>NO</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2013 AlexGray All rights reserved.</string>
 	<key>NSMainNibFile</key>

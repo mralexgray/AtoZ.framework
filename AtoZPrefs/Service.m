@@ -10,18 +10,15 @@
 
 @implementation Service
 
-@synthesize plist;
-@synthesize image;
-@synthesize identifier;
-@synthesize plistFilename;
+@synthesize plist, image, identifier, plistFilename;
 
-- (id) initWithOptions:(NSDictionary *)options {
-    self = [super init];
-    self.plist = [options objectForKey:@"plist"];
-    self.image = [options objectForKey:@"image"];
-    NSDictionary *plistData = [[NSDictionary alloc] initWithContentsOfFile:self.plist];
-    self.identifier = [plistData objectForKey:@"Label"];
-    self.plistFilename = [NSString stringWithFormat:@"%@%@", self.identifier, @".plist"];
+- (id) initWithOptions:(NSDictionary *)options {    self = [super init];
+
+    self.plist					= [options             objectForKey:@"plist"];
+    self.image					= [options					   objectForKey:@"image"];
+    NSD *plistData			= [NSD.alloc initWithContentsOfFile:self.plist];
+    self.identifier			= [plistData           objectForKey:@"Label"];
+    self.plistFilename	= [NSS						 stringWithFormat:@"%@%@", self.identifier, @".plist"];
     return self;    
 }
 

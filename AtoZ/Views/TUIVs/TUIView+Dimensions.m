@@ -10,6 +10,16 @@
 
 @implementation TUIView (Dimensions)
 
+- (CGF)originX { return [self frame].origin.x; }
+- (CGF)originY { return [self frame].origin.y; }
+
+- (void)setOriginX:(CGF)x {
+	if (x != self.originX) [self setFrame:AZRectExceptOriginX(self.frame,x)];//,self.superview.needsDisplay =YES;
+}
+- (void)setOriginY:(CGF)y {
+	if (y != self.originY) [self setFrame: AZRectExceptOriginY(self.frame,y)];//,self.superview.needsDisplay =YES;
+}
+
 
 - (CGF)width {	return [self frame].size.width ;		}
 

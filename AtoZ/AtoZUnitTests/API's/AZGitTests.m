@@ -8,55 +8,28 @@
 
 #import <XCTest/XCTest.h>
 
-@interface 			AZGoogleImagesTests : XCTestCase 
-@property (NATOM) NSA* results;
-@end
-@implementation 	AZGoogleImagesTests
+@interface 			AZGitTests : XCTestCase @end
 
-- (NSA*) results {  
-
-	BLK_START;
-	[AZGoogleImages searchGoogleImages:NSS.randomBadWord withBlock:^(NSA *imageURLs) {	BLK_STOP;
-		_results = imageURLs;
-	}];
-	BLK_WAIT;
-	return _results;
-}
-- (void) setUp { [super setUp]; [self results]; }
-
-- (void)testDefaultResults	{ 		
-
-	NSUInteger ct;
-
-	__block NSUInteger ranTestCtr = 0;
-	for (id obj in _results) { 
-		 XCTAssertTrue([obj ISKINDA:NSString.class], @"should all be Strings. Instead got:%@!", NSStringFromClass([obj class])); 
-		ranTestCtr++; 
-	}
-	XCTAssertEqual(@(ranTestCtr), @(_results.count), @"didnt run the tests inside the loop!");
+@implementation 	AZGitTests
 
 
+- (void)testGitUsername	{
 
-	XCTAssertTrue(_results.count == 20, 	@"should fetch 10 URL'd; Instead got...%@", @(_results.count));
-	ct = [_results filter:^BOOL(id object) { 
-	
-		return [object ISKINDA:NSString.class];
-	}].count;
-	XCTAssertTrue(ct == _results.count, @"should all be NSUrl's! Instead found...%@", @(ct));
+	NSString* user = AZGit.lookupUsername;
+	XCTAssertTrue((SameString(user, @"alex@mrgray.com")||SameString(user, @"mralexgray")),
+		@" username should equal my user. instead got %@", user);
 }
 
-- (void) testQueryCache {
+- (void) testCommandlineCall {
 
-	XCTAssertNotNil(_results, @"should have gotten results");
-	NSS* last = [AZGoogleImages lastQuery]; 
-	XCTAssert(last != nil, @"should return last query term.");
-	if (last) {
-		BLK_START;
-		[AZGoogleImages searchGoogleImages:last withBlock:^(NSA *imageURLs) { BLK_STOP;
-			
-			XCTAssertEqual(_results, imageURLs, @"i shoudl egt the same results, if i havent asked for more!");
-		}];
-		BLK_WAIT;
-	}
+	NSString *extip = WANIP(), *anotherWay = taskWithPathAndArgs(@"/sd/UNIX/bin/extip",nil);
+	       XX(extip);        XX(anotherWay);
+	XX(StringFromBOOL(SameString(extip,anotherWay)));
+	XCTAssertTrue(SameString(extip, anotherWay), @" external IP addresses should match. %@ vs %@", extip, anotherWay);
+}
+- (void) testGitPath {
+
+	NSString* git = AZGit.gitPath;
+	XCTAssertTrue(SameString(git, @"/usr/bin/git"), @"should find git Path, found %@", git);
 }
 @end

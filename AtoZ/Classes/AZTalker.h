@@ -17,4 +17,8 @@
 -(void) say:(NSString*)thing;
 +(void) say:(NSString*)thing;
 +(void) randomDicksonism;
+//+(NSData*) sayToData:(NSString*)thing;
++ (void)say:(NSString*)thing toData:(void(^)(NSData*d))data;
++ (void)say:(NSString*)thing toURL:(void(^)(NSURL*u))url;
+
 @end

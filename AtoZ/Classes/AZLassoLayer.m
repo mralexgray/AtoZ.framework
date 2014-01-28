@@ -17,7 +17,7 @@
 
 + (void) setLayer:(CAL*)layer 	{ //if (![self hasSharedInstance])	
 												//	[self setSharedInstance: self.instance];
-						 [self.class.sharedInstance setLayer:layer]; 
+						 [self.sharedInstance setLayer:layer];
 }
 
 -  (CGF) dynamicStroke {  return 	_dynamicStroke = AZMinDim(_root.boundsSize) * _strokeMultiplier * .1; }

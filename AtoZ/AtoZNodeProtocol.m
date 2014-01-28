@@ -2,7 +2,8 @@
 #import <Cocoa/Cocoa.h>
 #import <objc/runtime.h>
 #import "AtoZNodeProtocol.h"
-#import "extobjc_OSX/extobjc.h"
+#import <Zangetsu/Zangetsu.h>
+//#import "extobjc_OSX/extobjc.h"
 
 #ifdef AtoZFramework
 #define VOMIT @"vageen"
@@ -98,7 +99,9 @@ JREnumDefine(AZOutlineCellStyle);
 	else if 	(m == AZMethodOverrider) return [self valueForKey:@"expanded"];
 	else if 	(m == AZMethodNotFound ) return nil; return nil;
 }
-- (void) setExpanded:(id)e	 	{ AZMethod m = [self.class implementationOfSelector:@selector(e:)];
+- (void) setExpanded:(id)e	 	{
+
+  AZMethod m = [self.class implementationOfSelector:@selector(expanded)];
 	if 	  (m == AZMethodAuthor || m == AZMethodInherits) return objc_setAssociatedObject(self, (__bridge const void*)@"nodeExpanded", e, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	else if (m == AZMethodOverrider)  [self setValue:e forKey:@"expanded"];
 }

@@ -5,6 +5,28 @@
 #import <QuartzCore/QuartzCore.h>
  #import "AtoZUmbrella.h"
 
+
+@interface NSObject (AddMethodToDelegate)
+- (void) addToOrCreateDelegateMethod:(SEL)sel imp:(IMP)imp;
+@end
+
+@interface  NSOutlineView  (BlockDelegate) <NSOutlineViewDelegate>
+@property (copy) NSTableRowView*(^OVRowViewForItem)(NSOV*,id);
+-(void) setOVRowViewForItem:(NSTableRowView*(^)(NSOutlineView *ov,id x))OVRowViewForItem;
+@property (copy) void (^OVSelectionDidChange)(NSOutlineView*);
+- (void) setOVSelectionDidChange:(void (^)(NSOutlineView *))OVSelectionDidChange;
+@end
+
+@interface NSText (LastTyped)
+@property (readonly) NSS * lastLetter;
+@end
+@interface NSTextView (BlockChange) <NSTextViewDelegate>
+@property (CP,NATOM) void(^shouldChangeTextInRangeWithReplacement)(NSRNG,NSS*);
+-(void) setShouldChangeTextInRangeWithReplacement:(void (^)(NSRange rng, NSString *rplcmnt))shouldChangeTextInRangeWithReplacement;
+@property (CP,NATOM) void(^textDidChange)(NSText*);
+@end
+
+
 JROptionsDeclare( NSOVBlockDelegate, NSOVBlockDelegateDisclosureTriangle, NSOVBlockDelegateGroup,
 												 NSOVBlockDelegateRowViewForItem )
 

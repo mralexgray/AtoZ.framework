@@ -1,157 +1,240 @@
+//+ (instancetype)sharedHelper				{ __strong static AtoZHelper *_sharedInstance = nil; static dispatch_once_t onceToken;
+//	return dispatch_once(&onceToken, ^{ _sharedInstance = [[self alloc] init]; }),
+//	_sharedInstance;
+//}
+//+ (id) allocWithZone:(NSZone*)zone 	{ return self.sharedHelper; }
+//+ (id) alloc												{ return self.sharedHelper; }
+//- (id) init													{ return self; }
+//+ (id) _alloc												{ return [super allocWithZone:NULL]; } //this is important, because otherwise the object wouldn't be allocated
+//- (id) _init												{ return super.init;	}
+//	_socketServer = [AZWebSocketServer.alloc initWithPort:4321 delegate:self],
+//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #import "AtoZHelper.h"
-#import <AtoZ/AtoZ.h>
 
+NSAPPLICATIONMAIN
 
-extern CFRunLoopRef CFRunLoopGetMain(void);
+@implementation AtoZHelper { ASOCK *sock; }
 
-@implementation AZShowWindowScriptCommand
-- (id) performDefaultImplementation {    //we always say yes, because this is not a toggle command
-    [[AtoZ sharedInstance].azWindow makeKeyAndOrderFront:self];
-    return nil;
+- (void) awakeFromNib {
+
+	_httpServer  = AZHTTPRouter.new;
+	_httpServer.port = 3334;
+	[self setupRoutes];
+	[_httpServer start:nil];
+//	[_httpServer get:@"/" withBlock:^(RouteRequest *request, RouteResponse *response) { }]
+//	_sockets = [NSAC.alloc initWithContent:NSMA.new];
+//
+//	sock = [ASOCK listenOnPort:12345];
+//
+//	[sock setDidAcceptNewSocket:^(GCDAsyncSocket *sock1, GCDAsyncSocket *nSock) {
+//			NSLog(@"new sock:%@ onsock: %@",sock1,nSock);
+//	}];
+
+//	[_webView.mainFrame loadHTMLString: baseURL:nil];
+	_webView .mainFrameURL = $(@"http://%@:3334/colorlist", AZHOSTNAME);
+	_webView2.mainFrameURL = @"http://mrgray.com/testsocket.html";
+	XX(sock.isConnected);
+	XX(_window);
+	NSAPPACTIVATE;
+	[_text setTextDidChange:^(NSText *t) {
+		NSLog(@"text:%@", t.lastLetter);
+	}];
+	/* Post a notification when we are done launching so the application bridge can inform participating applications
+	 NSInteger menuState;
+	 menuState == GrowlDockMenu || menuState == GrowlBothMenus ?  [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular] : nil;
+	 */
+	[NSDistributedNotificationCenter.defaultCenter postNotificationName:@"ATOZ_IS_READY"
+																															 object:nil userInfo:nil deliverImmediately:YES];
 }
-@end
+- (void)colorlist:(RouteRequest*)request withResponse:(RouteResponse*)response {
 
-/*applications that go full-screen (games in particular) are expected to capture
- *	whatever display(s) they're using.
- *we [will] use this to notice, and turn on auto-sticky or something (perhaps
- *	to be decided by the user), when this happens.
- */
-#if 0
-static BOOL isAnyDisplayCaptured(void) {
-	BOOL result = NO;
-	CGDisplayCount numDisplays;
-	CGDisplayErr err = CGGetActiveDisplayList(/*maxDisplays*/ 0U, /*activeDisplays*/ NULL, &numDisplays);
-	if (err != noErr)
-			NSLog(@"Checking for captured displays: Could not count displays: %li", (long)err);
-	else {
-		CGDirectDisplayID *displays = malloc(numDisplays * sizeof(CGDirectDisplayID));
-		CGGetActiveDisplayList(numDisplays, displays, /*numDisplays*/ NULL);
+	[response respondWithJQueried:[[NSColor.randomPalette /*colorNames */ reduce:@"<html><head><title>TEST</title>\
+	<style> div { float:left; margin: 20px; padding: 20px; width:100px; height:100px; } </style>\
+	<script></script></head><body><ul style='list-style:none;'>".mutableCopy withBlock:^id(id sum, NSC* color) {
+		NSS *values = $(@"bright: %f, hue: %f,  sat: %f",	color.brightnessComponent,
+										color.hueComponent,
+										color.saturationComponent);
+		[sum appendFormat: @"<li>"\
+		 "<div>%@ %@ </div>"\
+		 "<div style='background-color:#%@; color: %@; %@> %@<div>"\
+		 "<span><img alt='icon' style='width:100%%; height:100%%;' src='data:image/png;base64,%@' /></span>"\
+		 "</li>", 	color.nameOfColor,
+		 color.isBoring ? @"IS VERY BORING": @"IS EXCITING!",
+		 color.toHex,
+		 color.contrastingForegroundColor.toHex,
+		 color.isBoring ? @"'": @" outline:10px solid red;'",
+		 values,[[NSIMG.randomMonoIcon scaledToMax:200] base64EncodingWithFileType:NSPNGFileType]]; return sum;
+	}] withString:@"</ul></body></html>"]];
 
-		if (!displays)
-			NSLog(@"Checking for captured displays: Could not allocate list of displays: %s", strerror(errno));
-		else {
-			for (CGDisplayCount i = 0U; i < numDisplays; ++i) { if (CGDisplayIsCaptured(displays[i])) { result = YES; break;  }
-			}
-			free(displays);
-		}
-	}
-	return result;
 }
-#endif
 
+- (void)setupRoutes {
 
-@implementation AtoZHelper
+	[@[	@[ @"/colorlist", 	@"colorlist:withResponse:"], 	//	SELECTORS AS STRINGS
+	 @[ @"/selector",	@"handleSelectorRequest:withResponse:"]] each:^(id obj) {
+		 [_httpServer handleMethod:@"GET" withPath:obj[0] target:self selector:$SEL(obj[1])];
+	 }];
+	[_httpServer get:@"/randomicon" withBlock:^(RouteRequest *request, RouteResponse *response) {
+		[response respondWithData:[[NSIMG.randomMonoIcon scaledToMax:300]PNGRepresentation]];
+	}];
 
-+ (instancetype)sharedHelper 			{ __strong static AtoZHelper *_sharedInstance = nil; static dispatch_once_t onceToken;
+	[_httpServer get:@"/hello" withBlock:^(RouteRequest *request, RouteResponse *response) {
+		[response respondWithString:@"Hello!"];
+	}];
+	[_httpServer get:@"/hello/:name" withBlock:^(RouteRequest *request, RouteResponse *response) {
+		[response respondWithString:[NSString stringWithFormat:@"Hello %@!", request[@"name"]]];
+	}];
+	[_httpServer get:@"{^/page/(\\d+)}" withBlock:^(RouteRequest *request, RouteResponse *response) {
+		[response respondWithString:[NSString stringWithFormat:@"You requested page %@",request[@"captures"][0]]];
+	}];
+	[_httpServer post:@"/widgets" withBlock:^(RouteRequest *request, RouteResponse *response) {
+		// Create a new widget, [request body] contains the POST body data. For this example we're just going to echo it back.
+		[response respondWithData:[request body]];
+	}];
+	// Routes can also be handled through selectors
+	[_httpServer handleMethod:@"GET" withPath:@"/selector" target:self selector:@selector(handleSelectorRequest:withResponse:)];
 
-	return dispatch_once(&onceToken, ^{ _sharedInstance = [self.alloc init]; }), _sharedInstance;
+	[_httpServer get:@"/say/:phrase" withBlock:^(RouteRequest *request, RouteResponse *response) {
+		NSString *say = request[@"phrase"];
+		NSLog(@"phrase:%@", say);
+		[AZTalker say:say];
+//		[response respondWithString:say];
+		[AZTalker say:say toURL:^(NSURL *u) {
+			NSLog(@"data:%@", u);
+//			[response respondWithFile:[u path] async:NO];
+			[response respondWithData:[NSData dataWithContentsOfURL:u]];
+			//[[NSIMG.randomMonoIcon scaledToMax:300]PNGRepresentation]];
+		}];
+	}];
 }
-+ (id) allocWithZone:(NSZone*)zone 	{  return [self sharedHelper]; }
-+ (id) alloc 	{ return [self sharedHelper]; }
-- (id) init 	{ return self; }
-+ (id) _alloc 	{ return [super allocWithZone:NULL]; } //this is important, because otherwise the object wouldn't be allocated
-- (id) _init 	{ return [super init];
+
+- (void)handleSelectorRequest:(RouteRequest *)request withResponse:(RouteResponse *)response {
+	[response respondWithString:@"Handled through selector"];
 }
+
 /*
-+ (NSString*)getAudioDevice
-{
-    NSString *result = nil;
-    AudioObjectPropertyAddress propertyAddress = {kAudioHardwarePropertyDefaultSystemOutputDevice, kAudioObjectPropertyScopeGlobal, kAudioObjectPropertyElementMaster};
-    UInt32 propertySize;
-    
-    if(AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &propertyAddress, 0, NULL, &propertySize) == noErr)
-    {
-        AudioObjectID deviceID;
-        if(AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, NULL, &propertySize, &deviceID) == noErr)
-        {
-            NSString *UID = nil;
-            propertySize = sizeof(UID);
-            propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
-            propertyAddress.mScope = kAudioObjectPropertyScopeGlobal;
-            propertyAddress.mElement = kAudioObjectPropertyElementMaster;
-            if (AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, NULL, &propertySize, &UID) == noErr)
-            {
-                result = [NSString stringWithString:UID];
-                CFRelease((__bridge CFTypeRef)(UID));
-            }
-        }
-    }
-    return result;    
+- (void)webSocketServer:(SOCKSRVR*)webSocketServer didAcceptConnection:(GCDAsyncSocket *)connection{
+
+
+	NSLog(@"%@", NSStringFromSelector(_cmd));
+	NSString *words =  [NSString stringWithContentsOfFile:@"/usr/share/dict/web2" encoding:NSUTF8StringEncoding error:nil];
+	//	 @"/Volumes/2T/ServiceData/git/MBWebSocketServer/README.md"
+
+	[connection writeWebSocketFrame:[words dataUsingEncoding:NSUTF8StringEncoding]];
+}
+//	tmr = [NSTimer timerWithTimeInterval:1.0 target:self
+//													 selector:@selector(spit:) userInfo:@[connection,words] repeats:YES];
+//	[NSRunLoop.mainRunLoop addTimer:tmr forMode:NSDefaultRunLoopMode]; }
+//- (void) spit:(NSTimer*)t{ NSLog(@"FIRE! %@", t.userInfo[0]);
+////	 if (![t.userInfo[1]count]) return [t invalidate], NSLog(@"I invalidated!!");
+// if (![t.userInfo[1] count]) return [t invalidate], NSLog(@"I invalidated!!");
+//	 NSString* x = t.userInfo[1][0];  NSLog(@"X:%@",t.userInfo);
+//	[t.userInfo[0] writeWebSocketFrame:x];
+//	[t.userInfo[1] removeObjectAtIndex:0];
+//}
+
+
+- (void)webSocketServer:(SOCKSRVR*)webSocketServer clientDisconnected:(ASOCK*)connection {
+	NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+- (void)webSocketServer:(SOCKSRVR*)webSocket didReceiveData:(NSData *)data fromConnection:(ASOCK*)connection{
+	NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+- (void)webSocketServer:(SOCKSRVR*)webSocketServer couldNotParseRawData:(NSData *)rawData fromConnection:(ASOCK*)connection error:(NSError *)error {
+	NSLog(@"%@  %@", NSStringFromSelector(_cmd), error);
 }
 */
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSAPP*)theApplication { return NO; }
+- (void) applicationWillTerminate:(NSNOT*)notification													{
+	[[AtoZ.sharedInstance atozDelegate] isEqualTo:self] ? [AtoZ.sharedInstance setAtozDelegate:nil] : nil;
+}
+
+
+/*
+ + (NSString*)getAudioDevice
+ {
+ NSString *result = nil;
+ AudioObjectPropertyAddress propertyAddress = {kAudioHardwarePropertyDefaultSystemOutputDevice, kAudioObjectPropertyScopeGlobal, kAudioObjectPropertyElementMaster};
+ UInt32 propertySize;
+
+ if(AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &propertyAddress, 0, NULL, &propertySize) == noErr)
+ {
+ AudioObjectID deviceID;
+ if(AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, NULL, &propertySize, &deviceID) == noErr)
+ {
+ NSString *UID = nil;
+ propertySize = sizeof(UID);
+ propertyAddress.mSelector = kAudioDevicePropertyDeviceUID;
+ propertyAddress.mScope = kAudioObjectPropertyScopeGlobal;
+ propertyAddress.mElement = kAudioObjectPropertyElementMaster;
+ if (AudioObjectGetPropertyData(deviceID, &propertyAddress, 0, NULL, &propertySize, &UID) == noErr)
+ {
+ result = [NSString stringWithString:UID];
+ CFRelease((__bridge CFTypeRef)(UID));
+ }
+ }
+ }
+ return result;
+ }
+ */
 - (IBAction)quitWithWarning:(id)sender
 {
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"HideQuitWarning"])
-    {
-        NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to quit?", nil)
-                                         defaultButton:NSLocalizedString(@"Yes", nil)
-                                       alternateButton:NSLocalizedString(@"No", nil)
-                                           otherButton:nil
-                             informativeTextWithFormat:NSLocalizedString(@"If you quit Growl you will no longer receive notifications.", nil)];
-        [alert setShowsSuppressionButton:YES];
-        
-        NSInteger result = [alert runModal];
-        if(result == NSOKButton)
-        {
-            [[NSUserDefaults standardUserDefaults] setBool:[[alert suppressionButton] state] forKey:@"HideQuitWarning"];
-            [NSApp terminate:self];
-        }
-    }
-    else
-        [NSApp terminate:self];
+	if(![[NSUserDefaults standardUserDefaults] boolForKey:@"HideQuitWarning"])
+	{
+		NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Are you sure you want to quit?", nil)
+																		 defaultButton:NSLocalizedString(@"Yes", nil)
+																	 alternateButton:NSLocalizedString(@"No", nil)
+																			 otherButton:nil
+												 informativeTextWithFormat:NSLocalizedString(@"If you quit Growl you will no longer receive notifications.", nil)];
+		[alert setShowsSuppressionButton:YES];
+
+		NSInteger result = [alert runModal];
+		if(result == NSOKButton)
+		{
+			[[NSUserDefaults standardUserDefaults] setBool:[[alert suppressionButton] state] forKey:@"HideQuitWarning"];
+			[NSApp terminate:self];
+		}
+	}
+	else
+		[NSApp terminate:self];
 }
 
 /**
 
-- (void) applicationWillFinishLaunching:(NSNotification *)aNotification {
+ - (void) applicationWillFinishLaunching:(NSNotification *)aNotification {
 
-	BOOL printVersionAndExit = [[NSUserDefaults standardUserDefaults] boolForKey:@"PrintVersionAndExit"];
-	if (printVersionAndExit) {
-		printf("This is GrowlHelperApp version %s.\n"
-			   "PrintVersionAndExit was set to %hhi, so GrowlHelperApp will now exit.\n",
-			   [[self stringWithVersionDictionary:nil] UTF8String],
-			   printVersionAndExit);
-		[NSApp terminate:nil];
-	}
+ BOOL printVersionAndExit = [[NSUserDefaults standardUserDefaults] boolForKey:@"PrintVersionAndExit"];
+ if (printVersionAndExit) {
+ printf("This is GrowlHelperApp version %s.\n"
+ "PrintVersionAndExit was set to %hhi, so GrowlHelperApp will now exit.\n",
+ [[self stringWithVersionDictionary:nil] UTF8String],
+ printVersionAndExit);
+ [NSApp terminate:nil];
+ }
 
-	NSFileManager *fs = [NSFileManager defaultManager];
+ NSFileManager *fs = [NSFileManager defaultManager];
 
-	NSString *destDir, *subDir;
-	NSArray *searchPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES); //YES == expandTilde
+ NSString *destDir, *subDir;
+ NSArray *searchPath = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES); //YES == expandTilde
 
-	destDir = [searchPath objectAtIndex:0U]; //first == last == ~/Library
-	destDir = [destDir stringByAppendingPathComponent:@"Application Support"];
-	destDir = [destDir stringByAppendingPathComponent:@"Growl"];
+ destDir = [searchPath objectAtIndex:0U]; //first == last == ~/Library
+ destDir = [destDir stringByAppendingPathComponent:@"Application Support"];
+ destDir = [destDir stringByAppendingPathComponent:@"Growl"];
 
-	subDir  = [destDir stringByAppendingPathComponent:@"Tickets"];
-	[fs createDirectoryAtPath:subDir withIntermediateDirectories:YES attributes:nil error:nil];
-	subDir  = [destDir stringByAppendingPathComponent:@"Plugins"];
-	[fs createDirectoryAtPath:subDir withIntermediateDirectories:YES attributes:nil error:nil];
-}
-*/
-- (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
+ subDir  = [destDir stringByAppendingPathComponent:@"Tickets"];
+ [fs createDirectoryAtPath:subDir withIntermediateDirectories:YES attributes:nil error:nil];
+ subDir  = [destDir stringByAppendingPathComponent:@"Plugins"];
+ [fs createDirectoryAtPath:subDir withIntermediateDirectories:YES attributes:nil error:nil];
+ }
+ */
 
-//	Post a notification when we are done launching so the application bridge can inform participating applications
-//	NSInteger menuState;
-//	menuState == GrowlDockMenu || menuState == GrowlBothMenus ?  [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular] : nil;
-
-   [NSDistributedNotificationCenter.defaultCenter postNotificationName:@"ATOZ_IS_READY"
-	                                                               object:nil userInfo:nil deliverImmediately:YES];
-
-}
 
 //- (BOOL) applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
 //Same as applicationDidFinishLaunching, called when we are asked to reopen (that is, we are already running)
 //We return yes, so we can handle activating the right window.
 //}
 
-- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication { return NO; }
-
-- (void) applicationWillTerminate:(NSNotification *)notification {
-	if ([[AtoZ sharedInstance].atozDelegate isEqualTo:self])
-		[[AtoZ sharedInstance] setAtozDelegate:nil];
-}
 
 #pragma mark Auto-discovery
 
@@ -235,101 +318,101 @@ static BOOL isAnyDisplayCaptured(void) {
  *	GHA notification.
  */
 /**
-- (void)growlNotificationDict:(NSDictionary *)growlNotificationDict didCloseViaNotificationClick:(BOOL)viaClick onLocalMachine:(BOOL)wasLocal
-{
-	static BOOL isClosingFromRemoteClick = NO;
-	//Don't post a second close notification on the local machine if we close a notification from this method in response to a click on a remote machine.
+ - (void)growlNotificationDict:(NSDictionary *)growlNotificationDict didCloseViaNotificationClick:(BOOL)viaClick onLocalMachine:(BOOL)wasLocal
+ {
+ static BOOL isClosingFromRemoteClick = NO;
+ //Don't post a second close notification on the local machine if we close a notification from this method in response to a click on a remote machine.
 
-	if (isClosingFromRemoteClick)
-		return;
-	
-	id clickContext = [growlNotificationDict objectForKey:GROWL_NOTIFICATION_CLICK_CONTEXT];
-	if (clickContext) {
-		NSString *suffix, *growlNotificationClickedName;
-		NSDictionary *clickInfo;
-		
-		NSString *appName = [growlNotificationDict objectForKey:GROWL_APP_NAME];
-      NSString *hostName = [growlNotificationDict objectForKey:GROWL_NOTIFICATION_GNTP_SENT_BY];
-		GrowlApplicationTicket *ticket = [ticketController ticketForApplicationName:appName hostName:hostName];
-		
-		if (viaClick && [ticket clickHandlersEnabled]) {
-			suffix = GROWL_DISTRIBUTED_NOTIFICATION_CLICKED_SUFFIX;
-		} else {
-			// send GROWL_NOTIFICATION_TIMED_OUT instead, so that an application is guaranteed to receive feedback for every notification.
-			suffix = GROWL_DISTRIBUTED_NOTIFICATION_TIMED_OUT_SUFFIX;
-		}
-		
-		//Build the application-specific notification name
-		NSNumber *pid = [growlNotificationDict objectForKey:GROWL_APP_PID];
-		if (pid)
-			growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@-%@-%@",
-											appName, pid, suffix];
-		else
-			growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@%@",
-											appName, suffix];
-		clickInfo = [NSDictionary dictionaryWithObject:clickContext
-												forKey:GROWL_KEY_CLICKED_CONTEXT];
-		[[NSDistributedNotificationCenter defaultCenter] postNotificationName:growlNotificationClickedName
-																	   object:nil
-																	 userInfo:clickInfo
-														   deliverImmediately:YES];
-		[growlNotificationClickedName release];
-	}
-	
-	if (!wasLocal) {
-		isClosingFromRemoteClick = YES;
-		[[NSNotificationCenter defaultCenter] postNotificationName:GROWL_CLOSE_NOTIFICATION
-															object:[growlNotificationDict objectForKey:GROWL_NOTIFICATION_INTERNAL_ID]];
-		isClosingFromRemoteClick = NO;
-	}
-}
-*/
+ if (isClosingFromRemoteClick)
+ return;
+
+ id clickContext = [growlNotificationDict objectForKey:GROWL_NOTIFICATION_CLICK_CONTEXT];
+ if (clickContext) {
+ NSString *suffix, *growlNotificationClickedName;
+ NSDictionary *clickInfo;
+
+ NSString *appName = [growlNotificationDict objectForKey:GROWL_APP_NAME];
+ NSString *hostName = [growlNotificationDict objectForKey:GROWL_NOTIFICATION_GNTP_SENT_BY];
+ GrowlApplicationTicket *ticket = [ticketController ticketForApplicationName:appName hostName:hostName];
+
+ if (viaClick && [ticket clickHandlersEnabled]) {
+ suffix = GROWL_DISTRIBUTED_NOTIFICATION_CLICKED_SUFFIX;
+ } else {
+ // send GROWL_NOTIFICATION_TIMED_OUT instead, so that an application is guaranteed to receive feedback for every notification.
+ suffix = GROWL_DISTRIBUTED_NOTIFICATION_TIMED_OUT_SUFFIX;
+ }
+
+ //Build the application-specific notification name
+ NSNumber *pid = [growlNotificationDict objectForKey:GROWL_APP_PID];
+ if (pid)
+ growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@-%@-%@",
+ appName, pid, suffix];
+ else
+ growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@%@",
+ appName, suffix];
+ clickInfo = [NSDictionary dictionaryWithObject:clickContext
+ forKey:GROWL_KEY_CLICKED_CONTEXT];
+ [[NSDistributedNotificationCenter defaultCenter] postNotificationName:growlNotificationClickedName
+ object:nil
+ userInfo:clickInfo
+ deliverImmediately:YES];
+ [growlNotificationClickedName release];
+ }
+
+ if (!wasLocal) {
+ isClosingFromRemoteClick = YES;
+ [[NSNotificationCenter defaultCenter] postNotificationName:GROWL_CLOSE_NOTIFICATION
+ object:[growlNotificationDict objectForKey:GROWL_NOTIFICATION_INTERNAL_ID]];
+ isClosingFromRemoteClick = NO;
+ }
+ }
+ */
 //NSW * win() { NSW* 	w = [NSW.alloc initWithContentRect:AZRectFromDim(300) styleMask:NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
 //	w.contentView		= [	AZSimpleView withFrame:w.frame color:LINEN  ];
 //	[	w setMovableByWindowBackground: 	YES ];								return w;	}
 
 /*
--( void) awakeFromNib
-{
+ -( void) awakeFromNib
+ {
 
-	_router.documentRoot = @"/www";
-	[_router start];
+ _router.documentRoot = @"/www";
+ [_router start];
 
-	NSURLREQ *req = [NSURLREQ requestWithURL:$URL($(@"%@:%u/colorchart/",_router.baseURL, _router.port))];
-	[_webView.mainFrame loadRequest:req];
-	NSLog(@"Requesting url from webview %@", req.URL);
+ NSURLREQ *req = [NSURLREQ requestWithURL:$URL($(@"%@:%u/colorchart/",_router.baseURL, _router.port))];
+ [_webView.mainFrame loadRequest:req];
+ NSLog(@"Requesting url from webview %@", req.URL);
 
-	[_window setBackgroundColor:RED];
+ [_window setBackgroundColor:RED];
 
-//	_ab = [AZAddressBook new];
-//	NSLog(@"%@ Records", ((AZContact*)_ab.contacts[2]).image);
-
-	
-//	[_webView.mainFrame
-
-}
+ //	_ab = [AZAddressBook new];
+ //	NSLog(@"%@ Records", ((AZContact*)_ab.contacts[2]).image);
 
 
-//	b(nil,z);
+ //	[_webView.mainFrame
+
+ }
 
 
-- (IBAction)getFB:(id)sender {
-	_fb = [AZFacebookConnection initWithQuery:@"me/posts" param:@"message" thenDo:^(NSString *text) {
-	
-//		[_window.contentView addSubview:
-//		 [NSTextView textViewForFrame: _window.frame withString:[text.mutableCopy attributedWithFont:AtoZ.controlFont andColor:RANDOMCOLOR]]];
-	}];
-}
+ //	b(nil,z);
 
-- (IBAction)getColorList:(id)sender {
-	[GoogleSpeechAPI recognizeSynthesizedText:[NSS dicksonParagraphWith:10] completion:^(NSS *s) {
-//		[NSThread.mainThread pe  [_webView.mainFrame loadHTMLString:s baseURL:$URL(_router.baseURL)];
-//		[NSTextView textViewForFrame: [w convertRectFromScreen:w.frame] withString:[s.mutableCopy attributedWithFont:AtoZ.controlFont andColor:RANDOMCOLOR]]];
-		AZLOG($(@"The sentence was: %@ and the response ", s));
-	}];
 
-}
-*/
+ - (IBAction)getFB:(id)sender {
+ _fb = [AZFacebookConnection initWithQuery:@"me/posts" param:@"message" thenDo:^(NSString *text) {
+
+ //		[_window.contentView addSubview:
+ //		 [NSTextView textViewForFrame: _window.frame withString:[text.mutableCopy attributedWithFont:AtoZ.controlFont andColor:RANDOMCOLOR]]];
+ }];
+ }
+
+ - (IBAction)getColorList:(id)sender {
+ [GoogleSpeechAPI recognizeSynthesizedText:[NSS dicksonParagraphWith:10] completion:^(NSS *s) {
+ //		[NSThread.mainThread pe  [_webView.mainFrame loadHTMLString:s baseURL:$URL(_router.baseURL)];
+ //		[NSTextView textViewForFrame: [w convertRectFromScreen:w.frame] withString:[s.mutableCopy attributedWithFont:AtoZ.controlFont andColor:RANDOMCOLOR]]];
+ AZLOG($(@"The sentence was: %@ and the response ", s));
+ }];
+
+ }
+ */
 @end
 
 //int main(int c, const char* v [] ) { @autoreleasepool {	NSApplication.sharedApplication;
@@ -443,6 +526,73 @@ static BOOL isAnyDisplayCaptured(void) {
  }
  //	return 0;
  }
- 
+
+@interface SampleClient : NSObject <WebSocketDelegate>
+@property WebSocket *webSocket;
+@end
+
+@implementation SampleClient
+
+- (IBAction)reconnect:(id)sender {
+	self.webSocket = [WebSocket.alloc initWithURLString:@"ws://localhost:4321" delegate:self];
+	[_webSocket open];
+}
+- (void)applicationDidFinishLaunching:(NSNOT*)aNotification {
+	[self reconnect:nil];
+}
+
+-(void)webSocketDidClose:(WebSocket *)ws {
+	NSLog(@"Connection closed");
+}
+
+-(void)webSocket:(WebSocket *)ws didFailWithError:(NSError *)error {
+	//    error.code == WebSocketErrorConnectionFailed  ?	NSLog(@"Connection failed"):
+	//    error.code == WebSocketErrorHandshakeFailed		? NSLog(@"Handshake failed"):
+	//:
+	NSLog(@"Error");
+}
+-(void)webSocket:(WebSocket *)ws didReceiveMessage:(NSString*)message { NSLog(@"Recieved message: %@", message); }
+-(void)webSocketDidOpen:(WebSocket *)ws { NSLog(@"Connected"); }
+-(void)webSocketDidSendMessage:(WebSocket *)ws {    NSLog(@"Did send message"); }
+@end
+
+extern CFRunLoopRef CFRunLoopGetMain(void);
+
+@implementation AZShowWindowScriptCommand
+- (id) performDefaultImplementation {    //we always say yes, because this is not a toggle command
+	[[AtoZ sharedInstance].azWindow makeKeyAndOrderFront:self];
+	return nil;
+}
+@end
+
+applications that go full-screen (games in particular) are expected to capture
+	whatever display(s) they're using.
+we [will] use this to notice, and turn on auto-sticky or something (perhaps
+	to be decided by the user), when this happens.
+
+#if 0
+static BOOL isAnyDisplayCaptured(void) {
+	BOOL result = NO;
+	CGDisplayCount numDisplays;
+	CGDisplayErr err = CGGetActiveDisplayList(/ * maxDisplays * / 0U, / *activeDisplays* / NULL, &numDisplays);
+	if (err != noErr)
+		NSLog(@"Checking for captured displays: Could not count displays: %li", (long)err);
+	else {
+		CGDirectDisplayID *displays = malloc(numDisplays * sizeof(CGDirectDisplayID));
+		CGGetActiveDisplayList(numDisplays, displays, / *numDisplays * / NULL);
+
+		if (!displays)
+			NSLog(@"Checking for captured displays: Could not allocate list of displays: %s", strerror(errno));
+		else {
+			for (CGDisplayCount i = 0U; i < numDisplays; ++i) { if (CGDisplayIsCaptured(displays[i])) { result = YES; break;  }
+			}
+			free(displays);
+		}
+	}
+	return result;
+}
+#endif
+
  */
+
 

@@ -17,6 +17,9 @@
 @end
 @implementation AZBaseModelTests
 
+- (void)testNothing {
+}
+
 - (void)setUp
 {
 	[super setUp];
@@ -29,11 +32,13 @@
 	XCTAssertTrue (sharedOne == sharedTwo, @"setting a different instance %@ as the prvious sharedInstance %@ should point to itself", sharedTwo, sharedOne);
 }
 
-- (void)tearDown
-{
+//- (void)tearDown
+//{
     // Put teardown code here; it will be run once, after the last test case.
-    [super tearDown];
-}
+
+//	[NSThread sleepForTimeInterval:1.0];
+//[super tearDown];
+//}
 
 //- (void)testExample
 //{

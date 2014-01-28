@@ -7,14 +7,63 @@
 //
 
 
-//#import "KSHTMLWriter.h"
+#import "AtoZUmbrella.h"
+//#import "GCDAsyncSocket.h"
 
-#define JQUERY 				@"http://code.jquery.com/jquery-2.0.0b2.js"
-#define RECORDERJS 			@"http://mrgray.com/js/recorder.js/recorder.js"
-#define BOOTSTRAP_CSS		@"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-#define BOOTSTRAP_JS			@"//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
-#define FONTAWESOME 			@"//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css"
+#define JQUERY							@"http://code.jquery.com/jquery-2.0.0b2.js" // @"http://code.jquery.com/jquery-1.9.1.js"
+#define JQUERY_UI						@"http://code.jquery.com/ui/1.10.3/jquery-ui.js"
+#define RECORDERJS					@"http://mrgray.com/js/recorder.js/recorder.js"
+#define BOOTSTRAP_CSS				@"//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+#define BOOTSTRAP_JS				@"//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
+#define FONTAWESOME					@"//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css"
 #define BOOTSWATCH_UNITED 	@"//netdna.bootstrapcdn.com/bootswatch/3.0.0/united/bootstrap.min.css"
+
+#define JQUERY_UI_CSS				@"http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+#define LIVEQUERY						@"http://mrgray.com/js/jquery.livequery.js"
+
+@protocol AZJS
+@required
+- (NSS*) stringValue;
+@end
+
+@interface AZJS : NSString <AZJS>
+@property (readonly) NSS*description;
+@end
+@interface  AZJSVar : AZJS
+@property (copy) NSS* varName, *value;
++ (instancetype) varNamed:(NSS*)name value:(NSS*)val;
+@end
+@interface  AZJQueryMethod : AZJS
++ (instancetype) withSelector:(NSS*)sel action:(NSS*)f args:(NSA*)a callback:(NSA*)c;
+@property     (copy) NSS * selector,
+												 * action;
+@property     (copy) NSA * callback;
+@end
+
+/**	$(selector).on(event,childSelector,data,function,map)
+	@param event	Required. Specifies one or more event(s) or namespaces to attach to the selected elements. Multiple event values are separated by space. Must be a valid event
+	@param childSelector	Optional. Specifies that the event handler should only be attached to the specified child elements (and not the selector itself, like the deprecated delegate() method).
+	@param data	Optional. Specifies additional data to pass along to the function
+	@param function	Required. Specifies the function to run when the event occurs
+	@param map	Specifies an event map ({event:function, event:function, ...}) containing one or more event to attach to the selected elements, and functions to run when the events occur
+*/
+@interface  AZJQueryOn : AZJQueryMethod
++ (instancetype) select:(NSS*)selector on:(NSS*)method args:(NSA*)args callback:(NSA*)callback;
+@end
+
+@interface KSHTMLWriter (extras)
+
+- (void) writeDocReady:(id)a;
+
+@property		 NSMS * markup;
+- (void) preview;
+@end
+
+@interface Gridly : KSHTMLWriter
+@property ASOCK *listenSocket;
+@property NSMutableArray *sockets;
+@property dispatch_queue_t dQ;
+@end
 
 
 @class Asset;
@@ -23,7 +72,7 @@
 @property (NATOM,STR) NSArrayController *availJS, *availCSS, *headers, *footers, *body;
 
 
-+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
+//+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
 - (NSS*) htmlWithBody:(NSS*)bod;
 
 

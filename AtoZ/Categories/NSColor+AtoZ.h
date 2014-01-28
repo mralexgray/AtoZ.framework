@@ -89,9 +89,11 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 +  (NSA*) systemColors;
 +  (NSA*) systemColorNames;
 
+/* Color animator helpers */
 
 typedef void(^colorFadeBlock)(NSC*c);
-+ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
+
++ (NSA*) randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
 
 /* gradients from palettes */
 + (NSA*) gradientPalletteBetween:(NSC*)c1 and:(NSC*)c2 steps:(NSUI)steps;

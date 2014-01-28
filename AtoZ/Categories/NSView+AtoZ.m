@@ -151,7 +151,25 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 #import <QuartzCore/QuartzCore.h>
 #import <ApplicationServices/ApplicationServices.h>
 
+#define ifARGC(...) do { int x = metamacro_argcount(__VA_ARGS__); 
+
 @implementation NSView (AtoZ)
+
+- (NSA*) visibleSubviews          { return [self.subviews filter:^BOOL(id object) { return ![object isHidden]; }]; }
+//} objectsWithValue:@NO forKey:@"isHidden"]; }
+-  (CGF) heightOfSubviews         { return [[self.subviews vFK:@"height"] sum].fV; }
+-  (CGF) widthOfSubviews          { return [[self.subviews vFK:@"width"] sum].fV; } //return [[self.subviews reduce:@0 withBlock:^id(NSN* sum, NSV* sub) { return [sum plus:@(sub.width)]; }]fV]; }
+-  (CGF) heightOfVisibleSubviews  { return [[self.visibleSubviews vFK:@"height"] sum].fV; } // reduce:@0 withBlock:^id(NSN*sum, NSV*sub) { return [sum plus:@(sub.height)]; }]fV]; }
+-  (CGF) widthOfVisibleSubviews   { return [[self.visibleSubviews vFK:@"width"] sum].fV; } // reduce:@0 withBlock:^id(NSN*sum, NSV* sub) { return [sum plus:@(sub.width)]; }]fV]; }
+
+
++ (instancetype)viewBy:(NSN*)width, ... {	AZVA_ARRAY(width,sizes);
+	return [self viewWithFrame:AZRectFromSize(	!sizes.count				? NSZeroSize
+																					   : sizes.count == 1		? AZSizeFromDimension([sizes[0] fV])
+																						 :											NSMakeSize([sizes[1] fV], [sizes[1] fV]))];
+}
+
++ (instancetype)viewWithFrame:(NSR)r { return [self.class.alloc initWithFrame:r]; }
 
 -   (id) getBackground 				{ id bg = nil; 
 
@@ -184,6 +202,12 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //									setNeedsDisplayForKeys,
 //									^{
 //									
+- (void)setNeedsDisplayForKeys:(NSMA*)keys { __block id view = self;
+	[self addObserverForKeyPaths:keys task:^(id obj, NSString *keyPath) {
+		JATLog(@"displaying... because of key:{keyPath}",keyPath);
+		[view setNeedsDisplay:YES];
+	}];
+}
 
 + (void) load {
 	[$ swizzleMethod:@selector(setWantsLayer:) with:@selector(swizzleSetWantsLayer:) in:self.class];
@@ -251,7 +275,19 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return(YES);
 }
 */
-- (void) debug { [self debuginQuadrant:AZAlignBottomLeft]; }
+
+- (NSSplitView*) split { NSRect r = self.frame; NSView *oldSuper = self.superview ?: self; BOOL selfIsSuper = oldSuper == self;
+
+	NSSplitView *s = [NSSplitView.alloc initWithFrame:r];
+	[oldSuper performSelectorOnMainThread:@selector(addSubview:) withObject:s];
+	s.subviews = @[selfIsSuper ? [NSView.alloc initWithFrame:r] : self, [NSView.alloc initWithFrame:r]];
+	s.vertical = ![self ISKINDA:NSSplitView.class] ?: ![(NSSplitView*)self isVertical];
+	s.dividerStyle = NSSplitViewDividerStyleThick;
+	s.autoresizingMask 	= ((NSView*)s.subviews[0]).autoresizingMask = ((NSView*)s.subviews[1]).autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
+	return s;
+}
+
+- (void) debug { [self debuginQuadrant:AZQuadBotLeft]; }
 
 - (void) debuginQuadrant:(AZQuad)q {
 	
@@ -1210,11 +1246,15 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 @implementation NSView (findSubview)
 
-- (NSA*) subviewFirstOfClass:(Class)k
+
+- (NSV*) firstSubviewOfClass:(Class)k
 {
-	return [self.subviews filterOne:^BOOL(id object) {
-		return [object isKindOfClass:k];
+	__block NSV* v;
+	[self.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		 id x = [obj isKindOfClass:k] ? obj : [obj firstSubviewOfClass:k];
+		 if (!x) return; v = x; *stop = YES;
 	}];
+	return v;
 }
 - (NSA*) subviewsOfClass:(Class)k
 {

@@ -1,14 +1,10 @@
-// AZProcess.h
-//
-// Copyright (c) 2002 Aram Greenman. All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-//
-// 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-// 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-// 3. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAZES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAZE.
+/* AZProcess.h Copyright (c) 2002 Aram Greenman. All rights reserved.
+  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+  1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+  2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+  3. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
+  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAZES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAZE.
+*/
 
 #import <Foundation/NSObject.h>
 #include <mach/mach_types.h>
@@ -33,9 +29,9 @@ enum {
 @constant AZProcessStateExited			The process has exited.
 */
 JREnumDeclare(AZProcessState, 	AZProcessStateUnknown,					AZProcessStateRunnable,
-											AZProcessStateUninterruptible,		AZProcessStateSleeping,
-											AZProcessStateIdle,						AZProcessStateSuspended,
-											AZProcessStateZombie,					AZProcessStateExited)
+                                AZProcessStateUninterruptible,	AZProcessStateSleeping,
+                                AZProcessStateIdle,             AZProcessStateSuspended,
+                                AZProcessStateZombie,           AZProcessStateExited)
 
 /*!
 @class AZProcess
@@ -46,7 +42,6 @@ The level of information an AZProcess can return depends on the user's permissio
 */
 @interface AZProcess : NSObject { int process; task_t task; NSS *command; NSS *annotation; NSA *arguments; NSD *environment;	}
 
-
 + (NSS*)pathOfProcessWithIdentifier:(int)pid;
 /*!
 @method initWithProcessIdentifier:
@@ -54,41 +49,46 @@ Initializes the receiver with the given process identifier. Returns nil if no su
 - (id)initWithProcessIdentifier:(int)pid;/*!
 @method currentProcess
 Returns the current process. */
-+ (AZProcess *)currentProcess;/*!
++ (AZProcess*) currentProcess;/*!
 @method allProcesses
 Returns an array of all processes. */
-+ (NSArray *)allProcesses;/*!
++ (NSArray*) allProcesses;/*!
 @method userProcesses
 Returns an array of all processes running for the current user. */
-+ (NSArray *)userProcesses;/*!
++ (NSArray*) userProcesses;/*!
 @method processForProcessIdentifier:
 Returns the process for the given process identifier, or nil if no such process exists. */
-+ (AZProcess *)processForProcessIdentifier:(int)pid;
++ (AZProcess*) processForProcessIdentifier:(int)pid;
 /*!
 @method processesForProcessGroup:
 Returns an array of all processes in the given process group. */
-+ (NSArray *)processesForProcessGroup:(int)pgid;
++ (NSArray*) processesForProcessGroup:(int)pgid;
 /*!
 @method processesForTerminal:
 Returns an array of all processes running on the given terminal. Takes a terminal device number. */
-+ (NSArray *)processesForTerminal:(int)tdev;
++ (NSArray*) processesForTerminal:(int)tdev;
 /*!
 @method processesForUser:
 Returns an array of all processes for the given user. */
-+ (NSArray *)processesForUser:(int)uid;
++ (NSArray*) processesForUser:(int)uid;
 /*!
 @method processesForRealUser:
 Returns an array of all processes for the given real user. */
-+ (NSArray *)processesForRealUser:(int)ruid;
++ (NSArray*) processesForRealUser:(int)ruid;
 /*!
 @method processForCommand:
 Returns the process for the given command, or nil if no such process exists. If there is more than one process with the same command, there is no guarantee which will be returned. */
-+ (AZProcess *)processForCommand:(NSString *)comm;
++ (AZProcess*) processForCommand:(NSString*)comm;
 /*!
 @method processesForCommand:
 Returns an array of all processes for the given command. */
-+ (NSArray *)processesForCommand:(NSString *)comm;
++ (NSArray*) processesForCommand:(NSString *)comm;
 /*!
+@method processesForCommandInsensitive:
+Returns an array of all processes for the given command. */
++ (NSArray*) processesForCommandInsensitive:(NSString*)comm;
+/*!
+
 @method processIdentifier
 Returns the process identifier. */
 - (int)processIdentifier;
@@ -213,12 +213,18 @@ Sends SIGTERM. */
 @method kill:
 Sends the given signal, see man 3 signal for possible values. Returns NO if the signal couldn't be sent. */
 - (BOOL)kill:(int)signal;
-@end/*!
+/*
+@method killAllProcessesForCommand:insensitive:
+Sends the given signal, see man 3 signal for possible values. Returns NO if the signal couldn't be sent. */
++ (BOOL)killAllProcessesForCommand:(NSString*)comm insensitive:(BOOL)insensitive;
+
+@end
+/*!
 @category AZProcess (MachTaskEvents)
 @abstract Extends AZProcess to get information about Mach task events.
 */
-@interface AZProcess (MachTaskEvents)/*!
-@method faults
+@interface AZProcess (MachTaskEvents)
+/*!@method faults
 Returns the number of page faults. */
 - (int)faults;/*!
 @method pageins

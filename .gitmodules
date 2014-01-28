@@ -272,9 +272,24 @@
 [submodule "Frameworks/CFAAction"]
 	path = Frameworks/CFAAction
 	url = https://github.com/CodaFi/CFAAction.git
-[submodule "AtoZ/Categories/StrictProtocols"]
-	path = AtoZ/Categories/StrictProtocols
-	url = https://github.com/mralexgray/StrictProtocols.git
 [submodule "Frameworks/UAGithubEngine"]
 	path = Frameworks/UAGithubEngine
 	url = https://github.com/mralexgray/UAGithubEngine.git
+[submodule "AtoZ/Categories/StrictProtocols"]
+	path = AtoZ/Categories/StrictProtocols
+	url = https://github.com/mralexgray/StrictProtocols.git
+[submodule "AtoZ/Classes/BETaskHelper"]
+	path = AtoZ/Classes/BETaskHelper
+	url = https://github.com/mralexgray/BETaskHelper.git
+[submodule "Frameworks/RoutingHTTPServerFramework"]
+	path = Frameworks/RoutingHTTPServerFramework
+	url = https://github.com/mralexgray/RoutingHTTPServerFramework.git
+[submodule "Frameworks/twitter_bootstrap_admin"]
+	path = Frameworks/twitter_bootstrap_admin
+	url = https://github.com/mralexgray/twitter_bootstrap_admin
+[submodule "Frameworks/NMSSH"]
+	path = Frameworks/NMSSH
+	url = https://github.com/mralexgray/NMSSH.git
+[submodule "FrameWorks/AutoCoding"]
+	path = FrameWorks/AutoCoding
+	url = https://github.com/mralexgray/AutoCoding.git

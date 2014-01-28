@@ -128,9 +128,22 @@ static NSMD *bestMatches = nil, 	*palettesD = nil, *colorListD = nil, *colorsFro
 static NSCL 		 *safe = nil,  	 *named = nil;
 
 @implementation NSColor (AtoZ)
-@dynamic name;
 
-SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
++ (NSA*) randomPaletteAnimationBlock:(colorFadeBlock)target {	NSA* r = RANDOMPAL;
+	NSA* pal = [self gradientPalletteLooping:r steps:1000];	NSLog(@"number of colors in fade: %ld", pal.count);
+
+
+  __block NSUI ct = 0;
+	return [NSTimer scheduledTimerWithTimeInterval:.2 block:^(NSTimer *timer) { //		NSLog(@"gotColor: %@", u.nameOfColor);
+		NSColor*u =[pal normal:ct]; ct++; target(u);
+ 	} repeats:YES], pal;
+}
+
+//@dynamic name;
+
+//SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
+//SYNTHESIZE_ASC_OBJ_LAZY_BLOCK(name,
+SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor; }, ^{});
 
 - (NSComparisonResult)compare:(NSC *)otherColor {
 	// comparing the same type of animal, so sort by name
@@ -209,13 +222,6 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
 	return [self r:red g:green b:blue a:alpha];
 }
 
-+ (NSA*)randomPaletteAnimationBlock:(colorFadeBlock)target {	NSA* r = RANDOMPAL;
-	NSA* pal = [self gradientPalletteLooping:r steps:1000];	NSLog(@"number of colors in fade: %ld", pal.count);
-	__block NSUI ct = 0;
-	return [NSTimer scheduledTimerWithTimeInterval:.2 block:^(NSTimer *timer) { //		NSLog(@"gotColor: %@", u.nameOfColor);
-		NSColor*u =[pal normal:ct]; ct++; target(u);
- 	} repeats:YES], pal;
-}
 
 + (NSArray *)colorNames {  	static NSArray *sAllNames = nil;
 
@@ -256,9 +262,13 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
 
 + (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps 				{
 
-	NSC * blend = [colors.first blend:colors.last];
-	NSA *s 		= [NSArray arrayWithArrays:@[ @[ [colors.first blend:blend] ], colors, @[ [colors.last blend:blend]]]];
-	return [self gradientPalletteBetween:s steps:steps];
+	NSC          *blend = [colors.first blend:colors.last];					// find the point betweenfirst and last...
+	NSUI     blendSteps = (NSUI)floor(.1 *colors.count);   // use 10 % of the steps to blend
+	NSA *blendFromStart = [NSC gradientPalletteBetween:@[blend,colors.first]	steps:blendSteps/2],
+		    *blendFromEnd = [NSC gradientPalletteBetween:@[colors.last, blend]	steps:blendSteps/2];
+	return [NSA arrayWithArrays:@[blendFromStart,
+															[self gradientPalletteBetween:colors steps:steps-blendSteps],
+															blendFromEnd]];
 }
 
 + (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps 				{
@@ -272,8 +282,8 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
 	NSSize imageSize = NSMakeSize(100, 4);
 	NSBitmapImageRep *bitmapRep =
 	[NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
-													  pixelsWide:imageSize.width
-													  pixelsHigh:imageSize.height
+													  pixelsWide:(NSUInteger)imageSize.width
+													  pixelsHigh:(NSUInteger)imageSize.height
 												  bitsPerSample:8	samplesPerPixel:4
 														 hasAlpha:YES	isPlanar:NO  // <--- important !
 												 colorSpaceName:NSCalibratedRGBColorSpace
@@ -650,24 +660,36 @@ SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
 }
 + (NSCL*) randomList 								{	return self.colorLists.allValues.randomElement;	}
 + (NSC*)   crayonColorNamed:(NSS*)key			{	return [[NSColorList colorListNamed:@"Crayons"] colorWithKey:key];	}
-+ (NSC*)      colorWithName:(NSS*)colorName 	{
-	// name lookup
-	NSS *lcc = colorName.lowercaseString;
-	NSColorList *list = [AZNamedColors namedColors];
-	for (NSS *key in [list allKeys]) {
-		if ([key.lowercaseString isEqual:lcc]) {
-			return [list colorWithKey:key];
-		}
-	}
-	for (list in [NSColorList availableColorLists]) {
-		for (NSS *key in [list allKeys ]) {
-			if ([key.lowercaseString isEqual:lcc]) {
-				return [list colorWithKey:key];
-			}
-		}
-	}
-	return nil;
++ (NSD*) allNamedColors {
+
+	static NSD*allC = nil;  if (allC) return allC; NSMD *colors = NSMD.new;
+
+	[NSColorList.availableColorLists each:^(id obj) {
+		[[obj allKeys] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id key, NSUInteger idx, BOOL *stop) {
+		   colors[[key lowercaseString]] = [obj colorWithKey:key];
+		}];
+	}];
+	return (allC = [colors dictionaryByAddingEntriesFromDictionary:[AZNamedColors namedColors].dictionary]);
 }
++ (NSC*)      colorWithName:(NSS*)colorName 	{ return self.allNamedColors[colorName.lowercaseString]; }
+//	// name lookup
+//	NSS *lcc = colorName.lowercaseString; __block NSC*match;
+//	return [self.allNamedColors obj ]
+//
+////	[AZNamedColors.namedColors.dictionary dictionaryByAddingEntriesFromDictionary:
+//		if ([key.lowercaseString isEqual:lcc]) {
+//			return [list colorWithKey:key];
+//		}
+//	}
+//	for (list in []) {
+//		for (NSS *key in [list allKeys ]) {
+//			if ([key.lowercaseString isEqual:lcc]) {
+//				return [list colorWithKey:key];
+//			}
+//		}
+//	}
+//	return nil;
+//}
 + (NSC*)    colorFromString:(NSS*)string 		{
 	if ([string hasPrefix:@"#"]) {
 		return [NSC colorFromHexString:string];

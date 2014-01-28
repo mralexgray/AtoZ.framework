@@ -338,69 +338,52 @@
 
 @end
 
-@interface JRInvocationGrabber : NSProxy {    id target;    NSInvocation    *invocation;	}
-@property (retain) id target;		@property (retain) NSInvocation *invocation;
-@end
-@implementation JRInvocationGrabber
-@synthesize target, invocation;
-- (id)initWithTarget:(id)target_ {    self.target = target_;    return self;	}
-- (NSMethodSignature*)methodSignatureForSelector:(SEL)selector_ { return [self.target methodSignatureForSelector:selector_];	}
-- (void)forwardInvocation:(NSInvocation*)invocation_ {    [invocation_ setTarget:self.target];    self.invocation = invocation_;	}
+@implementation AZInvocationGrabber
+
+-									(id) initWithTarget:(id)target						{ _target = target;													return self;	}
+- (NSMethodSignature*) methodSignatureForSelector:(SEL)sel	{ return   [self.target methodSignatureForSelector:sel];	}
+-               (void) forwardInvocation:(NSInvocation*)inv {	[inv setTarget:self.target];    self.invocation = inv;	}
 @end
 @implementation NSInvocation (jr_block)
+
 + (NSInvocation *)createInvocationOnTarget:(id)target selector:(SEL)selector {
 	return [self createInvocationOnTarget:target selector:selector withArguments:nil];	}
  
 + (NSInvocation *)createInvocationOnTarget:(id)target selector:(SEL)selector withArguments:(id)arg1, ... {
 
-	NSMethodSignature *sig 		= [target methodSignatureForSelector:selector];
+	NSMethodSignature *sig						= [target methodSignatureForSelector:selector];
 	__block NSInvocation *invocation 	= [NSInvocation invocationWithMethodSignature:sig];
- 	[invocation setTarget:target];	[invocation setSelector:selector];
- 	if(arg1) {
-//		[invocation setArgument:&arg1 atIndex:2];
-		__block int ct = 2;
-		AZVA_Block b = ^(id obj)  {		
-													[invocation setArgument:&obj atIndex:ct];  
-													NSLog(@"%i: %@", ct, invocation.invocationDescription);	
-													ct++; 
-		}; 
-//		va_list args;		va_start(args, arg1);
- 		
+ 	invocation.target									= target;
+	invocation.selector								= selector;
+
+ 	if(arg1) { __block int ct = 2;
+
+		AZVA_Block b = ^(id obj){ [invocation setArgument:&obj atIndex:ct]; NSLog(@"%i: %@", ct, invocation.invocationDescription);	ct++;	};
 		azva_iterate_list(arg1, b);
-//		NSLog(@"Finished: %@", invocation.invocationDescription);
-// 		id obj;
-//		int ct = 3;
-//		while( (obj = va_arg(args, id)) != nil ) {
-//// 		while( obj = va_arg(args, id)  {	
-//				NSLog(@"%@", obj);	[invocation setArgument:&obj atIndex:ct];  ct++; 
-//		}
-// 		va_end(args);
 	}
-//	NSLog(@")
-//	NSLog(@"made invocation: %@", invocation.invocationDescription);
 	return [invocation copy];
 }
-+ (id)invocationWithTarget:(id)target_ block:(void (^)(id target))block_ {
-    JRInvocationGrabber *grabber = [[JRInvocationGrabber alloc] initWithTarget:target_];
-    block_(grabber);    return grabber.invocation;
++ (id)invocationWithTarget:(id)target block:(void(^)(id target))block {
+
+    AZInvocationGrabber *grabber = [AZInvocationGrabber.alloc initWithTarget:target];
+    block(grabber);    return grabber.invocation;
 }
 @end
 
+/**		[invocation setArgument:&arg1 atIndex:2];
+		va_list args;		va_start(args, arg1);
+		NSLog(@"Finished: %@", invocation.invocationDescription);
+ 		id obj;		int ct = 3;	while( (obj = va_arg(args, id)) != nil ) {
+ 		while( obj = va_arg(args, id)  { NSLog(@"%@", obj);	[invocation setArgument:&obj atIndex:ct];  ct++;  }
+ 		va_end(args);  NSLog(@"made invocation: %@", invocation.invocationDescription);	*/
+
 @implementation NSObject (Utilities)
 
-// Return an array of an object's superclasses
-- (NSA*) superclasses
-{
-	Class cl = [self class];
-	NSMutableArray *results = [NSMutableArray arrayWithObject:cl];
-	
-	do 
-	{
-		cl = [cl superclass];
-		[results addObject:cl];
-	}
-	while (![cl isEqual:[NSObject class]]) ;
-	
+
+- (NSA*) superclasses { // Return an array of an object's superclasses
+
+	Class cl = self.class; NSMutableArray *results = @[cl].mutableCopy;
+	do {	cl = cl.superclass; [results addObject:cl]; }	while (![cl isEqual:NSObject.class]);
 	return results;
 }
 

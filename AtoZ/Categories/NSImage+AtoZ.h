@@ -134,6 +134,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
 - (NSS*) asTempFile;
+- (NSS*) htmlEncodedImg;
 
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
 - (void) 	  openQuantizedSwatch;

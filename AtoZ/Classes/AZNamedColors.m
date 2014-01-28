@@ -7,6 +7,20 @@
 //
 #import "AZNamedColors.h"
 #import "AtoZ.h"
+
+static NSDictionary * makeDictionaryFromList(NSColorList* list) {
+
+	return [list.allKeys mapToDictForgivingly:^AZKeyPair *(id key) {
+		return [AZKeyPair key:key value:[list colorWithKey:key]];
+	}];
+}
+
+@implementation NSColorList (Dictionary)
+-(NSDictionary*)dictionary { return makeDictionaryFromList(self); }
+@end
+
+
+
 @implementation AZNamedColors
 
 

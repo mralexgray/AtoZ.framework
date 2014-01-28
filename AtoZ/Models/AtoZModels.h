@@ -17,14 +17,16 @@ JREnumDeclare (AZLexicon, AZLexiconUrbanD, AZLexiconWiki, AZLexiconGoogle, AZLex
 typedef void (^AZDefinitionCallback)(AZDefinition *def);
 
 @interface AZDefinition : BaseModel
++ (INST) synonymsOf:(NSS*)word;
 + (INST) define:(NSString*)term ofType:(AZLexicon)lexicon completion:(AZDefinitionCallback)block;
+
 @property (CP) AZDefinitionCallback completion;
-@property (ASS) AZLexicon lexicon; 
+@property (NATOM) AZLexicon lexicon;
 @property (RONLY) NSURL* query;
-@property (NATOM, STRNG) NSString *word, *definition;
-@property (NATOM, STRNG) NSA* results;
-@property (strong, nonatomic) id rawResult;
-@property (copy) NSError *error;
+@property (NATOM) NSString *word, *definition;
+@property (NATOM) NSA* results;
+@property (NATOM) id rawResult;
+@property (CP) NSError *error;
 @end
 #define $DEFINE(A, B) [AZDefinition.alloc initWithProperties : @{ @"word" : A, @"definition" : B }]
 

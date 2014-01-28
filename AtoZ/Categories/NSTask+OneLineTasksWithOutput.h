@@ -17,15 +17,9 @@
 
 @interface NSTask (OneLineTasksWithOutput)
 
-+ (NSS*)stringByLaunchingPath:(NSS*)processPath
-	withArguments:(NSA*)arguments
-	error:(NSError **)error;
-+ (NSS*)stringByLaunchingPath:(NSS*)processPath
-	withArguments:(NSA*)arguments
-	authorization:(SFAuthorization *)authorization
-	error:(NSError **)error;
-
-
++ (NSS*)stringByLaunchingPath:(NSS*)p withArguments:(NSA*)a error:(NSError**)e;
++ (NSS*)stringByLaunchingPath:(NSS*)p withArguments:(NSA*)a authorization:(SFAuthorization*)auth
+																																		error:(NSError **)error;
 //- (void)launchTaskAndRunSynchronous;
 @end
 

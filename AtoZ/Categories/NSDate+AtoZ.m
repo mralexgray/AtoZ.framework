@@ -19,6 +19,9 @@
 }
 @end
 @implementation NSDate (SI)
+
+
+
 +(NSS*) highestSignificantComponentStringFromDate:(NSDate *)date toDate:(NSDate *)toDate {
 
 	NSDateComponents *components = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit |NSSecondCalendarUnit
@@ -51,6 +54,24 @@
 }
 @end
 @implementation NSDate (AtoZ)
+
++(NSS*)now {
+
+	static NSDateFormatter *dateFormat = nil, *timeFormat = nil;
+
+	if (!dateFormat) { dateFormat = NSDateFormatter.new;
+		[dateFormat setDateFormat:@"yyyy-MM-dd"];
+	}
+	if (!timeFormat) {  timeFormat = NSDateFormatter.new;
+		[timeFormat setDateFormat:@"HH:mm:ss"];
+	}
+
+	NSDate *now = NSDate.date;
+
+	NSString *theDate = [dateFormat stringFromDate:now];
+	NSString *theTime = [timeFormat stringFromDate:now];
+	return  [theDate stringByAppendingFormat:@" %@", theTime];
+}
 + (NSS*) dayOfWeek					{
 	return [NSDate.date descriptionWithCalendarFormat:@"%A" timeZone:nil locale:[AZUSERDEFS dictionaryRepresentation]];
 }

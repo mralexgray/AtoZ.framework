@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CAWindow.h"
 #define AZR     AZRect
-#define AZP     AZPOS
+//#define AZP     AZPOS
 #define qP      quartzPath
 #define AZSLDST AZSlideState
 #define AZWT    AZWindowTab

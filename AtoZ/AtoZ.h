@@ -1,24 +1,31 @@
-//
-//  main.m
-//  usernotification
-//
-//    (The WTFPL)
-//
-//    DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-//    Version 2, December 2004
-//
-//    Copyright (C) 2013 Norio Nomura
-//
-//    Everyone is permitted to copy and distribute verbatim or modified
-//    copies of this license document, and changing it is allowed as long
-//    as the name is changed.
-//
-//    DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-//    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-//
-//    0. You just DO WHAT THE FUCK YOU WANT TO.
-//
-/*
+#define AtoZLOGO @" 																																									\
+																																																			\
+							db            ,d                     888888888888																				\
+						 d88b           88                              ,88																				\
+            d8'`8b        MM88MMM                         ,88^ 																				\
+           d8'  `8b         88        ,adPPYba,         ,88^   																				\
+          d8YaaaaY8b        88       a8'     '8a      ,88^      																			\
+         d8""""""""8b       88       8b       d8    ,88^       																				\
+        d8'        `8b      88       '8a,   ,a8'   88^         																				\
+       d8'          `8b     'Y888     `^YbbdP^'    888888888888																				\
+																																																		  \
+			     _    _     _           _            _    _																									\
+          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/																						\
+					|    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\																						\
+																																																			"
+
+
+/*  The DTFWYWTPL * The DO THE FUCK WHAT YOU WANT TO PUBLIC LICENSE, Version 2, Modified, ® 2013 Alex Gray, lol.
+
+    You are permitted to copy and distribute verbatim (or modified), copies of this license document.
+    As for the software, all rules and stipulations of the DO THE FUCK WHAT YOU WANT TO PUBLIC LICENSE apply, now and in perpetuity.
+
+    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTING, MODIFYING, SLICING AND DICING:
+
+    0.	You just DO WHAT THE FUCK YOU WANT TO DO, baby.
+		1.  Stay sexy.
+		
+
 
  zero (0) == FALSE  == NO
  
@@ -56,8 +63,6 @@ AZWORKSPACE:
 #endif 
 
 #import <pwd.h>
-//#import <stat.h>
-//#import <pwd.h>
 #import <unistd.h>
 #import <dirent.h>
 #import <xpc/xpc.h>
@@ -66,47 +71,67 @@ AZWORKSPACE:
 #import <sys/types.h>
 #import <sys/xattr.h>
 #import <sys/sysctl.h>
-#import <Cocoa/Cocoa.h>
-#import <objc/message.h>
-#import <objc/runtime.h>
-#import <AppKit/AppKit.h>
+@import Cocoa;
+@import ObjectiveC;
+//#import <objc/message.h>
+//#import <objc/runtime.h>
+@import AppKit;
+@import Quartz;
+@import QuartzCore;
+@import Foundation;
+@import Security;
+@import AudioToolbox;
+@import ApplicationServices;
+@import AVFoundation;
+@import CoreServices;
+@import AudioToolbox;
+@import AudioToolbox;
+
+//#import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
-#import <Quartz/Quartz.h>
-//#import <Python/Python.h>
+//#import <Quartz/Quartz.h>
 #import <libkern/OSAtomic.h>
-#import <Security/Security.h>
+//#import <Security/Security.h>
 #import <CoreText/CoreText.h>
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <CoreServices/CoreServices.h>
-#import <AVFoundation/AVFoundation.h>
-#import <ApplicationServices/ApplicationServices.h>
+//#import <Foundation/Foundation.h>
+//#import <QuartzCore/QuartzCore.h>
+//#import <AudioToolbox/AudioToolbox.h>
+//#import <CoreServices/CoreServices.h>
+//#import <AVFoundation/AVFoundation.h>
+//#import <ApplicationServices/ApplicationServices.h>
+#import <Zangetsu/Zangetsu.h>
 
-#import <MenuApp/MenuApp.h>
 
-#import <BlocksKit/BlocksKit.h>
-//#import <BlocksKit/A2BlockDelegate.h>
-#import <BlocksKit/A2DynamicDelegate.h>
-#import <CFAAction/CFAAction.h>
+//#import <stat.h>
+//#import <Python/Python.h>
 
-#import <BWTK/BWToolkitFramework.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <CocoatechCore/CocoatechCore.h>
-#import <DrawKit/DKDrawKit.h>
-#import <FunSize/FunSize.h>
-#import <Lumberjack/Lumberjack.h>
-#import <KSHTMLWriter/KSHTMLWriter.h>
+#import <AtoZAppKit/AtoZAppKit.h>
+
+#import <NMSSH/NMSSH.h>
+#import <TwUI/TUIKit.h>
+#import <Rebel/Rebel.h>
 #import <MapKit/MapKit.h>
+#import <FunSize/FunSize.h>
+#import <MenuApp/MenuApp.h>
+#import <DrawKit/DKDrawKit.h>
 #import <NoodleKit/NoodleKit.h>
+#import <CFAAction/CFAAction.h>
+#import <BlocksKit/BlocksKit.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <PhFacebook/PhFacebook.h>
+//#import <Lumberjack/Lumberjack.h>
+#import <KSHTMLWriter/KSHTMLWriter.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <UAGithubEngine/UAGithubEngine.h>
+#import <BWTK/BWToolkitFramework.h>
+#import <BlocksKit/A2DynamicDelegate.h>
+#import <CocoatechCore/CocoatechCore.h>
+#import <RoutingHTTPServer/RoutingHTTPServer.h>
+#import <RoutingHTTPServer/AZRouteResponse.h>
+
 //#import <NanoStore/NanoStore.h>
 //#import <Nu/Nu.h>
-#import <PhFacebook/PhFacebook.h>
-#import <Rebel/Rebel.h>
-#import <TwUI/TUIKit.h>
-#import <Zangetsu/Zangetsu.h>
-#import <AtoZBezierPath/AtoZBezierPath.h>
-#import <AtoZAppKit/AtoZAppKit.h>
+
 #import "AZProxy.h"
 
 // #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc
@@ -230,8 +255,15 @@ AZWORKSPACE:
 
 //#import <AIUtilities/AIUtilities.h>
 #import "AZObserversAndBinders.h"
-#import "extobjc_OSX/extobjc.h"
+//#import "extobjc_OSX/extobjc.h"
+#import <Zangetsu/Zangetsu.h>
 #import "AtoZAutoBox/AtoZAutoBox.h"
+#import "ObjcAssociatedObjectHelper/ObjcAssociatedObjectHelpers.h"
+#import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
+#import "JATemplate/JATemplate.h"
+//#import "TypedCollections/TypedCollections.h"
+
+
 #import "KVOMap/KVOMap.h"
 //#import "KVOMap/DCKeyValueObjectMapping.h"
 //#import "KVOMap/DCArrayMapping.h"
@@ -246,6 +278,8 @@ AZWORKSPACE:
 #import "objswitch.h"
 #import "SelectorMatcher.h"
 #import "ObjectMatcher.h"
+
+#import "MASShortcut.h"  // SHortcut Manager and View
 
 #import "NSObject_KVOBlock.h"
 //#import "CTBlockDescription.h"  in autobox now
@@ -291,6 +325,8 @@ AZWORKSPACE:
 
 /* MODEL */
 
+
+#import "AZGit.h"
 #import "DSSyntaxCollection.h"
 #import "DSSyntaxTextView.h"
 #import "AZSyntaxTheme.h"
@@ -326,7 +362,7 @@ AZWORKSPACE:
 #import "DefinitionController.h"
 #import "AZFactoryView.h"
 
-#import "NSLogConsole.h"
+#import "AZLogConsole.h"
 #import "Bootstrap.h"
 
 //   CORE
@@ -360,30 +396,38 @@ AZWORKSPACE:
 
 
 /*  FACEBOOK	*/
-#import "RoutingHTTPServer.h"
 #import "AssetCollection.h"
-#import "AZHTTPRouter.h"
+//#import "AZHTTPRouter.h"
 #import "AZFacebookConnection.h"
 
-#import "GCDAsyncSocket.h"
-#import "GCDAsyncSocket+AtoZ.h"
+//#import "GCDAsyncSocket.h"
+//#import "GCDAsyncSocket+AtoZ.h"
 
-#import "HTTPServer.h"
-#import "HTTPConnection.h"
-#import "HTTPMessage.h"
-#import "HTTPResponse.h"
-#import "HTTPDataResponse.h"
-#import "HTTPAuthenticationRequest.h"
-#import "DDNumber.h"
-#import "DDRange.h"
-#import "DDData.h"
-#import "HTTPFileResponse.h"
-#import "HTTPAsyncFileResponse.h"
-#import "HTTPDynamicFileResponse.h"
-#import "WebSocket.h"
-#import "WebSocket+AtoZ.h"
+//#import "HTTPServer.h"
+//#import "HTTPConnection.h"
+//#import "HTTPMessage.h"
+//#import "HTTPResponse.h"
+//#import "HTTPDataResponse.h"
+//#import "HTTPAuthenticationRequest.h"
+//#import "DDNumber.h"
+//#import "DDRange.h"
+//#import "DDData.h"
+//#import "HTTPFileResponse.h"
+//#import "HTTPAsyncFileResponse.h"
+//#import "HTTPDynamicFileResponse.h"
+//#import "RoutingHTTPServer.h"
+//#import "WebSocket.h"
+//#import "RouteRequest.h"
+//#import "RouteResponse.h"
+//#import "WebSocket.h"
+#import "WebView+AtoZ.h"
 
-#import "HTTPLogging.h"
+//#import "AZWebSocketServer.h"
+
+
+
+
+//#import "HTTPLogging.h"
 
 #import "AZBonjourBlock.h"
 
@@ -536,8 +580,9 @@ AZWORKSPACE:
 // TwUI
 #import "TUIView+Dimensions.h"
 //#import "TUITableOulineView.h"
+
 //#import "TUINavigationController.h"
-#import "TUICarouselNavigationController.h"
+//#import "TUICarouselNavigationController.h"
 #import "AHLayout.h"
 #import "AZExpandableView.h"
 #import "AZProportionalSegmentController.h"

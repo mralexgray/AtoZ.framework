@@ -1,23 +1,22 @@
-//
 
 #import "AtoZ.h"
 #import "MASShortcutView.h"
 #import "MASShortcutView+UserDefaults.h"
 #import "MASShortcut+UserDefaults.h"
 #import "MASShortcut+Monitoring.h"
+
 #import <sys/sysctl.h>
 #import <sys/proc_info.h>
+#import <objc/runtime.h>
 #import <libproc.h>
-
 
 #import "AtoZFunctions.h"
 #import "AtoZUmbrella.h"
 #import "AtoZModels.h"
-#import <objc/runtime.h>
 #import "OperationsRunner.h"
 
 NSS 	* AZGridShouldDrawKey 	= @"AZGridShouldDraw",	* AZGridUnitWidthKey 	= @"AZGridUnitWidth",
-		* AZGridUnitHeightKey 	= @"AZGridUnitHeight",	* AZGridColorDataKey 	= @"AZGridColorData";
+		  * AZGridUnitHeightKey 	= @"AZGridUnitHeight",	* AZGridColorDataKey 	= @"AZGridColorData";
 
 @implementation NSObject (AZFunctional)
 - (id) processByPerformingFilterBlocks:(NSA*)filterBlocks	{	__block typeof(self) blockSelf = self;
@@ -87,12 +86,7 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 
 
-@interface AtoZ ()
-@property (nonatomic, assign) BOOL fontsRegistered;
-@end
-
-
-
+static BOOL fontsRegistered;
 
 //@synthesize sManager; - (id)init {	self = [super init];	if (self) {	static NSA* cachedI = nil;
 //	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
@@ -101,44 +95,16 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 //	return [NSIMG imageNamed:name];	?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
 //	i.name 	= i.name ?: name;	return/ i;	}
 
-// hello!
-
-NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
-			*const MASPreferenceKeyShortcutEnabled 			= @"MASDemoShortcutEnabled",
-			*const MASPreferenceKeyConstantShortcutEnabled 	= @"MASDemoConstantShortcutEnabled";
-
-
 @implementation AtoZ	{	__weak id _constantShortcutMonitor;	}	@synthesize delegates = _delegates;
 
 
-- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
-+ (NSMA*) delegates { return [sharedI delegates]; }
-
-+ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
-	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
-}
-+ (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
-+ (BOOL) isAtoZRunning {
-
-	return self.delegate &&
-			 [NSRunningApplication runningApplicationsWithBundleIdentifier:[[self delegate].bundle bundleIdentifier]].count;
-}
-+ (NSW*) window 						{ return [self.sharedInstance azWindow]; }
-
-- (NSW*) azWindow 					{ return _azWindow = _azWindow ?: ^{ return
-
-	[NSW.alloc initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask|NSResizableWindowMask
-																				 backing:NSBackingStoreBuffered defer:NO];
-	}();
-}
 - (void) setUp 						{
 
-	[AZStopwatch named:@"AtoZ.framework Instanciate!" block:^{
+	[AZStopwatch named:$(@"AtoZ.framework Instanciate! (pid:%i)",AZPROCINFO.processIdentifier) block:^{
 
 		// set them in the standard user defaults
 		AZ_SET_DEFAULT(@"azHotKeyEnabled",@YES);
-//		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKeyEnabled"];
-
+//		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKey
 // Command-Shift-D the default shortcut.
 //		self.azHotKeyView = [MASShortcutView.alloc initWithFrame:AZRectBy(200,100)];
 //		self.azHotKey 		= [MASShortcut setGlobalShortcut:[MASShortcut shortcutWithKeyCode:0x2 modifierFlags:NSCommandKeyMask|NSShiftKeyMask] forUserDefaultsKey:VARNAME(_azHotKey)];
@@ -189,6 +155,27 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 		//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
 		//		[NSS.randomDicksonism respondsToStringThenDo:obj];
 	}];
+}
+
+- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
++ (NSMA*) delegates { return [sharedI delegates]; }
+
++ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
+	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
+}
++ (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
++ (BOOL) isAtoZRunning {
+
+	return self.delegate &&
+			 [NSRunningApplication runningApplicationsWithBundleIdentifier:[[self delegate].bundle bundleIdentifier]].count;
+}
++ (NSW*) window 						{ return [self.sharedInstance azWindow]; }
+
+- (NSW*) azWindow 					{ return _azWindow = _azWindow ?: ^{ return
+
+	[NSW.alloc initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask|NSResizableWindowMask
+																				 backing:NSBackingStoreBuffered defer:NO];
+	}();
 }
 /*		[self.class playRandomSound];
  [[NSIMG imageFromLockedFocusSize:AZSizeFromDimension(256) lock:^NSImage *(NSImage *s) {
@@ -300,7 +287,7 @@ NSString *const MASPreferenceKeyShortcut					 	= @"MASDemoShortcut",
 
 	return @[@"Maps", @"Browser", @"Contacts", @"Mail", @"Gists", @"Settings"];
 }
-+ (NSS*) tempFilePathWithExtension:(NSS*)extension	{return $(@"/tmp/atoztempfile.%@.%@", NSS.newUniqueIdentifier, extension); }
++ (NSS*) tempFilePathWithExtension:(NSS*)extension	{return [NSTemporaryDirectory() withPath:$(@"atoztempfile.%@.%@", NSS.newUniqueIdentifier, extension)]; }
 - (void) appendToStdOutView:(NSS*)text		{
 	NSAttributedString *string = [text attributedWithFont:AtoZ.controlFont andColor:self.logColor];
 	// Get the length of the textview contents
@@ -646,7 +633,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 	/*	lM->logMsg 		lM->file		lm->lineNumber	lM->function	lM.fileName	DDLEVEL2STRING(lm) DDLEVEL2INT(lM) */
 	NSS* file = $(@"[%@]", [$UTF8(lM->file).lastPathComponent stringByDeletingPathExtension]);
 	file = [[file truncateInMiddleToCharacters:12]paddedTo:12];
-	file = [AZLOGSHARED colorizeString:file withColor:GREEN];
+	file = [AZLog colorizeString:file withColor:GREEN];
 	printf("%s", file.UTF8String);
 	return $(@"%@:%i%@", file , lM->lineNumber, lM->logMsg);
 }
@@ -829,11 +816,11 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 	save = color.copy;
 	//	NSLog(@"Saved %@", self.save);
 	color = [NSColor whiteColor];
-	float f  = 0;
+	CGF f  = 0.;
 	while ( f < .6 ) {
 		color = ( color == [NSColor blackColor] ? [NSColor whiteColor] : [NSColor blackColor]);
 		[self performSelector:@selector(flash:) withObject:color.copy afterDelay:f];
-		f = f+.1;
+		f = f + .1f;
 	}
 	[self performSelector:@selector(flash:) withObject:save afterDelay:.6];
 }

@@ -7,8 +7,28 @@
 //
 
 #import "NSBundle+AtoZ.h"
+#import <mach-o/getsect.h>
+
 
 @implementation NSBundle (AtoZ)
+
+
++ (id) infoPlist {
+
+		const struct section_64 *__info_plist = getsectbyname("__TEXT", "__info_plist");
+
+		if (!__info_plist)  return nil;//fprintf(stderr, "__TEXT,__info_plist section not found\n"),1;
+		NSData *plist					= [NSData dataWithBytesNoCopy:(void*)__info_plist->addr length:__info_plist->size freeWhenDone:NO];
+		NSData *xmlSignature	= [NSData dataWithBytesNoCopy:"<?xml" length:5 freeWhenDone:NO];
+			return [[plist subdataWithRange:NSMakeRange(0, xmlSignature.length)] isEqualToData:xmlSignature] ?
+//			prinf("raw __info_plist section:\n-------------------------\n%s\n",
+			[NSString.alloc initWithData:plist encoding:NSUTF8StringEncoding]
+			:[NSPropertyListSerialization propertyListFromData:plist mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+
+//		: printf("binary __info_plist section:\n----------------------------\n%s\n", .UTF8String);
+//		printf("\nmainBundle infoDictionary:\n--------------------------\n%s\n",
+//			[NSBundle.mainBundle.infoDictionary description].UTF8String);
+}
 
 +( NSB*) bundleForApplicationName:(NSString *)appName {
 	return [self bundleWithIdentifier:[self bundleIdentifierForApplicationName:appName]];

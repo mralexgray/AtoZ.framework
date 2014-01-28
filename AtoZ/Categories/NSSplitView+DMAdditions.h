@@ -19,6 +19,7 @@
 
 @interface NSSplitView (DMAdditions)
 
+
 /** Set the new position of a divider at index.
 	@param  position			the new divider position
 	@param  dividerIndex		target divider index in this splitview

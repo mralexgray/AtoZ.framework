@@ -3,11 +3,22 @@
 #import "AtoZ.h"
 
 
-#define	   AZCLISI 	AZCLI.sharedInstance
-#define     AZSTDIN	NSFileHandle.fileHandleWithStandardInput
-#define	AZQUITMENU 	[NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME] action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]
+#include <assert.h>
+#include <SystemConfiguration/SystemConfiguration.h>
 
-@interface 					  AZCLI : NSObject   <NSLogConsoleDelegate,NSWindowDelegate,NSApplicationDelegate>	 
+/* Adapted from QA1133:http://developer.apple.com/mac/library/qa/qa2001/qa1133.html */
+
+
+FOUNDATION_EXPORT NSString * AZCurrentUser();
+FOUNDATION_EXPORT     NSUI   AZCurrentUserID();
+
+
+#define	    AZCLISI AZCLI.sharedInstance
+#define     AZSTDIN	NSFileHandle.fileHandleWithStandardInput
+#define    AZSTDOUT	NSFileHandle.fileHandleWithStandardOutput
+#define  AZQUITMENU [NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME] action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]
+
+@interface 					  AZCLI : NSObject   <AZLogConsoleDelegate,NSWindowDelegate,NSApplicationDelegate>	 
 {
 		        MenuAppController * menu; 
 //		     DefinitionController * dCTL;	
@@ -56,4 +67,4 @@
 //@interface AZCLIMenu : 	BaseModel	@property (STRNG)   	NSA 	*items;	@property (RONLY)    NSS 	*outputString;	@property (ASS)  		NSRNG  range;	@end
 //@property (		  STRNG)     NSFH *logConsoleHandle;
 //+ (NSFH*) stdinHandle;
-//#import "NSLogConsole.h"
+//#import "AZLogConsole.h"

@@ -1,28 +1,24 @@
 
 
 #import <objc/runtime.h>
-#import "extobjc_OSX/extobjc.h"
+#import <Zangetsu/Zangetsu.h>
+//#import "extobjc_OSX/extobjc.h"
 #import "AtoZUmbrella.h"
 #import "AtoZCategories.h"
 
 
-@protocol IBSingleton <NSObject>
-
-@optional
-- (void) setUp;
+@protocol IBSingleton <NSObject> @optional - (void) setUp;
 @concrete
-+ (id) allocWithZone: (NSZone*)zone;
-+ (instancetype)sharedInstance;
-+ (id) alloc;
-+ (id) _alloc;
-- (id) init;
-- (id) _init;
++ (id) allocWithZone:(NSZone*)z;
++ (instancetype) sharedInstance;
++ (id) alloc; + (id) _alloc;
+- (id) init;	- (id) _init;
 @end
 
 
 @protocol AZPlistRepresentation <NSObject>
 @concrete
-@property (RONLY) NSD* plistRepresentation;
+@property (readonly) NSD* plistRepresentation;
 @end
 
 @interface AZObject : NSObject <NSCoding, NSCopying, NSMutableCopying, AZPlistRepresentation>

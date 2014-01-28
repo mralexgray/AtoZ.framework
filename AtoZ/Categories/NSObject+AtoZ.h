@@ -113,11 +113,12 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 
 @interface NSObject (AtoZ)
 
+
 @property (readonly) NSS * uuid; // Associated with custom getter
 @property (strong) 	NSMA		* propertiesThatHaveBeenSet;
 
 - (BOOL) valueWasSetForKey:(NSS*)key;
-
+- (BOOL) ISA:(Class)k;
 
 @property NSMA* undefinedKeys; /* USAGE: 	
 
@@ -198,16 +199,20 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 //+ (NSA*) instanceMethods;
 - (NSS*) instanceMethodsInColumns;
 
-/*
-	block1 one = ^id(void){ id a= @"a"; return a;};
-	block1 oneA = ^id(void){ id b= @"a"; return b;};
-	block2 two = ^id(id amber) { return amber;   };
+/** Block introspection!  Uses CTBlockDescription in AtoZAutoBox.
+	@param anotherBlock an object (a block) to compare oneself to.
+	@return If the signatures are an exact match.
+
+      block1 one	= ^id(void){ id a= @"a"; return a;};
+	    block1 oneA = ^id(void){ id b= @"a"; return b;};
+	    block2 two	= ^id(id amber) { return amber;   };
 	
-	LOG_EXPR([oneA isKindOfBlock:one]); = YES
-	LOG_EXPR([oneA isKindOfBlock:two]); = NO
+	    LOG_EXPR([oneA isKindOfBlock:one]); -> YES
+			LOG_EXPR([oneA isKindOfBlock:two]); -> NO
+
 */
-- (NSS*) blockDescription;
 - (BOOL) isKindOfBlock:(id)anotherBlock;
+- (NSS*) blockDescription;
 - (NSMethodSignature*) blockSignature;
 
 /* USAGE:
@@ -525,7 +530,11 @@ _Pragma("clang diagnostic pop") \
 // Selector Utilities
 - (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector,...;
 - (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...;
-- (const char *) returnTypeForSelector:(SEL)selector;
+// Return a C-string with a selector's return type may extend this idea to return a class
+- (const char*)returnTypeForSelector:(SEL)selector;
+// Choose the first selector that an object can respond to. Thank Kevin Ballard for assist!
+- (SEL)chooseSelector:(SEL)aSelector, ...;
+
 
 // Request return value from performing selector
 - (id) objectByPerformingSelectorWithArguments: (SEL) selector, ...;
@@ -546,22 +555,44 @@ _Pragma("clang diagnostic pop") \
 - (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1;
 - (id) valueByPerformingSelector:(SEL)selector;
 
+
+// Return an array of all an object's selectors
++ (NSA*)getSelectorListForClass;
+// Return a dictionary with class/selectors entries, all the way up to NSObject
+- (NSD*)selectors;
+// Return an array of all an object's properties
++ (NSA*)getPropertyListForClass;
+// Return a dictionary with class/selectors entries, all the way up to NSObject
+- (NSD*)properties;
+// Return an array of all an object's properties
++ (NSA*)getIvarListForClass;
+// Return a dictionary with class/selectors entries, all the way up to NSObject
+- (NSD*)ivars;
+// Return an array of all an object's properties
++ (NSA*)getProtocolListForClass;
+// Return a dictionary with class/selectors entries, all the way up to NSObject
+- (NSD*)protocols;
+// Runtime checks of properties, etc.
+- (BOOL)hasProperty:(NSS*)propertyName;
+- (BOOL)hasIvar:(NSS*)ivarName;
++ (BOOL)classExists:(NSS*)className;
++ (id)instanceOfClassNamed:(NSS*)className;
+
+
+
 // Access to object essentials for run-time checks. Stored by class in dictionary.
 @property (readonly) NSDictionary *selectors, *properties, *ivars, *protocols;
 
 // Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
-- (BOOL) hasProperty: (NSS*)propertyName;
-- (BOOL) hasIvar: 	 (NSS*)ivarName;
-+ (BOOL) classExists: (NSS*)className;
-+   (id) instanceOfClassNamed:(NSS*)className;
+//- (BOOL) hasProperty: (NSS*)propertyName;
+//- (BOOL) hasIvar: 	 (NSS*)ivarName;
+//+ (BOOL) classExists: (NSS*)className;
+//+ (id) instanceOfClassNamed:(NSS*)className;
 
 // Attempt selector if possible
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1;
 - (id) tryPerformSelector: (SEL) aSelector;
-
-// Choose the first selector that the object responds to
-- (SEL) chooseSelector: (SEL) aSelector, ...;
 @end
 
 

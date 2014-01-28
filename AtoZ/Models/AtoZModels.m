@@ -41,7 +41,8 @@ DCSDictionaryRef DCSDictionaryCreate(CFURLRef url);
 + (INST) definitionFromDuckDuckGoOf:(NSS*)query { return [self define:query ofType:AZLexiconDuckDuckGo completion:NULL];	}
 
 + (INST) define:(NSString*)term ofType:(AZLexicon)lexicon completion:(AZDefinitionCallback)block {
-	AZDefinition *n = AZDefinition.new;	n.lexicon = lexicon; n.word = term;	if (block != NULL) n.completion = [block copy];	return n;
+	AZDefinition *n = AZDefinition.new;	n.lexicon = lexicon; n.word = term;	if (block != NULL) n.completion = [block copy];	[n rawResult];
+	return n;
 }
 
 + (NSSet*) keyPathsForValuesAffectingRawResult {  return NSSET(@"word", @"lexicon", @"completion"); }
@@ -56,25 +57,45 @@ DCSDictionaryRef DCSDictionaryCreate(CFURLRef url);
 
 - (id) rawResult {
 
-	if (_lexicon == AZLexiconDuckDuckGo)  {
-	
-		NSURLREQ *req 	= [NSURLREQ requestWithURL:self.query];	NSURLRES *res 	= nil;	NSError 	*err  = nil;
-		NSData *data 	= [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:&err];
-		_rawResult 		= (NSArray*)((NSD*)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL])[@"RelatedTopics"];
-		self.results   = [_rawResult count] ? [_rawResult vFKP:@"Text"] : nil;
+	if (_lexicon == AZLexiconDuckDuckGo || _lexicon == AZLexiconWiki)  {
+
+		if (_lexicon == AZLexiconDuckDuckGo) {
+			NSURLREQ *req 	= [NSURLREQ requestWithURL:self.query];	NSURLRES *res 	= nil;	NSError 	*err  = nil;
+			NSData *data 	= [NSURLConnection sendSynchronousRequest:req returningResponse:&res error:&err];
+			_rawResult 		= (NSArray*)((NSD*)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL])[@"RelatedTopics"];
+			self.results   = [_rawResult count] ? [_rawResult vFKP:@"Text"] : nil;
+		}
+		if (_lexicon == AZLexiconWiki) {	__block NSError *requestError = nil;  __block NSS* wikiD = nil;
+		
+			_requester 							= [ASIHTTPRequest.alloc initWithURL:self.query];
+			_requester.completionBlock 	= ^(ASIHTTPRequest *request) {	wikiD = request.responseString.copy; requestError = [request error];	};
+			[_requester startSynchronous];
+			AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
+			_rawResult = wikiD;
+			NSString * stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);
+			self.results  			= requestError 		?  @[$(@"Error: %@  headers: %@", requestError, _requester.responseHeaders)]
+										: ![wikiD isEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] : nil;
+		}
+		if (_results.count) _completion(self);
 	}
-	if (_lexicon == AZLexiconWiki) {	__block NSError *requestError = nil;  __block NSS* wikiD = nil;
-	
-		_requester 							= [ASIHTTPRequest.alloc initWithURL:self.query];
-		_requester.completionBlock 	= ^(ASIHTTPRequest *request) {	wikiD = request.responseString.copy; requestError = [request error];	};
-		[_requester startSynchronous];
-		AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
-		_rawResult = wikiD;
-		NSString * stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);
-		self.results  			= requestError 		?  @[$(@"Error: %@  headers: %@", requestError, _requester.responseHeaders)]
-									: ![wikiD isEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] : nil;
+	if (_lexicon == AZLexiconUrbanD) {
+		JATLog(@"setting up AZLexiconUrbanD for {self.word}", self.word);
+		ASIHTTPRequest *requester 	= [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
+		requester.completionBlock 	= ^(ASIHTTPRequest *request) {
+			NSS *responsePage      	= request.responseString.copy;
+			NSError *requestError  	= [request error];
+			if (requestError) { self.definition =  @"no response from urban"; return; }
+			AZHTMLParser *p 	= [AZHTMLParser.alloc initWithString:responsePage error:&requestError];
+			HTMLNode *title 	= [p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES];
+			NSS *content	 	= [title getAttributeNamed:@"content"];
+			HTMLNode *descN   = [p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES];
+			self.definition = [descN getAttributeNamed:@"content"];
+        ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+			_completion(self);
+		};
+		[requester startAsynchronous];
 	}
-	if (_results.count) _completion(self);
+
 /* appleds
     NSURL *url = [NSURL fileURLWithPath:Ox];
     CFTypeRef dict = DCSDictionaryCreate((CFURLRef) url);

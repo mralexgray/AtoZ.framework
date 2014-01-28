@@ -650,16 +650,13 @@ NSData* PNGRepresentation(NSIMG *image) {
 	return [NSIMG.alloc initWithCGImage: CGWindowListCreateImage(CGRectInfinite, kCGWindowListOptionOnScreenOnly,
 																					 kCGNullWindowID, kCGWindowImageDefault) size:AZScreenSize()];
 }
-+ (NSA*) frameworkImagePaths	{	static NSA* frameworkImagePaths_ = nil;
 
-	return frameworkImagePaths_ = frameworkImagePaths_ =
-		[NSA arrayWithArrays:[@[@"pdf", @"png", @"icns"] map:^id(NSS* obj) { 
-			return [AZFWORKBUNDLE pathsForResourcesOfType:obj inDirectory:@""]; 
-		}]];
+static NSA* frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
+
++ (NSA*) frameworkImagePaths	{	 return frameworkImagePaths_ = frameworkImagePaths_ ?:
+		[NSA arrayWithArrays:[@[@"pdf", @"png", @"icns"] map:^id(NSS* obj) { return [AZFWORKBUNDLE pathsForResourcesOfType:obj inDirectory:@""]; }]];
 }
-+ (NSA*) frameworkImageNames	{
-	static NSA* frameworkImageNames_ = nil;
-		return frameworkImageNames_ = frameworkImageNames_ =
++ (NSA*) frameworkImageNames	{ return frameworkImageNames_ = frameworkImageNames_ ?:
 	 [[NSIMG.frameworkImagePaths mapSelector:@selector(lastPathComponent)]mapSelector:@selector(stringByDeletingPathExtension)];
 }
 + (NSA*) frameworkImages			{
@@ -670,10 +667,8 @@ NSData* PNGRepresentation(NSIMG *image) {
 	}] filter:^BOOL(id object) { return [object isKindOfClass:[NSIMG class]]; }];
 }
 
-void TestLog(const char* prettyF, ...) {
+//void TestLog(const char* prettyF, ...) { }
 
-	
-}
 #define TESTLOGDECLAREARGS(...)  	NSLog(@"Testing %@ w/args 1.0 (scaleFactor), WHITE (coreColor)m and RANDOMCOLOR (glowColor);", NSStringFromSelector(_cmd));
 
 - (NSIMG*) testNamed:(NSS*)name { 
@@ -1334,6 +1329,11 @@ static NSOrderedDictionary  *monos = nil;
 			[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:@[@"-a", @"Preview", p]];
 
 //		[AZWORKSPACE openFile:p withApplication:@"Preview"];
+}
+
+- (NSS*) htmlEncodedImg {
+
+	return $(@"<img style='width:100%%; height:100%%;' src='data:image/png;base64,%@' />", [self base64EncodingWithFileType:NSPNGFileType]);
 }
 
 - (void)openQuantizedSwatch{

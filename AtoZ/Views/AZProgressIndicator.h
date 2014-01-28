@@ -1,11 +1,23 @@
 
-//  AZProgressIndicator.h
-//  AtoZ
-
-//  Created by Alex Gray on 6/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import <Foundation/Foundation.h>
 #import "AtoZ.h"
+
+
+@interface AZProgressBar : NSProgressIndicator
+
+@property NSTimer * animator;
+@property NSC * color;
+@property (NATOM) CGF stripeWidth;
+@property  double   progressOffset;
+@property BOOL clickable;
+
+//-  (void) drawBezel;
+//-  (void) drawProgressWithBounds: (NSR)bounds;
+//-  (void) drawStripesInBounds:    (NSR)bounds;
+//-  (void) drawShadowInBounds:     (NSR)bounds;
+//- (NSBP*) stripeWithOrigin:       (NSP)origin bounds:(NSR)frame;
+
+@end
 
 @interface AZProgressIndicator : NSView {
 
@@ -22,24 +34,17 @@
 	float 	_gradientWidth;
 }
 
-@property (nonatomic, assign) double 	doubleValue;
-@property (nonatomic, assign) double 	maxValue;
-@property (nonatomic, assign) double 	cornerRadius;
-@property (nonatomic, assign) float 	fontSize;
-@property (nonatomic, assign) float 	shadowBlur;
-@property (nonatomic, assign) BOOL 		usesThreadedAnimation;
-@property (nonatomic, retain) NSString 	*progressText;
-@property (nonatomic, retain) NSColor 	*progressHolderColor;
-@property (nonatomic, retain) NSColor 	*progressColor;
-@property (nonatomic, retain) NSColor 	*backgroundTextColor;
-@property (nonatomic, retain) NSColor 	*frontTextColor;
-@property (nonatomic, retain) NSColor 	*shadowColor;
-@property (nonatomic, assign, setter = setIsIndeterminate:) BOOL isIndeterminate;
+@property (nonatomic)           double doubleValue, maxValue,	cornerRadius;
+@property (nonatomic)            float fontSize,    shadowBlur;
+@property (nonatomic) BOOL 		usesThreadedAnimation;
+@property (nonatomic) NSString 	*progressText;
+@property (nonatomic) NSColor 	*progressHolderColor, 	*progressColor, *backgroundTextColor,*frontTextColor, *shadowColor;
+@property (nonatomic, setter = setIsIndeterminate:) BOOL isIndeterminate;
 
-- (void)	setProgressTextAlign:(int)pos;
-- (int)		progressTextAlignt;
+-  (void)	setProgressTextAlign:(int)pos;
+-   (int)		progressTextAlignt;
 - (float)	alignTextOnProgress:(NSRect)rect fontSize:(NSSize)size;
-- (void)	startAnimation:(id)sender;
-- (void)	stopAnimation:(id)sender;
-- (void)	animateInBackgroundThread;
+-  (void)	startAnimation:(id)sender;
+-  (void)	stopAnimation:(id)sender;
+-  (void)	animateInBackgroundThread;
 @end

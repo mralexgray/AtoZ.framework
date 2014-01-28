@@ -240,6 +240,7 @@
 		7B8ED43C175536D9008C405D /* SNRHUDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNRHUDScrollView.m; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDScrollView.m; sourceTree = "<group>"; };
 		7B8ED44317553779008C405D /* NSBezierPath+MCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+MCAdditions.h"; path = "../submodules/SNRHUDKit/SNRHUDKit/Categories/NSBezierPath+MCAdditions.h"; sourceTree = "<group>"; };
 		7B8ED44417553797008C405D /* NSBezierPath+MCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath+MCAdditions.m"; path = "../submodules/SNRHUDKit/SNRHUDKit/Categories/NSBezierPath+MCAdditions.m"; sourceTree = "<group>"; };
+		7BCDC11C182A414600C9AE23 /* Sub-Umbrella.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Sub-Umbrella.xcconfig"; path = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/../xcconfigs/Base/Targets/Sub-Umbrella.xcconfig"; sourceTree = "<absolute>"; };
 		7BDC5F721724D4A8002C62E7 /* BFColorPickerPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFColorPickerPopover.h; path = Classes/BFColorPickerPopover.h; sourceTree = "<group>"; };
 		7BDC5F731724D4A8002C62E7 /* BFColorPickerPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFColorPickerPopover.m; path = Classes/BFColorPickerPopover.m; sourceTree = "<group>"; };
 		7BFB9892163DCEAB00254DCF /* AZFlatTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFlatTheme.m; sourceTree = "<group>"; };
@@ -321,6 +322,7 @@
 		0259C574FE90428111CA0C5A /* BGHUDAppKit */ = {
 			isa = PBXGroup;
 			children = (
+				7BCDC11C182A414600C9AE23 /* Sub-Umbrella.xcconfig */,
 				7B657CE3176225ED000BF102 /* MainMenu.xib */,
 				7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */,
 				7B8ED432175536D9008C405D /* SNRHUDSegmentedCell.m */,
@@ -746,7 +748,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "logger  \"ZZZZZZZZZZZZZZZZZZZZZ  :   ${BUILT_PRODUCTS_DIR}\"";
+			shellScript = "# logger  \"ZZZZZZZZZZZZZZZZZZZZZ  :   ${BUILT_PRODUCTS_DIR}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -882,7 +884,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				INSTALL_PATH = "@loader_path/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -925,7 +927,7 @@
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				INSTALL_PATH = "@loader_path/Frameworks";
 				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

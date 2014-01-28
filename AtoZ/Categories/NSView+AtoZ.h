@@ -65,14 +65,20 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @class CALayerNoHit;
 @interface NSView (AtoZ)
 
-//@property (nonatomic, strong) NSMA* needsDisplayForKeys;
+@property (RONLY) NSA* visibleSubviews;
+@property (RONLY) CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
+
++ (instancetype)viewBy:(NSN*)width,...;
++ (instancetype)viewWithFrame:(NSR)r;
+
+@property (nonatomic, strong) NSMA* needsDisplayForKeys;
 
 @property (getter=getBackground, setter=doSetBackground:) id background;
 
 - (NSV*) dragSubviewWihEvent:(NSE*)e;
 
 - (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
-
+- (NSSplitView*) split;
 - (void) debug;
 - (void) debuginQuadrant:(AZQuad)q;
 
@@ -264,7 +270,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (NSA*) subviewsOfKind: (Class)kind  withTag:(NSI)tag;
 - (NSA*) subviewsOfKind: (Class)kind;
 
-- (NSA*) subviewFirstOfClass:(Class)k;
+- (NSV*) firstSubviewOfClass:(Class)k;
 - (NSA*) subviewsOfClass:(Class)k;
 
 - (NSV*)firstSubviewOfKind: (Class)kind  withTag:(NSI)tag;

@@ -3,6 +3,9 @@
 #import "AtoZMacroDefines.h"
 #import "AtoZUmbrella.h"
 
+/*** AtoZ Block Types */
+
+typedef void (^AZObjIdxStopBlock)(id obj, NSUInteger idx, BOOL *stop);
 
 /** When defining a new class use the GENERICSABLE macro.
 	

@@ -1035,7 +1035,7 @@
 
 		//	AZTalker *welcome = [AZTalker new];
 		//	[welcome say:@"welcome"];
-		//	[NSLogConsole sharedConsole];
+		//	[AZLogConsole sharedConsole];
 
 }
 

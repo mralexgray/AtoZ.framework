@@ -1,16 +1,49 @@
-//
-//  UAGitUtilities.h
-//  UAGithubEngine
-//
-//  Created by Alex Gray on 10/26/13.
-//
-//
 
-#import <Foundation/Foundation.h>
 
-@interface UAGitUtilities : NSObject
+#import "AtoZUmbrella.h"
+#import "BaseModel.h"
+#import "AZObject.h"
+
+
+NSString *taskWithPathAndArgs(NSString*path,NSArray *args);
+
+@interface AZGit : NSObject
 
 + (NSString*) lookupUsername;
-+ (NSString*) commandLineCallWithPath:(NSString*)path andArgs:(NSArray*)args;
 + (NSString*) gitPath;
 @end
+
+@interface AZGists : NSTreeController // <IBSingleton>
+- (void) addGists:(id)content;
+@end
+
+@interface AZGistLanguage : NSTreeNode
++ (instancetype) languageNamed:(NSS*)s;
+@property NSS * extension, *type, *name;
+@property NSA * aliases, *extensions;
+@end
+
+@interface AZGist : NSO
+
+@property (nonatomic) NSDate *created;
+@property (nonatomic,copy) NSString *description, *owner, *repository;
+@property (nonatomic) NSArray *files;
+@property BOOL isPublic;
+@property (readonly) BOOL isLeaf;
+@property NSArray*fullURLs;
+@property AZGistLanguage *language;
+//- (NSString *)textForURL:(NSURL *)url;
+//- (NSString *)cachedTextForFile:(NSString *)file;
+//- (NSURL*)repositoryURL;
+//- (void)openRepositoryURL;
+
+@end
+//@interface AZGistLanguagesController : NSArrayController <IBSingleton>
+//@end
+
+@interface AZGistFile : BaseModel
+@property (nonatomic) AZGistLanguage *language;
+@property (nonatomic) NSS* text;
+@end
+
+

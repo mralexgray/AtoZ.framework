@@ -1,25 +1,25 @@
 
-@protocol NSLogConsoleDelegate <NSObject>
+@protocol AZLogConsoleDelegate <NSObject>
 - (void) textWasEntered:(NSS*)string;
 @end
 
 void			NSLogProlog (char* file, int line);
 void			NSLogPostLog(char* file, int line);
 
-@interface NSLogConsoleView : WebView 
+@interface AZLogConsoleView : WebView 
 - (void) logString:(NSString*)string file:(char*)file lineNumber:(int)line;
 - (void) clear;
 - (void) search:(NSString*)string;
 @end
-@interface 	NSLogConsole : NSObject <MTTokenFieldDelegate>
+@interface 	AZLogConsole : NSObject <MTTokenFieldDelegate>
 @property (WK) IBO 	MTTokenField 	*tokenField;
 @property (WK) IBO 	id 				classTable;
 @property (WK)	IBO	id					window;
-@property (WK)	IBO	NSLogConsoleView*	webView;
+@property (WK)	IBO	AZLogConsoleView*	webView;
 @property (WK)	IBO	id 				searchField;
 @property (NATOM,STRNG)		NSS				*fakeStdin;
 @property (NATOM,STRNG)		NSMAS				*terminal;
-@property (WK) 		id <NSLogConsoleDelegate> delegate;
+@property (WK) 		id <AZLogConsoleDelegate> delegate;
 @property (STRNG) 				NSMA				*tokensForCompletion;
 @property 				BOOL				autoOpens;
 @property 				int				original_stderr;

@@ -1096,8 +1096,8 @@ static NSMD* needsDisplayKeysRef = nil;
 		}];
 	}];
 	}
-	else { CAShapeLayer *lasso = [self lassoLayerForLayer:self];
-	lasso.name = @"lasso";  [self addSublayer:lasso]; }
+	else { CAShapeLayer *lasso = [self.class lassoLayerForLayer:self]; }
+//	lasso.name = @"lasso";  [self addSublayer:lasso]; }
 	//	[self sublayersBlockSkippingSelf:^(CAL*layer) {
 	//	[layer[@"name"] isEqualToString:@"lasso"
 	//	}]
@@ -1105,15 +1105,20 @@ static NSMD* needsDisplayKeysRef = nil;
 	//	isFlipped ? [self flipBack] : [self flipOver];
 	//	[self setValue:@(isFlipped =! isFlipped) forKey:@"flipped"];
 }
-- (id)lassoLayerForLayer:(CAL *)layer	  {
++ (CASHL*)lassoLayerForLayer:(CAL*)layer	  { return [layer lasso]; }
+
+- (CASHL*)lasso {
+
+
 	//	NSLog(@"Clicked: %@", [[layer valueForKey:@"azfile"] propertiesPlease] );
-	CAShapeLayerNoHit *shapeLayer = [CAShapeLayerNoHit layer];
-	shapeLayer[@"mommy"]	 = layer;
-	CGF dynnamicStroke	   = .05 * AZMaxDim(layer.bounds.size);
-	CGF half	  = dynnamicStroke / 2;
-	shapeLayer.bounds	 = NSInsetRect(layer.bounds, dynnamicStroke, dynnamicStroke);
-	shapeLayer.autoresizingMask     = kCALayerWidthSizable | kCALayerHeightSizable;
-	shapeLayer.constraints          = @[	 AZConstScaleOff( kCAConstraintMinX, @"superlayer", 1, half),
+
+
+	CGF            dynnamicStroke = .05 * AZMaxDim(self.boundsSize);
+	CGF                      half = dynnamicStroke / 2;
+  CAShapeLayerNoHit *shapeLayer = [CAShapeLayerNoHit layerWithFrame:NSInsetRect(self.bounds, dynnamicStroke, dynnamicStroke)];
+	shapeLayer[@"mommy"]          = self;
+  shapeLayer.arMASK             = kCALayerWidthSizable | kCALayerHeightSizable;
+	shapeLayer.constraints        = @[	 AZConstScaleOff( kCAConstraintMinX, @"superlayer", 1, half),
 			//         AZConstScaleOff( kCAConstraintMaxX,@"superlayer", 1,2),
 			AZConstScaleOff( kCAConstraintMinY, @"superlayer", 1, half),	  /*2),*/
 			AZConstScaleOff( kCAConstraintMaxY, @"superlayer", 1, half),
@@ -1128,13 +1133,14 @@ static NSMD* needsDisplayKeysRef = nil;
 	shapeLayer.lineWidth    = half;
 	shapeLayer.lineJoin	  = kCALineJoinRound;
 	shapeLayer.lineDashPattern = @[ @(20), @(20)];
-	shapeLayer.path = [[NSBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:layer.cornerRadius] quartzPath];
+	shapeLayer.path = [[NSBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:self.cornerRadius] quartzPath];
 	shapeLayer.zPosition = 3300;
 	CABasicAnimation *dashAnimation = [CABasicAnimation animationWithKeyPath:@"lineDashPhase"];
 	[dashAnimation setValuesForKeysWithDictionary:@{        @"fromValue": @(0.0),    @"toValue": @(40.0),
 				  @"duration": @(0.75), @"repeatCount": @(10000) }];
 	[shapeLayer addAnimation:dashAnimation forKey:@"linePhase"];
 	[shapeLayer needsDisplay];
+  [self addSublayer:(self[@"lasso"] = shapeLayer) named:@"lasso"];
 	return shapeLayer;
 }
 - (CAT3D)makeTransformForAngle:(CGF)angle	       { // from:(CATransform3D)start{
@@ -1159,6 +1165,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	}
 }
 - (void)rotateAroundYAxis:(CGF)radians	  {
+
 	[self vFK:@"animating"] ? ^{ return; } () : ^{ [self setValue:@(YES) forKey:@"animating"];
 	[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
 		self.sublayerTransform = CATransform3DMakeRotation(radians, 0, 1, 0);
@@ -1859,7 +1866,10 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	}
 }
 @end
-#import "extobjc_OSX/extobjc.h"
+#import <Zangetsu/Zangetsu.h>
+
+
+//#import "extobjc_OSX/extobjc.h"
 @implementation NSObject (AZStates)
 //@synthesizeAssociation(NSObject, selected);
 //@synthesizeAssociation(NSObject, hovered);
