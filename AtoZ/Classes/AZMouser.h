@@ -98,6 +98,7 @@ typedef enum {
 - (void) moveTo: (CGPoint) point;
 - (CGPoint) mouseLocation;
 - (void) dragFrom:(CGPoint)a to:(CGPoint)b;
+- (NSA*) arcPointsBetween:(CGPoint)a p2:(CGPoint)b;
 @end
 //@implementation AUWindowExtend :NSWindow
 //@end

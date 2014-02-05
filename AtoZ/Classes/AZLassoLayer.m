@@ -1,7 +1,5 @@
 
-//  AZLassoLayer.m
-//  AtoZ
-
+#import "AtoZ.h"
 #import "AZLassoLayer.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -13,11 +11,11 @@
 
 @implementation AZLassoLayer
 
-+ (NSR) frame { return [(CALNH*)[self.class.sharedInstance root]frame]; }
++ (NSR) frame { return [(CALNH*)[[self shared] root]frame]; }
 
 + (void) setLayer:(CAL*)layer 	{ //if (![self hasSharedInstance])	
 												//	[self setSharedInstance: self.instance];
-						 [self.sharedInstance setLayer:layer];
+						 [self.shared setLayer:layer];
 }
 
 -  (CGF) dynamicStroke {  return 	_dynamicStroke = AZMinDim(_root.boundsSize) * _strokeMultiplier * .1; }

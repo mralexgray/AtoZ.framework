@@ -51,7 +51,7 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView);
 	 // с изображением окна
 - (NSWindow *) windowForAnimation:(NSRect)aFrame {
 
-	 NSWindow *wnd =  [[NSWindow alloc] initWithContentRect:aFrame
+	 NSWindow *wnd =  [NSWindow.alloc initWithContentRect:aFrame
 												  styleMask:NSBorderlessWindowMask
 													backing:NSBackingStoreBuffered
 													  defer:NO];

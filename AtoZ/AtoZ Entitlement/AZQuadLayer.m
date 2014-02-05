@@ -45,7 +45,7 @@
 	 AZConst( kCAConstraintMidY,@"superlayer") ];
 	 */
 
-		//	layoutManager = [[MessedUpLayoutManager alloc] init];
+		//	layoutManager = MessedUpLayoutManager.new;
 		//	[contentLayer setLayoutManager : layoutManager];
 }
 	//- (id)initWithFrame:(NSRect)frame
@@ -290,7 +290,7 @@
 		//
 		//		if ( !dragRectangle ){ // I tried to set this up in initWithFrame but half the time it didn't show up. This is more "lazy" anyway, setting it up
 		//							   // when you need it makes the app launch a litle faster anyway
-		//			dragRectangle = [[CALayer alloc] init];
+		//			dragRectangle = CALayer.new;
 		//			[dragRectangle retain]; // with garbage collection, I probably don't need this, but better to have it
 		//			[self.layer addSublayer:dragRectangle];
 		//		}

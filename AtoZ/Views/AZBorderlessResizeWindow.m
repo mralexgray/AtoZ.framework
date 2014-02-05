@@ -7,7 +7,7 @@
 //
 
 #import "AZBorderlessResizeWindow.h"
-#import "AtoZUmbrella.h"
+#import "AtoZ.h"
 
 @interface AZHandlebarWindow : NSWindow
 @end

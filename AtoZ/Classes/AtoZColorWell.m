@@ -1,4 +1,5 @@
 
+#import "AtoZ.h"
 #import "AtoZColorWell.h"
 
 @interface    HighlightingView : NSView
@@ -81,7 +82,7 @@
 			}];
 		} else NSRectFillWithColor(frameArea, [NSColor colorWithCalibratedWhite:0.45 alpha:1.0]); // frame
 		// background fill with single pixel bottom shadow
-		[[[NSGradient alloc] initWithStartingColor:GRAY9 endingColor:GRAY7] drawInRect:gradientArea angle:270.];
+		[[NSGradient.alloc initWithStartingColor:GRAY9 endingColor:GRAY7] drawInRect:gradientArea angle:270.];
 		// adjust the color area
 		colorArea = NSInsetRect(gradientArea, 1., 1.);
 	}
@@ -103,7 +104,7 @@
 }
 - (void) takeColorFrom:(id)sender	{
 	
-	if ([sender respondsToSelector: @selector(color)]) self.color = [sender color];
+	if ([sender respondsToSelector: @selector(color)]) self.color = (NSColor*)[sender color];
 	[_colorPicker takeColorFrom:sender];
 }
 - (void) updateColorFromColorPicker:(id)sender	{
@@ -146,24 +147,24 @@
 	static NSInteger kImageDim 		  = 18;
 	static NSInteger kPadding 		  = 4;
 	
-	_colorPickerMenu = [[NSMenu alloc] initWithTitle:@""];
-	_colorPicker = [[AtoZColorPicker alloc] initWithFrame: (NSR){ kPadding,kHighlightHeight+kPadding, pickerDims.width, pickerDims.height}];
+	_colorPickerMenu = [NSMenu.alloc initWithTitle:@""];
+	_colorPicker = [AtoZColorPicker.alloc initWithFrame: (NSR){ kPadding,kHighlightHeight+kPadding, pickerDims.width, pickerDims.height}];
 	// normal action for selecting a color
 	_colorPicker.action = @selector(updateColorFromColorPicker:);
 	_colorPicker.target = self;
 	
-	AtoZColorWellMenuView *menuView = [[AtoZColorWellMenuView alloc] initWithFrame:NSMakeRect(0,0,pickerDims.width+(kPadding*2), pickerDims.height+kHighlightHeight+kPadding)];
+	AtoZColorWellMenuView *menuView = [AtoZColorWellMenuView.alloc initWithFrame:NSMakeRect(0,0,pickerDims.width+(kPadding*2), pickerDims.height+kHighlightHeight+kPadding)];
 	[menuView   addSubview:_colorPicker];
-	NSMenuItem  *pickerItem = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
+	NSMenuItem  *pickerItem = [NSMenuItem.alloc initWithTitle:@"" action:nil keyEquivalent:@""];
 	[pickerItem setView:menuView];
 	// set up a view with image and text subviews size must be adjusted for longest localized "show colors"
 	
-	HighlightingView *showParent = [[HighlightingView alloc] initWithFrame: AZRectBy(pickerDims.width+(kPadding*2),kHighlightHeight)];
+	HighlightingView *showParent = [HighlightingView.alloc initWithFrame: AZRectBy(pickerDims.width+(kPadding*2),kHighlightHeight)];
 	[menuView   addSubview: showParent];
 	
 	// image and text belong in the parent
-	NSImageView *imageView = [[NSImageView alloc] initWithFrame: NSMakeRect(kPadding,kPadding/2, kImageDim, kImageDim)];
-	NSTextField *textField = [[NSTextField alloc] initWithFrame: NSMakeRect(kImageDim+kPadding*3/2, kPadding, pickerDims.width-(kImageDim+(kPadding*3/2)),kTextHeight)];
+	NSImageView *imageView = [NSImageView.alloc initWithFrame: NSMakeRect(kPadding,kPadding/2, kImageDim, kImageDim)];
+	NSTextField *textField = [NSTextField.alloc initWithFrame: NSMakeRect(kImageDim+kPadding*3/2, kPadding, pickerDims.width-(kImageDim+(kPadding*3/2)),kTextHeight)];
 	[showParent addSubview:imageView];
 	[showParent addSubview:textField];
 	[imageView  setImageScaling:	  NSScaleProportionally];
@@ -341,7 +342,7 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 	NSRect bds = [self bounds];
 	NSRect paddedBds = NSInsetRect(bds, kColorPickerPadding, kColorPickerPadding);
 	// background fill
-	NSGradient *background = [[NSGradient alloc] initWithStartingColor:BLACK endingColor:GRAY4];
+	NSGradient *background = [NSGradient.alloc initWithStartingColor:BLACK endingColor:GRAY4];
 	
 	[background drawInRect:paddedBds angle:90.];
 	// inset effect (shade the top, highlight the bottom)
@@ -447,7 +448,7 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 	trackingRect.size.width+=1, trackingRect.size.height+=1;
 	
 	NSTrackingAreaOptions trackingOptions = NSTrackingEnabledDuringMouseDrag | NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp;
-	NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:trackingRect
+	NSTrackingArea *trackingArea = [NSTrackingArea.alloc initWithRect:trackingRect
 																					options:trackingOptions owner:self userInfo:trackerData];
 	
 	return trackingArea;
@@ -560,7 +561,7 @@ static NSInteger kHighlightView 			  = 1;
 }
 - (NSTA*) trackingAreaForView:(NSV*)aView identifier:(NSI)viewId	{
 	
-	return [[NSTrackingArea alloc] initWithRect:aView.frame options:NSTrackingEnabledDuringMouseDrag | NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp
+	return [NSTrackingArea.alloc initWithRect:aView.frame options:NSTrackingEnabledDuringMouseDrag | NSTrackingMouseEnteredAndExited | NSTrackingActiveInActiveApp
 													  owner:self	   userInfo:@{ kColorWellMenuViewTrackerKey : @(viewId) }];
 	
 }

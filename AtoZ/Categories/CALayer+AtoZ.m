@@ -4,24 +4,41 @@
 #import "NSObject+AtoZ.h"
 #import "CALayer+AtoZ.h"
 
+
+@implementation  CANoHitLayer 
+
++ (instancetype) noHitLayerOfClass:(Class)k{  return [k layer]; }
+- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}
+@end
 @implementation CALayerNoHit			- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end
 @implementation CAShapeLayerNoHit	- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end
 @implementation CATextLayerNoHit		- (BOOL)containsPoint:(CGP)p    {	return FALSE;	}	@end			//  OR
 #warning Needs Test Case
-@implementation CALayer (NoHit)	@dynamic noHit;
-- (void)setNoHit:(BOOL)noHit	{  BLOCKIFY(bSelf, self);  BOOL overriden = [self hasAssociatedValueForKey:@"noHit"];
-	objc_setAssociatedObject(self,(__bridge const void*)@"noHit",@(noHit),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-	if (!noHit || overriden) return;
-	[self az_overrideSelector:@selector(containsPoint:) withBlock:(__bridge void*)^BOOL(id _self,NSP p) {
-		if (bSelf.noHit) return NO;	SEL sel 	= @selector(containsPoint:);
-		BOOL(*superIMP)(id,SEL,NSP) 				= [_self az_superForSelector:sel];		return superIMP(_self, sel, p);
+@implementation CALayer (NoHit)
+
+- (void)setNoHit:(BOOL)yesDontHit	{
+
+  if (self.noHit == yesDontHit) return;
+  if (self[@"unhittable"]) return [self sV:@(yesDontHit) fK:@"unhittable"];
+  LOGCOLORS(@"Setting nohit:", StringFromBOOL(yesDontHit),
+            @" Current nohit:", StringFromBOOL(self.noHit), nil);
+
+  self[@"unhittable"] = @(yesDontHit);
+  SEL contains = @selector(containsPoint:);
+	[self az_overrideSelector:contains withBlock:(__bridge void*)^BOOL(id _self,NSP p) {
+		if ([_self noHit]) return NO;
+    BOOL(*superIMP)(id,SEL,NSP) = [_self az_superForSelector:contains];
+    return superIMP(_self, contains, p);
 	}];
 }
-- (BOOL)noHit	    				{
-	id booool = objc_getAssociatedObject(self,(__bridge const void *)@"noHit");
-	return booool ? [booool boolValue]	: NO;
-}
+
+- (BOOL)noHit	    				{ id x = self[@"unhittable"]; return x ? [x boolValue] : NO; }
 @end
+
+//	id booool = objc_getAssociatedObject(self,(__bridge const void *)@"noHit");
+//	return booool ? [booool boolValue]	: NO;
+
+
 @implementation CALayer (WasClicked)
 - (void) layerWasClicked:(CAL *)layer	{
 //	[layer toggleBoolForKey:@"clicked"]; [layer setNeedsDisplay];
@@ -172,7 +189,7 @@ CAL * AddPulsatingBloom ( CAL *layer ) {
 	return layer;
 }
 CAL * NewLayerWithFrame ( NSR rect  ) {
-	CAL *layer	 = [[CALayer alloc] init];
+	CAL *layer	 = CALayer.new;
 	layer.frame	       = rect;
 	layer.bounds	 = AZMakeRectFromSize(rect.size);
 	layer.position	       = AZCenterOfRect(rect);
@@ -197,7 +214,7 @@ CATXTL * AddLabelLayer  ( CAL *superlayer, NSS *text, NSF *font ) {
 	return AddTextLayer(superlayer, text, font, kCALayerWidthSizable);
 }
 CATXTL * AddTextLayer	( CAL *superlayer, NSS *text, NSF *font, enum CAAutoresizingMask align ) {
-	CATXTL *label = [[CATXTL alloc] init];
+	CATXTL *label = CATXTL.new;
 	[label setValue:@(YES) forKey:@"label"];
 	label.string = text;
 	label.font = (__bridge CGFontRef)font;
@@ -356,7 +373,7 @@ extern CATransform3D CATransform3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 @implementation CALayer (VariadicConstraints)
 /*
  CATXTL* AddTextLayer( CAL*superlayer,	NSString *text, NSFont* font,	enum CAAutoresizingMask align ) {
- CATXTL *label     = [[CATXTL alloc] init];
+ CATXTL *label     = CATXTL.new;
  label.foregroundColor = kBlackColor;
  label.string        = text;
  label.font          = (__bridge CGFontRef)font;
@@ -450,11 +467,13 @@ extern CATransform3D CATransform3DMake(CGF m11, CGF m12, CGF m13, CGF m14,
 		  AZConstRelSuper(kCAConstraintMidY)	 ];
 }
 - (void)_ensureSuperHasLayoutManager	       {
-	if (!self.superlayer.layoutManager) self.superlayer.layoutManager = [[CAConstraintLayoutManager alloc]init];
+	if (!self.superlayer.layoutManager) self.superlayer.layoutManager = CAConstraintLayoutManager.layoutManager;
 }
 - (void)addConstraints:(NSA *)constraints	{
 	[self _ensureSuperHasLayoutManager];
-	[constraints do :^(id obj) {	  [self addConstraint:obj];       }];
+  __weak __typeof(&*self)weakSelf = self;
+	[constraints do :^(id obj) {	  [weakSelf addConstraint:obj]; }];
+
 }
 - (void)addConstraintsRelSuperOr:(NSN *)nilAttributeList, ...{ // This method takes a nil-terminated list of objects.
 	va_list args;
@@ -801,13 +820,25 @@ static NSMD* needsDisplayKeysRef = nil;
 - (CAL *)withConstraints:(NSA *)cnst {
 	[self addConstraints:cnst]; return self;
 }
-- (CAL *)hitTestSubs:(CGPoint)point     {  LOGCOLORS(@"hittesting point ", AZString(point), @" in frame ", AZString(self.frame), nil);
+- (CAL *)hitTestSubs:(CGPoint)point     {
 
-	NSA *a = [self.sublayers filter:^BOOL (CAL *object) { return [object hitTest:point];  }];
-	if (!a.count) return  LOGCOLORS(@"Found Nothing, and I have sublayers:", @(self.sublayers.count), nil), nil;
-	id x = [a sortedWithKey:@"zPosition" ascending:NO].first;
-	XX($(@"Hittest found %ld layer%@ out of %ld... Returning topmost,%@ with Zpos:%f", a.count, a.count ?@"s":@"", self.sublayers.count,x, [x zPosition]));
-	return x; //[self hitTest:point];
+
+
+  BOOL savedNoHit = self.noHit;
+  self.noHit = YES;
+  id x = [self hitTest:point];
+  if (x == self) x = nil;
+  LOGCOLORS(@"hittesting point ", AZString(point), @" in frame ", AZString(self.frame), nil);
+  [self setNoHit:savedNoHit];
+  return x;
+//  NSA* a = [self.sublayers filter:^BOOL(id object) {
+//    return [object hitTest:[object convertPoint:point fromLayer:nil]];
+//  }];
+//	if (!a.count) return  LOGCOLORS(@"Found Nothing, and I have sublayers:", @(self.sublayers.count), nil), nil;
+
+//	id x = [a sortedWithKey:@"zPosition" ascending:NO].first;
+//	LOGCOLORS(JATExpand(@"Hittest found {0} layer(s) out of {1} ... Returning topmost,{x} with Zpos:{3}", a.count, self.sublayers.count,x, [x zPosition]), nil);
+//	return x; //[self hitTest:point];
 }
 - (id)copyLayer	      {
 	//	id newOne = [self.class.alloc init];
@@ -1152,17 +1183,17 @@ static NSMD* needsDisplayKeysRef = nil;
 	transform = CATransform3DRotate(transform, angle, 0.0, 1.0, 0.0);
 	return transform;
 }
-- (id)objectForKeyedSubscript:(NSS *)key	      {
-	return [self valueForKey:key] ? : nil;
-}
-- (void)setObject:(id)object forKeyedSubscript:(NSS *)key	    {
-	if ( [self canSetValueForKey:key]) {
-	if (isEmpty(object)) [self setValue:@"" forKey:key];
-	else{
-		[self setValue:object forKey:key];
+
+- (id)objectForKeyedSubscript:(id)key { 	return [self vFK:key] ? : nil; }
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key	{
+
+//	if ( [self canSetValueForKey:key]) {
+//    if (isEmpty(object)) [self setValue:@"" forKey:key];
+//	else{
+		[super sV:obj fK:key];
 		//		NSLog(@"setValue: %@ for layer's key: %@", object, key)
-	}
-	}
+//	}
+//	}
 }
 - (void)rotateAroundYAxis:(CGF)radians	  {
 
@@ -1594,7 +1625,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	return layer;
 }
 - (CAL *)magnifier:(NSView *)view {
-	CAL *lace = [[CALayer alloc]init];
+	CAL *lace = CALayer.new;
 	lace.frame = [view bounds];
 	lace.borderWidth = 10; lace.borderColor = cgRANDOMCOLOR;
 	CGContextRef context = NULL;         CGColorSpaceRef colorSpace;
@@ -2350,7 +2381,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 	NSString *fontPath = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:fontName ofType:type];
 	NSData *data = [[NSData alloc] initWithContentsOfFile:fontPath];
 	CGDataProviderRef fontProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-	[data release];
+//	[data release];
 	CGFontRef cgFont = CGFontCreateWithDataProvider(fontProvider);
 	CGDataProviderRelease(fontProvider);
 	CTFontDescriptorRef fontDescriptor = CTFontDescriptorCreateWithAttributes((__bridge CFDictionaryRef)attributes);
@@ -2407,7 +2438,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 		  usingSize:textDisplayRect.size];
 	[self setValue:[NSValue valueWithSize:recommendedSize] forKeyPath:@"bounds.size"];
 	self.position = AZCenterOfRect(self.superlayer.bounds);
-	[attrString release];
+//	[attrString release];
 }
 @end
 @implementation CALayerNonAnimating

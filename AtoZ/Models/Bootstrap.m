@@ -157,7 +157,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	//Create a string from the NSData object you have
 	NSString *string = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 	//	//Create a NSAttributedString from it
-	//	NSAttributedString *attributedString = [[[NSAttributedString alloc] initWithString:string] autorelease];
+	//	NSAttributedString *attributedString = [[NSAttributedString.alloc initWithString:string] autorelease];
 	//	//Now set the attributed string for the NSTextView
 	//	[[xmlTextView textStorage] setAttributedString:attributedString];
 	block(string);

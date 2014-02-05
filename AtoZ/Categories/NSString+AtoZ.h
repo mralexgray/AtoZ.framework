@@ -89,6 +89,7 @@
 
 + (NSS*) spaces:(NSUI)ct;
 - (NSS*) paddedTo:(NSUI)count;
+- (NSS*) paddedRightTo:(NSUI)count;
 - (NSUI) longestWordLength;
 
 + (NSS*) clipboard;
@@ -153,7 +154,7 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 /*** Oldscool lastIndexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
 -  (NSI) lastIndexOf:(NSS*)aString;
 /*** Returns the first NSRange of any matching substring in this string that is part of the strings set */
-- (NSRNG) rangeOfAny:(SET*)strings;
+- (NSRNG) rangeOfAny:(NSSet*)strings;
 /*** Returns this string splitted by lines. * Shortcut for componentsSeperatedByString:@"\n" */
 @property (RONLY) NSA * lines;
 /*** Returns this string splitted by carriage return + newline. * Shortcut for componentsSeperatedByString:@"\r\n" */

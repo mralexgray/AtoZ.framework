@@ -45,7 +45,7 @@
 + (id) ename { \
 static id retval = nil; \
 if (retval == nil) { \
-retval = [[self alloc] initWithName: @ #ename ordinal: evalue properties: [NSDictionary dictionaryWithObjectsAndKeys: eproperties, nil]]; \
+retval = [self.alloc initWithName: @ #ename ordinal: evalue properties: [NSDictionary dictionaryWithObjectsAndKeys: eproperties, nil]]; \
 }\
 return retval;\
 }
@@ -117,7 +117,7 @@ void test()
 + (id) ename { \
 static id retval = nil; \
 if (retval == nil) { \
-retval = [[self alloc] initWithName: @ #ename ordinal: evalue properties: [NSDictionary dictionaryWithObjectsAndKeys: eproperties, nil]]; \
+retval = [self.alloc initWithName: @ #ename ordinal: evalue properties: [NSDictionary dictionaryWithObjectsAndKeys: eproperties, nil]]; \
 }\
 return retval;\
 }

@@ -1,13 +1,13 @@
+
+#import "AtoZ.h"
 #import "BaseModel+AtoZ.h"
-//#import "AtoZ.h"
 //static NSString *const BaseModelSharedInstanceKey = @"sharedInstance";
 //static NSString *const BaseModelLoadingFromResourceFileKey = @"loadingFromResourceFile";
 void logClassMethods(NSString *className)	{
 
     unsigned int numMethods = 0;
-    Method *methodList = class_copyMethodList(object_getClass([[[NSClassFromString(className) alloc] init] autorelease]), 
-                                              &numMethods);
-    NSMutableArray *methods = [NSMutableArray.new autorelease];
+    Method *methodList = class_copyMethodList(object_getClass([NSClassFromString(className)  new]), &numMethods);
+    NSMutableArray *methods = NSMutableArray.new;
     for (int i = 0; i < numMethods; i++)
     {
         const char *methodName = sel_getName(method_getName(methodList[i]));
@@ -200,7 +200,7 @@ id myCustomFunction(id self, SEL _cmd, [other params...]) {
 
 / * 	sharedInstance -	returns our the singleton instance that will be used for global observing
 
-	+ (SampleObject*)sharedInstance	{	 static SampleObject* singleton;	 @synchronized(self)	 {	if (!singleton) singleton = [[SampleObject alloc] init];	return singleton;	 }	 return singleton; }	
+	+ (SampleObject*)sharedInstance	{	 static SampleObject* singleton;	 @synchronized(self)	 {	if (!singleton) singleton = SampleObject.new;	return singleton;	 }	 return singleton; }	
 	Key Value Bastard Observing (KVBO) is everything below.	 We overload setValue:forKey: to listen to all changes. 
 	We save self and the key name to static variables with the class method 
 	 	setLastModifiedKey:forInstance:	 

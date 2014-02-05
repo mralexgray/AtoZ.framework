@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#import "AtoZ.h"
+
 #define NOT_REACHED() do {	AZLOG(@"<INTERNAL INCONSISTENCY>"); } while (0)
 
 #import "NSURL+AtoZ.h"
@@ -49,7 +51,7 @@
 	NSString* query = [self query];
 	if (query) {
 		parameters = [NSMutableDictionary dictionary];
-		NSScanner* scanner = [[NSScanner alloc] initWithString:query];
+		NSScanner* scanner = [NSScanner.alloc initWithString:query];
 		[scanner setCharactersToBeSkipped:nil];
 		while (1) {
 			NSString* key = nil;
@@ -74,7 +76,6 @@
 			}
 			[scanner setScanLocation:([scanner scanLocation] + 1)];
 		}
-		[scanner release];
 	}
 	return parameters;
 }

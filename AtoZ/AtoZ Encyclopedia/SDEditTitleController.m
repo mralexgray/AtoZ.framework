@@ -16,7 +16,7 @@
 
 - (id) init {
 	if (self = [super initWithWindowNibName:@"EditTitlePanel"]) {
-		self.fieldEditor = [[SDTitleFieldEditor alloc] init];
+		self.fieldEditor = SDTitleFieldEditor.new;
 	}
 	return self;
 }

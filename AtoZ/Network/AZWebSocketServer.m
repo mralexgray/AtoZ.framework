@@ -1,6 +1,8 @@
 
+#import "AtoZ.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "AZWebSocketServer.h"														// Originally created by Max Howell in October 2011. This class is in the public domain.
+
 
 JREnumDefine(WebSocketMessageType);
 
@@ -101,7 +103,9 @@ JREnumDefine(WebSocketMessageType);
 		}];
 		[_writer writeJavascript:[KSHTMLWriter markupForAZJSWithID:@"AZWebSocketServer.baseHTML"] useCDATA:NO];
 	}];
-	[_writer writeElement:@"body" content:^{
+/**
+    [_writer writeElement:@"body" content:^{
+  had to diable because no content selector... is KSHTNMML in ATp or ROuttingframework?
 		[_writer writeElement:@"div" className:@"container" content:^{
 			[_writer writeElement:@"div" className:@"basic-template" content:^{
 				[_writer writeHTMLString:@"<a class='ui-notify-cross ui-notify-close' href='#'>x</a><h1>#{title}</h1><p>#{text}</p>"];
@@ -109,6 +113,7 @@ JREnumDefine(WebSocketMessageType);
 			[_writer writeElement:@"input" idName:@"input" text:@""];
 		}];
 	}];
+  */
 	return _mString;
 }
 

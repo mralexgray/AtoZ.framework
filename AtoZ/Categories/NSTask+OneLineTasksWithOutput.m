@@ -235,14 +235,14 @@
 	withArguments:(NSA*)arguments
 	error:(NSError **)error
 {
-	NSTask *task = [[[NSTask alloc] init] autorelease];
+	NSTask *task = NSTask.new;
 	
 	[task setLaunchPath:processPath];
 	[task setArguments:arguments];
 	[task setStandardOutput:[NSPipe pipe]];
 	[task setStandardError:[NSPipe pipe]];
 
-	TaskOutputReader *outputReader = [[TaskOutputReader alloc] initWithTask:task];
+	TaskOutputReader *outputReader = [TaskOutputReader.alloc initWithTask:task];
 
 	NSString *outputString = nil;
 	NSString *errorString = nil;
@@ -251,15 +251,13 @@
 		[outputReader launchTaskAndRunSynchronous];
 		
 		outputString =
-			[[[NSString alloc]
+			[NSString.alloc
 				initWithData:[outputReader standardOutputData]
-				encoding:NSUTF8StringEncoding]
-			autorelease];
+				encoding:NSUTF8StringEncoding];
 		errorString =
-			[[[NSString alloc]
+			[NSString.alloc
 				initWithData:[outputReader standardErrorData]
-				encoding:NSUTF8StringEncoding]
-			autorelease];
+				encoding:NSUTF8StringEncoding];
 	}
 	@catch (NSException *exception)
 	{
@@ -275,7 +273,7 @@
 	}
 	@finally
 	{
-		[outputReader release];
+    ;;
 	}
 	
 	if (error)
@@ -381,12 +379,10 @@
 	while ((charsRead = fread(readBuffer, 1, READ_BUFFER_SIZE, processOutput)) != 0)
 	{
 		NSString *bufferString =
-			[[NSString alloc]
-				initWithBytes:readBuffer
+			[NSString.alloc 				initWithBytes:readBuffer
 				length:charsRead
 				encoding:NSUTF8StringEncoding];
 		[processOutputString appendString:bufferString];
-		[bufferString release];
 	}
 	fclose(processOutput);
 	
@@ -404,7 +400,7 @@
 // This method exists mainly for ease of debugging.  readDataToEndOfFile should actually do the job.
 - (NSData *) reallyReadDataToEndOfFile
 {
-	NSMutableData *	outData = [[[NSMutableData alloc] init] autorelease];
+	NSMutableData *	outData = NSMutableData.new;
 	NSData *		currentData;
 
 	currentData = [self availableData];
@@ -443,7 +439,7 @@
 								output:(NSFileHandle **)outReadHandle
 								 error:(NSFileHandle **)outErrorHandle
 {
-	NSTask *task = [[[NSTask alloc] init] autorelease];
+	NSTask *task = NSTask.new;
 
 	[task setLaunchPath:[args objectAtIndex:0]];
 	[task setArguments:[args subarrayWithRange:NSMakeRange(1, [args count] - 1)]];
@@ -522,8 +518,8 @@
 	{
 		NSData * errorData = [errorFile reallyReadDataToEndOfFile];
 
-		*errorString = [[[NSString alloc] initWithData:errorData
-														  encoding:NSUTF8StringEncoding] autorelease];
+		*errorString = [NSString.alloc initWithData:errorData
+														  encoding:NSUTF8StringEncoding];
 	}
 
 	[task waitUntilExit];
@@ -545,8 +541,8 @@
 
 	if( outputString != nil )
 	{
-		*outputString = [[[NSString alloc] initWithData:outputData
-															encoding:NSUTF8StringEncoding] autorelease];
+		*outputString = [NSString.alloc initWithData:outputData
+															encoding:NSUTF8StringEncoding];
 	}
 
 	return terminationStatus;

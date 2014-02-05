@@ -76,7 +76,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 - (void) requestResult: (NSDictionary*) result
 {
 	if ( [result[@"request"] isEqualTo: @"me/picture"] )
-			self.pic = [[NSImage alloc] initWithData: result[@"raw"]];	//		self.profile_picture.image = pic;
+			self.pic = [NSImage.alloc initWithData: result[@"raw"]];	//		self.profile_picture.image = pic;
 	else
 			NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:[result[@"result"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil] );
 //		[self.send_request setEnabled: YES];

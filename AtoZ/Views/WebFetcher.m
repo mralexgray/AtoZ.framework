@@ -143,7 +143,7 @@
 
 #ifndef NDEBUG	// lets us force errors in code
 	if(forceFailure) {
-		error = [[NSError alloc] initWithDomain:@"self" code:1 userInfo:nil];
+		error = [NSError.alloc initWithDomain:@"self" code:1 userInfo:nil];
 		errorMessage = @"Forced Failure";
 
 		[connection cancel];

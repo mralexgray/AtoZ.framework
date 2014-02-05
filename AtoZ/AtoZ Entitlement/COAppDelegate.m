@@ -111,7 +111,7 @@
 		[[NSApplication sharedApplication] presentError:error];
 		return nil;
 	}
-	_managedObjectContext = [[NSManagedObjectContext alloc] init];
+	_managedObjectContext = NSManagedObjectContext.new;
 	[_managedObjectContext setPersistentStoreCoordinator:coordinator];
 
 	return _managedObjectContext;
@@ -167,7 +167,7 @@
 		NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
 		NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
 		NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
-		NSAlert *alert = [[NSAlert alloc] init];
+		NSAlert *alert = NSAlert.new;
 		[alert setMessageText:question];
 		[alert setInformativeText:info];
 		[alert addButtonWithTitle:quitButton];

@@ -16,7 +16,7 @@
 - (id)initWithFrame:(NSRect)frame {	self = [super initWithFrame:frame]; if (self) {
 	self.postsBoundsChangedNotifications = YES;
 	[NSEvent addLocalMonitorForEventsMatchingMask:(int)NSViewBoundsDidChangeNotification handler:^NSEvent *(NSEvent *e){ [self setNeedsDisplay:YES]; return e; }];
-	nsBitmapImageRepObj = [[NSBitmapImageRep alloc]	initWithBitmapDataPlanes:NULL
+	nsBitmapImageRepObj = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																  pixelsWide:self.width   pixelsHigh:self.height
 															   bitsPerSample:8		samplesPerPixel:3
 																	hasAlpha:NO				 isPlanar:NO

@@ -9,6 +9,7 @@
 //#import "NSArray+Reversing.h"
 
 //#import "NSImage+Transform.h"
+#import "AtoZ.h"
 
 #import "NSImage-Tint.h"
 
@@ -26,7 +27,7 @@
 	[transform rotateByDegrees:degrees];
 	[boundsPath transformUsingAffineTransform:transform];
 	NSRect rotatedBounds = {NSZeroPoint, [boundsPath bounds].size};
-	NSImage* rotatedImage = [[[NSImage alloc] initWithSize:rotatedBounds.size] autorelease];
+	NSImage* rotatedImage = [NSImage.alloc initWithSize:rotatedBounds.size];
 
 	// Center the image within the rotated bounds
 	imageBounds.origin.x = NSMidX(rotatedBounds) - (NSWidth(imageBounds) / 2);
@@ -118,7 +119,7 @@
 
 	[mergedImage unlockFocus] ;
 
-	return [mergedImage autorelease] ;
+	return mergedImage;
 }
 
 - (NSImage*)imageBorderedWithInset:(CGFloat)inset {
@@ -155,7 +156,7 @@
 
 	[image unlockFocus] ;
 
-	return [image autorelease] ;
+	return image;
 }
 
 - (NSImage*)imageBorderedWithOutset:(CGFloat)outset {
@@ -193,7 +194,7 @@
 
 	[image unlockFocus] ;
 
-	return [image autorelease] ;
+	return image;
 }
 
 @end
@@ -209,7 +210,7 @@
 	static NSCache *cache = nil;
 	static dispatch_once_t predicate;
 	dispatch_once(&predicate, ^{
-		cache = [[NSCache alloc] init];
+		cache = NSCache.new;
 	});
 	return cache;
 }

@@ -2,7 +2,7 @@
 // AZWebSocketServer accepts client connections as soon as it is instantiated.
 // Implementated against: http://tools.ietf.org/id/draft-ietf-hybi-thewebsocketprotocol-10
 
-#import <AtoZ/AtoZUmbrella.h>
+#import "AtoZUmbrella.h"
 
 #define SOCKSRVRD id<AZWebSocketServerDelegate>
 #define SOCKSRVR  AZWebSocketServer

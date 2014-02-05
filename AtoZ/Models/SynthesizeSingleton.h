@@ -41,8 +41,8 @@ dispatch_once(&p, \
 ^{ \
 if (shared##classname == nil) \
 { \
-NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; \
-shared##classname = [[self alloc] init]; \
+NSAutoreleasePool *pool = NSAutoreleasePool.new; \
+shared##classname = self.new; \
 [self registerForCleanup]; \
 [pool drain]; \
 } \
@@ -241,7 +241,7 @@ return temp; \
 static classname *accessorname = nil;\
 static dispatch_once_t onceToken;\
 dispatch_once(&onceToken, ^{\
-accessorname = [[classname alloc] init];\
+accessorname = classname.new;\
 });\
 return accessorname;\
 }
@@ -268,8 +268,8 @@ dispatch_once(&p, \
 ^{ \
 if (shared##classname == nil) \
 { \
-NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; \
-shared##classname = [[self alloc] init]; \
+NSAutoreleasePool *pool = NSAutoreleasePool.new; \
+shared##classname = self.new; \
 [self registerForCleanup]; \
 [pool drain]; \
 } \

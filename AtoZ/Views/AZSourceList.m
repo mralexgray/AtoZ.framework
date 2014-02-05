@@ -1064,7 +1064,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 }
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon
 {
-	SourceListItem *item = [[SourceListItem alloc] init];
+	SourceListItem *item = SourceListItem.new;
 	
 	[item setTitle:aTitle];
 	[item setIdentifier:anIdentifier];

@@ -11,7 +11,7 @@
 {
 	AZBox *cell = [view dequeueReusableCellWithIdentifier:@"cell"];
 	if(!cell)
-		cell = [[AZBox alloc] initWithReuseIdentifier:@"cell"];
+		cell = [AZBox.alloc initWithReuseIdentifier:@"cell"];
 		[cell setImage:[content objectAtIndex:index]];
 	return cell;
 }

@@ -143,7 +143,7 @@ OperationsRunner *operationsRunner;
 	) {
 		if(!operationsRunner) {
 			// Object only created if needed
-			operationsRunner = [[OperationsRunner alloc] initWithDelegate:self];
+			operationsRunner = [OperationsRunner.alloc initWithDelegate:self];
 		}
 		return operationsRunner;
 	} else {

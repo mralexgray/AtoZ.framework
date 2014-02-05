@@ -22,9 +22,8 @@
 @property (RONLY) NSMA * windowControllers;
 @property NST       	 * colorFade;
 
-@property (ASS) IBOutlet NSW * 	window;
-@property (ASS) IBOutlet NSV *	contentView;
-@property (ASS) IBOutlet NSV *	targetView;
+@property (ASS) IBOutlet NSW * window;
+@property (ASS) IBOutlet NSV * contentView, * targetView;
 @end
 
 //@property (ASS) IBOutlet NSView		*scrollTestHost;
@@ -423,7 +422,7 @@
 
 //	genVC 		= [[AZGeneralViewController  alloc] initWithNibName: @"AZGeneralViewController"  bundle:nil];
 //	[vcs addObject:genVC.view];
-//	geoVC 		= [[AZGeometryViewController alloc] initWithNibName: @"AZGeometryViewController" bundle:nil];
+//	geoVC 		= [AZGeometryViewController.alloc initWithNibName: @"AZGeometryViewController" bundle:nil];
 //	[vcs addObject:geoVC.view];
 //	uiVC  		= [[AZUIViewController		 alloc] initWithNibName: @"AZUIViewController"		 bundle:nil];
 //	[vcs addObject:uiVC.view];
@@ -522,11 +521,11 @@
 
 //- (IBAction)loadSecondNib:(id)sender
 //{
-//	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed"];
+//	NSWindowController* awc = [NSWindowController.alloc initWithWindowNibName:@"TestBed"];
 //	[[awc window] makeKeyAndOrderFront:nil];
 //	[[NSApplication sharedApplication] arrangeInFront:nil];
 //}
-//	NSWindowController* awc = [[NSWindowController alloc] initWithWindowNibName:@"TestBed" owner:self];
+//	NSWindowController* awc = [NSWindowController.alloc initWithWindowNibName:@"TestBed" owner:self];
 //	[awc showWindow:self];
 //	[[awc window] makeKeyAndOrderFront:nil];
 //	[[NSApplication sharedApplication] arrangeInFront:nil];
@@ -699,7 +698,7 @@
  case 0:	// swap in the "CustomImageViewController - NSImageView"
  {
  CustomImageViewController* imageViewController =
- [[CustomImageViewController alloc] initWithNibName:kViewTitle bundle:nil];
+ [CustomImageViewController.alloc initWithNibName:kViewTitle bundle:nil];
  if (imageViewController != nil)
  {
 
@@ -712,7 +711,7 @@
  case 1:	// swap in the "CustomTableViewController - NSTableView"
  {
  CustomTableViewController* tableViewController =
- [[CustomTableViewController alloc] initWithNibName:kTableTitle bundle:nil];
+ [CustomTableViewController.alloc initWithNibName:kTableTitle bundle:nil];
  if (tableViewController != nil)
  {
  myCurrentViewController = tableViewController;	// keep track of the current view controller
@@ -724,7 +723,7 @@
  case 2:	// swap in the "CustomVideoViewController - QTMovieView"
  {
  CustomVideoViewController* videoViewController =
- [[CustomVideoViewController alloc] initWithNibName:kVideoTitle bundle:nil];
+ [CustomVideoViewController.alloc initWithNibName:kVideoTitle bundle:nil];
  if (videoViewController != nil)
  {
  myCurrentViewController = videoViewController;	// keep track of the current view controller
@@ -736,7 +735,7 @@
  case 3:	// swap in the "NSViewController - Quartz Composer iSight Camera"
  {
  NSViewController* cameraViewController =
- [[NSViewController alloc] initWithNibName:kCameraTitle bundle:nil];
+ [NSViewController.alloc initWithNibName:kCameraTitle bundle:nil];
  if (cameraViewController != nil)
  {
  myCurrentViewController = cameraViewController;	// keep track of the current view controller

@@ -1,4 +1,5 @@
 
+#import "AtoZ.h"
 #import "NSDictionary+AtoZ.h"
 
 @implementation NSOrderedDictionary (AtoZ)
@@ -589,8 +590,8 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		[newValues addObject:anObj];
 	}
 	NSDictionary *result = [NSDictionary dictionaryWithObjects:newValues forKeys:newKeys];
-	[newKeys release];
-	[newValues release];
+//	[newKeys release];
+//	[newValues release];
 	return result;
 }
 /*" Returns an object which is a shallow copy of the receiver except that the key-value pairs from aDictionary are included (overriding existing key-value associations if they existed). "*/
@@ -812,11 +813,11 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		if ([anObject respondsToSelector:@selector(deepMutableCopy)]) {
 			anObject = [(NSD*)anObject deepMutableCopy];
 			newDictionary[aKey] = anObject;
-			[anObject release];
+//			[anObject release];
 		} else if ([anObject conformsToProtocol:@protocol(NSMutableCopying)]) {
 			anObject = [anObject mutableCopy];
 			newDictionary[aKey] = anObject;
-			[anObject release];
+//			[anObject release];
 		} else
 			newDictionary[aKey] = anObject;
 	}
@@ -895,7 +896,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	[mutant setValue:value
 			  forKey:key] ;
 	NSDictionary* newDic = [NSDictionary dictionaryWithDictionary:mutant] ;
-	[mutant release] ;
+//	[mutant release] ;
 	return newDic ;
 }
 - (NSDictionary*)dictionaryByAddingEntriesFromDictionary:(NSDictionary*)otherDic {
@@ -904,7 +905,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		[mutant addEntriesFromDictionary:otherDic] ;
 	}
 	NSDictionary* newDic = [NSDictionary dictionaryWithDictionary:mutant] ;
-	[mutant release] ;
+//	[mutant release] ;
 	return newDic ;
 }
 - (NSDictionary*)dictionaryByAppendingEntriesFromDictionary:(NSDictionary*)otherDic {
@@ -916,7 +917,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		}
 	}
 	NSDictionary* newDic = [NSDictionary dictionaryWithDictionary:mutant] ;
-	[mutant release] ;
+//	[mutant release] ;
 	return newDic ;
 }
 + (void)mutateAdditions:(NSMutableDictionary*)additions
@@ -934,7 +935,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 			[newDeletions removeObject:member] ;
 		}
 	}
-	[immuterator release] ;
+//	[immuterator release] ;
 	// Remove from newAdditions any which cancel out existing deletions,
 	// and do the cancellation
 	immuterator = [[NSSet alloc] initWithArray:[newAdditions allKeys]] ;
@@ -945,7 +946,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 			[deletions removeObject:member] ;
 		}
 	}
-	[immuterator release] ;
+//	[immuterator release] ;
 	// Add surviving new additions to existing additions
 	[additions addEntriesFromDictionary:newAdditions] ;
 	// Remove from newDeletions any which cancel out existing additions,
@@ -958,7 +959,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 			[additions removeObjectForKey:key] ;
 		}
 	}
-	[immuterator release] ;
+//	[immuterator release] ;
 	// Add surviving new deletions to existing deletions
 	[deletions unionSet:newDeletions] ;
 }
@@ -976,7 +977,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 				  forKey:key] ;
 	}
 	NSDictionary* answer = [[mutant copy] autorelease] ;
-	[mutant release] ;
+//	[mutant release] ;
 	return answer ;
 }
 @end
@@ -1017,10 +1018,10 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)	{
 	}
 	return self;
 }
-- (void)dealloc	{
-	[dictionary release];
-	[array release];
-}
+//- (void)dealloc	{
+//	[dictionary release];
+//	[array release];
+//}
 - (id)copy	{
 	return [self mutableCopy];
 }
@@ -1086,7 +1087,7 @@ const int jsonDoNotIndent = -1;
 	NSScanner *scanner = [[NSScanner alloc] initWithString:jsonString];
 	NSDictionary *dictionary = nil;
 	[scanner scanJSONObject:&dictionary];
-	[scanner release];
+//	[scanner release];
 	return dictionary;
 }
 - (NSS*)jsonStringValue	{
@@ -1095,7 +1096,7 @@ const int jsonDoNotIndent = -1;
 @end
 @implementation NSDictionary (PrivateBSJSONAdditions)
 - (NSS*)jsonStringValueWithIndentLevel:(int)level	{
-	NSMutableString *jsonString = [[NSMutableString alloc] init];
+	NSMutableString *jsonString = NSMutableString.new;
 	[jsonString appendString:jsonObjectStartString];
 	
 	NSEnumerator *keyEnum = [self keyEnumerator];
@@ -1150,7 +1151,7 @@ const int jsonDoNotIndent = -1;
 	return jsonString;
 }
 - (NSS*)jsonStringForArray:(NSA*)array withIndentLevel:(int)level	{
-	NSMutableString *jsonString = [[NSMutableString alloc] init];
+	NSMutableString *jsonString = NSMutableString.new;
 	[jsonString appendString:jsonArrayStartString];
 	
 	if ([array count] > 0) {
@@ -1166,7 +1167,7 @@ const int jsonDoNotIndent = -1;
 	return [jsonString autorelease];
 }
 - (NSS*)jsonStringForString:(NSS*)string	{
-	NSMutableString *jsonString = [[NSMutableString alloc] init];
+	NSMutableString *jsonString = NSMutableString.new;
 	[jsonString appendString:jsonStringDelimiterString];
 	// Build the result one character at a time, inserting escaped characters as necessary
 	int i;
@@ -1214,7 +1215,7 @@ const int jsonDoNotIndent = -1;
 	return [jsonString autorelease];
 }
 - (NSS*)jsonIndentStringForLevel:(int)level	{
-	NSMutableString *indentString = [[NSMutableString alloc] init];
+	NSMutableString *indentString = NSMutableString.new;
 	if (level != jsonDoNotIndent) {
 		[indentString appendString:@"\n"];
 		int i;

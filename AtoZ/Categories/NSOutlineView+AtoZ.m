@@ -1,3 +1,5 @@
+#import "AtoZ.h"
+#import "AtoZ.h"
 //
 //  NSOutlineView+AtoZ.m
 //  AtoZ
@@ -48,7 +50,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 #pragma mark NSCopying
 - (id)copyWithZone:(NSZone *)zone {
 
-	typeof(self) copy = [super copyWithZone:zone];
+	typeof(self) copy = [super performString:@"copyWithZone:" withObject:(__bridge id)zone];
 	copy->_parentNode = _parentNode;
 	copy->_childNodes = [_childNodes mutableCopy];
 	return copy;
@@ -56,12 +58,12 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 #pragma mark NSMutableCopying
 - (id)mutableCopyWithZone:(NSZone *)zone {
 
-	typeof(self) copy = [super mutableCopyWithZone:zone];
-	copy->_parentNode = _parentNode;
-	NSMutableArray *cnodes = [[NSMutableArray alloc] initWithCapacity:[_childNodes count]];
+//	typeof(self) copy = [super mutableCopyWithZone:zone];
+	typeof(self) copy = [super performString:@"mutableCopyWithZone:" withObject:(__bridge id)zone];	copy->_parentNode = _parentNode;
+	NSMutableArray *cnodes = [NSMutableArray.alloc initWithCapacity:[_childNodes count]];
 	copy->_childNodes = cnodes;
 	for (AZTreeNode *node in _childNodes)
-		[copy insertObject:[[node mutableCopy] autorelease] inChildNodesAtIndex:[cnodes count]];
+		[copy insertObject:node.mutableCopy inChildNodesAtIndex:[cnodes count]];
 	return copy;
 }
 #pragma mark *** Public Methods ***
@@ -110,7 +112,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	for (AZTreeNode *node in self.childNodes) { [retval addObject:node];
 		[node isLeaf] ?: [retval addObjectsFromArray:[node descendantNodes]];
 	}
-	return [retval.copy autorelease];
+	return retval.copy;
 }
 - (NSA*) descendantNodesInclusive; { return [self.descendantNodes arrayByAddingObject:self];	}
 - (NSA*)descendantLeafNodes; {
@@ -118,7 +120,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	NSMutableArray *retval = [NSMutableArray array];
 	for (AZTreeNode *node in [self childNodes])
 		node.isLeaf ? [retval addObject:node] : [retval addObjectsFromArray:[node descendantLeafNodes]];
-	return [[retval copy] autorelease];
+	return retval.copy;
 }
 - (NSA*) descendantLeafNodesInclusive { return self.isLeaf ? @[self] : self.descendantLeafNodes; }
 
@@ -128,7 +130,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 		if (node.isLeaf) return nil;
 		[retval addObject:node]; [retval addObjectsFromArray:[node descendantGroupNodes]];
 	}
-	return [retval.copy autorelease];
+	return retval.copy;
 }
 - (NSA*)descendantGroupNodesInclusive {
 	if (![self isLeaf])
@@ -184,7 +186,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 - (void) selectParentFromSelection				{
 	if (!self.selectedNodes.count) return;
 	NSTreeNode *parentNode;
-	if ((parentNode = [self.selectedNodes.first parentNode]))  [self setSelectionIndexPath:parentNode.indexPath];
+	if ((parentNode = (NSTreeNode*)[self.selectedNodes.first parentNode]))  [self setSelectionIndexPath:parentNode.indexPath];
 		// no parent exists (we are at the top of tree), so make no selection in our outline
 	else [self selectNone];
 }
@@ -464,7 +466,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 		if (node)
 			[retval addObject:node];
 	}
-	return [[retval copy] autorelease];
+	return retval.copy;
 }
 // returns the NSIndexPath for the real model object 'representedObject'
 - (NSIndexPath *)indexPathForRepresentedObject:(id)representedObject; {
@@ -487,7 +489,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 			}
 		}
 	}
-	return [[indexPaths copy] autorelease];
+	return indexPaths.copy;
 }
 // returns the corresponding NSTreeNode object for the real model object 'representedObject'
 - (NSTreeNode *)treeNodeForRepresentedObject:(id)representedObject; {
@@ -510,7 +512,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 			}
 		}
 	}
-	return [[treeNodes copy] autorelease];
+	return treeNodes.copy;
 }
 // selects 'treeNode' using its index path
 - (void)setSelectedTreeNode:(NSTreeNode *)treeNode; {

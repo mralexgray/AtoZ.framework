@@ -67,7 +67,7 @@
 	representedObject_ = representedObject;
 	if ( [representedObject_ isKindOfClass:[AZFile class]] ){
 		AZFile *c = representedObject_;
-//		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
+//		gradient = [NSGradient.alloc initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
 		color = c.color;
 		image = [ c.image coloredWithColor:c.color.contrastingForegroundColor];
 //		NSImage *ci =  (selected_ ? [ c.image tintedWithColor:c.color] : c.image);
@@ -106,7 +106,7 @@
 {
 	self = [super initWithFrame:frame];
 	if (self) {
-		tArea = [[NSTrackingArea alloc] initWithRect:[self frame]
+		tArea = [NSTrackingArea.alloc initWithRect:[self frame]
 			options:[self trackoptions] owner:self userInfo:nil];
 		[self addTrackingArea:tArea];
 	}
@@ -122,7 +122,7 @@
 	[super updateTrackingAreas];
 	if (tArea)
 	[self removeTrackingArea:tArea];
-	tArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:[self trackoptions] owner:self userInfo:nil];
+	tArea = [NSTrackingArea.alloc initWithRect:NSZeroRect options:[self trackoptions] owner:self userInfo:nil];
 	[self addTrackingArea:tArea];
 
 }
@@ -144,10 +144,10 @@
 	float hue = [theColor hueComponent];
 	float sat = [theColor saturationComponent];
 	float lum = [theColor luminance];
-	NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: $(@"H:%0.1f\nS:%0.1f\nL:%0.1f", hue,sat,lum) attributes:$map(
+	NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: $(@"H:%0.1f\nS:%0.1f\nL:%0.1f", hue,sat,lum) attributes:$map(
 			[NSFont fontWithName:@"Ubuntu Mono Bold" size:15],
 			NSFontAttributeName, BLACK, NSForegroundColorAttributeName)];
-	NSMutableParagraphStyle *theStyle =[[NSMutableParagraphStyle alloc] init];
+	NSMutableParagraphStyle *theStyle =NSMutableParagraphStyle.new;
 	[theStyle setLineSpacing:12];
 	NSTextView *atv = [[NSTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];
 	[atv setDefaultParagraphStyle:theStyle];
@@ -162,7 +162,7 @@
 //	[NSGraphicsContext saveGraphicsState];
 	//		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
 	//		[outerClip setClip];
-	//		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
+	//		NSGradient *outerGradient = [NSGradient.alloc initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
 	//		[outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
 	standard = [self pathWithInset:self.inset];
 //	if ( standard ) {

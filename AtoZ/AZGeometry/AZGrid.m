@@ -7,7 +7,8 @@
 //
 
 #import "AZGrid.h"
-
+#import "AtoZ.h"
+#import "AZBlockView.h"
 
 JREnumDefine(AZGridStyle);
 JREnumDefine(AZGridOrder);
@@ -137,7 +138,7 @@ JREnumDefine(AZGridOrder);
 - (id) initWithCapacity:(NSUInteger)numItems {
 	if ((self = [super init])) {
 	[self _init];
-	array = [[NSMutableArray alloc] initWithCapacity:numItems];
+	array = [NSMutableArray.alloc initWithCapacity:numItems];
 	}
 	return self;
 }

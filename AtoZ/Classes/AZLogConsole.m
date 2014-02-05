@@ -2,6 +2,7 @@
 //	name:@"AZLogConsoleFakeStdin" object:nil ];
 //  Created by Patrick Geiller on 16/08/08.
 
+#import "AtoZ.h"
 #import "AZLogConsole.h"
 #import <ScriptingBridge/ScriptingBridge.h>
 
@@ -159,17 +160,17 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 }
 - (void) action:(id)sender{	NSLog(@"You selected Menu Item: %@",sender);	}
 - (NSMenu*) tokenField:(MTTokenField*)tokenField menuForToken:(NSS*)string atIndex:(NSUI) index	{
-	NSMenu * test = [[[NSMenu alloc] init] autorelease];
+	NSMenu * test = [[NSMenu.alloc init] autorelease];
 	NSArray * itemNames = [NSArray arrayWithObjects:@"Cut",@"Copy",@"Paste",@"-", [NSString stringWithFormat:@"Add %@ to preferences",string], nil];
 	for (NSString *aName in itemNames){
 		if ([aName isEqualToString:@"-"]){
 			[test addItem:[NSMenuItem separatorItem]];
 		}
 		else{
-			NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:aName action:@selector(action:) keyEquivalent:@""];
+			NSMenuItem * item = [NSMenuItem.alloc initWithTitle:aName action:@selector(action:) keyEquivalent:@""];
 			[item setTarget:self];
 			[test addItem:item];
-			[item release];
+//			[item release];
 
 
 		}

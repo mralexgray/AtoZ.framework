@@ -17,7 +17,7 @@
 @implementation AZCoreScrollView
 
 - (void)awakeFromNib {				/* draw a basic gradient for view background*/
-	_bgGradient = [[NSGradient alloc] initWithStartingColor:GRAY1 endingColor:GRAY3];
+	_bgGradient = [NSGradient.alloc initWithStartingColor:GRAY1 endingColor:GRAY3];
 	[self setupLayers];										   [self setupListeners];
 }
 - (void)setupLayers {

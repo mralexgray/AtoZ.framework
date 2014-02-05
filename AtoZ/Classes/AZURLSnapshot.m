@@ -18,7 +18,7 @@
 @implementation AZURLSnapshot
 + (void)takeSnapshotOfWebPageAtURL:(NSURL *)url completionBlock:(void (^)(NSImage *))block;
 {
-	AZURLSnapshot *instance = [[self alloc] _initWithCompletionBlock:block];
+	AZURLSnapshot *instance = [self.alloc _initWithCompletionBlock:block];
 	[instance _beginDownloadFromURL:url];
 	[instance autorelease];
 }
@@ -31,7 +31,7 @@
 	{
 		completionBlock = [block copy];
 
-		webView = [[WebView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 1000.0, 1000.0) frameName:nil groupName:nil];
+		webView = [WebView.alloc initWithFrame:NSMakeRect(0.0, 0.0, 1000.0, 1000.0) frameName:nil groupName:nil];
 		[webView setFrameLoadDelegate:self];
 	}
 	return self;
@@ -71,7 +71,7 @@
 	NSRect destRect = NSZeroRect;
 	destRect.size = imgSize;
 
-	NSImage *webImage = [[[NSImage alloc] initWithSize:imgSize] autorelease];
+	NSImage *webImage = [[NSImage.alloc initWithSize:imgSize] autorelease];
 	[webImage lockFocus];
 	[bitmapRep drawInRect:destRect fromRect:srcRect operation:NSCompositeCopy fraction:1.0 respectFlipped:YES hints:nil];
 	[webImage unlockFocus];

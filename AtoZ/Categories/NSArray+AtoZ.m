@@ -3,6 +3,8 @@
 //  AtoZ
 
 #import "NSArray+AtoZ.h"
+#import "AtoZ.h"
+
 //#import "AZLog.h"
 
 NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMutableArrayDidInsertObjectNotification";
@@ -246,17 +248,24 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
     return [[NSCountedSet alloc] initWithArray:self];
 }
 
+- (NSRNG) rangeOfSubarray:(NSA*)sub {
+
+  NSUI first = [self indexOfObject:sub.first];
+  NSRNG rng = NSMakeRange(first, sub.count);
+  BOOL identical = [[self subarrayWithRange:rng] corresponds:sub withBlock:^BOOL(id key, id obj) {
+    return [key isEqual:obj];
+  }];
+  return identical ? rng : NSZeroRange;
+}
+
 + (NSA*)arrayWithRange:(NSRange)range {
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:range.length];
+
+    NSMutableArray *array = NSMutableArray.new;
     NSI i;
-    for (i = range.location; i < (range.location + range.length); i++) {
+    for (i = range.location; i < (range.location + range.length); i++)
         [array addObject:[NSNumber numberWithInteger:i]];
-    }
 
-    NSArray *answer = [[array copy] autorelease];
-    [array release];
-
-    return answer;
+    return array.copy;
 }
 
 @dynamic trimmedStrings;
@@ -523,8 +532,9 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 /**	Additions.	*/
 //@implementation NSArray (TTCategory)
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)perform:(SEL)selector {
+
+
     NSArray *copy = [[NSArray alloc] initWithArray:self];
     NSEnumerator *e = [copy objectEnumerator];
     for (id delegate; (delegate = [e nextObject]); ) {
@@ -532,7 +542,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
             [delegate performSelectorWithoutWarnings:selector withObject:nil];
         }
     }
-    [copy release];
+//    [copy release];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -544,7 +554,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
             [delegate performSelectorWithoutWarnings:selector withObject:p1];
         }
     }
-    [copy release];
+//    [copy release];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -559,7 +569,6 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 #pragma clang diagnostic pop
         }
     }
-    [copy release];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -571,7 +580,6 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
             [delegate performSelector:selector withObject:p1 withObject:p2 withObject:p3];
         }
     }
-    [copy release];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -832,22 +840,25 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 - (NSA*) subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end {
-    NSI from = start;
-    while (from < 0) from += self.count;
-    if (from > self.count) return nil;
 
-    NSI to = end;
-    while (to < 0) to += self.count;
-    if (from >= to) {
-        // this behaviour is somewhat different it will return anything from this array except the passed range
-        NSA *re = @[];
-        if (from > 0) re = [self subarrayWithRange:(NSRNG) {0, from - 1 }];
-        if (to < self.count) {
-            if (re != nil) re = [re arrayByAddingObjectsFromArray:[self subarrayWithRange:(NSRNG) {to - 1, self.count - 1 }]];
-        }
-        return re;
-    }
-    return [self subarrayWithRange:(NSRNG) {from, to }];
+  if (start > self.count || (start + end) > self.count) return nil;
+  return [self subarrayWithRange:NSMakeRange(start, end - start)];
+//    NSI from = start;
+//    while (from < 0) from += self.count;
+//    if (from > self.count) return nil;
+//
+//    NSI to = end;
+//    while (to < 0) to += self.count;
+//    if (from >= to) {
+//        // this behaviour is somewhat different it will return anything from this array except the passed range
+//        NSA *re = @[];
+//        if (from > 0) re = [self subarrayWithRange:(NSRNG) {0, from - 1 }];
+//        if (to < self.count) {
+//            if (re != nil) re = [re arrayByAddingObjectsFromArray:[self subarrayWithRange:(NSRNG) {to - 1, self.count - 1 }]];
+//        }
+//        return re;
+//    }
+//    return [self subarrayWithRange:(NSRNG) {from, to }];
 }
 
 - (id) randomElement {    return !self.count ? nil : [self normal:(arc4random() % self.count)];	}
@@ -1090,8 +1101,8 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
 
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    dispatch_release(group);
-    dispatch_release(queue);
+//    dispatch_release(group);
+//    dispatch_release(queue);
 }
 
 /**	Finds the first instance of the object that you indicate
@@ -1429,9 +1440,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
             [string appendFormat:@"%@%@", bullet, value];
         }
     }
-    NSS *output = string.copy;
-    [string release];
-    return [output autorelease];
+    return string.copy;
 }
 
 - (NSS*) listValuesOnePerLineForKeyPath:(NSS*) keyPath {
@@ -1465,9 +1474,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
 
     if (ellipsize) [string appendFormat:@", %C", (unsigned short)0x2026];
-    NSS *output = string.copy;
-    [string release];
-    return [output autorelease];
+    return string.copy;
 }
 
 - (NSS*) listNames {
@@ -1765,7 +1772,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSArray*) filterByProperty:(NSS*) p
 {
     NSMutableArray *finalArray = [NSMutableArray array];
-    NSMutableSet *lookup = [[NSMutableSet alloc]init];
+    NSMutableSet *lookup = NSMutableSet.new;
     for (id item in self)
     {
         if (![lookup containsObject:[item valueForKey:p]])
@@ -1774,8 +1781,8 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
             [finalArray addObject:item];
         }
     }
-    [lookup release];
-    
+//    [lookup release];
+
     return finalArray;
 }
 

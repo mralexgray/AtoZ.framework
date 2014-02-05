@@ -7,7 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface RuntimeReporter : NSObject {}  // Simple singleton, only has class methods.
+@interface RuntimeReporter : NSObject  // Simple singleton, only has class methods.
 
 + (NSArray *) rootClasses;
 

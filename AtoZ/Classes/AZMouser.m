@@ -221,7 +221,7 @@ void dragTo ( CGPoint dest ) {
 	}
 }
 
-- (NSA*) arcPointsBetween:(CGPoint)a and:(CGPoint)b
+- (NSA*) arcPointsBetween:(CGPoint)a p2:(CGPoint)b
 {
 	CGF distance = distanceFromPoint(a,b);
 	CGF radius = 25;
@@ -666,7 +666,7 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 											void *refcon)
 {
 	if (kCGEventMouseMoved == type) { // paranoic
-									  //		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+									  //		NSAutoreleasePool *pool = NSAutoreleasePool.new;
 		if (refcon) {
 			id obj = (__bridge id)refcon;
 			if ([[obj class] instancesRespondToSelector:@selector(mouseMoved:)]) {

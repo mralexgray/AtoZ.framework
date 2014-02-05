@@ -115,7 +115,7 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 -(void) addContact															{
 
 	NSLog(@"List Count is: %ld", _list.count);
-	Contacts *contactTemp = [[Contacts alloc] init];
+	Contacts *contactTemp = Contacts.new;
 	char cFName[80], cLName[80], cSAddress[80], cZCode[80], cEmail[80], cPNumber[80], cNotes[80];
 	NSString *fName, *lName, *sAddress, *zCode, *mail, *pNumber, *memo;
 
@@ -151,7 +151,7 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 	NSString * cmpStr;
 	for( i = 0; i < [_list count]; i++ )
 	{
-		Contacts *contactTemp = [[Contacts alloc] init];
+		Contacts *contactTemp = Contacts.new;
 		contactTemp = [_list objectAtIndex: i];
 
 		if( [type isEqualToString:@"last"] )
@@ -249,15 +249,14 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 static ContactList *contacts;
 int main( int argc, const char *argv[] )	{	@autoreleasepool {
 
-//		[contacts = ContactList.new loadContacts];
-//		contactMenu(contacts);
-
-		NSW* windy = AZWINDOWINIT;
-		windy.frame = AZScreenFrameUnderMenu();
-		windy.bgC= RED;
-		[windy makeKeyAndOrderFront:nil];
-
-
+  AZSHAREDAPP;
+  [contacts = ContactList.new loadContacts];
+  contactMenu(contacts);
+//  NSW* windy = NSWINDOWINIT(AZScreenFrameUnderMenu(),NSNotFound);
+//  LOGCOLORS(windy,nil);
+//	windy.bgC= RED;
+//	[windy makeKeyAndOrderFront:nil];
+   AZAPPRUN;
 	}
 	return 0;
 }

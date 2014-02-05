@@ -423,7 +423,7 @@ static const NSString *didScroll = @"scrollOffset";
  if(!_fontSize) self.fontSize = [AtoZ fontSizeForAreaSize:dim withString:@"300" usingFont:@"Ubuntu Mono Bold"];
  NSTextView *label = nil;
  if (view == nil)	{
- view = [[NSTextView alloc] initWithFrame: AZMakeRectFromSize(dim) ];
+ view = [NSTextView.alloc initWithFrame: AZMakeRectFromSize(dim) ];
  [(NSTextView*)view setBackgroundColor: RANDOMCOLOR ];
  
  [(NSTextView*)view setFont:[NSFont fontWithName:@"Ubuntu Mono Bold" size:_fontSize]];
@@ -449,7 +449,7 @@ static const NSString *didScroll = @"scrollOffset";
  {	NSLog(@"placeholder reuqested by %@ for index:%ld", carousel.identifier, index );
  NSTextView *label = nil;
  if (view == nil)	{
- view = [[NSTextView alloc] initWithFrame:AZRectFromDim(_intrusion)];
+ view = [NSTextView.alloc initWithFrame:AZRectFromDim(_intrusion)];
  [(NSTextView*)view setBackgroundColor: BLACK ];
  [(NSTextView*)view setTextColor:WHITE];
  }	else		label = (NSTextView*)[view viewWithTag:1];
@@ -515,7 +515,7 @@ static const NSString *didScroll = @"scrollOffset";
   CALayer *secondJointLayer;
   CALayer *perspectiveLayer;
   
-  mainView = [[UIView alloc] initWithFrame:CGRectMake(50, 50, width, height*3)];
+  mainView = [UIView.alloc initWithFrame:CGRectMake(50, 50, width, height*3)];
   mainView.backgroundColor = [NSColor yellowColor];
   [self.view addSubview:mainView];
   
@@ -759,10 +759,10 @@ static const NSString *didScroll = @"scrollOffset";
 //		//create new view if no view is available for recycling
 //	if (view == nil)	{
 //		NSImage *image = [NSImage az_imageNamed:@"2.pdf"];
-//	   	view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
+//	   	view = [[NSImageView.alloc initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
 //		[(NSImageView *)view setImage:image];
 //		[(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
-//		label = [[[NSTextField alloc] init] autorelease];
+//		label = [[NSTextField.alloc init] autorelease];
 //		[label setBackgroundColor:[NSColor clearColor]];
 //		[label setBordered:NO];
 //		[label setSelectable:NO];
@@ -842,7 +842,7 @@ static const NSString *didScroll = @"scrollOffset";
  [desc drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: theStyle, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @55 } ];
  [swatch unlockFocus];
  swatch = [swatch addReflection:.5];
- view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+ view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
  view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
  [(NSImageView *)view setImage:swatch];
  [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -857,7 +857,7 @@ static const NSString *didScroll = @"scrollOffset";
  // AZRightEdge(AZUpperEdge(icorect, 40), 40)
  operation:NSCompositeDestinationIn fraction:1];
  //	[[ico filteredMonochromeEdge] drawCenteredinRect:AZRightEdge(AZUpperEdge(icorect, 40), 40) operation:NSCompositeSourceOver fraction:1];
- NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
+ NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
  NSForegroundColorAttributeName :WHITE} ];
  //			[theStyle setLineSpacing:12];
  //			NSTextView *atv = [[NSTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];
@@ -871,7 +871,7 @@ static const NSString *didScroll = @"scrollOffset";
  //			[string drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @200 } ];// withAttributes:att];
  [swatch unlockFocus];
  swatch = [swatch addReflection:.5];
- view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+ view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
  //			view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
  [(NSImageView *)view setImage:swatch];
  //			[(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -890,7 +890,7 @@ static const NSString *didScroll = @"scrollOffset";
  [desc drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: theStyle, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @55 } ];
  [swatch unlockFocus];
  swatch = [swatch addReflection:.5];
- view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+ view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
  view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
  [(NSImageView *)view setImage:swatch];
  [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -910,11 +910,11 @@ static const NSString *didScroll = @"scrollOffset";
 //this `if (view == nil) {...}` statement because the view will be
 //recycled and used with other index values later
 /*		NSImage *image = [NSImage az_imageNamed:@"4.pdf"];
- view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
+ view = [[NSImageView.alloc initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
  [(NSImageView *)view setImage:image];
  [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
  
- label = [[[NSTextField alloc] init] autorelease];
+ label = [[NSTextField.alloc init] autorelease];
  [label setBackgroundColor:[NSColor clearColor]];
  [label setBordered:NO];
  [label setSelectable:NO];
@@ -988,7 +988,7 @@ static const NSString *didScroll = @"scrollOffset";
  //	}];
  //
  //
- //	self.attache = [[AZAttachedWindow alloc] initWithView:self.attacheView attachedToPoint:AZCenterOfRect(lassie.frame)];
+ //	self.attache = [AZAttachedWindow.alloc initWithView:self.attacheView attachedToPoint:AZCenterOfRect(lassie.frame)];
  //	[_attache setLevel:NSFloatingWindowLevel];
  //	[_attache orderFrontRegardless];
  
@@ -1081,13 +1081,13 @@ static const NSString *didScroll = @"scrollOffset";
 /*	self.window = [[NSWindow alloc]initWithContentRect:
  NSInsetRect([[NSScreen mainScreen]frame],200,200) styleMask:NSTitledWindowMask backing:NSBackingStoreBuffered  defer:NO];
  
- NSImageView *backgroundView = [[NSImageView alloc] initWithFrame:[[_window contentView] bounds]];
+ NSImageView *backgroundView = [NSImageView.alloc initWithFrame:[[_window contentView] bounds]];
  backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
  [backgroundView setImageScaling:NSImageScaleAxesIndependently];
  backgroundView.image = 	[NSImage az_imageNamed:@"3.pdf"];
  
  [_window.contentView addSubview:backgroundView];
- self.carousel = [[iC alloc] initWithFrame:[[_window contentView] bounds]];
+ self.carousel = [iC.alloc initWithFrame:[[_window contentView] bounds]];
  _carousel.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
  _carousel.type = iCarouselTypeCoverFlow;
  [self.carousel setDelegate : self ];

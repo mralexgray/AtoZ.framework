@@ -26,11 +26,11 @@
 
 // Flush any temporary images and filters
 - (void)reset {
-	[initialImage release];
-	[finalImage release];
-	[transitionFilter release];
-	[transitionFilter2 release];
-	[animation release];
+//	[initialImage release];
+//	[finalImage release];
+//	[transitionFilter release];
+//	[transitionFilter2 release];
+//	[animation release];
 	initialImage = nil;
 	finalImage = nil;
 	transitionFilter = nil;
@@ -40,7 +40,7 @@
 
 - (void)dealloc {
 	[self reset];
-	[inputShadingImage release];
+//	[inputShadingImage release];
 //	[super dealloc];
 }
 
@@ -65,7 +65,7 @@
 	NSBitmapImageRep * bitmap = [view bitmapImageRepForCachingDisplayInRect:[view bounds]];
 	[view cacheDisplayInRect:[view bounds] toBitmapImageRep:bitmap];
 	//need to place it into an image so we can composite it
-	NSImage * image = [[NSImage alloc] init];
+	NSImage * image = NSImage.new;
 	[image addRepresentation:bitmap];
 	
 	// Build our offscreen CGContext
@@ -111,8 +111,8 @@
 		colorSpace:colorSpace];
 	
 	// Housekeeping
-	[image release];
-	CGColorSpaceRelease(colorSpace); 
+//	[image release];
+	CGColorSpaceRelease(colorSpace);
 	//free(bitmapData);
 	
 	return coreimage;
@@ -120,13 +120,13 @@
 
 - (void)setInitialView:(NSView*)view {
 	CIImage * image = [self createCoreImage:view];
-	[initialImage release];
+//	[initialImage release];
 	initialImage = image;
 }
 
 - (void)setFinalView:(NSView*)view {
 	CIImage * image = [self createCoreImage:view];
-	[finalImage release];
+//	[finalImage release];
 	finalImage = image;
 
 }
@@ -134,8 +134,8 @@
 - (BOOL)isAnimating {	return (animation!=nil); }
 
 - (void)start {
-	[transitionFilter release];
-	[transitionFilter2 release];
+//	[transitionFilter release];
+//	[transitionFilter2 release];
 	self.transitionFilter = nil;
 	self.transitionFilter2 = nil;
 	self.chaining = NO;
@@ -332,8 +332,8 @@
 				if(finalImage) {
 					// Swap images at half-way point
 					[transitionFilter setValue:finalImage forKey:@"inputImage"];
-					[finalImage release];
-					finalImage = nil;	
+//					[finalImage release];
+					finalImage = nil;
 				}
 				//swap the coordinates so we can actually see the other size
 				float ss;

@@ -5,6 +5,7 @@
 //  Created by Alex Gray on 11/25/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
+#import "AtoZ.h"
 
 #import "WebView+AtoZ.h"
 #import <WebKit/WebKit.h>
@@ -71,7 +72,7 @@
 
 	NSBitmapImageRep *imageRep = [view.documentView bitmapImageRepForCachingDisplayInRect:view.documentView.frame];
 	[view.documentView cacheDisplayInRect:imageRect toBitmapImageRep:imageRep];
-	NSImage *image = [[[NSImage alloc] initWithSize:imageRect.size] autorelease];
+	NSImage *image = [NSImage.alloc initWithSize:imageRect.size];
 	[image addRepresentation:imageRep];
 	return image;
 }

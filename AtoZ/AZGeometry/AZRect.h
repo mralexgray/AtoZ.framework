@@ -58,12 +58,15 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 }
 */
 
-@class AZPoint;
+#import "AZPoint.h"
+#import "AtoZTypes.h"
+
+
 @interface AZEdge : AZPoint
 + (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide;
-@property (NATOM, ASS) AZA alignment;
-@property (NATOM, ASS) AZOrient orient;
-@property (NATOM, ASS) CGF cornerTreshHold, snapThreshold;
+@property (NATOM) AZA alignment;
+@property (NATOM) AZOrient orient;
+@property (NATOM) CGF cornerTreshHold, snapThreshold;
 //- (void) moveInDirection:(NSSZ)sz;
 @end
 
@@ -81,6 +84,7 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 + (AZRect*) rectWithOrigin:(NSP)origin andSize:(NSSZ)size;
 + (AZRect*) rectWithX:		(CGF)x andY:(CGF)y  width:(CGF)width  height:(CGF)height;
 + (AZRect*) rect:(NSR)frame oriented:(AZPOS)pos;
++ (AZRect*) x:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
 
 + (BOOL)maybeRect:(id) object;
 

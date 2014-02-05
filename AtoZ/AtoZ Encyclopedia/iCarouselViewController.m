@@ -175,7 +175,7 @@
 		[RANDOMCOLOR set];
 		[path fill];
 	}];
-	self.attache = [[AZAttachedWindow alloc] initWithView:self.attacheView attachedToPoint:AZCenterOfRect(lassie.frame)];
+	self.attache = [AZAttachedWindow.alloc initWithView:self.attacheView attachedToPoint:AZCenterOfRect(lassie.frame)];
 	[_attache setLevel:NSFloatingWindowLevel];
 	[_attache orderFrontRegardless];
 
@@ -323,7 +323,7 @@ if (!view) {
 				[desc drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: theStyle, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @55 } ];
 				[swatch unlockFocus];
 				swatch = [swatch addReflection:.5];
-				view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+				view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
 				view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 				[(NSImageView *)view setImage:swatch];
 				[(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -336,7 +336,7 @@ if (!view) {
 				[ico drawInRect:icorect fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1];
 					//	[[ico filteredMonochromeEdge] drawCenteredinRect:icorect/*AZRightEdge(AZUpperEdge(icorect, 40), 40) */ operation:NSCompositeDestinationIn fraction:1];
 					//	[[ico filteredMonochromeEdge] drawCenteredinRect:AZRightEdge(AZUpperEdge(icorect, 40), 40) operation:NSCompositeSourceOver fraction:1];
-				NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
+				NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
 																	  NSForegroundColorAttributeName :WHITE} ];
 					//			[theStyle setLineSpacing:12];
 					//			NSTextView *atv = [[NSTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];
@@ -350,7 +350,7 @@ if (!view) {
 					//			[string drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @200 } ];// withAttributes:att];
 				[swatch unlockFocus];
 				swatch = [swatch addReflection:.5];
-				view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+				view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
 					//			view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 				[(NSImageView *)view setImage:swatch];
 					//			[(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
@@ -369,14 +369,14 @@ if (!view) {
 				[desc drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: theStyle, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @55 } ];
 				[swatch unlockFocus];
 				swatch = [swatch addReflection:.5];
-				view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+				view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
 				view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 				[(NSImageView *)view setImage:swatch];
 				[(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
 				break;
 			}
 		}
-			//		label = [[[NSTextField alloc] init] autorelease];
+			//		label = [[NSTextField.alloc init] autorelease];
 			//		[label setBackgroundColor:[NSColor clearColor]];
 			//		[label setBordered:NO];
 			//		[label setSelectable:NO];
@@ -426,11 +426,11 @@ if (!view) {
  if (view == nil)
  {
  NSImage *image = [NSImage imageNamed:@"page.png"];
- view = [[[NSImageView alloc] initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
+ view = [[NSImageView.alloc initWithFrame:NSMakeRect(0,0,image.size.width,image.size.height)] autorelease];
  [(NSImageView *)view setImage:image];
  [(NSImageView *)view setImageScaling:NSImageScaleAxesIndependently];
 
- label = [[[NSTextField alloc] init] autorelease];
+ label = [[NSTextField.alloc init] autorelease];
  [label setBackgroundColor:[NSColor clearColor]];
  [label setBordered:NO];
  [label setSelectable:NO];

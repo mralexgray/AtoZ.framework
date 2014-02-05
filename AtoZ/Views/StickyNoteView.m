@@ -1,3 +1,4 @@
+#import "AtoZ.h"
 #import "StickyNoteView.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -434,7 +435,7 @@ JROptionsDefine(AZDraggingMode)
 	
 	[NSGraphicsContext state:^{
 			
-		NSShadow *shadow=[[NSShadow alloc] init];
+		NSShadow *shadow=NSShadow.new;
 		[shadow setShadowOffset:NSMakeSize(0.0,-1.0)];
 		[shadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.3]];
 		[shadow setShadowBlurRadius:3.0];

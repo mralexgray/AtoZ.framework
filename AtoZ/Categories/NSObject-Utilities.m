@@ -2,6 +2,7 @@
  Erica Sadun, http://ericasadun.com
  iPhone Developer's Cookbook, 3.0 Edition
  BSD License, Use at your own risk	*/
+#import "AtoZ.h"
 
 #import "NSObject-Utilities.h"
 #import <objc/objc-runtime.h>
@@ -124,7 +125,7 @@
 		case '{': // structure
 		{
 			NSUInteger maxArgSize = [[self methodSignature] frameLength];
-			NSMutableData *argumentData = [[[NSMutableData alloc] initWithLength:maxArgSize] autorelease];
+			NSMutableData *argumentData = [NSMutableData.alloc initWithLength:maxArgSize];
 			[self getArgument:[argumentData mutableBytes] atIndex:argIndex];
 			return [NSValue valueWithBytes:[argumentData bytes] objCType:argType];
 		}
@@ -143,7 +144,7 @@
 		return NSStringFromSelector([self selector]);
 
 	NSArray *selectorParts = [NSStringFromSelector([self selector]) componentsSeparatedByString:@":"];
-	NSMutableString *description = [[NSMutableString alloc] init];
+	NSMutableString *description = NSMutableString.new;
 	unsigned int i;
 	for(i = 2; i < numberOfArgs; i++)
 	{
@@ -151,7 +152,7 @@
 		[description appendString:[self argumentDescriptionAtIndex:i]];
 	}
 
-	return [description autorelease];
+	return description;
 }
 
 - (NSString *)argumentDescriptionAtIndex:(int)argIndex
@@ -843,7 +844,7 @@
 + (id) instanceOfClassNamed: (NSS*) className
 {
 	if (NSClassFromString(className) != nil)
-		return [[[NSClassFromString(className) alloc] init] autorelease];
+		return [NSClassFromString(className) new];
 	else 
 		return nil;
 }

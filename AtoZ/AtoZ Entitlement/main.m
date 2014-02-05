@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
       id x = GHTestApp.new;
       // To run a different test suite:
       //GHTestSuite *suite = [GHTestSuite suiteWithTestFilter:@"GHSlowTest,GHAsyncTestCaseTest"];
-      //GHTestApp *app = [[GHTestApp alloc] initWithSuite:suite];
+      //GHTestApp *app = [GHTestApp.alloc initWithSuite:suite];
       // Or set global:
       //GHUnitTest = @"GHSlowTest";
       [(NSApplication*)NSApp run];

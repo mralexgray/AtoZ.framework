@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 /**
-	PyTerminalTask* task = [[PyTerminalTask alloc] init];
+	PyTerminalTask* task = PyTerminalTask.new;
 	setup_tty_param(&term, &win, [screen width], [screen height]);
 	_rl_set_screen_size(25, 80);
 	int ret = openpty(&shell->FILDES, &task->TTY_SLAVE, ttyname, &term, &win);

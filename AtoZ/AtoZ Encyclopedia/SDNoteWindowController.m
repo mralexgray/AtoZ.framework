@@ -201,7 +201,7 @@
 }
 
 - (void) editTitle {
-	SDEditTitleController *controller = [[SDEditTitleController alloc] init];
+	SDEditTitleController *controller = SDEditTitleController.new;
 	
 	[controller setTitleFieldWidth:NSWidth([titleLabel frame])];
 	[controller setTitle:[titleLabel stringValue]];

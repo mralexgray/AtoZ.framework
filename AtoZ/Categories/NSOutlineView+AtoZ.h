@@ -9,7 +9,8 @@
 
 extern NSString* const kAZTreeNodeChildNodesKey;
 
-@interface AZTreeNode : AZObject <NSCoding,NSCopying,NSMutableCopying,AZPlistRepresentation> {
+@protocol  AZPlistRepresentation;
+@interface AZTreeNode : NSObject <NSCoding,NSCopying,NSMutableCopying,AZPlistRepresentation> {
 @private
 		  __weak id   _parentNode; // back pointer to our parent node; not retained
 	NSMutableArray * _childNodes;

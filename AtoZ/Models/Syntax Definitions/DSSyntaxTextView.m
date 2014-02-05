@@ -3,6 +3,7 @@
 //  Created by Fabio Pelosin on 25/09/12.  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 
 #import "DSSyntaxTextView.h"
+#import "AtoZ.h"
 
 @implementation DSSyntaxTextView
 

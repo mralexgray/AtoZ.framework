@@ -84,10 +84,9 @@
 }
 - (NSUI) daysAgoAgainstMidnight 	{		// get a midnight version of ourself:
 
-	NSDateFormatter *mdf = [[NSDateFormatter alloc] init];
+	NSDateFormatter *mdf = NSDateFormatter.new;
 	[mdf setDateFormat:@"yyyy-MM-dd"];
 	NSDate *midnight = [mdf dateFromString:[mdf stringFromDate:self]];
-	[mdf release];
 	return (int)[midnight timeIntervalSinceNow] / (60*60*24) *-1;
 }
 
@@ -111,7 +110,6 @@
 	NSDateFormatter *inputFormatter = NSDateFormatter.new;
 	[inputFormatter setDateFormat:format];
 	NSDate *date = [inputFormatter dateFromString:string];
-	[inputFormatter release];
 	return date;
 }
 
@@ -142,7 +140,6 @@
 		NSDateComponents *componentsToSubtract = NSDateComponents.new;
 		[componentsToSubtract setDay:-7];
 		NSDate *lastweek 								= [calendar dateByAddingComponents:componentsToSubtract toDate:today options:0];
-		[componentsToSubtract release];
 		NSComparisonResult lastweek_result 		= [date compare:lastweek];
 		if (lastweek_result == NSOrderedDescending)
 			if (displayTime)	[displayFormatter setDateFormat:@"EEEE h:mm a"];
@@ -179,10 +176,9 @@
 }
 
 - (NSS*)stringWithFormat:(NSS*)format {
-	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+	NSDateFormatter *outputFormatter = NSDateFormatter.new;
 	[outputFormatter setDateFormat:format];
 	NSString *timestamp_str = [outputFormatter stringFromDate:self];
-	[outputFormatter release];
 	return timestamp_str;
 }
 
@@ -191,11 +187,10 @@
 }
 
 - (NSS*)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
-	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+	NSDateFormatter *outputFormatter = NSDateFormatter.new;
 	[outputFormatter setDateStyle:dateStyle];
 	[outputFormatter setTimeStyle:timeStyle];
 	NSString *outputString = [outputFormatter stringFromDate:self];
-	[outputFormatter release];
 	return outputString;
 }
 
@@ -218,11 +213,10 @@
 	 Create a date components to represent the number of days to subtract from the current date.
 	 The weekday value for Sunday in the Gregorian calendar is 1, so subtract 1 from the number of days to subtract from the date in question.  (If today's Sunday, subtract 0 days.)
 	 */
-	NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
+	NSDateComponents *componentsToSubtract = NSDateComponents.new;
 	[componentsToSubtract setDay: 0 - ([weekdayComponents weekday] - 1)];
 	beginningOfWeek = nil;
 	beginningOfWeek = [calendar dateByAddingComponents:componentsToSubtract toDate:self options:0];
-	[componentsToSubtract release];
 
 	//normalize to midnight, extract the year, month, and day components and create a new date from those components.
 	NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)
@@ -242,11 +236,11 @@
 	NSCalendar *calendar = [NSCalendar currentCalendar];
 	// Get the weekday component of the current date
 	NSDateComponents *weekdayComponents = [calendar components:NSWeekdayCalendarUnit fromDate:self];
-	NSDateComponents *componentsToAdd = [[NSDateComponents alloc] init];
+	NSDateComponents *componentsToAdd = NSDateComponents.new;
 	// to get the end of week for a particular date, add (7 - weekday) days
 	[componentsToAdd setDay:(7 - [weekdayComponents weekday])];
 	NSDate *endOfWeek = [calendar dateByAddingComponents:componentsToAdd toDate:self options:0];
-	[componentsToAdd release];
+
 
 	return endOfWeek;
 }
@@ -294,7 +288,7 @@ static inline NSCalendar* _GetSharedCalendar() {
 					hour:(NSUInteger)hour
 				  minute:(NSUInteger)minute
 				  second:(NSUInteger)second {
-	NSDateComponents* components = [[NSDateComponents alloc] init];
+	NSDateComponents* components = NSDateComponents.new;
 	components.year = year;
 	components.month = month;
 	components.day = day;
@@ -304,7 +298,7 @@ static inline NSCalendar* _GetSharedCalendar() {
 	OSSpinLockLock(&_calendarSpinLock);
 	NSDate* date = [_GetSharedCalendar() dateFromComponents:components];
 	OSSpinLockUnlock(&_calendarSpinLock);
-	[components release];
+
 	return date;
 }
 
@@ -373,12 +367,11 @@ static NSDate* _GetReferenceDay() {
 
 + (NSDate*) dateWithDaysSinceReferenceDate:(NSInteger)days {
 	NSDate* date = _GetReferenceDay();
-	NSDateComponents* components = [[NSDateComponents alloc] init];
+	NSDateComponents* components = NSDateComponents.new;
 	components.day = days;
 	OSSpinLockLock(&_calendarSpinLock);
 	date = [_GetSharedCalendar() dateByAddingComponents:components toDate:date options:0];
 	OSSpinLockUnlock(&_calendarSpinLock);
-	[components release];
 	return date;
 }
 
@@ -394,31 +387,28 @@ static NSDate* _GetReferenceDay() {
 static NSDateFormatter* _GetDateFormatter(NSString* format, NSString* identifier, NSTimeZone* timeZone) {
 	static NSMutableDictionary* cacheLevel0 = nil;
 	if (cacheLevel0 == nil) {
-		cacheLevel0 = [[NSMutableDictionary alloc] init];
+		cacheLevel0 = NSMutableDictionary.new;
 	}
 
 	NSMutableDictionary* cacheLevel1 = [cacheLevel0 objectForKey:(identifier ? identifier : @"")];
 	if (cacheLevel1 == nil) {
-		cacheLevel1 = [[NSMutableDictionary alloc] init];
+		cacheLevel1 = NSMutableDictionary.new;
 		[cacheLevel0 setObject:cacheLevel1 forKey:(identifier ? identifier : @"")];
-		[cacheLevel1 release];
 	}
 
 	NSMutableDictionary* cacheLevel2 = [cacheLevel1 objectForKey:(timeZone ? [timeZone name] : @"")];
 	if (cacheLevel2 == nil) {
-		cacheLevel2 = [[NSMutableDictionary alloc] init];
+		cacheLevel2 = NSMutableDictionary.new;
 		[cacheLevel1 setObject:cacheLevel2 forKey:(timeZone ? [timeZone name] : @"")];
-		[cacheLevel2 release];
 	}
 
 	NSDateFormatter* formatter = [cacheLevel2 objectForKey:format];
 	if (formatter == nil) {
-		formatter = [[NSDateFormatter alloc] init];
-		formatter.locale = identifier ? [[[NSLocale alloc] initWithLocaleIdentifier:identifier] autorelease] : [NSLocale currentLocale];
+		formatter = NSDateFormatter.new;
+		formatter.locale = identifier ? [NSLocale.alloc initWithLocaleIdentifier:identifier] : [NSLocale currentLocale];
 		formatter.timeZone = timeZone ? timeZone : [NSTimeZone defaultTimeZone];
 		formatter.dateFormat = format;
 		[cacheLevel2 setObject:formatter forKey:format];
-		[formatter release];
 	}
 
 	return formatter;

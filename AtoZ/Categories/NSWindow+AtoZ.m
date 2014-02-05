@@ -1,4 +1,5 @@
 
+#import "AtoZ.h"
 #import "NSWindow+AtoZ.h"
 
 
@@ -159,8 +160,7 @@ JREnumDefine(NSWindowResize);
 	[imageView setImageScaling:NSScaleToFit];
 	[imageView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 	[zoomWindow setContentView:imageView];
-	[image release];
-	[imageView release];
+
 	[self setOneShot:isOneShot];	// Reset one shot flag
 	return zoomWindow;
 }
@@ -523,7 +523,7 @@ static NSMD*	 pendingFades = nil;
 
 -(void) fadeInWithDuration:  					 (NSTI)duration	{
 	if( !pendingFades )
-		pendingFades = [[NSMutableDictionary alloc] init];
+		pendingFades = NSMutableDictionary.new;
 	NSString*	   key = [NSString stringWithFormat: @"%@", self];
 	NSDictionary*   fade = pendingFades[key];
 	if( fade )	  // Currently fading that window? Abort that fade:
@@ -555,7 +555,7 @@ static NSMD*	 pendingFades = nil;
 }
 -(void) fadeOutWithDuration: 					 (NSTI)duration	{
 	if( !pendingFades )
-		pendingFades = [[NSMutableDictionary alloc] init];
+		pendingFades = NSMutableDictionary.new;
 	NSString*	   key = [NSString stringWithFormat: @"%@", self];
 	NSDictionary*   fade = pendingFades[key];
 	if( fade )	  // Currently fading that window? Abort that fade:
@@ -605,7 +605,7 @@ static NSMD*	 pendingFades = nil;
 }
 -(void) fadeToLevel: (int)lev withDuration:(NSTI)duration	{
 	if( !pendingFades )
-		pendingFades = [[NSMutableDictionary alloc] init];
+		pendingFades = NSMutableDictionary.new;
 	NSString*	   key = [NSString stringWithFormat: @"%@", self];
 	NSDictionary*   fade = pendingFades[key];
 	if( fade )	  // Currently fading that window? Abort that fade:

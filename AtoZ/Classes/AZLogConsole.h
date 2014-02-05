@@ -1,4 +1,8 @@
 
+//@import WebKit;
+#import <WebKit/WebKit.h>
+
+
 @protocol AZLogConsoleDelegate <NSObject>
 - (void) textWasEntered:(NSS*)string;
 @end
@@ -11,6 +15,8 @@ void			NSLogPostLog(char* file, int line);
 - (void) clear;
 - (void) search:(NSString*)string;
 @end
+@protocol MTTokenFieldDelegate;
+@class MTTokenField;
 @interface 	AZLogConsole : NSObject <MTTokenFieldDelegate>
 @property (WK) IBO 	MTTokenField 	*tokenField;
 @property (WK) IBO 	id 				classTable;

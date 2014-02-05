@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 9/14/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
+#import "AtoZ.h"
 #import "NSBundle+AtoZ.h"
 #import <mach-o/getsect.h>
 
@@ -258,7 +258,7 @@ return cachedImages;
 		   NSString *name = [[imagepath lastPathComponent] stringByDeletingPathExtension];
 		   NSImage *image = [NSImage imageNamed:name];
 		   if (!image) {
-				image = [[NSImage alloc]  initByReferencingFile:imagepath];
+				image = [NSImage.alloc  initByReferencingFile:imagepath];
 				if (image) {
 				   [image setName: name];
 				}
@@ -336,7 +336,7 @@ NSString *ext = @"framework";
 }
 
 - (NSImage*)appIcon {
-	NSImage* appIcon = [[NSImage alloc] initWithContentsOfFile:[self appIconPath]] ;
+	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
 	return appIcon ;
 }
 

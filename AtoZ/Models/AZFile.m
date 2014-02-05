@@ -385,7 +385,7 @@ calulatedBundleID = _calulatedBundleID;
                 {
                 NSArray *songDicts = [NSArray arrayWithContentsOfFile:@"Songs.plist"]; // Retrieve the property list from the file system and store as an array.
 
-                _songs = [[NSMutableArray alloc] initWithCapacity:[songDicts count]]; // Initialize our synthesized property.
+                _songs = [NSMutableArray.alloc initWithCapacity:[songDicts count]]; // Initialize our synthesized property.
 
                         // Fast enumeration //
                 for (NSDictionary *currDict in songDicts) // Execute the following code for each NSDictionary in the property list.
@@ -550,7 +550,7 @@ calulatedBundleID = _calulatedBundleID;
 //			self.loading = YES;
 //			// We would have to keep track of the block with an NSBlockOperation, if we wanted to later support cancelling operations that have scrolled offscreen and are no longer needed. That will be left as an exercise to the user.
 //			[AZSharedOperationQueue() addOperationWithBlock:^(void) {
-//				self = [[NSImage alloc] initWithContentsOfURL:self.fileURL];
+//				self = [NSImage.alloc initWithContentsOfURL:self.fileURL];
 //				if (image != nil) {
 //					NSImage *thumbnailImage = ATThumbnailImageFromImage(image);
 //						// We synchronize access to the image/imageLoading pair of variables
@@ -590,7 +590,7 @@ calulatedBundleID = _calulatedBundleID;
 //	CGFloat imageAspectRatio = imageSize.width / imageSize.height;
 //		// Create a thumbnail image from this image (this part of the slow operation)
 //	NSSize thumbnailSize = NSMakeSize(THUMBNAIL_HEIGHT * imageAspectRatio, THUMBNAIL_HEIGHT);
-//	NSImage *thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
+//	NSImage *thumbnailImage = [NSImage.alloc initWithSize:thumbnailSize];
 //	[thumbnailImage lockFocus];
 //	[image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 //	[thumbnailImage unlockFocus];
@@ -621,7 +621,7 @@ usleep(250000);
 //			self.imageLoading = YES;
 //				// We would have to keep track of the block with an NSBlockOperation, if we wanted to later support cancelling operations that have scrolled offscreen and are no longer needed. That will be left as an exercise to the user.
 //			[ATSharedOperationQueue() addOperationWithBlock:^(void) {
-//				NSImage *image = [[NSImage alloc] initWithContentsOfURL:self.fileURL];
+//				NSImage *image = [NSImage.alloc initWithContentsOfURL:self.fileURL];
 //				if (image != nil) {
 //					NSImage *thumbnailImage = ATThumbnailImageFromImage(image);
 //						// We synchronize access to the image/imageLoading pair of variables
@@ -661,7 +661,7 @@ usleep(250000);
 //			NSError *error = nil;
 //				// Grab the URLs for the folder and wrap them in our entity objects
 //			NSArray *urls = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:self.fileURL includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLLocalizedNameKey, nil] options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsSubdirectoryDescendants error:&error];
-//			NSMutableArray *newChildren = [[NSMutableArray alloc] initWithCapacity:urls.count];
+//			NSMutableArray *newChildren = [NSMutableArray.alloc initWithCapacity:urls.count];
 //			for (NSURL *url in urls) {
 //					// We create folder items or image items, and ignore everything else; all based on the UTI we get from the URL
 //				NSString *typeIdentifier;

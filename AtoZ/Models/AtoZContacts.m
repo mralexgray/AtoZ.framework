@@ -1,5 +1,6 @@
 
 
+#import "AtoZ.h"
 #import <Quartz/Quartz.h>
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABPerson.h>
@@ -30,7 +31,7 @@
 
 @implementation AtoZContacts
 
-+ (NSA*) contacts 		{ return [self.sharedInstance contacts]; 	}
++ (NSA*) contacts 		{ return [self.shared contacts]; 	}
 
 - (id) init  								{
 	

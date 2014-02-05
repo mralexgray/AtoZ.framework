@@ -6,7 +6,7 @@
 //
 
 #import <objc/runtime.h>
-
+#import "AtoZ.h"
 
 const NSString* zkeyP  = @"keyPath";
 const NSString* zdurA  = @"duration";
@@ -100,7 +100,7 @@ static CFHashCode _hashString(const void *value)
 												@"selected"			: @(NO),
 //												@"flipped"			: @(NO),
 												@"borderWidth"		: @4,
-												@"borderColor"		: (id)cgRED	};
+												@"borderColor"		: (id)[RED CGColor]	};
 
 	return [vals.allKeys containsObject:key] ? vals[key] : [super defaultValueForKey:key];
 }
@@ -325,7 +325,7 @@ static CFHashCode _hashString(const void *value)
 		[k fillGradientFrom:main.muchDarker to:main.brighter angle:270];// to:[(NSColor*)
 	}else {
 
-		NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
+		NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
 															  NSForegroundColorAttributeName :WHITE} ];
 			[theStyle setLineSpacing:12];
 			NSTextView *atv = [[NSTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];

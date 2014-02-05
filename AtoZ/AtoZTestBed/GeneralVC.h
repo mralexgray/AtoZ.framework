@@ -7,6 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+//@import AtoZ;
+#import <AtoZ/AtoZ.h>
+
 
 @interface GeneralVC : NSViewController
 

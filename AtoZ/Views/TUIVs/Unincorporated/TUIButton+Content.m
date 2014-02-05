@@ -38,7 +38,7 @@
 	}
 
 	if (c == nil) {
-		c = [[TUIButtonContent alloc] init];
+		c = TUIButtonContent.new;
 		[_contentLookup setObject:c forKey:key];
 	}
 

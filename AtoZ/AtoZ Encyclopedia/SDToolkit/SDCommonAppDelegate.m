@@ -30,7 +30,7 @@
 
 - (SDOpenAtLoginController*) openAtLoginController {
 	if (openAtLoginController == nil)
-		openAtLoginController = [[SDOpenAtLoginController alloc] init];
+		openAtLoginController = SDOpenAtLoginController.new;
 	
 	return openAtLoginController;
 }
@@ -65,7 +65,7 @@
 	}
 	
 	if (instructionWindowController == nil) {
-		instructionWindowController = [[SDInstructionsWindowController alloc] init];
+		instructionWindowController = SDInstructionsWindowController.new;
 		instructionWindowController.delegate = self;
 	}
 	
@@ -83,7 +83,7 @@
 
 - (IBAction) showPreferencesPanel:(id)sender {
 	if (preferencesController == nil) {
-		preferencesController = [[SDPreferencesController alloc] init];
+		preferencesController = SDPreferencesController.new;
 		preferencesController.delegate = self;
 	}
 	

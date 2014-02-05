@@ -9,33 +9,29 @@
 @implementation MondoSwitchButtonCALayer
 
 // The grayscale values for the button colors.
-static const CGFloat notClickedTopColor = 0.9921;
-static const CGFloat notClickedBotColor = 0.9019;
+static const CGF
+  notClickedTopColor = 0.9921,
+  notClickedBotColor = 0.9019,
+  clickedTopColor = 0.8745,
+  clickedBotColor = 0.9568,
+  cornerRadius = 5.0;
 
-static const CGFloat clickedTopColor = 0.8745;
-static const CGFloat clickedBotColor = 0.9568;
-
-static const CGFloat cornerRadius = 5.0;
-
-@synthesize on=_on;
+@synthesize notClickedImgRef, clickedImgRef, theSwitch;
 
 #pragma mark - init methods
 
 - (id) init {
-	self =  [super init];
-//  self = [[CALayer alloc] init];//[CALayer layer];
+	if (self != super.init) return nil; //  self = CALayer.new;//[CALayer layer];
   self.autoresizingMask = kCALayerWidthSizable;
   self.cornerRadius = cornerRadius;
   self.borderWidth = 0;
-  self.bounds = CGRectMake(00, 00, 20, 20);
+  self.bounds       = AZRectFromDim(20);
   
-  [self addConstraints:AZCACMinY];
-  [self addConstraint:AZConstraint(kCAConstraintMinX, @"superlayer")];	
-  [self addConstraint:AZConstraint(kCAConstraintWidth, @"superlayer")];
-  [self addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];	
-
-  [self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
-  
+  [self addConstraint:AZCACMinY];
+  [self addConstraint:AZCACMinX];
+  [self addConstraint:AZCACWide];
+  [self addConstraint:AZCACHigh];
+  [self setLayoutManager:AZLAYOUTMGR];
   [self createtheSwitch];
   _currentEventState = PPNoEvent;
   
@@ -76,20 +72,15 @@ static const CGFloat cornerRadius = 5.0;
 
 #pragma mark - propertyMethods
 -(void)setOn:(BOOL)on {
-  if (_on == on ) { return; }
+  if (_on == on ) return;
   _on = on;
   [self switchSide];
 }
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated {
-  if (!animated) {
-	[CATransaction begin];
-	[CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
-  }
-  [self setOn:on];	
-  if (!animated) {
-	[CATransaction commit];
-  }  
+	[CATransaction immediately:^{
+    [self setOn:on];
+  }];
 }
 
 @end
@@ -98,22 +89,16 @@ static const CGFloat cornerRadius = 5.0;
 @implementation MondoSwitchButtonCALayer (PrivateMethods)
 
 - (void) createtheSwitch {
-  theSwitch = [CALayer layer];
-//  [theSwitch retain];
-  
+  self.theSwitch = [CALayer layer];
+  //  [theSwitch retain];
   theSwitch.cornerRadius = cornerRadius;
   theSwitch.borderWidth = 0.5;
   
-  // Sizing --
-  // The Time Machine Switch on 10.6.2 has a sizing of 93px wide and 27px height.
-  //								   the internal switch is 40px wide or 
-  theSwitch.frame = CGRectMake(0, 0, self.frame.size.height * (1 + 40/27), self.frame.size.height);
+  // Sizing -- The Time Machine Switch on 10.6.2 has a sizing of 93px wide and 27px height. the internal switch is 40px wide or
+  theSwitch.frame = AZRectBy(self.frame.size.height * (1 + 40/27), self.frame.size.height);
   
-  [theSwitch addConstraint:AZConstraint(kCAConstraintMinY, @"superlayer")];
-  [theSwitch addConstraint:AZConstraint(kCAConstraintHeight, @"superlayer")];	
-
-  
-  
+  [theSwitch addConstraint:AZCACMinY];
+  [theSwitch addConstraint:AZCACHigh];
   [self addSublayer:theSwitch];
   
   NSBezierPath* path = [NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(theSwitch.frame) 
@@ -128,17 +113,13 @@ static const CGFloat cornerRadius = 5.0;
 
 - (void) switchSide {
   CGRect newFrame = theSwitch.frame;
-  CGFloat superWidth = CGRectGetWidth(self.frame);
+  CGFloat superWidth = self.frameWidth;
 	
-  if (_currentEventState == PPdragOccurred) {
-	CGFloat centre = CGRectGetWidth(self.frame) / 2;
-	CGFloat buttonCentre = CGRectGetWidth(theSwitch.frame) / 2 + theSwitch.frame.origin.x;
-	self.on = buttonCentre > centre ? YES : NO;
-  } else {
-	self.on = theSwitch.frame.origin.x == 0;
-  }
-	
-  newFrame.origin.x = self.on ? superWidth - CGRectGetWidth(newFrame) : 0;
+  self.on = _currentEventState == PPdragOccurred ?
+     /* buttonCentre */ theSwitch.frameMidX + theSwitch.frameMinX > self.frameMidX /*centre */
+     : theSwitch.frameMinX == 0;
+
+  newFrame.origin.x = _on ? superWidth - CGRectGetWidth(newFrame) : 0;
   
   theSwitch.frame = newFrame;	
   _currentEventState = PPNoEvent;  
@@ -147,16 +128,10 @@ static const CGFloat cornerRadius = 5.0;
 - (BOOL)shouldDrag:(CGFloat)dx {
   
   // if delta negative and already to far left exit...
-  if(dx < 0 && theSwitch.frame.origin.x <= 0 ) {
-	return NO;
-  }
-  
+  return dx < 0 && theSwitch.frameMinX <= 0  ||
   // if delta positive and already to far right exit...
-  if (dx > 0 && theSwitch.frame.origin.x >= CGRectGetWidth(self.frame) - CGRectGetWidth(theSwitch.frame)) {
-	return NO;
-  }
-
-  return YES;
+        dx > 0 && theSwitch.frameMinX >= self.frameWidth - theSwitch.frameWidth
+        ? NO : YES;
 }
 
 - (void)moveSwitch:(CGPoint)point {
@@ -172,44 +147,26 @@ static const CGFloat cornerRadius = 5.0;
   CGFloat newX = theSwitch.frame.origin.x + dx;
   CGFloat maxX = CGRectGetWidth(self.frame) - CGRectGetWidth(theSwitch.frame);
   
-  if (newX < 0) {
-	newX = 0;
-  } 
-  if (newX > maxX) {
-	newX = maxX;
-  }
-  
+	newX = newX < 0 ? 0 : newX > maxX ? maxX : maxX;
   newFrame.origin.x = newX;
   
   // Slider tracking should be immediate
-  [CATransaction begin];
-  {
-	[CATransaction setValue:@0.0f forKey:kCATransactionAnimationDuration];
-	theSwitch.frame = newFrame;  
-  }
-  [CATransaction commit];
-  
+  [CATransaction immediately:^{
+    theSwitch.frame = newFrame;
+  }];
   _mouseDownPointForCurrentEvent = point;
 }
 
 - (CGImageRef)switchImageForPath:(NSBezierPath*)path topColor:(CGFloat)topColor  bottomColor:(CGFloat)bottomColor {  
   
-  NSColor* gradientTop	= [NSColor colorWithCalibratedWhite:topColor alpha:1.0];
-  NSColor* gradientBottom = [NSColor colorWithCalibratedWhite:bottomColor alpha:1.0];
-  NSGradient *bgGradient = [[NSGradient alloc] initWithStartingColor:gradientBottom
-														 endingColor:gradientTop];
 
-  NSImage* buttonImage = [[NSImage alloc] initWithSize:[path bounds].size];
-  [buttonImage lockFocus];
-  {
-	[bgGradient drawInBezierPath:path angle:90.0];
-  }
-  [buttonImage unlockFocus];
+  NSGradient *bgGradient = [NSG gradientFrom:[NSColor white:bottomColor a:1.0] to:[NSC white:topColor a:1.0]];
+
+  NSImage* buttonImage = [NSIMG imageWithSize:path.bounds.size drawnUsingBlock:^{
+
+     [bgGradient drawInBezierPath:path angle:90.0];
+  }];
   
-  CGImageRef imgRef = [buttonImage cgImageRef];//  [PPImageUtils createCGRefFromNSImage:];
-//  [buttonImage release];
-//  [bgGradient release];
-  
-  return imgRef;  
+  return [buttonImage CGImage];
 }
 @end

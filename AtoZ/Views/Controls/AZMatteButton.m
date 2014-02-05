@@ -1,3 +1,4 @@
+#import "AtoZ.h"
 //
 //  AZMatteButton.m
 //  Ingredients
@@ -114,7 +115,7 @@
 	
 	[attrs setValue:shadow forKey:NSShadowAttributeName];
 	
-	NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+	NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
 	[paragraphStyle setAlignment:NSCenterTextAlignment];
 	[paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
 	

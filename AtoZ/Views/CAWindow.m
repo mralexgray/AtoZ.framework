@@ -51,7 +51,7 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 }
 
 - (void)initializeFullScreenWindow {
-	self.fullScreenWindow = [[NSWindow alloc] initWithContentRect:self.screen.frame
+	self.fullScreenWindow = [NSWindow.alloc initWithContentRect:self.screen.frame
 														styleMask:NSBorderlessWindowMask
 														  backing:NSBackingStoreBuffered
 															defer:NO screen:self.screen];
@@ -62,7 +62,7 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 	self.fullScreenWindow.level = self.level;
 	self.fullScreenWindow.hasShadow = NO;
 	self.fullScreenWindow.opaque = NO;
-	self.fullScreenWindow.contentView = [[CAWindowContentView alloc] initWithFrame:[self.fullScreenWindow.contentView bounds]];
+	self.fullScreenWindow.contentView = [CAWindowContentView.alloc initWithFrame:[self.fullScreenWindow.contentView bounds]];
 }
 
 
@@ -181,12 +181,12 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 
 	[NSGraphicsContext saveGraphicsState];
 	[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]];
-	NSImage *oldImage = [[NSImage alloc] initWithCGImage:imageRef size:CGSizeZero];
+	NSImage *oldImage = [NSImage.alloc initWithCGImage:imageRef size:CGSizeZero];
 	[oldImage drawInRect:NSMakeRect(0, 0, imageSize.width, imageSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
 	[NSGraphicsContext restoreGraphicsState];
 
 	CGImageRef copiedImageRef = CGBitmapContextCreateImage(context);
-	NSImage *image = [[NSImage alloc] initWithCGImage:copiedImageRef size:CGSizeZero];
+	NSImage *image = [NSImage.alloc initWithCGImage:copiedImageRef size:CGSizeZero];
 
 	CGImageRelease(imageRef);
 	CGImageRelease(copiedImageRef);
@@ -474,12 +474,12 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 
 	[NSGraphicsContext saveGraphicsState];
 	[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:NO]];
-	NSImage *oldImage = [[NSImage alloc] initWithCGImage:imageRef size:CGSizeZero];
+	NSImage *oldImage = [NSImage.alloc initWithCGImage:imageRef size:CGSizeZero];
 	[oldImage drawInRect:NSMakeRect(0, 0, imageSize.width, imageSize.height) fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
 	[NSGraphicsContext restoreGraphicsState];
 
 	CGImageRef copiedImageRef = CGBitmapContextCreateImage(context);
-	NSImage *image = [[NSImage alloc] initWithCGImage:copiedImageRef size:CGSizeZero];
+	NSImage *image = [NSImage.alloc initWithCGImage:copiedImageRef size:CGSizeZero];
 
 	CGImageRelease(imageRef);
 	CGImageRelease(copiedImageRef);

@@ -17,7 +17,7 @@ globalVar = self;\
 return globalVar;\
 }\
 + (singletonClass*) globalVar {\
-@synchronized(self) { if (globalVar == nil) [[self alloc] init]; }\
+@synchronized(self) { if (globalVar == nil) self.new; }\
 return globalVar;\
 }\
 + (id) allocWithZone:(NSZone *)zone {\

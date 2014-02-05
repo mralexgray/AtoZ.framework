@@ -74,7 +74,7 @@ char ** stringArrayFromNSArray( NSArray *a ) {
 
 	NSMutableCharacterSet *kwCS1, *kwCS2, *clCS1, *clCS2;
 //	[@[kwCS1, kwCS2, clCS1, clCS2] makeObjectsPerformSelector:@selector(new)];
-	kwCS1 = NSMutableCharacterSet.new;//.autorelease;//[[[NSMutableCharacterSet alloc] init] autorelease];
+	kwCS1 = NSMutableCharacterSet.new;//.autorelease;//[[NSMutableCharacterSet.alloc init] autorelease];
 	kwCS2 = NSMutableCharacterSet.new;//NSMutableCharacterSet.new.autorelease; //alloc] init] autorelease];
 	clCS1 = NSMutableCharacterSet.new;//NSMutableCharacterSet.new.autorelease;
 	clCS2 = NSMutableCharacterSet.new;//NSMutableCharacterSet.new.autorelease;

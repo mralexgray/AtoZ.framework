@@ -37,7 +37,7 @@
 		// Get the screen rect of our main display
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 		// Put up a new window
-	self.mainWindow = [[NSWindow alloc] initWithContentRect:screenRect
+	self.mainWindow = [NSWindow.alloc initWithContentRect:screenRect
 												  styleMask:NSBorderlessWindowMask
 													backing:NSBackingStoreBuffered
 													  defer:NO screen:[NSScreen mainScreen]];
@@ -58,7 +58,7 @@
 //	[[_mainWindow contentView] addSubview:_view];
 //	[_view setNeedsDisplay:YES];
 //	[_mainWindow setIgnoresMouseEvents:YES];
-//	NSWindow *d = [[NSWindow alloc] initWithContentRect: NSInsetRect(screenRect, 200, 100)
+//	NSWindow *d = [NSWindow.alloc initWithContentRect: NSInsetRect(screenRect, 200, 100)
 //												  styleMask:NSBorderlessWindowMask
 //													backing:NSBackingStoreBuffered
 //													  defer:NO ];
@@ -83,7 +83,7 @@
 //	}];
 
 //	self.side = 12;
-//	self.view = [[AZSimpleView alloc] initWithFrame:AZMakeRect(NSZeroPoint,(NSSize){200,200})];
+//	self.view = [AZSimpleView.alloc initWithFrame:AZMakeRect(NSZeroPoint,(NSSize){200,200})];
 //	self.view.backgroundColor = RED;
 //	self.attachPoint = AZCenterOfRect(AZMenuBarFrame());
 
@@ -189,7 +189,7 @@
 // adding and creating notes
 /*
 - (void) createNoteWithDictionary:(NSDictionary*)dictionary {
-	SDNoteWindowController *controller = [[SDNoteWindowController alloc] initWithDictionary:dictionary];// autorelease];
+	SDNoteWindowController *controller = [SDNoteWindowController.alloc initWithDictionary:dictionary];// autorelease];
 	[self.noteControllers addObject:controller];
 }
 
@@ -239,7 +239,7 @@
 
 	// Attach/detach window
 	if (!_attachedWindow) {
-		self.attachedWindow = [[AZAttachedWindow alloc] initWithView:_view
+		self.attachedWindow = [AZAttachedWindow.alloc initWithView:_view
 													 attachedToPoint:_attachPoint
 															inWindow:nil
 															  onSide:_side

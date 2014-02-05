@@ -1,6 +1,7 @@
 
 
 #import "AZObject.h"
+#import "AtoZ.h"
 
 #define logAsInstance NSLog(@"%@ \"s%@\"", NSStringFromSelector(_cmd), NSStringFromClass(self.class))
 #define logAsClass NSLog(@"%@ \"s%@\"", NSStringFromSelector(_cmd), NSStringFromClass(self))
@@ -127,7 +128,7 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 
 - (NSMutableDictionary *)propertiesForClass:(Class)klass
 {
-	NSMutableDictionary *results = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *results = [[NSMutableDictionary.alloc init] autorelease];
 	unsigned int outCount, i;
 	objc_property_t *properties = class_copyPropertyList(klass, &outCount);
 	for(i = 0; i < outCount; i++) {
@@ -347,9 +348,10 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 + (void)setLastModifiedKey:(NSString*)key forInstance:(id)object;
 @end
 NSString *const AZObjectSharedInstanceUpdatedNotification = @"AZObjectSharedInstanceUpdatedNotification";
+*/
 
-@implementation AZObject
 
+/*
 -(id) initWithCoder:(NSCoder*)decoder {	if(self != [self init]) return nil;
 	_representedObject = [decoder decodeObjectForKey: @"AZObjectRepresentedObject"];
 	_keys = [decoder decodeObjectForKey: @"AZObjectKeys"];
@@ -421,7 +423,7 @@ NSString *const AZObjectSharedInstanceUpdatedNotification = @"AZObjectSharedInst
 
 + (instancetype)instance
 {
-	return AH_AUTORELEASE([[self alloc] init]);
+	return AH_AUTORELEASE([self.alloc init]);
 }
 
 static BOOL loadingFromResourceFile = NO;
@@ -429,7 +431,7 @@ static BOOL loadingFromResourceFile = NO;
 + (instancetype)instanceWithObject:(id)object
 {
 		//return nil if object is nil
-	return object? AH_AUTORELEASE([[self alloc] initWithObject:object]): nil;
+	return object? AH_AUTORELEASE([self.alloc initWithObject:object]): nil;
 }
 - (NSString *)setterNameForClass:(Class)klass
 {
@@ -472,7 +474,7 @@ static BOOL loadingFromResourceFile = NO;
 }
 + (instancetype)instanceWithCoder:(NSCoder *)decoder	 //return nil if coder is nil
 {
-	return decoder ? AH_AUTORELEASE([[self alloc] initWithCoder:decoder]) : nil;
+	return decoder ? AH_AUTORELEASE([self.alloc initWithCoder:decoder]) : nil;
 }
 //- (instancetype)initWithCoder:(NSCoder *)decoder
 //{
@@ -560,7 +562,7 @@ static NSMutableDictionary *sharedInstances = nil;
 		{
 		[NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
 		}
-	sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
+	sharedInstances = sharedInstances ?: NSMutableDictionary.new;
 	id oldInstance = sharedInstances[NSStringFromClass(self)];
 	sharedInstances[NSStringFromClass(self)] = instance;
 	if (oldInstance)
@@ -574,7 +576,7 @@ static NSMutableDictionary *sharedInstances = nil;
 }
 + (instancetype)sharedInstance
 {
-	sharedInstances = sharedInstances ?: [[NSMutableDictionary alloc] init];
+	sharedInstances = sharedInstances ?: NSMutableDictionary.new;
 	id instance = sharedInstances[NSStringFromClass(self)];
 	if (instance == nil)
 		{
@@ -608,7 +610,7 @@ static NSMutableDictionary *sharedInstances = nil;
 //{
 //	static AZObject* singleton;
 //	@synchronized(self)
-//	singleton = singleton  ? singleton : [[AZObject alloc] init];
+//	singleton = singleton  ? singleton : AZObject.new;
 //	return singleton;
 //}
 // class methods for last modified key and instance - these are held as static data
@@ -644,7 +646,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 		Ivar *vars = class_copyIvarList(cls, &varCount);
 		for (int i = 0; i < varCount; i++) {
 			Ivar var = vars[i];
-			NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
+			NSString *name = [NSString.alloc initWithUTF8String:ivar_getName(var)];
 			[names addObject:name];
 			if (ivar_getTypeEncoding(var)[0] == _C_ID) [nillableNames addObject:name];
 			[name release];

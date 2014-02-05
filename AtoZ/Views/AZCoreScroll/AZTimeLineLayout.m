@@ -7,7 +7,7 @@ NSString *selectedSnapShot = @"selectedSnapShot";
 
 static AZTimeLineLayout *sharedLayoutManager;
 
-+ (id)layoutManager {	if (sharedLayoutManager == nil)	sharedLayoutManager = [[self alloc] init];
++ (id)layoutManager {	if (sharedLayoutManager == nil)	sharedLayoutManager = self.new;
 						return sharedLayoutManager;
 }
 

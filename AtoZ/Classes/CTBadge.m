@@ -159,7 +159,7 @@ const float CTSmallLabelSize = 11.;
   NSSize badgeSize = [badgeMask size];
   NSPoint   origin = NSMakePoint(shadowBlurRadius, shadowBlurRadius+shadowOffset);
   
-  badgeImage = [[NSImage alloc] initWithSize:NSMakeSize(badgeSize.width  + 2*shadowBlurRadius,													//sometimes it needs more
+  badgeImage = [NSImage.alloc initWithSize:NSMakeSize(badgeSize.width  + 2*shadowBlurRadius,													//sometimes it needs more
 														badgeSize.height + 2*shadowBlurRadius - shadowOffset + (size <= CTSmallBadgeSize))];	//space when small
   
   [badgeImage lockFocus];
@@ -170,11 +170,11 @@ const float CTSmallLabelSize = 11.;
   
   
   //Final stuff   -----------------------------------------------
-  NSImage *image = [[NSImage alloc] initWithSize:[badgeImage size]];
+  NSImage *image = [NSImage.alloc initWithSize:[badgeImage size]];
   
   [image lockFocus];
 	[NSGraphicsContext saveGraphicsState];
-		NSShadow *theShadow = [[NSShadow alloc] init];
+		NSShadow *theShadow = NSShadow.new;
 		[theShadow setShadowOffset: NSMakeSize(0,-shadowOffset)];
 		[theShadow setShadowBlurRadius:shadowBlurRadius];
 		[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:shadowOpacity]];
@@ -189,7 +189,7 @@ const float CTSmallLabelSize = 11.;
 - (NSImage *)badgeOverlayImageForString:(NSString *)string insetX:(float)dx y:(float)dy;
   {
   NSImage *badgeImage = [self largeBadgeForString:string];
-  NSImage *overlayImage = [[NSImage alloc] initWithSize:NSMakeSize(128,128)];
+  NSImage *overlayImage = [NSImage.alloc initWithSize:NSMakeSize(128,128)];
 
   //draw large icon in the upper right corner of the overlay image
   [overlayImage lockFocus];
@@ -225,7 +225,7 @@ const float CTSmallLabelSize = 11.;
 #pragma mark - Misc.
 - (NSGradient *)badgeGradient
   {
-  NSGradient *aGradient = [[NSGradient alloc] initWithColorsAndLocations:[self badgeColor], 0.0, 
+  NSGradient *aGradient = [NSGradient.alloc initWithColorsAndLocations:[self badgeColor], 0.0, 
 																		 [self badgeColor], 1/3., 
 																		 [[self badgeColor] shadowWithLevel:1/3.], 1.0, nil];
   
@@ -242,7 +242,7 @@ const float CTSmallLabelSize = 11.;
   else
 	labelFont = [NSFont fontWithName:@"Helvetica-Bold" size:size];
   
-  NSMutableParagraphStyle *pStyle = [[NSMutableParagraphStyle alloc] init];[pStyle setAlignment:NSCenterTextAlignment];
+  NSMutableParagraphStyle *pStyle = NSMutableParagraphStyle.new;[pStyle setAlignment:NSCenterTextAlignment];
   NSDictionary *attributes = @{NSForegroundColorAttributeName: [self labelColor],
 																			NSFontAttributeName: labelFont};
   
@@ -250,7 +250,7 @@ const float CTSmallLabelSize = 11.;
   if([label length] >= 6)	//replace with summarized string - ellipses at end and a zero-width space to trick us into using the 5-wide badge
 	label = [NSString stringWithFormat:@"%@%@", [label substringToIndex:3], @"\xe2\x80\xa6\xe2\x80\x8b"];
   
-  NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+  NSAttributedString *attributedString = [NSAttributedString.alloc initWithString:label attributes:attributes];
   
   return attributedString;
   }

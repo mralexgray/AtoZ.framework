@@ -123,7 +123,7 @@
 	_pretendKeyForDrawing = NO;
 	
 	// Create a new content view for animating
-	_animationView = [[NSView alloc] initWithFrame:visibleRect];
+	_animationView = [NSView.alloc initWithFrame:visibleRect];
 	[_animationView setWantsLayer:YES];
 	[self setContentView:_animationView];
 	

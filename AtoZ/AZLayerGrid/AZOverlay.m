@@ -157,7 +157,7 @@ typedef NSUInteger AZCorner;
 	
 	[self reloadData];
 	
-	NSTrackingArea *fullArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect 
+	NSTrackingArea *fullArea = [NSTrackingArea.alloc initWithRect:NSZeroRect 
 															options:(NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow | NSTrackingInVisibleRect) 
 															  owner:self 
 														   userInfo:@{@"layer": __AZ_topLayer}];
@@ -222,7 +222,7 @@ typedef NSUInteger AZCorner;
 		
 		AZLOG($(@"Created layer: %@", layer));
 		
-		NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[strongSelf convertImageRectToViewRect:rect] 
+		NSTrackingArea *area = [NSTrackingArea.alloc initWithRect:[strongSelf convertImageRectToViewRect:rect] 
 															options:(NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow) 
 															  owner:self 
 														   userInfo:@{@"layer": layer}];
@@ -531,7 +531,7 @@ typedef NSUInteger AZCorner;
 - (NSCursor *)northWestSouthEastResizeCursor
 {
 	if (__AZ_northWestSouthEastResizeCursor == nil) {
-		__AZ_northWestSouthEastResizeCursor = [[NSCursor alloc] initWithImage:[[NSImage alloc] initWithContentsOfFile:@"/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Resources/northWestSouthEastResizeCursor.png"] hotSpot:NSMakePoint(8.0f, 8.0f)];
+		__AZ_northWestSouthEastResizeCursor = [NSCursor.alloc initWithImage:[NSImage.alloc initWithContentsOfFile:@"/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Resources/northWestSouthEastResizeCursor.png"] hotSpot:NSMakePoint(8.0f, 8.0f)];
 	}
 	return __AZ_northWestSouthEastResizeCursor;
 }
@@ -539,7 +539,7 @@ typedef NSUInteger AZCorner;
 - (NSCursor *)northEastSouthWestResizeCursor
 {
 	if (__AZ_northEastSouthWestResizeCursor == nil) {
-		__AZ_northEastSouthWestResizeCursor = [[NSCursor alloc] initWithImage:[[NSImage alloc] initWithContentsOfFile:@"/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Resources/northEastSouthWestResizeCursor.png"] hotSpot:NSMakePoint(8.0f, 8.0f)];
+		__AZ_northEastSouthWestResizeCursor = [NSCursor.alloc initWithImage:[NSImage.alloc initWithContentsOfFile:@"/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Resources/northEastSouthWestResizeCursor.png"] hotSpot:NSMakePoint(8.0f, 8.0f)];
 	}
 	return __AZ_northEastSouthWestResizeCursor;
 }

@@ -1,8 +1,10 @@
 
-#import <Cocoa/Cocoa.h>
-#import <objc/runtime.h>
+//#import <Cocoa/Cocoa.h>
+//#import <objc/runtime.h>
+//#import <Zangetsu/Zangetsu.h>
+
+#import "AtoZ.h"
 #import "AtoZNodeProtocol.h"
-#import <Zangetsu/Zangetsu.h>
 //#import "extobjc_OSX/extobjc.h"
 
 #ifdef AtoZFramework

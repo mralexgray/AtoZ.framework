@@ -41,7 +41,7 @@ NSMutableData *rawClassPointers;
 + (NSMutableDictionary *) cache
 	{
 	if (!classLookupCache)
-		classLookupCache = [[NSMutableDictionary alloc] init];  
+		classLookupCache = NSMutableDictionary.new;  
 	return classLookupCache;
 	}
 

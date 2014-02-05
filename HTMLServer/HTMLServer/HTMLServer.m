@@ -595,7 +595,7 @@ int main(int argc, const char * argv[])	{ return NSApplicationMain(argc, argv);	
 //	[_writer pushAttribute:@"xmlns" value:@"http://www.sitemaps.org/schemas/sitemap/0.9"];
 //	[_writer startElement:@"sitemapindex"];
 
-	//	NSUI lastItemInMatrix = [_queriesController.arrangedObjects indexOfObjectPassingTest:^BOOL(Shortcut *shortcut, NSUI idx, BOOL *stop) {	return [shortcut.uri isEqualToString:@"/custom"];	}];
+	//	NSUI lastItemInMatrix = [_queriesController.arrangedObjects 	OfObjectPassingTest:^BOOL(Shortcut *shortcut, NSUI idx, BOOL *stop) {	return [shortcut.uri isEqualToString:@"/custom"];	}];
 
 	[@[	@[ @"/hello",			       @"/hello" ],	@[ @"/hello/:name",			@"/hello/somename"],
 		@[ @"{^/page/(\\d+)$}", 	@"/page/9999"],	@[ @"/info",						 @"/info" ],

@@ -48,7 +48,7 @@ EXTMixin(MixinObject, NSColor)
 //
 //- (void)testStandardizeCurrentDirectoryForPath_shouldConvertDotToCurrentDir {
 //	// setup
-//	GBAppledocApplication *app = [[GBAppledocApplication alloc] init];
+//	GBAppledocApplication *app = GBAppledocApplication.new;
 //	//execute & verify
 //	assertThat([app standardizeCurrentDirectoryForPath:@"."], is(self.currentPath));
 //	assertThat([app standardizeCurrentDirectoryForPath:@"./path/subpath"], is([NSString stringWithFormat:@"%@/path/subpath", self.currentPath]));

@@ -1,7 +1,7 @@
 
 #import <objc/runtime.h>
 #import "DefinitionController.h"
-
+#import "AtoZNodeProtocol.h"
 
 NSArray* RGBFlameArray(NSC*color, NSUI ct, CGF hueStepDeg, CGF satStepDeg, CGF briStepDeg, NSI align);
 CAGradientLayer* greyGradLayer();

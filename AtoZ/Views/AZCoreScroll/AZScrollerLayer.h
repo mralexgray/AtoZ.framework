@@ -3,16 +3,14 @@
 
 #import "AZScrollerProtocols.h"
 
-#define SCROLLER_HEIGHT 50.0 // The default height
+#define AZSCROLLER_HEIGHT 50.0 // The default height
 
-typedef enum {
-	SFNoInput = (1 << 1),
-	SFLeftArrowInput = (1 << 2),
-	SFRightArrowInput = (1 << 3),
-	SFSliderInput = (1 << 4),
-	SFTrayInputLeft = (1 << 5),
-	SFTrayInputRight = (1 << 6),
-} SFScrollerMouseDownInput;
+JROptionsDeclare(AZScrollerMouseDownInput, AZNoInput = (1 << 1),
+	AZLeftArrowInput = (1 << 2),
+	AZRightArrowInput = (1 << 3),
+	AZSliderInput = (1 << 4),
+	AZTrayInputLeft = (1 << 5),
+	AZTrayInputRight = (1 << 6));
 
 @interface AZScrollerLayer : CALayer < AZScrollerContentController > {
 
@@ -28,7 +26,7 @@ typedef enum {
 	id <AZScrollerContent> __unsafe_unretained _scrollerContent;
 
 	// -------- Event variables --------------
-	SFScrollerMouseDownInput _inputMode;
+	AZScrollerMouseDownInput _inputMode;
 	CGPoint _mouseDownPointForCurrentEvent;
 	BOOL _mouseOverSelectedInput;
 	NSTimer* mouseDownTimer;

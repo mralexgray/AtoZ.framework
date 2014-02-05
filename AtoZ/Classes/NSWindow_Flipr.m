@@ -86,7 +86,7 @@
 // These parameters come from http://boredzo.org/imageshadowadder/ by Peter Hosey,
 // and reproduce reasonably well the standard Tiger NSWindow shadow.
 // You should change these when flipping NSPanels and/or on Leopard.
-		shadow = [[NSShadow alloc] init];
+		shadow = NSShadow.new;
 		[shadow setShadowColor:[[NSColor shadowColor] colorWithAlphaComponent:0.8]];
 		[shadow setShadowBlurRadius:23];
 		[shadow setShadowOffset:NSMakeSize(0,-8)];

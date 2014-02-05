@@ -40,7 +40,7 @@
 	if (self != [super initWithFrame:frame]) return nil;
 
 	// create the NSImage view
-	self.badgeView = [[NSImageView alloc] initWithFrame:frame];
+	self.badgeView = [NSImageView.alloc initWithFrame:frame];
 	
 	// set it on the center of the parent container
 	_badgeView.center = self.getCenter;
@@ -134,7 +134,7 @@
 	if (self != [super initWithFrame:frame]) return nil;
 
 	// create the NSImage view
-	self.badgeView = [[NSImageView alloc] initWithFrame:frame];//NSMakeRect(0, 0,
+	self.badgeView = [NSImageView.alloc initWithFrame:frame];//NSMakeRect(0, 0,
 																	//   badge.size.width,
 																	  // badge.size.height)];
 		
@@ -150,7 +150,7 @@
 		NSImage *spinner = [NSImage imageNamed:@"Bar"];
 		
 		// create the progress image view
-		self.progressImage = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0,
+		self.progressImage = [NSImageView.alloc initWithFrame:NSMakeRect(0, 0,
 																		spinner.size.width,
 																		spinner.size.height)];
 		

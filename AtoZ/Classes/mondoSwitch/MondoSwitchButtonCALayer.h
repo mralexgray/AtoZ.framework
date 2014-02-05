@@ -2,10 +2,6 @@
 //  MondoSwitchButtonCALayer.h
 //  CocoaMondoKit
 
-//  Created by Matthieu Cormier on 12/8/09.
-//  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
-#import <Cocoa/Cocoa.h>
-#import <Quartz/Quartz.h>
 
 
 typedef enum {
@@ -15,26 +11,21 @@ typedef enum {
   PPdragOccurred = (1 << 4)
 } MondoSwitchEventType;
 
-@interface MondoSwitchButtonCALayer : CALayer {
+@interface MondoSwitchButtonCALayer : CALayer
 
-  @private
-	CALayer* theSwitch;  
-	MondoSwitchEventType _currentEventState;  
-	CGImageRef notClickedImgRef, clickedImgRef;  
-	CGPoint _mouseDownPointForCurrentEvent;
-  
-	BOOL _on;
-}
+@property	CALayer* theSwitch;
+@property	MondoSwitchEventType currentEventState;
+@property	CGImageRef notClickedImgRef, clickedImgRef;
+@property	CGPoint mouseDownPointForCurrentEvent;
 
-@property(nonatomic, getter=isOn) BOOL on;
+@property(nonatomic) BOOL on;
 
 -(void)mouseDown:(CGPoint)point;
 -(void)mouseUp:(CGPoint)point;
 -(void)mouseDragged:(CGPoint)point;
-
 -(void)setOn:(BOOL)on animated:(BOOL)animated;
-
 @end
+
 @interface MondoSwitchButtonCALayer (PrivateMethods)
 - (void)createtheSwitch;
 - (void)switchSide;

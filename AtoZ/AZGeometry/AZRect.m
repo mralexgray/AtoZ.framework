@@ -4,25 +4,28 @@
 //
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-
+#import "AtoZ.h"
 #import "AZRect.h"
+#import <Zangetsu/Zangetsu.h>
+
+//#define RECTFROMVARARGS(...) do{ \
+//\
+//  NSUI ct = metamacro_argcount(__VA_ARGS__);\
+//  NSRect r;\
+//  for (int x = 4; x > 0; x--)
+
+
 @implementation AZEdge
 + (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide {	
 	AZEdge *n = self.new; 			//	n.align AZClosestCorner(outer, isinide)
 	return n;
 }
-//@property AZA alignment;
-//@property AZOrient orient;
-//@property CGF cornerTreshHold, snapThreshold;
-//- (void) moveInDirection:(NSSZ)sz;
 @end
 
 @implementation AZRect
 @synthesize position, orient, anchor;
 
-
--(INST) shiftedX:(CGF)xx y:(CGF)yy w:(CGF)w h:(CGF)h;
-{
+-(INST) shiftedX:(CGF)xx y:(CGF)yy w:(CGF)w h:(CGF)h {
 	NSR r = self.r;
 	r.origin.x +=xx;
 	r.origin.y +=yy;
@@ -31,41 +34,8 @@
 	return [self.class rectWithRect:r];
 }
 static AZRect *screnFrameUnderMenu = nil; 
-
 + (AZRect*)screnFrameUnderMenu { return screnFrameUnderMenu = screnFrameUnderMenu ?: [AZRect rectWithRect:AZScreenFrameUnderMenu()];
 }
-
-//
-//- (AZA) alignInsideInDirection:(NSSZ)delta {
-//
-//	
-//}
-//- (AZA) alignInside:(NSR)outerRect
-//{
-//	AZRect *outer = [AZRect rectWithRect:outerRect];
-//	AZA e = 0;
-//
-//	e |= 	self.maxY == outer.maxY ? AZAlignTop 	: 	self.minY == outer.minY ? AZAlignBottom	:
-//			self.minX == outer.minX ? AZAlignLeft	:	self.maxX == outer.maxX ? AZAlignRight 	: e;
-//
-//	if (e != 0) return e;
-//	NSP myCenter = edge.center;
-//	CGF test = HUGE_VALF;
-//	CGF minDist = AZMaxDim(outer.size);
-//
-//	test = AZDistanceFromPoint( myCenter, (NSP) { outer.minX, myCenter.y }); //testleft
-//	if  ( test < minDist) { 	minDist = test; e = AZAlignLeft;}
-//
-//	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x,  0 }); //testbottom  OK
-//	if  ( test < minDist) { 	minDist = test; e = AZAlignBottom; }
-//
-//	test = AZDistanceFromPoint( myCenter, (NSP) {outer.width, myCenter.y }); //testright
-//	if  ( test < minDist) { 	minDist = test; e = AZAlignRight; }
-//
-//	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x, outer.height }); //testright
-//	if  ( test < minDist) { 	minDist = test; e = AZAlignTop; }
-//	return  e;
-//}
 
 -  (CGF) leftEdge 				{	return [self rect].origin.x ;	}
 - (void) setLeftEdge: (CGF)t 	{ NSR frame = self.rect ;	frame.origin.x = t ;	[self setRect:frame] ;	}
@@ -110,11 +80,11 @@ static AZRect *screnFrameUnderMenu = nil;
 //	if ([n isEqualToNumber:1]) 
 }
 
-+ (AZRect*) rect { return self.new;	}
++ (AZRect*) rect { return [self rectWithRect:NSZeroRect];	}
 + (AZRect*) rect:(NSR)frame oriented:(AZPOS)pos { AZRect* n = [self rectWithRect:frame]; n.orient = pos; return n; }
 + (AZRect*) rectOf:(id) object {
 	if (object == nil) return nil;
-	AZRect *re = [[AZRect alloc] init];
+	AZRect *re = AZRect.new;
 	
 	if ([object isKindOfClass:NSNumber.class]) {
 	NSNumber *num = (NSNumber*) object;
@@ -151,23 +121,23 @@ static AZRect *screnFrameUnderMenu = nil;
 - (NSR) r { return self.rect; }
 - (void) setR:(NSR)r { self.rect = r; }
 
-+ (AZRect*) rectWithRect:(NSR)r {
-	AZRect *re = [[self alloc] init];
-	re.rect = r;
-	return re;
-}
-
++ (AZRect*) rectWithRect:(NSR)r { AZRect *re = self.new;	re.rect = r;	return re; }
 + (AZRect*) rectWithOrigin:(NSP)origin andSize:(NSSZ)size {
 	return [self rectWithRect:NSMakeRect(origin.x, origin.y, size.width, size.height)];
 }
-
-+ (AZRect*) rectWithX:(CGF)x 
-			andY:(CGF)y 
-		   width:(CGF)width 
-		  height:(CGF)height
-{
++ (AZRect*) rectWithX:(CGF)x andY:(CGF)y width:(CGF)width height:(CGF)height {
 	return [self rectWithRect:NSMakeRect(x, y, width, height)];
 }
++ (AZRect*) x:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h { return [self rectWithRect:NSMakeRect(x, y,w,h)]; }
+
+
+
+//+ (AZRect*) by:(CGFloat)dim1,... {
+//
+//  NSUInteger
+//}
+//
+//return [self rectWithRect:NSMakeRect(x, y,w,h)]; }
 
 + (BOOL)maybeRect:(id) object {
 	if (object == nil) {
@@ -471,3 +441,35 @@ static AZRect *screnFrameUnderMenu = nil;
 }
 
 @end
+
+
+//- (AZA) alignInsideInDirection:(NSSZ)delta { }
+//- (AZA) alignInside:(NSR)outerRect {
+//	AZRect *outer = [AZRect rectWithRect:outerRect];
+//	AZA e = 0;
+//	e |= 	self.maxY == outer.maxY ? AZAlignTop 	: 	self.minY == outer.minY ? AZAlignBottom	:
+//			self.minX == outer.minX ? AZAlignLeft	:	self.maxX == outer.maxX ? AZAlignRight 	: e;
+//
+//	if (e != 0) return e;
+//	NSP myCenter = edge.center;
+//	CGF test = HUGE_VALF;
+//	CGF minDist = AZMaxDim(outer.size);
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) { outer.minX, myCenter.y }); //testleft
+//	if  ( test < minDist) { 	minDist = test; e = AZAlignLeft;}
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x,  0 }); //testbottom  OK
+//	if  ( test < minDist) { 	minDist = test; e = AZAlignBottom; }
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) {outer.width, myCenter.y }); //testright
+//	if  ( test < minDist) { 	minDist = test; e = AZAlignRight; }
+//
+//	test = AZDistanceFromPoint( myCenter, (NSP) { myCenter.x, outer.height }); //testright
+//	if  ( test < minDist) { 	minDist = test; e = AZAlignTop; }
+//	return  e;
+//}
+
+//@property AZA alignment;
+//@property AZOrient orient;
+//@property CGF cornerTreshHold, snapThreshold;
+//- (void) moveInDirection:(NSSZ)sz;

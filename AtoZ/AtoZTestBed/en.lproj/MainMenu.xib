@@ -88,7 +88,7 @@
                         <rect key="frame" x="249" y="270" width="198" height="55"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" continuous="YES" sendsActionOnEndEditing="YES" alignment="right" title="Section" drawsBackground="YES" id="801">
-                            <font key="font" size="13" name="UbuntuTitling-Bold"/>
+                            <font key="font" size="13" name="UbuntuMono-Bold"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlDarkShadowColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>

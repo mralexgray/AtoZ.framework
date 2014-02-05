@@ -439,7 +439,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 	if (_offBackGradient) return _offBackGradient;
 	NSColor* top = [NSColor colorWithDeviceRed:0.65f green:0.65f blue:0.65f alpha:0.85f];
 	NSColor* bottom = [NSColor colorWithDeviceRed:0.85f green:0.85f blue:0.85f alpha:0.85f];
-	_offBackGradient = [[NSGradient alloc] initWithColorsAndLocations:top, 0.0f, bottom, 0.6f, nil];
+	_offBackGradient = [NSGradient.alloc initWithColorsAndLocations:top, 0.0f, bottom, 0.6f, nil];
 	return _offBackGradient;
 }
 

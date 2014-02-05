@@ -38,7 +38,7 @@
 //		imageViewFrame.origin = NSMakePoint(1.0, 1.0);
 		imageViewFrame = NSIntegralRect(imageViewFrame);
 		
-		NSImageView *imageView = [[SDRoundedInstructionsImageView alloc] initWithFrame:imageViewFrame];
+		NSImageView *imageView = [SDRoundedInstructionsImageView.alloc initWithFrame:imageViewFrame];
 		[imageView setImageScaling:NSScaleProportionally];
 		[imageView setImageAlignment:NSImageAlignCenter];
 		[imageView setImage:image];

@@ -8,6 +8,7 @@
 
 #import "AZWebSocketServer.h"
 
+@class KSHTMLWriter;
 @interface WebSocketView ()
 @property AZWebSocketServer *wsServer;
 @property KSHTMLWriter *writer;

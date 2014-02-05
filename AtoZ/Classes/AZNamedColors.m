@@ -30,17 +30,17 @@ static NSDictionary * makeDictionaryFromList(NSColorList* list) {
 	static AZNamedColors *sharedNamedColors = nil;
 	static dispatch_once_t predicate;
 	dispatch_once(&predicate, ^{
-                sharedNamedColors = [[self alloc] init]; 
+                sharedNamedColors = self.new; 
 	});
    return sharedNamedColors;
 
 
 //	static  dispatch_once_t once;
-//	dispatch_once( &once, ^{  		  instance = [[self alloc]init]; });
+//	dispatch_once( &once, ^{  		  instance = self.new; });
 //	return instance;
 
 //	@synchronized(self) {
-//		if (!instance)        instance = [[self alloc] init];
+//		if (!instance)        instance = self.new;
 //	}
 //	return instance;
 }

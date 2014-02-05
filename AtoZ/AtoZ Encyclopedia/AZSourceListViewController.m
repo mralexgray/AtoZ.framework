@@ -140,7 +140,7 @@
 - (NSMenu*)sourceList:(AZSourceList*)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item
 {
 	if ([theEvent type] == NSRightMouseDown || ([theEvent type] == NSLeftMouseDown && ([theEvent modifierFlags] & NSControlKeyMask) == NSControlKeyMask)) {
-		NSMenu * m = [[NSMenu alloc] init];
+		NSMenu * m = NSMenu.new;
 		if (item != nil) {
 			[m addItemWithTitle:[item title] action:nil keyEquivalent:@""];
 		} else {

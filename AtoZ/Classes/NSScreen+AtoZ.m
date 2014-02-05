@@ -5,6 +5,7 @@
 //  Created by Alex Gray on 6/14/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "NSScreen+AtoZ.h"
+#import "AZMouser.h"
 
 @implementation NSScreen (PointConversion)
 
@@ -177,7 +178,7 @@ typedef NSUInteger CNDockOrientation;
                 CGRect rect = NSRectToCGRect([self frame]);
                 rect.origin = CGPointMake(0, 0);
                 CGImageRef snapshotImageRef = CGDisplayCreateImageForRect(displayID, rect);
-                NSBitmapImageRep *snapshot = [[NSBitmapImageRep alloc] initWithCGImage:snapshotImageRef];
+                NSBitmapImageRep *snapshot = [NSBitmapImageRep.alloc initWithCGImage:snapshotImageRef];
                 return [snapshot CGImage];
                 break;
             }

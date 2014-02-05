@@ -39,10 +39,10 @@
 	[_m setTitle:@"DeskBrowse"];
 	[menu insertItem:[NSMenuItem separatorItem] atIndex:1];
 	[menu addItem:[NSMenuItem separatorItem]];
-	NSMenuItem *slide = [[NSMenuItem alloc] initWithTitle:@"Toggle SlideBrowser"
+	NSMenuItem *slide = [NSMenuItem.alloc initWithTitle:@"Toggle SlideBrowser"
 																  action:@selector(toggleSlideBrowse)
 														 keyEquivalent:@""];
-	NSMenuItem *websp = [[NSMenuItem alloc] initWithTitle:@"Toggle Webspose"
+	NSMenuItem *websp = [NSMenuItem.alloc initWithTitle:@"Toggle Webspose"
 																  action:@selector(toggleWebspose)
 														 keyEquivalent:@""];
 	[slide setTarget:_controller];
@@ -116,7 +116,7 @@
 //		controller = ctrlr; // deliberately weak reference.
 //		_clicked = NO;
 ////		_indicator = [[NSControl alloc]initWithFrame:NSInsetRect([self frame], 3, 3)];
-////		AZIndeterminateIndicator *cell = [[AZIndeterminateIndicator alloc]init];
+////		AZIndeterminateIndicator *cell = AZIndeterminateIndicator.new;
 //		[_indicator setCell:cell];
 ////		[_indicator setStyle:NSProgressIndicatorSpinningStyle];
 ////		[self addSubview:_indicator];
@@ -143,7 +143,7 @@
 //		}
 //
 //		NSFont *msgFont = [NSFont menuBarFontOfSize:15.0];
-//		NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+//		NSMutableParagraphStyle *paraStyle = NSMutableParagraphStyle.new;
 //		[paraStyle setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
 //		[paraStyle setAlignment:NSCenterTextAlignment];
 //		[paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];

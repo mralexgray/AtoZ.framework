@@ -102,12 +102,12 @@ static NSColor *highlightColor;
 //}
 
 -(NSAttributedString *)attributedStringValue {
-	return [[NSAttributedString alloc] initWithString:[self stringValue] attributes:[self isHighlighted] ? [self selectedTitleAttributes] : [self titleAttributes]];
+	return [NSAttributedString.alloc initWithString:[self stringValue] attributes:[self isHighlighted] ? [self selectedTitleAttributes] : [self titleAttributes]];
 }
 
 -(NSAttributedString *)categoryAttributedString {
 	id myCategory;// = [self category];
-	return [[NSAttributedString alloc] initWithString:myCategory == [NSNull null] ? @"No category assigned" : [myCategory title] attributes:[self isHighlighted] ? [self selectedCategoryAttributes] : [self categoryAttributes]];
+	return [NSAttributedString.alloc initWithString:myCategory == [NSNull null] ? @"No category assigned" : [myCategory title] attributes:[self isHighlighted] ? [self selectedCategoryAttributes] : [self categoryAttributes]];
 }
 
 
@@ -131,7 +131,7 @@ static CGFloat titleLeftPadding = 14.0f;
 		[highlightPath fill];
 	}
 	[[self attributedStringValue] drawInRect:[self titleRectForBounds:cellFrame]];
-	//	NSAttributedString *categoryString = [[NSAttributedString alloc] initWithString:[[self category] title] attributes:[self categoryAttributes]];
+	//	NSAttributedString *categoryString = [NSAttributedString.alloc initWithString:[[self category] title] attributes:[self categoryAttributes]];
 	[[self categoryAttributedString] drawInRect:[self categoryRectForBounds:cellFrame]];
 }
 

@@ -1,5 +1,6 @@
 
-#import "AtoZ.h"
+#import "AtoZUmbrella.h"
+#import "AZLayer.h"
 
 #define WINCOLS NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary
 //I just came up with an even better way to do completion code for CAAnimations:
@@ -7,7 +8,7 @@ typedef void (^animationCompletionBlock)(void);
 // key to add a block to an animation:
 #define kAnimationCompletionBlock @"animationCompletionBlock"
 @protocol AZSemiResponder;
-@class  AZDynamicTabLayer;
+@class  AZDynamicTabLayer, AZSizer;
 @interface AZSemiResponderWindow : NSWindow
 
 @property (NATOM, STRNG) AZDynamicTabLayer 	*tabs;
@@ -34,7 +35,7 @@ typedef void (^animationCompletionBlock)(void);
 @property (STRNG, NATOM) NSA 					*palette;
 @property (STRNG, NATOM) NSOrderedDictionary 		*tabs;
 @property (STRNG, NATOM) AZSizer 				*sizer;
-@property (ASS,   NATOM) RNG 					 range;
+// @property (ASS,   NATOM) AZRange 					 range;
 @property (ASS,   NATOM) AZOrient				 orient;
 @property (ASS,   NATOM) CGF						 offset;
 @property (STRNG, NATOM) NSBP 					*scrollPath;

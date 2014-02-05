@@ -5,8 +5,9 @@
 //  Created by Alex Gray on 9/30/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
+#import "AtoZ.h"
 #import "NSValue+AtoZ.h"
+
 @implementation NSValue (AZWindowPosition)
 + (id)valueWithPosition:(AZWindowPosition)pos;
 {

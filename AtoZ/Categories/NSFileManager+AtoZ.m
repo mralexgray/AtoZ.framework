@@ -5,6 +5,7 @@
 //  Created by Alex Gray on 8/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
+#import "AtoZ.h"
 #import "NSFileManager+AtoZ.h"
 #include <glob.h>
 #import <sys/xattr.h>
@@ -246,8 +247,6 @@ NSString *NSDCIMFolder()
 	NSUInteger dirCount = [components count];
 	NSMutableArray *trimmedPaths = [[NSMutableArray alloc] initWithCapacity:dirCount];
 
-	[trimmedPaths autorelease];
-
 	NSString *finalPath = [NSString pathWithComponents:components];
 
 	NSMutableArray *trim = [[NSMutableArray alloc] initWithArray:components];
@@ -278,8 +277,6 @@ NSString *NSDCIMFolder()
 			break;
 		}
 	}
-	[trim release];
-
 	if (error) {
 		if (outError)
 			*outError = error;
@@ -320,7 +317,6 @@ NSString *NSDCIMFolder()
 {
 	NSDictionary *attributes = @{NSFileModificationDate: [NSDate date]};
 	BOOL rc = [self setAttributes:attributes ofItemAtPath:[[url absoluteURL] path] error:outError];
-	[attributes release];
 	return rc;
 }
 
@@ -390,7 +386,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 
 - (void)logPropertiesOfTreeAtURL:(NSURL *)url;
 {
-	NSMutableString *str = [[NSMutableString alloc] init];
+	NSMutableString *str = NSMutableString.new;
 	_appendPropertiesOfTreeAtURL(self, str, url, 0);
 
 	NSLog(@"%@:\n%@\n", [url absoluteString], str);
@@ -410,7 +406,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	if (extension.length) {
 		CFStringRef identifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)CFBridgingRetain(extension), NULL);
 		if (identifier) {
-			type = [(id)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(identifier, kUTTagClassMIMEType)) autorelease];
+			type = (id)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(identifier, kUTTagClassMIMEType));
 			CFRelease(identifier);
 		}
 	}
@@ -447,7 +443,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 
 - (NSString*) extendedAttributeStringWithName:(NSString*)name forFileAtPath:(NSString*)path {
 	NSData* data = [self extendedAttributeDataWithName:name forFileAtPath:path];
-	return data ? [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease] : nil;
+	return data ? [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding] : nil;
 }
 
 - (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {

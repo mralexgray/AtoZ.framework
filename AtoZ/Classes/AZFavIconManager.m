@@ -238,12 +238,12 @@ NSS *const kAZFavIconOperationDidEndNetworkActivity   = @"kAZFavIconOperationDid
 	if (textEncodingName) {
 		CFStringEncoding cfencoding 	= CFStringConvertIANACharSetNameToEncoding((__bridge CFStringRef)textEncodingName);
 		NSStringEncoding encoding 		= CFStringConvertEncodingToNSStringEncoding(cfencoding);
-		html = [[NSS alloc] initWithData:htmlData encoding:encoding];
+		html = [NSS.alloc initWithData:htmlData encoding:encoding];
 	}
 	if (!html) {
 		// As the reported encoded might be incorrect we try the common ones if there is not html
 		[@[@(NSUTF8StringEncoding),@(NSISOLatin1StringEncoding),@(NSUTF16StringEncoding),@(NSISOLatin2StringEncoding)] enumerateObjectsUsingBlock:^(NSNumber *encoding, NSUInteger idx, BOOL *stop) {
-			html = [[NSS alloc] initWithData:htmlData encoding:[encoding integerValue]];
+			html = [NSS.alloc initWithData:htmlData encoding:[encoding integerValue]];
 			*stop = (html != nil);
 		}];
 	}

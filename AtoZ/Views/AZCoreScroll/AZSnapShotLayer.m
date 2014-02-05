@@ -107,7 +107,7 @@ static NSInteger snapshotNumber;
 //	CGColorSpaceRef colorspace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 //	backgroundGradient = CGGradientCreateWithColorComponents(colorspace, components, locations, num_locations);
 //	CGSize b = self.bounds.size;
-//	NSImage* compositeImage = [[NSImage alloc] initWithSize:b];
+//	NSImage* compositeImage = [NSImage.alloc initWithSize:b];
 //		[compositeImage lockFocus];
 //	CGContextRef ctx = [AZGRAPHICSCTX graphicsPort];
 //	CGContextDrawRadialGradient(ctx, backgroundGradient,

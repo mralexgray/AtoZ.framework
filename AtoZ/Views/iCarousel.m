@@ -1,3 +1,4 @@
+#import "AtoZ.h"
 	//
 	//  iCarousel.m
 	//
@@ -147,10 +148,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 	_ignorePerpendicularSwipes = NO;
 	_centerItemWhenSelected = YES;
 
-	_contentView = [[UIView alloc] initWithFrame:self.bounds];
+	_contentView = [UIView.alloc initWithFrame:self.bounds];
 #ifdef ICAROUSEL_IOS
 
-	UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+	UIPanGestureRecognizer *panGesture = [UIPanGestureRecognizer.alloc initWithTarget:self action:@selector(didPan:)];
 	panGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
 	[_contentView addGestureRecognizer:panGesture];
 	[panGesture release];
@@ -190,16 +191,16 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 	return self;
 }
 
-- (void)dealloc
-{
-	[self stopAnimation];
-
-	[_contentView release];
-	[_itemViews release];
-	[_itemViewPool release];
-	[_placeholderViewPool release];
-	[super ah_dealloc];
-}
+//- (void)dealloc
+//{
+//	[self stopAnimation];
+//
+//	[_contentView release];
+//	[_itemViews release];
+//	[_itemViewPool release];
+//	[_placeholderViewPool release];
+//	[super ah_dealloc];
+//}
 
 - (void)setDataSource:(id<iCarouselDataSource>)dataSource
 {
@@ -792,12 +793,12 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 	CGRect frame = view.bounds;
 	frame.size.width = _vertical? frame.size.width: _itemWidth;
 	frame.size.height = _vertical? _itemWidth: frame.size.height;
-	UIView *containerView = [[[UIView alloc] initWithFrame:frame] autorelease];
+	UIView *containerView = [[UIView.alloc initWithFrame:frame] autorelease];
 
 #ifdef ICAROUSEL_IOS
 
 		//add tap gesture recogniser
-	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap:)];
+	UITapGestureRecognizer *tapGesture = [UITapGestureRecognizer.alloc initWithTarget:self action:@selector(didTap:)];
 	tapGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
 	[containerView addGestureRecognizer:tapGesture];
 	[tapGesture release];
@@ -1183,7 +1184,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 	if (view == nil)
 	{
-		view = [[[UIView alloc] init] autorelease];
+		view = [[UIView.alloc init] autorelease];
 	}
 	[self setItemView:view forIndex:index];
 	if (containerView)
@@ -2162,7 +2163,7 @@ _timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60.0	target:self		selector:
 
 	//	NSTrackingAreaOptions options =
 	//		NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow |NSTrackingActiveAlways | NSTrackingMouseMoved;
-	//	trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:options owner:self userInfo:nil];
+	//	trackingArea = [NSTrackingArea.alloc initWithRect:NSZeroRect options:options owner:self userInfo:nil];
 	//	[self addTrackingArea:trackingArea];
 	//}
 

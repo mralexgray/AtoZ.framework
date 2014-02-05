@@ -153,7 +153,7 @@
 	AtoZGridViewItem *item = 	[gridView dequeueReusableItemWithIdentifier:reuseIdentifier];
 	if (item) { NSLog(@"did dequeue index: %lu item: %@", index, item);
 	} else {
-		item =	[[AtoZGridViewItem alloc] initInGrid:_gridView reuseIdentifier:reuseIdentifier];
+		item =	[AtoZGridViewItem.alloc initInGrid:_gridView reuseIdentifier:reuseIdentifier];
 		NSLog(@"did create item for index: %lu", index);
 	}
 

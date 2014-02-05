@@ -1,6 +1,9 @@
 //  AtoZFunctions.h
 
 #import "AtoZUmbrella.h"
+#import <Carbon/Carbon.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import <CoreServices/CoreServices.h>
 #import <BlocksKit/BlocksKit.h>
 #import <objc/objc-class.h>
 #import <objc/runtime.h>
@@ -88,10 +91,10 @@ NSG* GradForClr(azkColor c);
 NSC* Clr(azkColor c);
 
 
-CACONST * AZConstRelSuper						( CACONSTATTR attrb																	);
-CACONST * AZConst									( CACONSTATTR attrb, NSS* rel													   );
-CACONST * AZConstScaleOff						( CACONSTATTR attrb, NSS* rel, 							 CGF scl, CGF off );
-CACONST * AZConstRelSuperScaleOff 			( CACONSTATTR attrb, 										 CGF scl, CGF off );
+CACONST * AZConstRelSuper                 ( CACONSTATTR attrb                                                  );
+CACONST * AZConst                         ( CACONSTATTR attrb, NSS* rel                                        );
+CACONST * AZConstScaleOff                 ( CACONSTATTR attrb, NSS* rel,                      CGF scl, CGF off );
+CACONST * AZConstRelSuperScaleOff         ( CACONSTATTR attrb,                                CGF scl, CGF off );
 CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* relName, CACONSTATTR aTwo, CGF scl, CGF off );
 
 CAT3D  	m34();
@@ -103,14 +106,13 @@ CAT3D  	m34();
 
 	myfile.m		#define SYNTHESIZE_CONSTS		#import "myfile.h"		#undef SYNTHESIZE_CONSTS
 */
-#define AZUNO AZSingleton
 
-@interface AZSingleton : NSObject
-+ (void) setSharedInstance:(id)i;
-+(instancetype) instance;
-+(instancetype) sharedInstance;  //alias for instance
-//+(instancetype) uno;		  //alias for instance
-@end
+//@interface AZSingleton : NSObject
+//+ (void) setSharedInstance:(id)i;
+//+(instancetype) instance;
+//+(instancetype) sharedInstance;  //alias for instance
+////+(instancetype) uno;		  //alias for instance
+//@end
 
 /**  PYTHON!  */
 typedef void (^PythonBlock)		 (NSS* path,   NSS*inDir, NSA* args,   NSS* anENV, NSS *pyPATH);
@@ -226,10 +228,13 @@ static inline BOOL NSRangeContainsRange( NSRNG range1, NSRNG range2) {
 
 //void (^now)(void) = ^ {	NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
 
-NS_INLINE 	NSW* NSWINDOWINIT		(NSR frame, NSUI mask){
-	return	[NSW.alloc initWithContentRect:frame styleMask:( mask != NSNotFound ? mask : 1 << 3) backing:2 defer:NO];
+NS_INLINE	NSW* NSWINDOWINIT(NSR frame, NSUI mask){
+
+//  print(@"NSWINDOWINIT frame:", AZString(frame), @" mask:", AZString(mask), nil);
+	return	[NSW.alloc initWithContentRect:frame styleMask:mask == NSNotFound ? 1|2|4|8 : /* 1 << 3*/ mask backing:2 defer:NO];
 }
 NS_INLINE	NSW* AZBORDLESSWINDOWINIT	(NSR frame) {
+
 	return 	[NSW.alloc initWithContentRect:frame styleMask:(1|8) backing:2 defer:NO];
 }
 #define AZWINDOWINIT NSWINDOWINIT(AZRectFromDim(100),1)

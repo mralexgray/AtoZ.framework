@@ -25,7 +25,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 {
 	self.view.autoresizesSubviews = YES;
 	self.view.autoresizingMask = NSSIZEABLE;
-	fb = [[PhFacebook alloc] initWithApplicationID: APPLICATION_ID delegate: self];
+	fb = [PhFacebook.alloc initWithApplicationID: APPLICATION_ID delegate: self];
 	self.token_label.stringValue = @"Invalid";
 
 	NSControlActionBlock block = ^(id inSender) {
@@ -104,7 +104,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 		[NSBundle loadNibNamed: @"FBOutlineViewController" owner: _fbOutlineView];
 		NSLog(@"fboutlien:  %@",_fbOutlineView);
 		{
-			//					_fbOutlineView = [[FBOutlineViewController alloc] initWithJSONData:result[@"raw"] inFrame:[[[NSApplication sharedApplication]mainWindow] frame]];
+			//					_fbOutlineView = [FBOutlineViewController.alloc initWithJSONData:result[@"raw"] inFrame:[[[NSApplication sharedApplication]mainWindow] frame]];
 			//					NSLog(@"fboutlien:  %@", _fbOutlineView);
 
 //		NSDictionary *s = [NSJSONSerialization JSONObjectWithData:[result[@"result"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];

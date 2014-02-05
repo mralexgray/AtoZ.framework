@@ -53,7 +53,7 @@
 				   name: NSViewBoundsDidChangeNotification
 				 object: [self contentView]];
 //	[[NSNotificationCenter defaultCenter] 	addObserver: self 			selector:@selector(scrollDown:) name:@"scrollRequested" 	object:nil];
-	//	self.anApi = [[AJSiTunesAPI alloc] init];
+	//	self.anApi = AJSiTunesAPI.new;
 	//	self.anApi.delegate = self;
 }
 
@@ -164,7 +164,7 @@
 -(void) evalMouse:(NSPoint)thePoint {
 
 	NSLog(@"entered infinity.. point in doc: %ld",  (NSUInteger)(thePoint.y / _barUnit.size.height));
-	AZBox *d = [[AZBox alloc] initWithFrame:AZMakeRect(NSMakePoint( 0, floor(thePoint.y / _barUnit.size.height)*_barUnit.size.height), _barUnit.size)];
+	AZBox *d = [AZBox.alloc initWithFrame:AZMakeRect(NSMakePoint( 0, floor(thePoint.y / _barUnit.size.height)*_barUnit.size.height), _barUnit.size)];
 
 	[self.docV addSubview:d];
 }
@@ -383,8 +383,8 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 
 //		[RED set];
 //		NSRectFill(dirtyRect);
-//		innerShadow2 = [[NSShadow alloc] initWithColor:[NSColor colorWithCalibratedWhite:0.0 alpha:.52] offset:NSMakeSize(0.0, -2.0) blurRadius:8.0];
-		[path fillWithInnerShadow:[[NSShadow alloc] initWithColor:[NSColor blackColor] offset:NSZeroSize blurRadius:15.0]];
+//		innerShadow2 = [NSShadow.alloc initWithColor:[NSColor colorWithCalibratedWhite:0.0 alpha:.52] offset:NSMakeSize(0.0, -2.0) blurRadius:8.0];
+		[path fillWithInnerShadow:[NSShadow.alloc initWithColor:[NSColor blackColor] offset:NSZeroSize blurRadius:15.0]];
 //		[path fillWithInnerShadow:innerShadow2];
 
 		}]];
@@ -409,15 +409,15 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 	static NSShadow *innerShadow1 = nil;
 	static NSShadow *innerShadow2 = nil;
 	if (pressedGradient == nil) {
-		pressedGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:.506 alpha:1.0]
+		pressedGradient = [NSGradient.alloc initWithStartingColor:[NSColor colorWithCalibratedWhite:.506 alpha:1.0]
 														endingColor:[NSColor colorWithCalibratedWhite:.376 alpha:1.0]];
-		normalGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:.67 alpha:1.0]
+		normalGradient = [NSGradient.alloc initWithStartingColor:[NSColor colorWithCalibratedWhite:.67 alpha:1.0]
 													   endingColor:[NSColor whiteColor]];
 
-		dropShadow = [[NSShadow alloc] initWithColor:[NSColor colorWithCalibratedWhite:.863 alpha:.75]
+		dropShadow = [NSShadow.alloc initWithColor:[NSColor colorWithCalibratedWhite:.863 alpha:.75]
 											  offset:NSMakeSize(0, -1.0) blurRadius:1.0];
-		innerShadow1 = [[NSShadow alloc] initWithColor:[NSColor blackColor] offset:NSZeroSize blurRadius:3.0];
-		innerShadow2 = [[NSShadow alloc] initWithColor:[NSColor colorWithCalibratedWhite:0.0 alpha:.52]
+		innerShadow1 = [NSShadow.alloc initWithColor:[NSColor blackColor] offset:NSZeroSize blurRadius:3.0];
+		innerShadow2 = [NSShadow.alloc initWithColor:[NSColor colorWithCalibratedWhite:0.0 alpha:.52]
 												offset:NSMakeSize(0.0, -2.0) blurRadius:8.0];
 
 		strokeColor = [NSColor colorWithCalibratedWhite:.26 alpha:1.0];

@@ -28,7 +28,7 @@ static const BOOL __MArrayPrint=NO;
 	//class creation method
 	[invocation invokeWithTarget:[NSMutableArray class]];
 	[invocation getReturnValue:&ret];
-	obj=[[MArray alloc] _init_];
+	obj=[MArray.alloc _init_];
 	[obj setProxiedObject:ret];
 	[invocation setReturnValue:&obj];
 }
@@ -63,7 +63,7 @@ static const BOOL __MArrayPrint=NO;
 	}
 }
 */
-//[[MArray alloc] init]
+//[MArray.alloc init]
 -(void)forwardInvocation:(NSInvocation*)invocation
 {
 	NSString *sel;
@@ -238,7 +238,7 @@ static const BOOL __MArrayPrint=NO;
 	unsigned count;
 
 	va_start(ap,format);
-	tempArray=[[NSMutableArray alloc] initWithCapacity:[format length]/3];
+	tempArray=[NSMutableArray.alloc initWithCapacity:[format length]/3];
 	scanner=[NSScanner scannerWithString:format];
 	spaceSet=[NSCharacterSet whitespaceCharacterSet];
 	count=0;

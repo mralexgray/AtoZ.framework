@@ -1,4 +1,8 @@
 
+#import "AtoZAutoBox/AtoZAutoBox.h"
+#import "AtoZUmbrella.h"
+#import "JREnum.h"
+
 #define CEL NSCell
 
 JREnumDeclare( AZOutlineCellStyle, 	AZOutlineCellStyleToggleHeader,

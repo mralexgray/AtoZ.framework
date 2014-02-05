@@ -15,6 +15,8 @@
 - (void) stopTiming;
 @property (readonly) NSS* elapsed;
 @end
+#import "AtoZUmbrella.h"
+
 @interface AZStopwatch : NSObject 
 
 //+ (void) timerBlock:((^)(char *file))block;

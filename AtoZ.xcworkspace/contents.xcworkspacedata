@@ -2,13 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "container:AtoZ/AtoZ.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Frameworks/gh-unit/Project-MacOSX/GHUnitMacOSX.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:../git/OCFWeb/ACEView/ACEView.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "container:AtoZ/AtoZ.xcodeproj">
+      location = "group:../git/ACEView/ACEView.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:HTMLServer/HTMLServer.xcodeproj">

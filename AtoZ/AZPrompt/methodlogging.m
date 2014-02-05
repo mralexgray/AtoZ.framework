@@ -56,7 +56,7 @@ After methodC
 @interface Driver:NSObject															@end
 @implementation Driver
 + (void)performActions {
-	SomeClass *someClass = [[SomeClass alloc] init];
+	SomeClass *someClass = SomeClass.new;
 	[[someClass	instanceMethodNames]log];
 	[SomeClass addMethodForSelector:@selector(iFarted) typed:"@@:" implementation:^id(id self, SEL _cmd) {
 			return NSS.randomDicksonism;

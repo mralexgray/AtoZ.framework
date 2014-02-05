@@ -1,30 +1,12 @@
 
-//  MondoSwitch.m
-//  CocoaMondoKit
 
-//  Created by Matthieu Cormier on 12/7/09.
-//  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
 #import "MondoSwitch.h"
-#import "MondoSwitchButtonCALayer.h"
 #import "AtoZ.h"
-@interface MondoSwitch (PrivateMethods)
--(void)setupLayers;
--(CGPoint) pointForEvent:(NSEvent *) event;
--(void)coreAnimationDrawRect:(NSRect)dirtyRect;
--(BOOL)isRunningInIB;
 
--(NSGradient*)gradient;
--(void)setGradient:(NSGradient*)gradient;
+@implementation MondoSwitch @synthesize on, target, action;
 
-@end
+// Coder methods are necessary so that everything draws nicely in interface builder.
 
-@implementation MondoSwitch
-
-@synthesize on, target, action;
-#pragma mark - init methods
-
-// Coder methods are necessary so that everything draws nicely
-// in interface builder.
 - (id)initWithCoder:(NSCoder *)decoder {
 	if (self = [super initWithCoder:decoder] ) {
 		[self setGradient:[decoder decodeObjectForKey:@"bgGradient"]];
@@ -38,37 +20,20 @@
 	[coder encodeObject:[self gradient] forKey:@"bgGradient"];
 }
 
-- (void)awakeFromNib {
-	[self setupLayers];
-}
+- (void)awakeFromNib { [self setupLayers]; }
 
 -(NSGradient*)gradient {
-	if( !_bgGradient) {
-		// Create a basic gradient for the background
-		NSColor* gradientBottom = [NSColor colorWithCalibratedWhite:0.72 alpha:1.0];
-		NSColor* gradientTop	= [NSColor colorWithCalibratedWhite:0.46 alpha:1.0];
 
-		_bgGradient = [[NSGradient alloc] initWithStartingColor:gradientBottom
-													endingColor:gradientTop];
-	}
-	return _bgGradient;
-}
-
--(void)setGradient:(NSGradient*)gradient {
-	if (_bgGradient == gradient)
-		return;
-	AZAssign(_bgGradient, gradient);
+  // Create a basic gradient for the background
+	return _gradient = _gradient ?: [NSGradient gradientFrom:GRAY7 to:GRAY4];
 }
 -(void)setupLayers {
-
 	// create a layer and match its frame to the view's frame
 	self.wantsLayer = YES;
-
 	mainLayer = self.layer;
 	//  [mainLayer retain];
 	mainLayer.name = @"mainLayer";
-
-	CGRect viewFrame = NSRectToCGRect( self.frame );
+  CGRect viewFrame = NSRectToCGRect( self.frame );
 	viewFrame.origin.y = 0;
 	viewFrame.origin.x = 0;
 	mainLayer.frame = viewFrame;
@@ -156,7 +121,6 @@
 
 	// ignore double clicks
 	if ([event clickCount] > 1 ) { return; }
-
 	CGPoint location = [self pointForEvent:event];
 	[buttonLayer mouseDown:location];
 }
@@ -179,6 +143,7 @@
 	return NSPointToCGPoint(location);
 }
 
+@end
 //- (void) dealloc {
 //	AZRelease(mainLayer);
 //	AZRelease(buttonLayer);
@@ -186,4 +151,13 @@
 //	AZRelease(target);
 //	//  [super dealloc];
 //}
-@end
+
+//@interface MondoSwitch (PrivateMethods)
+//-(void)setupLayers;
+//-(CGPoint) pointForEvent:(NSEvent *) event;
+//-(void)coreAnimationDrawRect:(NSRect)dirtyRect;
+//-(BOOL)isRunningInIB;
+//-(NSGradient*)gradient;
+//-(void)setGradient:(NSGradient*)gradient;
+//
+//@end

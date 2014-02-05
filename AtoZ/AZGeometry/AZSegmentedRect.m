@@ -14,11 +14,11 @@
 @implementation AZSegmentedRect
 
 + (AZSegmentedRect*) rectWithRect:(NSR)rect {
-	return [[AZSegmentedRect alloc] initWithRect:rect];
+	return [AZSegmentedRect.alloc initWithRect:rect];
 }
 
 + (AZSegmentedRect*) rectWithRect:(NSR)rect cubicSize:(NSUInteger)size {
-	AZSegmentedRect *re = [[AZSegmentedRect alloc] initWithRect:rect];
+	AZSegmentedRect *re = [AZSegmentedRect.alloc initWithRect:rect];
 	re.horizontalSegments = size;
 	re.verticalSegments = size;
 	return re;
@@ -28,7 +28,7 @@
 					   width:(NSUInteger)wv
 					  height:(NSUInteger)hv
 {
-	AZSegmentedRect *re = [[AZSegmentedRect alloc] initWithRect:rect];
+	AZSegmentedRect *re = [AZSegmentedRect.alloc initWithRect:rect];
 	re.horizontalSegments = wv;
 	re.verticalSegments = hv;
 	return re;

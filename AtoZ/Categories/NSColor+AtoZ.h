@@ -2,7 +2,8 @@
 //  NSColot+AtoZ.h
 //  AtoZ
 
-#import "JREnum.h"
+#import "AtoZUmbrella.h"
+
 JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, AZeColoraquamarine, AZeColorazure, AZeColorbeige, AZeColorbisque, AZeColorblack, AZeColorblanchedalmond, AZeColorblue, AZeColorblueviolet, AZeColorbrown, AZeColorburlywood, AZeColorcadetblue, AZeColorchartreuse, AZeColorchocolate, AZeColorcoral, AZeColorcornflowerblue, AZeColorcornsilk, AZeColorcrimson, AZeColorcyan, AZeColordarkblue, AZeColordarkcyan, AZeColordarkgoldenrod, AZeColordarkgray, AZeColordarkgrey, AZeColordarkgreen, AZeColordarkkhaki, AZeColordarkmagenta, AZeColordarkolivegreen, AZeColordarkorange, AZeColordarkorchid, AZeColordarkred, AZeColordarksalmon, AZeColordarkseagreen, AZeColordarkslateblue, AZeColordarkslategray, AZeColordarkslategrey, AZeColordarkturquoise, AZeColordarkviolet, AZeColordeeppink, AZeColordeepskyblue, AZeColordimgray, AZeColordimgrey, AZeColordodgerblue, AZeColorfirebrick, AZeColorfloralwhite, AZeColorforestgreen, AZeColorfuchsia, AZeColorgainsboro, AZeColorghostwhite, AZeColorgold, AZeColorgoldenrod, AZeColorgray, AZeColorgrey, AZeColorgreen, AZeColorgreenyellow, AZeColorhoneydew, AZeColorhotpink, AZeColorindianred, AZeColorindigo, AZeColorivory, AZeColorkhaki, AZeColorlavender, AZeColorlavenderblush, AZeColorlawngreen, AZeColorlemonchiffon, AZeColorlightblue, AZeColorlightcoral, AZeColorlightcyan, AZeColorlightgoldenrodyellow, AZeColorlightgray, AZeColorlightgrey, AZeColorlightgreen, AZeColorlightpink, AZeColorlightsalmon, AZeColorlightseagreen, AZeColorlightskyblue, AZeColorlightslateblue, AZeColorlightslategray, AZeColorlightslategrey, AZeColorlightsteelblue, AZeColorlightyellow, AZeColorlime, AZeColorlimegreen, AZeColorlinen, AZeColormagenta, AZeColormaroon, AZeColormediumaquamarine, AZeColormediumblue, AZeColormediumorchid, AZeColormediumpurple, AZeColormediumseagreen, AZeColormediumslateblue, AZeColormediumspringgreen, AZeColormediumturquoise, AZeColormediumvioletred, AZeColormidnightblue, AZeColormintcream, AZeColormistyrose, AZeColormoccasin, AZeColornavajowhite, AZeColornavy, AZeColoroldlace, AZeColorolive, AZeColorolivedrab, AZeColororange, AZeColororangered, AZeColororchid, AZeColorpalegoldenrod, AZeColorpalegreen, AZeColorpaleturquoise, AZeColorpalevioletred, AZeColorpapayawhip, AZeColorpeachpuff, AZeColorperu, AZeColorpink, AZeColorplum, AZeColorpowderblue, AZeColorpurple, AZeColorred, AZeColorrosybrown, AZeColorroyalblue, AZeColorsaddlebrown, AZeColorsalmon, AZeColorsandybrown, AZeColorseagreen, AZeColorseashell, AZeColorsienna, AZeColorsilver, AZeColorskyblue, AZeColorslateblue, AZeColorslategray, AZeColorslategrey, AZeColorsnow, AZeColorspringgreen, AZeColorsteelblue, AZeColortan, AZeColorteal, AZeColorthistle, AZeColortomato, AZeColorturquoise, AZeColorviolet, AZeColorvioletred, AZeColorwheat, AZeColorwhite, AZeColorwhitesmoke, AZeColoryellow, AZeColoryellowgreen); 
 
 
@@ -96,7 +97,7 @@ typedef void(^colorFadeBlock)(NSC*c);
 + (NSA*) randomPaletteAnimationBlock:(colorFadeBlock)target; /* 1000 step animation lock */
 
 /* gradients from palettes */
-+ (NSA*) gradientPalletteBetween:(NSC*)c1 and:(NSC*)c2 steps:(NSUI)steps;
++ (NSA*) gradientPalletteBetween:(NSC*)c1 c2:(NSC*)c2 steps:(NSUI)steps;
 + (NSA*) gradientPalletteBetween:(NSA*)colors steps:(NSUI)steps;
 + (NSA*) gradientPalletteLooping:(NSA*)colors steps:(NSUI)steps;
 
@@ -106,7 +107,6 @@ typedef void(^colorFadeBlock)(NSC*c);
 + (NSC*) white:(CGF)percent a:(CGF)alpha;
 + (NSC*) 	 r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
 - (NSC*) alpha:(CGF)percent;
-
 
 + (NSC*) linen;
 + (NSC*) linenTintedWithColor: (NSC*) color;
@@ -532,4 +532,55 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 + (NSString*)representedColorForObject: (id)anObject withValidColors: (NSA*)validColors;
 @end
 */
+
+
+
+#define REDGRAD  		[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:241./255. g:152./255. b:139./255. a:1.0], 0.,\
+							[NSC r:228./255. g:116./255. b:102./255. a:1.0], .5,\
+							[NSC r:192./255. g: 86./255. b: 73./255. a:1.0], 1., nil]
+
+#define ORANGEGRAD 	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:248./255. g:201./255. b:148./255. a:1.0], 0.,\
+							[NSC r:237./255. g:174./255. b:107./255. a:1.0], .5,\
+							[NSC r:210./255. g:143./255. b: 77./255. a:1.0], 1., nil]
+
+#define YELLOWGRAD 	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:240./255. g:229./255. b:164./255. a:1.], 0.,\
+							[NSC r:227./255. g:213./255. b:119./255. a:1.], .5,\
+							[NSC r:201./255. g:188./255. b: 92./255. a:1.], 1., nil]
+
+#define GREENGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:209./255. g:236./255. b:156./255. a:1.0], 0.0,\
+							[NSC r:175./255. g:215./255. b:119./255. a:1.0], 0.5,\
+							[NSC r:142./255. g:182./255. b:102./255. a:1.0], 1.0, nil]
+
+#define BLUEGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:165./255. g:216./255. b:249./255. a:1.], 0.0,\
+							[NSC r:118./255. g:185./255. b:232./255. a:1.0], 0.5,\
+							[NSC r:90./255. g:152./255. b:201./255. a:1.0], 1.0, nil]
+
+#define PURPLEGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSC r:232./255. g:191./255. b:248./255. a:1.0], 0.0,\
+							[NSC r:202./255. g:152./255. b:224./255. a:1.0], 0.5,\
+							[NSC r:163./255. g:121./255. b:186./255. a:1.0], 1.0, nil]
+
+#define GRAYGRAD  	[NSG.alloc initWithColorsAndLocations:\
+							[NSColor white:212./255. a:1.], 0.0,\
+							[NSColor white:182./255. a:1.], 0.5,\
+							[NSColor white:151./255. a:1.], 1.0, nil]
+
+
+#define CGSHADOW(A)                 CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.0, A})
+
+#define     kTranslucentGrayColor CGColorCreate( kCGColorSpaceGenericGray, {0.0, 0.5, 1.0})
+#define     kTranslucentLightGrayColor cgGREY
+#define    kAlmostInvisibleWhiteColor CGColorCreate( kCGColorSpaceGenericGray, {1, 0.05, 1.0})
+
+#define NOISY(C)                     [C colorWithNoiseWithOpacity:.2 andBlendMode:kCGBlendModeMultiply]
+#define RANDOMNOISYCOLOR             NOISY(RANDOMCOLOR)
+
+#define LINEN                          [NSColor linen]
+#define RANDOMLINEN                   [NSC linenTintedWithColor:RANDOMCOLOR]
+#define CHECKERS                       [NSC checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
 

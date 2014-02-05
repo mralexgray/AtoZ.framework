@@ -1,4 +1,6 @@
 
+#import "AtoZUmbrella.h"
+#import "AZObserversAndBinders.h"
 
 #define PROXY_DECLARE(__NAME__)\
 	@interface __NAME__ : NSProxy @end
@@ -325,7 +327,7 @@ typedef void (^caseBlock)();
  	free(p);
 
 - (NSS*)strWithView:(UIView *)v;														// Example 4
-	UIView *view = [[UIView alloc] init];
+	UIView *view = UIView.new;
  	void **p = [self performSelector:@selector(strWithView:) withValue:&view];
 	NSString *str = (__bridge NSString *)*p;
 	NSLog(@"string is %@", str);
@@ -461,7 +463,7 @@ _Pragma("clang diagnostic pop") \
 //- (NSA*)  allKeys;
 
 /** Example:
-	MyObject *obj = [[MyObject alloc] init];
+	MyObject *obj = MyObject.new;
 	obj.a = @"Hello A";  //setting some values to attrtypedef existing new;ibutes
 	obj.b = @"Hello B";
 
@@ -470,7 +472,7 @@ _Pragma("clang diagnostic pop") \
 	NSDictionary *objDict = [obj dictionaryWithValuesForKeys: [obj allKeys]];
 
 	//Resurrect MyObject from NSDictionary using setValuesForKeysWithDictionary
-	MyObject *objResur = [[MyObject alloc] init];
+	MyObject *objResur = MyObject.new;
 	[objResur setValuesForKeysWithDictionary: objDict];
 */
 

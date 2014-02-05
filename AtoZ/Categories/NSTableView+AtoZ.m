@@ -219,7 +219,7 @@
 //
 //	if (view == nil)
 //	{
-//		view = [[NSButton alloc] initWithFrame:NSZeroRect];
+//		view = [NSButton.alloc initWithFrame:NSZeroRect];
 //		[view setEnabled:YES];
 //		[view setBordered:NO];
 //		[view setImagePosition:NSImageOnly];
@@ -311,7 +311,7 @@
 //
 //	if ((image == nil) || !NSEqualSizes(rowRect.size, [image size]))
 //	{
-//		image = [[NSImage alloc] initWithSize:rowRect.size];
+//		image = [NSImage.alloc initWithSize:rowRect.size];
 //		[image setFlipped:[self isFlipped]];
 //		[stickyView setImage:image];
 //		[image release];
@@ -353,7 +353,7 @@
 //		rowImage = [stickyView alternateImage];
 //		if ((rowImage == nil) || !NSEqualSizes(rowRect.size, [rowImage size]))
 //		{
-//			rowImage = [[NSImage alloc] initWithSize:rowRect.size];
+//			rowImage = [NSImage.alloc initWithSize:rowRect.size];
 //			[rowImage setFlipped:[self isFlipped]];
 //
 //			[stickyView setAlternateImage:rowImage];
@@ -649,7 +649,7 @@
 //		if ((_cachedImage == nil) || !NSEqualSizes(_fullFrame.size, [_cachedImage size]))
 //		{
 //			[_cachedImage release];
-//			_cachedImage = [[NSImage alloc] initWithSize:_fullFrame.size];
+//			_cachedImage = [NSImage.alloc initWithSize:_fullFrame.size];
 //			[_cachedImage setFlipped:[controlView isFlipped]];
 //		}
 //

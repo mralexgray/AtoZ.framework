@@ -19,7 +19,7 @@
 - (CGFloat)dividerThickness { return 12; }
 
 - (void)drawDividerInRect:(NSRect)aRect { // Create a canvas
-										  //	NSImage *canvas = [[NSImage alloc] initWithSize:aRect.size];
+										  //	NSImage *canvas = [NSImage.alloc initWithSize:aRect.size];
 										  //	// Draw bar and grip onto the canvas
 										  //	NSRect canvasRect = NSMakeRect(0, 0, [canvas size].width, [canvas size].height);
 										  //	NSRect gripRect = canvasRect;
@@ -188,7 +188,7 @@
 											   object:nil];
 
 	//	int options = (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect);
-		//	boxTrackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect
+		//	boxTrackingArea = [NSTrackingArea.alloc initWithRect:NSZeroRect
 		//												   options:options
 		//													 owner:self
 		//												  userInfo:nil];
@@ -271,7 +271,7 @@
 	NSLog(@"%@", NSStringFromRect(_shroud.upFrame));
 	NSLog(@"lebvel: %ld", [_leveler windowNumber]);
 		// Create a bitmap rep from the window and convert to NSImage...
-		//	NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage: capturedImage];
+		//	NSBitmapImageRep *bitmapRep = [NSBitmapImageRep.alloc initWithCGImage: capturedImage];
 //	NSRect screenBoxRect = [_shroud convertRectToScreen:[mBox frame]];
 
 //	NSRect frame = AZMenulessScreenRect();
@@ -298,7 +298,7 @@
 		//	= image;
 //	NSImage 	*resultingImage = nil;	CGImageRef image;
 //	CGWindowID  windowID = (CGWindowID);
-//	resultingImage = [[NSImage alloc] initWithCGImage:image size:NSZeroSize];
+//	resultingImage = [NSImage.alloc initWithCGImage:image size:NSZeroSize];
 //	CGImageRelease(image);
 	_view.image = [[NSImage imageFromCGImageRef:
 				   CGWindowListCreateImage(	NSRectToCGRect(AZMenulessScreenRect()), kCGWindowListOptionOnScreenBelowWindow,
@@ -323,7 +323,7 @@
 											   kCGWindowListOptionIncludingWindow,
 											   (CGWindowID)[[aView window] windowNumber],
 											   kCGWindowImageDefault);
-	return [[NSImage alloc] initWithCGImage:cgimg size:[aView bounds].size];
+	return [NSImage.alloc initWithCGImage:cgimg size:[aView bounds].size];
 }
 	//	NSThread *e;
 	//	[self performSelector:@selector(defineRects) onThread:e withObject:nil waitUntilDone:YES];

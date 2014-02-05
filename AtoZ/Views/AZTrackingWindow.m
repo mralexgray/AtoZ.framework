@@ -456,7 +456,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//	[NSGraphicsContext saveGraphicsState];
 	NSLog(@"gitem gitl:  win: $%@", _windy.identifier);
 	/*	_t = self.t;
-	 NSBezierPath *path = [[NSBezierPath alloc] init];
+	 NSBezierPath *path = NSBezierPath.new;
 	 [path moveToPoint: _t.uno.a];		[path lineToPoint: _t.uno.b];	[path lineToPoint: _t.uno.c];
 	 [path closePath];		//			[RED set];						[path fill];
 	 [path addClip];

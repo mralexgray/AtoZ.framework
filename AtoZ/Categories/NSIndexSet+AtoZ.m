@@ -1,3 +1,4 @@
+#import "AtoZ.h"
 
 #import "NSIndexSet+AtoZ.h"
 
@@ -56,7 +57,7 @@
 	NSUInteger indexes[[self length]];
 	[self getIndexes:indexes];
 	indexes[position] = index;
-	return [[[NSIndexPath alloc] initWithIndexes:indexes length:[self length]] autorelease];
+	return [NSIndexPath.alloc initWithIndexes:indexes length:self.length];
 }
 @end
 

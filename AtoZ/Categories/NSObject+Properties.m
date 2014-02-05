@@ -133,7 +133,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	if (klass == NULL) {
 		return nil;
 	}
-	NSMutableDictionary *results = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *results = [[NSMutableDictionary.alloc init] autorelease];
 
 	unsigned int outCount, i;
 	objc_property_t *properties = class_copyPropertyList(klass, &outCount);

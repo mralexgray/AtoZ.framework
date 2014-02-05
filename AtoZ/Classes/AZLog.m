@@ -1,11 +1,12 @@
 
+#import "AtoZ.h"
 #import <Foundation/Foundation.h>
 #import <stdio.h>
 #import "AZLog.h"
 
 JREnumDefine ( LogEnv );
 
-@implementation 			 NSLogMessage
+@implementation NSLogMessage
 @synthesize  JSONRepresentation = _JSONRepresentation, data = _data, message = _message,
 													 file = _file,							 line = _line,		date = _date,
 											 function = _function;
@@ -61,11 +62,26 @@ NSA* AZEnvVars (char** envp)		{ 					NSMA * vars = NSMA.new; char** env;
 NSD* AZEnv		 (char** envp)		{	return [AZEnvVars(envp) mapToDictionary:^id(id o) {
 														return objc_getAssociatedObject(o, __VSTR(@"envVarValue"));		}];
 }
-void AZLogEnv	 (char** envp)		{ 	NSD* envD = AZEnv(envp);
+void AZLogEnv	 (char** envp)		{
+
+  NSD* envD   = AZEnv(envp);
 	NSUI length = [envD.allKeys lengthOfLongestMemberString] + 2;
-	LOGCOLORS( 	[NSA arrayWithArrays:[envD mapToArray:^NSArray *(id k, id v) { return @[[k paddedTo:length], v, zNL]; }]], 
-					[NSC colorsInListNamed:@"flatui"], nil);
-}
+  NSColor *keys = NSC.randomBrightColor, *vals = NSC.randomBrightColor;
+  NSArray *keysA = [NSColor gradientPalletteBetween:keys.darkerColor c2:keys.brighter steps:envD.count],
+        *valuesA = [NSColor gradientPalletteBetween:vals.darkerColor c2:vals.brighter steps:envD.count];
+
+//  LOGCOLORS( 	[NSA arrayWithArrays:[envD mapToArray:^NSArray *(id k, id v) {
+//    return @[[k paddedTo:length], v, zNL]; }]], [NSC colorsInListNamed:@"flatui"], nil);
+
+  [envD eachWithIndex:^(id key, id value, NSUInteger idx, BOOL *stop) {
+    [key = [key paddedRightTo:length] setLogForeground:keysA[idx]];
+    [value setLogForeground:valuesA[idx]];
+
+    printf("%s  %s\n", [key colorLogString].UTF8String, [value colorLogString].UTF8String);
+  }];
+  //[NSC colorsInListNamed:@"flatui"], nil);
+ }
+
 void QuietLog  (NSS*fmt,...)		{	va_list argList; va_start(argList, fmt);
 	printf("%s\n",  [[NSS stringWithFormat:fmt arguments:argList]UTF8String]);
 	va_end(argList);
@@ -337,7 +353,7 @@ NSA * COLORIZE		  ( id colorsAndThings, ...
 //	if (![format hasSuffix: @"\n"]) {
 //		format = [format stringByAppendingString: @"\n"];
 //	}
-//	NSString *body =  [[NSString alloc] initWithFormat: format arguments: arglist];
+//	NSString *body =  [NSString.alloc initWithFormat: format arguments: arglist];
 //	va_end (arglist);
 //	const char *threadName = [[[NSThread currentThread] name] UTF8String];
 //	NSString *fileName=[[NSString stringWithUTF8String:file] lastPathComponent];
@@ -366,7 +382,7 @@ NSA * COLORIZE		  ( id colorsAndThings, ...
 //	va_list argList;
 //	va_start(argList, format);
 //		// Perform format string argument substitution, reinstate %% escapes, then print
-//	NSString *s = [[[NSString alloc] initWithFormat:format arguments:argList]stringByReplacingAllOccurancesOfString:@"fff" withString:@"%.1f"];
+//	NSString *s = [[NSString.alloc initWithFormat:format arguments:argList]stringByReplacingAllOccurancesOfString:@"fff" withString:@"%.1f"];
 //		//for float the format specifier is %f and we can restrict it to print only two decimal place value by %.2f
 //	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
 //	[s release];
@@ -377,7 +393,7 @@ NSA * COLORIZE		  ( id colorsAndThings, ...
 //	// Get a reference to the arguments that follow the format parameter
 //	va_list argList;  va_start(argList, format);
 //	// Perform format string argument substitution, reinstate %% escapes, then print
-//	NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];
+//	NSString *s = [NSString.alloc initWithFormat:format arguments:argList];
 //	printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);
 //	[s release];
 //	va_end(argList);
@@ -389,7 +405,7 @@ NSA * COLORIZE		  ( id colorsAndThings, ...
 
 //void QuietLog (NSString *format, ...) {
 //	va_list argList;	va_start (argList, format);
-//	NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+//	NSString *message = [NSString.alloc initWithFormat:format arguments:argList];
 //	fprintf (stderr, "*** %s ***\n", [message UTF8String]);	 va_end  (argList);
 //} // QuietLog
 

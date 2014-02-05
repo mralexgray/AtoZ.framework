@@ -23,7 +23,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 		
 		for (int i = 0; i < varCount; i++) {
 			Ivar var = vars[i];
-			NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
+			NSString *name = [NSString.alloc initWithUTF8String:ivar_getName(var)];
 			[names addObject:name];
 			
 			if (ivar_getTypeEncoding(var)[0] == _C_ID)

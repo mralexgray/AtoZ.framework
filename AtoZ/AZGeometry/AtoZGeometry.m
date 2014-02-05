@@ -486,9 +486,8 @@ NSP AZP(CGF x, CGF y) { return (NSP){x,y}; }
 NSR 	AZRectBy						(CGF boundX, CGF boundY)	{
 	return NSMakeRect(0,0,boundX, boundY);
 }
-NSR	AZRectFromDim				(CGF   dim) {
-	return (NSR){0,0,dim,dim};
-}
+NSR	AZRectFromDim				(CGF   dim) {	return NSMakeRect(0,0,dim,dim); }
+
 NSSZ	AZSizeFromDimension		(CGF   dim) {
 	return NSMakeSize(dim, dim);
 }

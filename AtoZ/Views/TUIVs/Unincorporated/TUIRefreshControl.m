@@ -70,7 +70,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p) {
 		[self.tableView addObserver:self forKeyPath:@"dragging" options:NSKeyValueObservingOptionNew context:nil];
 		[self.tableView setPullDownView:self];
 
-		self.activity = [[TUIActivityIndicatorView alloc] initWithActivityIndicatorStyle:TUIActivityIndicatorViewStyleGray];
+		self.activity = [TUIActivityIndicatorView.alloc initWithActivityIndicatorStyle:TUIActivityIndicatorViewStyleGray];
 		self.activity.autoresizingMask = TUIViewAutoresizingFlexibleLeftMargin | TUIViewAutoresizingFlexibleRightMargin;
 		self.activity.alpha = 0.0f;
 		[self addSubview:self.activity];

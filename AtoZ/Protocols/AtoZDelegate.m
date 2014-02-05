@@ -62,7 +62,7 @@
 
 Watch for notification clicks if our delegate responds to th growlNotificationWasClicked: selector. Notifications will come in on a  unique notification name based on our app name, pid and GROWL_DISTRIBUTED_NOTIFICATION_CLICKED_SUFFIX.
 	int pid = [[NSProcessInfo processInfo] processIdentifier];
-	NSString *growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@-%d-%@",
+	NSString *growlNotificationClickedName = [NSString.alloc initWithFormat:@"%@-%d-%@",
 		appName, pid, GROWL_DISTRIBUTED_NOTIFICATION_CLICKED_SUFFIX];
 	if ([delegate respondsToSelector:@selector(growlNotificationWasClicked:)])
 		[NSDNC addObserver:self
@@ -76,7 +76,7 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 	[growlNotificationClickedName release];
 	
 //We also look for notifications which arne't pid-specific but which are for our application
-	growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@-%@",
+	growlNotificationClickedName = [NSString.alloc initWithFormat:@"%@-%@",
 									appName, GROWL_DISTRIBUTED_NOTIFICATION_CLICKED_SUFFIX];
 	if ([delegate respondsToSelector:@selector(growlNotificationWasClicked:)])
 		[NSDNC addObserver:self
@@ -89,7 +89,7 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 					   object:nil];
 	[growlNotificationClickedName release];
 
-	NSString *growlNotificationTimedOutName = [[NSString alloc] initWithFormat:@"%@-%d-%@",
+	NSString *growlNotificationTimedOutName = [NSString.alloc initWithFormat:@"%@-%d-%@",
 		appName, pid, GROWL_DISTRIBUTED_NOTIFICATION_TIMED_OUT_SUFFIX];
 	if ([delegate respondsToSelector:@selector(growlNotificationTimedOut:)])
 		[NSDNC addObserver:self
@@ -103,7 +103,7 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 	[growlNotificationTimedOutName release];
 	
 //We also look for notifications which arne't pid-specific but which are for our application
-	growlNotificationTimedOutName = [[NSString alloc] initWithFormat:@"%@-%@",
+	growlNotificationTimedOutName = [NSString.alloc initWithFormat:@"%@-%@",
 									 appName, GROWL_DISTRIBUTED_NOTIFICATION_TIMED_OUT_SUFFIX];
 	if ([delegate respondsToSelector:@selector(growlNotificationTimedOut:)])
 		[NSDNC addObserver:self
@@ -151,9 +151,9 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
    if(hasGNTP){
       //These should be the only way we get marked as having gntp
       if([GrowlXPCCommunicationAttempt canCreateConnection])
-         firstAttempt = [[[GrowlXPCRegistrationAttempt alloc] initWithDictionary:regDict] autorelease];
+         firstAttempt = [[GrowlXPCRegistrationAttempt.alloc initWithDictionary:regDict] autorelease];
       else if(networkClient)
-         firstAttempt = [[[GrowlGNTPRegistrationAttempt alloc] initWithDictionary:regDict] autorelease];
+         firstAttempt = [[GrowlGNTPRegistrationAttempt.alloc initWithDictionary:regDict] autorelease];
       
       if(firstAttempt){
          firstAttempt.delegate = (id <GrowlCommunicationAttemptDelegate>)self;
@@ -162,7 +162,7 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
    }
 
    if(!sandboxed){
-      secondAttempt = [[[GrowlApplicationBridgeRegistrationAttempt alloc] initWithDictionary:regDict] autorelease];
+      secondAttempt = [[GrowlApplicationBridgeRegistrationAttempt.alloc initWithDictionary:regDict] autorelease];
       secondAttempt.applicationName = [self _applicationNameForGrowlSearchingRegistrationDictionary:regDict];
       secondAttempt.delegate = (id <GrowlCommunicationAttemptDelegate>)self;
       [[self attempts] addObject:secondAttempt];
@@ -222,13 +222,13 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 // Selector called when a growl notification is clicked.  This should never b called manually, and the calling observer should only be registered if the delegate
 
 + (void) growlNotificationWasClicked:(NSNotification *)notification {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool *pool = NSAutoreleasePool.new;
 	[delegate growlNotificationWasClicked:
 		[[notification userInfo] objectForKey:GROWL_KEY_CLICKED_CONTEXT]];
 	[pool drain];
 }
 + (void) growlNotificationTimedOut:(NSNotification *)notification {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool *pool = NSAutoreleasePool.new;
 	[delegate growlNotificationTimedOut:
 		[[notification userInfo] objectForKey:GROWL_KEY_CLICKED_CONTEXT]];
 	[pool drain];
@@ -245,7 +245,7 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 }
 
 + (void) _growlIsReady:(NSNotification *)notification {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool *pool = NSAutoreleasePool.new;
 
    //We may have gotten a new version of growl
    [self _growlIsReachableUpdateCache:YES];

@@ -198,7 +198,7 @@
 	[cross setLineWidth:2.f];
 	[cross stroke];
 	// Draw the inner shadow
-	NSShadow *shadow = [[NSShadow alloc] init];
+	NSShadow *shadow = NSShadow.new;
 	[shadow setShadowColor:SNRWindowButtonInnerShadowColor];
 	[shadow setShadowBlurRadius:SNRWindowButtonInnerShadowBlurRadius];
 	[shadow setShadowOffset:SNRWindowButtonInnerShadowOffset];

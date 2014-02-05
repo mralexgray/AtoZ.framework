@@ -82,10 +82,6 @@
 	path = Frameworks/AtoZUI
 	url = https://github.com/mralexgray/AtoZUI.git
 	ignore = dirty
-[submodule "Frameworks/CocoaLumberjack"]
-	path = Frameworks/CocoaLumberjack
-	url = https://github.com/robbiehanson/CocoaLumberjack.git
-	ignore = dirty
 [submodule "Frameworks/MapKit"]
 	path = Frameworks/MapKit
 	url = https://github.com/mralexgray/MacMapKit.git
@@ -125,14 +121,6 @@
 [submodule "Frameworks/PhFacebook"]
 	path = Frameworks/PhFacebook
 	url = https://github.com/mralexgray/PhFacebook.git
-	ignore = dirty
-[submodule "Frameworks/CocoaHTTPServer"]
-	path = Frameworks/CocoaHTTPServer
-	url = https://github.com/mralexgray/CocoaHTTPServer.git
-	ignore = dirty
-[submodule "Frameworks/RoutingHTTPServer"]
-	path = Frameworks/RoutingHTTPServer
-	url = https://github.com/mralexgray/RoutingHTTPServer.git
 	ignore = dirty
 [submodule "Frameworks/KSHTMLWriter"]
 	path = Frameworks/KSHTMLWriter
@@ -269,27 +257,36 @@
 [submodule "xcconfigs"]
 	path = xcconfigs
 	url = https://github.com/mralexgray/xcconfigs.git
+	ignore = dirty
 [submodule "Frameworks/CFAAction"]
 	path = Frameworks/CFAAction
 	url = https://github.com/CodaFi/CFAAction.git
+	ignore = dirty
 [submodule "Frameworks/UAGithubEngine"]
 	path = Frameworks/UAGithubEngine
 	url = https://github.com/mralexgray/UAGithubEngine.git
+	ignore = dirty
 [submodule "AtoZ/Categories/StrictProtocols"]
 	path = AtoZ/Categories/StrictProtocols
 	url = https://github.com/mralexgray/StrictProtocols.git
+	ignore = dirty
 [submodule "AtoZ/Classes/BETaskHelper"]
 	path = AtoZ/Classes/BETaskHelper
 	url = https://github.com/mralexgray/BETaskHelper.git
+	ignore = dirty
 [submodule "Frameworks/RoutingHTTPServerFramework"]
 	path = Frameworks/RoutingHTTPServerFramework
 	url = https://github.com/mralexgray/RoutingHTTPServerFramework.git
+	ignore = dirty
 [submodule "Frameworks/twitter_bootstrap_admin"]
 	path = Frameworks/twitter_bootstrap_admin
 	url = https://github.com/mralexgray/twitter_bootstrap_admin
+	ignore = dirty
 [submodule "Frameworks/NMSSH"]
 	path = Frameworks/NMSSH
 	url = https://github.com/mralexgray/NMSSH.git
+	ignore = dirty
 [submodule "FrameWorks/AutoCoding"]
 	path = FrameWorks/AutoCoding
 	url = https://github.com/mralexgray/AutoCoding.git
+	ignore = dirty

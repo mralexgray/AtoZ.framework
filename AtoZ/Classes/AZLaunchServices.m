@@ -51,7 +51,7 @@ typedef  id (^AZMappingBlock)(id obj);
 	NSArray *tmp = (NSArray *)LSSharedFileListCopySnapshot(list, NULL);
 	CFRelease(list);
 	id value = [AZLaunchServices mappingArray: tmp usingBlock:^id(id obj) {
-		AZLaunchServicesListItem *item =[[AZLaunchServicesListItem alloc] init];
+		AZLaunchServicesListItem *item =AZLaunchServicesListItem.new;
 		[item setName: [(NSString *)LSSharedFileListItemCopyDisplayName((LSSharedFileListItemRef)obj) autorelease]];
 		NSURL *url = nil;
 		LSSharedFileListItemResolve((LSSharedFileListItemRef)obj, 0, (CFURLRef *)&url, NULL);

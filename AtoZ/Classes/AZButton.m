@@ -139,7 +139,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	 NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:roundedRadius yRadius:roundedRadius];
 	 [outerClip setClip];
 	 
-	 NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations:
+	 NSGradient *outerGradient = [NSGradient.alloc initWithColorsAndLocations:
 	 [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f, 
 	 [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f, 
 	 nil];
@@ -154,7 +154,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	 NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:roundedRadius yRadius:roundedRadius];
 	 [backgroundPath setClip];
 	 self.buttonColor = RED;
-	 NSGradient *backgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+	 NSGradient *backgroundGradient = [NSGradient.alloc initWithColorsAndLocations:
 	 //			[[[buttonColor darker] darker]darker]
 	 BLACK, 0,
 	 [[buttonColor darker] darker], .12,
@@ -252,7 +252,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	//	[textShadow setShadowColor:[contrasting isDark] ? [NSColor whiteColor] : [NSColor blackColor]]; AZButtonBlueTextShadowColor : AZButtonBlackTextShadowColor];
 	[textShadow setShadowBlurRadius:blue ? AZButtonBlueTextShadowBlurRadius : AZButtonBlackTextShadowBlurRadius];
 	NSDictionary *attributes = @{NSFontAttributeName: AZButtonTextFont, NSForegroundColorAttributeName: contrasting, NSShadowAttributeName: textShadow};
-	NSAttributedString *attrLabel = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+	NSAttributedString *attrLabel = [NSAttributedString.alloc initWithString:label attributes:attributes];
 	NSSize labelSize = attrLabel.size;
 	NSRect labelRect = NSMakeRect(NSMidX(frame) - (labelSize.width / 2.f), NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
 	[attrLabel drawInRect:NSIntegralRect(labelRect)];
@@ -271,7 +271,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	 NSFont *buttonFont = [NSFont fontWithName:@"Ubuntu Mono Bold" size:12.0];
 	 
 	 NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:buttonFont, NSFontAttributeName, contrasting, NSForegroundColorAttributeName, textShadow, NSShadowAttributeName, nil];
-	 NSAttributedString *attrLabel = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+	 NSAttributedString *attrLabel = [NSAttributedString.alloc initWithString:label attributes:attributes];
 	 NSSize labelSize = title.size;
 	 NSRect labelRect = NSMakeRect(NSMidX(frame) - (labelSize.width / 2.f), NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
 	 [attrLabel drawInRect: frame];
@@ -289,7 +289,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	[textShadow setShadowColor:AZButtonBlackTextShadowColor];
 	[textShadow setShadowBlurRadius:AZButtonBlackTextShadowBlurRadius];
 	NSDictionary *attributes = @{NSFontAttributeName: AZButtonTextFont, NSForegroundColorAttributeName: AZButtonTextColor, NSShadowAttributeName: textShadow};
-	NSAttributedString *attrLabel = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+	NSAttributedString *attrLabel = [NSAttributedString.alloc initWithString:label attributes:attributes];
 	NSSize labelSize = attrLabel.size;
 	NSRect labelRect = NSMakeRect(frame.origin.x + AZButtonCheckboxTextOffset, NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
 	[attrLabel drawInRect:NSIntegralRect(labelRect)];
@@ -315,8 +315,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 ////	BOOL green = [self az_shouldDrawGreenButton];
 //	BOOL custom = TRUE; //( buttonColor == nil );
 //	__bezelPath = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:AZButtonCornerRadius yRadius:AZButtonCornerRadius];
-//	NSGradient *gradientFill = [[NSGradient alloc]
-//	initWithStartingColor: 	blue ? AZButtonGreenGradientBottomColor : 
+//	NSGradient *gradientFill = [NSGradient.alloc //	initWithStartingColor: 	blue ? AZButtonGreenGradientBottomColor : 
 //						   	custom ? [[buttonColor darker]darker] : AZButtonBlackGradientBottomColor
 //	endingColor:			blue ? AZButtonGreenGradientTopColor : 
 //							custom ? buttonColor : AZButtonBlackGradientTopColor];
@@ -395,7 +394,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 //	[textShadow setShadowColor:AZButtonBlackTextShadowColor];
 //	[textShadow setShadowBlurRadius:AZButtonBlackTextShadowBlurRadius];
 //	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:AZButtonTextFont, NSFontAttributeName, AZButtonTextColor, NSForegroundColorAttributeName, textShadow, NSShadowAttributeName, nil];
-//	NSAttributedString *attrLabel = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+//	NSAttributedString *attrLabel = [NSAttributedString.alloc initWithString:label attributes:attributes];
 //	NSSize labelSize = attrLabel.size;
 //	NSRect labelRect = NSMakeRect(frame.origin.x + AZButtonCheckboxTextOffset, NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
 //	[attrLabel drawInRect:NSIntegralRect(labelRect)];
@@ -419,7 +418,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 
 - (id)initWithFrame:(NSRect)frame{
 	if((self = [super initWithFrame:frame]))
-		[self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.visibleRect options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways owner:self userInfo:nil]];
+		[self addTrackingArea:[NSTrackingArea.alloc initWithRect:self.visibleRect options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways owner:self userInfo:nil]];
 	return self;
 }
 

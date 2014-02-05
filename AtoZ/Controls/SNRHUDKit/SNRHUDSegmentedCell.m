@@ -231,7 +231,7 @@
 		NSRect labelRect = NSMakeRect((image == nil) ? (NSMidX(frame) - (labelSize.width / 2.f)) : (NSMaxX(imageRect) + SNRSegControlImageLabelMargin), NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
 		[attrLabel drawInRect:NSIntegralRect(labelRect)];
 	}
-	NSImageCell *imageCell = [[NSImageCell alloc] init];
+	NSImageCell *imageCell = NSImageCell.new;
 	[imageCell setImage:image];
 	[imageCell setImageScaling:[self imageScalingForSegment:segment]];
 	[imageCell setHighlighted:[self isHighlighted]];

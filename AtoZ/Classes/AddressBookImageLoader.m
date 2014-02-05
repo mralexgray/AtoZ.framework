@@ -1,5 +1,5 @@
 
-
+#import "AtoZ.h"
 #import "AddressBookImageLoader.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBook/ABAddressBookC.h>
@@ -719,7 +719,7 @@ static NSString * const kImageDataKey = @"image";
 
 + (id) groupWithRecord: (ABRecordRef) grouprec
 {
-	return [[[ABGroup alloc] initWithRecord:grouprec] autorelease];
+	return [[ABGroup.alloc initWithRecord:grouprec] autorelease];
 }
 
 + (id) groupWithRecordID: (ABRecordID) recordID
@@ -963,7 +963,7 @@ static NSString * const kImageDataKey = @"image";
 		{
 		}
 		////			AGBox *b = [AGBox new];
-		//			NSImage *image = [[NSImage alloc] initWithData:imageData];
+		//			NSImage *image = [NSImage.alloc initWithData:imageData];
 		//			[[NSImageView alloc]initWithFrame: setContents:image];
 		//			[images addbject:b];
 		////			b.layer.contents = [NSImage  image imageData ima]

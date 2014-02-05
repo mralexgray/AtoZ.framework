@@ -81,9 +81,17 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 /*
  // 4) Add this method to the implementation file
- //- (id)forwardingTargetForSelector:(SEL)sel	{		if(		sel == @selector(runOperation:withMsg:)	|| sel == @selector(operationsSet)			||		sel == @selector(operationsCount)		|| sel == @selector(cancelOperations)		||		sel == @selector(enumerateOperations:)		) {		if(!operationsRunner) {	// Object only created if needed			operationsRunner = [[OperationsRunner alloc] initWithDelegate:self];		}	return operationsRunner;	} else {	return [super forwardingTargetForSelector:sel];	}	}
+ //- (id)forwardingTargetForSelector:(SEL)sel	{		if(		sel == @selector(runOperation:withMsg:)	|| sel == @selector(operationsSet)			||		sel == @selector(operationsCount)		|| sel == @selector(cancelOperations)		||		sel == @selector(enumerateOperations:)		) {		if(!operationsRunner) {	// Object only created if needed			operationsRunner = [OperationsRunner.alloc initWithDelegate:self];		}	return operationsRunner;	} else {	return [super forwardingTargetForSelector:sel];	}	}
  */
 
+
+@implementation NSObject (AZTestRoutine)
++ (NSA*) testableClasses {
+
+  NSArray
+}
++ (NSA*) testableMethods;
+@end
 
 
 static BOOL fontsRegistered;
@@ -95,7 +103,9 @@ static BOOL fontsRegistered;
 //	return [NSIMG imageNamed:name];	?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
 //	i.name 	= i.name ?: name;	return/ i;	}
 
-@implementation AtoZ	{	__weak id _constantShortcutMonitor;	}	@synthesize delegates = _delegates;
+@implementation AtoZ	{	__weak id _constantShortcutMonitor;	}
+
+//@synthesize delegates = _delegates;
 
 
 - (void) setUp 						{
@@ -157,18 +167,18 @@ static BOOL fontsRegistered;
 	}];
 }
 
-- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
-+ (NSMA*) delegates { return [sharedI delegates]; }
+//- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
+//+ (NSMA*) delegates { return [sharedI delegates]; }
 
-+ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
-	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
-}
-+ (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
-+ (BOOL) isAtoZRunning {
-
-	return self.delegate &&
-			 [NSRunningApplication runningApplicationsWithBundleIdentifier:[[self delegate].bundle bundleIdentifier]].count;
-}
+//+ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
+//	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
+//}
+//+ (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
+//+ (BOOL) isAtoZRunning {
+//
+//	return self.delegate &&
+//			 [NSRunningApplication runningApplicationsWithBundleIdentifier:[[self delegate].bundle bundleIdentifier]].count;
+//}
 + (NSW*) window 						{ return [self.sharedInstance azWindow]; }
 
 - (NSW*) azWindow 					{ return _azWindow = _azWindow ?: ^{ return
@@ -773,7 +783,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 }
 +(NSIMG*) cropImage:		(NSIMG*)sourceImage      withRect:(NSR)sourceRect	{
 
-	NSImage* cropImage = [[NSImage alloc] initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
+	NSImage* cropImage = [NSImage.alloc initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
 	[cropImage lockFocus];
 	[sourceImage drawInRect:(NSRect){ 0, 0, sourceRect.size.width, sourceRect.size.height}
 						fromRect:sourceRect		operation:NSCompositeSourceOver fraction:1.0];

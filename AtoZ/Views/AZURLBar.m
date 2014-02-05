@@ -1,5 +1,7 @@
 
 #import "AZURLBar.h"
+#import "AtoZ.h"
+#import "AZLogConsole.h"
 
 
 #define kAZURLBarGradientColorTop [NSColor colorWithCalibratedRed:0.9f green:0.9f blue:0.9f alpha:1.0f]
@@ -66,7 +68,7 @@
 		[self.superview addSubview:self.consoleSplit = [AGNSSplitView.alloc initWithFrame:self.bounds]];
 		_consoleSplit.arMASK = NSSIZEABLE;
 		[_consoleSplit setVertical:YES];
-		_consoleSplit.subviews = @[self, _console = [AZLogConsoleView.alloc initWithFrame:self.bounds]];
+		_consoleSplit.subviews = @[self,_console = [AZLogConsoleView.alloc initWithFrame:self.bounds]];
 		_console.arMASK = NSSIZEABLE;
 		[_consoleSplit setPosition:_consoleSplit.width -50 ofDividerAtIndex:0];
 		[_console logString:NSS.dicksonBible file:NULL lineNumber:1];
@@ -80,14 +82,14 @@
 		}];
 		//		self.urlBar.addressString = @"https://pods.AZ-interactive.com";
 		//	self.urlBar.frame = AZUpperEdge(self.window.contentRect, 100);
-		NSButton *reloadButton = [[NSButton alloc] init];
+		NSButton *reloadButton = NSButton.new;
 		[reloadButton setTranslatesAutoresizingMaskIntoConstraints:NO];
 		[reloadButton setBezelStyle:NSInlineBezelStyle];
 		[reloadButton setImage:[NSImage imageNamed:@"NSRefreshTemplate"]];
 		[reloadButton setTarget:self];
 		[reloadButton setAction:@selector(reloadURL:)];
 		_urlBar.leftItems = @[reloadButton];
-		NSButton *alertButton = [[NSButton alloc] init];
+		NSButton *alertButton = NSButton.new;
 		[alertButton setTranslatesAutoresizingMaskIntoConstraints:NO];
 		[alertButton setBezelStyle:NSInlineBezelStyle];
 		[alertButton setTitle:@"Alert"];
@@ -105,7 +107,7 @@
 
 - (void)urlBar:(AZURLBar *)urlBar didRequestURL:(NSURL *)url
 {
-	[[self mainFrame] loadRequest:[[NSURLRequest alloc] initWithURL:url]];
+	[[self mainFrame] loadRequest:[NSURLRequest.alloc initWithURL:url]];
 	self.urlBar.progressPhase = AZProgressPhasePending;
 }
 
@@ -238,7 +240,7 @@
 		self.urlTextField.drawsBackground 	= NO;
 		self.urlTextField.textColor 			= [NSColor blackColor];
 		[self.urlTextField.cell setLineBreakMode:NSLineBreakByTruncatingTail];
-		self.urlTextField.formatter 			= [[AZURLFormatter alloc] init];
+		self.urlTextField.formatter 			= AZURLFormatter.new;
 		self.urlTextField.action 				= @selector(didPressEnter:);
 		self.urlTextField.target 				= self;
 		[self addSubview:self.urlTextField];
@@ -359,10 +361,10 @@
 
 	NSColor* color6 = [NSColor colorWithCalibratedRed: 1 green: 1 blue: 1 alpha: 0];
 
-	NSGradient* progressGradient = [[NSGradient alloc] initWithStartingColor: color5 endingColor: color4];
+	NSGradient* progressGradient = [NSGradient.alloc initWithStartingColor: color5 endingColor: color4];
 
 	//// Shadow Declarations
-	NSShadow* shadow = [[NSShadow alloc] init];
+	NSShadow* shadow = NSShadow.new;
 	[shadow setShadowColor: strokeColor];
 	[shadow setShadowOffset: NSMakeSize(0.1, -1.1)];
 	[shadow setShadowBlurRadius: 3];
@@ -382,7 +384,7 @@
 		//// Background Drawing
 		if (self.gradientColorTop && self.gradientColorBottom)
 		{
-			[[[NSGradient alloc] initWithStartingColor:self.gradientColorTop endingColor:self.gradientColorBottom] drawInRect:self.bounds angle:-90.0];
+			[[NSGradient.alloc initWithStartingColor:self.gradientColorTop endingColor:self.gradientColorBottom] drawInRect:self.bounds angle:-90.0];
 		}
 
 		[NSBezierPath setDefaultLineWidth:0.0f];

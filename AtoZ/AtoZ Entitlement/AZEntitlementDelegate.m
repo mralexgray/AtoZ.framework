@@ -27,7 +27,7 @@
 //	}];
 //	_iconStyle = 1;
 //	NSLog(@"QuadProps, %@", _quad.propertiesPlease);
-//	self.g	 = [[AZFileGridView alloc] initWithFrame:r andFiles:[AtoZ appFolderSamplerWith:RAND_INT_VAL(23, 55)]];
+//	self.g	 = [AZFileGridView.alloc initWithFrame:r andFiles:[AtoZ appFolderSamplerWith:RAND_INT_VAL(23, 55)]];
 //	[_g setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
 
 //	[_window1 setContentView:_g];
@@ -42,7 +42,7 @@
 }
 - (void) awakeFromNib {
 
-//	self.quad = [[AZQuadCarousel alloc]init];
+//	self.quad = AZQuadCarousel.new;
 //	self.quad.content = [AtoZ appFolderSamplerWith:23].mutableCopy;
 //	NSLog(@"Sampler:  %@", self.quad.content);
 

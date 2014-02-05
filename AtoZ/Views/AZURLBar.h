@@ -1,6 +1,7 @@
 
 
-
+#import "AGNSSplitView.h"
+#import "AZLogConsole.h"
 
 
 //@protocol AZWebKitProgressDelegate <NSObject>

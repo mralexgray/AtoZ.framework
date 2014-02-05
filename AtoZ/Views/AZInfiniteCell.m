@@ -11,7 +11,7 @@
 //	representedObject = anObjectRep;
 //	if ( [representedObject isKindOfClass:[AZFile class]] ){
 //		AZFile *c = representedObject;
-		//		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
+		//		gradient = [NSGradient.alloc initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
 //		color = c.color;
 //		image = [ c.image coloredWithColor:c.color.contrastingForegroundColor];
 
@@ -67,10 +67,10 @@
 	float hue = [theColor hueComponent];
 	float sat = [theColor saturationComponent];
 	float lum = [theColor luminance];
-	NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: $(@"H:%0.1f\nS:%0.1f\nL:%0.1f", hue,sat,lum) attributes:$map(
+	NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: $(@"H:%0.1f\nS:%0.1f\nL:%0.1f", hue,sat,lum) attributes:$map(
 																																						[NSFont fontWithName:@"Ubuntu Mono Bold" size:15],
 																																						NSFontAttributeName, BLACK, NSForegroundColorAttributeName)];
-	NSMutableParagraphStyle *theStyle =[[NSMutableParagraphStyle alloc] init];
+	NSMutableParagraphStyle *theStyle =NSMutableParagraphStyle.new;
 	[theStyle setLineSpacing:12];
 	NSTextView *atv = [[NSTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];
 	[atv setDefaultParagraphStyle:theStyle];
@@ -207,7 +207,7 @@
 @end
 //- (NSAttributedString *) string {
 //	string = nil;
-//	string = [[NSAttributedString alloc] initWithString:
+//	string = [NSAttributedString.alloc initWithString:
 //			  [NSString stringWithFormat:@"NOT SO UNIQUE ID:\n%@\n\nSELECTED: %@ ", uniqueID,									StringFromBOOL(selected)]
 //											 attributes:[NSDictionary dictionaryWithObjectsAndKeys:
 //														 [NSFont fontWithName:@"Ubuntu Mono Bold" size:15],
@@ -275,10 +275,10 @@
 
 ////	self.windy = nil;
 ////	[self.windy makeKeyAndOrderFront:self];
-////	AZTalker *f = [[AZTalker alloc]init];
+////	AZTalker *f = AZTalker.new;
 ////	[f say:$(@"%@", self.file.name)];
 
-//	AZTalker *f = [[AZTalker alloc]init];
+//	AZTalker *f = AZTalker.new;
 //	[f say:$(@"%@", self.file.name)];
 //	id aView = self.superview;
 //	while (! [ aView isKindOfClass:[AZInfiniteScrollView class]])
@@ -353,7 +353,7 @@
  }
 
  if (self = [super initWithFrame:frame]) {
- tArea = [[NSTrackingArea alloc] initWithRect:[self frame]
+ tArea = [NSTrackingArea.alloc initWithRect:[self frame]
  options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect |
  NSTrackingMouseMoved
  )
@@ -368,7 +368,7 @@
  //		backgroundColor = [NSColor randomColor];
  //		self.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
  uniqueID = [NSString newUniqueIdentifier];
- //		self.itunesApi = [[AJSiTunesAPI alloc] init];
+ //		self.itunesApi = AJSiTunesAPI.new;
  //		self.itunesApi.delegate = self;	*/
 
 //- (void)updateTrackingAreas
@@ -382,7 +382,7 @@
 //}
 //- (void) makeTextView {
 
-//	NSMutableParagraphStyle *theStyle =[[NSMutableParagraphStyle alloc] init];
+//	NSMutableParagraphStyle *theStyle =NSMutableParagraphStyle.new;
 //	[theStyle setLineSpacing:12];
 //	atv = [[AZTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];
 //	[atv setSelectable:NO];

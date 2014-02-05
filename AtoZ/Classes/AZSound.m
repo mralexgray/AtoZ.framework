@@ -77,12 +77,12 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 + (Sound *)soundWithContentsOfFile:(NSString *)path
 {
-	return AH_AUTORELEASE([[self alloc] initWithContentsOfFile:path]);
+	return [self.alloc initWithContentsOfFile:path];
 }
 
 + (Sound *)soundWithContentsOfURL:(NSURL *)url
 {
-	return AH_AUTORELEASE([[self alloc] initWithContentsOfURL:url]);
+	return [self.alloc initWithContentsOfURL:url];
 }
 
 - (Sound *)initWithContentsOfFile:(NSString *)path;
@@ -104,7 +104,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 	if ((self = [super init]))
 		{
-		url = AH_RETAIN(_url);
+		url = _url;
 		baseVolume = .60f;
 
 #ifdef SM_USE_AV_AUDIO_PLAYER
@@ -254,7 +254,8 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 - (void)dealloc
 {
-	[timer invalidate]; AH_RELEASE(timer); AH_RELEASE(url); AH_RELEASE(sound); AH_RELEASE(completionHandler); AH_SUPER_DEALLOC;
+	[timer invalidate];
+//  AH_RELEASE(timer); AH_RELEASE(url); AH_RELEASE(sound); AH_RELEASE(completionHandler); AH_SUPER_DEALLOC;
 }
 
 @end
@@ -280,7 +281,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 	return [SoundManager sharedInstance];
 
 //	static SoundManager *sharedManager = nil;
-//	if (sharedManager == nil) sharedManager = [SoundManager ];//[[self alloc] init];
+//	if (sharedManager == nil) sharedManager = [SoundManager ];//self.new;
 //	return sharedManager;
 }
 
@@ -464,7 +465,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	AH_RELEASE(currentMusic); AH_RELEASE(currentSounds); AH_SUPER_DEALLOC;
+//	AH_RELEASE(currentMusic); AH_RELEASE(currentSounds); AH_SUPER_DEALLOC;
 }
 
 @end

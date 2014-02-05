@@ -37,6 +37,6 @@
 
 @implementation NSObject (SDStuff)
 - (id) nextRunloopProxy {
-	return [[SDNextRunloopProxy alloc] initWithTarget:self];
+	return [SDNextRunloopProxy.alloc initWithTarget:self];
 }
 @end

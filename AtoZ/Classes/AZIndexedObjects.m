@@ -7,9 +7,12 @@
 //
 
 #import "AZIndexedObjects.h"
+#import "AtoZ.h"
+
+
 
 @interface AZIndexedObjects ()
-AZPROPERTY(NSMD,strong,*map)
+@property NSMD*map;
 @end
 #define IDX(_x_) @(_x_).stringValue
 
@@ -18,7 +21,9 @@ AZPROPERTY(NSMD,strong,*map)
 -   (id) init {  return self = super.init ? _map = NSMD.new, self : nil; }
 -   (id) objectAtIndex:	(NSUI)idx {
 
-	return [_map.allKeys containsObject:IDX(idx)] ? ((NUWeakReference*)[_map objectForKey:IDX(idx)]).ref : nil;
+  if ([_map.allKeys containsObject:IDX(idx)])
+    return ((NUWeakReference*)_map[IDX(idx)]).ref;
+  else return nil;
 }
 -  (NSI) indexOfObject:	(id)x {
 

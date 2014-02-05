@@ -193,7 +193,7 @@
 	[self removeFinLayers];
 
 	// Create new fin layers
-	_finLayers = [[NSMutableArray alloc] initWithCapacity:_numFins];
+	_finLayers = [NSMutableArray.alloc initWithCapacity:_numFins];
 
 	CGRect finBounds = [self finBoundsForCurrentBounds];
 	CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];

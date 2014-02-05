@@ -16,7 +16,7 @@
 #pragma mark - Creation
 
 + (id)orderedDictionary{
-	return [[NSOrderedDictionary alloc] init];
+	return NSOrderedDictionary.new;
 }
 
 + (id)orderedDictionaryWithOrderedDictionary:(NSOrderedDictionary *)orderedDictionary
@@ -52,7 +52,7 @@
 	if (self != nil) {
 		keys = NSMutableArray.new;
 		objects = NSMutableArray.new;
-		pairs = [[NSMutableDictionary alloc] init];
+		pairs = NSMutableDictionary.new;
 	}
 	return self;
 }
@@ -635,7 +635,7 @@
 
 - (NSString *)description
 {
-	NSMutableString *string = [[NSMutableString alloc] init];
+	NSMutableString *string = NSMutableString.new;
 	[string appendString:@"{\n"];
 	for (int i = 0; i < self.count; i++) {
 		id key = [keys objectAtIndex:i];
@@ -661,7 +661,7 @@
 
 - (NSString *)descriptionWithLocale:(id)locale
 {
-	NSMutableString *string = [[NSMutableString alloc] init];
+	NSMutableString *string = NSMutableString.new;
 	[string appendString:@"{\n"];
 	for (int i = 0; i < self.count; i++) {
 		id key = [keys objectAtIndex:i];
@@ -691,7 +691,7 @@
 
 - (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level
 {
-	NSMutableString *string = [[NSMutableString alloc] init];
+	NSMutableString *string = NSMutableString.new;
 	[string appendString:@"{\n"];
 	for (int i = 0; i < self.count; i++) {
 		id key = [keys objectAtIndex:i];

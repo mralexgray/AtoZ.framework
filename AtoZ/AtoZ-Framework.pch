@@ -1,5 +1,55 @@
 
 #ifdef __OBJC__
+
+
+//@import ApplicationServices;
+//#import <ApplicationServices/ApplicationServices.h>
+//@import AudioToolbox;
+//#import <AudioToolbox/AudioToolbox.h>
+//@import AVFoundation;
+//#import <AVFoundation/AVFoundation.h>
+//@import Cocoa;
+#import <Cocoa/Cocoa.h>
+//@import CoreServices;
+//#import <CoreServices/CoreServices.h>
+//#import <Dispatch/Dispatch.h>
+#import <Foundation/Foundation.h>
+#import <Foundation/NSObjCRuntime.h>
+#import <QuartzCore/QuartzCore.h>
+//#import <SystemConfiguration/SystemConfiguration.h>
+//#import <WebKit/WebKit.h>
+//#import <objc/runtime.h>
+
+
+#import <Zangetsu/Zangetsu.h>
+#import <AtoZAppKit/AtoZAppKit.h>
+#import "AtoZAutoBox/AtoZAutoBox.h"
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <BlocksKit/A2DynamicDelegate.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BWTK/BWToolkitFramework.h>
+#import <CFAAction/CFAAction.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <CocoatechCore/CocoatechCore.h>
+#import <DrawKit/DKDrawKit.h>
+#import <FunSize/FunSize.h>
+#import <KSHTMLWriter/KSHTMLWriter.h>
+#import <MenuApp/MenuApp.h>
+#import <NMSSH/NMSSH.h>
+#import <NoodleKit/NoodleKit.h>
+#import <PhFacebook/PhFacebook.h>
+#import <Rebel/Rebel.h>
+
+#import "AtoZAutoBox/AtoZAutoBox.h"
+#import "AtoZMacroDefines.h"
+#import "BaseModel.h"
+#import "JREnum.h"
+  
+#import "AtoZTypes.h"
+#import "AtoZUmbrella.h"
+#import "AtoZGeometry.h"
+#endif
+
 //	#import <Availability.h>
 //	#import <TargetConditionals.h>
 //	#if TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED
@@ -8,11 +58,7 @@
 //	#import <sys/xattr.h>
 //	#else
 //	#import <objc/NSObjCRuntime.h>
-
-	#import <Foundation/Foundation.h>
-	#import <Cocoa/Cocoa.h>
- 	#import <Zangetsu/Zangetsu.h>
-
+/*
 	#import <pwd.h>
 	#import <stdio.h>
 	#import <netdb.h>
@@ -29,29 +75,35 @@
 	#import <arpa/inet.h>
 	#import <objc/objc.h>
 	#import <netinet/in.h>
-	#import <objc/message.h>
-	#import <objc/runtime.h>
-	#import <libkern/OSAtomic.h>
-	#import <AppKit/AppKit.h>
-	#import <Carbon/Carbon.h>
-	#import <Quartz/Quartz.h>
-	#import <Python/Python.h>
+*/
+//	#import <objc/message.h>
+//	#import <objc/runtime.h>
+//	#import <libkern/OSAtomic.h>
+/*
+#import <AppKit/AppKit.h>
+#import <Carbon/Carbon.h>
+#import <Quartz/Quartz.h>
+//	//@import Python;
+#import <Python/Python.h>
+
 	#import <dispatch/dispatch.h>
 	#import <WebKit/WebKit.h>
 	#import <Foundation/Foundation.h>
 	#import <Security/Security.h>
 	#import <QuartzCore/QuartzCore.h>
-//	#import <AudioToolbox/AudioToolbox.h>
-//	#import <CoreFoundation/CoreFoundation.h>
-//	#import <CoreServices/CoreServices.h>
-//	#import <CoreData/CoreData.h>
-//	#import <AVFoundation/AVFoundation.h>
+	#import <AudioToolbox/AudioToolbox.h>
+	#import <CoreFoundation/CoreFoundation.h>
+	#import <CoreServices/CoreServices.h>
+	#import <CoreData/CoreData.h>
+	#import <AVFoundation/AVFoundation.h>
 	#import <ApplicationServices/ApplicationServices.h>
 	#import <SystemConfiguration/SystemConfiguration.h>
-//	#import <Foundation/NSObjCRuntime.h>
+
+	#import <Foundation/NSObjCRuntime.h>
 	#import "AZObserversAndBinders.h"
 	#import <TwUI/TUIKit.h>
 	#import <RoutingHTTPServer/RoutingHTTPServer.h>
+
 
 //	#import <extobjc_OSX/e.h>
 //	#import "extobjc_OSX/extobjc.h"
@@ -59,39 +111,52 @@
 
 	#import <FunSize/FunSize.h>
 	#import <DrawKit/DKDrawKit.h>
-	#import "AtoZAutoBox/NSObject+DynamicProperties.h"
+//	#import "AtoZAutoBox/NSObject+DynamicProperties.h"
+  #import <AtoZAppKit/AtoZAppKit.h>
+	#import <BlocksKit/BlocksKit.h>
+	#import <CocoaPuffs/CocoaPuffs.h>
+	#import <AtoZBezierPath/AtoZBezierPath.h>
+	#import "AtoZAutoBox/AtoZAutoBox.h"
 	#import "KVOMap/KVOMap.h"
 	#import "F.h"
 //	#import "GCDAsyncSocket.h"
 //	#import "GCDAsyncSocket+AtoZ.h"
 	#import "objswitch.h"
-	#import "JREnum.h"
 	#import "BaseModel.h"
 	#import "AtoZMacroDefines.h"
+	#import "JREnum.h"
 	#import "AtoZTypes.h"
 	#import "AtoZGeometry.h"
 	#import "AtoZCategories.h"
 	#import "AtoZUmbrella.h"
-
+  #import "BlocksAdditions.h"
+  #import "SynthesizeSingleton.h"
 
 //	#import "GCDAsyncSocket.h"
 //	#import "HTTPServer.h"
+
+*/
 /*	#define EXCLUDE_STUB_PROTOTYPES 1
 	#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 	#import <MenuApp/MenuApp.h>
-	#import <Rebel/Rebel.h>
+#import <Rebel/Rebel.h>
 	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
 	#import <NanoStore/NanoStore.h>
-	#import <BlocksKit/BlocksKit.h>
-	#import <CocoaPuffs/CocoaPuffs.h>
-	#import <AtoZBezierPath/AtoZBezierPath.h>
-	#import <AIUtilities/AIUtilities.h>
-	#import "NSTerminal.h"
 */
+/*
+#import <ApplicationServices/ApplicationServices.h>
+#import "BaseModel.h"
+//	#import <AIUtilities/AIUtilities.h>
+	#import "NSTerminal.h"
+
+	#define release 			self										// Is this right?  Why's mine different?
+  #define autorelease 		self										// But shit hits fan without.
+*/
+/*
 	#import "AZLog.h"
 	#import "NSUserDefaults+Subscript.h"
 	#import "AZProcess.h"
-#endif
+*/
 
 /**
 //#endif  //  END AZFRAMEWORK PCH  #ifdef __OBJC__
@@ -129,7 +194,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
 */
 /*
 #endif
-#import <AtoZAppKit/BGHUDAppKit.h>
+
 #import <MapKit/MapKit.h>
 #import <Nu/Nu.h>
 #import <Lumberjack/Lumberjack.h>
@@ -168,6 +233,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  #import "ASIInputStream.h"
  #import "ASINetworkQueue.h"
  #import "ASIProgressDelegate.h"
+*/
  //#import "AssetCollection.h"
  //#import "AtoZ.h"
  //#import "AtoZColorWell.h"
@@ -256,7 +322,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  //#import "AZSpeechRecognition.h"
  //#import "AZSpinnerLayer.h"
  //#import "AZStopwatch.h"
- //#import "AZTalker.h"
+//  #import "AZTalker.h"
  //#import "AZTimeLineLayout.h"
  //#import "AZToggleArrayView.h"
  //#import "AZTrackingWindow.h"
@@ -266,181 +332,180 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  //#import "AZWikipedia.h"
  //#import "AZWindowExtend.h"
  //#import "AZXMLWriter.h"
- #import "BaseModel.h"
- #import "BaseModel+AtoZ.h"
- #import "BBMeshView.h"
- #import "BlocksAdditions.h"
- #import "Bootstrap.h"
- #import "CAAnimation+AtoZ.h"
- #import "CALayer+AtoZ.h"
- #import "CalcModel.h"
- #import "CAScrollView.h"
- #import "CAWindow.h"
- #import "CKAdditions.h"
- #import "CKMacros.h"
- #import "CKSingleton.h"
- #import "ConciseKit.h"
- #import "ConcurrentOperation.h"
- #import "CPAccelerationTimer.h"
- #import "CTBadge.h"
- #import "CTGradient.h"
- #import "DDData.h"
- #import "DDNumber.h"
- #import "DDRange.h"
- #import "EGOCache.h"
- #import "EGOImageLoadConnection.h"
- #import "EGOImageLoader.h"
- #import "EGOImageView.h"
- #import "F.h"
- #import "GCDAsyncSocket.h"
- //#import "GTMHTTPFetcher.h"
- //#import "GTMNSString+HTML.h"
- #import "HRCoder.h"
- #import "HTMLNode.h"
- #import "HTMLParserViewController.h"
- #import "HTTPAsyncFileResponse.h"
- #import "HTTPAuthenticationRequest.h"
- #import "HTTPConnection.h"
- #import "HTTPDataResponse.h"
- #import "HTTPDynamicFileResponse.h"
- #import "HTTPErrorResponse.h"
- #import "HTTPFileResponse.h"
- #import "HTTPLogging.h"
- #import "HTTPMessage.h"
- #import "HTTPRedirectResponse.h"
- #import "HTTPResponse.h"
- #import "HTTPResponseProxy.h"
- #import "HTTPServer.h"
- #import "iCarousel.h"
- #import "IGIsolatedCookieWebView.h"
- #import "INAppStoreWindow.h"
- #import "JREnum.h"
- #import "JsonElement.h"
- #import "JSONKit.h"
- #import "KGNoise.h"
- #import "LetterView.h"
- #import "LoremIpsum.h"
- #import "MAAttachedWindow.h"
- #import "MAKVONotificationCenter.h"
+// #import "BaseModel.h"
+// #import "BaseModel+AtoZ.h"
+// #import "BBMeshView.h"
+// #import "BlocksAdditions.h"
+// #import "Bootstrap.h"
+// #import "CAAnimation+AtoZ.h"
+// #import "CALayer+AtoZ.h"
+// #import "CalcModel.h"
+// #import "CAScrollView.h"
+// #import "CAWindow.h"
+// #import "CKAdditions.h"
+// #import "CKMacros.h"
+// #import "CKSingleton.h"
+// #import "ConciseKit.h"
+// #import "ConcurrentOperation.h"
+// #import "CPAccelerationTimer.h"
+// #import "CTBadge.h"
+// #import "CTGradient.h"
+// #import "DDData.h"
+// #import "DDNumber.h"
+// #import "DDRange.h"
+// #import "EGOCache.h"
+// #import "EGOImageLoadConnection.h"
+// #import "EGOImageLoader.h"
+// #import "EGOImageView.h"
+// #import "F.h"
+// #import "GCDAsyncSocket.h"
+// //#import "GTMHTTPFetcher.h"
+// //#import "GTMNSString+HTML.h"
+// #import "HRCoder.h"
+// #import "HTMLNode.h"
+// #import "HTMLParserViewController.h"
+// #import "HTTPAsyncFileResponse.h"
+// #import "HTTPAuthenticationRequest.h"
+// #import "HTTPConnection.h"
+// #import "HTTPDataResponse.h"
+// #import "HTTPDynamicFileResponse.h"
+// #import "HTTPErrorResponse.h"
+// #import "HTTPFileResponse.h"
+// #import "HTTPLogging.h"
+// #import "HTTPMessage.h"
+// #import "HTTPRedirectResponse.h"
+// #import "HTTPResponse.h"
+// #import "HTTPResponseProxy.h"
+// #import "HTTPServer.h"
+// #import "iCarousel.h"
+// #import "IGIsolatedCookieWebView.h"
+// #import "INAppStoreWindow.h"
+// #import "JREnum.h"
+// #import "JsonElement.h"
+// #import "JSONKit.h"
+// #import "KGNoise.h"
+// #import "LetterView.h"
+// #import "LoremIpsum.h"
+// #import "MAAttachedWindow.h"
+// #import "MAKVONotificationCenter.h"
  //#import "MArray.h"
- #import "MediaServer.h"
- #import "MetalUI.h"
- #import "MultipartFormDataParser.h"
- #import "MultipartMessageHeader.h"
- #import "MultipartMessageHeaderField.h"
- #import "NotificationCenterSpy.h"
- #import "NSApplication+AtoZ.h"
- #import "NSArray+AtoZ.h"
- #import "NSArray+ConciseKit.h"
- #import "NSArray+F.h"
- #import "NSArray+UsefulStuff.h"
- #import "NSBag.h"
- #import "NSBezierPath+AtoZ.h"
- #import "NSBundle+AtoZ.h"
- #import "NSCell+AtoZ.h"
- #import "NSColor+AtoZ.h"
- #import "NSDate+AtoZ.h"
- #import "NSDictionary+AtoZ.h"
- #import "NSDictionary+ConciseKit.h"
- #import "NSDictionary+F.h"
- #import "NSError+AtoZ.h"
- #import "NSEvent+AtoZ.h"
- #import "NSFileManager+AtoZ.h"
- #import "NSFont+AtoZ.h"
- #import "NSHTTPCookie+Testing.h"
- #import "NSImage-Tint.h"
- #import "NSImage+AtoZ.h"
- #import "NSIndexSet+AtoZ.h"
- #import "AZLogConsole.h"
- #import "NSNotificationCenter+AtoZ.h"
- #import "NSNumber+AtoZ.h"
- #import "NSNumber+F.h"
- #import "NSObject-Utilities.h"
- #import "NSObject+AtoZ.h"
- #import "NSObject+Properties.h"
- #import "NSOperationStack.h"
- #import "NSOrderedDictionary.h"
- #import "NSOutlineView+AtoZ.h"
- #import "NSScreen+AtoZ.h"
- #import "NSShadow+AtoZ.h"
- #import "NSSplitView+DMAdditions.h"
- #import "NSString+AtoZ.h"
- #import "NSString+AtoZEnums.h"
- #import "NSString+ConciseKit.h"
- #import "NSString+PathAdditions.h"
- #import "NSString+URLAdditions.h"
- #import "NSString+UUID.h"
- #import "NSTableView+AtoZ.h"
- #import "NSTask+OneLineTasksWithOutput.h"
- #import "NSTextView+AtoZ.h"
- #import "NSThread+AtoZ.h"
- #import "NSURL+AtoZ.h"
- #import "NSUserDefaults+Subscript.h"
- #import "NSValue+AtoZ.h"
- #import "NSView+AtoZ.h"
- #import "NSWindow_Flipr.h"
- #import "NSWindow+AtoZ.h"
+// #import "MediaServer.h"
+// #import "MetalUI.h"
+// #import "MultipartFormDataParser.h"
+// #import "MultipartMessageHeader.h"
+// #import "MultipartMessageHeaderField.h"
+// #import "NotificationCenterSpy.h"
+// #import "NSApplication+AtoZ.h"
+// #import "NSArray+AtoZ.h"
+// #import "NSArray+ConciseKit.h"
+// #import "NSArray+F.h"
+// #import "NSArray+UsefulStuff.h"
+// #import "NSBag.h"
+// #import "NSBezierPath+AtoZ.h"
+// #import "NSBundle+AtoZ.h"
+// #import "NSCell+AtoZ.h"
+// #import "NSColor+AtoZ.h"
+// #import "NSDate+AtoZ.h"
+// #import "NSDictionary+AtoZ.h"
+// #import "NSDictionary+ConciseKit.h"
+// #import "NSDictionary+F.h"
+// #import "NSError+AtoZ.h"
+// #import "NSEvent+AtoZ.h"
+// #import "NSFileManager+AtoZ.h"
+// #import "NSFont+AtoZ.h"
+// #import "NSHTTPCookie+Testing.h"
+// #import "NSImage-Tint.h"
+// #import "NSImage+AtoZ.h"
+// #import "NSIndexSet+AtoZ.h"
+// #import "AZLogConsole.h"
+// #import "NSNotificationCenter+AtoZ.h"
+// #import "NSNumber+AtoZ.h"
+// #import "NSNumber+F.h"
+// #import "NSObject-Utilities.h"
+// #import "NSObject+AtoZ.h"
+// #import "NSObject+Properties.h"
+// #import "NSOperationStack.h"
+// #import "NSOrderedDictionary.h"
+// #import "NSOutlineView+AtoZ.h"
+// #import "NSScreen+AtoZ.h"
+// #import "NSShadow+AtoZ.h"
+// #import "NSSplitView+DMAdditions.h"
+// #import "NSString+AtoZ.h"
+// #import "NSString+AtoZEnums.h"
+// #import "NSString+ConciseKit.h"
+// #import "NSString+PathAdditions.h"
+// #import "NSString+URLAdditions.h"
+// #import "NSString+UUID.h"
+// #import "NSTableView+AtoZ.h"
+// #import "NSTask+OneLineTasksWithOutput.h"
+// #import "NSTextView+AtoZ.h"
+// #import "NSThread+AtoZ.h"
+// #import "NSURL+AtoZ.h"
+// #import "NSUserDefaults+Subscript.h"
+// #import "NSValue+AtoZ.h"
+// #import "NSView+AtoZ.h"
+// #import "NSWindow_Flipr.h"
+// #import "NSWindow+AtoZ.h"
+//
+// #import "OperationsRunner.h"
+// #import "OperationsRunnerProtocol.h"
+// #import "PreferencesController.h"
+// #import "PXListDocumentView.h"
+// #import "PXListView.h"
+// #import "PXListViewCell.h"
+// #import "PythonOperation.h"
+// #import "RoundedView.h"
+// #import "Route.h"
+// #import "RouteRequest.h"
+// #import "RouteResponse.h"
+// #import "RoutingConnection.h"
+// #import "RoutingHTTPServer.h"
+// #import "RuntimeReporter.h"
+// #import "SDCloseButtonCell.h"
+// #import "SDCommonAppDelegate.h"
+// #import "SDDefines.h"
+// #import "SDFoundation.h"
+// #import "SDInsetDividerView.h"
+// #import "SDInsetTextField.h"
+// #import "SDInstructionsWindow.h"
+// #import "SDInstructionsWindowController.h"
+// #import "SDIsNotEmptyValueTransformer.h"
+// #import "SDNextRunloopProxy.h"
+// #import "SDOpenAtLoginController.h"
+// #import "SDPreferencesController.h"
+// #import "SDRoundedInstructionsImageView.h"
+// #import "SDSingleton.h"
+// #import "SDToolkit.h"
+// #import "SDWindowController.h"
+// #import "SIAppCookieJar.h"
+// #import "SIAuthController.h"
+// #import "SIConstants.h"
+// #import "SIInboxDownloader.h"
+// #import "SIInboxModel.h"
+// #import "SIViewControllers.h"
+// #import "SIWindow.h"
+// #import "SNRHUDButtonCell.h"
+// #import "SNRHUDScrollView.h"
+// #import "SNRHUDSegmentedCell.h"
+// #import "SNRHUDTextFieldCell.h"
+// #import "SNRHUDTextView.h"
+// #import "SNRHUDWindow.h"
+// #import "StandardPaths.h"
+// #import "StarLayer.h"
+//
+// #import "StickyNoteView.h"
+// #import "Transition.h"
+// #import "TransparentWindow.h"
+// #import "TUIView+Dimensions.h"
+// #import "WebFetcher.h"
+// #import "WebSocket.h"
+// #import "WebView+AtoZ.h"
+// #import "XLDragDropView.h"
 
- #import "OperationsRunner.h"
- #import "OperationsRunnerProtocol.h"
- #import "PreferencesController.h"
- #import "PXListDocumentView.h"
- #import "PXListView.h"
- #import "PXListViewCell.h"
- #import "PythonOperation.h"
- #import "RoundedView.h"
- #import "Route.h"
- #import "RouteRequest.h"
- #import "RouteResponse.h"
- #import "RoutingConnection.h"
- #import "RoutingHTTPServer.h"
- #import "RuntimeReporter.h"
- #import "SDCloseButtonCell.h"
- #import "SDCommonAppDelegate.h"
- #import "SDDefines.h"
- #import "SDFoundation.h"
- #import "SDInsetDividerView.h"
- #import "SDInsetTextField.h"
- #import "SDInstructionsWindow.h"
- #import "SDInstructionsWindowController.h"
- #import "SDIsNotEmptyValueTransformer.h"
- #import "SDNextRunloopProxy.h"
- #import "SDOpenAtLoginController.h"
- #import "SDPreferencesController.h"
- #import "SDRoundedInstructionsImageView.h"
- #import "SDSingleton.h"
- #import "SDToolkit.h"
- #import "SDWindowController.h"
- #import "SIAppCookieJar.h"
- #import "SIAuthController.h"
- #import "SIConstants.h"
- #import "SIInboxDownloader.h"
- #import "SIInboxModel.h"
- #import "SIViewControllers.h"
- #import "SIWindow.h"
- #import "SNRHUDButtonCell.h"
- #import "SNRHUDScrollView.h"
- #import "SNRHUDSegmentedCell.h"
- #import "SNRHUDTextFieldCell.h"
- #import "SNRHUDTextView.h"
- #import "SNRHUDWindow.h"
- #import "StandardPaths.h"
- #import "StarLayer.h"
-
- #import "StickyNoteView.h"
- #import "SynthesizeSingleton.h"
- #import "Transition.h"
- #import "TransparentWindow.h"
- #import "TUIView+Dimensions.h"
- #import "WebFetcher.h"
- #import "WebSocket.h"
- #import "WebView+AtoZ.h"
- #import "XLDragDropView.h"
- 
  //#import "AtoZ.h"
  
  
-*/
+
 /*
 #import "AtoZFunctions.h"
 #import "BaseModel.h"
@@ -479,7 +544,7 @@ QuietLog((format),##__VA_ARGS__); \
 if (format == nil) {	printf("nil\n"); return; }\
 va_list argList;\
 va_start(argList, format);\
-NSString *s = [[NSString alloc] initWithFormat:format arguments:argList];\
+NSString *s = [NSString.alloc initWithFormat:format arguments:argList];\
 printf("%s\n", [[s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"] UTF8String]);\
 [s release];\
 va_end(argList);\

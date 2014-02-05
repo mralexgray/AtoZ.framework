@@ -5,6 +5,8 @@
 
 #define 	AZLOGSHARED 		[AZLog sharedInstance]
 
+#define clr colorLogString
+
 CLANG_IGNORE(-Wunused-variable)
 static NSString *dLog = nil;
 CLANG_POP

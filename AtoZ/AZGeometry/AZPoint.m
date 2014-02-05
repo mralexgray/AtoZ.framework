@@ -7,19 +7,19 @@
 //
 
 #import "AZPoint.h"
-//#import "AZSize.h"
-//#import "AZRect.h"
+#import "AZSize.h"
+#import "AZRect.h"
 
 @implementation AZPoint
 
 #pragma mark statics
 
 + (AZPoint*) point {
-	return [[AZPoint alloc] init];
+	return AZPoint.new;
 }
 
 + (AZPoint*) pointOf:(id) object {
-	AZPoint *re = [[AZPoint alloc] init];
+	AZPoint *re = AZPoint.new;
 	
 	if (object == nil) {	return re;  }
 	if ([object isKindOfClass:[NSNumber class]]) {

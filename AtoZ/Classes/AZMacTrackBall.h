@@ -7,6 +7,8 @@
 	The initial touch sets up a vector between the center of the sphere and the touch point. A second vector is calculated between the current touch point and the center of the sphere.
 	The cross product of these two vectors gives the vector we are rotating around and the angle between the two vectors gives the amount.		*/
 
+#import "AtoZUmbrella.h"
+
 @interface AZMacTrackBall : NSObject
 @property  CATransform3D baseTransform;
 

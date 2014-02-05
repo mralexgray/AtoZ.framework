@@ -11,6 +11,7 @@
 
 
 @implementation TestBedDelegate
+
 - (IBAction)newTab:(id)sender{	[AZSimpleView preview];	}
 
 -  (void) awakeFromNib {

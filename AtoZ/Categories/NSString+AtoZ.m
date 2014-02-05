@@ -1,4 +1,6 @@
 #import <CommonCrypto/CommonDigest.h>
+#import "AtoZ.h"
+
 #define kMaxFontSize 10000
 #import "HTMLNode.h"
 #import "NSObject+AtoZ.h"
@@ -40,8 +42,6 @@ NSString *stringForBrightness( CGF brightness )	{	return
 		for (int j = 0; j < width; j++)[string appendString:stringForBrightness([[bitmapImage colorAtX:j y:i] colorUsingColorSpaceName:NSDeviceWhiteColorSpace].whiteComponent)];
 		[string appendString:@"\n"];
 	}
-	[bitmapImage release];
-	[tempImage release];
 	return string;
 }
 @end
@@ -50,7 +50,6 @@ NSString *stringForBrightness( CGF brightness )	{	return
 -   (id) init 																		{	if (!(self = [super init])) return nil;	strings = NSMA.new;	return self;
 	//  Copyright 2011 Leigh McCulloch. Released under the MIT license.
 }
-- (void) dealloc 																	{	[strings release];	}
 - (void) parser:(NSXMLParser*)parser foundCharacters:(NSS*)string {	[strings addObject:string];}
 - (NSS*) getCharsFound 															{	return [strings componentsJoinedByString:@""];	}
 @end
@@ -291,12 +290,19 @@ NSString *stringForBrightness( CGF brightness )	{	return
 + (NSS*) randomSentences:	(NSI)number 			{	return [LoremIpsum.new sentences:number];	}
 
 - (NSUI) longestWordLength 							{  return  [self words].lengthOfLongestMemberString; }
+
+- (NSS*) paddedRightTo:(NSUI)count 				{ if (self.length == count) return self;  if (self.length > count) return [self substringToIndex:count];
+
+	return [[@" " stringByPaddingToLength:self.length-count withString:@" " startingAtIndex:0] stringByAppendingString:self];
+
+}
 - (NSS*) paddedTo:(NSUI)count 						{
+
 	return [self stringByPaddingToLength:count withString:@" " startingAtIndex:0];
 }
 + (NSA*) properNames	 									{
-	NSS *names = @"/usr/share/dict/propernames";
-	return [[[self stringWithContentsOfFile:names usedEncoding:NULL error:NULL] componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet]
+	static NSS *names, *propers; names = names ?: @"/usr/share/dict/propernames";
+	return propers = propers ?: [[[self stringWithContentsOfFile:names usedEncoding:NULL error:NULL] componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet]
 			  sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 + (void) randomUrabanDBlock:(void(^)(AZDefinition*d))block {
@@ -464,7 +470,7 @@ finish:
 	// add the string to the xml parser
 	NSStringEncoding encoding = string.fastestEncoding;
 	NSData *data = [string dataUsingEncoding:encoding];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+	NSXMLParser *parser = [NSXMLParser.alloc initWithData:data];
 	// parse the content keeping track of any chars found outside tags (this will be the stripped content)
 	NSString_stripHtml_XMLParsee *parsee = NSString_stripHtml_XMLParsee.new;
 	parser.delegate = parsee;               [parser parse];
@@ -475,7 +481,7 @@ finish:
 	// any chars found while parsing are the stripped content
 	NSString *strippedString = [parsee getCharsFound];
 	// clean up
-	[parser release];       [parsee release];
+//	[parser release];       [parsee release];
 	// get the raw text out of the parsee after parsing, and return it
 	return strippedString;
 }
@@ -514,7 +520,7 @@ finish:
 	return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 }
 - (NSN*)numberValue 							{
-	return [[[NSNumberFormatter alloc] init] numberFromString:self];
+	return [[NSNumberFormatter.alloc init] numberFromString:self];
 }
 - (void)copyFileAtPathTo:(NSS*)path 	{
 	if ([[NSFileManager defaultManager] isReadableFileAtPath:self]) [[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
@@ -526,7 +532,7 @@ finish:
 	NSFont *displayFont = nil;
 	NSSize stringSize = NSZeroSize;
 	NSUInteger fontLoop = 0;
-	NSMutableDictionary *fontAttributes = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *fontAttributes = NSMutableDictionary.new;
 	if (frame.size.width == 0.0 && frame.size.height == 0.0) return 0.0;
 	for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
 		displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
@@ -534,7 +540,8 @@ finish:
 		stringSize = [string sizeWithAttributes:fontAttributes];
 		if ( (stringSize.width > frame.size.width) || (stringSize.height > frame.size.height) ) break;
 	}
-	[fontAttributes release], fontAttributes = nil;
+//	[fontAttributes release],
+  fontAttributes = nil;
 	return (CGFloat)fontLoop - 1.0;
 }
 - (NSS*)stringByReplacingAllOccurancesOfString:(NSS*)search withString:(NSS*)replacement	{
@@ -567,7 +574,7 @@ finish:
 }
 + (NSS*)newUniqueIdentifier 				{
 	CFUUIDRef uuid = CFUUIDCreate(NULL);    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
-	CFRelease(uuid);                                                return AH_RETAIN(CFBridgingRelease(identifier));
+	CFRelease(uuid);                                                return CFBridgingRelease(identifier);
 }
 //- (NSColor *)colorValue {	return [NSColor colorFromString:self]; }
 - (NSData *)colorData {
@@ -593,7 +600,7 @@ finish:
 	//- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 	//	NSView *view = framer;
 	//	NSSize size = view.frame.size;// WithFont:font;
-	NSAttributedString *string = [[NSAttributedString alloc] initWithString:self attributes:@{ font: NSFontAttributeName, NSFontSizeAttribute: @(font.pointSize) } ];
+	NSAttributedString *string = [NSAttributedString.alloc initWithString:self attributes:@{ font: NSFontAttributeName, NSFontSizeAttribute: @(font.pointSize) } ];
 	//	CGRect textBounds = CGRectMake(rect.origin.x + (rect.size.width - size.width) / 2,
 	//								   rect.origin.y + (rect.size.height - size.height) / 2,
 	//								   size.width, size.height);
@@ -633,13 +640,13 @@ finish:
 	CGFloat points  = [self pointSizeForFrame:r withFont:fontName];
 	NSF *fnt                = [NSFont fontWithName:fontName size:points] ? : [AtoZ font:fontName size:points] ? : [NSFont fontWithName:@"Helvetica" size:points];
 
-	NSAS *drawingString = [[NSAS alloc] initWithString:self attributes:@{  NSFontAttributeName: fnt,
+	NSAS *drawingString = [NSAS.alloc initWithString:self attributes:@{  NSFontAttributeName: fnt,
 							  NSForegroundColorAttributeName: color,
 								NSParagraphStyleAttributeName: paraAttr }];
 	[drawingString drawInRect:r];
 }
 
-//		NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
+//		NSMutableParagraphStyle *paraStyle = NSMutableParagraphStyle.new;
 ////		[paraStyle setParagraphStyle:	[NSParagraphStyle defaultParagraphStyle]];
 ////		[paraStyle setAlignment:		NSCenterTextAlignment];
 //		NSDictionary *msgAttrs = @{        NSFontAttributeName : font.fontName,
@@ -912,7 +919,7 @@ finish:
 }
 
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
-	return [[self alloc] initWithData:data encoding:encoding];
+	return [self.alloc initWithData:data encoding:encoding];
 }
 
 + (NSS*)stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits {
@@ -936,7 +943,7 @@ finish:
 }
 
 - (NSAttributedString *)attributedWithFont:(NSF *)font andColor:(NSC *)color {
-	return [[NSAttributedString alloc] initWithString:self attributes:@{
+	return [NSAttributedString.alloc initWithString:self attributes:@{
 											NSFontAttributeName: font,
 							 NSForegroundColorAttributeName: color
 			  }];
@@ -984,8 +991,7 @@ finish:
 	 */
 
 	// Instantiate the NSMutableAttributedString with the argument string
-	attString = [[NSMutableAttributedString alloc]
-					 initWithString:self];
+	attString = [NSMutableAttributedString.alloc 					 initWithString:self];
 	// Apply your paragraph style attribute over the entire string
 	[attString addAttribute:NSParagraphStyleAttributeName
 							value:aMutableParagraphStyle
@@ -1368,9 +1374,9 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 		// Checking for empty string is necessary since Layout Manager will give the nominal
 		// height of one line if length is 0.  Our API specifies 0.0 for an empty string.
 		NSSize size = NSMakeSize(width, height);
-		NSTextContainer *textContainer  = [[NSTextContainer alloc] initWithContainerSize:size];
-		NSTextStorage *textStorage   = [[NSTextStorage alloc] initWithAttributedString:self];
-		NSLayoutManager *layoutManager  = [[NSLayoutManager alloc] init];
+		NSTextContainer *textContainer  = [NSTextContainer.alloc initWithContainerSize:size];
+		NSTextStorage *textStorage   = [NSTextStorage.alloc initWithAttributedString:self];
+		NSLayoutManager *layoutManager  = NSLayoutManager.new;
 		[layoutManager addTextContainer:textContainer];
 		[textStorage addLayoutManager:layoutManager];
 		[layoutManager setHyphenationFactor:0.0];
@@ -1408,9 +1414,9 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 //
 //	//	Checking for empty string is necessary since Layout Manager will give the nominal height of one line if length is 0.
 //	if ([self length] > 0) {              //	Our API specifies 0.0 for an empty string.
-//		NSTextContainer *textContainer  = [[NSTextContainer alloc] initWithContainerSize:(NSSize) { width, height }];
+//		NSTextContainer *textContainer  = [NSTextContainer.alloc initWithContainerSize:(NSSize) { width, height }];
 //		NSTextStorage *textStorage      = [[NSTextStorage   alloc] initWithAttributedString:self];
-//		NSLayoutManager *layoutManager  = [[NSLayoutManager alloc] init];
+//		NSLayoutManager *layoutManager  = NSLayoutManager.new;
 //
 //		[layoutManager  addTextContainer:textContainer];	 [textStorage   addLayoutManager:layoutManager];
 //		[layoutManager  setHyphenationFactor:0.0];
@@ -1435,7 +1441,7 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 	return [self sizeForWidth:size.width height:size.height font:font];
 }
 - (NSSize)sizeForWidth:(float)width height:(float)height attributes:(NSD*)attributes {
-	return [[[NSAttributedString alloc] initWithString:self attributes:attributes] sizeForWidth:width height:height];
+	return [[NSAttributedString.alloc initWithString:self attributes:attributes] sizeForWidth:width height:height];
 }
 
 - (float)heightForWidth:(float)width attributes:(NSD*)attributes {
@@ -1511,7 +1517,8 @@ static NSString * SillyStringImplementation(id self, SEL _cmd, ...) {
 		va_end(args);
 		result = [[string copy] autorelease];
 	}
-	@finally { [string release]; }
+	@finally { ;; } 
+//   [string release]; }
 	return result;
 }
 
@@ -1566,7 +1573,7 @@ static NSArray * _SpecialAbreviations() {
 	if (array == nil) {
 		OSSpinLockLock(&_staticSpinLock);
 		if (array == nil) {
-			array = [[NSArray alloc] initWithObjects:@"vs", @"st", nil];
+			array = [NSArray.alloc initWithObjects:@"vs", @"st", nil];
 		}
 		OSSpinLockUnlock(&_staticSpinLock);
 	}
@@ -1640,7 +1647,7 @@ static void _ScanSentence(NSScanner *scanner) {
 }
 
 - (NSS*)extractFirstSentence {
-	NSScanner *scanner = [[NSScanner alloc] initWithString:self];
+	NSScanner *scanner = [NSScanner.alloc initWithString:self];
 	scanner.charactersToBeSkipped = nil;
 	_ScanSentence(scanner);
 	NSString *newSelf = [self substringToIndex:scanner.scanLocation];
@@ -1649,7 +1656,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 - (NSA*) extractAllSentences {
 	NSMutableArray *array = [NSMutableArray array];
-	NSScanner *scanner = [[NSScanner alloc] initWithString:self];
+	NSScanner *scanner = [NSScanner.alloc initWithString:self];
 	scanner.charactersToBeSkipped = nil;
 	while (1) {
 		[scanner scanCharactersFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline) intoString:NULL];
@@ -1662,13 +1669,13 @@ static void _ScanSentence(NSScanner *scanner) {
 			[array addObject:[self substringWithRange:NSMakeRange(location, scanner.scanLocation - location)]];
 		}
 	}
-	[scanner release];
+//	[scanner release];
 	return array;
 }
 
 - (NSIndexSet *)extractSentenceIndices {
 	NSMutableIndexSet *set = [NSMutableIndexSet indexSet];
-	NSScanner *scanner = [[NSScanner alloc] initWithString:self];
+	NSScanner *scanner = [NSScanner.alloc initWithString:self];
 	scanner.charactersToBeSkipped = nil;
 	while (1) {
 		NSUInteger location = scanner.scanLocation;
@@ -1681,7 +1688,7 @@ static void _ScanSentence(NSScanner *scanner) {
 			break;
 		}
 	}
-	[scanner release];
+//	[scanner release];
 	return set;
 }
 
@@ -1731,7 +1738,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	NSCharacterSet *characterSet = _GetCachedCharacterSet(kCharacterSet_WordBoundaries);
 	if (self.length) {
 		NSMutableArray *array = [NSMutableArray array];
-		NSScanner *scanner = [[NSScanner alloc] initWithString:self];
+		NSScanner *scanner = [NSScanner.alloc initWithString:self];
 		scanner.charactersToBeSkipped = nil;
 		while (1) {
 			[scanner scanCharactersFromSet:characterSet intoString:NULL];
@@ -1741,7 +1748,7 @@ static void _ScanSentence(NSScanner *scanner) {
 			}
 			[array addObject:string];
 		}
-		[scanner release];
+//		[scanner release];
 		return array;
 	}
 	return nil;
@@ -1857,7 +1864,7 @@ static void _ScanSentence(NSScanner *scanner) {
 }
 
 + (id)stringWithInteger:(NSInteger)value {
-	return [[[self alloc] initWithInteger:value] autorelease];
+	return [[self.alloc initWithInteger:value] autorelease];
 }
 
 + (NSS*)stringWithFormat:(NSS*)format arguments:(va_list)argList {
@@ -1870,7 +1877,7 @@ static void _ScanSentence(NSScanner *scanner) {
 }
 
 + (NSS*)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
-	return [[[self alloc] initWithData:data encoding:encoding] autorelease];
+	return [[self.alloc initWithData:data encoding:encoding] autorelease];
 }
 
 - (id)initWithConcatnatingStrings:(NSS*)first, ...{
@@ -1954,7 +1961,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 @implementation NSString (NSUTF8StringEncoding)
 + (NSS*)stringWithUTF8Data:(NSData *)data {
-	return [[[self alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	return [[self.alloc initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 }
 
 - (NSS*)stringByAddingPercentEscapesUsingUTF8Encoding {
@@ -2123,7 +2130,7 @@ static void _ScanSentence(NSScanner *scanner) {
 		incrementedChar = lastChar + 1;
 	}
 
-	incrementedString = [[NSString alloc] initWithFormat:@"%@%C", baseString, incrementedChar];
+	incrementedString = [NSString.alloc initWithFormat:@"%@%C", baseString, incrementedChar];
 
 	return incrementedString;
 }
@@ -2207,7 +2214,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	const char *cData = [data cStringUsingEncoding:NSUTF8StringEncoding];
 	unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
 	CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
-	return [[NSData alloc] initWithBytes:cHMAC length:CC_SHA256_DIGEST_LENGTH];
+	return [NSData.alloc initWithBytes:cHMAC length:CC_SHA256_DIGEST_LENGTH];
 }
 
 @end
@@ -2215,8 +2222,7 @@ static void _ScanSentence(NSScanner *scanner) {
 @implementation NSAttributedString (SNRAdditions)
 
 - (NSAttributedString *)attributedStringWithColor:(NSColor *)color {
-	NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc]
-														 initWithAttributedString:self];
+	NSMutableAttributedString *attrTitle = [NSMutableAttributedString.alloc 														 initWithAttributedString:self];
 	int len = [attrTitle length];
 	NSRange range = NSMakeRange(0, len);
 	[attrTitle addAttribute:NSForegroundColorAttributeName
@@ -2643,7 +2649,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 	NSMutableCharacterSet *shellVariableSet = nil;
 	if (shellVariableSet == nil) {
-		shellVariableSet = [[NSMutableCharacterSet alloc] init];
+		shellVariableSet = NSMutableCharacterSet.new;
 		[shellVariableSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithRange:NSMakeRange('a', 'z' - 'a')]];
 		[shellVariableSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithRange:NSMakeRange('A', 'Z' - 'A')]];
 		[shellVariableSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
@@ -2659,7 +2665,7 @@ static void _ScanSentence(NSScanner *scanner) {
 		}
 	}
 
-	[shellVariableSet release];
+//	[shellVariableSet release];
 
 	if ([self scanLocation] == startLocation)
 		return NO;
@@ -3105,12 +3111,12 @@ catch_error:
   return [str copy];
 }
 
--(NSString *)safeFilePath { int numberWithName = 1; BOOL isDir; NSString *safePath = [[NSString alloc] initWithString:self];
+-(NSString *)safeFilePath { int numberWithName = 1; BOOL isDir; NSString *safePath = [NSString.alloc initWithString:self];
   if ([[NSFileManager defaultManager] fileExistsAtPath:safePath
                                            isDirectory:&isDir]){
     while ([[NSFileManager defaultManager] fileExistsAtPath:safePath
                                                 isDirectory:&isDir]) {
-      safePath = [[NSString alloc] initWithFormat:@"%@ %d.%@",
+      safePath = [NSString.alloc initWithFormat:@"%@ %d.%@",
                   [self stringByDeletingPathExtension],
                   numberWithName,[self pathExtension]];
       numberWithName++;

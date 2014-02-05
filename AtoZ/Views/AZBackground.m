@@ -4,6 +4,7 @@
 
 //  Created by Alex Gray on 8/17/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+#import "AtoZ.h"
 #import "AZBackground.h"
 
 @implementation AZBackground
@@ -18,7 +19,7 @@
 	NSRect bounds = self.bounds;
 
 	// Draw background gradient
-	NSGradient *gradient = [[NSGradient alloc] initWithColorsAndLocations:
+	NSGradient *gradient = [NSGradient.alloc initWithColorsAndLocations:
 							[NSColor colorWithDeviceWhite:0.15f alpha:1.0f], 0.0f,
 							[NSColor colorWithDeviceWhite:0.19f alpha:1.0f], 0.5f,
 							[NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.5f,

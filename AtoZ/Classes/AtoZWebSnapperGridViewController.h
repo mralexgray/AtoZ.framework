@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZWebSnapper.h"
+#import "AtoZGridView.h"
 
 @interface AtoZWebSnapperGridViewController : NSViewController
 

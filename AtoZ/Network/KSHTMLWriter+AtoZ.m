@@ -1,7 +1,10 @@
 
 #import "KSHTMLWriter+AtoZ.h"
+#import "AtoZ.h"
 
-@implementation KSHTMLWriter (AtoZ)	static KSStringWriter *writer = nil; static id shared = nil; 	static dispatch_once_t uno;
+@implementation KSHTMLWriter (AtoZ)
+
+static KSStringWriter *writer = nil; static id shared = nil; 	static dispatch_once_t uno;
 
 + (instancetype) shared { return dispatch_once(&uno, ^{ writer = KSStringWriter.new; shared = [KSHTMLWriter.alloc initWithOutputWriter:writer]; }), shared; }
 

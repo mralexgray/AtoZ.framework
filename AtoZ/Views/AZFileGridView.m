@@ -76,7 +76,7 @@
 //		NSColor *gradientBottom = [NSColor colorWithCalibratedWhite:0.10 alpha:1.0];
 //		NSColor *gradientTop = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:1.0];
 //
-//		NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:gradientBottom endingColor:gradientTop];
+//		NSGradient *gradient = [NSGradient.alloc initWithStartingColor:gradientBottom endingColor:gradientTop];
 //		[gradient drawInRect:self.bounds angle:90.0];
 //		[gradient release];
 //	}
@@ -228,7 +228,7 @@
 ////	*/
 //
 ////	-(void) viewWillStartLiveResize {
-////	NSImage * i = [[NSImage alloc] initWithData:[[self getCurrentFrame] TIFFRepresentation]]; //Size:[self frame].size];
+////	NSImage * i = [NSImage.alloc initWithData:[[self getCurrentFrame] TIFFRepresentation]]; //Size:[self frame].size];
 //
 ////	[i lockFocus];
 ////	if ([self lockFocusIfCanDrawInContext:AZGRAPHICSCTX]) {

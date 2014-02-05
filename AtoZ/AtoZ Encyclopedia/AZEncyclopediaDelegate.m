@@ -123,8 +123,7 @@
 
 		//	self.controlWindow.level = NSScreenSaverWindowLevel;
 		//		NSRect underbar = AZMakeRectMaxXUnderMenuBarY(50);
-		//		SDN* offscreenWindow = [[NSWindow alloc]
-		//									  initWithContentRect:offscreenRect
+		//		SDN* offscreenWindow = [NSWindow.alloc 		//									  initWithContentRect:offscreenRect
 		//									  styleMask:NSBorderlessWindowMask
 		//									  backing:NSBackingStoreRetained
 		//									  defer:NO];
@@ -151,7 +150,7 @@
 		// Create an NSStatusItem.
 	NSRect menuFrame = NSMakeRect(0, 0, 30, [[NSStatusBar systemStatusBar] thickness]);
 	statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:menuFrame.size.width];
-	statusView = [[AZStatusItemView alloc] initWithFrame:menuFrame];
+	statusView = [AZStatusItemView.alloc initWithFrame:menuFrame];
 
 	[statusView setDelegate: self];
 	[statusItem setView:statusView];//// controller:self]];
@@ -214,7 +213,7 @@
 	//		[shroud setHasShadow:NO];
 	//		[shroud setAlphaValue:0.0];
 	//		[shroud orderFront:self];
-	//		[shroud setContentView:[[NSView alloc] initWithFrame:[[NSScreen mainScreen]visibleFrame]]];
+	//		[shroud setContentView:[NSView.alloc initWithFrame:[[NSScreen mainScreen]visibleFrame]]];
 	//			//	[[shroud contentView] lockFocus];
 	//
 	//			//	[shroud setFrame:[[NSScreen mainScreen]visibleFrame] display:YES];
@@ -250,7 +249,7 @@
 	//- (void)toggleAttachedWindowAtPoint:(NSPoint)pt {
 	//	[NSApp activateIgnoringOtherApps:YES];
 	//	if (!attachedWindow) {
-	//		attachedWindow = [[AZAttachedWindow alloc] initWithView:rootView
+	//		attachedWindow = [AZAttachedWindow.alloc initWithView:rootView
 	//												attachedToPoint:pt
 	//													   inWindow:nil
 	//														 onSide:AZPositionBottom
@@ -351,7 +350,7 @@
 	// adding and creating notes
 
 - (void) createNoteWithDictionary:(NSDictionary*)dictionary {
-	SDNoteWindowController *controller = [[SDNoteWindowController alloc] initWithDictionary:dictionary];// autorelease];
+	SDNoteWindowController *controller = [SDNoteWindowController.alloc initWithDictionary:dictionary];// autorelease];
 	[noteControllers addObject:controller];
 }
 
@@ -364,7 +363,7 @@
 }
 
 - (IBAction) removeAllNotes:(id)sender {
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	NSAlert *alert = [[NSAlert.alloc init] autorelease];
 
 	[alert setMessageText:@"Remove all desktop labels?"];
 	[alert setInformativeText:@"This operation cannot be undone. Seriously."];
@@ -470,7 +469,7 @@
 			CGPoint now = [[AZDockQuery instance]locationNowForAppWithPath:file.path];
 			[_point1x setStringValue:$(@"%f",now.x)];
 			[_point1y setStringValue:$(@"%f",now.y)];
-			AZTalker *j =[[AZTalker alloc]init];
+			AZTalker *j =AZTalker.new;
 			[j say:file.name];
 			[[AZMouser sharedInstance]dragFrom:now to:file.dockPointNew];
 				//			} waitUntilDone:YES];
@@ -608,7 +607,7 @@
  NSRect tiny = NSInsetRect(_window.frame,200, 199);
  NSRect r =  [[AZSizer structForQuantity:[[AtoZ dockSorted]count] inRect:tiny];
 
- self.matrix = [[NSMatrix alloc] initWithFrame:tiny mode:NSTrackModeMatrix cellClass:[NSImageCell class] numberOfRows:r.origin.x numberOfColumns:r.origin.y];
+ self.matrix = [NSMatrix.alloc initWithFrame:tiny mode:NSTrackModeMatrix cellClass:[NSImageCell class] numberOfRows:r.origin.x numberOfColumns:r.origin.y];
  [matrix setCellSize:r.size];//NSMakeSize(100, 100)];
  [matrix sizeToCells];
  //	[matrix setAutoresizingMask: NSViewHeightSizable | NSViewWidthSizable];
@@ -616,7 +615,7 @@
  [matrix setDrawsBackground:YES];
 
  [[AtoZ dockSorted] eachConcurrentlyWithBlock:^(NSInteger index, id obj, BOOL *stop) {
- NSImageCell *cell = [[NSImageCell alloc]init];
+ NSImageCell *cell = NSImageCell.new;
  cell.tag = index;
  //		[matrix setCe]
  //		[matrix cellWithTag:index];
@@ -675,7 +674,7 @@
  //	root.layoutManager =
  int i = 4;
  while (i != 0) {
- AZBoxLayer *layer = [[AZBoxLayer alloc] initWithImage:[[NSImage systemImages]randomElement] title:$(@"vageen.%i",i)];
+ AZBoxLayer *layer = [AZBoxLayer.alloc initWithImage:[[NSImage systemImages]randomElement] title:$(@"vageen.%i",i)];
  [layer setFrame:CGRectMake(kMargin, 0.0, kIconWidth, kCompositeIconHeight)];
  [root insertSublayer:layer atIndex:i];
  i--;
@@ -684,16 +683,16 @@
  //		[layer1 setFrame:CGRectMake(kMargin, 0.0, kIconWidth, kCompositeIconHeight)];
  //	}
  //
- //	layer1 = [[[IconLayer alloc] initWithImagePath:iconPath1 title:@"Desktop"] retain];
+ //	layer1 = [[IconLayer.alloc initWithImagePath:iconPath1 title:@"Desktop"] retain];
  //	[layer1 setFrame:CGRectMake(kMargin, 0.0, kIconWidth, kCompositeIconHeight)];
  //
- //	layer2 = [[[IconLayer alloc] initWithImagePath:iconPath2 title:@"Firewire Drive"] retain];
+ //	layer2 = [[IconLayer.alloc initWithImagePath:iconPath2 title:@"Firewire Drive"] retain];
  //	[layer2 setFrame:CGRectMake(kMargin, kIconWidth + kMargin, kIconWidth, kCompositeIconHeight)];
  //
- //	layer3 = [[[IconLayer alloc] initWithImagePath:iconPath3 title:@"Pictures"] retain];
+ //	layer3 = [[IconLayer.alloc initWithImagePath:iconPath3 title:@"Pictures"] retain];
  //	[layer3 setFrame:CGRectMake(kCompositeIconHeight + kMargin, 0.0, 128, kCompositeIconHeight)];
  //
- //	layer4 = [[[IconLayer alloc] initWithImagePath:iconPath4 title:@"Computer"] retain];
+ //	layer4 = [[IconLayer.alloc initWithImagePath:iconPath4 title:@"Computer"] retain];
  //	[layer4 setFrame:CGRectMake(kCompositeIconHeight + kMargin, kIconWidth + kMargin, kIconWidth, kCompositeIconHeight)];
  //
  //	[root insertSublayer:layer1 atIndex:0];
@@ -726,12 +725,12 @@
  self = [super init];
  if (self != nil) {
  int r, c;
- cells = [[NSMutableArray alloc] initWithCapacity: h];
+ cells = [NSMutableArray.alloc initWithCapacity: h];
  for (r = 0; r < h; r++) {
- NSMutableArray *row = [[NSMutableArray alloc] initWithCapacity: w];
+ NSMutableArray *row = [NSMutableArray.alloc initWithCapacity: w];
  [cells addObject: row];
  for (c = 0; c < w; c++) {
- [row addObject: [[Cell alloc] init]];
+ [row addObject: [Cell.alloc init]];
  }
  }
  numMines = m;
@@ -963,7 +962,7 @@
 - (NSMenu*)sourceList:(AZSourceList*)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item
 {
 	if ([theEvent type] == NSRightMouseDown || ([theEvent type] == NSLeftMouseDown && ([theEvent modifierFlags] & NSControlKeyMask) == NSControlKeyMask)) {
-		NSMenu * m = [[NSMenu alloc] init];
+		NSMenu * m = NSMenu.new;
 		if (item != nil) {
 			[m addItemWithTitle:[item title] action:nil keyEquivalent:@""];
 		} else {

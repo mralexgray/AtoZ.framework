@@ -1,3 +1,4 @@
+#import "AtoZ.h"
 //
 //  AZWindowTabViewController.h
 //  AtoZ
@@ -8,6 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class AZWindowTab;
 @interface AZWindowTabViewController : NSViewController
 
 @property (weak) IBOutlet 		 WebView * webView;

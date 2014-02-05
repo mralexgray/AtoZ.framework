@@ -127,7 +127,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popUpButtonWillPopUp:) name:NSPopUpButtonWillPopUpNotification object:takeURLFromPopUp];
 	
 	NSImage *image = [takeURLFromPopUp image];
-	[takeURLFromPopUp setCell:[[[MetalPopUpButtonCell alloc] init] autorelease]];
+	[takeURLFromPopUp setCell:[[MetalPopUpButtonCell.alloc init] autorelease]];
 	[takeURLFromPopUp setImage:image];
 #endif
 }
@@ -168,7 +168,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 	if ([error code] != -999) { // Don't show the sheet if the user cancelled.
 		// what happens of something goes wrong while loading url (dns error etc)
 		
-		NSAlert *alert = [[NSAlert alloc] init];
+		NSAlert *alert = NSAlert.new;
 		[alert addButtonWithTitle:@"OK"];
 		[alert setMessageText:[NSString stringWithFormat:NSLocalizedString(@"LoadErrorTitle", nil), [urlField stringValue]]];
 		[alert setInformativeText:[error localizedDescription]];
@@ -358,7 +358,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 }
 
 - (NSMenu *)historyMenu {
-	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"History"];
+	NSMenu *menu = [NSMenu.alloc initWithTitle:@"History"];
 	
 	if (snapper.webHistory.count) {NSEnumerator *histEnum = [snapper.webHistory objectEnumerator];
 		NSString *urlString;
@@ -382,7 +382,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 #pragma mark -
 
 - (void)warnOfMalformedPaparazziURL:(NSURL *)url {
-	NSAlert *alert = [[NSAlert alloc] init];
+	NSAlert *alert = NSAlert.new;
 	[alert addButtonWithTitle:@"OK"];
 	[alert setMessageText:NSLocalizedString(@"MalformedURLTitle", nil)];
 	[alert setInformativeText:[NSString stringWithFormat:NSLocalizedString(@"MalformedURLText", nil), [url absoluteString]]];
@@ -490,7 +490,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 		
 	if (path) {
 		NSDictionary *err = nil;
-		NSAppleScript *as = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&err];
+		NSAppleScript *as = [NSAppleScript.alloc initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&err];
 		if (err)
 			NSLog(@"%@", err);		
 		NSAppleEventDescriptor *aed = [as executeAndReturnError:&err];
@@ -569,7 +569,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 	if (!kAppsIKnowHowToGetTheURLFrom)
 		kAppsIKnowHowToGetTheURLFrom = [NSArray arrayWithObjects:@"Safari", @"Camino", nil];
 	
-	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Dock Menu"];
+	NSMenu *menu = [NSMenu.alloc initWithTitle:@"Dock Menu"];
 	NSMenuItem *item;
 	NSArray *apps = [[NSWorkspace sharedWorkspace] launchedApplications];
 	NSEnumerator *appEnum = [apps objectEnumerator];
@@ -578,7 +578,7 @@ static AtoZWebSnapperWindowController *kController = nil;
 	while (appDict = [appEnum nextObject]) {
 		NSString *name = [appDict objectForKey:@"NSApplicationName"];
 		if ([kAppsIKnowHowToGetTheURLFrom containsObject:name]) {
-			item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"CaptureURLFrom", nil), name] action:@selector(takeURLFromMyBrowser:) keyEquivalent:@""];
+			item = [NSMenuItem.alloc initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"CaptureURLFrom", nil), name] action:@selector(takeURLFromMyBrowser:) keyEquivalent:@""];
 			[menu addItem:item];
 		}
 	}

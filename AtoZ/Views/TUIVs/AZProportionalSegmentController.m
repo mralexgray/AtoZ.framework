@@ -6,6 +6,7 @@
 //  Copyright 2011 Maybe Apps, LLC. All rights reserved.
 //
 
+#import "AtoZ.h"
 #import "AZProportionalSegmentController.h"
 static NSI 	masterCt = 0;
 static id 	drawer = nil;
@@ -31,7 +32,7 @@ static id 	drawer = nil;
 	[super keyDown:e];
 	id last = self.controllers.lastObject;
 	NSLog(@"last: %@ event: %@", last, e);
-	[last mouseDown:e];
+	[(NSV*)last mouseDown:e];
 
 }
 - (void) eventHandlers 			{
@@ -119,11 +120,11 @@ static id 	drawer = nil;
 
 	if (!_banner) {			bannerIsShowing = NO;
 		_banner = AZPSV.new;
-		_banner.view.frame = (NSR){0,0,self.view.width, self.bannerHeight};
+		_banner.view.frame = (NSR){0,0,((NSView*)self.view).width, self.bannerHeight};
 	}
 }
 
--  (NSR) frameAtIndex:		 (NSI)index 							{	CGF offsetter = self.view.width/MIN(self.controllers.count,_maxVisible);
+-  (NSR) frameAtIndex:		 (NSI)index 							{	CGF offsetter = ((NSView*)self.view).width/MIN(self.controllers.count,_maxVisible);
 	NSR ther = (NSR){offsetter * index,0,offsetter, self.view.height};
 	if (_controllers.count <= _maxVisible ) ther.origin.x += offsetter;  return ther;
 }

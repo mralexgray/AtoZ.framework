@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "AtoZGeometry.h"
-#import "AtoZ.h"  // Do not change..  Weirdly essential.
+// #import "AtoZ.h"  // Do not change..  Weirdly essential.
 
 
 @class AZPoint, AZSize,  AZRect;

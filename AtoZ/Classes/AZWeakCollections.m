@@ -193,7 +193,7 @@
 }
 
 - (NSArray *)allObjects {
-	WeakMutableArray *allObjects = [[WeakMutableArray alloc] init];
+	WeakMutableArray *allObjects = WeakMutableArray.new;
 	NSArray *tempArray = [NSArray arrayWithArray:[enumerator allObjects]];
 
 	for (WeakReferenceObject *weakObject in tempArray) {

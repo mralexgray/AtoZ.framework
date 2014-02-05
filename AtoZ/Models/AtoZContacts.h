@@ -28,7 +28,7 @@
 - (NSA*)	contactsInRange:(NSRange)r;
 
 @end
-@interface AtoZContacts : AZSingleton <AZDataSource>
+@interface AtoZContacts : AtoZSingleton <AZDataSource>
 
 //- (void) openCardAtIndex:(NSUI)index;
 -   (id) find:				   (id)sender;

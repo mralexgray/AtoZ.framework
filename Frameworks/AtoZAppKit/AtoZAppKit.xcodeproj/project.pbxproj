@@ -240,7 +240,7 @@
 		7B8ED43C175536D9008C405D /* SNRHUDScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNRHUDScrollView.m; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDScrollView.m; sourceTree = "<group>"; };
 		7B8ED44317553779008C405D /* NSBezierPath+MCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+MCAdditions.h"; path = "../submodules/SNRHUDKit/SNRHUDKit/Categories/NSBezierPath+MCAdditions.h"; sourceTree = "<group>"; };
 		7B8ED44417553797008C405D /* NSBezierPath+MCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBezierPath+MCAdditions.m"; path = "../submodules/SNRHUDKit/SNRHUDKit/Categories/NSBezierPath+MCAdditions.m"; sourceTree = "<group>"; };
-		7BCDC11C182A414600C9AE23 /* Sub-Umbrella.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Sub-Umbrella.xcconfig"; path = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/../xcconfigs/Base/Targets/Sub-Umbrella.xcconfig"; sourceTree = "<absolute>"; };
+		7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Mac-Framework.xcconfig"; path = "/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/../xcconfigs/Mac OS X/Mac-Framework.xcconfig"; sourceTree = "<absolute>"; };
 		7BDC5F721724D4A8002C62E7 /* BFColorPickerPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFColorPickerPopover.h; path = Classes/BFColorPickerPopover.h; sourceTree = "<group>"; };
 		7BDC5F731724D4A8002C62E7 /* BFColorPickerPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFColorPickerPopover.m; path = Classes/BFColorPickerPopover.m; sourceTree = "<group>"; };
 		7BFB9892163DCEAB00254DCF /* AZFlatTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFlatTheme.m; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 		0259C574FE90428111CA0C5A /* BGHUDAppKit */ = {
 			isa = PBXGroup;
 			children = (
-				7BCDC11C182A414600C9AE23 /* Sub-Umbrella.xcconfig */,
+				7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */,
 				7B657CE3176225ED000BF102 /* MainMenu.xib */,
 				7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */,
 				7B8ED432175536D9008C405D /* SNRHUDSegmentedCell.m */,
@@ -844,38 +844,32 @@
 /* Begin XCBuildConfiguration section */
 		C056398008A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "./Resources/AtoZAppKit-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
-				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
-				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = NO;
 				GCC_WARN_PEDANTIC = NO;
-				GCC_WARN_PROTOTYPE_CONVERSION = NO;
 				GCC_WARN_SIGN_COMPARE = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_FUNCTION = NO;
@@ -883,38 +877,27 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
-				INSTALL_PATH = "@loader_path/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
 				PRODUCT_NAME = AtoZAppKit;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		C056398108A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEPLOYMENT_POSTPROCESSING = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "";
 				FRAMEWORK_VERSION = A;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "./Resources/AtoZAppKit-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
@@ -925,22 +908,10 @@
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SIGN_COMPARE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
-				INSTALL_PATH = "@loader_path/Frameworks";
-				LD_DYLIB_INSTALL_NAME = "$(DYLIB_INSTALL_NAME_BASE:standardizepath)/$(EXECUTABLE_PATH)";
-				LD_RUNPATH_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
 				PRODUCT_NAME = AtoZAppKit;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
-				SEPARATE_STRIP = YES;
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = YES;
-				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

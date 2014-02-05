@@ -55,7 +55,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 		self.needsDisplayOnBoundsChange = YES;
 
 		unsigned n = nRows*nColumns;
-		_cells = [[NSMutableArray alloc] initWithCapacity:n];
+		_cells = [NSMutableArray.alloc initWithCapacity:n];
 		id null = [NSNull null];
 		while( n-- > 0 ) { [_cells addObject:null]; }
 		[self setNeedsDisplay];
@@ -113,7 +113,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 		CGRect frame = CGRectMake(_cellOffset.x + (col + 0.5)*_spacing.width,
 								  _cellOffset.y + (row + 0.5)*_spacing.height,
 								  _spacing.width,_spacing.height);
-		cell = [[GridCell alloc] initWithGrid:self row:row column:col frame:frame];
+		cell = [GridCell.alloc initWithGrid:self row:row column:col frame:frame];
 		_cells[index] = cell;
 		[self addSublayer:cell];
 		[self setNeedsDisplay];

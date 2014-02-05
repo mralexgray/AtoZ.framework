@@ -1,4 +1,5 @@
 #import "AtoZUmbrella.h"
+#import "AtoZTypes.h"
 
 CAT3D CA3DxRotation(float x);
 CAT3D CA3DyRotation(float y);
@@ -68,6 +69,9 @@ CAT3D CAT3DMake( CGF m11, CGF m12, CGF m13, CGF m14,
 //	CG_INLINE CAT3D CAT3DMake( CGF m11, CGF m12, CGF m13, CGF m14, CGF m21, CGF m22, CGF m23, CGF m24,
 //										CGF m31, CGF m32, CGF m33, CGF m34, CGF m41, CGF m42, CGF m43, CGF m44);
 
+@interface CANoHitLayer : CAL
++ (instancetype) noHitLayerOfClass:(Class)k;
+@end
 // GHETTO
 @interface CALayerNoHit 		: CALayer			@end
 @interface CAShapeLayerNoHit 	: CAShapeLayer		@end

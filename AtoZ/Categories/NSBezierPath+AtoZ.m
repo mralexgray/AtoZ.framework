@@ -48,7 +48,7 @@
 /* fill a bezier path, but draw a shadow under it offset by the	given angle (counter clockwise from the x-axis) and distance. */
 - (void)fillWithShadowAtDegrees:(CGF)angle withDistance:(CGF)distance {
     CGF radians = angle * (3.141592 / 180.0); /* create a new shadow */
-    NSShadow *theShadow = [[NSShadow alloc] init];    /* offset the shadow by the indicated direction and distance */
+    NSShadow *theShadow = NSShadow.new;    /* offset the shadow by the indicated direction and distance */
     [theShadow setShadowOffset:NSMakeSize(cosf(radians) * distance, sinf(radians) * distance)]; /* set other shadow parameters */
     [theShadow setShadowBlurRadius:3.0];
     [theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.3]];    /* save the graphics context */
@@ -90,8 +90,8 @@
     NSBezierPath *bezier = nil;     /* default result */
     /* put the string's text into a text storage so we can access the glyphs through a layout. */
     NSTextStorage *textStore = [[NSTextStorage alloc] initWithString:self];
-    NSTextContainer *textContainer = [[NSTextContainer alloc] init];
-    BezierNSLayoutManager *myLayout = [[BezierNSLayoutManager alloc] init];
+    NSTextContainer *textContainer = NSTextContainer.new;
+    BezierNSLayoutManager *myLayout = BezierNSLayoutManager.new;
     [myLayout addTextContainer:textContainer];
     [textStore addLayoutManager:myLayout];
     [textStore setFont:theFont];
@@ -437,7 +437,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 
 - (NSBP *)scaledToFrame:(NSR)rect;
 {
-    NSAT *transform = [[NSAffineTransform alloc] init];
+    NSAT *transform = NSAffineTransform.new;
     CGF ratio     = 1.0;
 
     // get the ratio
@@ -483,7 +483,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 }
 
 + (NSBezierPath *)bezierPathWithPlateInRect:(NSRect)rect {
-    NSBezierPath *result = [[NSBezierPath alloc] init];
+    NSBezierPath *result = NSBezierPath.new;
     [result appendBezierPathWithPlateInRect:rect];
     return [result autorelease];
 }
@@ -1057,7 +1057,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
     [[NSColor blackColor] set];
     [drawingPath fill];
 
-    [shadowCopy release];
+//    [shadowCopy release];
 
     [NSGraphicsContext restoreGraphicsState];
 }
@@ -1104,7 +1104,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
 - (void)drawBlurWithColor:(NSColor *)color radius:(CGFloat)radius {
     NSRect bounds = NSInsetRect(self.bounds, -radius, -radius);
-    NSShadow *shadow = [[NSShadow alloc] init];
+    NSShadow *shadow = NSShadow.new;
     shadow.shadowOffset = NSMakeSize(0, bounds.size.height);
     shadow.shadowBlurRadius = radius;
     shadow.shadowColor = color;

@@ -26,7 +26,7 @@ void WithAutoreleasePool					 (BasicBlock block);
 		});
 	});
 
-	NSLock *lock = [[NSLock alloc] init];
+	NSLock *lock = NSLock.new;
 	[lock whileLocked: ^{ NSLog(@"locked"); }];
 	[lock release];
 

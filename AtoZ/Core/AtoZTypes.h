@@ -1,7 +1,11 @@
 
 
-#import "AtoZMacroDefines.h"
+//#import "AtoZMacroDefines.h"
+//#import "JREnum.h"
+#import "AtoZAutoBox/AtoZAutoBox.h"
 #import "AtoZUmbrella.h"
+//#ifdef __OBJC__
+
 
 /*** AtoZ Block Types */
 
@@ -318,7 +322,7 @@ q&AZ_arc_NATOM|AZ_arc__COPY 	? nonatomic,copy 		:\
 q&AZ_arc__WEAK 					? weak    : assign
 
 
-//  AZPROP_HINTED(NSUI,ASS,poop);   -> @property (assign) NSUInteger _name;
+//  AZPROP_HINTED(NSUInteger,ASS,poop);   -> @property (assign) NSUInteger _name;
 #define AZPROP_HINTED(_type_,_directives_,_name_) @property (_directives_) _type_ _name
 
 #define AZPROPS(_type_,_directives_,...) for(int i=2, i<VA_NUM_ARGS, i++) AZPROP
@@ -349,15 +353,16 @@ q&AZ_arc__WEAK 					? weak    : assign
 //AZPROPASS(_kind_...) @property (NATOM,ASS) _kind_ __VA_ARGS__
 
 
-JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001,
+JROptionsDeclare(AZAlign, 	AZAlignLeft = 0x00000001,
+//JREnumDeclare(AZAlign,AZAlignLeft,// = 0x00000001),
 					  AZAlignRight      	= 0x00000010,
 					  AZAlignTop	        	= 0x00000100,
-					  AZAlignBottom     	= 0x00001000,
+					  AZAlignBottom    	= 0x00001000,
 					  AZAlignTopLeft 	   = 0x00000101,
 					  AZAlignBottomLeft		= 0x00001001,
 					  AZAlignTopRight   	= 0x00000110,
 					  AZAlignBottomRight  	= 0x00001010,
-					  AZAlignAutomatic		= 0x11111111	);
+					  AZAlignAutomatic		= 0x11111111);
 
 /*  expanded....
 
@@ -393,7 +398,7 @@ JROptionsDeclare(AZAlign, 	AZAlignLeft       	= 0x00000001,
 
 
 
-typedef NS_ENUM(NSUI, CharacterSet) {
+typedef NS_ENUM(NSUInteger, CharacterSet) {
 	kCharacterSet_Newline = 0,
 	kCharacterSet_WhitespaceAndNewline,
 	kCharacterSet_WhitespaceAndNewline_Inverted,
@@ -405,7 +410,7 @@ typedef NS_ENUM(NSUI, CharacterSet) {
 	kNumCharacterSets
 };
 
-typedef NS_ENUM (NSUI, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
+typedef NS_ENUM (NSUInteger, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
 
 
 typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
@@ -428,7 +433,7 @@ typedef NS_ENUM(NSUInteger, PXListViewDropHighlight) {
 };
 
 
-typedef NS_ENUM(NSUI,  	OSCornerType) {
+typedef NS_ENUM(NSUInteger,  	OSCornerType) {
 	//typedef NS_NSENUM( OSCornerTypes {
 	OSTopLeftCorner = 1,
 	OSBottomLeftCorner = 2,
@@ -443,7 +448,7 @@ typedef enum {
 	AMTriangleRight
 } AMTriangleOrientation;
 
-NS_INLINE NSUI AZAlignToNormalBitmask(AZA a){return
+NS_INLINE NSUInteger AZAlignToNormalBitmask(AZA a){return
 
 	a == AZAlignLeft ? 2 :
 	a == AZAlignRight ? 3 :
@@ -462,7 +467,7 @@ JREnumDeclare(AZCompass,AZCompassN, AZCompassS, AZCompassW, AZCompassE, AZCompas
 //minimized  = 0x04, // 00000100
 //maximized  = 0x08  // 00001000
 
-typedef NS_OPTIONS(NSUI, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
+typedef NS_OPTIONS(NSUInteger, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
 	LayerInsertEnd,
 	LayerRemoveFront,
 	LayerRemoveEnd,
@@ -471,7 +476,7 @@ typedef NS_OPTIONS(NSUI, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
 	LayerStateUnset
 };
 
-typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
+typedef NS_ENUM (NSUInteger, StateStyle)	{	Lasso,			InnerShadow,
 	DarkenOthers,	None				};
 
 #define VRT AZOrientVertical
@@ -480,7 +485,7 @@ typedef NS_ENUM (NSUI, StateStyle)	{	Lasso,			InnerShadow,
 @"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
 
 //@"LayerCopyInsertFront",@"LayerCopyInsertEnd"
-NS_INLINE NSS* stringForScrollFix(ScrollFix val) { return [[NSArray.alloc initWithObjects:ScrollFixTypeArray]objectAtIndex:val]; }
+NS_INLINE NSString* stringForScrollFix(ScrollFix val) { return [[NSArray.alloc initWithObjects:ScrollFixTypeArray]objectAtIndex:val]; }
 
 
 
@@ -492,7 +497,7 @@ __unused static OSSpinLock _staticSpinLock = 0;
 
 
 
-typedef NS_ENUM(NSUI, AppCat) {
+typedef NS_ENUM(NSUInteger, AppCat) {
 	Games, Education, Entertainment,
 	Books, Lifestyle, Utilities, Business,
 	Travel, Music, Reference, Sports,
@@ -504,19 +509,19 @@ typedef NS_ENUM(NSUI, AppCat) {
 #define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
 
 
-typedef NS_ENUM(NSI,          AZStatus) { AZMIXED = -1, AZOFF =  0, AZON =  1 };
-typedef NS_ENUM(NSI, 		 	AZState ) {	AZOff, AZOn, AZModifyingState, AZIdleState, AZCreatingState, AZDeletingState				};
+typedef NS_ENUM(NSInteger,          AZStatus) { AZMIXED = -1, AZOFF =  0, AZON =  1 };
+typedef NS_ENUM(NSInteger, 		 	AZState ) {	AZOff, AZOn, AZModifyingState, AZIdleState, AZCreatingState, AZDeletingState				};
 
 typedef NSInteger NSCellStateValue;
 
-typedef NS_ENUM(NSUI,    AZSlideState ) { AZIn, AZOut, AZToggle																						};
+typedef NS_ENUM(NSUInteger,    AZSlideState ) { AZIn, AZOut, AZToggle																						};
 
-typedef NS_ENUM(NSUI,    AZTrackState ) { LeftOn, LeftOff, TopOn, TopOff, RightOn, RightOff, BottomOn, BottomOff						};
-typedef NS_ENUM(NSUI,      AZDockSort ) { AZDockSortNatural, AZDockSortColor, AZDockSortPoint, AZDockSortPointNew						};
-typedef NS_ENUM(NSUI,      AZSearchBy ) { AZSearchByCategory, AZSearchByColor, AZSearchByName, AZSearchByRecent						};
-typedef NS_ENUM(NSUI,  AZMenuPosition ) { AZMenuN, AZMenuS, AZMenuE, AZMenuW, AZMenuPositionCount											};
-typedef NS_ENUM(NSUI, AZTrackPosition ) { AZTrackN, AZTrackS, AZTrackE, AZTrackW, AZTrackPositionCount									};
-typedef NS_ENUM(NSUI,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X, AZInfiteScale2X, AZInfiteScale3X, AZInfiteScale10X	};
+typedef NS_ENUM(NSUInteger,    AZTrackState ) { LeftOn, LeftOff, TopOn, TopOff, RightOn, RightOff, BottomOn, BottomOff						};
+typedef NS_ENUM(NSUInteger,      AZDockSort ) { AZDockSortNatural, AZDockSortColor, AZDockSortPoint, AZDockSortPointNew						};
+typedef NS_ENUM(NSUInteger,      AZSearchBy ) { AZSearchByCategory, AZSearchByColor, AZSearchByName, AZSearchByRecent						};
+typedef NS_ENUM(NSUInteger,  AZMenuPosition ) { AZMenuN, AZMenuS, AZMenuE, AZMenuW, AZMenuPositionCount											};
+typedef NS_ENUM(NSUInteger, AZTrackPosition ) { AZTrackN, AZTrackS, AZTrackE, AZTrackW, AZTrackPositionCount									};
+typedef NS_ENUM(NSUInteger,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X, AZInfiteScale2X, AZInfiteScale3X, AZInfiteScale10X	};
 
 JREnumDeclare(AZOrient,	AZOrientTop, 	AZOrientLeft, 		AZOrientBottom, 	AZOrientRight,
 				  AZOrientGrid, 	AZOrientPerimeter,AZOrientFiesta,	AZOrientVertical, AZOrientHorizontal);
@@ -525,7 +530,7 @@ JREnumDeclare(AZOrient,	AZOrientTop, 	AZOrientLeft, 		AZOrientBottom, 	AZOrientR
 #define iC iCarousel
 /*
  //#ifndef ATOZTOUCH
- typedef NS_OPTIONS(NSUI, AZWindowPosition) {
+ typedef NS_OPTIONS(NSUInteger, AZWindowPosition) {
  AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
  AZPositionRight			= NSMaxXEdge, // 2  preferredEdge
  AZPositionTop		   	= NSMaxYEdge, // 3  compatibility
@@ -581,7 +586,7 @@ JREnumDeclare(AZOrient,	AZOrientTop, 	AZOrientLeft, 		AZOrientBottom, 	AZOrientR
 
 
 typedef struct AZWhatever {
-	NSUI position;
+	NSUInteger position;
 	char *aString;
 	int  anInt;
 } AZWhatever;
@@ -602,7 +607,7 @@ typedef struct AZWhatever {
 //JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad);
 JREnumDeclare( AZQuad, AZQuadTopLeft = 0, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
 
-//typedef NS_ENUM(NSUI, AZQuadrant){
+//typedef NS_ENUM(NSUInteger, AZQuadrant){
 //	AZTopLeftQuad = 0,
 //	AZTopRightQuad,
 //	AZBotRightQuad,
@@ -621,26 +626,26 @@ extern NSString *const AZMenuPositionName[AZMenuPositionCount];
 // NSLog(@"%@", FormatTypeName[XML]);
 //NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
 
-typedef NS_ENUM( NSUI, AZItemsViewFormat ){	AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames	};
+typedef NS_ENUM( NSUInteger, AZItemsViewFormat ){	AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames	};
 
-typedef NS_ENUM(NSUI, SandBox) {	ReadAccess = R_OK,	WriteAccess = W_OK,	ExecuteAccess = X_OK,	PathExists = F_OK };
+typedef NS_ENUM(NSUInteger, SandBox) {	ReadAccess = R_OK,	WriteAccess = W_OK,	ExecuteAccess = X_OK,	PathExists = F_OK };
 
 
 NS_INLINE void AZPrintEncodingTypes(){
 	NSLog(@"%15s: %s","AZPOS", @encode( AZPOS ));
-	NSLog(@"%15s: %s",  "NSP", @encode(   NSP ));
-	NSLog(@"%15s: %s","NSRGG", @encode( NSRNG ));
-	NSLog(@"%15s: %s", "NSSZ", @encode(  NSSZ ));
-	NSLog(@"%15s: %s",  "NSR", @encode(   NSR ));
+	NSLog(@"%15s: %s",  "NSP", @encode(   NSPoint ));
+	NSLog(@"%15s: %s","NSRGG", @encode( NSRange ));
+	NSLog(@"%15s: %s", "NSSZ", @encode(  NSSize ));
+	NSLog(@"%15s: %s",  "NSR", @encode(   NSRect ));
 	NSLog(@"%15s: %s", "BOOL", @encode(  BOOL ));
 	NSLog(@"%15s: %s","AZPOS", @encode( AZPOS ));
-	NSLog(@"%15s: %s",  "CGF", @encode(   CGF ));
-	NSLog(@"%15s: %s", "NSUI", @encode(  NSUI ));
+	NSLog(@"%15s: %s",  "CGF", @encode(   CGFloat ));
+	NSLog(@"%15s: %s", "NSUI", @encode(  NSUInteger));
 	NSLog(@"%15s: %s",  "int", @encode(   int ));
-	NSLog(@"%15s: %s",  "NSI", @encode(   NSI ));
-	NSLog(@"%15s: %s", "CGCR", @encode(  CGCR ));
+	NSLog(@"%15s: %s",  "NSI", @encode(   NSInteger ));
+	NSLog(@"%15s: %s", "CGCR", @encode(  CGColorRef ));
 	NSLog(@"%15s: %s",   "id", @encode(    id ));
-	NSLog(@"%15s: %s",  "NSA", @encode(   NSA ));
+	NSLog(@"%15s: %s",  "NSA", @encode(   NSArray ));
 }
 
 //typedef enum {
@@ -691,3 +696,48 @@ NS_INLINE void AZPrintEncodingTypes(){
 //	CGFloat initialWhite;
 //	CGFloat finalWhite;
 //} GlossParameters;
+
+//#endif
+
+
+JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
+				   AZEventLeftMouseUp,
+				   AZEventRightMouseDown,
+				   AZEventRightMouseUp,
+				   AZEventMouseMoved,
+				   AZEventLeftMouseDragged,
+				   AZEventRightMouseDragged,
+				   AZEventMouseEntered,
+				   AZEventMouseExited,
+				   AZEventKeyDown,
+				   AZEventKeyUp,
+				   AZEventFlagsChanged,
+				   AZEventAppKitDefined,
+				   AZEventSystemDefined,
+				   AZEventApplicationDefined,
+				   AZEventPeriodic,
+				   AZEventCursorUpdate,
+				   AZEventScrollWheel,
+				   AZEventTabletPoint,
+				   AZEventTabletProximity,
+				   AZEventOtherMouseDown,
+				   AZEventOtherMouseUp,
+				   AZEventOtherMouseDragged,
+				   AZEventEventTypeGesture,
+				   AZEventEventTypeMagnify,
+				   AZEventEventTypeSwipe,
+				   AZEventEventTypeRotate,
+				   AZEventEventTypeBeginGesture,
+				   AZEventTypeEndGesture);
+
+/* USAGE:	
+@property (UNSFE) IBOutlet NSButton 	*someButton;
+...  .m
+[_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
+*/
+
+typedef void(^NSControlActionBlock)(id sender);
+typedef void(^NSControlEventActionBlock)(AZEvent e,id sender);
+typedef void(^NSControlVoidActionBlock)(void);
+
+

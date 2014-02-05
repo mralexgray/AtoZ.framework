@@ -39,7 +39,7 @@
 	[self setImage:anImage];
 	[self setTitle:iconTitle];
 	
-//	NSImage *image = [[NSImage alloc] 
+//	NSImage *image = [NSImage.alloc 
 //					  initWithContentsOfFile:[self imagePath]];
 	
 //	NSData * imageData = [image TIFFRepresentation];

@@ -1,43 +1,5 @@
-JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
-				   AZEventLeftMouseUp,
-				   AZEventRightMouseDown,
-				   AZEventRightMouseUp,
-				   AZEventMouseMoved,
-				   AZEventLeftMouseDragged,
-				   AZEventRightMouseDragged,
-				   AZEventMouseEntered,
-				   AZEventMouseExited,
-				   AZEventKeyDown,
-				   AZEventKeyUp,
-				   AZEventFlagsChanged,
-				   AZEventAppKitDefined,
-				   AZEventSystemDefined,
-				   AZEventApplicationDefined,
-				   AZEventPeriodic,
-				   AZEventCursorUpdate,
-				   AZEventScrollWheel,
-				   AZEventTabletPoint,
-				   AZEventTabletProximity,
-				   AZEventOtherMouseDown,
-				   AZEventOtherMouseUp,
-				   AZEventOtherMouseDragged,
-				   AZEventEventTypeGesture,
-				   AZEventEventTypeMagnify,
-				   AZEventEventTypeSwipe,
-				   AZEventEventTypeRotate,
-				   AZEventEventTypeBeginGesture,
-				   AZEventTypeEndGesture);
 
-/* USAGE:	
-@property (UNSFE) IBOutlet NSButton 	*someButton;
-...  .m
-[_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
-*/
-
-typedef void(^NSControlActionBlock)(id sender);
-typedef void(^NSControlEventActionBlock)(AZEvent e,id sender);
-typedef void(^NSControlVoidActionBlock)(void);
-
+#import "AtoZTypes.h"
 
 @interface NSColorPanel (AtoZ)
 @property (nonatomic,copy) void(^actionBlock)(id);

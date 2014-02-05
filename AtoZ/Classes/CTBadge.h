@@ -11,7 +11,7 @@
 
 #import <Cocoa/Cocoa.h>
 //- (void)awakeFromNib  {
-//  myBadge = [[CTBadge alloc] init];  [self setBadgeValue:scroller];
+//  myBadge = CTBadge.new;  [self setBadgeValue:scroller];
 //  [[NSColorPanel sharedColorPanel] setShowsAlpha:YES];
 //  }
 

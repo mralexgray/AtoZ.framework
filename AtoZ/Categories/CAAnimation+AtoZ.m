@@ -850,7 +850,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 //		// Create the yellow fade layer.
 //	CALayer *layer = [CALayer layer];
 //	[layer setDelegate:self];
-//	yellowFadeView = [[NSView alloc] init];
+//	yellowFadeView = NSView.new;
 //	[yellowFadeView setWantsLayer:YES];
 //	[yellowFadeView setFrame:cellFrame];
 //	[yellowFadeView setLayer:layer];
@@ -991,7 +991,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
  
  - (void)setCompletion:(void (^)(BOOL))completion
  {
- CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
+ CAAnimationDelegate *newDelegate = CAAnimationDelegate.new;
  newDelegate.completion = completion;
  newDelegate.start = ((CAAnimationDelegate *)self.delegate).start;
  self.delegate = newDelegate;
@@ -1008,7 +1008,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
  
  - (void)setStart:(void (^)())start
  {
- CAAnimationDelegate *newDelegate = [[CAAnimationDelegate alloc] init];
+ CAAnimationDelegate *newDelegate = CAAnimationDelegate.new;
  newDelegate.start = start;
  newDelegate.completion = ((CAAnimationDelegate *)self.delegate).completion;
  self.delegate = newDelegate;

@@ -1,8 +1,37 @@
-[<kbd>A</kbd>to<kbd>Z</kbd>.framework](https://github.com/mralexgray/AtoZ.framework)
+#[<kbd>A</kbd>to<kbd>Z</kbd>.framework](https://github.com/mralexgray/AtoZ.framework)  [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mralexgray/atoz.framework/trend.png)](https://bitdeli.com/free "Bitdeli Badge")	[![Build Status](https://travis-ci.org/mralexgray/AtoZ.framework.png?branch=Core)](https://travis-ci.org/mralexgray/AtoZ.framework)
+
 ---
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mralexgray/atoz.framework/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+
 
 ###The *all-inclusive cruise* of Umbrella frameworks.
+
+              db            ,d                     888888888888
+             d88b           88                              ,88
+            d8'`8b        MM88MMM                         ,88^
+           d8'  `8b         88        ,adPPYba,         ,88^
+          d8YaaaaY8b        88       a8'     '8a      ,88^
+         d8""""""""8b       88       8b       d8    ,88^
+        d8'        `8b      88       '8a,   ,a8'   88^
+       d8'          `8b     'Y888     `^YbbdP^'    888888888888
+            _    _     _           _            _    _
+           |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/
+           |    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\
+
+
+ 
+
+| Left align | Center align       |         Right align    |
+|:-----------|:------------------:|-----------------------:|
+| This       |    This            |                   This |
+| column     |  column            |                 column | 
+| will       |    will            |                   will |
+| be         |     be             |                     be |
+| left       |   center           |                  right |
+| aligned    |  aligned           | longlong longl aligned | 
+
+
+
 
 About the podspec...
 

@@ -1,6 +1,7 @@
 
 #import "AtoZUmbrella.h"
-#import "KVOMap/KVOMap.h"
+#import "AtoZTypes.h"
+//#import "KVOMap/KVOMap.h"
 
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
@@ -57,6 +58,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 -   (id) nextObject;
 - (NSA*) arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray;
 - (NSCountedSet*)countedSet ;
+
+- (NSRNG) rangeOfSubarray:(NSA*)sub;
 /*!
  @brief	Returns an array of NSNumbers whose -integerValues
  span a given range, each value being one more than the previous

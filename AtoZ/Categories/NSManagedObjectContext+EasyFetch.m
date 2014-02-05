@@ -57,7 +57,7 @@
 								insertNewObjectForEntityForName:entityName 
 								inManagedObjectContext:self];
   
-  NSMutableDictionary* lookup = [[NSMutableDictionary alloc] init];
+  NSMutableDictionary* lookup = NSMutableDictionary.new;
   [lookup setObject:newObject forKey:[object objectID]];
   
   NSArray *attKeys = [[[object entity] attributesByName] allKeys];

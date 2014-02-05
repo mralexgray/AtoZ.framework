@@ -4,6 +4,8 @@
 <dict>
 	<key>ATSApplicationFontsPath</key>
 	<string>Fonts</string>
+	<key>BUILT_ON</key>
+	<string>__TIMESTAMP__</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -26,8 +28,6 @@
 	<string>ATOZ</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2014 mrgray.com, inc. Do the fuck what you want license.</string>
 	<key>NSPrincipalClass</key>

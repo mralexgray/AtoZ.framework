@@ -31,7 +31,7 @@
 }
 
 - (void)testStringFromClass	{
-	XCTAssertEqualObjects([[[NSObject alloc] init] stringFromClass], @"NSObject");
+	XCTAssertEqualObjects([[NSObject.alloc init] stringFromClass], @"NSObject");
 
 	// NSString deploys a class clustering architecture. The actual class is an
 	// implementation-specific sub-class or compatible class, depending on what

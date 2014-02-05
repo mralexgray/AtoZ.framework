@@ -130,7 +130,7 @@ IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, 
 
 
 
-
+/*
 static NSMD* 				_children;
 static dispatch_once_t  _onceToken;
 
@@ -155,6 +155,7 @@ static dispatch_once_t  _onceToken;
 + (void) 					print 			{  NSLog(@"%@", _children); }
 
 @end
+*/
 
 /* = AZNULL; _children = [_children dictionaryWithoutKey:AZCLSSTR].mutableCopy; } }
 //+(void) initialize {    //thread-safe if(!_children) _children = NSMutableDictionary.new; [_children setObject:[self.alloc init] forKey:AZCLSSTR]; }
@@ -450,16 +451,16 @@ NSUI		AZSizeOfRange					 (AZRange rng) {
 }
 
 //// SANDBOX
-NSS * realHomeDirectory() {
-	const char *home = getpwuid(getuid())->pw_dir;
-	NSString *path = [[NSFileManager defaultManager]
-					  stringWithFileSystemRepresentation:home
-												  length:strlen(home)];
-	static NSString *realHomeDirectory = nil;
-	return realHomeDirectory = [(NSURL*)[NSURL fileURLWithPath:path isDirectory:YES] path];
+NSS * realHomeDirectory() { return @"apple";
+//  uid_t home = getpwuid(getuid())->pw_dir;
+//	NSString *path = [[NSFileManager defaultManager]
+//					  stringWithFileSystemRepresentation:home
+//												  length:strlen(home)];
+//	static NSString *realHomeDirectory = nil;
+//	return realHomeDirectory = [(NSURL*)[NSURL fileURLWithPath:path isDirectory:YES] path];
 }
 BOOL powerBox() {
-	NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+	NSOpenPanel *openPanel = NSOpenPanel.new;
 	[openPanel setCanChooseFiles:NO];
 	[openPanel setCanChooseDirectories:YES];
 	[openPanel setCanCreateDirectories:YES];
@@ -539,14 +540,15 @@ NSS * WANIP() { // <html><head><title>Current IP Check</title></head><body>Curre
 //	}
 //	return externalIP ? externalIP : noway;
 
-char * GetPrivateIP() {
-	struct hostent *h;
-	char hostname[100];
-	gethostname(hostname, 99);
-	if ((h = gethostbyname(hostname)) == NULL) {
-		perror("Error: "); return "(Error locating Private IP Address)";
-	}
-	return inet_ntoa(*((struct in_addr *)h->h_addr));
+char * GetPrivateIP() { return "a"; 
+//	struct hostent *h;
+//	char hostname[100];
+//  struct hostent	*
+//	gethostname(hostname, 99);
+//	if ((h = gethostbyname(hostname)) == NULL) {
+//		perror("Error: "); return "(Error locating Private IP Address)";
+//	}
+//	return inet_ntoa(*((struct in_addr *)h->h_addr));
 }
 /** Converts a raw IPv4 address to an NSString in dotted-quad notation */
 NSS * StringFromIPv4Addr(UInt32 ipv4Addr) {
@@ -578,7 +580,7 @@ BOOL isIPlocal(UInt32 address) {
 //	// To find our public IP address, open a PortMapper with no port or protocols.
 //	// This will cause the DNSService to look up our public address without creating a mapping.
 //	NSString *addr;
-//	PortMapper *mapper = [[self alloc] initWithPort: 0];
+//	PortMapper *mapper = [self.alloc initWithPort: 0];
 //	mapper.mapTCP = mapper.mapUDP = NO;
 //	if( [mapper waitTillOpened] )
 //		addr = mapper.publicAddress;
@@ -610,17 +612,17 @@ NSCharacterSet * _GetCachedCharacterSet(CharacterSet set) {
 					cache[set] = [NSCharacterSet.decimalDigitCharacterSet invertedSet];
 					break;
 				case kCharacterSet_WordBoundaries:
-					cache[set] = [[NSMutableCharacterSet alloc] init];
+					cache[set] = NSMutableCharacterSet.new;
 					[(NSMutableCharacterSet *)cache[set] formUnionWithCharacterSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 					[(NSMutableCharacterSet *)cache[set] formUnionWithCharacterSet :[NSCharacterSet punctuationCharacterSet]];
 					[(NSMutableCharacterSet *)cache[set] removeCharactersInString : @"-"];
 					break;
 				case kCharacterSet_SentenceBoundaries:
-					cache[set] = [[NSMutableCharacterSet alloc] init];
+					cache[set] = NSMutableCharacterSet.new;
 					[(NSMutableCharacterSet *)cache[set] addCharactersInString : @".?!"];
 					break;
 				case kCharacterSet_SentenceBoundariesAndNewlineCharacter:
-					cache[set] = [[NSMutableCharacterSet alloc] init];
+					cache[set] = NSMutableCharacterSet.new;
 					[(NSMutableCharacterSet *)cache[set] formUnionWithCharacterSet :[NSCharacterSet newlineCharacterSet]];
 					[(NSMutableCharacterSet *)cache[set] addCharactersInString : @".?!"];
 					break;
@@ -728,7 +730,7 @@ void setValueForKeypathFromObject (NSString *keyPath, id reference, id target) {
     ptr++;
     while (isalnum(*ptr) || *ptr == '_')
     {
-      [structName appendString:[[[NSString alloc] initWithBytes:ptr length:1 encoding:NSASCIIStringEncoding] autorelease]];
+      [structName appendString:[[NSString.alloc initWithBytes:ptr length:1 encoding:NSASCIIStringEncoding] autorelease]];
       ptr++;
     }
     if (*ptr == '=' && ![structName isEqualToString:@""])
@@ -888,7 +890,7 @@ NSPoint getCenter(NSView *view) {
 // va_list argList;
 // va_start (argList, format);
 // NSString *path = [[NSString stringWithUTF8String:file] lastPathComponent];
-// NSString *message = [[NSString alloc] initWithFormat:format arguments:argList];
+// NSString *message = [NSString.alloc initWithFormat:format arguments:argList];
 // fprintf (stderr, "[%s]:%i %s \n", [path UTF8String], lineNumber, [message UTF8String]);
 // va_end  (argList);
 // //	const char *threadName = [[[NSThread currentThread] name] UTF8String];
@@ -1348,7 +1350,7 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect) {
 //
 //- (Slice *): (NSInteger)length
 //{
-//	Slice *slice = [[Slice alloc] init];
+//	Slice *slice = Slice.new;
 //	[slice setStart: [self integerValue]];
 //	[slice setLength: length];
 //	return slice;

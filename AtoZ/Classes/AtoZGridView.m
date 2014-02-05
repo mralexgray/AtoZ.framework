@@ -507,7 +507,7 @@ CNItemPoint CNMakeItemPoint(NSUI aColumn, NSUI aRow) {
 {
 	if (!self.selectionFrameView) {
 		self.selectionFrameInitialPoint = location;
-		self.selectionFrameView = [[CNSelectionFrameView alloc] init];
+		self.selectionFrameView = CNSelectionFrameView.new;
 		self.selectionFrameView.frame = NSMakeRect(location.x, location.y, 0, 0);
 		if (![self containsSubView:self.selectionFrameView])
 			[self addSubview:self.selectionFrameView];

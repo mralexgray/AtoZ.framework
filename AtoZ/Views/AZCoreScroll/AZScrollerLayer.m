@@ -1,6 +1,8 @@
 #import "AZScrollerLayer.h"
 #import "AtoZ.h"
 
+JROptionsDefine(AZScrollerMouseDownInput);
+
 #define BORDERWIDTH 0.0
 #define ARROW_WIDTH 46.0
 
@@ -11,7 +13,7 @@
 #define BORDERCOLOR CGColorCreateGenericRGB(1.0f,1.0f,1.0f,0.6f)
 #define SPACERCOLOR cgRED // CGColorCreateGenericRGB(1.0f,1.0f,1.0f,0.235f)
 
-#define CORNER_RADIUS SCROLLER_HEIGHT// *1// 0.5
+#define CORNER_RADIUS AZSCROLLER_HEIGHT// *1// 0.5
 
 #define INNER_RADIUS 1//6
 
@@ -57,7 +59,7 @@
 	self.masksToBounds = YES;
 //	self.borderWidth = BORDERWIDTH;
 //	self.borderColor = BORDERCOLOR;
-	self.frame = CGRectMake(0, 0, ARROW_WIDTH, SCROLLER_HEIGHT);
+	self.frame = CGRectMake(0, 0, ARROW_WIDTH, AZSCROLLER_HEIGHT);
 	[self setLayoutManager:[CAConstraintLayoutManager layoutManager]];
 
 	[self addConstraints: @[AZConstRelSuper(kCAConstraintMidX), AZConstRelSuper(kCAConstraintWidth)]];
@@ -160,7 +162,7 @@
 
 - (void) createSlider {
 
-	CGFloat sliderHeight = SCROLLER_HEIGHT - BORDERWIDTH * 2;
+	CGFloat sliderHeight = AZSCROLLER_HEIGHT - BORDERWIDTH * 2;
 	CGFloat initialWidth = SLIDER_MIN_WIDTH;
 
 	slider = [CALayer layer];
@@ -256,7 +258,7 @@
 
 	// Close the path so that we can create the rounded mask
 	[path lineToPoint:pt1];
-	NSImage* maskImage = [[NSImage alloc] initWithSize:NSMakeSize([path bounds].size.width, [path bounds].size.height)];
+	NSImage* maskImage = [NSImage.alloc initWithSize:NSMakeSize([path bounds].size.width, [path bounds].size.height)];
 	[maskImage lockFocus];
 	{
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] set];
@@ -274,7 +276,7 @@
 	float minX = 0;
 	float minY = 0;
 	float maxX = ARROW_WIDTH;
-	float maxY = SCROLLER_HEIGHT;
+	float maxY = AZSCROLLER_HEIGHT;
 	NSPoint topLeft = NSMakePoint (minX, maxY);
 	NSPoint topRight= NSMakePoint (maxX, maxY);
 	NSPoint bottomRight = NSMakePoint (maxX, minY);
@@ -322,7 +324,7 @@
 	float minX = 0;
 	float minY = 0;
 	float maxX = ARROW_WIDTH;
-	float maxY = SCROLLER_HEIGHT;
+	float maxY = AZSCROLLER_HEIGHT;
 
 	NSPoint topLeft = NSMakePoint (minX, maxY);
 	NSPoint topRight= NSMakePoint (maxX, maxY);
@@ -367,7 +369,7 @@
 
 - (void)setContentForArrowLayer:(CALayer*)arrowContent withArrow:(NSBezierPath*)arrowPath andBorder:(NSBezierPath*)borderPath {
 
-	NSImage* bgImage = [self createGlassImageForSize:NSMakeSize(ARROW_WIDTH, SCROLLER_HEIGHT)];
+	NSImage* bgImage = [self createGlassImageForSize:NSMakeSize(ARROW_WIDTH, AZSCROLLER_HEIGHT)];
 	[bgImage lockFocus];
 	{
 		NS_BORDERCOLOR
@@ -413,7 +415,7 @@
 		 controlPoint2:pt4];
 	[path lineToPoint:pt5];
 
-	NSImage* maskImage = [[NSImage alloc] initWithSize:NSMakeSize([path bounds].size.width, [path bounds].size.height)];
+	NSImage* maskImage = [NSImage.alloc initWithSize:NSMakeSize([path bounds].size.width, [path bounds].size.height)];
 	[maskImage lockFocus];
 	{
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] set];
@@ -444,17 +446,17 @@
 	NSColor* topGradientTop = [NSColor colorWithCalibratedWhite:1.0 alpha:0.27];
 	NSColor* topGradientBottom= [NSColor colorWithCalibratedWhite:1.0 alpha:0.17];
 
-	NSGradient* topGlassGradient = [[NSGradient alloc] initWithStartingColor:topGradientBottom
+	NSGradient* topGlassGradient = [NSGradient.alloc initWithStartingColor:topGradientBottom
 																 endingColor:topGradientTop];
 	NSColor* botGradientTop = [NSColor colorWithCalibratedWhite:1.0 alpha:0.0];
 	NSColor* botGradientBottom= [NSColor colorWithCalibratedWhite:1.0 alpha:0.129];
 
-	NSGradient* botGlassGradient = [[NSGradient alloc] initWithStartingColor:botGradientBottom
+	NSGradient* botGlassGradient = [NSGradient.alloc initWithStartingColor:botGradientBottom
 																 endingColor:botGradientTop];
 	NSRect bottomGlassRect = NSMakeRect(0, 1, size.width, INNER_RADIUS - 1);
 
 */
-	NSImage* glassedImage = [[NSImage alloc] initWithSize:size];
+	NSImage* glassedImage = [NSImage.alloc initWithSize:size];
 	[glassedImage lockFocus];
 	{
 		[[NSColor colorWithCalibratedRed:0.986 green:0.801 blue:0.300 alpha:1.000] set];
@@ -520,36 +522,36 @@
 - (void)periodicMouseDownEvent:(NSTimer *)timer {
 
 	// Input stopped through a mouseUp event
-	if ( _inputMode == SFNoInput ) {
+	if ( _inputMode == AZNoInput ) {
 		[timer invalidate];
 		return;
 	}
 
 	if ( _mouseOverSelectedInput) {
 
-		if (_inputMode == SFLeftArrowInput ) {
+		if (_inputMode == AZLeftArrowInput ) {
 			[_scrollerContent moveScrollView:-[_scrollerContent stepSize]];
 		}
 
-		if (_inputMode == SFRightArrowInput ) {
+		if (_inputMode == AZRightArrowInput ) {
 			[_scrollerContent moveScrollView:[_scrollerContent stepSize]];
 		}
 
 		CGPoint trayPoint = [tray convertPoint:_mouseDownPointForCurrentEvent fromLayer:tray.superlayer];
-		if (_inputMode == SFTrayInputLeft || _inputMode == SFTrayInputRight ) {
+		if (_inputMode == AZTrayInputLeft || _inputMode == AZTrayInputRight ) {
 
 			if ( CGRectContainsPoint ( slider.frame, trayPoint ) ) {
 				// Stop moving the tray when the slider hits the mouse
-				_inputMode = SFNoInput;
+				_inputMode = AZNoInput;
 			}
 
 		}
 
-		if (_inputMode == SFTrayInputLeft && trayPoint.x < slider.frame.origin.x) {
+		if (_inputMode == AZTrayInputLeft && trayPoint.x < slider.frame.origin.x) {
 			[_scrollerContent moveScrollView:-[_scrollerContent visibleWidth]];
 		}
 
-		if (_inputMode == SFTrayInputRight && trayPoint.x > slider.frame.origin.x) {
+		if (_inputMode == AZTrayInputRight && trayPoint.x > slider.frame.origin.x) {
 			[_scrollerContent moveScrollView:[_scrollerContent visibleWidth]];
 		}
 
@@ -568,7 +570,7 @@
 	CGPoint point = [self convertPoint:inputPoint fromLayer:self.superlayer];
 	_mouseDownPointForCurrentEvent = point;
 	_mouseOverSelectedInput = YES;
-	_inputMode = SFNoInput;
+	_inputMode = AZNoInput;
 
 	if ( CGRectContainsPoint ( tray.frame, point ) ) {
 		// Check the slider.It's frame is relative to the
@@ -576,15 +578,15 @@
 		CGPoint trayPoint = [tray convertPoint:point fromLayer:tray.superlayer];
 
 		if ( CGRectContainsPoint ( slider.frame, trayPoint ) ) {
-			_inputMode = SFSliderInput;
+			_inputMode = AZSliderInput;
 			return YES;
 		}
 
 		if (trayPoint.x < slider.frame.origin.x ) {
-			_inputMode = SFTrayInputLeft;
+			_inputMode = AZTrayInputLeft;
 			[_scrollerContent moveScrollView:-[_scrollerContent visibleWidth]];
 		} else {
-			_inputMode = SFTrayInputRight;
+			_inputMode = AZTrayInputRight;
 			[_scrollerContent moveScrollView:[_scrollerContent visibleWidth]];
 		}
 
@@ -594,7 +596,7 @@
 
 	if ( CGRectContainsPoint ( leftArrow.frame, point ) ) {
 		leftArrowHighlight.hidden = NO;
-		_inputMode = SFLeftArrowInput;
+		_inputMode = AZLeftArrowInput;
 		[_scrollerContent moveScrollView:-[_scrollerContent stepSize]];
 		[self startMouseDownTimer];
 		return YES;
@@ -602,7 +604,7 @@
 
 	if ( CGRectContainsPoint ( rightArrow.frame, point ) ) {
 		rightArrowHighlight.hidden = NO;
-		_inputMode = SFRightArrowInput;
+		_inputMode = AZRightArrowInput;
 		[_scrollerContent moveScrollView:[_scrollerContent stepSize]];
 		[self startMouseDownTimer];
 		return YES;
@@ -613,13 +615,13 @@
 
 	CGPoint point = [self convertPoint:inputPoint fromLayer:self.superlayer];
 
-	if (_inputMode == SFTrayInputLeft ||_inputMode == SFTrayInputRight ) {
+	if (_inputMode == AZTrayInputLeft ||_inputMode == AZTrayInputRight ) {
 		_mouseOverSelectedInput = CGRectContainsPoint ( tray.frame, point ) ? YES : NO;
 		_mouseDownPointForCurrentEvent = point;
 		return;
 	}
 
-	if ( _inputMode == SFSliderInput ) {
+	if ( _inputMode == AZSliderInput ) {
 		CGPoint startPoint = _mouseDownPointForCurrentEvent;
 		CGPoint endPoint = point;
 		CGFloat dx = endPoint.x - startPoint.x;
@@ -629,12 +631,12 @@
 	}
 
 	[CATransaction setValue:@0.0f forKey:@"animationDuration"];
-	if ( _inputMode == SFLeftArrowInput ) {
+	if ( _inputMode == AZLeftArrowInput ) {
 		leftArrowHighlight.hidden = CGRectContainsPoint ( leftArrow.frame, point ) ? NO : YES;
 		_mouseOverSelectedInput = ! leftArrowHighlight.hidden;
 	}
 
-	if ( _inputMode == SFRightArrowInput ) {
+	if ( _inputMode == AZRightArrowInput ) {
 		rightArrowHighlight.hidden = CGRectContainsPoint ( rightArrow.frame, point ) ? NO : YES;
 		_mouseOverSelectedInput = ! rightArrowHighlight.hidden;
 	}
@@ -646,17 +648,17 @@
 	leftArrowHighlight.hidden = YES;
 	rightArrowHighlight.hidden = YES;
 
-	_inputMode = SFNoInput;
+	_inputMode = AZNoInput;
 	_mouseOverSelectedInput = NO;
 }
 
 #pragma mark - SFScrollerContentController Methods
 - (BOOL)isRepositioning {
-	return _inputMode != SFNoInput;
+	return _inputMode != AZNoInput;
 }
 
 - (void)scrollPositionChanged:(CGFloat)position {
-	if (_inputMode == SFSliderInput ) {
+	if (_inputMode == AZSliderInput ) {
 		// The user is dragging the slider so ignore the message
 		return;
 	}

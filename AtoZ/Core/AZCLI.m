@@ -111,9 +111,11 @@ typedef id(^eval)(id blockArgs, ...);
 }
 -       (IBA) toggleConsole:(id)s	{	[AZLogConsole.sharedConsole performString:[AZLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; } /* AZLogConsole - UNUSED */
 
--      (void) envTest						{	struct winsize w;	ioctl(0, TIOCGWINSZ, &w);
+-      (void) envTest						{
+  ;;
+//  struct winsize w;	ioctl(0, TIOCGWINSZ, &w);
 
-	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
+//	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
 }
 -      (NSA*) palette						{ 	return  _palette ?: [NSC colorsInListNamed:@"flatui"]; } //FengShui"]; }
 -      (NSC*) nextColor	      	  		{    static NSUI _p = 0; _p++; return [self.palette normal:_p];	}

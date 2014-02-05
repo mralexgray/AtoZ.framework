@@ -5,9 +5,8 @@
 //  Created by Fabio Pelosin on 01/10/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 //
-
+#import "AtoZ.h"
 #import "DSSyntaxCollection.h"
-
 #import "DSRubySyntaxDefinition.h"
 #import "DSObjectiveCSyntaxDefinition.h"
 #import "DSPodfileSyntaxDefinition.h"
@@ -40,7 +39,7 @@
 
 - (DSSyntaxDefinition*)syntaxForName:(NSString*)name {
   Class class = _namesMappings[name];
-  return [[class alloc] init];
+  return class.new;
 }
 
 @end

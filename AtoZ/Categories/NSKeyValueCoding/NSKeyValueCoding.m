@@ -465,7 +465,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 
 -(id)mutableArrayValueForKey:(id)key
 {
-	return [[[NSKVCMutableArray alloc] initWithKey:key forProxyObject:self] autorelease];
+	return [[NSKVCMutableArray.alloc initWithKey:key forProxyObject:self] autorelease];
 }
 
 -(id)mutableArrayValueForKeyPath:(id)keyPath
@@ -475,7 +475,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 	if(rest)
 		return [[self valueForKeyPath:firstPart] valueForKeyPath:rest];
 	else
-		return [[[NSKVCMutableArray alloc] initWithKey:firstPart forProxyObject:self] autorelease];
+		return [[NSKVCMutableArray.alloc initWithKey:firstPart forProxyObject:self] autorelease];
 }
 @end
 

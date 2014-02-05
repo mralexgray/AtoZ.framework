@@ -82,7 +82,7 @@ static const char updatingKey;
 
 - (void)__insertRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(TUITableViewRowAnimation)animation
 {
-    TUITableViewUpdateOperation *operation  = [[TUITableViewUpdateOperation alloc] initWithTableView:self rowAnimation:animation];
+    TUITableViewUpdateOperation *operation  = [TUITableViewUpdateOperation.alloc initWithTableView:self rowAnimation:animation];
     NSArray *sortedIndexPaths               = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
 
     for (NSIndexPath *currentPath in sortedIndexPaths) {
@@ -126,7 +126,7 @@ static const char updatingKey;
 
 - (void)__deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(TUITableViewRowAnimation)animation
 {
-    TUITableViewUpdateOperation *operation  = [[TUITableViewUpdateOperation alloc] initWithTableView:self rowAnimation:animation];
+    TUITableViewUpdateOperation *operation  = [TUITableViewUpdateOperation.alloc initWithTableView:self rowAnimation:animation];
     NSArray *sortedIndexPaths               = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
 
     for (NSIndexPath *currentPath in sortedIndexPaths) {

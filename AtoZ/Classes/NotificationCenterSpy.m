@@ -3,7 +3,7 @@
 //
 //  Created by Javier Soto on 9/13/11.
 //
-
+#import "AtoZ.h"
 #import "NotificationCenterSpy.h"
 
 static NotificationCenterSpy *sharedInstance = nil;
@@ -24,7 +24,7 @@ static NotificationCenterSpy *sharedInstance = nil;
 	
 	static dispatch_once_t sharedToken;
 	dispatch_once(&sharedToken, ^{
-		sharedInstance = [[self alloc] init];
+		sharedInstance = self.new;
 	});
 	
 	return sharedInstance;

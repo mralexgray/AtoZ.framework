@@ -1,7 +1,7 @@
 #import "NSTerminal.h"
 #import "AtoZUmbrella.h"
-#import "AtoZ.h"
-
+//#import "AtoZ.h"
+#import "AZLogConsole.h"
 
 #include <assert.h>
 #include <SystemConfiguration/SystemConfiguration.h>
@@ -18,7 +18,8 @@ FOUNDATION_EXPORT     NSUI   AZCurrentUserID();
 #define    AZSTDOUT	NSFileHandle.fileHandleWithStandardOutput
 #define  AZQUITMENU [NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME] action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]
 
-@interface 					  AZCLI : NSObject   <AZLogConsoleDelegate,NSWindowDelegate,NSApplicationDelegate>	 
+//@protocol AZLogConsoleDelegate;
+@interface 					  AZCLI : NSObject   <AZLogConsoleDelegate,NSWindowDelegate,NSApplicationDelegate>
 {
 		        MenuAppController * menu; 
 //		     DefinitionController * dCTL;	

@@ -1,5 +1,5 @@
 //+ (instancetype)sharedHelper				{ __strong static AtoZHelper *_sharedInstance = nil; static dispatch_once_t onceToken;
-//	return dispatch_once(&onceToken, ^{ _sharedInstance = [[self alloc] init]; }),
+//	return dispatch_once(&onceToken, ^{ _sharedInstance = self.new; }),
 //	_sharedInstance;
 //}
 //+ (id) allocWithZone:(NSZone*)zone 	{ return self.sharedHelper; }
@@ -245,7 +245,7 @@ NSAPPLICATIONMAIN
 //	if (!userInfo)
 //		return;
 //
-//	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//	NSAutoreleasePool *pool = NSAutoreleasePool.new;
 //	NSString *appPath = [userInfo objectForKey:@"NSApplicationPath"];
 //
 //	if (appPath) {
@@ -265,7 +265,7 @@ NSAPPLICATIONMAIN
 //					/* set the app's location in the dictionary, avoiding costly
 //					 *	lookups later.
 //					 */
-//					NSURL *url = [[NSURL alloc] initFileURLWithPath:appPath];
+//					NSURL *url = [NSURL.alloc initFileURLWithPath:appPath];
 //					NSDictionary *file_data = dockDescriptionWithURL(url);
 //					id location = file_data ? [NSDictionary dictionaryWithObject:file_data forKey:@"file-data"] : appPath;
 //					[ticket setObject:location forKey:GROWL_APP_LOCATION];
@@ -345,10 +345,10 @@ NSAPPLICATIONMAIN
  //Build the application-specific notification name
  NSNumber *pid = [growlNotificationDict objectForKey:GROWL_APP_PID];
  if (pid)
- growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@-%@-%@",
+ growlNotificationClickedName = [NSString.alloc initWithFormat:@"%@-%@-%@",
  appName, pid, suffix];
  else
- growlNotificationClickedName = [[NSString alloc] initWithFormat:@"%@%@",
+ growlNotificationClickedName = [NSString.alloc initWithFormat:@"%@%@",
  appName, suffix];
  clickInfo = [NSDictionary dictionaryWithObject:clickContext
  forKey:GROWL_KEY_CLICKED_CONTEXT];

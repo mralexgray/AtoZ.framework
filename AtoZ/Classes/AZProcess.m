@@ -463,7 +463,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	count = length / sizeof(struct kinfo_proc);
 
 	for (i = 0; i < count; i++) {
-		if ((proc = [[self alloc] initWithProcessIdentifier:info[i].kp_proc.p_pid]) != nil)
+		if ((proc = [self.alloc initWithProcessIdentifier:info[i].kp_proc.p_pid]) != nil)
 			[processes addObject:proc];
 		[proc release];
 	}
@@ -623,10 +623,10 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 		int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
 
 		if (sysctl(mib, 4, &info, &length, NULL, 0) < 0) {
-			command = [[[NSString alloc] init] autorelease];
+			command = [[NSString.alloc init] autorelease];
 			NSLog(@"AZProcess: doProcArgs: no command");
 		} else {
-			command = [[[NSString alloc] initWithCString:info.kp_proc.p_comm encoding:NSUTF8StringEncoding] autorelease];
+			command = [[NSString.alloc initWithCString:info.kp_proc.p_comm encoding:NSUTF8StringEncoding] autorelease];
 			NSLog(@"AZProcess: doProcArgs: info.kp_proc.p_comm = %s", info.kp_proc.p_comm);
 		}
 	}
@@ -677,7 +677,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 }
 
 + (AZProcess *)processForProcessIdentifier:(int)pid {
-	return [[[self alloc] initWithProcessIdentifier:pid] autorelease];
+	return [[self.alloc initWithProcessIdentifier:pid] autorelease];
 }
 
 + (NSArray *)processesForProcessGroup:(int)pgid {

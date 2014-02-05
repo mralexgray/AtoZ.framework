@@ -27,7 +27,7 @@ static NSMutableDictionary *classToKernel = nil;
 + (void)initialize
 {
 	if (self == [AZIrisOpenFilter class]) {
-		classToKernel = [[NSMutableDictionary alloc] init];
+		classToKernel = NSMutableDictionary.new;
 		return;
 	}
 //	OBASSERT(classToKernel); // superclasses should be initialized first
@@ -50,7 +50,7 @@ static NSMutableDictionary *classToKernel = nil;
 	}
 
 	NSError *error = nil;
-	NSString *kernelSource = [[NSString alloc] initWithContentsOfFile:kernelSourcePath encoding:NSUTF8StringEncoding error:&error];
+	NSString *kernelSource = [NSString.alloc initWithContentsOfFile:kernelSourcePath encoding:NSUTF8StringEncoding error:&error];
 	if (!kernelSource) {
 		NSLog(@"Unable to load source for kernel for \"%@\" from \"%@\": %@", className, kernelSource, [error toPropertyList]);
 		return;
@@ -96,7 +96,7 @@ static NSMutableDictionary *classToKernel = nil;
 		return nil;
 	}
 
-	return [[[cls alloc] init] autorelease];
+	return [cls new];
 }
 
 + (CIKernel *)kernel; {
@@ -125,7 +125,7 @@ static CIKernel *sIrisFilterKernel = nil;
 /*
 +(CIFilter *) filterWithName: (NSString *)name
 {
-	CIFilter *filter = [[self alloc] init];
+	CIFilter *filter = self.new;
 	return [filter autorelease];
 }
 */
@@ -143,14 +143,6 @@ static CIKernel *sIrisFilterKernel = nil;
 	return self;
 }
 
--(void) dealloc
-{
-	[inputImage release];
-	[inputTargetImage release];
-	[inputTime release];
-
-//	[super dealloc];
-}
 
 -(NSDictionary *) customAttributes
 {

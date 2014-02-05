@@ -16,7 +16,7 @@
 + (AZCalculatorController *)sharedCalc{
 	static AZCalculatorController *_sharedCalc = nil;
 	if(!_sharedCalc){
-		_sharedCalc = [[self alloc] initWithWindowNibName:[self nibName]];
+		_sharedCalc = [self.alloc initWithWindowNibName:[self nibName]];
 	}
 	return _sharedCalc;
 }
@@ -29,7 +29,7 @@
 //[g_inspector showWindow: self];
 //}
 
-//NSWindowController * windowController = [[NSWindowController alloc] ;
+//NSWindowController * windowController = [NSWindowController.alloc ;
 //[windowController window];
 
 	//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -39,14 +39,14 @@
 {
 	self = [super initWithWindowNibName: @"Calculator"];
 	if (self) {
-//		self.window = [[NSWindow alloc] initWithWindowNibName: @"Calculator"];
+//		self.window = [NSWindow.alloc initWithWindowNibName: @"Calculator"];
 		[self showWindow:self.window];
-		self.calc = [[CalcModel alloc] init];
+		self.calc = CalcModel.new;
 	}
 	return self;
 }
 //- (id)init {
-//	calc = [[CalcModel alloc] init];
+//	calc = CalcModel.new;
 //	return self;
 //}
 
@@ -59,14 +59,12 @@
 	[_calc operatorAction:addOperator];
 }
 
-//- (IBAction)calc = [[CalcModel alloc] init];
+//- (IBAction)calc = CalcModel.new;
 
 -(IBAction)getValue:(id)sender {
 	NSString *buttonValue = [sender title];
 	[_calc numberInput:buttonValue];
 	[self setLabel];
-	[buttonValue release];
-
 }
 
 - (void)setLabel {

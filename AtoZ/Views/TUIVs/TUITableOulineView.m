@@ -143,7 +143,7 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
     
     // In case not closing section - needs to create background that will apear under cells
     if (section != _openedSection) {
-        self.openedSectionBackgroundView = [[TUIView alloc] initWithFrame:sectionRect];
+        self.openedSectionBackgroundView = [TUIView.alloc initWithFrame:sectionRect];
         [self addSubview:self.openedSectionBackgroundView];
     }
     

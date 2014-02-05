@@ -1,10 +1,5 @@
-//
-//  AZImageToDataTransformer.m
-//  AtoZ
-//
-//  Created by Alex Gray on 10/15/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
+#import "AtoZ.h"
 #import "AZImageToDataTransformer.h"
 @implementation AZImageToDataTransformer
 + (BOOL)allowsReverseTransformation
@@ -21,7 +16,7 @@
 	NSPDFImageRep *img =  value;
 	//[NSPDFImageRep imageRepsWithContentsOfFile:[AZBUNDLE pathForImageResource:@"volume_mute.pdf"]];
 	NSSize size = AZSizeFromDimension(512);
-	NSBitmapImageRep* bmRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+	NSBitmapImageRep* bmRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																	  pixelsWide:size.width
 																	  pixelsHigh:size.height
 																   bitsPerSample:8
@@ -40,7 +35,7 @@
 
 	NSData *data = [bmRep representationUsingType:NSJPEGFileType properties:nil];
 
-//	NSBitmapImageRep* bmRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+//	NSBitmapImageRep* bmRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 //													pixelsWide:img.size.width
 //													pixelsHigh:img.size.height
 //												 bitsPerSample:8
@@ -69,9 +64,9 @@
 //	int count = [img pageCount];
 //	for(int i = 0 ; i < count ; i++){
 //		[img setCurrentPage:0];
-//		NSImage* pdfImage = [[NSImage alloc] initWithSize:AZSizeFromDimension(64)];
+//		NSImage* pdfImage = [NSImage.alloc initWithSize:AZSizeFromDimension(64)];
 //		[pdfImage addRepresentation:img];
-//	NSImage *temp = [[NSImage alloc] init];
+//	NSImage *temp = NSImage.new;
 //		[temp addRepresentation:img];
 //		NSBitmapImageRep *rep = [NSBitmapImageRep imageRepWithData:[pdfImage TIFFRepresentation]];
 //		NSString *pageName = [NSString stringWithFormat:@"_Page_%d.jpg", [img currentPage]]; [fileMangr createFileAtPath:[NSString stringWithFormat:@"%@/%@", foldr, pageName] contents:finalData attributes:nil];}
@@ -88,7 +83,7 @@
 	NSPDFImageRep *img = // value;
 	[NSPDFImageRep imageRepWithData:value];////   imageRepsWithContentsOfFile:[AZBUNDLE pathForImageResource:@"volume_mute.pdf"]];
 	NSSize size = AZSizeFromDimension(512);
-	NSBitmapImageRep* bmRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+	NSBitmapImageRep* bmRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																	  pixelsWide:size.width
 																	  pixelsHigh:size.height
 																   bitsPerSample:8
@@ -110,7 +105,7 @@
 //	AZLOG(bmRep);
 //
 //	NSData *data = [bmRep representationUsingType:NSJPEGFileType properties:nil];
-//	NSImage *uiImage = [[NSImage alloc] initWithData:value];
+//	NSImage *uiImage = [NSImage.alloc initWithData:value];
 //	
 	return uiImage;
 }

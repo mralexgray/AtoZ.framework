@@ -35,7 +35,7 @@
 		  return rootNode;
     }];
     colors = [RANDOMPAL withMin:objects.count max:objects.count];
-    tc = [[NSTreeController alloc] initWithContent:objects];
+    tc = [NSTreeController.alloc initWithContent:objects];
     tc.childrenKeyPath = @"childNodes";
 	[ov.window makeKeyAndOrderFront:nil];
 }
@@ -70,7 +70,7 @@
 //
 //- (void)testStandardizeCurrentDirectoryForPath_shouldConvertDotToCurrentDir {
 //	// setup
-//	GBAppledocApplication *app = [[GBAppledocApplication alloc] init];
+//	GBAppledocApplication *app = GBAppledocApplication.new;
 //	//execute & verify
 //	assertThat([app standardizeCurrentDirectoryForPath:@"."], is(self.currentPath));
 //	assertThat([app standardizeCurrentDirectoryForPath:@"./path/subpath"], is([NSString stringWithFormat:@"%@/path/subpath", self.currentPath]));
@@ -622,7 +622,7 @@
 //	va_end(args);
 //	
 //	// setup the application and inject settings to it.
-//	GBAppledocApplication *application = [[[GBAppledocApplication alloc] init] autorelease];
+//	GBAppledocApplication *application = [[GBAppledocApplication.alloc init] autorelease];
 //	GBApplicationSettingsProvider *result = [GBApplicationSettingsProvider provider];
 //	[application setValue:result forKey:@"settings"];
 //	

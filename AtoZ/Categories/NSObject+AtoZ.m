@@ -1,9 +1,10 @@
-#import "AtoZUmbrella.h"
-#import "AtoZFunctions.h"
-#import "AtoZ.h"
-#import "NSObject+AtoZ.h"
+
 #import <objc/runtime.h>
 #import "AtoZAutoBox/AtoZAutoBox.h"
+#import "AtoZ.h"
+//#import "AtoZUmbrella.h"
+//#import "AtoZFunctions.h"
+#import "NSObject+AtoZ.h"
 
 @implementation 																																		NSObject (NibLoading)
 + (INST) loadFromNib {	static NSNib   *aNib = nil;	NSArray *objs = nil;
@@ -1333,7 +1334,7 @@ BOOL respondsTo(id obj, SEL selector) {
 		BOOL *optionPtr = &isSelected;
 
 		SEL fabricated = NSSelectorFromString($(@"set%@:", label));
-		[[sender delegate] performSelector:fabricated withValue:optionPtr];
+		[(NSObject*)[sender delegate] performSelector:fabricated withValue:optionPtr];
 	}
 	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
@@ -1423,7 +1424,7 @@ static const char * getPropertyType(objc_property_t property) {
  numClasses = objc_getClassList(classes, numClasses);
 
  // Convert to NSArray of NSSs
- NSMA*rtn = [[NSMA alloc] init];
+ NSMA*rtn = NSMA.new;
  const char *cname;
  for (int i=0; i&lt;numClasses; i++) {
  cname = class_getName(classes[i]);
@@ -1721,6 +1722,8 @@ static const char * getPropertyType(objc_property_t property) {
 
 // Can set value for key follows the Key Value Settings search pattern as defined in the apple documentation
 - (BOOL)canSetValueForKey:(NSS*) key {
+
+  if (ISA(self,CAL)) return YES;
 
 	NSS *capKey = [key stringByReplacingCharactersInRange:NSMakeRange(0, 1)				// Check for SEL-based setter
 														   withString:[key substringToIndex:1].uppercaseString];
@@ -2061,7 +2064,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 
 	// return c-string
 	if (strcmp(returnType, @encode(char *)) == 0) {
-		char *s;
+		char *s = NULL;
 		[inv getReturnValue:s];
 		return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 	}
@@ -2396,7 +2399,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	id newObject = nil;
 	NSMutableArray *newObjects = [NSMutableArray array];
 	for (NSDictionary *keyedObject in keyedObjects)
-		if ((newObject = [[objectClass alloc] initWithDictionary:keyedObject]))
+		if ((newObject = [objectClass.alloc initWithDictionary:keyedObject]))
 			[newObjects addObject:newObject];
 
 	if (!newObjects.count)
@@ -2415,7 +2418,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	id newObject = nil;
 	NSMutableArray *newObjects = [NSMutableArray array];
 	for (NSDictionary *keyedObject in (NSA*)self)
-		if ((newObject = [[objectClass alloc] initWithDictionary:keyedObject]))
+		if ((newObject = [objectClass.alloc initWithDictionary:keyedObject]))
 			[newObjects addObject:newObject];
 
 	if (!newObjects.count)
@@ -2483,7 +2486,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	if ([value isKindOfClass:[NSDate class]]) return value;
 
 	if ([value isKindOfClass:NSString.class])
-		return [[[NSDateFormatter alloc] init] dateFromString:value];
+		return [[NSDateFormatter.alloc init] dateFromString:value];
 
 	NSAssert1(NO, @"FOOCoding cannot make an NSDate from %@", NSStringFromClass([value class]));
 

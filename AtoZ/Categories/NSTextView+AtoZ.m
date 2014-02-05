@@ -5,6 +5,7 @@
 //  Created by Alex Gray on 9/16/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
+#import "AtoZ.h"
 #import "NSTextView+AtoZ.h"
 #import "AtoZCategories.h"
 
@@ -268,7 +269,7 @@
 			forSegment:i] ;
 	}
 
-	[textWidths release] ;
+//	[textWidths release] ;
 }
 
 @end

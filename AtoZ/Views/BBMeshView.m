@@ -20,11 +20,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+#import "BBMeshView.h"
+
 
 #define XVERTS 6
 #define YVERTS 5
 
-@interface BBMeshView  ()
+//@interface BBMeshView  ()
 
 //- (BOOL)point:(CGPoint)p inTriangleA:(CGPoint)a b:(CGPoint)b c:(CGPoint)c;
 //- (CALayer*)addMeshVertexLayer;;
@@ -55,7 +57,7 @@
 // 19 methods
 
 
-@end
+//@end
 
 
 @implementation BBMeshView {
@@ -204,7 +206,7 @@
 	NSRect vertRect = NSMakeRect(0, 0, vertSize.width, vertSize.height);
 	NSRect targetRect = NSMakeRect(NSMidX(vertRect) - 5, NSMidY(vertRect) - 5,10,10);
 	
-	NSImage* vertImage = [[NSImage alloc] initWithSize:vertSize];
+	NSImage* vertImage = [NSImage.alloc initWithSize:vertSize];
 	[vertImage lockFocus];
 	
 	[[NSColor blackColor] set];
@@ -213,7 +215,7 @@
 	[NSBezierPath strokeLineFromPoint:NSMakePoint(NSMidX(vertRect), NSMinY(vertRect)) toPoint:NSMakePoint(NSMidX(vertRect), NSMaxY(vertRect))];
 	
 	[vertImage unlockFocus];
-	return [vertImage autorelease];
+	return vertImage;
 }
 
 

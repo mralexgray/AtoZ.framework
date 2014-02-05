@@ -1,5 +1,8 @@
+#import "AtoZ.h"
 
 #import "AZSemiResponderWindow.h"
+#import "AZBlockView.h"
+#import "AZMouser.h"
 
 @implementation AZSemiResponderWindow
 
@@ -19,7 +22,7 @@
 	[self.contentView addSubview:	[BLKVIEW viewWithFrame:_inactiveRect opaque:NO drawnUsingBlock:^(BNRBlockView *view, NSRect dirtyRect) {
 		static NSC *c = nil;  c = c ?: RANDOMCOLOR;
 		//		int opts = (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways);
-		//		NSTA *tarea = [[NSTA alloc] initWithRect:view.bounds options:opts owner:self userInfo:nil];//		[view setWantsLayer:YES];
+		//		NSTA *tarea = [NSTA.alloc initWithRect:view.bounds options:opts owner:self userInfo:nil];//		[view setWantsLayer:YES];
 		//		[view addTrackingArea:tarea];
 		//		[CATransaction immediately:^{ [[view layer] setOpacity:0.0]; }];
 		[[c alpha:.4]set];
@@ -94,8 +97,8 @@
 		case NSLeftMouseUp: {
 			//			if (_noHit) { CGPostMouseEvent(mouseLoc(), FALSE, 1,FALSE);
 			_hit = nil;
-			AZBlockSelf(bSelf);
-			[self performBlock:^{ [bSelf setIgnoresMouseEvents: NO]; } afterDelay:.1];
+//			AZBlockSelf(bSelf);
+//			[self performBlock:^{ [bSelf setIgnoresMouseEvents: NO]; } afterDelay:.1];
 			break;
 		}
 		case NSMouseEntered:
@@ -871,8 +874,7 @@
 //	NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:[self bounds]];
 //
 //	NSGradient* aGradient =
-//	[[[NSGradient alloc]
-//	  initWithColorsAndLocations:
+//	[[NSGradient.alloc //	  initWithColorsAndLocations:
 //	  [NSColor whiteColor], (CGF)0.0,
 //	  [NSColor lightGrayColor], (CGF)1.0,
 //	  nil]
@@ -897,7 +899,7 @@
 ////	titleRect.origin.y = titleRect.size.height - (WINDOW_FRAME_PADDING - 7);
 ////	titleRect.size.height = (WINDOW_FRAME_PADDING - 7);
 //	NSMutableParagraphStyle *paragraphStyle =
-//	[[[NSMutableParagraphStyle alloc] init] autorelease];
+//	[[NSMutableParagraphStyle.alloc init] autorelease];
 //	[paragraphStyle setAlignment:NSCenterTextAlignment];
 //	[windowTitle
 //	 drawWithRect:titleRect

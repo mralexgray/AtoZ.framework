@@ -1,5 +1,6 @@
 
 #import "AZDarkButtonCell.h"
+#import "AtoZ.h"
 
 /**  Custom cells...  not directly related to Basemodel, etc... but you can see some ways to access the shared instance, etc */
 
@@ -118,7 +119,7 @@
 		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:roundedRadius yRadius:roundedRadius];
 		[outerClip setClip];
 
-		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations:
+		NSGradient *outerGradient = [NSGradient.alloc initWithColorsAndLocations:
 									 [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,
 									 [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,
 									 nil];
@@ -133,7 +134,7 @@
 		NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:NSInsetRect(frame, 2.0f, 2.0f) xRadius:roundedRadius yRadius:roundedRadius];
 		[backgroundPath setClip];
 
-		NSGradient *backgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+		NSGradient *backgroundGradient = [NSGradient.alloc initWithColorsAndLocations:
 										  [NSColor colorWithDeviceWhite:0.17f alpha:1.0f], 0.0f,
 										  [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.12f,
 										  [NSColor colorWithDeviceWhite:0.27f alpha:1.0f], 0.5f,

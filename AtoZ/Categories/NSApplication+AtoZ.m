@@ -1,11 +1,5 @@
-//
-//  NSApplication+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 6/29/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
+#import "AtoZ.h"
 #import "NSApplication+AtoZ.h"
 #import <TargetConditionals.h>
 #if TARGET_OS_IPHONE
@@ -79,7 +73,7 @@
 
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag
 {
-	NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+	NSMenuItem *item = [[NSMenuItem.alloc init] autorelease];
 	[item setTitle:aString];
 	[item setTarget:target];
 	[item setAction:aSelector];
@@ -90,7 +84,7 @@
 
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector
 {
-	NSMenuItem *item = [[[NSMenuItem alloc] init] autorelease];
+	NSMenuItem *item = [[NSMenuItem.alloc init] autorelease];
 	[item setTitle:aString];
 	[item setTarget:target];
 	[item setAction:aSelector];
@@ -267,7 +261,7 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 	if (maj != noErr || min != noErr || bug != noErr)
 		return nil;
 
-	return NSSTRINGF(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
+	return $(@"%d.%d.%d", versionMajor, versionMinor, versionBugFix);
 }
 
 @end

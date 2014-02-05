@@ -3,6 +3,8 @@
 #import "CALayer+AtoZ.h"
 #import "AtoZGeometry.h"
 #import "NSView+AtoZ.h"
+#import "AtoZ.h"
+
 //#import <DrawKit/DKShapeFactory.h>
 
 //@interface NSView ()
@@ -425,9 +427,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	[fullScreenButton setAction:@selector(closeFullScreenWindow:)];
 }
 
-- (NSManagedObjectContext*)managedObjectContext {
- return [[[self.window windowController] document]managedObjectContext];
-}
+//- (NSManagedObjectContext*)managedObjectContext {
+// return [((NSObject*)[[self.window windowController] document]) managedObjectContext];
+//}
 
 
 + (id) preview	{	
@@ -743,7 +745,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	| NSTrackingMouseMoved
 	| NSTrackingActiveInKeyWindow
 	| NSTrackingInVisibleRect ;
-	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:NSMakeRect(0, 0, 0, 0)
+	NSTrackingArea *area = [NSTrackingArea.alloc initWithRect:NSMakeRect(0, 0, 0, 0)
 																		 options:options
 																			owner:self
 																		userInfo:nil];
@@ -761,7 +763,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	NSTrackingAreaOptions options = NSTrackingMouseEnteredAndExited
 	| NSTrackingMouseMoved
 	| NSTrackingActiveInKeyWindow;
-	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:rect
+	NSTrackingArea *area = [NSTrackingArea.alloc initWithRect:rect
 																		 options:options
 																			owner:self
 																		userInfo:context];
@@ -867,9 +869,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 //  This method creates a new image from a portion of the receiveing view.
 - (NSImage *) snapshotFromRect:(NSRect) sourceRect; {
-	NSImage *snapshot = [[NSImage alloc] initWithSize:sourceRect.size];
+	NSImage *snapshot = [NSImage.alloc initWithSize:sourceRect.size];
 	[self lockFocus];
-	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:sourceRect];
+	NSBitmapImageRep *rep = [NSBitmapImageRep.alloc initWithFocusedViewRect:sourceRect];
 	[self unlockFocus];
 	[snapshot addRepresentation:rep];
 	return snapshot;

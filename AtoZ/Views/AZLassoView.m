@@ -54,7 +54,7 @@
 
 //	NSTrackingAreaOptions options = 
 //		NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow;
-//	trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect options:options owner:self userInfo:nil];
+//	trackingArea = [NSTrackingArea.alloc initWithRect:NSZeroRect options:options owner:self userInfo:nil];
 //	[self addTrackingArea:trackingArea];
 //}
 - (void)drawRect:(NSRect)dirtyRect

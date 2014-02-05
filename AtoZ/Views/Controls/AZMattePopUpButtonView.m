@@ -17,7 +17,7 @@
 	CGContextSetAlpha([AZGRAPHICSCTX graphicsPort], [self isActive] ? 1.0 : 0.7);
 	
 	//NSRect rect = [self bounds];
-	//NSImage *image = [[NSImage alloc] initWithSize:rect.size];
+	//NSImage *image = [NSImage.alloc initWithSize:rect.size];
 	//[image lockFocus];
 	
 	[super drawRect:dirtyRect];

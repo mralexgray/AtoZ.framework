@@ -1,4 +1,7 @@
+
+#import "AtoZ.h"
 #import "NSEvent+AtoZ.h"
+#import "AtoZFunctions.h"
 #include <objc/runtime.h>
 
 typedef BOOL(^AZVisualTestCase)(NSString *instruction, SEL selector,...);
@@ -22,7 +25,7 @@ JREnumDefine(AZEvent);
 }
 - (instancetype) newInitWithCoder:(NSCoder*)c 			{
 	
-	NSLog(@"Swizzling tableView initWithCoder.... %s : %s", __FILE__, __LINE__);
+	NSLog(@"Swizzling tableView initWithCoder.... %s : %i", __FILE__, __LINE__);
 	
 	//inspired from: [h]ttp://www.mikeash.com/pyblog/custom-nscells-done-right.html
 	

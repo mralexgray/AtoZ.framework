@@ -1,4 +1,7 @@
 
+#import <AtoZ/AtoZ.h>
+#import <SansNib.h>
+
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
@@ -8,14 +11,9 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
-
 #define XCODE_COLORS	1
-#define PRINT_ENV 	1
-#define FORCE_LOAD	1
-
-
-#import <AtoZ/AtoZ.h>
-#import <SansNib.h>
+#define PRINT_ENV     1
+#define FORCE_LOAD    1
 
 //#import <unistd.h>
 //#import <stdio.h>
@@ -69,7 +67,7 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
 //#import "NSTerminal.h"
 
 
-//	AppDelegate *appDelegate = [[AppDelegate alloc] init]; [application setDelegate:appDelegate];[application run];
+//	AppDelegate *appDelegate = AppDelegate.new; [application setDelegate:appDelegate];[application run];
 //	[NSApp run];
 //	[NSRunLoop.currentRunLoop runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture];
 //	while(![[cli sharedInstance]boolForKey:@"finished"])	[NSRunLoop.currentRunLoop run];
@@ -126,13 +124,13 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
 }
                 NSApplication *app			= [NSApplication sharedApplication];
                 NSRect          frame   = (NSRect) { 100, 100, 300, 300 };
-                NSWindow            *window     = [[NSWindow alloc] initWithContentRect:frame
+                NSWindow            *window     = [NSWindow.alloc initWithContentRect:frame
                                                                                                                    styleMask:NSTitledWindowMask|NSResizableWindowMask
                                                                                                                          backing:NSBackingStoreBuffered defer:false];
                 [window setTitle:@"Testing"];
                 AtoZ *whatver = [AtoZ sharedInstance];
    //		[AtoZ playRandomSound];
-                TestView *view = [[TestView alloc] initWithFrame:frame];
+                TestView *view = [TestView.alloc initWithFrame:frame];
                 [window setContentView:view];
                 [window setDelegate:view];
                 //		[window makeKeyAndOrderFront:window];
@@ -267,10 +265,10 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
                         retVal = [GHTestRunner run];
                 } else {
                                 // To run all tests (from ENV)
-                        GHTestApp *app = [[GHTestApp alloc] init];
+                        GHTestApp *app = GHTestApp.new;
                                 // To run a different test suite:
                                 //GHTestSuite *suite = [GHTestSuite suiteWithTestFilter:@"GHSlowTest,GHAsyncTestCaseTest"];
-                                //				GHTestApp *app = [[GHTestApp alloc] initWithSuite:suite];
+                                //				GHTestApp *app = [GHTestApp.alloc initWithSuite:suite];
                                 // Or set global:
                                 //GHUnitTest = @"GHSlowTest";
                         [NSApp run];
@@ -282,7 +280,7 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
 
 /*
    void cliDefaults(){
-        NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+        NSUserDefaults *defaults = NSUserDefaults.new;
         NSUInteger counter = [defaults[@"counter"]unsignedIntegerValue] +1;
         [defaults setPersistentDomain:[NSDictionary dictionaryWithObject:@(counter) forKey:@"counter"] forName:@"com.mralexgray.atozCLI"];
         [defaults synchronize];

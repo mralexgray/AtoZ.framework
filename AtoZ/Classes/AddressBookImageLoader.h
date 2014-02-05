@@ -2,6 +2,7 @@
 
 #import <AddressBook/AddressBook.h>
 #define ABSHARED ABAddressBook.sharedAddressBook
+#import "AtoZUmbrella.h"
 
 @interface AZAddressBook : NSObject
 

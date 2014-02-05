@@ -24,7 +24,7 @@ return self;
 }
 
 + (NSShadow*)shadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius color:(NSColor *)shadowColor {
-	NSShadow *aShadow = [[self alloc] init];
+	NSShadow *aShadow = self.new;
 	[aShadow setShadowOffset:offset];
 	[aShadow setShadowBlurRadius:radius];
 	[aShadow setShadowColor:shadowColor];
@@ -39,7 +39,7 @@ return self;
 
 + (void)clearShadow
 {
-	NSShadow *aShadow = [[self alloc] init];
+	NSShadow *aShadow = self.new;
 	[aShadow set];
 }
 @end
@@ -49,27 +49,27 @@ return self;
 
 + (id) shadow
 {
-    return [[[self alloc] init] autorelease];
+    return self.new;
 }
 
 + (id) shadowWithBlurRadius: (CGFloat)blurRadius
                      offset: (NSSize)offset
 {
-    NSShadow *theShadow = [[self alloc] init];
+    NSShadow *theShadow = self.new;
     theShadow.shadowBlurRadius = blurRadius;
     theShadow.shadowOffset = offset;
-    return [theShadow autorelease];
+    return theShadow;
 }
 
 + (id) shadowWithBlurRadius: (CGFloat)blurRadius
                      offset: (NSSize)offset
                       color: (NSColor *)color
 {
-    NSShadow *theShadow = [[self alloc] init];
+    NSShadow *theShadow = self.new;
     theShadow.shadowBlurRadius = blurRadius;
     theShadow.shadowOffset = offset;
     theShadow.shadowColor = color;
-    return [theShadow autorelease];
+    return theShadow;
 }
 
 - (NSRect) insetRectForShadow: (NSRect)origRect flipped: (BOOL)flipped

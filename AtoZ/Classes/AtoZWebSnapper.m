@@ -5,6 +5,7 @@
 //  Created by Alex Gray on 9/14/12.
 //
 //
+#import "AtoZ.h"
 
 #import "AtoZWebSnapper.h"
 

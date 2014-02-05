@@ -51,7 +51,7 @@ void NSDetermineKeyValueDebugLoggingLevel()
 {
 	static BOOL loggingLevelDetermined = NO;
 	if (loggingLevelDetermined == NO) {
-		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+		NSAutoreleasePool* pool = NSAutoreleasePool.new;
 		NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
 		NSKeyValueDebugLogLevel = [defaults integerForKey: @"NSKeyValueDebugLogLevel"];
@@ -877,7 +877,7 @@ CHANGE_DECLARATION(SEL)
 	[self setObservationInfo:observationInfo];
    }
 
-	NSMutableDictionary *keyPathsByKey=[[NSMutableDictionary alloc] init];
+	NSMutableDictionary *keyPathsByKey=NSMutableDictionary.new;
 
 	id class=self;
 	while(class != [NSObject class]){

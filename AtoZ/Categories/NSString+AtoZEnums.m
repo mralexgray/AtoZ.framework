@@ -2,7 +2,7 @@
 
 #import "NSString+AtoZEnums.h"
 #import <objc/runtime.h>
-
+#import "AtoZ.h"
 
 @implementation AZEnum
 //@synthesize name, ordinal;

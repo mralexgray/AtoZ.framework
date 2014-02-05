@@ -218,7 +218,7 @@ static NSMutableDictionary *sharedInstances = nil;
 
 + (void)setSharedInstance:(AZBaseModel *)instance {
     if (![instance isKindOfClass:self]) [NSException raise:NSGenericException format:@"setSharedInstance: instance class does not match"];
-    sharedInstances = sharedInstances ? : [[NSMD alloc] init];
+    sharedInstances = sharedInstances ? : NSMD.new;
     id oldInstance = sharedInstances[NSStringFromClass(self)];
     sharedInstances[NSStringFromClass(self)] = instance;
     if (oldInstance) [AZNOTCENTER postNotificationName:BaseModelSharedInstanceUpdatedNotification object:oldInstance];
@@ -229,7 +229,7 @@ static NSMutableDictionary *sharedInstances = nil;
 }
 
 + (instancetype)sharedInstance {
-    sharedInstances = sharedInstances ? : [[NSMutableDictionary alloc] init];
+    sharedInstances = sharedInstances ? : NSMutableDictionary.new;
     id instance = sharedInstances[NSStringFromClass(self)];
     if (instance == nil) {
         [self reloadSharedInstance];            //load or create instance
@@ -270,7 +270,7 @@ static NSMutableDictionary *sharedInstances = nil;
 }
 
 + (instancetype)instance {
-    return ah_autorelease([[self alloc] init]);
+    return ah_autorelease([self.alloc init]);
 }
 
 static BOOL loadingFromResourceFile = NO;
@@ -302,7 +302,7 @@ static BOOL loadingFromResourceFile = NO;
 
 + (instancetype)instanceWithObject:(id)object {
     //return nil if object is nil
-    return object ? ah_autorelease([[self alloc] initWithObject:object]) : nil;
+    return object ? ah_autorelease([self.alloc initWithObject:object]) : nil;
 }
 
 - (NSString *)setterNameForClass:(Class)klass {
@@ -342,7 +342,7 @@ static BOOL loadingFromResourceFile = NO;
 
 + (instancetype)instanceWithCoder:(NSCoder *)decoder     //return nil if coder is nil
 {
-    return decoder ? ah_autorelease([[self alloc] initWithCoder:decoder]) : nil;
+    return decoder ? ah_autorelease([self.alloc initWithCoder:decoder]) : nil;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -380,12 +380,12 @@ static BOOL loadingFromResourceFile = NO;
             path = [self saveFilePath:filePath];
         }
     }
-    return ah_autorelease([[self alloc] initWithContentsOfFile:path]);
+    return ah_autorelease([self.alloc initWithContentsOfFile:path]);
 }
 
 - (instancetype)initWithContentsOfFile:(NSString *)filePath {
     static NSCache *cachedResourceFiles = nil;
-    if (cachedResourceFiles == nil) cachedResourceFiles = [[NSCache alloc] init];
+    if (cachedResourceFiles == nil) cachedResourceFiles = NSCache.new;
 
     //check cache for existing instance
     //only cache files inside the main bundle as they are immutable
@@ -478,7 +478,7 @@ static BOOL loadingFromResourceFile = NO;
         unsigned int varCount;
         Ivar *vars = class_copyIvarList(cls, &varCount);
         for (int i = 0; !cancel && i < varCount; i++) {
-            Ivar var = vars[i];                     NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
+            Ivar var = vars[i];                     NSString *name = [NSString.alloc initWithUTF8String:ivar_getName(var)];
             block(var, name, &cancel);      [name release];
         }
         free(vars);
@@ -578,7 +578,7 @@ static BOOL loadingFromResourceFile = NO;
 //		Ivar *vars = class_copyIvarList(cls, &varCount);
 //		for (int i = 0; i < varCount; i++) {
 //			Ivar var = vars[i];
-//			NSString *name = [[NSString alloc] initWithUTF8String:ivar_getName(var)];
+//			NSString *name = [NSString.alloc initWithUTF8String:ivar_getName(var)];
 //			[names addObject:name];
 //			if (ivar_getTypeEncoding(var)[0] == _C_ID) [nillableNames addObject:name];
 //			[name release];

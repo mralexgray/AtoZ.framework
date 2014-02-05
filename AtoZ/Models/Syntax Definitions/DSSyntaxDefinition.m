@@ -5,9 +5,10 @@
 //  Created by Fabio Pelosin on 26/09/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 //
-
-#import "DSSyntaxDefinition.h"
 #import <BlocksKit/BlocksKit.h>
+#import "AtoZ.h"
+#import "DSSyntaxDefinition.h"
+
 
 
 NSString *const DSSyntaxTypeAttribute   = @"DSSyntaxTypeAttribute";
@@ -47,7 +48,7 @@ NSString *const kDSDSLKeywordSyntaxType = @"DSLKeyword";
 ///-----------------------------------------------------------------------------
 
 - (NSAttributedString*)parseString:(NSString*)string {
-  _attributed = [[NSMutableAttributedString alloc] initWithString:string];
+  _attributed = [NSMutableAttributedString.alloc initWithString:string];
 
   self.stringDelimiters = @[@"\".*?\"", @"'.*?'"];
   self.stringInterpolationPatterns = @[@"#{.*?}"];

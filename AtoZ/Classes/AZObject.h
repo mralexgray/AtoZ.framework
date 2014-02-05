@@ -21,9 +21,6 @@
 @property (readonly) NSD* plistRepresentation;
 @end
 
-@interface AZObject : NSObject <NSCoding, NSCopying, NSMutableCopying, AZPlistRepresentation>
-@end
-
 @interface AZArray : NSObject
 
 + (AZArray*)sharedArray;
@@ -34,11 +31,14 @@
 @end
 
 
-/*
+//@interface AZObject : NSObject <NSCoding, NSCopying, NSMutableCopying, AZPlistRepresentation>
+//@end
+
 
 @interface AZObject : NSObject <NSCoding,NSCopying,NSFastEnumeration>
 @property (strong) id representedObject;
 @property (copy) NSArray *keys;
+
 
 // Shared instance is the object modified after each key change
 //+ (AZObject*)sharedInstance;
@@ -47,12 +47,12 @@
 //	call this to get last modified key of last modified instance
 //+ (AZObject*)lastModifiedInstance;
 //+ (NSString*)lastModifiedKey;
-@property (nonatomic, retain) NSString *lastModifiedKey;
-@property (nonatomic, retain) AZObject *lastModifiedInstance;
-@property (nonatomic, retain) AZObject *sharedInstance;
-@property (nonatomic, retain) NSString *uniqueID;
+//@property (nonatomic, retain) NSString *lastModifiedKey;
+//@property (nonatomic, retain) AZObject *lastModifiedInstance;
+//@property (nonatomic, retain) AZObject *sharedInstance;
+//@property (nonatomic, retain) NSString *uniqueID;
 @end
-
+/*
 @interface NSObject (NSCoding)
 
 - (void) autoEncodeWithCoder: (NSCoder*)coder;

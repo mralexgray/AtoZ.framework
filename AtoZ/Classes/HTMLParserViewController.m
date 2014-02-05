@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#import "AtoZ.h"
 #import "HTMLParserViewController.h"
 
 @interface HTMLParserViewController ()
@@ -42,7 +43,7 @@
 ////	NSMS* outp = [NSMS new];
 	_textField.stringValue = [[sender stringValue]wikiDescription];// parseXMLTag:@"Description"];
 
-//	HTMLParser *parser = [[HTMLParser alloc] initWithString:googlePage error:&error];
+//	HTMLParser *parser = [HTMLParser.alloc initWithString:googlePage error:&error];
 ////
 //	if (error) {
 //		NSLog(@"Error: %@", error);

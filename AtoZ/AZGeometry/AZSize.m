@@ -14,7 +14,7 @@
 @implementation AZSize
 
 + (AZSize*) size {
-	AZSize *s = [[AZSize alloc] init];
+	AZSize *s = AZSize.new;
 	return s;
 }
 

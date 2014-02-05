@@ -1,3 +1,4 @@
+#import "AtoZ.h"
 //
 //  JsonElement.m
 //  VisualJSON
@@ -62,7 +63,7 @@ NSDictionary *JsonElementInitializers = nil;
 }
 
 + (id)elementWithObject:(id)object {
-	return [[[self alloc] initWithObject:object] autorelease];
+	return [self.alloc initWithObject:object];
 }
 
 - (id)initWithDictionary:(NSDictionary *)object {

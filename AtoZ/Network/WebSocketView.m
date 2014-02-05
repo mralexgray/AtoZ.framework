@@ -1,5 +1,7 @@
 
 #import "WebSocketView.h"
+#import "AtoZCategories.h"
+#import "Bootstrap.h"
 
 @implementation WebSocketView
 

@@ -68,11 +68,11 @@
 										   reason:@"Returned Preference pane does not conform to protocol"
 										 userInfo:nil];
 		
-		id <SDPreferencePane> pane = [[[PrefPaneClass alloc] init] autorelease];
+		id <SDPreferencePane> pane = [[PrefPaneClass.alloc init] autorelease];
 		[preferencePaneControllers addObject:pane];
 		
 		NSString *identifier = NSStringFromClass(PrefPaneClass);
-		NSToolbarItem *item = [[[NSToolbarItem alloc] initWithItemIdentifier:identifier] autorelease];
+		NSToolbarItem *item = [[NSToolbarItem.alloc initWithItemIdentifier:identifier] autorelease];
 		[toolbarItems addObject:item];
 		
 		[item setImage:[pane image]];

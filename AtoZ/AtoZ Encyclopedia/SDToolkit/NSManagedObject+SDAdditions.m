@@ -30,7 +30,7 @@
 	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
 											  inManagedObjectContext:MOC];
 	
-	NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+	NSFetchRequest *request = [[NSFetchRequest.alloc init] autorelease];
 	[request setEntity:entity];
 	
 	NSError *error = nil;
@@ -69,7 +69,7 @@
 	NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(self)
 											  inManagedObjectContext:MOC];
 	
-	NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+	NSFetchRequest *request = [[NSFetchRequest.alloc init] autorelease];
 	[request setEntity:entity];
 	
 	if (firstOnly)

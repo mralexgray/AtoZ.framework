@@ -58,7 +58,7 @@ static struct TUIFastIndexPath_staticStruct {
 	}
 	
 	// actually have to make one
-	TUIFastIndexPath *f = [[TUIFastIndexPath alloc] init];
+	TUIFastIndexPath *f = TUIFastIndexPath.new;
 	f->row = row;
 	f->section = section;
 	return f;

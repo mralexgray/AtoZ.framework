@@ -32,7 +32,7 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 	return self;
 }
 - (void)loadView {
-	self.view = [[TUIView alloc] initWithFrame:CGRectZero];
+	self.view = [TUIView.alloc initWithFrame:CGRectZero];
 	self.view.backgroundColor = [NSColor lightGrayColor];
 	self.view.viewDelegate = (id<TUIViewDelegate>)self;
 	TUIViewController *visible = [self currentController];

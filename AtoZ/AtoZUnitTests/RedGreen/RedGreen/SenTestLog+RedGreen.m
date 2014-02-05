@@ -155,7 +155,7 @@ static BOOL isXcodeColorsEnabled;
 {
     static dispatch_once_t pred;
     static NSMutableArray *_errors = nil;
-    dispatch_once(&pred, ^{ _errors = [[NSMutableArray alloc] init]; });
+    dispatch_once(&pred, ^{ _errors = NSMutableArray.new; });
     return _errors;
 }
 

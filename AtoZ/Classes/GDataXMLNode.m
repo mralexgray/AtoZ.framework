@@ -276,7 +276,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   } else {
     theClass = [GDataXMLNode class];
   }
-  return [[[theClass alloc] initConsumingXMLNode:theXMLNode] autorelease];
+  return [[theClass.alloc initConsumingXMLNode:theXMLNode] autorelease];
 }
 
 - (id)initConsumingXMLNode:(xmlNodePtr)theXMLNode {
@@ -296,7 +296,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
     theClass = [GDataXMLNode class];
   }
 
-  return [[[theClass alloc] initBorrowingXMLNode:theXMLNode] autorelease];
+  return [[theClass.alloc initBorrowingXMLNode:theXMLNode] autorelease];
 }
 
 - (id)initBorrowingXMLNode:(xmlNodePtr)theXMLNode {
@@ -452,7 +452,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
       int result = xmlNodeDump(buff, doc, xmlNode_, level, format);
 
       if (result > -1) {
-        str = [[[NSString alloc] initWithBytes:(xmlBufferContent(buff))
+        str = [[NSString.alloc initWithBytes:(xmlBufferContent(buff))
                                         length:(xmlBufferLength(buff))
                                       encoding:NSUTF8StringEncoding] autorelease];
       }

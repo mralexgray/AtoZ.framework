@@ -28,8 +28,9 @@ typedef NS_ENUM(NSUI, BrewOperationType) {
 + (instancetype) instanceWithName: (NSS*)name;
 @end
 
+#import "AtoZSingleton/AtoZSingleton.h"
 
-@interface 			 AZHomeBrew : NSTreeController <IBSingleton>
+@interface 			 AZHomeBrew : NSTreeController 
 
 @property 		  (RONLY)  NSD * commands;
 @property 		  (NATOM) BOOL   shouldExit,

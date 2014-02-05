@@ -48,14 +48,14 @@
 	self.image = img;
 	errorImage = errorImg;
 	imageDownloadData = [NSMutableData data];
-	NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] delegate:self];
+	NSURLConnection *conn = [NSURLConnection.alloc initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] delegate:self];
 	imageURLConnection = conn;
 	
 	if(usesSpinningWheel){
 		
 		//If the NSImageView size is 64+ height and 64+ width display Spinning Wheel 32x32
 		if (self.frame.size.height >= 64 && self.frame.size.width >= 64){
-			spinningWheel = [[NSProgressIndicator alloc] init];
+			spinningWheel = NSProgressIndicator.new;
 			[spinningWheel setStyle:NSProgressIndicatorSpinningStyle];
 			[self addSubview:spinningWheel];
 			[spinningWheel setDisplayedWhenStopped:NO];
@@ -65,7 +65,7 @@
 			
 		//If not, and size between 63 and 16 height and 63 and 16 width display Spinning Wheel 16x16
 		}else if((self.frame.size.height < 64 && self.frame.size.height >= 16) && (self.frame.size.width < 64 && self.frame.size.width >= 16)){
-			spinningWheel = [[NSProgressIndicator alloc] init];
+			spinningWheel = NSProgressIndicator.new;
 			[spinningWheel setStyle:NSProgressIndicatorSpinningStyle];
 			[self addSubview:spinningWheel];
 			[spinningWheel setDisplayedWhenStopped:NO];
@@ -105,7 +105,7 @@
 {
 	self.didFailLoadingImage = NO;
 	self.userDidCancel		 = NO;
-	NSImage *img = [[NSImage alloc] initWithData:imageDownloadData];
+	NSImage *img = [NSImage.alloc initWithData:imageDownloadData];
 	
 	if(img){ //if NSData is from an image
 		self.image 			= img;
@@ -150,7 +150,7 @@
 {
 	if(trackingArea != nil)	   [self removeTrackingArea:trackingArea];
 	int opts 	 = NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways;
-	trackingArea = [[NSTrackingArea alloc] initWithRect:self.bounds options:opts owner:self userInfo:nil];
+	trackingArea = [NSTrackingArea.alloc initWithRect:self.bounds options:opts owner:self userInfo:nil];
 	[self addTrackingArea:trackingArea];
 }
 @end

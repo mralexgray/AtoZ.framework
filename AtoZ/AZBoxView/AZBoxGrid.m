@@ -1,7 +1,5 @@
-//
-//  AZBoxGrid.m
-//  AZBoxGrid
-//
+
+#import <Foundation/Foundation.h>
 #import "AZBoxGrid.h"
 #import "AZBox.h"
 #import "AtoZ.h"
@@ -100,7 +98,7 @@
 		AZBox *cell = visibleCells[@(index)];
 		NSLog(@"about your selection: %@", cell.propertiesPlease);
 //		NSLog(@"parent: %@.  siblings:%@", cell.superview,[cell.superview subviews]);
-		[[NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
+		[(NSObject*)[NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
 		NSLog(@"%@", NSStringFromRange([(AZBoxGrid*)cell.superview visibleRange]));
 	NSLog(@"%@",[(AZBoxGrid*)cell.superview propertiesPlease]);
 
@@ -410,13 +408,13 @@
 - (void)setupCollectionView {
 	desiredNumberOfColumns  = NSUIntegerMax;
 	desiredNumberOfRows	 = NSUIntegerMax;
-	reusableCellQueues  = [[NSMutableDictionary alloc] init];
-	visibleCells		= [[NSMutableDictionary alloc] init];
-	selection 			= [[NSMutableIndexSet alloc] init];
+	reusableCellQueues  = NSMutableDictionary.new;
+	visibleCells		= NSMutableDictionary.new;
+	selection 			= NSMutableIndexSet.new;
 	allowsSelection = YES;
 	lastHoverCellIndex = -1;
 	cellSize = NSMakeSize(128.0, 128.0);
-	NSTrackingArea *area = [[NSTrackingArea alloc] initWithRect:[self frame]
+	NSTrackingArea *area = [NSTrackingArea.alloc initWithRect:[self frame]
 														options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect |
 																 NSTrackingMouseMoved
 																 )

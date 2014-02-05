@@ -70,7 +70,7 @@
 //[NSShadow clearShadow];
 //[swatch unlockFocus];
 //swatch = [swatch addReflection:.5];
-//view = [[NSImageView alloc] initWithFrame:AZMakeRectFromSize(swatch.size)];
+//view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
 //[(NSImageView *)view setImage:swatch];
 - (void)drawRect:(NSRect)dirtyRect
 {
@@ -80,9 +80,9 @@
 //	[self.color set];
 //	NSRectFill([self bounds]);
 
-// NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
+// NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: desc.firstLetter attributes:@{ NSFontAttributeName: [NSFont fontWithName:@"Ubuntu Mono Bold" size:190],
 		//													  NSForegroundColorAttributeName :WHITE} ];
-//	NSMutableParagraphStyle* style = [[NSMutableParagraphStyle alloc] init];
+//	NSMutableParagraphStyle* style = NSMutableParagraphStyle.new;
 //	[self.color.contrastingForegroundColor set];
 //	[style setAlignment:NSCenterTextAlignment];
 //	NSDictionary *attr = [NSDictionary dictionaryWithObject:style forKey:NSParagraphStyleAttributeName];

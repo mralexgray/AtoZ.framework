@@ -8,6 +8,7 @@
 
 #import "CABlockDelegate.h"
 #import <objc/runtime.h>
+#import "AtoZ.h"
 #import "AtoZTypes.h"
 #import "AtoZUmbrella.h"
 #import "AtoZNodeProtocol.h"
@@ -274,7 +275,8 @@ static NSMD *delegations = nil;
 - (void) layoutSublayersOfLayer:(CALayer*)layer 				{
 
 	//	[[delegations valueForKeyPath:@"layoutBlock"] each:^(id sender) { sender ? ((layoutBlock)sender)(layer) : nil;	}];
-	AZLOGCMD; _layoutBlock ? self.layoutBlock	(layer) 					: nil;
+//	AZLOGCMD;
+  if (_layoutBlock)  _layoutBlock(layer);
 }
 - (void) animationDidStop:  (CAAnimation*)theAnimation
 								 finished:				(BOOL)flag 					{ AZLOGCMD;
@@ -299,6 +301,7 @@ static NSMD *delegations = nil;
 	[self setBlockDelegate:[CABlockDelegate delegateFor:self ofType:type withBlock:blk]];
 }
 - (void) setKVOBlock:(CABKVO)blk { [CABlockDelegate delegateFor:self ofType:CABlockTypeKVOChange withBlock:blk]; }
+
 - (void) setLayoutBlock:(CABLAYOUT)blk { 	[CABlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
 
 //- (NSString*) delegateDescription {  return CABlockTypeToString(self.blockDelegate.blockType); }
@@ -533,7 +536,11 @@ static NSMD *delegations = nil;
 @property (strong) 	id   tV;
 @end
 
-@implementation CAAnimationDelegate	static 	NSMD* referenceDic;		SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
+@implementation CAAnimationDelegate
+
+	static 	NSMD* referenceDic;
+
+  SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
 
 + (instancetype) delegate:(CAA*)a forLayer:(CAL*)l 		{
 	CAAnimationDelegate*d = self.new;

@@ -193,7 +193,7 @@
 	[[self progressHolderColor] setFill];
 	[framePath fill];
 	
-	NSShadow *shadow = [[NSShadow alloc] init];
+	NSShadow *shadow = NSShadow.new;
 	[shadow setShadowColor: [self shadowColor]];
 	[shadow setShadowBlurRadius: [self shadowBlur]];
 	[shadow setShadowOffset: NSMakeSize( 0, 0)];
@@ -254,7 +254,7 @@
 								 nil];
 		[agradient drawInBezierPath:path angle: -90];
 		
-		NSShadow *shadowInd = [[NSShadow alloc] init];
+		NSShadow *shadowInd = NSShadow.new;
 		[shadowInd setShadowColor: [self shadowColor]];
 		[shadowInd setShadowBlurRadius: [self shadowBlur]];
 		[shadowInd setShadowOffset: NSMakeSize( 0, 0)];

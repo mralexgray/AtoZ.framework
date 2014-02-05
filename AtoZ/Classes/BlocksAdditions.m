@@ -42,7 +42,7 @@ void RunAfterDelay(NSTimeInterval delay, BasicBlock block)
 
 void WithAutoreleasePool(BasicBlock block)
 {
-//	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//	NSAutoreleasePool *pool = NSAutoreleasePool.new;
 	@autoreleasepool {
 	block();
 //	[pool release];

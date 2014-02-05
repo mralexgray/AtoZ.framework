@@ -1,6 +1,10 @@
+
+
+#import "AtoZ.h"
+
 #import "NSImage+AtoZ.h"
-#import <AppKit/AppKit.h>
-#import <Quartz/Quartz.h>
+//#import <AppKit/AppKit.h>
+//#import <Quartz/Quartz.h>
 #import <QuickLook/QuickLook.h>
 #import <SVGKit/SVGKit.h>
 #import "AZHTMLParser.h"
@@ -240,7 +244,7 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 }
 
 - (NSIMG*)imageBorderedWithInset:(CGFloat)inset {
-	NSIMG* image = [[NSImage alloc] initWithSize:[self size]] ;
+	NSIMG* image = [NSImage.alloc initWithSize:[self size]] ;
 
 	[image lockFocus] ;
 
@@ -271,7 +275,7 @@ NSR AZRectForItemsWithColumns(NSA* items, NSUI cols) {
 
 - (NSIMG*)imageBorderedWithOutset:(CGFloat)outset {
 	NSSize newSize = NSMakeSize([self size].width + 2*outset, [self size].height + 2*outset) ;
-	NSIMG* image = [[NSImage alloc] initWithSize:newSize] ;
+	NSIMG* image = [NSImage.alloc initWithSize:newSize] ;
 	[image lockFocus] ;
 	[self drawAtPoint:NSMakePoint(outset, outset)
 			 fromRect:NSZeroRect
@@ -643,7 +647,7 @@ NSData* PNGRepresentation(NSIMG *image) {
 + (NSIMG*) imageFromURL:(NSS*)url {
 	return  [NSImage.alloc initWithData: [NSData dataWithContentsOfURL: $URL(url)]];
 //	url =  [url doesContain:@"http://"] || [url doesContain:@"http://"] ? url : $(@"http://%@", url);
-//	return [[NSImage alloc] initWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString:url]]];
+//	return [NSImage.alloc initWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString:url]]];
 }
 + (NSIMG*) screenShot 			{
 
@@ -934,7 +938,7 @@ static NSOrderedDictionary  *monos = nil;
 		[[NSC whiteColor] set];
 		[NSBP fillRect:thumbnailRect];
 		[NSGraphicsContext restoreGraphicsState];
-		[shadow release];
+//		[shadow release];
 	}
 	// draw the actual image
 	[sourceImage drawInRect: thumbnailRect fromRect: NSZeroRect operation: NSCompositeSourceOver fraction: 1.0];
@@ -981,7 +985,7 @@ static NSOrderedDictionary  *monos = nil;
 								[NSC colorWithCalibratedWhite:1.0 alpha:0.20], 0.28,
 								[NSC colorWithCalibratedWhite:1.0 alpha:0.01], 0.85, nil];
 		[gradient drawInBezierPath:sheenPath angle:285.0];
-		[gradient release];
+//		[gradient release];
 	}
 	}];
 	newImage.flipped 		= f;
@@ -1048,7 +1052,7 @@ static NSOrderedDictionary  *monos = nil;
 	CIImage* imageToFill = [CIImage imageWithData:sourceImageData];
 
 		// create CIColorMonochrome filter
-	CIColor* color = [[CIColor alloc] initWithColor:[NSC whiteColor]];
+	CIColor* color = [CIColor.alloc initWithColor:[NSC whiteColor]];
 	CIFilter* filter = [CIFilter filterWithName:@"CIColorMonochrome"];
 	[filter setValue:imageToFill forKey:@"inputImage"];
 	[filter setValue:color forKey:@"inputColor"];
@@ -1056,7 +1060,7 @@ static NSOrderedDictionary  *monos = nil;
 
 		// get resulting image and add as a NSCIImageRep
 	CIImage* compositedImage = [filter valueForKey:@"outputImage"];
-	NSIMG* finalImage = [[NSImage alloc] initWithSize:self.size];
+	NSIMG* finalImage = [NSImage.alloc initWithSize:self.size];
 	NSCIImageRep* ciImageRep = [NSCIImageRep imageRepWithCIImage:compositedImage];
 	[finalImage addRepresentation:ciImageRep];
 
@@ -1080,7 +1084,7 @@ static NSOrderedDictionary  *monos = nil;
 	NSIMG* badgeImage = [NSImage.alloc initWithSize:self.size];
 //	[NSGraphicsContext saveGraphicsState];
 	[badgeImage lockFocus];
-//	NSShadow *theShadow = [[NSShadow alloc] init];
+//	NSShadow *theShadow = NSShadow.new;
 //	[theShadow setShadowOffset: NSMakeSize(0,10)];
 //	[theShadow setShadowBlurRadius:10];
 //	[theShadow setShadowColor:[[NSC blackColor] colorWithAlphaComponent:.9]];
@@ -1102,7 +1106,7 @@ static NSOrderedDictionary  *monos = nil;
 	:	AZMakeRect((NSPoint){ round((sourceSize.width - sourceSize.height) / 2), 0.0},sourceSize);
 
 	destinationRect.size = targetSize;
-	NSIMG*final = [[NSImage alloc] initWithSize:targetSize];
+	NSIMG*final = [NSImage.alloc initWithSize:targetSize];
 	[final setSize:targetSize];
 	[final lockFocus];
 	[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationLow];
@@ -1121,7 +1125,7 @@ static NSOrderedDictionary  *monos = nil;
 		NSRect targetRect = NSMakeRect(0,0,self.size.width, self.size.height);		
 		NSIMG*target = [NSImage imageWithSize:self.size drawnUsingBlock:^{
 			
-//		NSGradient *gradient = ( avoidGradient ? nil : [[NSGradient alloc] initWithStartingColor:inColor.brighter endingColor:[inColor.darker shadowWithLevel:kGradientShadowLevel]] );
+//		NSGradient *gradient = ( avoidGradient ? nil : [NSGradient.alloc initWithStartingColor:inColor.brighter endingColor:[inColor.darker shadowWithLevel:kGradientShadowLevel]] );
 //		[target lockFocus];
 		if ( avoidGradient ) NSRectFillWithColor(AZRectFromSize(self.size), inColor); 
 //		[shadowWithLevel:kGradientShadowLevel
@@ -1142,7 +1146,7 @@ static NSOrderedDictionary  *monos = nil;
 	if (aBundle != nil) {
 		NSString *imagePath;
 		if ((imagePath = [aBundle pathForResource: fileName ofType:nil]) != nil) {
-			img = [[NSImage alloc] initWithContentsOfFile: imagePath];
+			img = [NSImage.alloc initWithContentsOfFile: imagePath];
 		}
 	}
 	return img;
@@ -1166,7 +1170,7 @@ static NSOrderedDictionary  *monos = nil;
 
 + (NSIMG*)swatchWithColor:(NSC*)color size:(NSSZ)size
 {
-	NSIMG*image = [[NSImage alloc] initWithSize:size];
+	NSIMG*image = [NSImage.alloc initWithSize:size];
 	[image lockFocus];
 	[color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
 	[image unlockFocus];
@@ -1174,9 +1178,9 @@ static NSOrderedDictionary  *monos = nil;
 }
 
 + (NSIMG*)swatchWithGradientColor:(NSC *)color size:(NSSZ)size {
-	NSIMG*image = [[NSImage alloc] initWithSize:size];
+	NSIMG*image = [NSImage.alloc initWithSize:size];
 	[image lockFocus];
-	NSGradient * fade = [[NSGradient alloc] initWithStartingColor:color.brighter endingColor:color.darker.darker];
+	NSGradient * fade = [NSGradient.alloc initWithStartingColor:color.brighter endingColor:color.darker.darker];
 	[fade drawInRect:NSMakeRect(0, 0, size.width, size.height) angle:270];
 	[image unlockFocus];
 	return image;
@@ -1188,14 +1192,14 @@ static NSOrderedDictionary  *monos = nil;
 {
 	NSSZ gradientSize = AZSizeFromDimension(256);
 	NSImage 
-	*newImage = [[self alloc] initWithSize:gradientSize];  // In this case, the pixel dimensions match the image size.
+	*newImage = [self.alloc initWithSize:gradientSize];  // In this case, the pixel dimensions match the image size.
 	
 	int
 	pixelsWide = gradientSize.width,
 	pixelsHigh = gradientSize.height;	
 	
 	NSBitmapImageRep *bitmapRep = 
-	[[NSBitmapImageRep alloc] 
+	[NSBitmapImageRep.alloc 
 	 initWithBitmapDataPlanes: nil  // Nil pointer makes the kit allocate the pixel buffer for us.
 	 pixelsWide: pixelsWide  // The compiler will convert these to integers, but I just wanted to  make it quite explicit
 	 pixelsHigh: pixelsHigh //
@@ -1261,12 +1265,12 @@ static NSOrderedDictionary  *monos = nil;
 //	NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
 //	[self lockFocus];
 //	NSBitmapImageRep *imageRep = [self bitmap];
-//	NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:iconRect];
+//	NSBitmapImageRep *imageRep = [NSBitmapImageRep.alloc initWithFocusedViewRect:iconRect];
 //	[self unlockFocus];
 	//	[nSImage imageNamed:NSImageNameHomeTemplate
-	//	NSIMG*image = [[NSImage alloc] initWithData:[rep representationUsingType:NSPNGFileType properties:nil]];
+	//	NSIMG*image = [NSImage.alloc initWithData:[rep representationUsingType:NSPNGFileType properties:nil]];
 	//	NSBitmapImageRep *imageRep = (NSBitmapImageRep*)[[image representations] objectAtIndex:0];
-	//	NSIMG*resizedIcon = [[NSImage alloc] initWithIconRef:[self]];
+	//	NSIMG*resizedIcon = [NSImage.alloc initWithIconRef:[self]];
 	//	[resizedIcon lockFocus];
 	//	[self drawInRect:resizedBounds fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
 	//	[resizedIcon unlockFocus];
@@ -1374,7 +1378,7 @@ static NSOrderedDictionary  *monos = nil;
 
 + (NSIMG*) desktopImage;
 {
-	return [[NSImage alloc] initWithContentsOfURL:[[AZFILEMANAGER contentsOfDirectoryAtURL:[NSURL fileURLWithPath:@"/Library/Desktop Pictures" isDirectory:YES] includingPropertiesForKeys:nil options:0 error:nil]randomElement]];
+	return [NSImage.alloc initWithContentsOfURL:[[AZFILEMANAGER contentsOfDirectoryAtURL:[NSURL fileURLWithPath:@"/Library/Desktop Pictures" isDirectory:YES] includingPropertiesForKeys:nil options:0 error:nil]randomElement]];
 }
 - (void) drawFloatingRightInFrame:(NSRect)aFrame {		NSRect r 	= aFrame;
 
@@ -1418,20 +1422,20 @@ static NSOrderedDictionary  *monos = nil;
 
 - (NSIMG*)tintedImage
 {
-	NSIMG*tintImage = [[NSImage alloc] initWithSize:[self size]];
+	NSIMG*tintImage = [NSImage.alloc initWithSize:[self size]];
 	
 	[tintImage lockFocus];
 	[[[NSC blackColor] colorWithAlphaComponent:1] set];
 	[[NSBP bezierPathWithRect:(NSRect){NSZeroPoint, [self size]}] fill];
 	[tintImage unlockFocus];
 	
-	NSIMG*tintMaskImage = [[NSImage alloc] initWithSize:[self size]];
+	NSIMG*tintMaskImage = [NSImage.alloc initWithSize:[self size]];
 	[tintMaskImage lockFocus];
 	[self compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
 	[tintImage compositeToPoint:NSZeroPoint operation:NSCompositeSourceIn];
 	[tintMaskImage unlockFocus];
 	
-	NSIMG*newImage = [[NSImage alloc] initWithSize:[self size]]; 
+	NSIMG*newImage = [NSImage.alloc initWithSize:[self size]]; 
 	[newImage lockFocus];
 	[self dissolveToPoint:NSZeroPoint fraction:0.6];
 	[tintMaskImage compositeToPoint:NSZeroPoint operation:NSCompositeDestinationAtop];
@@ -1476,7 +1480,7 @@ static NSOrderedDictionary  *monos = nil;
 {
 		NSSZ size = [self size];
 		NSRect bounds = { NSZeroPoint, size };
-		NSIMG*tintedImage = [[NSImage alloc] initWithSize:size];
+		NSIMG*tintedImage = [NSImage.alloc initWithSize:size];
 		CIImage *filterPreviewImage = [self  toCIImage];
 		[tintedImage lockFocus];
 		CIFilter *edgeWork = [CIFilter filterWithName:@"CIEdgeWork"
@@ -1555,11 +1559,11 @@ static NSOrderedDictionary  *monos = nil;
 	return offscreenRep;
 
 /*	//creating an NSImage setting whatever we drew above to be it's representation
-	NSImage *image = [[[NSImage alloc] init] autorelease];
+	NSImage *image = [[NSImage.alloc init] autorelease];
 	[image addRepresentation:offscreenRep];
 
 	//this allows us to create an image thats content is transparent (see the 'fraction') parameter below
-	NSImage *dragImage = [[[NSImage alloc] initWithSize:[image size]] autorelease];
+	NSImage *dragImage = [[NSImage.alloc initWithSize:[image size]] autorelease];
 	[dragImage lockFocus];
 	[image compositeToPoint:NSMakePoint(0, 0) operation:NSCompositeSourceOver fraction:0.5];
 	[dragImage unlockFocus];
@@ -1625,7 +1629,7 @@ static NSOrderedDictionary  *monos = nil;
 
 - (NSIMG*)imageRotatedByDegrees:(CGF)degrees {
 	NSSZ rotatedSize = NSMakeSize(self.size.height, self.size.width) ;
-	NSIMG* rotatedImage = [[NSImage alloc] initWithSize:rotatedSize] ;
+	NSIMG* rotatedImage = [NSImage.alloc initWithSize:rotatedSize] ;
 	
 	NSAffineTransform* transform = [NSAffineTransform transform] ;
 	
@@ -1682,7 +1686,7 @@ static NSOrderedDictionary  *monos = nil;
 		scaledWidth  = imageSize.width  * scaleFactor;
 		scaledHeight = imageSize.height * scaleFactor;
 		
-		newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
+		newImage = [NSImage.alloc initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
 		
 		NSRect thumbnailRect;
 		thumbnailRect.origin	  = NSMakePoint(0,0);
@@ -1736,7 +1740,7 @@ static NSOrderedDictionary  *monos = nil;
 		scaledWidth  = imageSize.width  * scaleFactor;
 		scaledHeight = imageSize.height * scaleFactor;
 		
-		newImage = [[NSImage alloc] initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
+		newImage = [NSImage.alloc initWithSize:NSMakeSize(scaledWidth, scaledHeight)];
 		
 		[newImage lockFocus];
 		[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationHigh];
@@ -1833,7 +1837,7 @@ static NSOrderedDictionary  *monos = nil;
 
 - (NSIMG*)imageToFitSize:(NSSZ)size method:(AGImageResizingMethod)resizeMethod
 {
-	NSIMG*result = [[NSImage alloc] initWithSize:size];
+	NSIMG*result = [NSImage.alloc initWithSize:size];
 	
 	// Composite image appropriately
 	[result lockFocus];
@@ -1929,7 +1933,7 @@ NSAffineTransform* trans = [NSAffineTransform transform];
 [trans rotateByDegrees:angle];
 [trans translateXBy:-beforeSize.width * 0.5 yBy:-beforeSize.height * 0.5];
 
-NSIMG* newImage = [[NSImage alloc] initWithSize:afterSize];
+NSIMG* newImage = [NSImage.alloc initWithSize:afterSize];
 
 [newImage lockFocus];
 
@@ -1953,7 +1957,7 @@ return [newImage autorelease];
 	existingSize.height = [[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
 															  context:AZGRAPHICSCTX hints:nil] pixelsHigh];
 	NSSZ newSize = NSMakeSize(existingSize.height, existingSize.width);
-	NSIMG*rotatedImage = [[NSImage alloc] initWithSize:newSize];
+	NSIMG*rotatedImage = [NSImage.alloc initWithSize:newSize];
 	[rotatedImage lockFocus];
 	
 	/**
@@ -2015,7 +2019,7 @@ return [newImage autorelease];
 - (CIImage *)toCIImage
 {
 	NSBitmapImageRep *bitmapimagerep = [self bitmap];
-	CIImage *im = [[CIImage alloc]	initWithBitmapImageRep:bitmapimagerep];
+	CIImage *im = [CIImage.alloc initWithBitmapImageRep:bitmapimagerep];
 	return im;
 }
 -(NSIMG*)	imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox
@@ -2087,7 +2091,7 @@ rightDone:
 	[self unlockFocus];
 	
 	// Now create new image with that subsection:
-	NSIMG*	returnImg = [[NSImage alloc] initWithSize: outBox->size];
+	NSIMG*	returnImg = [NSImage.alloc initWithSize: outBox->size];
 	NSRect		destBox = *outBox;
 	destBox.origin = NSZeroPoint;
 	
@@ -2105,7 +2109,7 @@ rightDone:
 {
 
 	SVGDocument *document = [SVGDocument documentNamed:documentName];
-	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+	NSBitmapImageRep *rep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																	pixelsWide:document.width
 																	pixelsHigh:document.height
 																 bitsPerSample:8
@@ -2124,9 +2128,9 @@ rightDone:
 	CGContextTranslateCTM(context, 0.0f, -document.height);
 	[[document layerTree] renderInContext:context];
 	CGImageRef image = CGBitmapContextCreateImage(context);
-	NSBitmapImageRep *rendering = [[NSBitmapImageRep alloc] initWithCGImage:image];
+	NSBitmapImageRep *rendering = [NSBitmapImageRep.alloc initWithCGImage:image];
 	CGImageRelease(image);
-	NSIMG* rendered = [[NSImage alloc] initWithSize:[rendering size]];
+	NSIMG* rendered = [NSImage.alloc initWithSize:[rendering size]];
 	[rendered setScalesWhenResized:YES];
 	[rendered addRepresentation: rendering];
 	return rendered;
@@ -2146,7 +2150,7 @@ rightDone:
 {
 	NSAssert(percentage > 0 && percentage <= 1.0, @"Please use percentage between 0 and 1");
 	CGRect offscreenFrame = CGRectMake(0, 0, self.size.width, self.size.height*(1.0+percentage));
-	NSBitmapImageRep * offscreen = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+	NSBitmapImageRep * offscreen = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																		   pixelsWide:offscreenFrame.size.width
 																		   pixelsHigh:offscreenFrame.size.height
 																		bitsPerSample:8
@@ -2164,7 +2168,7 @@ rightDone:
 	[[NSC clearColor] set];
 	NSRectFill(offscreenFrame);
 	
-	NSGradient * fade = [[NSGradient alloc] initWithStartingColor:[NSC colorWithCalibratedWhite:1.0 alpha:0.2] endingColor:[NSC clearColor]];
+	NSGradient * fade = [NSGradient.alloc initWithStartingColor:[NSC colorWithCalibratedWhite:1.0 alpha:0.2] endingColor:[NSC clearColor]];
 	CGRect fadeFrame = CGRectMake(0, 0, self.size.width, offscreen.size.height - self.size.height);
 	[fade drawInRect:fadeFrame angle:270.0];	
 	
@@ -2184,7 +2188,7 @@ rightDone:
 	
 	[NSGraphicsContext restoreGraphicsState];
 	
-	NSIMG* imageWithReflection = [[NSImage alloc] initWithSize:offscreenFrame.size];
+	NSIMG* imageWithReflection = [NSImage.alloc initWithSize:offscreenFrame.size];
 	[imageWithReflection addRepresentation:offscreen];
 	
 	return imageWithReflection;
@@ -2197,7 +2201,7 @@ rightDone:
 //	// Get the image dimensions.
 //	imageSize.height = CGImageGetHeight(image);
 //	imageSize.width = CGImageGetWidth(image);
-//	newImage = [[NSImage alloc] initWithSize:imageSize];
+//	newImage = [NSImage.alloc initWithSize:imageSize];
 //	[newImage addRepresentation:newRep];
 ////#else
 ////	NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
@@ -2206,7 +2210,7 @@ rightDone:
 ////	imageRect.size.height = CGImageGetHeight(image);
 ////	imageRect.size.width = CGImageGetWidth(image);
 ////	// Create a new image to receive the Quartz image data.
-////	newImage = [[NSImage alloc] initWithSize:imageRect.size];
+////	newImage = [NSImage.alloc initWithSize:imageRect.size];
 ////	[newImage lockFocus];
 ////	// Get the Quartz context and draw.
 ////	imageContext = (CGContextRef)[AZGRAPHICSCTXgraphicsPort];
@@ -2329,7 +2333,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	CGContextFillRect(c, rect);
 	CGImageRef ciImage =  CGBitmapContextCreateImage(c);
 	CGContextDrawImage(c, rect, ciImage);
-	NSIMG*newImage= [[NSImage alloc] initWithCGImage:ciImage size:image.size];
+	NSIMG*newImage= [NSImage.alloc initWithCGImage:ciImage size:image.size];
 	CGContextRelease(c);
 	CGImageRelease(ciImage);
 	return newImage;
@@ -2340,7 +2344,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 + (NSIMG*)imageFromCGImageRef:(CGImageRef)image {
 	// #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5
 	// This is 10.6 only
-	NSIMG*newImage = [[NSImage alloc] initWithCGImage:image 
+	NSIMG*newImage = [NSImage.alloc initWithCGImage:image 
 													size:NSZeroSize]; 
 	
 	return newImage;
@@ -2395,10 +2399,10 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 		// Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
 		// which is a lot more efficient than copying pixel data into a brand new NSImage.
 		// Thanks to Troy Stephens @ Apple for pointing this new method out to me.
-		NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:ref];
+		NSBitmapImageRep *bitmapImageRep = [NSBitmapImageRep.alloc initWithCGImage:ref];
 		NSIMG*newImage = nil;
 		if (bitmapImageRep) {
-			newImage = [[NSImage alloc] initWithSize:[bitmapImageRep size]];
+			newImage = [NSImage.alloc initWithSize:[bitmapImageRep size]];
 			[newImage addRepresentation:bitmapImageRep];
 			if (newImage) {				CFRelease(ref);
 				return newImage;
@@ -2436,7 +2440,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 			size.width = size.height * ratio;
 	}
 	
-	NSIMG*resizedImage = [[NSImage alloc] initWithSize:size];
+	NSIMG*resizedImage = [NSImage.alloc initWithSize:size];
 	[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationHigh];
 	[resizedImage lockFocus];
 	
@@ -2504,13 +2508,13 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	}
 	
 	NSString *destination = [path stringByAppendingPathComponent:filename];
-	NSBitmapImageRep *bmpImageRep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
+	NSBitmapImageRep *bmpImageRep = [NSBitmapImageRep.alloc initWithData:[self TIFFRepresentation]];
 	NSData *data = [bmpImageRep representationUsingType:type properties:nil];
 	
 	return [data writeToFile:destination atomically:NO];
 }
 - (BOOL)saveAs:(NSS*)path{	
-	NSBitmapImageRep *bmpImageRep = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
+	NSBitmapImageRep *bmpImageRep = [NSBitmapImageRep.alloc initWithData:[self TIFFRepresentation]];
 	NSData *data = [bmpImageRep representationUsingType:NSPNGFileType properties:nil];
 	return [data writeToFile:path atomically:YES];
 }
@@ -2532,7 +2536,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	}
 	NSRect destinationRect = NSZeroRect;
 	destinationRect.size = targetSize;
-	NSIMG*final = [[NSImage alloc] initWithSize:targetSize];
+	NSIMG*final = [NSImage.alloc initWithSize:targetSize];
 	[final lockFocus];
 	[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationHigh];
 	[self drawInRect:destinationRect fromRect:sourceRect operation:NSCompositeSourceOver fraction:1.0];
@@ -2550,7 +2554,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	NSIMG*image;
 	NSCIImageRep *ir;
 	ir = [NSCIImageRep imageRepWithCIImage:self];
-	image = [[NSImage alloc] initWithSize: NSMakeSize(r.size.width, r.size.height)];
+	image = [NSImage.alloc initWithSize: NSMakeSize(r.size.width, r.size.height)];
 	[image addRepresentation:ir];
 	return image;
 }
@@ -2595,7 +2599,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	int bps=8, spp=4, bpp=bps*spp;
 	
 	// NOTE: These settings affect how pixels are converted to NSColors
-	NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:nil
+	NSBitmapImageRep *imageRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:nil
 																		 pixelsWide:size.width
 																		 pixelsHigh:size.height
 																	  bitsPerSample:bps
@@ -2736,7 +2740,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 		
 		CGImageRef smallImage = CGBitmapContextCreateImage(smallContext);
 		if (smallImage) {
-			NSBitmapImageRep *cgRep = [[NSBitmapImageRep alloc] initWithCGImage:smallImage];
+			NSBitmapImageRep *cgRep = [NSBitmapImageRep.alloc initWithCGImage:smallImage];
 			[self addRepresentation:cgRep];	  
 		}
 		CGImageRelease(smallImage);
@@ -2764,7 +2768,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	//	CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex (isrc, 0, (CFDictionaryRef)thumbOpts);
 	//	if (isrc) CFRelease(isrc);
 	//	
-	//	NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:thumbnail] autorelease];
+	//	NSBitmapImageRep *cgRep = [[NSBitmapImageRep.alloc initWithCGImage:thumbnail] autorelease];
 	//	CGImageRelease(thumbnail);
 	//	NSLog(@"time1 %f", -[date timeIntervalSinceNow]);
 	//  }
@@ -2774,14 +2778,14 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	//  
 	//  {
 	//	NSDate *date = [NSDate date];
-	//	NSIMG* scaledImage = [[[NSImage alloc] initWithSize:newSize] autorelease];
+	//	NSIMG* scaledImage = [[NSImage.alloc initWithSize:newSize] autorelease];
 	//	[scaledImage lockFocus];
 	//	NSGraphicsContext *graphicsContext = AZGRAPHICSCTX;
 	//	[graphicsContext setImageInterpolation:NSImageInterpolationHigh];
 	//	[graphicsContext setShouldAntialias:YES];
 	//	NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
 	//	[bestRep drawInRect:drawRect];
-	//	NSBitmapImageRep* nsRep = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)] autorelease];
+	//	NSBitmapImageRep* nsRep = [[NSBitmapImageRep.alloc initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)] autorelease];
 	//	[scaledImage unlockFocus];
 	//	
 	//	NSLog(@"time3 %f", -[date timeIntervalSinceNow]);
@@ -2828,7 +2832,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	
 	
 	NSData* tiffData = [self TIFFRepresentation];
-	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithData:tiffData];
+	NSBitmapImageRep *bitmap = [NSBitmapImageRep.alloc initWithData:tiffData];
 	
 	
 	if (![bitmap hasAlpha]) return NSMakeRect(0, 0, [bitmap size] .height, [bitmap size] .width);
@@ -2865,7 +2869,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 - (NSIMG*)scaleImageToSize:(NSSZ)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp {
 	NSRect sourceRect = (trim?[self usedRect] :AZRectFromSize([self size]) );
 	NSRect drawRect = (scaleUp || NSHeight(sourceRect) >newSize.height || NSWidth(sourceRect)>newSize.width ? AZSizeRectInRect(sourceRect, AZRectFromSize(newSize), expand) : NSMakeRect(0, 0, NSWidth(sourceRect), NSHeight(sourceRect)));
-	NSIMG*tempImage = [[NSImage alloc] initWithSize:NSMakeSize(NSWidth(drawRect), NSHeight(drawRect) )];
+	NSIMG*tempImage = [NSImage.alloc initWithSize:NSMakeSize(NSWidth(drawRect), NSHeight(drawRect) )];
 	[tempImage lockFocus];
 	{
 		[AZGRAPHICSCTX setImageInterpolation:NSImageInterpolationHigh];
@@ -2873,7 +2877,7 @@ CGContextRef MyCreateBitmapContext (int pixelsWide, int pixelsHigh)
 	}
 	[tempImage unlockFocus];
 	//QSLog(@"%@", tempImage);
-	return [[NSImage alloc] initWithData:[tempImage TIFFRepresentation]]; //*** UGH! why do I have to do this to commit the changes?;
+	return [NSImage.alloc initWithData:[tempImage TIFFRepresentation]]; //*** UGH! why do I have to do this to commit the changes?;
 }
 @end
 
@@ -2990,7 +2994,7 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 
 	// Make a temporary window as a receptacle
 
-	NSWindow *grabWindow = [[NSWindow alloc] initWithContentRect: frame
+	NSWindow *grabWindow = [NSWindow.alloc initWithContentRect: frame
 													   styleMask: NSBorderlessWindowMask
 														 backing: NSBackingStoreRetained
 														   defer: NO
@@ -3015,10 +3019,10 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 
 	[grabContentView lockFocus];
 	NSBitmapImageRep *screenRep;
-	screenRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect: frame];
+	screenRep = [NSBitmapImageRep.alloc initWithFocusedViewRect: frame];
 	[grabContentView unlockFocus];
 
-	NSIMG*screenImage = [[NSImage alloc] initWithSize: frame.size];
+	NSIMG*screenImage = [NSImage.alloc initWithSize: frame.size];
 	[screenImage addRepresentation: screenRep];
 
 	// Clean up
@@ -3031,16 +3035,16 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 
 + (NSIMG*)screenShotWithinRect:(NSRect)rect
 {
-	NSWindow *window = [[NSWindow alloc] initWithContentRect:rect styleMask:NSBorderlessWindowMask
+	NSWindow *window = [NSWindow.alloc initWithContentRect:rect styleMask:NSBorderlessWindowMask
 										   backing:NSBackingStoreNonretained defer:NO];
 	[window setBackgroundColor:[NSC clearColor]];
 	[window setLevel:NSScreenSaverWindowLevel + 1];
 	[window setHasShadow:NO];
 	[window setAlphaValue:0.0];
 	[window orderFront:self];
-	[window setContentView:[[NSView alloc] initWithFrame:rect]];
+	[window setContentView:[NSView.alloc initWithFrame:rect]];
 	[[window contentView] lockFocus];
-	NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:[[window contentView] bounds]];
+	NSBitmapImageRep *rep = [NSBitmapImageRep.alloc initWithFocusedViewRect:[[window contentView] bounds]];
 	[[window contentView] unlockFocus];
 	[window orderOut:self];
 	[window close];
@@ -3057,7 +3061,7 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 	NSIMG*image = nil;
 	if(!rep) return image;
 
-	image = [[NSImage alloc] init];
+	image = NSImage.new;
 	[image addRepresentation: rep];
 
 	return image;// autorelease];
@@ -3071,7 +3075,7 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 	windowRect.origin = CGPointZero;
 
 	// create an NSImage fo the window, cutting off the titlebar
-	NSIMG*image = [[NSImage alloc] initWithSize: NSMakeSize(windowRect.size.width, windowRect.size.height - 22)];
+	NSIMG*image = [NSImage.alloc initWithSize: NSMakeSize(windowRect.size.width, windowRect.size.height - 22)];
 	[image lockFocus];  // lock focus on the image for drawing
 
 	// copy the contents of the window to the graphic context
@@ -3113,7 +3117,7 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf", @"zoom_out.
 	KillPicture(picHandle);
 
 	// Create an image with the PICT representation
-	NSIMG*image = [[NSImage alloc] initWithSize: [pictImageRep size]];
+	NSIMG*image = [NSImage.alloc initWithSize: [pictImageRep size]];
 	[image addRepresentation: pictImageRep];
 	return image;// autorelease];
 }
@@ -3167,7 +3171,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 @implementation NSImage (Matrix)
 - (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix { //8PointMatrix
 
-	CIImage* cImg = [self toCIImage];//  [[CIImage alloc] initWithCGImage: screenie];
+	CIImage* cImg = [self toCIImage];//  [CIImage.alloc initWithCGImage: screenie];
 	CIFilter *filter = [CIFilter filterWithName: @"CIPerspectiveTransform"];
 	[filter setDefaults];
 	[filter setValue:cImg forKey: @"inputImage"];  //	CGImageRelease(screenie);
@@ -3211,13 +3215,13 @@ CGImageRef CreateCGImageFromData(NSData* data)
 + (id) thumbnailImageWithContentsOfURL:(NSURL*)url width:(CGF)width
 {
 	NSIMG*thumbnailImage = nil;
-	NSIMG*image = [[NSImage alloc] initWithContentsOfURL:url];
+	NSIMG*image = [NSImage.alloc initWithContentsOfURL:url];
 	if (image != nil) {
 		NSSize imageSize = [image size];
 		CGFloat imageAspectRatio = imageSize.width / imageSize.height;
 		// Create a thumbnail image from this image (this part of the slow operation)
 		NSSize thumbnailSize = NSMakeSize(width, width * imageAspectRatio);
-		thumbnailImage = [[NSImage alloc] initWithSize:thumbnailSize];
+		thumbnailImage = [NSImage.alloc initWithSize:thumbnailSize];
 
 		[thumbnailImage lockFocus];
 		[image drawInRect:NSMakeRect(0, 0, thumbnailSize.width, thumbnailSize.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
@@ -3346,7 +3350,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
     
     NSRect imageRect = NSMakeRect(0, 0, targetSize.width, targetSize.height);
     
-	NSImage *maskedImage = [[NSImage alloc] initWithSize: targetSize];
+	NSImage *maskedImage = [NSImage.alloc initWithSize: targetSize];
     NSImage *sourceImage = self;
 	
     [maskedImage lockFocus];
@@ -3621,7 +3625,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 		}
 		
 		newRect = NSMakeRect(0.0f, 0.0f, size.width, size.height);
-		newImage = [[NSImage alloc] initWithSize:size];
+		newImage = [NSImage.alloc initWithSize:size];
 		
 		if (flipImage) {
 			[newImage setFlipped:YES];		
@@ -3671,9 +3675,9 @@ CGImageRef CreateCGImageFromData(NSData* data)
 			[self writeGIFExtensionBlocksInData:GIFRepresentationData forRepresenation:(NSBitmapImageRep *)bestRep];
 			
 			//You must release before you re-allocate. The data is retained in an autorelease loop in the images array.
-			[newImage release];
-			
-			newImage = [[NSImage alloc] initWithData:GIFRepresentationData];
+//			[newImage release];
+
+			newImage = [NSImage.alloc initWithData:GIFRepresentationData];
 		} else {
 			[newImage lockFocus];
 			// Highest quality interpolation
@@ -3732,8 +3736,8 @@ CGImageRef CreateCGImageFromData(NSData* data)
 		NSRect scaleRect = NSMakeRect(0.0f, 0.0f, scaleSize.width, scaleSize.height);
 		NSPoint fitFromPoint = NSMakePoint((size.width - scaleSize.width) / 2.0f, (size.height - scaleSize.height) / 2.0f);
 		
-		NSImage *newImage = [[NSImage alloc] initWithSize:size];
-		NSImage *scaledImage = [[NSImage alloc] initWithSize:scaleSize];
+		NSImage *newImage = [NSImage.alloc initWithSize:size];
+		NSImage *scaledImage = [NSImage.alloc initWithSize:scaleSize];
 		
 		if (flipImage) {
 			[newImage setFlipped:YES];		
@@ -3793,9 +3797,9 @@ CGImageRef CreateCGImageFromData(NSData* data)
 			[self writeGIFExtensionBlocksInData:GIFRepresentationData forRepresenation:(NSBitmapImageRep *)bestRep];
 			
 			// Release before you re-allocate.
-			[newImage release];
+//			[newImage release];
 
-			newImage = [[NSImage alloc] initWithData:GIFRepresentationData];
+			newImage = [NSImage.alloc initWithData:GIFRepresentationData];
 		} else {
 			[scaledImage lockFocus];
 			// Highest quality interpolation
@@ -3819,8 +3823,8 @@ CGImageRef CreateCGImageFromData(NSData* data)
 			[newImage unlockFocus];
 		}
 		
-		[scaledImage release];
-		
+//		[scaledImage release];
+
 		return [newImage autorelease];
 	}
 }
@@ -4003,9 +4007,9 @@ CGImageRef CreateCGImageFromData(NSData* data)
     imagePath = [ownerBundle pathForImageResource:name];   
 	
 	if(flag) {
-		image = [[NSImage alloc] initByReferencingFile:imagePath];
+		image = [NSImage.alloc initByReferencingFile:imagePath];
 	} else {
-		image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+		image = [NSImage.alloc initWithContentsOfFile:imagePath];
 	}
 
     return [image autorelease];	
@@ -4028,7 +4032,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 			securityInterfaceFramework = [NSBundle bundleWithPath:@"/System/Library/Frameworks/SecurityInterface.framework"];
 		}
 
-		SSLIcon = [[NSImage alloc] initByReferencingFile:[securityInterfaceFramework pathForImageResource:@"CertSmallStd"]];
+		SSLIcon = [NSImage.alloc initByReferencingFile:[securityInterfaceFramework pathForImageResource:@"CertSmallStd"]];
 	}
 	
 	return SSLIcon;
@@ -4273,7 +4277,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 	
 	NSSize size = [self size];
 	NSRect rect = NSMakeRect(0.0f, 0.0f, size.width, size.height);
-	NSBitmapImageRep *bm = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:rect] autorelease];
+	NSBitmapImageRep *bm = [[NSBitmapImageRep.alloc initWithFocusedViewRect:rect] autorelease];
 	
 	[self unlockFocus];
 	
@@ -4314,7 +4318,7 @@ CGImageRef CreateCGImageFromData(NSData* data)
 		NSUInteger height = ((CGFloat)imageRep.pixelsWide - 100.0f)*ratio;
 		
 		// Create a new rep with the lowered size
-		NSBitmapImageRep *newImageRep = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+		NSBitmapImageRep *newImageRep = [[NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																				 pixelsWide:width
 																				 pixelsHigh:height
 																			  bitsPerSample:imageRep.bitsPerSample
@@ -4420,12 +4424,12 @@ CGImageRef CreateCGImageFromData(NSData* data)
         // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
         // which is a lot more efficient than copying pixel data into a brand new NSImage.
         // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
-        NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:ref];
+        NSBitmapImageRep *bitmapImageRep = [NSBitmapImageRep.alloc initWithCGImage:ref];
         NSImage *newImage = nil;
         if (bitmapImageRep) {
             newImage = [NSImage.alloc initWithSize:[bitmapImageRep size]];
             [newImage addRepresentation:bitmapImageRep];
-            [bitmapImageRep release];
+//            [bitmapImageRep release];
             if (newImage) return [newImage autorelease];
         }
         CFRelease(ref);

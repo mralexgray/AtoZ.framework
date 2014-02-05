@@ -16,7 +16,7 @@ static void __attribute__ ((destructor)) OCUnitToJUnitLoggerStop(void)	{  [insta
 //  [AZNOTCENTER addObserver:self selector:@selector(testCaseStopped:) 	name:XCTestCaseDidStopNotification object:nil];
 //  [AZNOTCENTER addObserver:self selector:@selector(testCaseFailed:) 		name:XCTestCaseDidFailNotification object:nil];
 
-	  _document = [[GDataXMLDocument alloc] init];
+	  _document = GDataXMLDocument.new;
 	[_document initWithRootElement:[GDataXMLElement elementWithName:@"testsuites"]];
 	self.suitesElement = [_document rootElement];
 	return self;

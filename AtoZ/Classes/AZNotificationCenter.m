@@ -84,7 +84,7 @@ static char AZNotificationHelperMagicContext;
 //		//- This uses hardware support to really, literally only perform the swap once and tell whether it happened.
 //		if(OSAtomicCompareAndSwapPtrBarrier(0x0, (__bridge void *)temp, (void*)&center)) {
 //			//- compute singleton initialize
-//			AZNotificationCenter *center = [[self alloc]init];
+//			AZNotificationCenter *center = self.new;
 //		}
 //		else {
 //			//- if the swap didn't take place, delete the temporary instance
@@ -103,7 +103,7 @@ static char AZNotificationHelperMagicContext;
 		// if two threads try to set simultaneously, one will fail
 		// and the other will set things up so that the failing thread
 		// gets the shared center
-//		AZNotificationCenter *newCenter = [[self alloc] init];
+//		AZNotificationCenter *newCenter = self.new;
 //		if(!OSAtomicCompareAndSwapPtrBarrier(nil, /*(__bridge id)*/**newCenter, (void *)&center))
 //		CFBridgingRetain(newCenter), (void *)&center))
 
@@ -116,7 +116,7 @@ static char AZNotificationHelperMagicContext;
 {
 	if((self = [super init]))
 	{
-		_observerHelpers = [[NSMutableDictionary alloc] init];
+		_observerHelpers = NSMutableDictionary.new;
 	}
 	return self;
 }

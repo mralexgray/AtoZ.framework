@@ -5,6 +5,7 @@
 //  Created by David Sklenar on 8/20/12.
 //  Copyright (c) 2012 ELC Technologies. All rights reserved.
 //
+#import "AtoZ.h"
 
 #import "MediaServer.h"
 #import "AtoZModels.h"

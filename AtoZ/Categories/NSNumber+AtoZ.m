@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#import "AtoZ.h"
 #import "NSNumber+AtoZ.h"
 
 @implementation NSNumber (AtoZ)
@@ -121,7 +122,7 @@
 		return nil;
 	}
 	
-	NSMutableArray *re = [[NSMutableArray alloc] initWithCapacity:n];
+	NSMutableArray *re = [NSMutableArray.alloc initWithCapacity:n];
 	
 	for (int i = 0; i < n; i++) {
 		id o = block();

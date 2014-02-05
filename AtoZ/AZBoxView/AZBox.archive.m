@@ -56,10 +56,10 @@
 	float hue = [theColor hueComponent];
 	float sat = [theColor saturationComponent];
 	float lum = [theColor luminance];
-	NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: $(@"H:%0.1f\nS:%0.1f\nL:%0.1f", hue,sat,lum) attributes:$map(
+	NSMutableAttributedString *string = [NSMutableAttributedString.alloc initWithString: $(@"H:%0.1f\nS:%0.1f\nL:%0.1f", hue,sat,lum) attributes:$map(
 			[NSFont fontWithName:@"Ubuntu Mono Bold" size:15],
 			NSFontAttributeName, BLACK, NSForegroundColorAttributeName)];
-	NSMutableParagraphStyle *theStyle =[[NSMutableParagraphStyle alloc] init];
+	NSMutableParagraphStyle *theStyle =NSMutableParagraphStyle.new;
 	[theStyle setLineSpacing:12];
 	NSTextView *atv = [[NSTextView alloc]initWithFrame:NSInsetRect([self bounds],3,3)];
 	[atv setDefaultParagraphStyle:theStyle];
@@ -81,7 +81,7 @@
 	//	if(outer) {
 	//		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
 	//		[outerClip setClip];
-	//		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
+	//		NSGradient *outerGradient = [NSGradient.alloc initWithColorsAndLocations: [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f,  [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f,  nil];
 	//		[outerGradient drawInRect:[outerClip bounds] angle:90.0f]; }
 	NSBezierPath *standard = [self pathWithInset:2];
 	[standard setLineWidth:self.dynamicStroke];
@@ -268,7 +268,7 @@
 	representedObject_ = aRepresentedObject;
 	if ( [representedObject_ isKindOfClass:[AZFile class]] ){
 		AZFile *c = representedObject_;
-		gradient = [[NSGradient alloc] initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
+		gradient = [NSGradient.alloc initWithStartingColor:c.color.brighter.brighter endingColor:c.color.darker.darker];
 	}
 //		self.color = [representedObject_ valueForKey:@"color"];
 //	} else { NSColor *r = RANDOMCOLOR;
@@ -394,7 +394,7 @@
 
 //- (NSGradient*) gradient {
 
-//	return [[NSGradient alloc] initWithStartingColor:color.brighter.brighter endingColor:color.darker.darker];
+//	return [NSGradient.alloc initWithStartingColor:color.brighter.brighter endingColor:color.darker.darker];
 //}
 
 
@@ -411,7 +411,7 @@
 ////	if(outer) {
 ////		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
 ////		[outerClip setClip];
-////		NSGradient *outerGradient = [[NSGradient alloc] initWithColorsAndLocations:
+////		NSGradient *outerGradient = [NSGradient.alloc initWithColorsAndLocations:
 ////									 [NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.0f, 
 ////									 [NSColor colorWithDeviceWhite:0.21f alpha:1.0f], 1.0f, nil];
 ////		[outerGradient drawInRect:[outerClip bounds] angle:90.0f];
@@ -493,7 +493,7 @@
 ////	drawnRect.origin = inRect.origin;
 ////	drawnRect.origin.x += (inRect.size.width - drawnRect.size.width)/2;
 ////	drawnRect.origin.y += (inRect.size.height - drawnRect.size.height)/2;
-////	NSImage *render = [[NSImage alloc]init];
+////	NSImage *render = NSImage.new;
 ////	if ([representedObject isKindOfClass:[AZFile class]] ) {
 ////		AZFile *f = representedObject;
 ////		if (drawsIconMaskOnly) {
@@ -691,7 +691,7 @@
 
 //-(void) updateTrackingAreas {
 //	if (_trackingArea) _trackingArea = nil;
-//	_trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds]
+//	_trackingArea = [NSTrackingArea.alloc initWithRect:[self bounds]
 //			options:NSTrackingMouseEnteredAndExited
 // | NSTrackingActiveInActiveApp
 ////			| NSTrackingMouseMoved | NSTrackingActiveInActiveApp 
@@ -707,7 +707,7 @@
 //			
 //			return [NSColor colorWithPatternImage: [[NSImage imageInFrameworkWithFileName:@"linen.png"] tintedWithColor:_color]];
 //			
-////			[[NSImage alloc] initWithContentsOfFile:imagePath]];
+////			[NSImage.alloc initWithContentsOfFile:imagePath]];
 ////		} 
 ////		if  (_backgroundColor == nil)
 ////			NSLog(@"Linen not found"); _backgroundColor = RANDOMCOLOR; 
@@ -727,7 +727,7 @@
 //	
 //	
 //		
-////		NSGradient *backgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+////		NSGradient *backgroundGradient = [NSGradient.alloc initWithColorsAndLocations:
 ////			[NSColor colorWithDeviceWhite:0.17f alpha:1.0f], 0.0f, 
 ////			[NSColor colorWithDeviceWhite:0.20f alpha:1.0f], 0.12f, 
 ////			[NSColor colorWithDeviceWhite:0.27f alpha:1.0f], 0.5f, 
@@ -739,12 +739,12 @@
 
 ////	[[self path] fill];
 ////	[_gradient drawInBezierPath:_path angle:270];
-////	NSShadow *sh = [[NSShadow alloc]init];
+////	NSShadow *sh = NSShadow.new;
 ////	[sh setShadowColor:_color.brighter.brighter];
 ////	[sh setShadowOffset:NSMakeSize(4, -4)];
 ////	[sh setShadowBlurRadius:4];///3];
 ////	[_path fillWithInnerShadow:sh];
-////	NSShadow *sh1 = [[NSShadow alloc]init];
+////	NSShadow *sh1 = NSShadow.new;
 ////	[sh1 setShadowColor:_color.darker.darker];
 ////	[sh1 setShadowOffset:NSMakeSize(-4., 4)];
 ////	[sh1 setShadowBlurRadius:4];///3];

@@ -15,7 +15,7 @@
 - (void)awakeFromNib
 {
 	NSPoint point = [NSEvent mouseLocation];
-//	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
+//	NSString *infoText = [NSString.alloc initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 
 //	[infoTextField bind
 //	 options:]
@@ -48,7 +48,7 @@
 	[self setAcceptsMouseMovedEvents:YES screen:YES];
 
 	NSPoint point = [NSEvent mouseLocation];
-	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
+	NSString *infoText = [NSString.alloc initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 
 	//	[infoTextField bind
 	//	 options:]
@@ -65,7 +65,7 @@
 //	[boundObject setValue:[NSNumber numberWithFloat:[self floatValue]]
 //			   forKeyPath:keyPath];
 	NSPoint point = [NSEvent mouseLocation];
-	NSString *infoText = [[NSString alloc] initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
+	NSString *infoText = [NSString.alloc initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 	[_coordinates setStringValue:infoText];
 	// NSLog(@"x:%.2fy:%.2f", point.x, point.y);
 

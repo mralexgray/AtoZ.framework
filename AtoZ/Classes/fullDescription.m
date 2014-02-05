@@ -54,7 +54,7 @@ __attribute__((constructor)) void initialize(void)
 		}
 	}
 
-	gObjects = [[NSMutableSet alloc] initWithCapacity:256];
+	gObjects = [NSMutableSet.alloc initWithCapacity:256];
 }
 
 static void indent(NSMutableString *string, NSUInteger indentLevel)

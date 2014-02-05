@@ -85,7 +85,7 @@
 {
   NSEntityDescription* entity = [NSEntityDescription entityForName:entityName
                                             inManagedObjectContext:self];
-  NSFetchRequest* request = [[NSFetchRequest alloc] init];
+  NSFetchRequest* request = NSFetchRequest.new;
 
 #if !__has_feature(objc_arc)
   [request autorelease];
