@@ -228,7 +228,7 @@
 
 		/* PROGRESS INSET */
 		NSBezierPath *progressInsetPath = [NSBezierPath bezierPathWithRoundedRect:progressInset cornerRadius:cornerRadius];
-		NSGradient *backgroundAlphaGradient = [[NSGradient alloc] initWithColorsAndLocations:
+		NSGradient *backgroundAlphaGradient = [NSGradient.alloc initWithColorsAndLocations:
 										  [NSColor colorWithCalibratedWhite: 1.0 alpha:0.350], 0.1f, 
 										  [NSColor colorWithCalibratedWhite: 1.0 alpha:0.000], 0.6f, 
 										  nil];
@@ -248,7 +248,7 @@
 		[path addClip];
 
 		[_indeterminateImage drawInRect:indeterminateRect fromRect:NSMakeRect(0, 0, [_indeterminateImage size].width, [_indeterminateImage size].height) operation:NSCompositeSourceIn fraction:1];
-		NSGradient *agradient = [[NSGradient alloc] initWithColorsAndLocations:
+		NSGradient *agradient = [NSGradient.alloc initWithColorsAndLocations:
 								 [NSColor colorWithCalibratedWhite:1 alpha: 0.300],0.0,
 								 [NSColor colorWithCalibratedWhite:1 alpha: 0.000],0.6,
 								 nil];
@@ -277,7 +277,7 @@
 	[NSGraphicsContext restoreGraphicsState];
 }
 - (void)makeIndeterminatePole {
-	_indeterminateImage2 = [[NSImage alloc] initWithSize:NSMakeSize([self frame].size.height, [self frame].size.height)];
+	_indeterminateImage2 = [NSImage.alloc initWithSize:NSMakeSize([self frame].size.height, [self frame].size.height)];
 	[_indeterminateImage2 setTemplate:YES];
 	
 	[_indeterminateImage2 lockFocus];
@@ -313,7 +313,7 @@
 	
 	
 	
-	_indeterminateImage = [[NSImage alloc] initWithSize:NSMakeSize(20,20)];//[self frame].size.width, [self frame].size.height)];
+	_indeterminateImage = [NSImage.alloc initWithSize:NSMakeSize(20,20)];//[self frame].size.width, [self frame].size.height)];
 	[_indeterminateImage setTemplate:YES];
 	
 	[_indeterminateImage lockFocus];
@@ -362,7 +362,7 @@
 	if ([self window]) {
 		[self makeIndeterminatePole];
 		if (usesThreadedAnimation) {
-			_animationThread = [[NSThread alloc] initWithTarget:self selector:@selector(animateInBackgroundThread) object:nil];
+			_animationThread = [NSThread.alloc initWithTarget:self selector:@selector(animateInBackgroundThread) object:nil];
 			[_animationThread start];
 		} else {
 			_timer = [NSTimer scheduledTimerWithTimeInterval:.05

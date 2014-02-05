@@ -577,8 +577,8 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		return anObj ? @{key: anObj} : @{};
 	if (self[key] == anObj)
 		return [NSDictionary dictionaryWithDictionary:self];
-	NSMutableArray *newKeys = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
-	NSMutableArray *newValues = [[NSMutableArray alloc] initWithCapacity:keyCount+1];
+	NSMutableArray *newKeys = [NSMutableArray.alloc initWithCapacity:keyCount+1];
+	NSMutableArray *newValues = [NSMutableArray.alloc initWithCapacity:keyCount+1];
 	for (NSString *aKey in self) {
 		if (![aKey isEqual:key]) {
 			[newKeys addObject:aKey];
@@ -927,7 +927,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	NSSet* immuterator ;
 	// Remove from newAdditions and newDeletions any members
 	// in these new inputs which cancel one another out
-	immuterator = [[NSSet alloc] initWithArray:[newAdditions allKeys]] ;
+	immuterator = [NSSet.alloc initWithArray:[newAdditions allKeys]] ;
 	for (id key in immuterator) {
 		id member = [newDeletions member:key] ;
 		if (member) {
@@ -938,7 +938,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 //	[immuterator release] ;
 	// Remove from newAdditions any which cancel out existing deletions,
 	// and do the cancellation
-	immuterator = [[NSSet alloc] initWithArray:[newAdditions allKeys]] ;
+	immuterator = [NSSet.alloc initWithArray:[newAdditions allKeys]] ;
 	for (id key in immuterator) {
 		id member = [deletions member:key] ;
 		if (member) {
@@ -971,7 +971,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	//	if ([[NSSet setWithArray:[self allKeys]] isEqualToSet:[NSSet setWithArray:keys]]) {
 	//		return self ;
 	//	}
-	NSMutableDictionary* mutant = [[NSMutableDictionary alloc] init] ;
+	NSMutableDictionary* mutant = [NSMutableDictionary.alloc init] ;
 	for (id key in keys) {
 		[mutant setValue:[self objectForKey:key]
 				  forKey:key] ;
@@ -1013,8 +1013,8 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)	{
 	self = [super init];
 	if (self != nil)
 	{
-		dictionary = [[NSMutableDictionary alloc] initWithCapacity:capacity];
-		array = [[NSMutableArray alloc] initWithCapacity:capacity];
+		dictionary = [NSMutableDictionary.alloc initWithCapacity:capacity];
+		array = [NSMutableArray.alloc initWithCapacity:capacity];
 	}
 	return self;
 }
@@ -1084,7 +1084,7 @@ NSString *jsonIndentString = @"\t"; // Modify this string to change how the outp
 const int jsonDoNotIndent = -1;
 @implementation NSDictionary (BSJSONAdditions)
 + (NSD*)dictionaryWithJSONString:(NSS*)jsonString	{
-	NSScanner *scanner = [[NSScanner alloc] initWithString:jsonString];
+	NSScanner *scanner = [NSScanner.alloc initWithString:jsonString];
 	NSDictionary *dictionary = nil;
 	[scanner scanJSONObject:&dictionary];
 //	[scanner release];
@@ -1253,7 +1253,7 @@ NSString *jsonNullString = @"null";
 	if (![self scanJSONObjectStartString]) {
 		// TODO: Error condition. For now, return false result, do nothing with the dictionary handle
 	} else {
-		NSMutableDictionary *jsonKeyValues = [[[NSMutableDictionary alloc] init] autorelease];
+		NSMutableDictionary *jsonKeyValues = [[NSMutableDictionary.alloc init] autorelease];
 		NSString *key = nil;
 		id value;
 		[self scanJSONWhiteSpace];
@@ -1296,7 +1296,7 @@ NSString *jsonNullString = @"null";
 - (BOOL)scanJSONString:(NSString **)string	{
 	BOOL result = NO;
 	if ([self scanJSONStringDelimiterString]) {
-		NSMutableString *chars = [[[NSMutableString alloc] init] autorelease];
+		NSMutableString *chars = [[NSMutableString.alloc init] autorelease];
 		NSString *characterFormat = @"%C";
 		
 		// process character by character until we finish the string or reach another double-quote

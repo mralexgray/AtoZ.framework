@@ -50,7 +50,7 @@ NSMutableData *rawClassPointers;
 	if (!rawClassPointers)
 		{
 		int numClasses =  [self numberOfClasses];
-		rawClassPointers = [[NSMutableData alloc] initWithLength: numClasses * sizeof(Class)];
+		rawClassPointers = [NSMutableData.alloc initWithLength: numClasses * sizeof(Class)];
 		void *bytes = [rawClassPointers mutableBytes];
 		objc_getClassList(bytes, numClasses);
 		}

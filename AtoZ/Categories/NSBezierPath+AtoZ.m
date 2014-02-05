@@ -89,7 +89,7 @@
 - (NSBezierPath *)bezierWithFont:(NSFont *)theFont {
     NSBezierPath *bezier = nil;     /* default result */
     /* put the string's text into a text storage so we can access the glyphs through a layout. */
-    NSTextStorage *textStore = [[NSTextStorage alloc] initWithString:self];
+    NSTextStorage *textStore = [NSTextStorage.alloc initWithString:self];
     NSTextContainer *textContainer = NSTextContainer.new;
     BezierNSLayoutManager *myLayout = BezierNSLayoutManager.new;
     [myLayout addTextContainer:textContainer];
@@ -99,7 +99,7 @@
     [myLayout setTheBezierPath:[NSBezierPath bezierPath]];
 /* to call drawGlyphsForGlyphRange, we need a destination so we'll
                 set up a temporary one.  Size is unimportant and can be small.  */
-    NSImage *theImage = [[NSImage alloc] initWithSize:NSMakeSize(10.0, 10.0)];
+    NSImage *theImage = [NSImage.alloc initWithSize:NSMakeSize(10.0, 10.0)];
 /* lines are drawn in reverse order, so we will draw the text upside down and then flip the resulting NSBezierPath right side up again to achieve our final result with the lines in the right order and the text with proper orientation.  */
     [theImage setFlipped:YES];
     [theImage lockFocus];
@@ -505,7 +505,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 
 //+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius
 //{
-//	NSBezierPath *result = [[[NSBezierPath alloc] init] autorelease];
+//	NSBezierPath *result = [[NSBezierPath.alloc init] autorelease];
 //	[result appendBezierPathWithRoundedRect:rect cornerRadius:radius];
 //	return result;
 //}
@@ -529,7 +529,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 }
 
 + (NSBezierPath *)bezierPathWithTriangleInRect:(NSRect)aRect orientation:(AZCompass)orientation {
-    NSBezierPath *result = [[[NSBezierPath alloc] init] autorelease];
+    NSBezierPath *result = [[NSBezierPath.alloc init] autorelease];
     [result appendBezierPathWithTriangleInRect:aRect orientation:orientation];
     return result;
 }

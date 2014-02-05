@@ -14,7 +14,7 @@
   NSEntityDescription *entity = [NSEntityDescription
 								 entityForName:newEntityName inManagedObjectContext:self];
   
-  NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+  NSFetchRequest *request = [[NSFetchRequest.alloc init] autorelease];
   [request setEntity:entity];
   
   if (stringOrPredicate)

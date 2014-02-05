@@ -178,7 +178,7 @@ static BOOL isXcodeColorsEnabled;
     va_start(arguments, format);
     
     if ([format isEqualToString:kSTTestCaseFormat]) {
-        NSString *s = [[NSString alloc] initWithFormat:kSTTestCaseArgsFormat arguments:arguments];
+        NSString *s = [NSString.alloc initWithFormat:kSTTestCaseArgsFormat arguments:arguments];
         NSArray *args = [s componentsSeparatedByString:kRGArgsSeparator];
         
         NSString *color = [[args[1] uppercaseString] isEqualToString:kSTTestPassed] ? kRGColorGreen : kRGColorRed;
@@ -210,7 +210,7 @@ static BOOL isXcodeColorsEnabled;
 
 NSArray *NSArrayFromArguments(va_list arguments)
 {
-    NSString *s = [[NSString alloc] initWithFormat:kSTTestErrorArgsFormat arguments:arguments];
+    NSString *s = [NSString.alloc initWithFormat:kSTTestErrorArgsFormat arguments:arguments];
     NSArray *args = [s componentsSeparatedByString:kRGArgsSeparator];
     
     return args;

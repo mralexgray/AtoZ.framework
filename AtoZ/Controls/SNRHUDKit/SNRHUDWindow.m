@@ -83,7 +83,7 @@
 	NSRect bounds = self.frame; bounds.origin = NSZeroPoint;
 	SNRHUDWindowFrameView *frameView = super.contentView;
 	if (!frameView) {
-		frameView = [[SNRHUDWindowFrameView alloc] initWithFrame:bounds];
+		frameView = [SNRHUDWindowFrameView.alloc initWithFrame:bounds];
 		NSSZ buttonSize = SNRWindowButtonSize;
 		NSR  buttonRect = NSMakeRect(	SNRWindowButtonEdgeMargin, frameView.height - (SNRWindowButtonEdgeMargin + buttonSize.height),
 												buttonSize.width, 			buttonSize.height);
@@ -156,7 +156,7 @@
 	NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
 	[style setAlignment:NSCenterTextAlignment];
 	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:SNRWindowTitleColor, NSForegroundColorAttributeName, SNRWindowTitleFont, NSFontAttributeName, shadow, NSShadowAttributeName, style, NSParagraphStyleAttributeName, nil];
-	NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:title attributes:attributes];
+	NSAttributedString *attrTitle = [NSAttributedString.alloc initWithString:title attributes:attributes];
 	NSSize titleSize = attrTitle.size;
 	NSRect titleRect = NSMakeRect(0.f, NSMidY(titleBarRect) - (titleSize.height / 2.f), titleBarRect.size.width, titleSize.height);
 	[attrTitle drawInRect:NSIntegralRect(titleRect)];
@@ -177,7 +177,7 @@
 	[dropShadow stroke];
 	// Draw the main circle w/ gradient & border on top of it
 	NSBezierPath *circle = [NSBezierPath bezierPathWithOvalInRect:drawingRect];
-	NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:SNRWindowButtonGradientBottomColor endingColor:SNRWindowButtonGradientTopColor];
+	NSGradient *gradient = [NSGradient.alloc initWithStartingColor:SNRWindowButtonGradientBottomColor endingColor:SNRWindowButtonGradientTopColor];
 	[gradient drawInBezierPath:circle angle:270.f];
 	[SNRWindowButtonBorderColor set];
 	[circle stroke];

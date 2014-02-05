@@ -39,11 +39,11 @@
 }
 
 + (AZPoint*) pointWithX:(CGF)xv y:(CGF)yv {
-	return [[AZPoint alloc] initWithX:xv y:yv];
+	return [AZPoint.alloc initWithX:xv y:yv];
 }
 
 + (AZPoint*) pointWithPoint:(NSP)pt {
-	return [[AZPoint alloc] initWithPoint:pt];
+	return [AZPoint.alloc initWithPoint:pt];
 }
 
 + (AZPoint*) halfPoint {
@@ -93,7 +93,7 @@
 }
 
 - (id) copy {
-	return [[AZPoint alloc] initWithX:x y:y];
+	return [AZPoint.alloc initWithX:x y:y];
 }
 
 - (id) copyWithZone:(NSZone*) zone {

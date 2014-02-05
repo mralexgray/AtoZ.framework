@@ -19,7 +19,7 @@
 }
 
 + (AZSize*) sizeOf:(id) object {
-	AZSize *re = [[AZSize alloc] initWithWidth:0 height:0];
+	AZSize *re = [AZSize.alloc initWithWidth:0 height:0];
 	
 	if (object == nil) {
 	return re;
@@ -51,11 +51,11 @@
 }
 
 + (AZSize*) sizeWithSize:(NSSZ)s {
-	return [[AZSize alloc] initWithSize:s];
+	return [AZSize.alloc initWithSize:s];
 }
 
 + (AZSize*) sizeWithWidth:(CGF)w height:(CGF)h {
-	return [[AZSize alloc] initWithWidth:w height:h];
+	return [AZSize.alloc initWithWidth:w height:h];
 }
 
 + (BOOL)maybeSize:(id) object {
@@ -77,7 +77,7 @@
 }
 
 - (id) copy {
-	return [[AZSize alloc] initWithWidth:width height:height];
+	return [AZSize.alloc initWithWidth:width height:height];
 }
 
 - (id) copyWithZone:(NSZone*) zone {

@@ -245,7 +245,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 
 - (NSCountedSet *)countedSet {
-    return [[NSCountedSet alloc] initWithArray:self];
+    return [NSCountedSet.alloc initWithArray:self];
 }
 
 - (NSRNG) rangeOfSubarray:(NSA*)sub {
@@ -432,7 +432,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 // NSArray *sortedArray = [theArray sortedWithKey:@"theKey" ascending:YES];
 - (NSA*) sortedWithKey:(NSS*) theKey ascending:(BOOL)ascending {
-    return [self sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:theKey ascending:ascending]]];
+    return [self sortedArrayUsingDescriptors:@[[NSSortDescriptor.alloc initWithKey:theKey ascending:ascending]]];
 }
 
 static NSI comparatorForSortingUsingArray(id object1, id object2, void *context) {
@@ -535,7 +535,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (void)perform:(SEL)selector {
 
 
-    NSArray *copy = [[NSArray alloc] initWithArray:self];
+    NSArray *copy = [NSArray.alloc initWithArray:self];
     NSEnumerator *e = [copy objectEnumerator];
     for (id delegate; (delegate = [e nextObject]); ) {
         if ([delegate respondsToSelector:selector]) {
@@ -547,7 +547,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)perform:(SEL)selector withObject:(id)p1 {
-    NSArray *copy = [[NSArray alloc] initWithArray:self];
+    NSArray *copy = [NSArray.alloc initWithArray:self];
     NSEnumerator *e = [copy objectEnumerator];
     for (id delegate; (delegate = [e nextObject]); ) {
         if ([delegate respondsToSelector:selector]) {
@@ -559,7 +559,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2 {
-    NSArray *copy = [[NSArray alloc] initWithArray:self];
+    NSArray *copy = [NSArray.alloc initWithArray:self];
     NSEnumerator *e = [copy objectEnumerator];
     for (id delegate; (delegate = [e nextObject]); ) {
         if ([delegate respondsToSelector:selector]) {
@@ -573,7 +573,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3 {
-    NSArray *copy = [[NSArray alloc] initWithArray:self];
+    NSArray *copy = [NSArray.alloc initWithArray:self];
     NSEnumerator *e = [copy objectEnumerator];
     for (id delegate; (delegate = [e nextObject]); ) {
         if ([delegate respondsToSelector:selector]) {
@@ -1024,7 +1024,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 - (NSA*) uniqueObjectsSortedUsingSelector:(SEL)comparator {
     NSSet *set =
-        [[NSSet alloc] initWithArray:self];
+        [NSSet.alloc initWithArray:self];
     NSArray *vals =
         [[set allObjects] sortedArrayUsingSelector:comparator];
     return vals;

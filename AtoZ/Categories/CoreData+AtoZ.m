@@ -68,7 +68,7 @@
                             ascending:(BOOL)ascending
                         withPredicate:(NSPredicate*)predicate
 {
-  NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:key
+  NSSortDescriptor* sort = [NSSortDescriptor.alloc initWithKey:key
                                                        ascending:ascending];
 
 #if !__has_feature(objc_arc)
@@ -165,7 +165,7 @@
 //+ (NSArray *)findAllObjectsInContext:(NSManagedObjectContext *)context;
 //{
 //    NSEntityDescription *entity = [self entityDescriptionInContext:context];
-//    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+//    NSFetchRequest *request = [[NSFetchRequest.alloc init] autorelease];
 //    [request setEntity:entity];
 //    NSError *error = nil;
 //    NSArray *results = [context executeFetchRequest:request error:&amp;error];

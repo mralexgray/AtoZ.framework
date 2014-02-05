@@ -57,7 +57,7 @@
 
 - (IBAction) showInstructionsWindow:(id)sender {
 	if ([[self instructionImageNames] count] == 0) {
-		NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+		NSAlert *alert = [[NSAlert.alloc init] autorelease];
 		[alert setMessageText:@"Help"];
 		[alert setInformativeText:$(@"Help isn't available for %@", [[NSApplication sharedApplication] appName])];
 		[alert runModal];

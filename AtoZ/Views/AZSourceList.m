@@ -495,7 +495,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 - (NSSize)sizeOfBadgeAtRow:(NSInteger)rowIndex {
 	id rowItem = [self itemAtRow:rowIndex];		//Make sure that the item has a badge
 	if(![self itemHasBadge:rowItem]) 	return NSZeroSize;
-	NSAttributedString *badgeAttrString = [[NSAttributedString alloc] initWithString:$(@"%ld", [self badgeValueForItem:rowItem]) attributes:@{ NSFontAttributeName:BADGE_FONT }];
+	NSAttributedString *badgeAttrString = [NSAttributedString.alloc initWithString:$(@"%ld", [self badgeValueForItem:rowItem]) attributes:@{ NSFontAttributeName:BADGE_FONT }];
 	NSSize stringSize = [badgeAttrString size];
 	//Calculate the width needed to display the text or the minimum width if it's smaller
 	CGFloat width = stringSize.width+(2*BADGE_MARGIN);
@@ -696,7 +696,7 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	[badgePath fill];
 	
 	//Draw the badge text
-	NSAttributedString *badgeAttrString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [self badgeValueForItem:rowItem]] 
+	NSAttributedString *badgeAttrString = [NSAttributedString.alloc initWithString:[NSString stringWithFormat:@"%ld", [self badgeValueForItem:rowItem]] 
 																		  attributes:attributes];
 	NSSize stringSize = [badgeAttrString size];
 	NSPoint badgeTextPoint = NSMakePoint(NSMidX(badgeFrame)-(stringSize.width/2.0),		//Center in the badge frame

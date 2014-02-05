@@ -103,7 +103,7 @@
 	CGContextRelease(cg);
 
 	// Extract the CIImage from the raw bitmap data that was used in the offscreen CGContext
-	CIImage * coreimage = [[CIImage alloc] 
+	CIImage * coreimage = [CIImage.alloc 
 		initWithBitmapData:[NSData dataWithBytesNoCopy:bitmapData length:byteSize] 
 		bytesPerRow:bytesPerRow 
 		size:CGSizeMake(rect.size.width, rect.size.height) 
@@ -238,7 +238,7 @@
 		if(GetCurrentEventKeyModifiers() & shiftKey) //Adam Leonard - 9/17/07 - slow-mo animation when shift key is down
 			theTransitionDuration *= 5; //5 times slower
 		
-		animation = [[TransitionAnimation alloc] initWithDuration:theTransitionDuration animationCurve:NSAnimationEaseInOut];
+		animation = [TransitionAnimation.alloc initWithDuration:theTransitionDuration animationCurve:NSAnimationEaseInOut];
 		[animation setDelegate:delegate];
 		// Run the animation synchronously.
 		

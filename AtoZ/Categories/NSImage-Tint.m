@@ -96,7 +96,7 @@
 	}
 	NSSize mergedSize = NSMakeSize(mergedWidth, mergedHeight) ;
 
-	NSImage* mergedImage = [[NSImage alloc] initWithSize:mergedSize] ;
+	NSImage* mergedImage = [NSImage.alloc initWithSize:mergedSize] ;
 	[mergedImage lockFocus] ;
 
 	// Draw the images into the mergedImage
@@ -123,7 +123,7 @@
 }
 
 - (NSImage*)imageBorderedWithInset:(CGFloat)inset {
-	NSImage* image = [[NSImage alloc] initWithSize:[self size]] ;
+	NSImage* image = [NSImage.alloc initWithSize:[self size]] ;
 
 	[image lockFocus] ;
 
@@ -161,7 +161,7 @@
 
 - (NSImage*)imageBorderedWithOutset:(CGFloat)outset {
 	NSSize newSize = NSMakeSize([self size].width + 2*outset, [self size].height + 2*outset) ;
-	NSImage* image = [[NSImage alloc] initWithSize:newSize] ;
+	NSImage* image = [NSImage.alloc initWithSize:newSize] ;
 
 	[image lockFocus] ;
 
@@ -220,7 +220,7 @@
 		return nil;
 	}
 
-	NSImage *image = [[NSImage alloc] initWithSize:size];
+	NSImage *image = [NSImage.alloc initWithSize:size];
 	[image lockFocus];
 	drawingBlock();
 	[image unlockFocus];
@@ -278,7 +278,7 @@ tint_pixel_rgb (unsigned char *bitmapData, int red_index, const CGFloat *matrix)
 
 - (NSImage *)tintWithMatrix:(const CGFloat *)matrix;
 {
-	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
+	NSBitmapImageRep *bitmap = [NSBitmapImageRep.alloc initWithData:[self TIFFRepresentation]];
 	
 	NSSize imageSize = [bitmap size];
 	
@@ -308,7 +308,7 @@ tint_pixel_rgb (unsigned char *bitmapData, int red_index, const CGFloat *matrix)
 	}
 #endif
 
-	NSImage *image = [[NSImage alloc] initWithSize:[bitmap size]];
+	NSImage *image = [NSImage.alloc initWithSize:[bitmap size]];
 	[image addRepresentation:bitmap];
 		
 	NSTimeInterval elapsedSeconds = -[start timeIntervalSinceNow];

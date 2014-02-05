@@ -329,7 +329,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 	lace.contents = [NSImage imageFromCGImageRef:CGBitmapContextCreateImage(context)];
 	lace.contentsGravity = kCAGravityCenter;
 	return lace;
-	//	CGImageRef img =	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];	CFRelease(img);	return bitmap;
+	//	CGImageRef img =	NSBitmapImageRep *bitmap = [NSBitmapImageRep.alloc initWithCGImage:img];	CFRelease(img);	return bitmap;
 }
 - (void) veil:					(NSV*)v	{
 
@@ -455,7 +455,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 	[framer setToValue:	AZVrect(newViewFrame)];
 	[self setAnimations:	@{ @"frame" : framer}];
 	//	[[self animator] setFrame:newViewFrame display:YES];
-	//	NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
+	//	NSViewAnimation *theAnim = [NSViewAnimation.alloc initWithViewAnimations: $array($map(
 	//		self, NSViewAnimationTargetKey,
 	//		AZVrect(firstViewFrame), NSViewAnimationStartFrameKey,
 	//		AZVrect(newViewFrame), NSViewAnimationEndFrameKey))];
@@ -656,7 +656,7 @@ static NSMD*	 pendingFades = nil;
 }
 @end
 
-/**	   NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
+/**	   NSButton *button = [NSButton.alloc initWithFrame:NSMakeRect(0, 0, 100, 100)];
  [button setBezelStyle:NSRecessedBezelStyle]; NSButton *closeButton = [NSWindow standardWindowButton:NSWindowZoomButton forStyleMask:self.window.styleMask]; [self.window addViewToTitleBar:button atXPosition:self.window.frame.size.width - button.frame.size.width - 10]; [self.window addViewToTitleBar:closeButton atXPosition:70]; */
 
 /**  in cocoatechcore
@@ -933,8 +933,7 @@ static NSMD*	 pendingFades = nil;
 	[[self animator] setContentSize:frame.size display:YES animate:YES];
 	[NSAnimationContext endGrouping];
 }
-	NSViewAnimation *animation = [[NSViewAnimation alloc]
-	initWithViewAnimations: @[
+	NSViewAnimation *animation = [NSViewAnimation.alloc 	initWithViewAnimations: @[
 	@{ 	NSViewAnimationTargetKey: self,
 	NSViewAnimationEffectKey: (fade ?NSViewAnimationFadeInEffect :NSViewAnimationFadeOutEffect) },
 	@{ 	NSViewAnimationTargetKey:self,
@@ -952,7 +951,7 @@ static NSMD*	 pendingFades = nil;
 	 firstViewFrame.origin.x = 0;
 	 NSRect destinationRect = firstViewFrame;
 	 destinationRect.origin.y -= firstViewFrame.size.height;
-	 NSViewAnimation *theAnim = [[NSViewAnimation alloc] initWithViewAnimations: $array($map(
+	 NSViewAnimation *theAnim = [NSViewAnimation.alloc initWithViewAnimations: $array($map(
 	 self, NSViewAnimationTargetKey,
 	 AZVrect(firstViewFrame), NSViewAnimationStartFrameKey,
 	 AZVrect(destinationRect), NSViewAnimationEndFrameKey))];

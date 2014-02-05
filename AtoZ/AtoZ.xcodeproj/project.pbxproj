@@ -2172,7 +2172,7 @@
 		7B1528F415F49DCD00027191 /* Rainbow.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rainbow.clr; sourceTree = "<group>"; };
 		7B1528F515F49DCD00027191 /* RGB.clr */ = {isa = PBXFileReference; lastKnownFileType = text; path = RGB.clr; sourceTree = "<group>"; };
 		7B1822A91623176E00C19DBB /* NSImage-Tint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = "NSImage-Tint.h"; sourceTree = "<group>"; };
-		7B1822AA1623176F00C19DBB /* NSImage-Tint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSImage-Tint.m"; sourceTree = "<group>"; };
+		7B1822AA1623176F00C19DBB /* NSImage-Tint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSImage-Tint.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B1822CC16238F1700C19DBB /* AZLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZLayer.h; sourceTree = "<group>"; };
 		7B1822CD16238F1700C19DBB /* AZLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AZLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B184ED015FC943E00696360 /* AZCSSColorExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZCSSColorExtraction.h; sourceTree = "<group>"; };
@@ -2281,11 +2281,11 @@
 		7B2F239216F289BC003D7648 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INAppStoreWindow.h; path = External/INAppStoreWindow.h; sourceTree = "<group>"; };
 		7B2F239316F289BC003D7648 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INAppStoreWindow.m; path = External/INAppStoreWindow.m; sourceTree = "<group>"; };
 		7B2F239516F289BC003D7648 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMHTTPFetcher.h; path = External/GTMHTTPFetcher.h; sourceTree = "<group>"; };
-		7B2F239616F289BC003D7648 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMHTTPFetcher.m; path = External/GTMHTTPFetcher.m; sourceTree = "<group>"; };
+		7B2F239616F289BC003D7648 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GTMHTTPFetcher.m; path = External/GTMHTTPFetcher.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B2F239716F289BC003D7648 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "External/GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		7B2F239816F289BC003D7648 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "External/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		7B2F239916F289BC003D7648 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = External/JSONKit.h; sourceTree = "<group>"; };
-		7B2F239A16F289BC003D7648 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = External/JSONKit.m; sourceTree = "<group>"; };
+		7B2F239A16F289BC003D7648 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = JSONKit.m; path = External/JSONKit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B2F239B16F289BC003D7648 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestConfig.h; sourceTree = "<group>"; };
 		7B2F239C16F289BC003D7648 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		7B2F239D16F289BC003D7648 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestDelegate.h; sourceTree = "<group>"; };
@@ -2307,11 +2307,11 @@
 		7B2F23AE16F289BC003D7648 /* NSHTTPCookie+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSHTTPCookie+Testing.h"; path = "External/Categories/NSHTTPCookie+Testing.h"; sourceTree = "<group>"; };
 		7B2F23AF16F289BC003D7648 /* NSHTTPCookie+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSHTTPCookie+Testing.m"; path = "External/Categories/NSHTTPCookie+Testing.m"; sourceTree = "<group>"; };
 		7B2F23B316F289BC003D7648 /* EGOCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
-		7B2F23B416F289BC003D7648 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
+		7B2F23B416F289BC003D7648 /* EGOCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EGOCache.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B2F23B616F289BC003D7648 /* EGOImageLoadConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageLoadConnection.h; sourceTree = "<group>"; };
 		7B2F23B716F289BC003D7648 /* EGOImageLoadConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EGOImageLoadConnection.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B2F23B816F289BC003D7648 /* EGOImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageLoader.h; sourceTree = "<group>"; };
-		7B2F23B916F289BC003D7648 /* EGOImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageLoader.m; sourceTree = "<group>"; };
+		7B2F23B916F289BC003D7648 /* EGOImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EGOImageLoader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B2F23BB16F289BC003D7648 /* EGOImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOImageView.h; sourceTree = "<group>"; };
 		7B2F23BC16F289BC003D7648 /* EGOImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGOImageView.m; sourceTree = "<group>"; };
 		7B2F23BF16F289BC003D7648 /* DSURLDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSURLDataSource.h; sourceTree = "<group>"; };
@@ -2479,7 +2479,7 @@
 		7B495F7715C076C7002DC694 /* RGB.clr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RGB.clr; path = ../RGB.clr; sourceTree = "<group>"; };
 		7B4A5B6B1714AFF200020D6D /* NoodleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NoodleKit.xcodeproj; path = ../Frameworks/NoodleKit/NoodleKit.xcodeproj; sourceTree = "<group>"; };
 		7B4A8FED15AB267D00463B91 /* AZSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AZSourceList.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7B4A8FEE15AB267D00463B91 /* AZSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSourceList.m; sourceTree = "<group>"; };
+		7B4A8FEE15AB267D00463B91 /* AZSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AZSourceList.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B4A908916F3A6F0003CD058 /* AtoZHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AtoZHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B4A909216F3A6F1003CD058 /* AtoZHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZHelper-Info.plist"; sourceTree = "<group>"; };
 		7B4A909816F3A6F1003CD058 /* AtoZHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZHelper-Prefix.pch"; sourceTree = "<group>"; };
@@ -2501,7 +2501,7 @@
 		7B4E9E3915E365BA00C0581A /* Nexa Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nexa Bold.otf"; path = "Fonts/Nexa Bold.otf"; sourceTree = "<group>"; };
 		7B4E9E3A15E365BA00C0581A /* Nexa Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nexa Light.otf"; path = "Fonts/Nexa Light.otf"; sourceTree = "<group>"; };
 		7B4F01D21609E97700A79C77 /* NSDictionary+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; path = "NSDictionary+AtoZ.h"; sourceTree = "<group>"; };
-		7B4F01D31609E97700A79C77 /* NSDictionary+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AtoZ.m"; sourceTree = "<group>"; };
+		7B4F01D31609E97700A79C77 /* NSDictionary+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSDictionary+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B4F022C160A4DEA00A79C77 /* AZCoreScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZCoreScrollView.h; path = AZCoreScroll/AZCoreScrollView.h; sourceTree = "<group>"; };
 		7B4F022D160A4DEA00A79C77 /* AZCoreScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZCoreScrollView.m; path = AZCoreScroll/AZCoreScrollView.m; sourceTree = "<group>"; };
 		7B4F022E160A4DEA00A79C77 /* AZScrollerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AZScrollerLayer.h; path = AZCoreScroll/AZScrollerLayer.h; sourceTree = "<group>"; };
@@ -2552,7 +2552,7 @@
 		7B644D5918167D740036D205 /* AZProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZProxy.m; sourceTree = "<group>"; };
 		7B644DA018167E930036D205 /* AZProxyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZProxyTests.m; sourceTree = "<group>"; };
 		7B644DA2181685F20036D205 /* TestNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestNib.xib; sourceTree = "<group>"; };
-		7B644DA71816A8700036D205 /* EXTMultiObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EXTMultiObjectTests.m; path = AtoZUnitTests/EXTMultiObjectTests.m; sourceTree = SOURCE_ROOT; };
+		7B644DA71816A8700036D205 /* EXTMultiObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = EXTMultiObjectTests.m; path = AtoZUnitTests/EXTMultiObjectTests.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B644DB61816B5A00036D205 /* AtoZUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtoZUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B662A12161E0AB5003D5EE0 /* bling.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = bling.caf; path = ../bling.caf; sourceTree = "<group>"; };
 		7B662A16161E3230003D5EE0 /* 1085.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1085.caf; sourceTree = "<group>"; };
@@ -2832,7 +2832,7 @@
 		7B9D5B7215ECE85F005D1A76 /* AZLassoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZLassoLayer.h; sourceTree = "<group>"; };
 		7B9D5B7315ECE85F005D1A76 /* AZLassoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZLassoLayer.m; sourceTree = "<group>"; };
 		7B9D5BA815ED0E26005D1A76 /* NSFileManager+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+AtoZ.h"; sourceTree = "<group>"; };
-		7B9D5BA915ED0E26005D1A76 /* NSFileManager+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+AtoZ.m"; sourceTree = "<group>"; };
+		7B9D5BA915ED0E26005D1A76 /* NSFileManager+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSFileManager+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B9D870E181CF37800043489 /* UAGithubEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UAGithubEngine.xcodeproj; path = ../Frameworks/UAGithubEngine/UAGithubEngine.xcodeproj; sourceTree = "<group>"; };
 		7B9D8718181CF5E200043489 /* AZGit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZGit.h; path = Models/AZGit.h; sourceTree = SOURCE_ROOT; };
 		7B9D8719181CF5E200043489 /* AZGit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZGit.m; path = Models/AZGit.m; sourceTree = SOURCE_ROOT; };
@@ -2880,7 +2880,7 @@
 		7BA36C10165BB2050077A065 /* SDWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = SDWindowController.h; sourceTree = "<group>"; };
 		7BA36C11165BB2050077A065 /* SDWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWindowController.m; sourceTree = "<group>"; };
 		7BA36CF9165BF58D0077A065 /* AZWeakCollections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZWeakCollections.h; sourceTree = "<group>"; };
-		7BA36CFA165BF58D0077A065 /* AZWeakCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZWeakCollections.m; sourceTree = "<group>"; };
+		7BA36CFA165BF58D0077A065 /* AZWeakCollections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AZWeakCollections.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BA36D09165C3E6E0077A065 /* CPAccelerationTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = CPAccelerationTimer.h; path = CPAccelerationTimer/Component/CPAccelerationTimer.h; sourceTree = "<group>"; };
 		7BA36D0A165C3E6E0077A065 /* CPAccelerationTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CPAccelerationTimer.m; path = CPAccelerationTimer/Component/CPAccelerationTimer.m; sourceTree = "<group>"; };
 		7BA425B215E7B52F00D2A471 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MAAttachedWindow.h; path = "../AtoZ Encyclopedia/MAAttachedWindow.h"; sourceTree = "<group>"; };
@@ -2985,7 +2985,7 @@
 		7BBD991015B0648A00943FC1 /* CAAnimation+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CAAnimation+AtoZ.h"; sourceTree = "<group>"; };
 		7BBD991115B0648A00943FC1 /* CAAnimation+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+AtoZ.m"; sourceTree = "<group>"; };
 		7BBD991515B0688400943FC1 /* CALayer+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "CALayer+AtoZ.h"; sourceTree = "<group>"; };
-		7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "CALayer+AtoZ.m"; sourceTree = "<group>"; };
+		7BBD991615B0688400943FC1 /* CALayer+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "CALayer+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BBDB4AB161497DB001B864B /* AZFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AZFile.h; path = Models/AZFile.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BBDB4AC161497DC001B864B /* AZFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AZFile.m; path = Models/AZFile.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BBF8307176490760026941D /* AZObserversAndBinders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AZObserversAndBinders.h; path = ../../Frameworks/THObserversAndBinders/THObserversAndBinders/AZObserversAndBinders.h; sourceTree = "<group>"; };
@@ -3104,7 +3104,7 @@
 		7BE639B215FCDE0F004BA700 /* AZMedallionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZMedallionView.h; sourceTree = "<group>"; };
 		7BE639B315FCDE0F004BA700 /* AZMedallionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMedallionView.m; sourceTree = "<group>"; };
 		7BE72AC617426B42006709D6 /* CoreData+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+AtoZ.h"; sourceTree = "<group>"; };
-		7BE72AC717426B42006709D6 /* CoreData+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CoreData+AtoZ.m"; sourceTree = "<group>"; };
+		7BE72AC717426B42006709D6 /* CoreData+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "CoreData+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BE8F1D3160624DB000D04F6 /* NSTextView+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = "NSTextView+AtoZ.h"; sourceTree = "<group>"; };
 		7BE8F1D4160624DB000D04F6 /* NSTextView+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+AtoZ.m"; sourceTree = "<group>"; };
 		7BEA75A51720CD12000A7D84 /* COLORMATE.CLR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COLORMATE.CLR; sourceTree = "<group>"; };
@@ -3147,7 +3147,7 @@
 		7BF9854D15FEBDF900D47192 /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = NSBag.h; sourceTree = "<group>"; };
 		7BF9854E15FEBDF900D47192 /* NSBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBag.m; sourceTree = "<group>"; };
 		7BF9E79A159E8F5000B5482D /* NSArray+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AtoZ.h"; sourceTree = "<group>"; };
-		7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AtoZ.m"; sourceTree = "<group>"; };
+		7BF9E79B159E8F5000B5482D /* NSArray+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSArray+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7BF9E7D5159F0A0500B5482D /* AZPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZPopupWindow.h; sourceTree = "<group>"; };
 		7BF9E7D6159F0A0500B5482D /* AZPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPopupWindow.m; sourceTree = "<group>"; };
 		7BFA3EC5162B4DF0003264A4 /* CleanAndCopyToCompiledFrameWorks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = CleanAndCopyToCompiledFrameWorks.sh; path = ../Frameworks/CleanAndCopyToCompiledFrameWorks.sh; sourceTree = "<group>"; };

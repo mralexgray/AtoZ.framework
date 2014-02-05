@@ -16,7 +16,7 @@
 {
 	rect = [self bounds];
 	
-	NSImage *image = [[NSImage alloc] initWithSize:rect.size];
+	NSImage *image = [NSImage.alloc initWithSize:rect.size];
 	[image lockFocus];
 	
 	BOOL isSelected = mouseState != 0;
@@ -42,13 +42,13 @@
 		fillRect.size.height -= 1.0;
 		NSBezierPath *fillPath = [NSBezierPath bezierPathWithRoundedRect:fillRect xRadius:radius - 1 yRadius:radius - 1];
 		
-		NSGradient *strokeGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedRed:0.484 green:0.484 blue:0.484 alpha:1.000] endingColor:[NSColor colorWithCalibratedRed:0.484 green:0.484 blue:0.484 alpha:1.000]];	
+		NSGradient *strokeGradient = [NSGradient.alloc initWithStartingColor:[NSColor colorWithCalibratedRed:0.484 green:0.484 blue:0.484 alpha:1.000] endingColor:[NSColor colorWithCalibratedRed:0.484 green:0.484 blue:0.484 alpha:1.000]];	
 		[strokeGradient drawInBezierPath:strokePath angle:90];
 		
 		[[NSColor colorWithCalibratedRed:0.907 green:0.907 blue:0.907 alpha:1.000] set];
 		[fillHighlightPath fill];
 		
-		NSGradient *fillGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedRed:0.728 green:0.728 blue:0.728 alpha:1.000] endingColor:[NSColor colorWithCalibratedRed:0.878 green:0.878 blue:0.878 alpha:1.000]];	
+		NSGradient *fillGradient = [NSGradient.alloc initWithStartingColor:[NSColor colorWithCalibratedRed:0.728 green:0.728 blue:0.728 alpha:1.000] endingColor:[NSColor colorWithCalibratedRed:0.878 green:0.878 blue:0.878 alpha:1.000]];	
 		[fillGradient drawInBezierPath:fillPath angle:90];
 	}
 	else
@@ -59,7 +59,7 @@
 		
 		NSBezierPath *pressedPath = [NSBezierPath bezierPathWithRoundedRect:pressedRect xRadius:radius yRadius:radius];
 		
-		NSShadow *insideShadow = [[NSShadow alloc] initWithColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.6] offset:NSMakeSize(0.0, -1.0) blurRadius:4.0];
+		NSShadow *insideShadow = [NSShadow.alloc initWithColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.6] offset:NSMakeSize(0.0, -1.0) blurRadius:4.0];
 		
 		[[NSColor colorWithCalibratedRed:0.728 green:0.728 blue:0.728 alpha:1.000] set];
 		
@@ -67,7 +67,7 @@
 		
 		[pressedPath fillWithInnerShadow:insideShadow];
 		
-		NSGradient *pressedGradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.34]
+		NSGradient *pressedGradient = [NSGradient.alloc initWithStartingColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.34]
 																	endingColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.06 + 0.34]];
 		
 		[pressedGradient drawInBezierPath:pressedPath angle:90];
@@ -97,19 +97,19 @@
 
 - (NSDictionary *)titleAttributes
 {
-	NSMutableDictionary *attrs = [[NSMutableDictionary alloc] initWithCapacity:4];
+	NSMutableDictionary *attrs = [NSMutableDictionary.alloc initWithCapacity:4];
 	[attrs setValue:[NSFont systemFontOfSize:13] forKey:NSFontAttributeName];
 	
 	NSShadow *shadow = nil;
 	
 	if (mouseState == 0)
 	{
-		shadow = [[NSShadow alloc] initWithColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.5] offset:NSMakeSize(0, -1) blurRadius:0];
+		shadow = [NSShadow.alloc initWithColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.5] offset:NSMakeSize(0, -1) blurRadius:0];
 		[attrs setValue:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
 	}
 	else
 	{
-		shadow = [[NSShadow alloc] initWithColor:[NSColor blackColor] offset:NSMakeSize(0, -1) blurRadius:0];
+		shadow = [NSShadow.alloc initWithColor:[NSColor blackColor] offset:NSMakeSize(0, -1) blurRadius:0];
 		[attrs setValue:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
 	}
 	

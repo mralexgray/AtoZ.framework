@@ -108,9 +108,9 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 		baseVolume = .60f;
 
 #ifdef SM_USE_AV_AUDIO_PLAYER
-		sound = [[AVAudioPlayer alloc] initWithContentsOfURL:_url error:NULL];
+		sound = [AVAudioPlayer.alloc initWithContentsOfURL:_url error:NULL];
 #else
-		sound = [[NSSound alloc] initWithContentsOfURL:_url byReference:YES];
+		sound = [NSSound.alloc initWithContentsOfURL:_url byReference:YES];
 #endif
 //		volume = .6f;
 		}

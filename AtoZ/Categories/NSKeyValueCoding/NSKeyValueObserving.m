@@ -233,7 +233,7 @@ static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyP
 	 // FIXME: operator, ignore?
    }
 
-   NSKeyObserver *keyObserver=[[[NSKeyObserver alloc] initWithObject:object key:key keyPathObserver:keyPathObserver restOfPath:restOfPath] autorelease];
+   NSKeyObserver *keyObserver=[[NSKeyObserver.alloc initWithObject:object key:key keyPathObserver:keyPathObserver restOfPath:restOfPath] autorelease];
 
    addKeyObserverDependantsAndRestOfPath(keyObserver);
 
@@ -261,7 +261,7 @@ static NSKeyObserver *addKeyPathObserverToObject(id object,NSString *path,NSKeyP
 
 	NSKeyValueDebugLog(NSKeyValueDebugLogLevel, @"self: %@ observer: %@, keyPath: %@", self, observer, keyPath);
 
-   NSKeyPathObserver *keyPathObserver=[[[NSKeyPathObserver alloc] initWithObject:self observer:observer keyPath:keyPath options:options context:context] autorelease];
+   NSKeyPathObserver *keyPathObserver=[[NSKeyPathObserver.alloc initWithObject:self observer:observer keyPath:keyPath options:options context:context] autorelease];
 
    addKeyPathObserverToObject(self,keyPath,keyPathObserver);
 
@@ -976,7 +976,7 @@ static BOOL methodIsAutoNotifyingSetter(Class class,const char *methodCString){
    if(keyCStringLength==0)
 	return NO;
 
-   NSString *keyName=[[NSString alloc] initWithCString:keyCString length:keyCStringLength];
+   NSString *keyName=[NSString.alloc initWithCString:keyCString length:keyCStringLength];
 
    BOOL result=[class automaticallyNotifiesObserversForKey:keyName];
    [keyName release];

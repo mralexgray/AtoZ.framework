@@ -600,7 +600,7 @@ EXTMixin(MixinObject, NSColor)
 //	va_end(args);
 //	
 //	// setup the application and inject settings to it.
-//	GBAppledocApplication *application = [[[GBAppledocApplication alloc] init] autorelease];
+//	GBAppledocApplication *application = [[GBAppledocApplication.alloc init] autorelease];
 //	GBApplicationSettingsProvider *result = [GBApplicationSettingsProvider provider];
 //	[application setValue:result forKey:@"settings"];
 //	

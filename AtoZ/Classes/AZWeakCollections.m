@@ -24,7 +24,7 @@
 }
 
 + (WeakReferenceObject *)weakReferenceObjectWithObject:(id)anObject {
-	return [[self alloc] initWithObject:anObject];
+	return [self.alloc initWithObject:anObject];
 }
 
 - (NSString *)debugDescription {
@@ -70,7 +70,7 @@
 - (id)initWithObjects:(const id [])objects count:(NSUInteger)cnt {
 	self = [super init];
 	if (self) {
-		array = [[NSMutableArray alloc] initWithCapacity:cnt];
+		array = [NSMutableArray.alloc initWithCapacity:cnt];
 		if (objects) {
 			for (int i = 0; i < cnt; i++) {
 				[array addObject:[WeakReferenceObject weakReferenceObjectWithObject:objects[i]]];
@@ -160,7 +160,7 @@
 }
 
 - (NSEnumerator *)objectEnumerator {
-	return [[WeakSetEnumerator alloc] initWithSet:set];
+	return [WeakSetEnumerator.alloc initWithSet:set];
 }
 
 - (void)addObject:(id)object {

@@ -105,7 +105,7 @@
 	}
 	
 	int options = (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingInVisibleRect);
-	boxTrackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect
+	boxTrackingArea = [NSTrackingArea.alloc initWithRect:NSZeroRect
 												   options:options
 													 owner:self
 												  userInfo:nil];

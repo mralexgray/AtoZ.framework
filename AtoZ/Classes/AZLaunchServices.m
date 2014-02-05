@@ -56,7 +56,7 @@ typedef  id (^AZMappingBlock)(id obj);
 		NSURL *url = nil;
 		LSSharedFileListItemResolve((LSSharedFileListItemRef)obj, 0, (CFURLRef *)&url, NULL);
 		if (url) [item setUrl: url];
-		[item setIcon: [[[NSImage alloc] initWithIconRef:
+		[item setIcon: [[NSImage.alloc initWithIconRef:
 						 LSSharedFileListItemCopyIconRef((LSSharedFileListItemRef)obj)] autorelease]];
 		return [item autorelease];
 	}];

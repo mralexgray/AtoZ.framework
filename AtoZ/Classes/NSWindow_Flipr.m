@@ -134,7 +134,7 @@
 		flp = [view bounds];
 		NSBitmapImageRep* bitmap = [view bitmapImageRepForCachingDisplayInRect:flp];
 		[view cacheDisplayInRect:flp toBitmapImageRep:bitmap];
-		CIImage* initialImage = [[CIImage alloc] initWithBitmapImageRep:bitmap];
+		CIImage* initialImage = [CIImage.alloc initWithBitmapImageRep:bitmap];
 // We immediately pass the initial image to the filter and release it.
 		[transitionFilter setValue:initialImage forKey:@"inputImage"];
 		[initialImage release];
@@ -147,14 +147,14 @@
 		flp = [view bounds];
 		bitmap = [view bitmapImageRepForCachingDisplayInRect:flp];
 		[view cacheDisplayInRect:flp toBitmapImageRep:bitmap];
-		finalImage = [[CIImage alloc] initWithBitmapImageRep:bitmap];
+		finalImage = [CIImage.alloc initWithBitmapImageRep:bitmap];
 // To save time, we don't order the final window out, just make it completely transparent.
 		[finalWindow setAlphaValue:0];
 		[initialWindow orderOut:self];
 // This will draw the first frame at value 0, duplicating the initial window. This is not really optimal,
 // but we need to compensate for the time spent here, which seems to be about 3 to 5x what's needed
 // for subsequent frames.
-		animation = [[FliprAnimation alloc] initWithAnimationCurve:NSAnimationEaseInOut];
+		animation = [FliprAnimation.alloc initWithAnimationCurve:NSAnimationEaseInOut];
 		[animation setDelegate:(id)self];
 // This is probably redundant...
 		[animation setCurrentProgress:0.0];
@@ -284,7 +284,7 @@ static NSWindow* flippingWindow = nil;
 		if (CPUIsSuitable()) {
 // This is a little arbitary... the window will be resized every time it's used.
 			NSRect frame = NSMakeRect(128,128,512,768);
-			flippingWindow = [[NSWindow alloc] initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+			flippingWindow = [NSWindow.alloc initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 			[flippingWindow setBackgroundColor:[NSColor clearColor]];
 			[flippingWindow setOpaque:NO];	
 			[flippingWindow setHasShadow:NO];
@@ -292,7 +292,7 @@ static NSWindow* flippingWindow = nil;
 			frame.origin = NSZeroPoint;
 // The inset values seem large enough so the animation doesn't slop over the frame.
 // They could be calculated more exactly, though.
-			FliprView* view = [[[FliprView alloc] initWithFrame:frame andOriginalRect:NSInsetRect(frame,64,256)] autorelease];
+			FliprView* view = [[FliprView.alloc initWithFrame:frame andOriginalRect:NSInsetRect(frame,64,256)] autorelease];
 			[view setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 			[flippingWindow setContentView:view];
 		}

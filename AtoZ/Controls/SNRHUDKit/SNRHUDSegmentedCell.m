@@ -141,7 +141,7 @@
 - (NSBezierPath*)snr_drawBackgroundWithFrame:(NSRect)cellFrame inView:(NSView*)controlView
 {
 	NSBezierPath *borderPath = [NSBezierPath bezierPathWithRoundedRect:cellFrame xRadius:SNRSegControlCornerRadius yRadius:SNRSegControlCornerRadius];
-	NSGradient *gradientFill = [[NSGradient alloc] initWithStartingColor:SNRSegControlGradientBottomColor endingColor:SNRSegControlGradientTopColor];
+	NSGradient *gradientFill = [NSGradient.alloc initWithStartingColor:SNRSegControlGradientBottomColor endingColor:SNRSegControlGradientTopColor];
 	// Draw the gradient fill
 	[gradientFill drawInBezierPath:borderPath angle:270.f];
 	// Draw the border and drop shadow
@@ -175,7 +175,7 @@
 	// Only draw the divider if it's not selected and it isn't the last segment
 	BOOL drawDivider = !selected && (segment < ([self segmentCount] - 1)) && ([self selectedSegment] != (segment + 1));
 	if (selected) {
-		NSGradient *gradientFill = [[NSGradient alloc] initWithStartingColor:SNRSegControlSelectedGradientBottomColor endingColor:SNRSegControlSelectedGradientTopColor];
+		NSGradient *gradientFill = [NSGradient.alloc initWithStartingColor:SNRSegControlSelectedGradientBottomColor endingColor:SNRSegControlSelectedGradientTopColor];
 		[gradientFill drawInRect:frame angle:270.f];
 		NSShadow *innerShadow = [NSShadow new];
 		[innerShadow setShadowColor:SNRSegControlInnerShadowColor];
@@ -199,7 +199,7 @@
 		[NSBezierPath fillRect:highlightRect];
 		NSRect dividerRect = highlightRect;
 		dividerRect.origin.x -= 1.f;
-		NSGradient *dividerFill = [[NSGradient alloc] initWithStartingColor:SNRSegControlDividerGradientBottomColor endingColor:SNRSegControlDividerGradientTopColor];
+		NSGradient *dividerFill = [NSGradient.alloc initWithStartingColor:SNRSegControlDividerGradientBottomColor endingColor:SNRSegControlDividerGradientTopColor];
 		[dividerFill drawInRect:NSIntegralRect(dividerRect) angle:270.f];
 	}
 }
@@ -222,7 +222,7 @@
 		[textShadow setShadowColor:SNRSegControlTextShadowColor];
 		[textShadow setShadowBlurRadius:SNRSegControlTextShadowBlurRadius];
 		NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:SNRSegControlTextFont, NSFontAttributeName, selected ? SNRSegControlSelectedTextColor : SNRSegControlTextColor, NSForegroundColorAttributeName, textShadow, NSShadowAttributeName, nil];
-		NSAttributedString *attrLabel = [[NSAttributedString alloc] initWithString:label attributes:attributes];
+		NSAttributedString *attrLabel = [NSAttributedString.alloc initWithString:label attributes:attributes];
 		NSSize labelSize = attrLabel.size;
 		if (image) {
 			CGFloat totalContentWidth = labelSize.width + imageRect.size.width + SNRSegControlImageLabelMargin;

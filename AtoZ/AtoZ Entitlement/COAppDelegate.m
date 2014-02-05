@@ -37,7 +37,7 @@
 	}
 	
 	NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"CoreTable" withExtension:@"momd"];
-	_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+	_managedObjectModel = [NSManagedObjectModel.alloc initWithContentsOfURL:modelURL];
 	return _managedObjectModel;
 }
 
@@ -85,7 +85,7 @@
 	}
 	
 	NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"CoreTable.storedata"];
-	NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+	NSPersistentStoreCoordinator *coordinator = [NSPersistentStoreCoordinator.alloc initWithManagedObjectModel:mom];
 	if (![coordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
 		[[NSApplication sharedApplication] presentError:error];
 		return nil;

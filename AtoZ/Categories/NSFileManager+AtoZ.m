@@ -245,11 +245,11 @@ NSString *NSDCIMFolder()
 		attributes = nil;
 
 	NSUInteger dirCount = [components count];
-	NSMutableArray *trimmedPaths = [[NSMutableArray alloc] initWithCapacity:dirCount];
+	NSMutableArray *trimmedPaths = [NSMutableArray.alloc initWithCapacity:dirCount];
 
 	NSString *finalPath = [NSString pathWithComponents:components];
 
-	NSMutableArray *trim = [[NSMutableArray alloc] initWithArray:components];
+	NSMutableArray *trim = [NSMutableArray.alloc initWithArray:components];
 	NSError *error = nil;
 	for (NSUInteger trimCount = 0; trimCount < dirCount && !error; trimCount ++) {
 		struct stat statbuf;

@@ -1645,7 +1645,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	lace.contents = [NSImage imageFromCGImageRef:CGBitmapContextCreateImage(context)];
 	lace.contentsGravity = kCAGravityCenter;
 	return lace;
-	//	CGImageRef img =	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];	CFRelease(img);	return bitmap;
+	//	CGImageRef img =	NSBitmapImageRep *bitmap = [NSBitmapImageRep.alloc initWithCGImage:img];	CFRelease(img);	return bitmap;
 }
 + (CAL *)veilForView:(CAL *)view {
 	int pixelsHigh = (int)[view bounds].size.height;
@@ -1671,7 +1671,7 @@ static NSMD* needsDisplayKeysRef = nil;
 	//	.frame = [view bounds];
 	layer.zPosition = 1000;
 	return layer;
-	//	CFBridgingRetain(//	NS)BitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:img];
+	//	CFBridgingRetain(//	NS)BitmapImageRep *bitmap = [NSBitmapImageRep.alloc initWithCGImage:img];
 	//	CFRelease(img);
 	//	return bitmap;
 }
@@ -2379,7 +2379,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 }
 - (CTFontRef)newCustomFontWithName:(NSS *)fontName ofType:(NSS *)type attributes:(NSD *)attributes {
 	NSString *fontPath = [[NSBundle bundleForClass:[AtoZ class]] pathForResource:fontName ofType:type];
-	NSData *data = [[NSData alloc] initWithContentsOfFile:fontPath];
+	NSData *data = [NSData.alloc initWithContentsOfFile:fontPath];
 	CGDataProviderRef fontProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
 //	[data release];
 	CGFontRef cgFont = CGFontCreateWithDataProvider(fontProvider);
@@ -2413,7 +2413,7 @@ NSTimeInterval const LTKDefaultTransitionDuration = 0.25;
 }
 - (void)setupAttributedTextLayerWithFont:(CTFontRef)font {
 	NSDictionary *baseAttributes = @{(NSS *)kCTFontAttributeName : (__bridge id)font};
-	NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.string
+	NSMutableAttributedString *attrString = [NSMutableAttributedString.alloc initWithString:self.string
 				 attributes:baseAttributes];
 	CFRelease(font);
 	//Make the class name in the string Courier Bold and red
