@@ -82,9 +82,9 @@
 }
 
 - (NSSZ)segmentSize {
-	CGF w = MIN(	MAX(width / segments.x,		minimumSegmentSize.width),
+	CGF w = MIN(	MAX(self.width / segments.x,		minimumSegmentSize.width),
 					maximumSegmentSize.width);
-	CGF h = MIN(	MAX(height / segments.y,	minimumSegmentSize.height),
+	CGF h = MIN(	MAX(self.height / segments.y,	minimumSegmentSize.height),
 					maximumSegmentSize.height);
 	return NSMakeSize(w, h);
 }
@@ -92,6 +92,7 @@
 @synthesize minimumSegmentSize, maximumSegmentSize;
 
 - (NSP)indicesOfSegmentAtIndex:(NSUInteger)index {
+
 	NSUI i = index % self.segmentCount;
 	NSUI px = i % self.horizontalSegments;
 	NSUI py = (i - px) / self.horizontalSegments;
@@ -103,7 +104,7 @@
 	[ppt divideBy:[AZSize sizeWithSize:self.segmentSize]];
 	[ppt floor];
 
-	return ppt.x + ppt.y * height;
+	return ppt.x + ppt.y * self.height;
 }
 
 - (NSP)pointOfSegmentAtIndex:(NSUInteger)index {
@@ -114,8 +115,7 @@
 					  y:(NSUInteger)vy
 {
 	NSSize size = self.segmentSize;
-	return NSMakePoint(x + ((CGF)vx) * size.width,
-				   y + ((CGF)vy) * size.height);
+	return NSMakePoint(self.x + ((CGF)vx) * size.width, self.y + ((CGF)vy) * size.height);
 }
 
 - (NSR)rectOfSegmentAtIndex:(NSUInteger)index {
@@ -126,8 +126,8 @@
 					y:(NSUInteger)vy
 {
 	NSSize size = self.segmentSize;
-	return NSMakeRect(x + ((CGF)vx) * size.width,
-				  y + ((CGF)vy) * size.height,
+	return NSMakeRect(self.x + ((CGF)vx) * size.width,
+				  self.y + ((CGF)vy) * size.height,
 				  size.width,
 				  size.height);
 }
@@ -157,7 +157,7 @@
 
 	if ([sx removeSuffix:@"%"]) {
 		// percent
-	m.x = width / 100;
+	m.x = self.width / 100;
 	} else if ([sx removeSuffix:@"s"]) {
 		// segments
 	m.x = self.segmentSize.width;
@@ -166,7 +166,7 @@
 
 	if ([sy removeSuffix:@"%"]) {
 		// percent
-	m.y = height / 100;
+	m.y =  self. height / 100;
 	} else if ([sy removeSuffix:@"s"]) {
 		// segments
 	m.y = self.segmentSize.height;

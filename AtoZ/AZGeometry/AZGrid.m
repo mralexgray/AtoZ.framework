@@ -33,7 +33,7 @@ JREnumDefine(AZGridOrder);
 		if (dx || dy){
 			self.unitSize = (NSSZ){_unitSize.width + dx,_unitSize.height + dy}; 
 			[w setNeedsDisplay:YES];
-			NSLog(@"Newsize:%@", AZString(_unitSize));
+			NSLog(@"Newsize:%@", AZStringFromSize(_unitSize));
 		}
 		return e;
 	}];
@@ -60,14 +60,14 @@ JREnumDefine(AZGridOrder);
 					   shouldDraw:[coder decodeBoolForKey:@"gridShouldDraw"]];
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void) ncodeWithCoder:(NSCoder *)coder
 {
 	[coder encodeBool:[self shouldDraw] forKey:@"gridShouldDraw"];
 	[coder encodeObject:[self color] forKey:@"gridColor"];
 	[coder encodeSize:[self unitSize] forKey:@"gridUnitSize"];
 }
 
-- (void)drawRect:(NSRect)drawingRect
+- (void) rawRect:(NSRect)drawingRect
 {
 	if (!self.shouldDraw)
 		return;
@@ -98,7 +98,7 @@ JREnumDefine(AZGridOrder);
 	[AZGRAPHICSCTX setShouldAntialias:oldShouldAntialias];
 }
 
-- (void)setDefaultParameters
+- (void) setDefaultParameters
 {
 
 	if (![AZUSERDEFS objectForKey:AZGridColorDataKey])

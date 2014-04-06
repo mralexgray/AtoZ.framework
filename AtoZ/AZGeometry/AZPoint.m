@@ -1,313 +1,223 @@
-//
-//  THPoint.m
-//  Lumumba Framework
-//
-//  Created by Benjamin Schüttler on 28.09.09.
-//  Copyright 2011 Rogue Coding. All rights reserved.
-//
 
 #import "AZPoint.h"
 #import "AZSize.h"
 #import "AZRect.h"
+#import "AtoZ.h"
 
-@implementation AZPoint
+@implementation AZPoint // @synthesize  x = _x, y = _y;
 
 #pragma mark statics
 
-+ (AZPoint*) point {
-	return AZPoint.new;
-}
+//- (id) initWithCoder:(NSCoder *)aDecoder {  self = [super initWithCoder:aDecoder];
+//  for (id key in self.class.codableProperties.allKeys) [self setValue:[aDecoder valueForKey:key] forKey:key];
+//  return self;
+//}
+//- (void) encodeWithCoder:(NSCoder *)aCoder {  [super encodeWithCoder:aCoder];
+//  for (id key in self.class.codableProperties.allKeys)  [aCoder encodeObject:[self vFK:key] forKey:key];
+//}
+//- (id) init  { SUPERINIT;
+//
+//  [self addKVOBlockForKeyPath:@"point" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld handler:^(NSString *keyPath, id object, NSDictionary *change) {
+//    
+//    KVOChange k;  if ((k = [object onMove])) k(change[@"old"],change[@"new"]);//AZSubtractPoints([change pointForKey:@"old"],[change pointForKey:@"new"]));
+//  }];
+//  return self;
+//}
++ (INST) point { return self.class.new; }
 
-+ (AZPoint*) pointOf:(id) object {
-	AZPoint *re = AZPoint.new;
++ (INST) pointOf:(id)obj {
+
+	AZPoint *re = self.class.new;
 	
-	if (object == nil) {	return re;  }
-	if ([object isKindOfClass:[NSNumber class]]) {
-	NSNumber *n = (NSNumber*) object;	re.x = n.floatValue;		re.y = n.floatValue;
-	} else if ([object isKindOfClass:AZPoint.class]) {
-	AZPoint *pt = (AZPoint*) object;	re.x = pt.x;					re.y = pt.y;
-	} else if ([object isKindOfClass:[AZSize class]]) {
-	AZSize *s = (AZSize*) object;		re.x = s.width;				re.y = s.height;
-	} else if ([object isKindOfClass:[NSView class]]) {
-	NSView *v = (NSView*) object;		re.x = v.frame.origin.x;	re.y = v.frame.origin.y;
-	} else if ([object isKindOfClass:[CALayer class]]) {
-	CALayer *l = (CALayer*) object;		re.x = l.frame.origin.x;	re.y = l.frame.origin.y;
-	} else if ([object isKindOfClass:[NSEvent class]]) {
-	NSEvent *event = (NSEvent*) object;	re.x = event.locationInWindow.x;	re.y = event.locationInWindow.y;
-	}
+	if (!obj) return re;
+  objswitch(obj)
+  objkind(NSN)
+    re.x = [(NSN*)obj fV];  re.y = [(NSN*)obj fV];
+	objkind(AZPoint)
+    re = [(AZPoint*)obj copy];
+    objkind(AZSize)
+      re.x = [(AZSize*)obj width];	re.y = [(AZSize*)obj height];
+    objkind(NSView)
+      re.x = [(NSV*)obj frameMinX];	re.y = [(NSV*)obj frameMinY];
+    objkind(CALayer)
+      re.x = [(CAL*)obj frameMinX];	re.y = [(CAL*)obj frameMinY];
+	 objkind(NSE)
+      re.x = [(NSE*)obj locationInWindow].x;	re.y = [(NSE*)obj locationInWindow].y;
+  endswitch
 	return re;
 }
 
-+ (AZPoint*) pointWithX:(CGF)xv y:(CGF)yv {
-	return [AZPoint.alloc initWithX:xv y:yv];
++ (INST) pointWithX:(CGF)xv y:(CGF)yv {
+	return [self.class.alloc initWithX:xv y:yv];
 }
 
-+ (AZPoint*) pointWithPoint:(NSP)pt {
-	return [AZPoint.alloc initWithPoint:pt];
++ (INST) pointWithPoint:(NSP)pt {
+	return [self.class.alloc initWithPoint:pt];
 }
 
-+ (AZPoint*) halfPoint {
-	return [AZPoint pointWithX:0.5 y:0.5];
++ (INST) halfPoint {
+	return [self.class pointWithX:0.5 y:0.5];
 }
 
-+ (BOOL)maybePoint:(id) object {
-	if (object == nil) {
-	return NO;
-	}
-	
-	NSArray *allowedClasses = 
-	@[[NSNumber class], [AZPoint class], [AZSize class],
-	 [NSView class], [CALayer class], [NSEvent class]];
-	
-	for (id clazz in allowedClasses) {
-	if ([object isKindOfClass:clazz]) {
-	 return YES;
-	}
-	}
-	
++ (BOOL)maybePoint:(id) object {  if (!object) return NO;
+
+	for (id clazz in @[NSN.class, AZPoint.class, AZSize.class, NSV.class, CAL.class, NSE.class]) if ([object isKindOfClass:clazz]) return YES;
 	return NO;
 }
 
 #pragma mark initializer
 
-- (id) init {
-	if ((self = [super init])) {
-	x = 0;
-	y = 0;
-	}
-	
-	return self;
-}
 
-- (id) initWithX:(CGF)xv y:(CGF)yv {
-	if ((self = [self init])) {
-	x = xv;
-	y = yv;
-	}
-	
-	return self;
-}
-
-- (id) initWithPoint:(NSP)pt {
-	return [self initWithX:pt.x y:pt.y];
-}
-
-- (id) copy {
-	return [AZPoint.alloc initWithX:x y:y];
-}
-
-- (id) copyWithZone:(NSZone*) zone {
-	return [[AZPoint allocWithZone:zone] initWithX:x y:y];
-}
+-   (id)     initWithX:(CGF)xv
+                     y:(CGF)yv { return  self = [self init] ? _x = xv, _y = yv, self : nil; 	}
+-   (id) initWithPoint:(NSP)pt { return [self initWithX:pt.x y:pt.y]; }
+- (INST) copy { return [self.class.alloc initWithX:_x y:_y]; }
+- (INST) copyWithZone:(NSZone*) zone { return [[self.class allocWithZone:zone] initWithX:_x y:_y]; }
 
 #pragma mark properties
 
-@synthesize x, y;
-
-- (NSP)point {
-	return NSMakePoint(self->x, self->y);
-}
-
+-  (NSP)    point         { return NSMakePoint(_x, _y); }
 - (void) setPoint:(NSP)pt {
-	self->x = pt.x;
-	self->y = pt.y;
+	self.x = pt.x;
+	self.y = pt.y;
 }
+-  (CGF) min { return MIN(_x,_y); }
+-  (CGF) max { return MAX(_x,_y); }
 
-- (CGPoint)cgpoint {
-	return CGPointMake(self->x, self->y);
++ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
+
+  objswitch(k)
+    objcase(@"max", @"min") return NSSET(@"x", @"y", @"point");
+    objcase(@"x", @"y")     return NSSET(@"point");
+    objcase(@"point")       return NSSET(@"x", @"y");
+    defaultcase             return [super keyPathsForValuesAffectingValueForKey:k];
+  endswitch
 }
-
-- (CGF)min {
-	return MIN(x,y);
-}
-
-- (CGF)max {
-	return MAX(x,y);
-}
-
 #pragma mark methods
 
-- (id) swap {
-	CGF t = self->x;
-	self->x = self->y;
-	self->y = t;
+- (INST) swap {
+	CGF t = _x;
+	self.x = _y;
+	self.y = t;
+	return self;
+}
+- (INST) negate {
+	self.x = -_x;
+	self.y = -_y;
+	return self;
+}
+- (INST) invert {
+	self.x = 1 / _x;
+	self.y = 1 / _y;
+	return self;
+}
+- (INST) floor {
+	self.x = floor(_x);
+	self.y = floor(_y);
 	
 	return self;
 }
-
-- (id) negate {
-	self->x = -self->x;
-	self->y = -self->y;
+- (INST) round {
+	self.x = round(_x);
+	self.y = round(_y);
 	
 	return self;
 }
-
-- (id) invert {
-	self->x = 1 / self->x;
-	self->y = 1 / self->y;
+- (INST) ceil {
+	self.x = ceil(_x);
+	self.y = ceil(_y);
 	
 	return self;
 }
-
-- (id) floor {
-	self->x = floor(self->x);
-	self->y = floor(self->y);
+- (INST) square {
+	self.x *= _x;
+	self.y *= _y;
 	
 	return self;
 }
-
-- (id) round {
-	self->x = round(self->x);
-	self->y = round(self->y);
+- (INST) root {
+	self.x = sqrt(_x);
+	self.y = sqrt(_y);
 	
 	return self;
 }
-
-- (id) ceil {
-	self->x = ceil(self->x);
-	self->y = ceil(self->y);
-	
-	return self;
-}
-
-- (id) square {
-	self->x *= self->x;
-	self->y *= self->y;
-	
-	return self;
-}
-
-- (id) root {
-	self->x = sqrt(self->x);
-	self->y = sqrt(self->y);
-	
-	return self;
-}
-
-- (id) ratio {
-	CGF max = MAX(self->x, self->y);
-	CGF min = MIN(self->x, self->y);
+- (INST) ratio {
+	CGF max = MAX(_x, _y);
+	CGF min = MIN(_x, _y);
 	if (min < 0 && -min > max) {
 	max = -min;
 	}
 	
 	if (max != 0) {
-	self->x /= max;
-	self->y /= max;
+	self.x /= max;
+	self.y /= max;
 	}
 	
 	return self;
 }
 
-- (id) moveTo:(id) object {
-	self->x = 0;
-	self->y = 0;
+- (INST) moveTo:(id) object { if (!object) return self;
+ 	self.x = 0;
+	self.y = 0;
 	
 	return [self moveBy:object];
 }
-
-- (id) moveTowards:(id) object withDistance:(CGF)relativeDistance {
-	return [self moveTowardsPoint:[[AZPoint pointOf:object] point] 
-			   withDistance:relativeDistance
-	  ];
+- (INST) moveTowards:(id) object withDistance:(CGF)relativeDistance {
+	return [self moveTowardsPoint:[[self.class pointOf:object]point] withDistance:relativeDistance];
 }
-
-- (id) moveTowardsPoint:(NSP)pt withDistance:(CGF)relativeDistance {
-	NSP delta = NSMakePoint((self.x - pt.x) * relativeDistance,
-						  (self.y - pt.y) * relativeDistance);
-
+- (INST) moveTowardsPoint:(NSP)pt withDistance:(CGF)relativeDistance {
+	NSP delta = NSMakePoint((self.x - pt.x) * relativeDistance, (self.y - pt.y) * relativeDistance);
 	return [self moveByPoint:delta];
 }
-
-- (id) moveBy:(id) object {
+- (INST) moveBy:(id) object {
 	if (object == nil) {
 	return self;
 	}
 	
 	AZPoint *p = [AZPoint pointOf:object];
-	self->x += p.x;
-	self->y += p.y;
-	
-	return self;
+	self.x += p.x;
+	self.y += p.y;                            return self;
+}
+- (INST) moveByNegative:(id) object {
+	if (object == nil)                        return self;
+  AZPoint *p = [AZPoint pointOf:object];
+	self.x -= p.x;
+	self.y -= p.y;                            return self;
+}
+- (INST) moveByPoint:(NSP)pt {
+	self.x += pt.x;
+	self.y += pt.y;                           return self;
+}
+- (INST) moveByX:(CGF)xv andY:(CGF)yv {
+	self.x += xv;
+	self.y += yv;                             return self;
 }
 
-- (id) moveByNegative:(id) object {
-	if (object == nil) {
-	return self;
-	}
-	
-	AZPoint *p = [AZPoint pointOf:object];
-	self->x -= p.x;
-	self->y -= p.y;
-	
-	return self;
+- (INST) multiplyBy:(id) object {
+	if (object == nil)                        return self;
+  AZPoint *p = [AZPoint pointOf:object];
+	self.x *= p.x;
+	self.y *= p.y;                            return self;
+}
+- (INST) divideBy:(id) object {
+	if (!object)                              return self;
+	AZPoint *p = [self.class pointOf:object];
+	self.x /= p.x;
+	self.y /= p.y;                            return self;
 }
 
-- (id) moveByPoint:(NSP)pt {
-	self->x += pt.x;
-	self->y += pt.y;
-	
-	return self;
-}
-
-- (id) moveByX:(CGF)xv andY:(CGF)yv {
-	self->x += xv;
-	self->y += yv;
-	
-	return self;
-}
-
-- (id) multiplyBy:(id) object {
-	if (object == nil) {
-	return self;
-	}
-	
-	AZPoint *p = [AZPoint pointOf:object];
-	self->x *= p.x;
-	self->y *= p.y;
-	
-	return self;
-}
-
-- (id) divideBy:(id) object {
-	if (object == nil) {
-	return self;
-	}
-	
-	AZPoint *p = [AZPoint pointOf:object];
-	self->x /= p.x;
-	self->y /= p.y;
-	
-	return self;
-}
-
-- (BOOL)equals:(id) object {
-	if (object == nil) {
-	return NO;
-	}
-	
-	AZPoint *p = [AZPoint pointOf:object];
-	
-	return self->x == p->x && self->y == p->y;
-}
-
-- (BOOL)equalsPoint:(NSP)p {
-	return self->x == p.x && self->y == p.y;
-}
+- (BOOL)isEqual:(id)object { return [self equals:object]; }
+- (BOOL)equals:(id) object { AZPoint *p; return !object ? NO : ((p = [AZPoint pointOf:object])) ? _x == p.x && _y == p.y : NO; }
+- (BOOL)equalsPoint:(NSP)p { return self.x == p.x && self.y == p.y; }
 
 - (BOOL)isWithin:(id) object {
-	if (object == nil) {
-	return NO;
-	}
-	
+	if (!object)                              return NO;
 	AZRect *rect = [AZRect rectOf:object];
-	
 	return [rect contaiNSP:self.point];
 }
 
 - (NSString*) description {
-	return [NSString stringWithFormat:@"%@(%4.f,%4.f)",
-	  self.className, x, y];
+	return [NSString stringWithFormat:@"%@(%4.f,%4.f)", self.className, _x, _y];
 }
 
 @end

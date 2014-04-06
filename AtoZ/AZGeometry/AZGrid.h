@@ -17,20 +17,12 @@
   View Init.....
   	_grid = [AZGrid.alloc initWithUnitSize:NSMakeSize(1.0f, 1.0f)  color:GRAY2 shouldDraw:YES];
 
-		In view's   ..  - (void)drawRect:(NSRect)rect
+		In view's   ..  - (void) rawRect:(NSRect)rect
  	[_grid drawRect:rect];
 */
 
-JREnumDeclare( AZGridStyle,
-	AZGridStyleCompact = 0,
-	AZGridStyleHorizontal = 1,
-	AZGridStyleVertical = 2
-);
-
-JREnumDeclare (AZGridOrder,
-	AZGridOrderRowMajor = 0,
-	AZGridOrderColumnMajor = 1
-);
+JREnumDeclare( AZGridStyle, AZGridStyleCompact, AZGridStyleHorizontal, AZGridStyleVertical );
+JREnumDeclare( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
 
 @class AZPoint, AZSize, AZRect, AZMatrix;
 
@@ -38,8 +30,7 @@ JREnumDeclare (AZGridOrder,
 {
 	NSMA *array;
 	NSUI parallels;
-	NSUI style;
-	NSUI order;
+	NSUI style, order;
 	BOOL rowMajorOrder;
 	
   @private
@@ -48,9 +39,9 @@ JREnumDeclare (AZGridOrder,
 	BOOL _shouldDraw;
 }
 
-@property (nonatomic, assign) NSSize unitSize;
-@property (nonatomic, retain) NSColor *color;
-@property (nonatomic, assign) BOOL shouldDraw;
+@property (nonatomic) NSSize unitSize;
+@property (nonatomic) NSColor *color;
+@property (nonatomic) BOOL shouldDraw;
 -   (id) initWithFrame:(NSR)frame;
 -   (id) initWithUnitSize:(NSSize)unitSize color:(NSColor *)color shouldDraw:(BOOL)shouldDraw;
 - (void) drawRect:(NSRect)drawingRect;
