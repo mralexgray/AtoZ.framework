@@ -1,4 +1,3 @@
-#import "AtoZ.h"
 	//
 	//  iCarousel.m
 	//
@@ -34,6 +33,10 @@
 
 #import "iCarousel.h"
 #import "azCarousel.m"
+
+#ifndef ICAROUSEL_IOS
+#define UIView NSView
+#endif
 
 //#define MIN_TOGGLE_DURATION 0.2f
 //#define MAX_TOGGLE_DURATION 0.4f
@@ -148,8 +151,8 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 	_ignorePerpendicularSwipes = NO;
 	_centerItemWhenSelected = YES;
 
-	_contentView = [UIView.alloc initWithFrame:self.bounds];
 #ifdef ICAROUSEL_IOS
+	_contentView = [UIView.alloc initWithFrame:self.bounds];
 
 	UIPanGestureRecognizer *panGesture = [UIPanGestureRecognizer.alloc initWithTarget:self action:@selector(didPan:)];
 	panGesture.delegate = (id <UIGestureRecognizerDelegate>)self;
@@ -157,7 +160,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 	[panGesture release];
 
 #else
-
+	_contentView = [NSView.alloc initWithFrame:self.bounds];
 	[_contentView setWantsLayer:YES];
 
 #endif
