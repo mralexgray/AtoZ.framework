@@ -624,10 +624,11 @@ Metaprogramming is normally something that people associate with more dynamic la
 
   #import "AtoZAutoBox/AtoZAutoBox.h"
 
-  #import "BoundingObject.h"
 
   #import "AtoZTypes.h"
   #import "AtoZMacroDefines.h"
+
+  #import "BoundingObject.h"
 
   #import "AtoZUmbrella.h"
   #import "AtoZGeometry.h"

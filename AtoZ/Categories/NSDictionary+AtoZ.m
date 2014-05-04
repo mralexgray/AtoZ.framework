@@ -304,6 +304,12 @@
 
 @implementation  NSDictionary (AtoZ)
 
+- (M13OrderedDictionary *)sortedByValue {
+
+  M13OrderedDictionary  *s = [M13OrderedDictionary orderedDictionaryWithDictionary:self.copy];
+  return [s sortedByKeysUsingSelector:@selector(compare:)];
+}
+
 + (NSD*) withFile:(NSS*)p { return [self dictionaryWithContentsOfFile:p]; }
 
 - (NSS*) flattenedString {

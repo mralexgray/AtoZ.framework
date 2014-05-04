@@ -121,6 +121,7 @@ FOUNDATION_STATIC_INLINE void logger(NSS*toLog){ runCommand($(@"logger %@", toLo
 NSG* GradForClr(azkColor c);
 NSC* Clr(azkColor c);
 
+NSA* AZConstDefaults(AZO orientation);
 
 CACONST * AZConstRelSuper                 ( CACONSTATTR attr);
 CACONST * AZConst                         ( CACONSTATTR attr, NSS* rel);
@@ -128,7 +129,6 @@ CACONST * AZConstRelAttr                  ( CACONSTATTR aOne, NSS *rel, CACONSTA
 CACONST * AZConstScaleOff                 ( CACONSTATTR attr, NSS* rel,                  CGF scl, CGF off );
 CACONST * AZConstRelSuperScaleOff         ( CACONSTATTR attr,                            CGF scl, CGF off );
 CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* rel, CACONSTATTR aTwo, CGF scl, CGF off );
-NSA* AZHorizontalConstraints();
 
 CAT3D  	m34();
 

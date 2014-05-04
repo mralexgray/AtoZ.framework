@@ -225,9 +225,6 @@ CACONST * AZConstRelSuper					  (CACONSTATTR att) 																{
 CACONST * AZConst								  (CACONSTATTR att, NSS *rel) 												{
 	return [CACONST constraintWithAttribute:att relativeTo:rel attribute:att];
 }
-CACONST * AZConstraint						  (CACONSTATTR att, NSS *rel) 												{
-	return AZConst(att, rel);
-}
 CACONST * AZConstRelAttr		  (CACONSTATTR att,NSS *rel,CACONSTATTR relAtt)	{
 	return [CACONST constraintWithAttribute:att relativeTo:rel attribute:relAtt scale:1 offset:0];
 }
@@ -241,12 +238,18 @@ CACONST * AZConstScaleOff					  (CACONSTATTR att, NSS *rel, 					 	CGF scl, CGF 
 CACONST * AZConstAttrRelNameAttrScaleOff (CACONSTATTR att, NSS *rel, CACONSTATTR att2, CGF scl, CGF off)	{
 	return [CAConstraint constraintWithAttribute:att relativeTo:rel attribute:att2 scale:scl offset:off];
 }
-NSA* AZHorizontalConstraints() {  static NSA *horizontals;
+NSA* AZConstDefaults(AZO orientation) {
 
-  return horizontals = horizontals ?: @[  AZConstRelSuper( kCAConstraintWidth ),
-                                          AZConstRelSuper( kCAConstraintMinX  ),
-                                          AZConstRelSuper( kCAConstraintMidX  ),
-                                          AZConstRelSuper( kCAConstraintMaxX  )];
+  AZSTATIC_OBJ(NSA,horizs,({ @[ AZConstRelSuper( kCAConstraintWidth   ),
+                                AZConstRelSuper( kCAConstraintMinX    ) ,
+                                AZConstRelSuper( kCAConstraintMidX    ),
+                                AZConstRelSuper( kCAConstraintMaxX    )]; }));
+  AZSTATIC_OBJ(NSA,verts, ({ @[ AZConstRelSuper( kCAConstraintHeight  ),
+                                AZConstRelSuper( kCAConstraintMinY    ),
+                                AZConstRelSuper( kCAConstraintMidY    ),
+                                AZConstRelSuper( kCAConstraintMaxY    )]; }));
+
+  return isVertical(orientation) ? verts : horizs;
 }
 
 CAT3D  	m34() { CAT3D t = CATransform3DIdentity; float z=500.0f;t.m34	= 1.0f/z; return t;}

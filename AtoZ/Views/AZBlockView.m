@@ -77,21 +77,21 @@
 }
 @end
 
-@implementation AZBlockWindow
-@synthesize drawBlock;
-
-+ (AZBlockWindow*) windowWithFrame: (NSRect)frame drawnUsingBlock:(ObjRectBlock)theDrawBlock
-{	//	__typeof__(self)
-	AZBlockWindow *view = [AZBlockWindow.alloc initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-	view.drawBlock = theDrawBlock;
-//	[view setMovable: YES];
-	[(NSView*)[view contentView]addSubview:view.drawBlock];
-	return view;
-}
-
-- (BOOL) acceptsFirstResponder { return YES; }
-- (BOOL) acceptsMouseMovedEvents { return YES; }
-@end
+//@implementation AZBlockWindow
+//@synthesize drawBlock;
+//
+//+ (AZBlockWindow*) windowWithFrame: (NSRect)frame drawnUsingBlock:(ObjRectBlock)theDrawBlock
+//{	//	__typeof__(self)
+//	AZBlockWindow *view = [AZBlockWindow.alloc initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+//	view.drawBlock = theDrawBlock;
+////	[view setMovable: YES];
+//	[(NSView*)[view contentView]addSubview:view.drawBlock];
+//	return view;
+//}
+//
+//- (BOOL) acceptsFirstResponder { return YES; }
+//- (BOOL) acceptsMouseMovedEvents { return YES; }
+//@end
 
 /*
 @implementation AZBlockView

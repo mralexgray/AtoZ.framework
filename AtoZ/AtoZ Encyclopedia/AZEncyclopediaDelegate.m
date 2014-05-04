@@ -252,7 +252,7 @@
 	//		attachedWindow = [AZAttachedWindow.alloc initWithView:rootView
 	//												attachedToPoint:pt
 	//													   inWindow:nil
-	//														 onSide:AZPositionBottom
+	//														 onSide:AZBtm
 	//													 atDistance:5.0];
 	////		[textField setTextColor:[attachedWindow borderColor]];
 	////		[textField setStringValue:@"Your text goes here..."];

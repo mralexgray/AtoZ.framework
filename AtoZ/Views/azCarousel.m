@@ -129,8 +129,8 @@
 //	AZWindowPosition d = [self hostWindow].position;
 
 	CGFloat translation = (self.vertical) ? [theEvent deltaY]	: [theEvent deltaX];
-		//		translation	 = d == AZPositionBottom ? translation	:
-		//					   d == AZPositionLeft   ? translation	: -translation;
+		//		translation	 = d == AZBtm ? translation	:
+		//					   d == AZLft   ? translation	: -translation;
 	CGFloat factor = 1.f;
 	if (!self.wrapEnabled && self.bounces)
 
@@ -179,8 +179,8 @@
 #ifdef ICAROUSEL_MACOS
 			//		AZTrackingWindow* w = (NSWindow*)[self window];
 			//		AZWindowPosition d = w.position;
-			//		translation = d == AZPositionBottom ? NEG(translation)
-			//				:	  d == AZPositionLeft 	? NEG(translation) :  translation;
+			//		translation = d == AZBtm ? NEG(translation)
+			//				:	  d == AZLft 	? NEG(translation) :  translation;
 
 		if (self.vertical)					//invert toggle
 			self.toggle = -self.toggle;
@@ -323,8 +323,8 @@
 	//		self.toggleTime = CACurrentMediaTime();
 	////		self.toggle =
 	////		float dd = fmaxf(-1.0f, fminf(1.0f, -(CGFloat)difference));
-	////		self.toggle =  d == AZPositionBottom ? NEG(dd)
-	////					:  d == AZPositionLeft 	 ? NEG(dd) :  dd;
+	////		self.toggle =  d == AZBtm ? NEG(dd)
+	////					:  d == AZLft 	 ? NEG(dd) :  dd;
 	//
 	////#ifdef ICAROUSELself.MACOS
 	//

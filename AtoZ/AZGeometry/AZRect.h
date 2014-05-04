@@ -2,19 +2,20 @@
 
 //#import "AZGeometry.h"
 //#import "AZGeometricFunctions.h"
-#import "BoundingObject.h"
 //#import "AtoZMacroDefines.h"
 //#import "AZPoint.h"
 //+ (INST) r;
 //+ (INST) rect;
 
+#import <Zangetsu/Zangetsu.h>
+#import <AtoZ/AtoZUmbrella.h>
+#import <AtoZ/BoundingObject.h>
 
 
-@interface AZRect : NSO <RectLike>  // {  CGF width, height;	}
+@interface AZRect : NSO <RectLike>
+// {  CGF width, height;	}
 
 - (INST) shiftedX:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
-+ (INST) withRect:(NSR)r;
-+ (INST) x:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
 
 //@prop_RO NSR r;
 

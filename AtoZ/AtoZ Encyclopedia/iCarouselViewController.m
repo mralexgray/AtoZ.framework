@@ -179,7 +179,7 @@
 	[_attache setLevel:NSFloatingWindowLevel];
 	[_attache orderFrontRegardless];
 
-//	[ attachedToPoint:  attachedToPoint: AZCenteredRect( [[_carousel itemViewAtIndex:index]frame]) inWindow:[self.carousel window] onSide:AZPositionBottom atDistance:0];
+//	[ attachedToPoint:  attachedToPoint: AZCenteredRect( [[_carousel itemViewAtIndex:index]frame]) inWindow:[self.carousel window] onSide:AZBtm atDistance:0];
 //	[[_carousel window]
 //	[addChildWindow:_attache ordered:NSWindowAbove];
 

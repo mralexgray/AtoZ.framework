@@ -6,14 +6,14 @@
 #import <WebKit/WebKit.h>
 #import <Zangetsu/Zangetsu.h>
 //#import <RoutingHTTPServer/RoutingHTTPServer.h>
-#import "KVOMap/KVOMap.h"
-#import "AtoZAutoBox/AtoZAutoBox.h"
-#import "F.h"
-#import "BaseModel.h"
-#import "JREnum.h"
+#import <KVOMap/KVOMap.h>
+#import <AtoZAutoBox/AtoZAutoBox.h>
+#import <AtoZ/F.h>
+#import <AtoZ/BaseModel.h>
+#import <AtoZ/JREnum.h>
 #import "AtoZMacroDefines.h"
 #import "AtoZTypes.h"
-//#import "BoundingObject.h"
+#import "BoundingObject.h"
 #import "AtoZGeometry.h"
 //#import "AtoZCategories.h"
 
@@ -539,7 +539,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 
 //#define CACcWA CAConstraint constraintWithAttribute
-#define AZConstraint(attrb,rel)		[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
+#define AZConst(attrb,rel)		[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
 #define AZConst(attrb,rel)				[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
 #define AZConstScaleOff(attrb,rel,scl,off)	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off]
 #define AZConstRelSuper(attrb)		[CAConstraint constraintWithAttribute:attrb relativeTo:AZSuperLayerSuper attribute:attrb]

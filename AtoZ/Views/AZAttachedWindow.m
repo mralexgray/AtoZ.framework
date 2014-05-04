@@ -160,24 +160,24 @@
 	// Note: we always leave room for the arrow, even if it currently set to  not be shown. This is so it can easily be toggled whilst the window is visible, without altering the window's frame origin point.
 	float scaledArrowHeight = self.arrowHeight * AZATTACHEDWINDOW_SCALE_FACTOR;
 	switch (_side) {
-		case AZPositionLeft:
+		case AZLft:
 		case AZPositionTopLeft:
 		case AZPositionBottomLeft:
 			contentRect.size.width += scaledArrowHeight;
 			break;
-		case AZPositionRight:
+		case AZRgt:
 		case AZPositionTopRight:
 		case AZPositionBottomRight:
 			_viewFrame.origin.x += scaledArrowHeight;
 			contentRect.size.width += scaledArrowHeight;
 			break;
-		case AZPositionTop:
+		case AZTop:
 //		case AZPositionTopLeft:
 //		case AZPositionTopRight:
 			_viewFrame.origin.y += scaledArrowHeight;
 			contentRect.size.height += scaledArrowHeight;
 			break;
-		case AZPositionBottom:
+		case AZBtm:
 //		case AZPositionBottomLeft:
 //		case AZPositionBottomRight:
 			contentRect.size.height += scaledArrowHeight;
@@ -195,7 +195,7 @@
 		case AZPositionTopLeft:
 			contentRect.origin.x -= contentRect.size.width - arrowInset;
 			break;
-		case AZPositionTop:
+		case AZTop:
 			contentRect.origin.x -= halfWidth;
 			break;
 		case AZPositionTopRight:
@@ -205,7 +205,7 @@
 			contentRect.origin.y -= contentRect.size.height;
 			contentRect.origin.x -= contentRect.size.width - arrowInset;
 			break;
-//		case AZPositionBottom:
+//		case AZBtm:
 //			contentRect.origin.y -= contentRect.size.height;
 //			contentRect.origin.x -= halfWidth;
 //			break;
@@ -217,7 +217,7 @@
 //			contentRect.origin.x -= contentRect.size.width;
 //			contentRect.origin.y -= arrowInset;
 //			break;
-//		case AZPositionLeft:
+//		case AZLft:
 //			contentRect.origin.x -= contentRect.size.width;
 //			contentRect.origin.y -= halfHeight;
 //			break;
@@ -228,7 +228,7 @@
 //		case AZPositionTopRight:
 //			contentRect.origin.y -= arrowInset;
 //			break;
-//		case AZPositionRight:
+//		case AZRgt:
 //			contentRect.origin.y -= halfHeight;
 //			break;
 //		case AZPositionBottomRight:
@@ -240,22 +240,22 @@
 	
 	// Account for _distance in new window frame.
 	switch (_side) {
-		case AZPositionLeft:
+		case AZLft:
 		case AZPositionTopLeft:
 		case AZPositionBottomLeft:
 			contentRect.origin.x -= _distance;
 			break;
-		case AZPositionRight:
+		case AZRgt:
 		case AZPositionTopRight:
 		case AZPositionBottomRight:
 			contentRect.origin.x += _distance;
 			break;
-		case AZPositionTop:
+		case AZTop:
 //		case AZPositionTopLeft:
 //		case AZPositionTopRight:
 			contentRect.origin.y += _distance;
 			break;
-		case AZPositionBottom:
+		case AZBtm:
 //		case AZPositionBottomLeft:
 //		case AZPositionBottomRight:
 			contentRect.origin.y -= _distance;
@@ -281,7 +281,7 @@
 	NSSize viewSize = [_view frame].size;
 	viewSize.width += (self.viewMargin * AZATTACHEDWINDOW_SCALE_FACTOR) * 2.0;
 	viewSize.height += (self.viewMargin * AZATTACHEDWINDOW_SCALE_FACTOR) * 2.0;
-	AZWindowPosition side = AZPositionBottom; // By default, position us centered below.
+	AZWindowPosition side = AZBtm; // By default, position us centered below.
 	float scaledArrowHeight = (self.arrowHeight * AZATTACHEDWINDOW_SCALE_FACTOR) + _distance;
 	
 	// We'd like to display directly below the specified point, since this gives a 
@@ -293,13 +293,13 @@
 			if (pointOnScreen.x - viewSize.width - scaledArrowHeight < NSMinX(screenFrame)) {
 				// We'd go off the left of the screen. Try the top.
 				if (pointOnScreen.y + viewSize.height + scaledArrowHeight < NSMaxY(screenFrame)) {
-					side = AZPositionTop;
+					side = AZTop;
 				}
 			} else {
-				side = AZPositionLeft;
+				side = AZLft;
 			}
 		} else {
-			side = AZPositionRight;
+			side = AZRgt;
 		}
 	}
 	
@@ -311,14 +311,14 @@
 	
 	// We're currently at a primary side. Try to avoid going outwith the parent area in the secondary dimension, by checking to see if an appropriate corner side would be better.
 	switch (side) {
-		case AZPositionBottom:
-		case AZPositionTop:
+		case AZBtm:
+		case AZTop:
 			// Check to see if we go beyond the left edge of the parent area.
 			if (pointOnScreen.x - halfWidth < NSMinX(parentFrame)) {
 				// We go beyond the left edge. Try using right position.
 				if (pointOnScreen.x + viewSize.width - arrowInset < NSMaxX(screenFrame)) {
 					// We'd still be on-screen using right, so use it.
-					if (side == AZPositionBottom) {
+					if (side == AZBtm) {
 						side = AZPositionBottomRight;
 					} else {
 						side = AZPositionTopRight;
@@ -328,7 +328,7 @@
 				// We go beyond the right edge. Try using left position.
 				if (pointOnScreen.x - viewSize.width + arrowInset >= NSMinX(screenFrame)) {
 					// We'd still be on-screen using left, so use it.
-					if (side == AZPositionBottom) {
+					if (side == AZBtm) {
 						side = AZPositionBottomLeft;
 					} else {
 						side = AZPositionTopLeft;
@@ -336,14 +336,14 @@
 				}
 			}
 			break;
-		case AZPositionRight:
-		case AZPositionLeft:
+		case AZRgt:
+		case AZLft:
 			// Check to see if we go beyond the bottom edge of the parent area.
 			if (pointOnScreen.y - halfHeight < NSMinY(parentFrame)) {
 				// We go beyond the bottom edge. Try using top position.
 				if (pointOnScreen.y + viewSize.height - arrowInset < NSMaxY(screenFrame)) {
 					// We'd still be on-screen using top, so use it.
-					if (side == AZPositionRight) {
+					if (side == AZRgt) {
 						side = AZPositionTopRight;
 					} else {
 						side = AZPositionTopLeft;
@@ -353,7 +353,7 @@
 				// We go beyond the top edge. Try using bottom position.
 				if (pointOnScreen.y - viewSize.height + arrowInset >= NSMinY(screenFrame)) {
 					// We'd still be on-screen using bottom, so use it.
-					if (side == AZPositionRight) {
+					if (side == AZRgt) {
 						side = AZPositionBottomRight;
 					} else {
 						side = AZPositionBottomLeft;
@@ -458,7 +458,7 @@
 	// If arrow should be drawn at top-left point, draw it.
 	if (_side == AZPositionBottomRight) {
 		[self _appendArrowToPath:path];
-	} else if (_side == AZPositionBottom) {
+	} else if (_side == AZBtm) {
 		// Line to relevant point before arrow.
 		[path lineToPoint:NSMakePoint(midX - halfArrowWidth, maxY)];
 		// Draw arrow.
@@ -495,7 +495,7 @@
 	// If arrow should be drawn at right-top point, draw it.
 	if (_side == AZPositionBottomLeft) {
 		[self _appendArrowToPath:path];
-	} else if (_side == AZPositionLeft) {
+	} else if (_side == AZLft) {
 		// Line to relevant point before arrow.
 		[path lineToPoint:NSMakePoint(maxX, midY + halfArrowWidth)];
 		// Draw arrow.
@@ -532,7 +532,7 @@
 	// If arrow should be drawn at bottom-right point, draw it.
 	if (_side == AZPositionTopLeft) {
 		[self _appendArrowToPath:path];
-	} else if (_side == AZPositionTop) {
+	} else if (_side == AZTop) {
 		// Line to relevant point before arrow.
 		[path lineToPoint:NSMakePoint(midX + halfArrowWidth, minY)];
 		// Draw arrow.
@@ -569,7 +569,7 @@
 	// If arrow should be drawn at left-bottom point, draw it.
 	if (_side == AZPositionTopRight) {
 		[self _appendArrowToPath:path];
-	} else if (_side == AZPositionRight) {
+	} else if (_side == AZRgt) {
 		// Line to relevant point before arrow.
 		[path lineToPoint:NSMakePoint(minX, midY - halfArrowWidth)];
 		// Draw arrow.
@@ -610,7 +610,7 @@
 	
 	// Note: we always build the arrow path in a clockwise direction.
 	switch (_side) {
-		case AZPositionLeft:
+		case AZLft:
 		case AZPositionTopLeft:
 		case AZPositionBottomLeft:
 			// Arrow points towards right. We're starting from the top.
@@ -618,7 +618,7 @@
 			tipPt.y -= halfArrowWidth;
 			endPt.y -= scaledArrowWidth;
 			break;
-		case AZPositionRight:
+		case AZRgt:
 		case AZPositionTopRight:
 		case AZPositionBottomRight:
 			// Arrow points towards left. We're starting from the bottom.
@@ -626,7 +626,7 @@
 			tipPt.y += halfArrowWidth;
 			endPt.y += scaledArrowWidth;
 			break;
-		case AZPositionTop:
+		case AZTop:
 //		case AZPositionTopLeft:
 //		case AZPositionTopRight:
 			// Arrow points towards bottom. We're starting from the right.
@@ -634,7 +634,7 @@
 			tipPt.x -= halfArrowWidth;
 			endPt.x -= scaledArrowWidth;
 			break;
-		case AZPositionBottom:
+		case AZBtm:
 //		case AZPositionBottomLeft:
 //		case AZPositionBottomRight:
 			// Arrow points towards top. We're starting from the left.

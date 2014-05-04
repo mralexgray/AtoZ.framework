@@ -170,7 +170,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 //			NSString *toggleQuestion = [_delegate toggleView:self questionAtIndex:idx];
 //			AZPOS where = [_delegate respondsToSelector:@selector(positionForQuestion:)]
 //								   ? [_delegate positionForQuestion:obj]
-//								   : AZPositionLeft;
+//								   : AZLft;
 //			NSS* rel = index == 0 ? @"superlayer" : [_delegate toggleView:self questionAtIndex: (idx-1) ]	;
 //			[self itemLayerWithName:toggleQuestion relativeTo:rel index:idx];
 //			return toggleQuestion;
@@ -246,10 +246,10 @@ NSString *const AZToggleState		= @"AZToggleState";
 	 [yesno each:^(id obj, NSUI index, BOOL *stop) {
 	 AZPOS where = [_delegate respondsToSelector:@selector(positionForQuestion:)]
 	 ? [_delegate positionForQuestion:obj]
-	 : AZPositionLeft;
+	 : AZLft;
 	 
-	 NSS* rel = where == AZPositionLeft	 ? (index == 0 ? @"superlayer" : yesno[index-1])
-	 : where == AZPositionRight ? (index == 0 ? @"superlayer" : yesno[index-1])
+	 NSS* rel = where == AZLft	 ? (index == 0 ? @"superlayer" : yesno[index-1])
+	 : where == AZRgt ? (index == 0 ? @"superlayer" : yesno[index-1])
 	 : @"superlayer";
 	 [_containerLayer addSublayer:[self itemLayerWithName:obj relativeTo:rel index:index]];
 	 }];

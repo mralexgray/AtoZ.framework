@@ -51,10 +51,10 @@ NS_INLINE NSString* AZEnumToBinary(int num) {  char str[9] = {0};
 #define AZPosition AZAlign
 #define AZWindowPosition AZPosition
 
-#define   AZPositionLeft          AZAlignLeft
-#define   AZPositionRight         AZAlignRight		//			= 2, //NSMaxXEdge, // 2  preferredEdge
-#define 	AZPositionTop           AZAlignTop		   //	= 3, //NSMaxYEdge, // 3  compatibility
-#define 	AZPositionBottom        AZAlignBottom//			= 1,  //NSMinYEdge, // 1  numbering!
+//#define   AZLft          AZAlignLeft
+//#define   AZRgt         AZAlignRight		//			= 2, //NSMaxXEdge, // 2  preferredEdge
+//#define 	AZTop           AZAlignTop		   //	= 3, //NSMaxYEdge, // 3  compatibility
+//#define 	AZBtm        AZAlignBottom//			= 1,  //NSMinYEdge, // 1  numbering!
 #define 	AZPositionTopLeft       AZAlignTopLeft//	   	= 4,
 #define 	AZPositionBottomLeft		AZAlignBottomLeft//		= 5,
 #define 	AZPositionTopRight      AZAlignTopRight//	 	= 6,
@@ -295,10 +295,10 @@ typedef NS_ENUM(NSUInteger,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X
 /*
  //#ifndef ATOZTOUCH
  typedef NS_OPTIONS(NSUInteger, AZWindowPosition) {
- AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
- AZPositionRight			= NSMaxXEdge, // 2  preferredEdge
- AZPositionTop		   	= NSMaxYEdge, // 3  compatibility
- AZPositionBottom			= NSMinYEdge, // 1  numbering!
+ AZLft 			= NSMinXEdge, // 0  NSDrawer
+ AZRgt			= NSMaxXEdge, // 2  preferredEdge
+ AZTop		   	= NSMaxYEdge, // 3  compatibility
+ AZBtm			= NSMinYEdge, // 1  numbering!
  AZPositionTopLeft	   	= 4,
  AZPositionBottomLeft		= 5,
  AZPositionTopRight	 	= 6,
@@ -307,10 +307,10 @@ typedef NS_ENUM(NSUInteger,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X
  };// AZWindowPosition;
  */
 //JREnumDeclare(AZPosition,
-//	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
-//	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
-//	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility
-//	AZPositionBottom			= 1,  //NSMinYEdge, // 1  numbering!
+//	AZLft 			= 0,// NSMinXEdge, // 0  NSDrawer
+//	AZRgt			= 2, //NSMaxXEdge, // 2  preferredEdge
+//	AZTop		   	= 3, //NSMaxYEdge, // 3  compatibility
+//	AZBtm			= 1,  //NSMinYEdge, // 1  numbering!
 //	AZPositionTopLeft	   	= 4,
 //	AZPositionBottomLeft		= 5,
 //	AZPositionTopRight	 	= 6,

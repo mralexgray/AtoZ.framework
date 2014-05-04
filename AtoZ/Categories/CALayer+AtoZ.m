@@ -789,8 +789,8 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	self.transform =  CATransform3DRotate(transform, 180 * M_PI / 180, -1, 0, 0);
 }
 + (CATransform3D)flipAnimationPositioned:(AZPOS)pos {
-	CGPoint dir = (CGPoint) {pos == AZPositionTop || pos == AZPositionBottom ? 1 : 0,
-	pos == AZPositionTop || pos == AZPositionBottom ? 0 : 1 };
+	CGPoint dir = (CGPoint) {pos == AZTop || pos == AZBtm ? 1 : 0,
+	pos == AZTop || pos == AZBtm ? 0 : 1 };
 	return CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
 }
 - (void)flipForward:(BOOL)forward atPosition:(AZPOS)pos duration:(NSTI)time   {
@@ -802,7 +802,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 - (CAT3D)flipForward:(BOOL)forward atPosition:(AZPOS)pos      {
 	[self setAnchorPoint:AZAnchorPtAligned(pos) inRect:self.frame];
 	CATransform3D flip = forward ? CATransform3DIdentity
-	: pos == AZPositionTop || pos == AZPositionBottom ? CA3DxRotation(90) : CA3DyRotation(90);
+	: pos == AZTop || pos == AZBtm ? CA3DxRotation(90) : CA3DyRotation(90);
 	flip.m34 = -1 / 700;
 	return flip;
 }

@@ -1,6 +1,9 @@
 
 #import "AtoZUmbrella.h"
 
+char intToHex (NSI  dig);
+int  hexToInt (char hex);
+
 @interface NSColor (AtoZ)
 
 @property (RONLY)  	BOOL	 isBoring,   isExciting,

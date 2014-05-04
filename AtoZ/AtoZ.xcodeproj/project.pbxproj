@@ -705,6 +705,8 @@
 		7BB86F6D163733B60000C242 /* AZPropellerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB0095B16311BB500750FEB /* AZPropellerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BB87026163853030000C242 /* GeometryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB87023163853030000C242 /* GeometryVC.m */; };
 		7BBA50471916980E003E0219 /* RectLikeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBA50461916980E003E0219 /* RectLikeTests.m */; };
+		7BBA50491916CBDD003E0219 /* NSObject_KVOBlockTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBA50481916CBDD003E0219 /* NSObject_KVOBlockTests.m */; };
+		7BBA504B1916CF75003E0219 /* CoreGraphicsServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBA504A1916CF75003E0219 /* CoreGraphicsServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBB12DB16054F02005D73CF /* LoremIpsum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB12D916054F02005D73CF /* LoremIpsum.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BBB12DC16054F37005D73CF /* LoremIpsum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBB12D816054F02005D73CF /* LoremIpsum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBB87CF1744848E0024704E /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2F239916F289BC003D7648 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2891,6 +2893,8 @@
 		7BB870931638A0FA0000C242 /* NSString+ConciseKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.objj.h; path = "NSString+ConciseKit.h"; sourceTree = "<group>"; };
 		7BB870941638A0FA0000C242 /* NSString+ConciseKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConciseKit.m"; sourceTree = "<group>"; };
 		7BBA50461916980E003E0219 /* RectLikeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectLikeTests.m; sourceTree = "<group>"; };
+		7BBA50481916CBDD003E0219 /* NSObject_KVOBlockTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSObject_KVOBlockTests.m; path = "../../Frameworks/KVO-Notification-Manager/Test/Unit Tests/NSObject_KVOBlockTests.m"; sourceTree = "<group>"; };
+		7BBA504A1916CF75003E0219 /* CoreGraphicsServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreGraphicsServices.h; path = Views/CoreGraphicsServices.h; sourceTree = SOURCE_ROOT; };
 		7BBB12D816054F02005D73CF /* LoremIpsum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = LoremIpsum.h; path = "Lorem-Ipsum/LoremIpsum.h"; sourceTree = "<group>"; };
 		7BBB12D916054F02005D73CF /* LoremIpsum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoremIpsum.m; path = "Lorem-Ipsum/LoremIpsum.m"; sourceTree = "<group>"; };
 		7BBB59521769C44F0074A5F9 /* TUICarouselNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUICarouselNavigationController.h; path = TUIVs/TUICarouselNavigationController.h; sourceTree = "<group>"; };
@@ -5512,6 +5516,7 @@
 		7BE6068915A00B8800355236 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7BBA504A1916CF75003E0219 /* CoreGraphicsServices.h */,
 				7B401FD018287C2F00F24167 /* BETaskHelper */,
 				7B5C33C81780823A008B4187 /* GDataXMLNode.m */,
 				7B5C33C91780823A008B4187 /* GDataXMLNode.h */,
@@ -5586,6 +5591,7 @@
 			isa = PBXGroup;
 			children = (
 				7BBA50461916980E003E0219 /* RectLikeTests.m */,
+				7BBA50481916CBDD003E0219 /* NSObject_KVOBlockTests.m */,
 				7B5DAB38180B55DB00C48895 /* API Tests */,
 				7B5DABAE180C2ACE00C48895 /* ArrayLikeTests.m */,
 				7BF72D60171F8F2F0037CF41 /* AtoZUnitTests.m */,
@@ -5939,6 +5945,7 @@
 				7B9AC20816EC911B00F8763C /* NSTask+OneLineTasksWithOutput.h in Headers */,
 				7B9AC20C16EC965300F8763C /* MediaServer.h in Headers */,
 				7B4DD6C116EDE3520084826B /* OperationsRunner.h in Headers */,
+				7BBA504B1916CF75003E0219 /* CoreGraphicsServices.h in Headers */,
 				7B2F23E916F289BC003D7648 /* IGIsolatedCookieWebView.h in Headers */,
 				7B2F23EB16F289BC003D7648 /* INAppStoreWindow.h in Headers */,
 				7B2F23F016F289BC003D7648 /* GTMNSString+HTML.h in Headers */,
@@ -7823,6 +7830,7 @@
 				7B411369184D8296009EE3EA /* EXTMultiObjectTests.m in Sources */,
 				7BEE27A918B17BA500F403C7 /* CALayerTests.m in Sources */,
 				7BB6F45118B50B86008D3527 /* JREnumTests.m in Sources */,
+				7BBA50491916CBDD003E0219 /* NSObject_KVOBlockTests.m in Sources */,
 				7B152A2718E21CFD00440F1B /* ArrayLikeTests.m in Sources */,
 				7BCDC110182A328500C9AE23 /* AZBaseModelTests.m in Sources */,
 				7B41136A184D8310009EE3EA /* AZProxyTests.m in Sources */,
@@ -8740,7 +8748,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = "$(AZBUILD)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -8750,6 +8758,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(AZBUILD)";
@@ -8790,7 +8799,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = "$(AZBUILD)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -8800,6 +8809,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(AZBUILD)";

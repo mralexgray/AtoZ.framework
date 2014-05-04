@@ -168,3 +168,21 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 //- (void) setFrameSize: (NSSZ) size;
 
 */
+
+@interface NSWindow (Transforms)
+
+- (NSPoint) windowToScreenCoordinates:(NSPoint)point;
+- (NSPoint) screenToWindowCoordinates:(NSPoint)point;
+
+- (void) rotate:(double)radians;
+- (void) rotate:(double)radians about:(NSPoint)point;
+
+- (void) scaleBy:(double)scaleFactor;
+- (void) scaleX:(double)x Y:(double)y;
+- (void) setScaleX:(double)x Y:(double)y;
+- (void) scaleX:(double)x Y:(double)y about:(NSPoint)point concat:(BOOL)concat;
+
+- (void) reset;
+
+- (void) setSticky:(BOOL)flag;
+@end

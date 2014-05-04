@@ -86,8 +86,8 @@ JREnumDefine(AZDraggingMode)
 		
 		normalRect = AZRectInsideRectOnEdge(_frame, self.window.frame, newpos);
 		
-		edger = AZInsetRectInPosition(AZRectFromSize(normalRect.size), (NSSZ) {	_align == AZPositionTop 	|| _align == AZPositionBottom ? self.width : inset ,
-																										_align == AZPositionLeft 	|| _align == AZPositionRight 	? self.height : inset}, inset);
+		edger = AZInsetRectInPosition(AZRectFromSize(normalRect.size), (NSSZ) {	_align == AZTop 	|| _align == AZBtm ? self.width : inset ,
+																										_align == AZLft 	|| _align == AZRgt 	? self.height : inset}, inset);
 		
 	//		NSR edgeRect = AZRectInsideRectOnEdge(edger, fillerRect, edgeD);
 		[_glowBar animate:@"frame" toRect:edger time:.8]; _glowBar.backgroundColor = cgRANDOMGRAY;
@@ -118,8 +118,8 @@ JREnumDefine(AZDraggingMode)
 	NSPoint newLocation = [self convertPoint:theEvent.locationInWindow fromView:nil];
 	float x_amount = _lastDragPoint.x - newLocation.x;
 	float y_amount = _lastDragPoint.y - newLocation.y;
-	newFrame = _draggingMode == AZDraggingModeMove 	? 	_align == AZPositionBottom || _align == AZPositionTop ? 	AZRectExceptOriginX(newFrame,-x_amount) 
-																	:	_align == AZPositionLeft || _align == AZPositionRight ?	AZRectExceptOriginY(newFrame, -y_amount)
+	newFrame = _draggingMode == AZDraggingModeMove 	? 	_align == AZBtm || _align == AZTop ? 	AZRectExceptOriginX(newFrame,-x_amount) 
+																	:	_align == AZLft || _align == AZRgt ?	AZRectExceptOriginY(newFrame, -y_amount)
 																	: AZRectOffset(newFrame, NSMakePoint(-x_amount, y_amount)) : newFrame;
 																	
 	_draggingMode == AZDraggingModeResize 				? ^{	newFrame.size.width -= x_amount;		newFrame.origin.y -= y_amount;

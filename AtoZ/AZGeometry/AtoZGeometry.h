@@ -26,8 +26,8 @@ typedef NSP AZAnchorPt;
 
 /*! AZEqualRects(...) - Compare MANY rects. AZAllAreEqualRects(r2, r44, NSZeroRect), etc. */
 
-#define AZEqualRects(...) _AZAllAreEqualRects(metamacro_argcount(__VA_ARGS__),metamacro_head(__VA_ARGS__), metamacro_tail(__VA_ARGS__))
-/* helper */ BOOL _AZAllAreEqualRects(int ct, NSR r1, ...);
+#define AZEqualRects(...) (BOOL)_AZAllAreEqualRects(metamacro_argcount(__VA_ARGS__),__VA_ARGS__) //metamacro_head(__VA_ARGS__), metamacro_tail(__VA_ARGS__)))
+/* helper */ BOOL _AZAllAreEqualRects(int ct,...);
 
 
 OBJC_EXPORT NSR AZRectOffsetLikePoints(NSR r, NSP p1, NSP p2);
@@ -494,6 +494,7 @@ OBJC_EXPORT NSP AZMapPointToRect			  ( const NSP p, 		 const NSR rect );
 OBJC_EXPORT NSP AZMapPointFromRectToRect ( const NSP p, 		 const NSR srcRect, const NSR destRect );
 OBJC_EXPORT NSR AZMapRectFromRectToRect  ( const NSR inRect, const NSR srcRect, const NSR destRect );
 
+OBJC_EXPORT NSR AZRectExceptSpanAnchored(NSR r1, CGF span, AZA anchor);
 OBJC_EXPORT NSR         AZScaleRect	( const NSR  inRect, const CGF scale 	);
 OBJC_EXPORT NSR AZRectScaledToRect(NSR resizeRect, NSR fitRect);
 OBJC_EXPORT NSR  AZCentreRectInRect	( const NSR  r, 		const NSR cr 		);

@@ -25,10 +25,10 @@ static const NSString *didScroll = @"scrollOffset";
 - (id) init {	if (self != super.init ) return nil;		_intrusion = self.intrusion;	self.refToSelf = self;
 	
 	_quads  = [NSD dictionaryWithObjects:[NSArray arrayWithArrays:@[
-	_tracks = @[self.track_N = [AZTW oriented: AZPositionTop 	intruding:_intrusion], 	 // withDelegate:self],
-					self.track_S = [AZTW oriented: AZPositionBottom intruding:_intrusion], 	 // withDelegate:self],
-					self.track_E = [AZTW oriented: AZPositionRight 	intruding:_intrusion],	 // withDelegate:self],
-					self.track_W = [AZTW oriented: AZPositionLeft 	intruding:_intrusion] ], // withDelegate:self] ];
+	_tracks = @[self.track_N = [AZTW oriented: AZTop 	intruding:_intrusion], 	 // withDelegate:self],
+					self.track_S = [AZTW oriented: AZBtm intruding:_intrusion], 	 // withDelegate:self],
+					self.track_E = [AZTW oriented: AZRgt 	intruding:_intrusion],	 // withDelegate:self],
+					self.track_W = [AZTW oriented: AZLft 	intruding:_intrusion] ], // withDelegate:self] ];
 	_menus  = @[	self.menu_N  = [iC.alloc initWithFrame: AZMakeRectFromSize(_track_N.visibleFrame.size)],
 				  self.menu_S  = [iC.alloc initWithFrame: AZMakeRectFromSize(_track_S.visibleFrame.size)],
 				  self.menu_E  = [iC.alloc initWithFrame: AZMakeRectFromSize(_track_E.visibleFrame.size)],
@@ -137,7 +137,7 @@ static const NSString *didScroll = @"scrollOffset";
 	//		[obj setScrollOffset: wasoff + ];
 	//	[_menus az_each:^(id obj, NSUInteger index, BOOL *stop) {
 	//		AZWindowPosition d = [(AZTW*)carousel.window position];
-	//		CGFloat so = (( d == AZPositionRight) || ( d == AZPositionTop) ? carousel.scrollOffset : NEG(carousel.scrollOffset));
+	//		CGFloat so = (( d == AZRgt) || ( d == AZTop) ? carousel.scrollOffset : NEG(carousel.scrollOffset));
 	//		[obj setScrollOffset:so];
 	//	}];
 }
@@ -146,9 +146,9 @@ static const NSString *didScroll = @"scrollOffset";
 	
 	NSUInteger base, remainder;	base = ceil( _items.count / 4 );		remainder  	= _items.count % 4;
 	
-	switch (trackrant) {		case AZPositionTop	  :	if (remainder > 0) base++;	break;
-		case AZPositionRight  :	if (remainder > 1) base++;	break;
-		case AZPositionBottom :	if (remainder > 2) base++;  break;
+	switch (trackrant) {		case AZTop	  :	if (remainder > 0) base++;	break;
+		case AZRgt  :	if (remainder > 1) base++;	break;
+		case AZBtm :	if (remainder > 2) base++;  break;
 		default				  :	if (remainder > 3) base++;	break;
 	}	return base;
 }
@@ -209,7 +209,7 @@ static const NSString *didScroll = @"scrollOffset";
 	//
 	//v.layer.frame];
 	//						   AZRectVerticallyOffsetBy([v frame],inset)];
-	//	oriented:AZPositionTop intruding:60 inRect:AZRectHorizontallyOffsetBy(v.frame)];
+	//	oriented:AZTop intruding:60 inRect:AZRectHorizontallyOffsetBy(v.frame)];
 	//	NSBezierPath *p2 =[NSBezierPath bezierPathWithRoundedRect:AZLowerEdge(v.frame,25) cornerRadius:10 inCorners:(OSBottomRightCorner|OSBottomLeftCorner)];
 	[v.layer addSublayers:@[x, u]];
 	[v.layer needsDisplay];
@@ -387,7 +387,7 @@ static const NSString *didScroll = @"scrollOffset";
 @end
 
 //	//] [_items objectAtIndex:reg] atIndex:reg]	
-// = (( d == AZPositionRight) || ( d == AZPositionTop) ? _northEast[index] : _southWest[index]);
+// = (( d == AZRgt) || ( d == AZTop) ? _northEast[index] : _southWest[index]);
 //	else id flipper = self.items[index];
 //view.needsDisplay = YES;
 //	return view;
@@ -435,9 +435,9 @@ static const NSString *didScroll = @"scrollOffset";
  
  id flipIt =   carousel.window posi == @"menu_S"  || carousel.identifier == @"menu_W"  ? self.items.reversed[index] : self.items[index] ;
  NSUInteger e;
- if 	 ( d == AZPositionRight  ) 	e = ( index + _north.capacity);
- else if ( d == AZPositionBottom ) 	e = ( index + _north.capacity + _east.capacity );
- else if ( d == AZPositionLeft   ) 	e = ( index + _north.capacity + _east.capacity + _south.capacity) ;
+ if 	 ( d == AZRgt  ) 	e = ( index + _north.capacity);
+ else if ( d == AZBtm ) 	e = ( index + _north.capacity + _east.capacity );
+ else if ( d == AZLft   ) 	e = ( index + _north.capacity + _east.capacity + _south.capacity) ;
  else								e =   index;
  NSUInteger reg = e % _items.count;
  
@@ -678,10 +678,10 @@ static const NSString *didScroll = @"scrollOffset";
 //			return value;
 //	}
 //}
-//	[_menu_N setValuesForKeysWithDictionary:@ { @"windowPosition" : @(AZPositionTop),
+//	[_menu_N setValuesForKeysWithDictionary:@ { @"windowPosition" : @(AZTop),
 //		@"vertical" : @(NO)} ];
 
-//	[_car1 setValue:AZPositionLeft]	 :	if (remainder > 1) base++;	break;
+//	[_car1 setValue:AZLft]	 :	if (remainder > 1) base++;	break;
 //		case AZTrackRight :	if (remainder > 2) base++;  break;
 //		default			 :	if (remainder > 3) base++;	break;
 //[self observeName:@"content" usingBlock:^(NSNotification *m) {
@@ -708,10 +708,10 @@ static const NSString *didScroll = @"scrollOffset";
 //}
 //- (NSUInteger)	total {	return _content.count;	}
 
-//	return 	(carousel == _menu_N) ? ( self.total - [self itemsInTrack: AZPositionTop]	)
-//	:  carousel  == _menu_S  ? ( self.total - [self itemsInTrack: AZPositionBottom]	)
-//	:  carousel  == _menu_E  ? ( self.total - [self itemsInTrack: AZPositionLeft]	)
-//	: 					  		( self.total - [self itemsInTrack: AZPositionRight]	);
+//	return 	(carousel == _menu_N) ? ( self.total - [self itemsInTrack: AZTop]	)
+//	:  carousel  == _menu_S  ? ( self.total - [self itemsInTrack: AZBtm]	)
+//	:  carousel  == _menu_E  ? ( self.total - [self itemsInTrack: AZLft]	)
+//	: 					  		( self.total - [self itemsInTrack: AZRgt]	);
 
 //- (NSView *)carousel:(iC *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(NSView *)view {
 
@@ -992,7 +992,7 @@ static const NSString *didScroll = @"scrollOffset";
  //	[_attache setLevel:NSFloatingWindowLevel];
  //	[_attache orderFrontRegardless];
  
- //	[ attachedToPoint:  attachedToPoint: AZCenteredRect( [[_carousel itemViewAtIndex:index]frame]) inWindow:[self.carousel window] onSide:AZPositionBottom atDistance:0];
+ //	[ attachedToPoint:  attachedToPoint: AZCenteredRect( [[_carousel itemViewAtIndex:index]frame]) inWindow:[self.carousel window] onSide:AZBtm atDistance:0];
  //	[[_carousel window]
  //	[addChildWindow:_attache ordered:NSWindowAbove];
  

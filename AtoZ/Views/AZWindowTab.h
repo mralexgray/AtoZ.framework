@@ -4,18 +4,27 @@
 #import "CAWindow.h"
 
 
+@interface AZTabView   : AZSimpleView
+@prop_RO NSAS *string;
+@end
+
 @interface AZWindowTab : NSW
 
-@property (NATOM)  NSV * view;
-@property (RONLY)  NSV * handle;
-@property (NATOM) NSSZ   inSize, 
-                         outSize;
+@prop_RO AZTabView * handle;
+@prop_NA       AZR * inFrame, * outFrame, * grabRect, * outerRect;
+@prop_NA      NSSZ   inSize,
+                     outSize;
+@property (RONLY) OSCornerType 	outsideCorners;
+
+@property CGP offset;
+
 @end
 
 @interface AZWindowTabController : NSArrayController <NSWindowDelegate>
 @end
 
 
+//@prop_NA NSV * view;
 //+ (id) tabWithViewClass:(Class)k;
 //- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r;
 //@property (STR) 			AZWindowTabController	*vc;

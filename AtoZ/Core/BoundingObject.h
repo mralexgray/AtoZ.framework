@@ -1,47 +1,18 @@
 
-#import "AZBlockView.h"         //#import "AtoZTypes.h"
+#import <Zangetsu/Zangetsu.h>
+#import "AtoZMacroDefines.h"
 #import "AtoZTypes.h"
 
 
-//#define    FORBIDDEN_CLASSES( ([NSA arrayWithObjects:__VA_ARGS__]contains           [NSException raise:@"We should never get here!" format:@"%@ should have implemented this:%@", self.className, AZSELSTR]
-#define  ASSERTSAME(A,B)      NSAssert(A == B, @"These values should be same, but they are %@ and %@", @(A), @(B))
-#define    CONFORMS(PROTO)    [self conformsToProtocol:@protocol(PROTO)]
-#define IF_CONFORMS(PROTO,X)  if(CONFORMS(PROTO)){ ({ X; }) }
+@protocol             RectLike   <NSO> @property NSR frame;
 
-#define    GETALIAS(X)        return [self floatForKey:NSStringify(X)]  // [self vFK:NSStringify(X)];    [value getValue: ptr];    (const char * typeCode, void * value); [self  X]
-#define    SETALIAS(X,V)      [self sV:V fK:NSStringify(X)]
-
-#ifndef AZO
-#define AZO AZOrient
-#endif
-//- (BOOL) isVertical;
-
-@interface NSO (AZAZA) @property BOOL expanded, selected, hovered; @property NSUI orientation; @end
-
-@protocol Indexed <NSO> @concrete @property (RONLY) id<NSFastEnumeration> backingStore; @property (RONLY) NSUI index, indexMax; @end
-
-@protocol ArrayLike <NSO,NSFastEnumeration> @concrete
-@property NSA<Indexed>*storage;
-
-@property (RONLY) NSUI count;
-
-- (void)     addObject:(id)x;
-- (void)  removeObject:(id)x;
-- (void)    addObjects:(NSA*)x;
-- (void) removeObjects:(NSA*)x;
-
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)s objects:(id __unsafe_unretained [])b count:(NSUInteger)len;
-
-@end
-
-@protocol             RectLike   <NSO> @required
-
-@property                  NSR   frame;
 @optional
-
-@property                  NSP   anchorPoint, position;
-@property                 NSSZ   supersize;
+@property                  NSP    anchorPoint, position;
 @concrete
+@property                  NSR    superframe;
+@prop_RO                   AZA    insideEdge; // !!!
+@prop_RO NSS* insideEdgeHex;
+
 @property   NSAlignmentOptions    alignment;
 @property                 NSUI    arMASK;
 @property                  NSR    bounds,
@@ -64,21 +35,80 @@
 
 /*! Protocol factory methods for all conformant classes! */
 
-+ (INST) rectLike:(NSN*)dimOne, ... NS_REQUIRES_NIL_TERMINATION; // 0 - 4 NSNumber * dims + optional NSValue rect for superframe.
-
-+ (INST) withRect:(NSR)r inRect:(NSR)sf aligned:(AZA)a;
-
+/*! CAL *l = [CAL x:23 y:33 w:100 h:9]; -> l: CALayer #-1 of -1!  AZNotFound f:{{23 x 33},{100 x 9 }} b:{{ 0 x  0},{100 x 9 }} */
++ (INST) x:(CGF)x
+         y:(CGF)y
+         w:(CGF)w
+         h:(CGF)h;
++ (INST) rectLike:(NSN*)d1, ... NS_REQUIRES_NIL_TERMINATION; // 0 - 4 NSNumber * dims + optional NSValue rect for superframe.
 + (INST) withRect:(NSR)r;                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
+@end
 
-+ (INST) x:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h; /*! CAL *l = [CAL x:23 y:33 w:100 h:9]; -> l: CALayer #-1 of -1!  AZNotFound f:{{23 x 33},{100 x 9 }} b:{{ 0 x  0},{100 x 9 }} */
+#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 
+DECLARECONFORMANCE(NSV,     RectLike)
+DECLARECONFORMANCE(NSW,     RectLike)
+DECLARECONFORMANCE(CAL,     RectLike)
+DECLARECONFORMANCE(NSScreen,RectLike)
+
+
+
+//@interface NSIMG (SizeLike) <SizeLike> @end
+
+//#define    FORBIDDEN_CLASSES( ([NSA arrayWithObjects:__VA_ARGS__]contains           [NSException raise:@"We should never get here!" format:@"%@ should have implemented this:%@", self.className, AZSELSTR]
+#define  ASSERTSAME(A,B)      NSAssert(A == B, @"These values should be same, but they are %@ and %@", @(A), @(B))
+#define    CONFORMS(PROTO)    [self conformsToProtocol:@protocol(PROTO)]
+#define IF_CONFORMS(PROTO,X)  if(CONFORMS(PROTO)){ ({ X; }) }
+
+#define    GETALIAS(X)        return [self floatForKey:NSStringify(X)]  // [self vFK:NSStringify(X)];    [value getValue: ptr];    (const char * typeCode, void * value); [self  X]
+#define    SETALIAS(X,V)      [self sV:V fK:NSStringify(X)]
+
+#ifndef AZO
+#define AZO AZOrient
+#endif
+//- (BOOL) isVertical;
+
+@interface NSO (AZAZA) @property BOOL expanded, selected, hovered; @property NSUI orientation; @end
+
+@protocol Indexed <NSO> @concrete @prop_RO id<NSFastEnumeration> backingStore; @prop_RO NSUI index, indexMax; @end
+
+@protocol ArrayLike <NSO,NSFastEnumeration> @concrete
+@property NSA<Indexed>*storage;
+
+@prop_RO NSUI count;
+
+- (void)     addObject:(id)x;
+- (void)  removeObject:(id)x;
+- (void)    addObjects:(NSA*)x;
+- (void) removeObjects:(NSA*)x;
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)s objects:(id __unsafe_unretained [])b count:(NSUInteger)len;
 
 @end
 
-//@interface NSIMG (SizeLike) <SizeLike> @end
-@interface   NSV (RectLike) <RectLike> @end
-@interface   NSW (RectLike) <RectLike> @end
-@interface   CAL (RectLike) <RectLike> @end
+@protocol Drawable   <RectLike>
+@property (CP) id <NSCopying> /*ObjRectBlock*/ drawObjectBlock;
+@concrete
+@property (RONLY)   CGF   span, expansionDelta;
+@property           CGF   spanExpanded, spanCollapsed;
+- (void) setSpanCollapsed:(CGF)c expanded:(CGF)x;
+@end
+
+typedef void(^GridIterator)(NSI r1, NSI r2);  
+typedef void(^GridIteratorStep)(NSI r1Loc);
+
+void IterateGridWithBlockStep(RNG *r1, RNG *yRange, GridIterator block, GridIteratorStep step);
+void     IterateGridWithBlock(RNG * r1, RNG *r2, GridIterator block);
+
+@protocol     GridLike <NSO> @concrete
+@property         NSUI  rows, cols;  
+- (void) iterateGrid:(GridIterator)b;    
+@end
+
+
+
+#define SizeableObject SizeLike 
+#define BoundingObject RectLike
 
 //  frameMiddleRightPoint,//frameTopMiddlePoint,
 //frameBottomRightPoint,//  frameTopRightPoint,
@@ -138,31 +168,7 @@
 //@end
 //@property         CGF   frameMidX,  frameMaxX, 
 //                        frameMinY,  frameMidY,  frameMaxY; // frameCenter,  boundsCenter;   //                   frameoriginX,        originY;                 // frameOrigin accessors
-
-
-@protocol Drawable   <RectLike> //SizeLike>
-@property (CP) ObjRectBlock drawObjectBlock;
-@concrete
-@property (RONLY)   CGF   span, expansionDelta;
-@property           CGF   spanExpanded, spanCollapsed;
-- (void) setSpanCollapsed:(CGF)c expanded:(CGF)x;
-@end
-
-typedef void(^GridIterator)(NSI r1, NSI r2);  
-typedef void(^GridIteratorStep)(NSI r1Loc);
-
-void IterateGridWithBlockStep(RNG *r1, RNG *yRange, GridIterator block, GridIteratorStep step);
-void     IterateGridWithBlock(RNG * r1, RNG *r2, GridIterator block);
-
-@protocol     GridLike <NSO> @concrete
-@property         NSUI  rows, cols;  
-- (void) iterateGrid:(GridIterator)b;    
-@end
-
-
-
-#define SizeableObject SizeLike 
-#define BoundingObject RectLike
+//SizeLike>
 
 //@interface NSO (ExtendWithProtocol) @end
 
@@ -220,6 +226,11 @@ centerX, bottom, top, centerY, originY, originX, frameX, frameY, frameSize, boun
 typedef void(^MutationBlock)(id _self, id x, NSUI idx);
 @optional @property (CP) MutationBlock onInsert; @property (CP) void(^onRemove)(id _self, id x, NSUI idx);
 
-                
++ (INST) withRect:(NSR)r inRect:(NSR)sf aligned:(AZA)a;
+//#import "AZBlockView.h"         //#import "AtoZTypes.h"
+
+
+
 */
                 
+

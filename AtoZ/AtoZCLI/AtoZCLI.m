@@ -197,7 +197,7 @@ int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	
 	[[AZTalker sharedInstance]say:@"huge vgaenn"];
 
 
-	CGPoint a = AZAnchorPtAligned( AZPositionLeft);
+	CGPoint a = AZAnchorPtAligned( AZLft);
 
 	NSLog(@"%@", NSStringFromPoint(a));
 

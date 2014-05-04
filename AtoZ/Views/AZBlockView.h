@@ -2,8 +2,8 @@
 #import "AtoZMacroDefines.h"
 
 @class BLKVIEW;
-typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSR r);
-typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CAL *l);
+typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSRect r);
+typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
 
 typedef void(^RectBlock) (NSR rect);
 typedef void(^ObjRectBlock) (id _self, NSR rect);
@@ -37,16 +37,17 @@ typedef void(^ObjRectBlock) (id _self, NSR rect);
 + (INST) drawInView:(NSV*)v                            block:(RectBlock)blk;
 + (INST) viewWithFrame:(NSR)f                      drawBlock:(BLKVIEWRBLK)blk;
 + (INST) inView:(NSV*)v withFrame:(NSR)f           inContext:(BlkViewLayerBlock)blk;
-//+ (INST) inView:(NSV*)v                            withBlock:(BlkViewLayerDelegate)ctxBlk;
 + (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BLKVIEWRBLK)dBlk;
 
-@property                      BOOL   opaque;
+@property BOOL   opaque;
 @end
 
-@interface AZBlockWindow : NSWindow
-+ (AZBlockWindow *)windowWithFrame:(NSRect)frame drawnUsingBlock:(ObjRectBlock)dBlock;
-@property (CP) ObjRectBlock drawBlock;
-@end
+//+ (INST) inView:(NSV*)v                            withBlock:(BlkViewLayerDelegate)ctxBlk;
+
+//@interface AZBlockWindow : NSWindow
+//+ (AZBlockWindow *)windowWithFrame:(NSRect)frame drawnUsingBlock:(ObjRectBlock)dBlock;
+//@property (CP) ObjRectBlock drawBlock;
+//@end
 
 /*! @note **** IN NSIMAGE + AZOTZ  ***
 typedef void(^NSImageDrawer)(void);

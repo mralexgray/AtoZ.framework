@@ -196,7 +196,7 @@
 			<string>[CAConstraint constraintWithAttribute:att relativeTo:AZSuperLayerSuper attribute:att scale:scl offset:off]</string>
 			<key>AZConstScaleOff(attrb,rel,scl,off)</key>
 			<string>[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off]</string>
-			<key>AZConstraint(attrb,rel)</key>
+			<key>AZConst(attrb,rel) - 2</key>
 			<string>[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]</string>
 			<key>RESTORE_GRAPHICS_CONTEXT</key>
 			<string>} @finally { [NSGraphicsContext restoreGraphicsState]; } </string>

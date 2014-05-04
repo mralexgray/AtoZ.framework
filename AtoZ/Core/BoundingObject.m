@@ -1,43 +1,43 @@
 
-#import "AtoZ.h"
-#import "AtoZGeometry.h"
+#import <AtoZ/AtoZ.h>
+#import <AtoZ/AtoZGeometry.h>
 #import "BoundingObject.h"
 
 #define SHOULDBERECTLIKEALREADY if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 #define SHOULDBESIZEABLE if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 
 //@property NSR   bounds, frame; @property  CGP   position, anchorPoint;  NSSZ   supersize;
-//- (NSR) bounds {[NSA arrayWithObjects:(id), ..., nil] COMPLAIN; }  /*! @note should be OK! */ 
-
+//- (NSR) bounds {[NSA arrayWithObjects:(id), ..., nil] COMPLAIN; }  /*! @note should be OK! */
 //void d(){ NSV* c  = NSV.new; v.bounds; }
 
 //@concreteprotocol(PointLike) /*! required */ -  (NSP) origin { COMPLAIN; }  /*! @note should be OK! */
 
 //@concreteprotocol(SizeLike) /*! required */ 
 
-@implementation NSW   (RectLike) @dynamic supersize, /*! @todo */ anchorPoint;
+@implementation NSW   (RectLike) @dynamic /*! @todo */ anchorPoint;
 
 -  (NSR)      bounds            { return AZRectFromSizeOfRect(self.frame); }
 -  (NSP)    position            { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
 - (void) setPosition:(NSP)p     { /*! @todo */ NSAssertFail(@"neeed to fix");  }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));
 - (void)   setBounds:(NSRect)b  { self.size = AZSizeFromRect(b); }
-- (void)    setFrame:(NSR)f     { [self.animator setFrame:f display:self.isVisible animate:YES]; }
+- (void)    setFrame:(NSR)f     { [self setFrame:f display:YES]; } //self.isVisible animate:NO]; }
 
 @end
 
-@implementation CALayer   (RectLike) @dynamic alignment, supersize;
+@implementation CALayer   (RectLike) @dynamic alignment;
 
 -  (NSP)     origin {return self.frame.origin; }
 - (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
 
 @end
 
-@implementation NSV   (RectLike) @dynamic alignment, supersize, position,anchorPoint;
+@implementation NSV   (RectLike) @dynamic alignment, position,anchorPoint;
 
 -  (NSP)    origin        {return self.frame.origin; }
 - (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
 -  (NSR) superframe       { return self.superview.bounds; }
 @end
+
 @implementation NSIMG (SizeLike)
 - (void) setBounds:(NSR)b { self.size = AZSizeFromRect(b); }
 -  (NSR)    bounds        { return AZRectFromSize(self.size); }
@@ -45,31 +45,42 @@
 
 @concreteprotocol(RectLike) /*! required */ 
 
--(id) valueForUndefinedKey:(NSS*)key{  printf("requested %s's undefined key:%s", self.cDesc,key.UTF8String); return nil; }
+- (void) setSuperframe:(NSR)r { SAVE(@selector(superframe), AZVrect(r)); }
+- (NSR) superframe { id x = FETCH;  return x ? [x rV] : self.frame; }
 
+-(id) valueForUndefinedKey:(NSS*)key{
+
+  printf("requested %s's undefined key:%s", self.cDesc,key.UTF8String); return nil;
+}
+
+- (AZA) insideEdge { return AZOutsideEdgeOfRectInRect(self.frame, self.superframe); }
+- (NSS*) insideEdgeHex { return AZEnumToBinary(self.insideEdge); }
+
+SetKPfVA(InsideEdge, @"x", @"y",@"w", @"h",@"frame");
 
 SetKPfVA(Origin, @"x", @"y") SetKPfVA(X,@"origin") SetKPfVA(Y,@"origin")
 SetKPfVA(Size, @"bounds", @"width", @"height") SetKPfVA(Width, @"size") SetKPfVA(Height, @"size")
 
--  (CGF)         x          { return self.position.x; }
--  (CGF)         y          { return self.position.y; }
+-  (CGR)         r          { return self.frame; }
+-  (CGF)         x          { return self.frame.origin.x; }
+-  (CGF)         y          { return self.frame.origin.y; }
 -  (CGF)         w          { GETALIAS(width);        }  // ALIASES
 -  (CGF)         h          { GETALIAS(height);       }
-- (NSSZ)      size          {	return self.bounds.size;          }  
--  (CGF)     width          { return self.bounds.size.width;    }
--  (CGF)    height          { return self.bounds.size.height;   }
-- (void)      setX:(CGF)x   { self.position = (NSP){x, self.y}; }
-- (void)      setY:(CGF)y   { self.position = (NSP){self.x, y}; }
+- (NSSZ)      size          {	return self.frame.size;          }
+-  (CGF)     width          { return self.frame.size.width;    }
+-  (CGF)    height          { return self.frame.size.height;   }
+- (void)      setX:(CGF)x   { self.frame = AZRectExceptOriginX(self.frame, x); }// (NSP){x, self.y}; }
+- (void)      setY:(CGF)y   { self.frame = AZRectExceptOriginX(self.frame, y); } // self.position = (NSP){self.x, y}; }
 - (void)      setW:(CGF)w   { SETALIAS(width, @(w));  }
 - (void)      setH:(CGF)h   { SETALIAS(height,@(h));  }
-- (void)   setSize:(NSSZ)sz { self.bounds = AZRectExceptSize(self.bounds, sz);  }
-- (void)  setWidth:(CGF)w   { self.bounds = AZRectExceptWide(self.bounds, w);   }
-- (void) setHeight:(CGF)h   { self.bounds = AZRectExceptHigh(self.bounds, h);   }
+- (void)   setSize:(NSSZ)sz { self.frame = AZRectExceptSize(self.frame, sz);  }
+- (void)  setWidth:(CGF)w   { self.frame = AZRectExceptWide(self.frame, w);   }
+- (void) setHeight:(CGF)h   { self.frame = AZRectExceptHigh(self.frame, h);   }
 
--  (CGF)      midX        { return self.x + self.midX;    }
--  (CGF)      maxX        { return self.x + self.width;   }
--  (CGF)      midY        { return self.y + self.midX;    }
--  (CGF)      maxY        { return self.y + self.height;  }
+-  (CGF)      midX        { return self.x + (self.h/2.);    }
+-  (CGF)      maxX        { return self.x + self.w;   }
+-  (CGF)      midY        { return self.y + (self.h/2.);    }
+-  (CGF)      maxY        { return self.y + self.h;  }
 - (void)   setMidX:(CGF)x { self.center = (NSP){x, self.midY};  }
 - (void)   setMidY:(CGF)y { self.center = (NSP){self.midX, y};  }
 - (void)   setMaxX:(CGF)w { self.x      = w - self.width;       }
@@ -99,7 +110,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( supersize, setSupersize, NSSZ, ^{ if (!AZIsZ
 //-  (CGR) frame            { return (NSR){self.origin,self.size}; }
 //- (void) setFrame:(CGR)f  { self.bounds = AZRectFromSizeOfRect(f); self.origin = f.origin;  }  //(NSR){self.origin,self.size}; }
 
-+ (INST) withRect:(NSR)r            {  id<RectLike>x = self.class.new; x.frame = r; return (id)x; }
++ (INST) withRect:(NSR)r            {  id x = self.class.new; [x setFrame:r]; return x; }
 + (INST)        x:(CGF)x y:(CGF)y 
                 w:(CGF)w h:(CGF)h   { return [self withRect:(NSR){x,y,w,h}]; }
 + (INST) rectLike:(NSN*)d1, ... {
@@ -107,20 +118,21 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( supersize, setSupersize, NSSZ, ^{ if (!AZIsZ
 
   AZVA_ARRAY(d1,sizes);
 
-  NSSZ superRect = NSZeroSize;
-  if (!SameChar([sizes.lastObject objCType], @encode(NSSZ))) {
+//  NSSZ superRect = NSZeroSize;
+//  if (!SameChar([sizes.lastObject objCType], @encode(NSSZ))) {
 
-        superRect = [sizes.lastObject sizeValue]; [sizes removeLastObject];
-  }
-  id <RectLike>new = [self.class withRect:[NSN rectBy:sizes]];
-  if (!AZIsZeroSize(superRect)) new.supersize = superRect;  return (id)new;
+//        superRect = [sizes.lastObject sizeValue]; [sizes removeLastObject];
+//  }
+//  id new =
+  return [self.class withRect:[NSN rectBy:sizes]];
+//  if (!AZIsZeroSize(superRect)) [new setSize:superRect forKey:@"supersize"];  return (id)new;
 }
--  (CGF)           area    { return self.bounds.size.width * self.bounds.size.height; }
--  (CGF)      perimeter    { return (NSMaxX(self.bounds) + NSMaxY(self.bounds)) * 2.; }
--  (NSP)         center           { return AZAddPoints(self.frame.origin,(NSP){self.w/2,self.h/2});     } //AZCenterOfSize(self.bounds.size); 
-- (void)      setCenter:(NSP)c { self.frame = AZCenterRectOnPoint(self.bounds, c);  }
-- (NSSZ)  scaleWithSize:(NSSZ)z { self.width *= z.width; self.height *= z.height; return self.size; }
-- (NSSZ) resizeWithSize:(NSSZ)z { self.width += z.width; self.height += z.height; return self.size; }
+-  (CGF)           area    { return self.w * self.h; }
+-  (CGF)      perimeter    { return (self.h + self.w) * 2; }
+-  (NSP)         center           { return (NSP){self.midX,self.midY};     } //AZCenterOfSize(self.bounds.size);
+- (void)      setCenter:(NSP)c { self.frame = AZCenterRectOnPoint(self.frame, c);  }
+- (NSSZ)  scaleWithSize:(NSSZ)z { self.w *= z.width; self.h *= z.height; return self.size; }
+- (NSSZ) resizeWithSize:(NSSZ)z { self.w += z.width; self.h += z.height; return self.size; }
 
 @end
 

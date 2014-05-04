@@ -87,7 +87,7 @@ AZConstRelSuper( kCAConstraintWidth),
 AZConstRelSuper( kCAConstraintMinY ),
 AZConstRelSuperScaleOff(kCAConstraintHeight, .2, 0),
 
-#define AZConstraint(attr, rel) \
+#define AZConst(attr, rel) \
 [CAConstraint constraintWithAttribute: attr relativeTo: rel attribute: attr]
 @property (nonatomic, assign) <\#type\#> <\#name\#>;
  AZConst(<\#CAConstraintAttribute\#>, <#\NSString\#>);

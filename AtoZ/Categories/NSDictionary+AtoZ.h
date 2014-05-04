@@ -104,7 +104,12 @@ typedef void(^KeyValueIndexAbortBlock)(id key, id value, NSUI idx, BOOL *stop);
 
 typedef id(^KeyValueToObjectBlock)(id k, id v);
 typedef void(^KeyValueIteratorBlock)(id key, id obj);
+
+
 @interface NSDictionary (AtoZ)
+
+@prop_RO M13OrderedDictionary * sortedByValue;
+
 
 + (NSD*) withFile:(NSS*)p;
 @property (RONLY) VAL* oldVal, *newVal;

@@ -58,29 +58,29 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		 																																	 inRect:NSZeroRect withDelegate:nil]; }
 - (NSRect) outFrame {		NSSize w = self.visibleFrame.size;
 
-	return _position == AZPositionLeft	? NSOffsetRect(_visibleFrame,  NEG(w.width), -w.height / 2 )
-		  : _position == AZPositionTop		? AZRectHorizontallyOffsetBy( AZRectTrimmedOnBottom( _visibleFrame, 	w.height),  																			 -w.width / 2 )
-		  :	_position == AZPositionRight  ? NSOffsetRect(_visibleFrame, w.width, w.height / 2 )  
+	return _position == AZLft	? NSOffsetRect(_visibleFrame,  NEG(w.width), -w.height / 2 )
+		  : _position == AZTop		? AZRectHorizontallyOffsetBy( AZRectTrimmedOnBottom( _visibleFrame, 	w.height),  																			 -w.width / 2 )
+		  :	_position == AZRgt  ? NSOffsetRect(_visibleFrame, w.width, w.height / 2 )  
 													: (NSR) {  w.width/2,  NEG(w.height),  w.width,  w.height  };
 }
 
 - (NSRect) triggerFrame {	   _visibleFrame = self.visibleFrame;
 															  if (!_triggerWidth) self.triggerWidth = 6;
 															return _triggerFrame =
-	self.position == AZPositionLeft  ? AZLeftEdge ( _visibleFrame, _triggerWidth)
-  :	 _position == AZPositionTop	? AZUpperEdge( _visibleFrame, _triggerWidth)
-  :	 _position == AZPositionRight ? AZRightEdge( _visibleFrame, _triggerWidth)
+	self.position == AZLft  ? AZLeftEdge ( _visibleFrame, _triggerWidth)
+  :	 _position == AZTop	? AZUpperEdge( _visibleFrame, _triggerWidth)
+  :	 _position == AZRgt ? AZRightEdge( _visibleFrame, _triggerWidth)
   :				  						  AZLowerEdge( _visibleFrame, _triggerWidth);
 }
 - (NSRect) visibleFrame { 		 return _visibleFrame =
 
-		_position == AZPositionLeft  ? AZRectTrimmedOnTop(		AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
-  :	_position == AZPositionTop   ? AZRectTrimmedOnRight(  AZUpperEdge ( _workingFrame, _intrusion), _intrusion)
+		_position == AZLft  ? AZRectTrimmedOnTop(		AZLeftEdge  ( _workingFrame, _intrusion), _intrusion)
+  :	_position == AZTop   ? AZRectTrimmedOnRight(  AZUpperEdge ( _workingFrame, _intrusion), _intrusion)
 	//	AZRectTrimmedOnRight( AZMakeRectMaxXUnderMenuBarY (self.intrusion), self.intrusion)
-  :	_position == AZPositionRight ?	 AZRectTrimmedOnBottom( AZRightEdge ( _workingFrame, _intrusion), _intrusion)
+  :	_position == AZRgt ?	 AZRectTrimmedOnBottom( AZRightEdge ( _workingFrame, _intrusion), _intrusion)
   : 											 (NSR) {_intrusion, 0, _workingFrame.size.width - _intrusion, _intrusion};
 }
-- (AZOrient)orientation { return _position == AZPositionBottom || _position == AZPositionTop ? AZOrientHorizontal : AZOrientVertical; }
+- (AZOrient)orientation { return _position == AZBtm || _position == AZTop ? AZOrientHorizontal : AZOrientVertical; }
 
 - (NSUInteger) capacity { return floor ( AZMaxEdge(self.visibleFrame) / _intrusion ); }
 //  NSLog(@"window:%@ setCapacity:%ld", self.identifier, _capacity);
@@ -94,7 +94,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 //	self.showsHandle				= NO;
 //	self.intrusion 					= 100;
 //  self.slideState					= AZOut;
-//  self.position 					= AZPositionTop;
+//  self.position 					= AZTop;
 
 //  positioned:NSWindowBelow relativeTo:self.contentView];
 //	_view.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -133,7 +133,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		NSImage* i = [NSImage az_imageNamed:@"bullseye.png"];
 		self.handle = [[NSImageView alloc]initWithFrame:AZMakeRectFromSize(i.size)];
 		_handle.image 	=  i;
-//		_handle.center 	=  [[self contentView] center]((_position == AZPositionTop) || (_position == AZPositionBottom) ? NSMidX(_visibleFrame)?
+//		_handle.center 	=  [[self contentView] center]((_position == AZTop) || (_position == AZBtm) ? NSMidX(_visibleFrame)?
 		_handle.alphaValue = 0;
 	}
 	return _handle;
@@ -179,17 +179,17 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 {
 	_position = position;
 	switch (position) {
-		case AZPositionBottom:
+		case AZBtm:
 //			_view.backgroundColor = WHITE;
 //			_view.checkerboard = NO;
 //			_view.glossy = YES;
 			break;
-		case AZPositionRight:
+		case AZRgt:
 //			_view.backgroundColor = BLACK;
 //			_view.glossy = YES;
 //			_view.checkerboard = NO;
 			break;
-		case AZPositionLeft:
+		case AZLft:
 //			_view.backgroundColor = GREY;
 //			_view.glossy = YES;
 //			_view.checkerboard = NO;
@@ -474,21 +474,21 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 }
 - (AZTriPair) getPair {			CGFloat i = _windy.intrusion;
 
-	if ( _windy.position == AZPositionTop ) {
+	if ( _windy.position == AZTop ) {
 		_t.uno.a = (CGPoint) { 0, NSMaxY(_bounds) };
 		_t.uno.b = (CGPoint) { 0, 0 };
 		_t.uno.c = (CGPoint) { i, 0 };
 		_t.duo.a = (CGPoint) { NSMaxX(_bounds) - i, 0 };
 		_t.duo.b = (CGPoint) { NSMaxX(_bounds), 0 };
 		_t.duo.c = (CGPoint) { NSMaxX(_bounds) - i, NSMaxY(_bounds) };
-	} else if  ( _windy.position == AZPositionRight ) {
+	} else if  ( _windy.position == AZRgt ) {
 		_t.uno.a = (CGPoint) { NSMaxX(_bounds), 	NSMaxY(_bounds) };
 		_t.uno.b = (CGPoint) { NSMaxX(_bounds) - i, 	NSMaxY(_bounds)-i };
 		_t.uno.c = (CGPoint) { NSMaxX(_bounds), 	NSMaxY(_bounds) - i };
 		_t.duo.a = (CGPoint) { i, 0 };
 		_t.duo.b = (CGPoint) { i, i };
 		_t.duo.c = (CGPoint) { 0, 0 };
-	} else if ( _windy.position == AZPositionBottom ) {
+	} else if ( _windy.position == AZBtm ) {
 		_t.uno.a = (CGPoint) { NSMaxX(_bounds), 		0 };
 		_t.uno.b = (CGPoint) { NSMaxX(_bounds) - i, 	0 };
 		_t.uno.c = (CGPoint) { NSMaxX(_bounds) - i, 	i };

@@ -6,7 +6,6 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 #import "AtoZ.h"
 #import "AZRect.h"
-#import <Zangetsu/Zangetsu.h>
 
 
 @implementation AZEdge
@@ -17,19 +16,16 @@
 @end
 
 @implementation AZRect { NSR _rect; } // @synthesize rect =
-@synthesize r = _rect;
+@synthesize frame = _rect;
 // STOPGAP  BELOW
 - (NSR) bounds { return AZRectFromSizeOfRect(_rect); }
 - (void) setBounds:(NSR)bounds { _rect = AZRectExceptSize(_rect,bounds.size); }
 
-- (NSR) frame { return _rect; }
-- (void) setFrame:(NSR)frame { _rect = frame; }
+//- (NSR) frame { return _rect; }
+//- (void) setFrame:(NSR)frame { _rect = frame; }
 
 // STOPGAP  END
 
-+ (INST) withRect:(NSR)r { AZRect *re = self.class.new;	re->_rect = r;	return re; }
-
-+ (INST) x:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h { return [self withRect:NSMakeRect(x, y,w,h)]; }
 
 
 // @synthesize bounds, origin; position, orient, anchor;
