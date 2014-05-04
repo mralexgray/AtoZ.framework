@@ -1,7 +1,13 @@
+//#import "AtoZCategories.h"
+//#import "Bootstrap.h"
 
+#import "AtoZ.h"
+#import "AZWebSocketServer.h"
 #import "WebSocketView.h"
-#import "AtoZCategories.h"
-#import "Bootstrap.h"
+
+
+@class KSHTMLWriter;
+@interface WebSocketView () @property AZWebSocketServer *wsServer; @property KSHTMLWriter *writer; @end
 
 @implementation WebSocketView
 
@@ -25,6 +31,16 @@
 
 	return self;
 }
+
++ (instancetype) onPort:(NSUI)p baseHTML:(NSS*)html {
+
+	WebSocketView *v = self.new;  [v.writer writeElement:@"body" content:^{	[v.writer writeHTMLString:html]; }];
+
+//	[v.wsServer get:@"/" withBlock:^(RouteRequest *req, RouteResponse *resp) { [resp respondWithString:v.writer.markup]; }];
+	return v;
+}
+
+@end
 
 
 //- (void) evaluateScriptAt:(NSS*)urlString {
@@ -53,16 +69,3 @@
 //- (void) evaluate:(NSS*)jsString { [self.windowScriptObject evaluateWebScript:jsString]; }
 
 
-+ (instancetype) onPort:(NSUI)p baseHTML:(NSS*)html {
-
-	WebSocketView *v = [self new];
-	[v.writer writeElement:@"body" content:^{
-		[v.writer writeHTMLString:html];
-	}];
-	[v.wsServer get:@"/" withBlock:^(RouteRequest *request, RouteResponse *response) {
-		[response respondWithString:v.writer.markup];
-	}];
-	return v;
-}
-
-@end

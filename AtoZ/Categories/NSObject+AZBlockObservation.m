@@ -24,15 +24,15 @@ AZPROPERTY( dispatch_once_t, 	ASS, 	cancelPred );
 	[_observee addObserver:self forKeyPath:_keyPath options:0 context:(__bridge void*)AZObserverTrampolineContext],
 	self : nil;
 }
-- (void)observeValueForKeyPath:(NSS*)kp ofObject:(id)o change:(NSD*)c context:(void*)x {
+- (void) observeValueForKeyPath:(NSS*)kp ofObject:(id)o change:(NSD*)c context:(void*)x {
 
 	c = [c ?: @{} dictionaryByAddingEntriesFromDictionary:@{@"keyPath":_keyPath.copy}];
 	if (x == (__bridge const void*)AZObserverTrampolineContext)
 		_queue ? [_queue addOperationWithBlock:^{ _task(o,c); }]
 				 : [AZSOQ  addOperationWithBlock:^{ _task(o,c); }];
 }
-- (void)cancelObservation 	{ dispatch_once(&_cancelPred, ^{	[_observee removeObserver:self forKeyPath:_keyPath]; }); }
-- (void)dealloc 				{	[self cancelObservation]; [_task release]; [_keyPath release]; [_queue release]; 		}
+- (void) cancelObservation 	{ dispatch_once(&_cancelPred, ^{	[_observee removeObserver:self forKeyPath:_keyPath]; }); }
+- (void) dealloc 				{	[self cancelObservation]; [_task release]; [_keyPath release]; [_queue release]; 		}
 
 @end
 

@@ -1,4 +1,27 @@
 
+#import "AtoZUmbrella.h"
+
+typedef BOOL(^IsDocumentEdited)(id _self); 
+
+@protocol AZDoc 
+@concrete
+- (BOOL) isDocumentEdited;
+- (void) setIsDocumentEdited:(IsDocumentEdited)x;
+@end
+
+#define OUTERROR  if ( outErr != NULL ) *outErr = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL]
+#define DATAOFTYPE(...) - (DTA*) dataOfType:(NSS*)t error:(NSERR**) outErr{ OUTERROR;  __VA_ARGS__  }
+#define READFROMDATA(...) - (BOOL) readFromData:(DTA*)d ofType:(NSS*)type error:(NSERR**)outErr { OUTERROR; __VA_ARGS__  }
+
+@protocol AutoCopying <NSCopying>
+@end
+
+@protocol AutoCoding <NSCoding>
+@end
+
+
+
+/*
 //  BaseModel.h
 
 //  Version 2.3.1 ALEX
@@ -50,16 +73,16 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //then setWithDictionary/Array/String if resource file exists
 //then setWithCoder if save file exists
 
-- (void)setUp;
-//- (void)setWithDictionary:(NSDictionary *)dict;
-- (void)setWithArray:(NSArray *)array;
-- (void)setWithString:(NSString *)string;
-- (void)setWithNumber:(NSNumber *)number;
-- (void)setWithData:(NSData *)data;
-- (void)setWithCoder:(NSCoder *)coder;
+- (void) setUp;
+//- (void) setWithDictionary:(NSDictionary *)dict;
+- (void) setWithArray:(NSArray *)array;
+- (void) setWithString:(NSString *)string;
+- (void) setWithNumber:(NSNumber *)number;
+- (void) setWithData:(NSData *)data;
+- (void) setWithCoder:(NSCoder *)coder;
 
 //NSCoding
-- (void)encodeWithCoder:(NSCoder *)coder;
+- (void) encodeWithCoder:(NSCoder *)coder;
 
 @end
 
@@ -93,7 +116,7 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //loading and saving the model from a plist file
 + (instancetype)instanceWithContentsOfFile:(NSString *)path;
 - (instancetype)initWithContentsOfFile:(NSString *)path;
-- (void)writeToFile:(NSString *)path atomically:(BOOL)atomically;
+- (void) riteToFile:(NSString *)path atomically:(BOOL)atomically;
 - (BOOL)useHRCoderIfAvailable;
 
 //resourceFile is a file, typically within the resource bundle that
@@ -106,7 +129,7 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 + (NSString *)saveFile;
 
 //save the model
-- (void)save;
+- (void) ave;
 
 //generate unique identifier
 //useful for creating universally unique
@@ -121,12 +144,12 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //to your preprocessor macros in the project build settings
 @property (nonatomic, strong) NSString *uniqueID;
 
-- (void)enumerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
+- (void) numerateObjectsUsingBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
 
 - (id) objectAtIndexedSubscript: (NSInteger) index;
 - (void) setObject: (id) thing;
 - (id)objectForKeyedSubscript:(NSString *)key;
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key;
+- (void) setObject:(id)object forKeyedSubscript:(NSString *)key;
 
 //#endif
 
@@ -150,3 +173,4 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 + (BOOL)delete:(NSString *)key;
 + (BOOL)deleteEverything;
 @end
+*/

@@ -13,8 +13,8 @@
 //
 //@protocol TUINavigationControllerDelegate  <NSObject>
 //
-//- (void)navigationController:(TUINavigationController *)navigationController willShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
-//- (void)navigationController:(TUINavigationController *)navigationController didShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+//- (void) avigationController:(TUINavigationController *)navigationController willShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+//- (void) avigationController:(TUINavigationController *)navigationController didShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
 //
 //@end
 //
@@ -31,11 +31,11 @@
 //
 //- (id)initWithRootViewController:(TUIViewController *)viewController;
 //
-//- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
-//- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+//- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
+//- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 //
-//- (void)pushViewController:(TUIViewController *)viewController animated:(BOOL)animated;
-//- (void)pushViewController:(TUIViewController *)viewController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+//- (void) ushViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+//- (void) ushViewController:(TUIViewController *)viewController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 //
 //- (TUIViewController *)popViewControllerAnimated:(BOOL)animated;
 //- (TUIViewController *)popViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;

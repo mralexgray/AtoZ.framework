@@ -1,136 +1,221 @@
 
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
+#import "AtoZGeometry.h"
 #import "BoundingObject.h"
 
-#define ASSERTSAME(A,B) NSAssert(A == B, @"These values should be same, but they are %@ and %@", @(A), @(B))
-#define CONFORMS(PROTO)   [self conformsToProtocol:@protocol(PROTO)]
-#define IF_CONFORMS(PROTO,X)   if (CONFORMS(PROTO)){ ({ X; }) }
+#define SHOULDBERECTLIKEALREADY if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
+#define SHOULDBESIZEABLE if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 
-//@interface NSO (DrawableObject)
-//@property         CGF spanExpanded, spanCollapsed;
-//@property (CP) DrawObjectBlock drawBlock;
-//@end
+//@property NSR   bounds, frame; @property  CGP   position, anchorPoint;  NSSZ   supersize;
+//- (NSR) bounds {[NSA arrayWithObjects:(id), ..., nil] COMPLAIN; }  /*! @note should be OK! */ 
 
-@implementation NSO (DrawableObject)                      @end
+//void d(){ NSV* c  = NSV.new; v.bounds; }
 
-@concreteprotocol(DrawableObject)
+//@concreteprotocol(PointLike) /*! required */ -  (NSP) origin { COMPLAIN; }  /*! @note should be OK! */
 
-SYNTHESIZE_ASC_CAST         ( drawObjectBlock, setDrawObjectBlock, DrawObjectBlock);
-SYNTHESIZE_ASC_PRIMITIVE_KVO(    spanExpanded,    setSpanExpanded, CGF);
-SYNTHESIZE_ASC_PRIMITIVE_KVO(   spanCollapsed,   setSpanCollapsed, CGF);
+//@concreteprotocol(SizeLike) /*! required */ 
 
-- (CGF) expansionDelta {  CGF delta = self.spanExpanded - self.spanCollapsed; return self.expanded ? delta : -delta; }
-- (CGF) span { return self.expanded ? self.spanExpanded : self.spanCollapsed; }
+@implementation NSW   (RectLike) @dynamic supersize, /*! @todo */ anchorPoint;
 
-SetKPfVA( Span, @"spanCollapsed", @"spanExpanded", @"expanded")
-
-- (void) setSpanCollapsed:(CGF)c expanded:(CGF)x { self.spanCollapsed = c; self.spanExpanded = x; }
+-  (NSR)      bounds            { return AZRectFromSizeOfRect(self.frame); }
+-  (NSP)    position            { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
+- (void) setPosition:(NSP)p     { /*! @todo */ NSAssertFail(@"neeed to fix");  }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));
+- (void)   setBounds:(NSRect)b  { self.size = AZSizeFromRect(b); }
+- (void)    setFrame:(NSR)f     { [self.animator setFrame:f display:self.isVisible animate:YES]; }
 
 @end
 
-void IterateGridWithBlock(NSUI rows, NSUI cols, GridIterator block) {
+@implementation CALayer   (RectLike) @dynamic alignment, supersize;
 
-	for (int r = 0; r < rows; r++) for (int c = 0; c < cols; c++) block(r,c);
+-  (NSP)     origin {return self.frame.origin; }
+- (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
+
+@end
+
+@implementation NSV   (RectLike) @dynamic alignment, supersize, position,anchorPoint;
+
+-  (NSP)    origin        {return self.frame.origin; }
+- (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
+-  (NSR) superframe       { return self.superview.bounds; }
+@end
+@implementation NSIMG (SizeLike)
+- (void) setBounds:(NSR)b { self.size = AZSizeFromRect(b); }
+-  (NSR)    bounds        { return AZRectFromSize(self.size); }
+@end
+
+@concreteprotocol(RectLike) /*! required */ 
+
+-(id) valueForUndefinedKey:(NSS*)key{  printf("requested %s's undefined key:%s", self.cDesc,key.UTF8String); return nil; }
+
+
+SetKPfVA(Origin, @"x", @"y") SetKPfVA(X,@"origin") SetKPfVA(Y,@"origin")
+SetKPfVA(Size, @"bounds", @"width", @"height") SetKPfVA(Width, @"size") SetKPfVA(Height, @"size")
+
+-  (CGF)         x          { return self.position.x; }
+-  (CGF)         y          { return self.position.y; }
+-  (CGF)         w          { GETALIAS(width);        }  // ALIASES
+-  (CGF)         h          { GETALIAS(height);       }
+- (NSSZ)      size          {	return self.bounds.size;          }  
+-  (CGF)     width          { return self.bounds.size.width;    }
+-  (CGF)    height          { return self.bounds.size.height;   }
+- (void)      setX:(CGF)x   { self.position = (NSP){x, self.y}; }
+- (void)      setY:(CGF)y   { self.position = (NSP){self.x, y}; }
+- (void)      setW:(CGF)w   { SETALIAS(width, @(w));  }
+- (void)      setH:(CGF)h   { SETALIAS(height,@(h));  }
+- (void)   setSize:(NSSZ)sz { self.bounds = AZRectExceptSize(self.bounds, sz);  }
+- (void)  setWidth:(CGF)w   { self.bounds = AZRectExceptWide(self.bounds, w);   }
+- (void) setHeight:(CGF)h   { self.bounds = AZRectExceptHigh(self.bounds, h);   }
+
+-  (CGF)      midX        { return self.x + self.midX;    }
+-  (CGF)      maxX        { return self.x + self.width;   }
+-  (CGF)      midY        { return self.y + self.midX;    }
+-  (CGF)      maxY        { return self.y + self.height;  }
+- (void)   setMidX:(CGF)x { self.center = (NSP){x, self.midY};  }
+- (void)   setMidY:(CGF)y { self.center = (NSP){self.midX, y};  }
+- (void)   setMaxX:(CGF)w { self.x      = w - self.width;       }
+- (void)   setMaxY:(CGF)h { self.y      = h - self.height;      }
+
+
+      SYNTHESIZE_ASC_PRIMITIVE_KVO(  position,  setPosition,  NSP)
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( alignment, setAlignment, NSAlignmentOptions, ^{}, ^{ })      
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( supersize, setSupersize, NSSZ, ^{ if (!AZIsZeroSize(value)) return; 
+
+  value = ISA(self,NSW) ?  ((NSW*)self).screen.frame.size : ISA(self,CAL) ? ((CAL*)self).superlayer.size : 
+          ISA(self,NSV) ?  ({ NSV* x = ((NSV*)self).superview; x ? x.size : value; }) : value;
+
+},^{})
+
+
+
+//  if (value != AZAlignUnset) return; if (ISA(self,CAL)) value = AZAlignmentInsideRect(((CAL*)self).frame, self.superframe);
+//objswitch(self.class)
+//
+//  objcase(CAL.class)
+//    CAL* _self = (id)self;
+//    _self.arMASK       = AZPositionToAutoresizingMask(value);
+//    _self.anchorPoint  = AZAnchorPtAligned(value);
+//    _self.position     = AZAnchorPointOfActualRect(_self.superlayer.bounds, value);
+//  endswitch
+//-  (CGR) frame            { return (NSR){self.origin,self.size}; }
+//- (void) setFrame:(CGR)f  { self.bounds = AZRectFromSizeOfRect(f); self.origin = f.origin;  }  //(NSR){self.origin,self.size}; }
+
++ (INST) withRect:(NSR)r            {  id<RectLike>x = self.class.new; x.frame = r; return (id)x; }
++ (INST)        x:(CGF)x y:(CGF)y 
+                w:(CGF)w h:(CGF)h   { return [self withRect:(NSR){x,y,w,h}]; }
++ (INST) rectLike:(NSN*)d1, ... {
+
+
+  AZVA_ARRAY(d1,sizes);
+
+  NSSZ superRect = NSZeroSize;
+  if (!SameChar([sizes.lastObject objCType], @encode(NSSZ))) {
+
+        superRect = [sizes.lastObject sizeValue]; [sizes removeLastObject];
+  }
+  id <RectLike>new = [self.class withRect:[NSN rectBy:sizes]];
+  if (!AZIsZeroSize(superRect)) new.supersize = superRect;  return (id)new;
 }
+-  (CGF)           area    { return self.bounds.size.width * self.bounds.size.height; }
+-  (CGF)      perimeter    { return (NSMaxX(self.bounds) + NSMaxY(self.bounds)) * 2.; }
+-  (NSP)         center           { return AZAddPoints(self.frame.origin,(NSP){self.w/2,self.h/2});     } //AZCenterOfSize(self.bounds.size); 
+- (void)      setCenter:(NSP)c { self.frame = AZCenterRectOnPoint(self.bounds, c);  }
+- (NSSZ)  scaleWithSize:(NSSZ)z { self.width *= z.width; self.height *= z.height; return self.size; }
+- (NSSZ) resizeWithSize:(NSSZ)z { self.width += z.width; self.height += z.height; return self.size; }
+
+@end
+
+
+//@pcategoryimplementation(SizeLike, Aliases)
+//
+//-  (CGF)           w  { GETALIAS(width);      }  // ALIASES
+//- (void) setW:(CGF)w  { SETALIAS(width, @(w));  }
+//-  (CGF)           h  { GETALIAS(height);     }
+//- (void) setH:(CGF)h  { SETALIAS(height,@(h));  }
+//@end
+
+
+//@property         NSP   origin,       // This is inherited, but can be affected by superframe, alignment.
+//                        apex;         // origin + size (same as size unless effected)
+                        
+//@property        NSSZ   size;         // This is inherited, but supplies a ddefault implementation.                                    
+//- (void) setMinX:(CGF)x  {	self.frame = AZRectExceptOriginX(self.frame,x); }
+//- (void) setMinY:(CGF)y  {	self.frame = AZRectExceptOriginY(self.frame,y); }
+//- (void) setBoundsCenter:(NSP)p { self.bounds = AZCenterRectOnPoint(self.bounds,p); }
+//- (void)  setFrameCenter:(NSP)p { self.frame  = AZCenterRectOnPoint(self.frame, p); }
+//- (void) moveBy:(NSP)distance { if (ISA(self,CAL)||ISA(self,NSV)) self.frame = AZRectOffset(self.frame,distance);   }
+
+//SetKPfVA( Frame,      @"center", @"size", @"position")
+//SetKPfVA( Center,     @"frame", @"origin")
+//SetKPfVA( Alignment,  @"position", @"frame", @"bounds", @"size", @"orientation")
+
+@implementation NSO (AZAZA) 
+      SYNTHESIZE_ASC_PRIMITIVE_KVO(     hovered,     setHovered, BOOL );
+      SYNTHESIZE_ASC_PRIMITIVE_KVO(    selected,    setSelected, BOOL );
+      SYNTHESIZE_ASC_PRIMITIVE_KVO(    expanded,    setExpanded, BOOL );
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( orientation, setOrientation,  NSUI,
+                                            ^{},            ^{});
+
+@end
+
+#define WARN_NONCONFORMANT(p) if (![self conformsToProtocol:@protocol(p)]) printf("Warning: %s doesn't \"technically\" conform to %s", [self cDesc], NSStringFromProtocol(@protocol(p)))
+
+@implementation NSObject (Drawable)
+
+SYNTHESIZE_ASC_CAST         ( drawObjectBlock, setDrawObjectBlock, ObjRectBlock);
+SYNTHESIZE_ASC_PRIMITIVE_KVO(    spanExpanded,    setSpanExpanded,             CGF);
+SYNTHESIZE_ASC_PRIMITIVE_KVO(   spanCollapsed,   setSpanCollapsed,             CGF);
+
+- (void) setSpanCollapsed:(CGF)c 
+                 expanded:(CGF)x  { self.spanCollapsed = c; self.spanExpanded = x; }
+-  (CGF) span                     { return self.expanded ? self.spanExpanded : self.spanCollapsed; }
+-  (CGF) expansionDelta           { CGF delta = self.spanExpanded - self.spanCollapsed; return self.expanded ? delta : -delta; }
+
+@end
+
+@concreteprotocol(Drawable) SetKPfVA( Span, @"spanCollapsed", @"spanExpanded", @"expanded") @end
+
+void IterateGridWithBlockStep(RNG *r1, RNG *r2, GridIterator block, GridIteratorStep step){
+
+  for (int range1 = r1.location; range1 < r1.max; range1++)  {
+    for (int range2 = r2.location; range2 < r2.max; range2++)  { block(range1,range2);
+  
+    } if (step) step(range1);
+  }
+}
+void IterateGridWithBlock(RNG *r1, RNG *r2, GridIterator block) { IterateGridWithBlockStep(r1, r2, block,nil); }
 
 @concreteprotocol(GridLike)
 
-SYNTHESIZE_ASC_PRIMITIVE_KVO(rows,    setRows,NSUI);
-SYNTHESIZE_ASC_PRIMITIVE_KVO(cols,    setCols,NSUI);
+SYNTHESIZE_ASC_PRIMITIVE_KVO( rows, setRows, NSUI);
+SYNTHESIZE_ASC_PRIMITIVE_KVO( cols, setCols, NSUI);
 
-- (void) iterateGrid:(GridIterator)b { IterateGridWithBlock(self.rows,self.cols,b); }
+- (void) iterateGrid:(GridIterator)b { IterateGridWithBlock($RNG(0,self.rows),$RNG(0,self.cols),b); }
 
 @end
-
-//const char __storageConst;
-//NSMA*__storage(id _self){  return ({ id x; if(!(x = objc_getAssociatedObject(_self,__storageConst))) objc_setAssociatedObject(_self, __storageConst, NSMA.new, OBJC_ASSOCIATION_RETAIN_NONATOMIC); x; }); }
-
-
-
-
-//void setBackingStore(id _self, id backer) { Protocol *p = @protocol(Indexed);
-//
-//  [
-//  objc_setAssociatedObject(_self,@selector(backingStore),backer,OBJC_ASSOCIATION_ASSIGN);
-//  [_self addProperty:@"index" getter:^id(id _self, NSString *key) {
-//    <#code#>
-//  } setter:<#^(id _self, NSString *key, id value)s#>]
-//  struct objc_method *myMethod;
-//  myMethod.method_name = sel_registerName("index");
-//  myMethod.method_imp  = _index;
-
-//  NSLog($(@"%@  BEFORE: %@ ", _self, StringFromBOOL([_self conformsToProtocol:p])));
-//  class_addProtocol([_self class],p);
-//  NSLog($(@"%@  AFTER: %@  FULL:%@ ", _self, StringFromBOOL([_self implementsProtocol:p]),StringFromBOOL([_self implementsFullProtocol:p])));
-
-//  self.backingStore ? [self.backingStore indexOfObject:self] : NSNotFound;
-//}
-
-//NSUI _index ( id _self, SEL _cmd) { id x = [_self backingStore]; return x ? [x indexOfObject:_self] : NSNotFound; }
-//NSUI _indexMax ( id _self, SEL _cmd){   NSUI max = NSNotFound; id x; return !(x = [_self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
-//SYNTHESIZE_ASC_PRIMITIVE_KVO(indexMax,setIndexMax,NSUI);
-//SYNTHESIZE_ASC_PRIMITIVE_KVO(index,setIndex,NSUI);
-//-   (id) backingStore { id x = self[@"__backingStore"]; return x ?: (self[@"__backingStore"] = NSMA.new); }
 
 @implementation NSObject (Indexed)  // @dynamic backingStore;
 
-- (id) backingStore { return FETCH; }
-- (NSUI) index    { NSAssert (self.backingStore && [self.backingStore count], @""); return [self.backingStore indexOfObject:self]; }
-- (NSUI) indexMax { NSAssert (self.backingStore && [self.backingStore count], @""); return [self.backingStore count] -1; }//NSUI max = NSNotFound; id x; return !(x = [self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
+-   (id) backingStore { return FETCH; }
+- (NSUI) index        { NSAssert (self.backingStore && [self.backingStore count], @""); return [self.backingStore indexOfObject:self]; }
+- (NSUI) indexMax     { NSAssert (self.backingStore && [self.backingStore count], @""); return [self.backingStore count] -1; }//NSUI max = NSNotFound; id x; return !(x = [self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
 
 @end
-@concreteprotocol(Indexed)
 
-// _index(self, _cmd); } // id x = [self backingStore]; return x ? [x indexOfObject:self] : NSNotFound; }
-
-//- (NSUI) indexMax { return ![self.backingStore count] ?: [[self backingStore] count] -1; }//NSUI max = NSNotFound; id x; return !(x = [self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
-+ (SET*) keyPathsForValuesAffectingIndexMax { return NSSET(@"index"); }
-+ (SET*) keyPathsForValuesAffectingIndex { return NSSET(@"backingStore"); }
-
-@end
-//@concreteprotocol(Indexed)
-//
-//@end
-//SYNTHESIZE_ASC_OBJ_LAZY(getter, class)(, setter)(storage, NSMA);
-//SYNTHESIZE_ASC_CAST(onInsert, setOnInsert,MutationBlock);
-
-//@property (RONLY) NSMA<Indexed>*storage;
+@concreteprotocol(Indexed)  SetKPfVA(IndexMax, @"index")  SetKPfVA(Index,@"backingStore") @end
 
 @concreteprotocol(ArrayLike)
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
-  return [((id<ArrayLike>)self).storage countByEnumeratingWithState:state objects:buffer count:len];
+- (NSUI) countByEnumeratingWithState:(NSFastEnumerationState*)s objects:(id __unsafe_unretained [])b count:(NSUInteger)l {
+  return [self.storage countByEnumeratingWithState:s objects:b count:l];
 }
 
-- (NSMA<Indexed>*) storage { return self[@"__storage"] ?: (self[@"__storage"] = NSMA.new); }
+- (NSMA<Indexed>*) storage { return objc_getAssociatedObject(self, _cmd) ?: ({ id x = NSMA.new; objc_setAssociatedObject(self, _cmd, x, OBJC_ASSOCIATION_RETAIN_NONATOMIC); x; }); }
 
 - (void) addObject:       (NSO*)x { __block id storage = self.storage;
 
   [[x backingStore] isEqualTo:storage] ?: [x triggerKVO:@"backingStore" block:^(id _self) { ASSIGN_WEAK(_self,backingStore,storage); }];
   [self insertObject:x inStorageAtIndex:[storage count]];
 
-  //  [[x backingStore] isNotEqualTo:self.storage]) { //    objc_setAssociatedObject(x,__backingStore,self.storage,OBJC_ASSOCIATION_ASSIGN);
-    //[x triggerKVO:@"backingStore" block:^(id _self) {  ASSIGN_WEAK(_self,backingStore,self.storage); }];
-
-//    objc_setAssociatedObject(x,@selector(backingStore),self.storage,OBJC_ASSOCIATION_ASSIGN);
-//    [x b:@"index" tO:self wKP:@"storage" t:^id(id value) { return @([value indexOfObject:x]); }];
-
-//    [x sV:self.storage fK:@"backingStore"];
-//    [self addObserverForKeyPath:@"storage" task:^(id<ArrayLike>sender) {
-//      [x sV:@([sender.storage indexOfObject:x]) fK:@"index"];
-//      NSUI idx = !sender.storage.count ? 0 : sender.storage.count - 1;
-//      [x sV:@(idx) fK:@"indexMax"];
-//    }];
-//  }
-
-//    [x b:@"index" tO:self.storage wKP:nil t:^id(id value) { return @([value containsObject:x] ?[value indexOfObject:x] : NSNotFound); }];
-//    [x addObserver:x forKeyPath:@"backingStore.@count" options:0 context:NULL];
-//  x[] = self.storage;
-//  objc_setAssociatedObject(x,@selector(backingStore),self.storage,OBJC_ASSOCIATION_ASSIGN);
-//  class_addProtocol([x class],@protocol(Indexed));
-//  class_addMethod([x class], @selector(backingStore), _index(id _self, SEL _cmd))
-//  setBackingStore(x,self.storage);
-//  return (id<Indexed>)x;
 }
 - (NSUI) count { return self.storage.count; }
 - (void) removeObject:    (id)x { [self removeObjectFromStorageAtIndex:[self.storage indexOfObject:x]]; }
@@ -145,79 +230,26 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(cols,    setCols,NSUI);
 - (void)  replaceObjectInStorageAtIndex:(NSUI)x
                              withObject:(id)obj { [(NSMA*)[self storage] replaceObjectAtIndex:x withObject:obj];                      }
 
+//int ssss() {  [@{@"ss" :@2} recursiveValueForKey:<#(NSString *)#>
 @end
 
-//@pcategoryimplementation(ArrayLike,FastEnumeration)
-//- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
-//  return [((id<ArrayLike>)self).storage countByEnumeratingWithState:state objects:buffer count:len];
-//}
-//@end
-//- (void) setWidth: (CGF)t 				{ NSR f = self.frame;	f.size.width  	= t; 	[self setFrame:f display:YES animate:YES] ;	}
-//- (void) setHeight:(CGF)t				{ NSR f = self.frame;	f.size.height 	= t; 	[self setFrame:f display:YES animate:YES] ; 	}
 
-@concreteprotocol(Resizable)
+//- (void)   setOriginX:(CGF)x  {	self.frameMinX = x; }
+//- (void)   setOriginY:(CGF)y  {	self.frameMinY = y; }
 
--  (NSR) bounds { return (NSR){0,0,self.size}; }
-
-- (NSSZ)    size          {	return self.bounds.size; } SetKPfVA(Size, @"bounds.size", @"bounds.origin", @"width", @"height")
-
-- (void) setSize:(NSSZ)sz { self.bounds = (NSR){self.position,sz}; }
--  (CGP)    sizeCenter    { return AZCenterOfSize(self.size); }
--  (CGF)    width         { return self.size.width; }
--  (CGF)    height        { return self.size.height; }
 //                            CONFORMS(BoundingObject) ? ISA(self,NSW) ? ((NSW*)self).frame.size.width  : ((id<BoundingObject>)self).bounds.size.width : self.size.width;   }
-- (void) setWidth:(CGF)w  { self.bounds = AZRectExceptWide(self.bounds, w); }
-- (void) setHeight:(CGF)h { self.bounds = AZRectExceptHigh(self.bounds, h); }
 //                              CONFORMS(BoundingObject) ? ISA(self,NSW) ? [((NSW*)self) setFrame:AZRectExceptWide(((NSW*)self).frame, w) display:YES animate:YES] : [(id<BoundingObject>)self setBoundsWidth:w]  : [self setSize:(NSSZ){w, self.height}]; }
 //-  (CGF)    height        { return CONFORMS(BoundingObject) ? ISA(self,NSW) ? ((NSW*)self).frame.size.height : ((id<BoundingObject>)self).bounds.size.height : self.size.height; }
 //b- (void) setHeight:(CGF)h { CONFORMS(BoundingObject) ? ISA(self,NSW) ? [((NSW*)self) setFrame:AZRectExceptHigh(((NSW*)self).frame, h) display:YES animate:YES] : [(id<BoundingObject>)self setBoundsHeight:h] : [self setSize:(NSSZ){self.width,  h}]; }
+//- (BOOL) isVertical  { return self.orientation == AZOrientVertical; }
+//- (void) setVertical:(BOOL)x { [self sV:@(AZOrientVertical) fK:@"orientation"]; }
 
-- (NSSZ)  scaleWithSize:(NSSZ)z { self.width *= z.width; self.height *= z.height; return self.size; }
-- (NSSZ) resizeWithSize:(NSSZ)z { self.width += z.width; self.height += z.height; return self.size; }
-
--  (CGF) perimeter                { return (self.height + self.width) * 2.; }
-
-@end
-
-
-@implementation NSO (AZAZA) 
-- (BOOL) isVertical  { return self.orientation == AZOrientVertical; }
-
-SYNTHESIZE_ASC_PRIMITIVE_KVO( selected,       setSelected, BOOL );
-SYNTHESIZE_ASC_PRIMITIVE_KVO(  hovered,        setHovered, BOOL );
-SYNTHESIZE_ASC_PRIMITIVE_KVO( expanded,       setExpanded, BOOL );
-
-SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( orientation, setOrientation,  AZO,^{}, ^{});
-
-SetKPfVA(Alignment, @"position", @"frame", @"bounds", @"size", @"orientation")
-
-SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(   alignment,    setAlignment, AZA,^{
-
-  if (value == AZAlignUnset && ISA(self,CAL)) value = AZAlignmentInsideRect(((CAL*)self).frame, ((CAL*)self).superlayer.bounds);
-}, ^{
-
-  objswitch(self.class)
-  objcase(CAL.class)
-    CAL* _self = (id)self;
-    _self.arMASK       = AZPositionToAutoresizingMask(value);
-    _self.anchorPoint  = AZAnchorPtAligned(value);
-    _self.position     = AZAnchorPointOfActualRect(_self.superlayer.bounds, value);
-  endswitch
-});
-
-@end
-
-#define COMPLAIN [NSException raise:@"We should never get here!" format:@"%@ should have implemented this:%@", [self className], AZSELSTR]
-
-@concreteprotocol(Pinnable)
-
-- (void) moveBy:(NSP)distance { if (ISA(self,CAL)||ISA(self,NSV)) self.frame = AZRectOffset(self.frame,distance);   }
--  (NSR) frame              { COMPLAIN; }
-- (void) setFrame:(NSR)r    { COMPLAIN; }
--  (NSR) bounds             { COMPLAIN; }
-- (void) setBounds:(NSR)r   { COMPLAIN; }
--  (NSP) position           { COMPLAIN; }
-- (void) setPosition:(NSP)p { COMPLAIN; }
+//-  (NSR) frame              { COMPLAIN; }
+//- (void) setFrame:(NSR)r    { COMPLAIN; }
+//-  (NSR) bounds             { COMPLAIN; }
+//- (void) setBounds:(NSR)r   { COMPLAIN; }
+//-  (NSP) position           { COMPLAIN; }
+//- (void) setPosition:(NSP)p { COMPLAIN; }
 
 //- (void) w:(CGF)x h:(CGF)y        { self.boundsWidth = x;  self.boundsHeight = y;     }
 
@@ -241,7 +273,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(   alignment,    setAlignment, AZA,^{
 
 //+ (NSSet*) keyPathsForValuesAffectingBoundsHeight { return NSSET(@"bounds"); }
 
-/* ORIGIN */
+/* ORIGIN 
 
 -  (CGP) boundsOrigin {	return self.bounds.origin;  }
 -  (CGP) frameOrigin  { return self.frame.origin;   }
@@ -251,59 +283,56 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(   alignment,    setAlignment, AZA,^{
 - (void)  setFrameOrigin:(CGP)o { self.frame  = AZRectExceptOrigin(self.frame, o); }
 - (void) setBoundsOrigin:(CGP)o {	self.bounds = AZRectExceptOrigin(self.bounds,o); }
 
-/* CENTER */
+/ * CENTER * /
 
 -  (CGP) boundsCenter { return AZCenterOfRect(self.bounds); }
 -  (CGP) frameCenter  { return AZCenterOfRect(self.frame);  }
 
 - (void) setBoundsCenter:(NSP)p { self.bounds = AZCenterRectOnPoint(self.bounds,p); }
 - (void)  setFrameCenter:(NSP)p { self.frame  = AZCenterRectOnPoint(self.frame, p); }
-
--  (CGF) frameMinX  {	return NSMinX(self.frame); }
--  (CGF) frameMidX  { return NSMidX(self.frame); }
--  (CGF) frameMaxX  { return NSMaxX(self.frame); }
--  (CGF) frameMinY  {	return NSMinY(self.frame); }
--  (CGF) frameMidY  {	return NSMidY(self.frame); }
--  (CGF) frameMaxY  {	return NSMaxY(self.frame); }
-
-- (void)   setOriginX:(CGF)x  {	self.frameMinX = x; }
-- (void)   setOriginY:(CGF)y  {	self.frameMinY = y; }
-- (void) setFrameMinX:(CGF)x  {	self.frame = AZRectExceptOriginX(self.frame,x); }
-- (void) setFrameMinY:(CGF)y  {	self.frame = AZRectExceptOriginY(self.frame,y); }
-- (void) setFrameMidX:(CGF)x  {	self.frameMinX = x - ( self.width / 2.);        }
-- (void) setFrameMidY:(CGF)y  {	self.frameMinY = y - (self.height / 2.);        }
-- (void) setFrameMaxX:(CGF)x  { self.frameMinX = x -  self.width;               }
+*/
 //- (void) setFrameMaxY:(CGF)y  { self.frameMinY = y - self.height;               }
-//
 //-  (CGF) boundsMinX { return NSMinX(self.bounds);  }
 //-  (CGF) boundsMidX { return NSMidX(self.bounds);  }
 //-  (CGF) boundsMaxX {	return NSMaxX(self.bounds);  }
 //-  (CGF) boundsMinY {	return NSMinY(self.bounds);  }
 //-  (CGF) boundsMidY {	return NSMidY(self.bounds);  }
 //-  (CGF) boundsMaxY {	return NSMaxY(self.bounds);  }
--    (void) setCenter:(CGPoint)c { self.position = c; }
--  (NSP) center                 { return AZAddPoints(self.frame.origin,AZPointFromSize(AZMultiplySize(self.size, .5))); }
-SetKPfVA(Center, @"position", @"frame", @"bounds", @"size", @"orientation")
-@end
+//-  (NSR) bounds             { return AZRectFromSizeOfRect(self.frame); }
+//- (void) setBounds:(NSR)b   { self.frame = AZRectExceptSize(self.frame, b.size); }
 
-@implementation NSW   (BoundingObject) @dynamic bounds, position, frame; SetKPfVA( Bounds, @"frame") SetKPfVA( Frame, @"bounds", @"position")
-
-- (NSW*) window             { return self; }
-- (void) setFrame:(NSR)f    { [self.animator setFrame:f display:self.isVisible animate:YES]; }
--  (NSR) bounds             { return AZRectFromSizeOfRect(self.frame); }
-- (void) setBounds:(NSR)b   { self.frame = AZRectExceptSize(self.frame, b.size); }
--  (NSP) position           { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
-- (void) setPosition:(NSP)p { self.frameCenter = p; }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));
-@end
-@implementation CAL   (BoundingObject) @dynamic window; - (NSW*) window { return self.hostView.window;
-
-/*	return [[NSW.appWindow vFKP:@"contentView.layer"] filterOne:^BOOL(id object) {return [[object sublayersRecursive] containsObject:self]; }]; */
-}   @end
-@implementation NSV   (BoundingObject) @dynamic position;                       @end
-@implementation NSIMG (SizeableObject)                                          @end
 
 
 /*
+- (NSW*) window        { return self.hostView.window;
+
+	return [[NSW.appWindow vFKP:@"contentView.layer"] filterOne:^BOOL(id object) {return [[object sublayersRecursive] containsObject:self]; }]; * /
+}   
+-  (NSR) superframe    { return self.superlayer.bounds; }
+
+ [[x backingStore] isNotEqualTo:self.storage]) { //    objc_setAssociatedObject(x,__backingStore,self.storage,OBJC_ASSOCIATION_ASSIGN);
+[x triggerKVO:@"backingStore" block:^(id _self) {  ASSIGN_WEAK(_self,backingStore,self.storage); }];
+
+    objc_setAssociatedObject(x,@selector(backingStore),self.storage,OBJC_ASSOCIATION_ASSIGN);
+    [x b:@"index" tO:self wKP:@"storage" t:^id(id value) { return @([value indexOfObject:x]); }];
+
+    [x sV:self.storage fK:@"backingStore"];
+    [self addObserverForKeyPath:@"storage" task:^(id<ArrayLike>sender) {
+      [x sV:@([sender.storage indexOfObject:x]) fK:@"index"];
+      NSUI idx = !sender.storage.count ? 0 : sender.storage.count - 1;
+      [x sV:@(idx) fK:@"indexMax"];
+    }];
+  }
+
+    [x b:@"index" tO:self.storage wKP:nil t:^id(id value) { return @([value containsObject:x] ?[value indexOfObject:x] : NSNotFound); }];
+    [x addObserver:x forKeyPath:@"backingStore.@count" options:0 context:NULL];
+  x[] = self.storage;
+  objc_setAssociatedObject(x,@selector(backingStore),self.storage,OBJC_ASSOCIATION_ASSIGN);
+  class_addProtocol([x class],@protocol(Indexed));
+  class_addMethod([x class], @selector(backingStore), _index(id _self, SEL _cmd))
+  setBackingStore(x,self.storage);
+  return (id<Indexed>)x;
+
 - (void) setCenter:(NSP)center  {
 	[self setFrameOrigin:NSMakePoint(floorf(center.x - (NSWidth([self bounds])) / 2),
 												floorf(center.y - (NSHeight([self bounds])) / 2))];
@@ -572,4 +601,49 @@ void RXConcreteProtocolExtendClassWithProtocol(Class self, Class targetClass, Pr
 }
 
 @end
+
+const char __storageConst;
+NSMA*__storage(id _self){  return ({ id x; if(!(x = objc_getAssociatedObject(_self,__storageConst))) objc_setAssociatedObject(_self, __storageConst, NSMA.new, OBJC_ASSOCIATION_RETAIN_NONATOMIC); x; }); }
+
+void setBackingStore(id _self, id backer) { Protocol *p = @protocol(Indexed); [
+  objc_setAssociatedObject(_self,@selector(backingStore),backer,OBJC_ASSOCIATION_ASSIGN);
+  [_self addProperty:@"index" getter:^id(id _self, NSString *key) {
+    
+  } setter:]
+  struct objc_method *myMethod;
+  myMethod.method_name = sel_registerName("index");
+//  myMethod.method_imp  = _index;
+
+  NSLog($(@"%@  BEFORE: %@ ", _self, StringFromBOOL([_self conformsToProtocol:p])));
+  class_addProtocol([_self class],p);
+  NSLog($(@"%@  AFTER: %@  FULL:%@ ", _self, StringFromBOOL([_self implementsProtocol:p]),StringFromBOOL([_self implementsFullProtocol:p])));
+  self.backingStore ? [self.backingStore indexOfObject:self] : NSNotFound; }
+
+NSUI _index ( id _self, SEL _cmd) { id x = [_self backingStore]; return x ? [x indexOfObject:_self] : NSNotFound; }
+NSUI _indexMax ( id _self, SEL _cmd){   NSUI max = NSNotFound; id x; return !(x = [_self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
+SYNTHESIZE_ASC_PRIMITIVE_KVO(indexMax,setIndexMax,NSUI);
+SYNTHESIZE_ASC_PRIMITIVE_KVO(index,setIndex,NSUI);
+-   (id) backingStore { id x = self[@"__backingStore"]; return x ?: (self[@"__backingStore"] = NSMA.new); }
+@implementation NSO (DrawableObject)                      @end
+@interface NSO (DrawableObject) @property CGF spanExpanded, spanCollapsed; @property (CP) DrawObjectBlock drawBlock; @end
+
+ _index(self, _cmd); } // id x = [self backingStore]; return x ? [x indexOfObject:self] : NSNotFound; }
+- (NSUI) indexMax { return ![self.backingStore count] ?: [[self backingStore] count] -1; }//NSUI max = NSNotFound; id x; return !(x = [self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
+@concreteprotocol(Indexed)
+@end
+SYNTHESIZE_ASC_OBJ_LAZY(getter, class)(, setter)(storage, NSMA);
+SYNTHESIZE_ASC_CAST(onInsert, setOnInsert,MutationBlock);
+
+@property (RONLY) NSMA<Indexed>*storage;
+
+
+
+@pcategoryimplementation(ArrayLike,FastEnumeration)
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
+  return [((id<ArrayLike>)self).storage countByEnumeratingWithState:state objects:buffer count:len];
+}
+@end
+- (void) setWidth: (CGF)t 				{ NSR f = self.frame;	f.size.width  	= t; 	[self setFrame:f display:YES animate:YES] ;	}
+- (void) setHeight:(CGF)t				{ NSR f = self.frame;	f.size.height 	= t; 	[self setFrame:f display:YES animate:YES] ; 	}
 */
+

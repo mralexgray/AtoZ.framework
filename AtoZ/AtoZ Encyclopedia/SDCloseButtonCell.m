@@ -9,7 +9,7 @@
 #import "SDCloseButtonCell.h"
 @implementation SDCloseButtonCell
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+- (void) drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	NSString *imageName = ([self isHighlighted] ? @"closebox_pressed" : @"closebox");
 	NSImage *image = [NSImage imageNamed:imageName];
 	

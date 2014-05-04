@@ -6,7 +6,7 @@
 //
 //
 #import "AtoZ.h"
-
+#import <WebKit/WebKit.h>
 #import "AtoZWebSnapper.h"
 
 
@@ -33,8 +33,8 @@ NSString * const kAZWebSnapperMaxHistoryKey				= @"MaxHistory";
 NSString * const kAZWebSnapperUseGMTKey					= @"UseGMT";
 
 
-@interface WebPreferences (StuffThatShouldBeInTheHeadersButIsNot)
 
+@interface WebPreferences (StuffThatShouldBeInTheHeadersButIsNot)
 - (void)setShouldPrintBackgrounds:(BOOL)yesno;
 
 @end

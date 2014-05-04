@@ -22,10 +22,11 @@ void PostUserNote(NSString*note, ...);
 
 @interface NSNotificationCenter (MainThread)
 
-- (void)postNotificationOnMainThread:(NSNotification *)notification;
-- (void)postNotificationOnMainThreadName:(NSS*)aName object:(id)anObject;
-- (void)postNotificationOnMainThreadName:(NSS*)aName object:(id)anObject userInfo:(NSD*)aUserInfo;
+- (void) ostNotificationOnMainThread:(NSNotification *)notification;
+- (void) ostNotificationOnMainThreadName:(NSS*)aName object:(id)anObject;
+- (void) ostNotificationOnMainThreadName:(NSS*)aName object:(id)anObject userInfo:(NSD*)aUserInfo;
 
+- (void) removeObserver:(id)observer names:(NSA*)arrayOfNames object:(id)anObject;
 
 @end
 @interface NSNotification (AtoZ)

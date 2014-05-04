@@ -6,11 +6,18 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#import "AtoZ.h"
 #import "NSTableView+AtoZ.h"
 
 @implementation NSTableView (AtoZ)
 
-- (void)selectItemsInArray:(NSA*)selectedItems usingSourceArray:(NSA*)sourceArray
+
+//- (id) selectedObjectValue { NSUI c, r; if (!self.dataSource || (r = self.selectedRow) == NSNotFound || (c = self.selectedColumn) == NSNotFound) return nil;
+//
+//  return [self.dataSource tableView:self objectValueForTableColumn:self.tableColumns[c] row:r];
+////  return !x ? nil : [x respondsToSelector:@selector(objectValue)] ? [x objectValue] : x;
+//}
+- (void) electItemsInArray:(NSA*)selectedItems usingSourceArray:(NSA*)sourceArray
 {
 	if ([sourceArray count] != [self numberOfRows]) {
 		NSLog(@"SourceArray is %lu; rows is %ld",(unsigned long)[sourceArray count], (long)[self numberOfRows]);
@@ -51,7 +58,7 @@
 //	return self;
 //}
 //
-//- (void)drawRect:(NSRect)rect
+//- (void) drawRect:(NSRect)rect
 //{
 //	[super drawRect:rect];
 //	[self drawStickyRowHeader];
@@ -60,7 +67,7 @@
 //// Since we are going to ensure that the regular and sticky versions of a row look the same, no transition is needed here.
 //- (NoodleStickyRowTransition)stickyRowHeaderTransition { 	return NoodleStickyRowTransitionNone;	}
 //
-//- (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect
+//- (void) drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect
 //{
 //	if ([self isRowSticky:rowIndex])
 //	{
@@ -127,7 +134,7 @@
 //	else		[super drawRow:rowIndex clipRect:clipRect];
 //}
 //
-//- (void)drawStickyRow:(NSInteger)row clipRect:(NSRect)clipRect
+//- (void) drawStickyRow:(NSInteger)row clipRect:(NSRect)clipRect
 //{
 //	_isDrawingStickyRow = YES;
 //	[self drawRow:row clipRect:clipRect];
@@ -182,7 +189,7 @@
 //	return NO;
 //}
 //
-//- (void)drawStickyRowHeader
+//- (void) drawStickyRowHeader
 //{
 //	id			stickyView;
 //	NSInteger	row;
@@ -240,7 +247,7 @@
 //	return view;
 //}
 //
-//- (void)drawStickyRow:(NSInteger)row clipRect:(NSRect)clipRect
+//- (void) drawStickyRow:(NSInteger)row clipRect:(NSRect)clipRect
 //{
 //	NSRect				rowRect, cellRect;
 //	NSCell				*cell;
@@ -614,7 +621,7 @@
 //	_cell = nil;
 //}
 //
-//- (void)dealloc
+//- (void) dealloc
 //{
 //	[self _clearOutCaches];
 //	[_backgroundColor release];
@@ -636,7 +643,7 @@
 //	return copy;
 //}
 //
-//- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+//- (void) drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 //{
 //	// Draw the full span of the cell into a cached image and then pull out the correct sliver as needed
 //
@@ -691,7 +698,7 @@
 //
 //#define SPANNING_ENABLED_KEY			@"spanningEnabled"
 //
-//- (void)encodeWithCoder:(NSCoder *)encoder
+//- (void) encodeWithCoder:(NSCoder *)encoder
 //{
 //	[super encodeWithCoder:encoder];
 //
@@ -728,7 +735,7 @@
 //	return self;
 //}
 //
-//- (void)dealloc
+//- (void) dealloc
 //{
 //	[_cell release];
 ////	[super dealloc];
@@ -750,7 +757,7 @@
 //
 //#define SHOWS_STICKY_ROW_HEADER_KEY			@"showsStickyRowHeader"
 //
-//- (void)encodeWithCoder:(NSCoder *)encoder
+//- (void) encodeWithCoder:(NSCoder *)encoder
 //{
 //	[super encodeWithCoder:encoder];
 //
@@ -792,7 +799,7 @@
 //	return self;
 //}
 //
-//- (void)addTableColumn:(NSTableColumn *)column
+//- (void) addTableColumn:(NSTableColumn *)column
 //{
 //	[super addTableColumn:column];
 //
@@ -802,7 +809,7 @@
 //	}
 //}
 //
-//- (void)removeTableColumn:(NSTableColumn *)column
+//- (void) removeTableColumn:(NSTableColumn *)column
 //{
 //	[super removeTableColumn:column];
 //
@@ -818,7 +825,7 @@
 //
 //#pragma mark Row Spanning methods
 //
-//- (void)setRowSpanningEnabledForCapableColumns:(BOOL)flag
+//- (void) setRowSpanningEnabledForCapableColumns:(BOOL)flag
 //{
 //	for (id column in [self tableColumns])
 //	{
@@ -876,7 +883,7 @@
 //	}
 //}
 //
-//- (void)drawGridInClipRect:(NSRect)aRect
+//- (void) drawGridInClipRect:(NSRect)aRect
 //{
 //	NSUInteger					origGridMask;
 //
@@ -1027,7 +1034,7 @@
 //	return [super preparedCellAtColumn:columnIndex row:rowIndex];
 //}
 //
-//- (void)mouseDown:(NSEvent *)event
+//- (void) mouseDown:(NSEvent *)event
 //{
 //	if (_hasSpanningColumns)
 //	{
@@ -1052,7 +1059,7 @@
 //}
 //
 //
-//- (void)drawRect:(NSRect)dirtyRect
+//- (void) drawRect:(NSRect)dirtyRect
 //{
 //	[super drawRect:dirtyRect];
 //
@@ -1076,7 +1083,7 @@
 //	}
 //}
 //
-//- (void)drawStickyRow:(NSInteger)row clipRect:(NSRect)clipRect
+//- (void) drawStickyRow:(NSInteger)row clipRect:(NSRect)clipRect
 //{
 //	_isDrawingStickyRow = YES;
 //	[super drawStickyRow:row clipRect:clipRect];

@@ -55,7 +55,7 @@
 	return fieldEditor;
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+- (void) rawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	if (![self isEnabled]) {
 		CGContextSetAlpha([AZGRAPHICSCTX graphicsPort], SNRTextFieldDisabledAlpha);

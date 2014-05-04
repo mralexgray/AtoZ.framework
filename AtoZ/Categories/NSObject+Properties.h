@@ -12,14 +12,27 @@
 
 @interface NSObject (AQProperties)
 
-- (instancetype) objectBySettingValue:(id)v forKey:(NSS*)k;
-+ (NSD*)classPropertiesAndTypes;
-+ (NSArray *)objcPropertiesWithoutSuperclass;
+- (INST) objectBySettingValuesWithDictionary:(NSD*)d;
+- (INST)                objectBySettingValue:(id)v 
+                                      forKey:(NSS*)k;
+- (INST)               objectBySettingValues:(NSA*)vals 
+                                     forKeys:(NSA*)keys;
+- (INST)                objectByIncrementing:(NSS*)k 
+                                          by:(NSN*)v;
+- (INST)        objectBySettingVariadicPairs:(NSA*)vsForKs;
+- (INST)                   withValuesForKeys:(id)v,...;
+- (INST)                              wVsfKs:(id)v,...;
+- (void)                        incrementKey:(NSS*)k 
+                                          by:(NSN*)v;
 
-+ (NSArray *)objcProperties;
-@property (RONLY) NSD* propertiesPlease;
-@property (RONLY) NSD* pp;
-@property (RONLY) NSS* ppString;
++ (NSD*) classPropertiesAndTypes;
++ (NSA*) objcPropertiesWithoutSuperclass;
++ (NSA*) objcProperties;
+@property (RONLY) NSD* propertiesPlease, * pp, * propertyNamesAndTypes;
+@property (RONLY) NSS * ppString, // PRIMARY PROPERTY LISTER
+                      * properties;
+@property (RONLY) NSA * propertyNames;
+@property (RONLY) BOOL hasProperties;
 - (NSD*) propertiesSans:						(NSS*)someKey;
 - (NSD*) propertiesSansKeys: 					(NSA*)someKeys;
 + (BOOL) hasProperties;
@@ -33,11 +46,9 @@
 + (NSS*) retentionMethodOfPropertyNamed: 	(NSS*) name;	// returns one of: copy, retain, assign
 + (NSA*) propertyNames;
 + (NSD*) propertyNamesAndTypes;
-- (NSD*) propertyNamesAndTypes;
 - (NSArray*) attributesOfProp:(NSString*)propName;
 
 // instance convenience accessors for above routines (who likes to type [myObj class] all the time ?)
-- (BOOL) hasProperties;
 - (BOOL) hasPropertyNamed: 			 		(NSS*) name;
 - (BOOL) hasPropertyNamed: 			 		(NSS*) name ofType: (const char *) type;
 - (BOOL) hasPropertyForKVCKey: 	 	 		(NSS*) key;
@@ -45,8 +56,11 @@
 -  (SEL) getterForPropertyNamed: 	 		(NSS*) name;
 -  (SEL) setterForPropertyNamed: 	 	 	(NSS*) name;
 - (NSS*) retentionMethodOfPropertyNamed:  (NSS*) name;
-- (NSA*) propertyNames;
-- (NSS*) properties;
+
++ (NSA*) az_propertyNames;
++ (NSD*) az_propertyNamesAndTypes;
+- (NSA*) az_properties;
++ (NSS*) az_getPropertyType:(NSS*)attributeString;
 @end
 
 // Pure C API, adding to the existing API in objc/runtime.h.  The functions above are implemented in terms of these.

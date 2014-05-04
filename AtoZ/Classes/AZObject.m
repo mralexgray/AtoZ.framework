@@ -62,10 +62,21 @@
 
 static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"class";
 
-@implementation AZObject
+@implementation AZObject { NSMD * store; }
 
-- (id) objectForKeyedSubscript:(id)key { return [self vFK:key]; }
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key { if ([self canSetValueForKey:(NSS*)key]) [self sV:obj fK:key]; }
++ (INST) instanceWithKeysAndObjects:(NSS*)key1,... { 
+
+  AZVA_ARRAY(key1, pairs);
+  id x = self.class.new; 
+  if (pairs.count) [pairs eachWithVariadicPairs:^(id a, id b) { ((AZObject*)x)->store[a] = b; }];
+  return x;
+}
+- (id) init { return self = super.init ? store = NSMD.new, self : nil; }
+
+- (id) forwardingTargetForSelector:(SEL)s { return store = store ?: NSMD.new; }
+
+//- (id) objectForKeyedSubscript:(id)key { return [self vFK:key]; }
+//- (void) setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key { if ([self canSetValueForKey:(NSS*)key]) [self sV:obj fK:key]; }
 
 #pragma mark NSCoding *** Protocol Overrides ***
 
@@ -74,14 +85,14 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 	for (NSS* aProp in self.propertyNames) self[aProp] = [coder decodeObjectForKey:aProp];
 	return self;
 }
-- (void)encodeWithCoder:(NSCoder *)coder {
+- (void) encodeWithCoder:(NSCoder *)coder {
 	for (NSS* aProp in self.propertyNames)	[coder encodeObject:self[aProp] forKey:aProp];
 }
 
 #pragma mark NSCopying
 - (id)copyWithZone:(NSZone *)zone {
 
-	typeof ([self class]) copy = self.class.new;
+	__typeof__([self class]) copy = self.class.new;
 	for (NSS* aProp in self.propertyNames)
 		[self valueWasSetForKey:aProp] ?	[copy sV:[self vFK:aProp] fK:aProp] : nil;
 	return copy;
@@ -89,7 +100,7 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 
 #pragma mark NSMutableCopying
 - (id)mutableCopyWithZone:(NSZone *)zone {
-	typeof ([self class]) copy = self.class.new;
+	__typeof__([self class]) copy = self.class.new;
 	for (NSS* aProp in self.propertyNames)
 	for (NSS* aProp in self.propertyNames)
 		[self valueWasSetForKey:aProp] ?	[copy sV:[self vFK:aProp] fK:aProp] : nil;
@@ -121,7 +132,7 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 
 - (NSUInteger)countOfObjects {	return self.objects.count;	}
 - (id)objectInObjectsAtIndex:(NSUInteger)index {	return self.objects[index];	}
-- (void)addObject:(id)o { [[self mutableArrayValueForKey:@"objects"]insertObject:o atIndex:self.countOfObjects]; }
+- (void) addObject:(id)o { [[self mutableArrayValueForKey:@"objects"]insertObject:o atIndex:self.countOfObjects]; }
 @end
 /*
 @implementation NSObject (NSCoding)
@@ -146,7 +157,7 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 	return results;
 }
 
-#define AUTO_ENCODE - (void)encodeWithCoder:(NSCoder *)coder { [self autoEncodeWithCoder:coder]; }
+#define AUTO_ENCODE - (void) encodeWithCoder:(NSCoder *)coder { [self autoEncodeWithCoder:coder]; }
 #define AUTO_DECODE - (id)initWithCoder:(NSCoder *)coder { if (self = [super init]) { [self autoDecode:coder]; } return self; }
 
 - (NSDictionary *) properties						{
@@ -159,191 +170,6 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 	NSD *allprops 	 = self.properties;
 	return [allprops subdictionaryWithKeys:[allprops.allKeys arrayWithoutArray:ignoredProperties]];
 }
-- (void) autoEncodeWithCoder:(NSCoder*)coder	{
-
-	[self.autoEncodedProperties each:^(NSS* key, id type) {
-
-		NSString *className;
-		NSMethodSignature *signature 	= [self methodSignatureForSelector:NSSelectorFromString(key)];
-		NSInvocation *invocation	 	= [NSInvocation invocationWithMethodSignature:signature];
-		[invocation setSelector:NSSelectorFromString(key)];
-		[invocation setTarget:self];
-
-		switch ([type characterAtIndex:0]) {
-			case '@': {	// object
-				id value;
-				if ([[type componentsSeparatedByString:@"\""] count] > 1)
-				{
-					className = [[type componentsSeparatedByString:@"\""] objectAtIndex:1];
-					Class class = NSClassFromString(className);
-					value = [self performSelector:NSSelectorFromString(key)];
-
-					// only decode if the property conforms to NSCoding
-					if([class conformsToProtocol:@protocol(NSCoding)]){
-						[coder encodeObject:value forKey:key];
-					}
-				}
-				break;
-			}
-			case 'c': {	// bool
-				BOOL boolValue;
-				[invocation invoke];
-				[invocation getReturnValue:&boolValue];
-				[coder encodeObject:[NSNumber numberWithBool:boolValue] forKey:key];
-				break;
-			}
-			case 'f': {	// float
-				float floatValue;
-				[invocation invoke];
-				[invocation getReturnValue:&floatValue];
-				[coder encodeObject:[NSNumber numberWithFloat:floatValue] forKey:key];
-				break;
-			}
-			case 'd': {	// double
-				double doubleValue;
-				[invocation invoke];
-				[invocation getReturnValue:&doubleValue];
-				[coder encodeObject:[NSNumber numberWithDouble:doubleValue] forKey:key];
-				break;
-			}
-			case 'i': {	// int
-				NSInteger intValue;
-				[invocation invoke];
-				[invocation getReturnValue:&intValue];
-				[coder encodeObject:[NSNumber numberWithInt:intValue] forKey:key];
-				break;
-			}
-			case 'L': {	// unsigned long
-				unsigned long ulValue;
-				[invocation invoke];
-				[invocation getReturnValue:&ulValue];
-				[coder encodeObject:[NSNumber numberWithUnsignedLong:ulValue] forKey:key];
-				break;
-			}
-			case 'Q': {	// unsigned long long
-				unsigned long long ullValue;
-				[invocation invoke];
-				[invocation getReturnValue:&ullValue];
-				[coder encodeObject:[NSNumber numberWithUnsignedLongLong:ullValue] forKey:key];
-				break;
-			}
-			case 'l': {	// long
-				long longValue;
-				[invocation invoke];
-				[invocation getReturnValue:&longValue];
-				[coder encodeObject:[NSNumber numberWithLong:longValue] forKey:key];
-				break;
-			}
-			case 's': {	// short
-				short shortValue;
-				[invocation invoke];
-				[invocation getReturnValue:&shortValue];
-				[coder encodeObject:[NSNumber numberWithShort:shortValue] forKey:key];
-				break;
-			}
-			case 'I': {	// unsigned
-				unsigned unsignedValue;
-				[invocation invoke];
-				[invocation getReturnValue:&unsignedValue];
-				[coder encodeObject:[NSNumber numberWithUnsignedInt:unsignedValue] forKey:key];
-				break;
-			}
-			default:
-				break;
-		}		 
-	}];
-}
-- (void) autoDecode:			  (NSCoder*)coder	{
-	[self.autoEncodedProperties each:^(NSS* key, NSS* type) {
-
-		switch ([type characterAtIndex:0])
-		{
-			case '@': {	// object
-				if ([[type componentsSeparatedByString:@"\""] count] > 1) {
-					NSString *className = [[type componentsSeparatedByString:@"\""] objectAtIndex:1];					   
-					Class class = NSClassFromString(className);
-					// only decode if the property conforms to NSCoding
-					if ([class conformsToProtocol:@protocol(NSCoding )]){
-						id value = [[coder decodeObjectForKey:key] retain];
-						unsigned int addr = (NSInteger)&value;
-						object_setInstanceVariable(self, [key UTF8String], *(id**)addr);
-					}
-				}
-				break;
-			}
-			case 'c': {	// bool
-				NSNumber *number = [coder decodeObjectForKey:key];				
-				BOOL b = [number boolValue];
-				unsigned int addr = (NSInteger)&b;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 'f': {	// float
-				NSNumber *number = [coder decodeObjectForKey:key];				
-				CGFloat f = [number floatValue];
-				unsigned int addr = (NSInteger)&f;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 'd': {	// double				 
-				NSNumber *number = [coder decodeObjectForKey:key];
-				double d = [number doubleValue];
-				Ivar ivar;
-				if ((ivar = class_getInstanceVariable([self class], [key UTF8String]))) {
-					double *varIndex = (double *)(void **)((char *)self + ivar_getOffset(ivar));
-					*varIndex = d;
-				}
-				break;
-			}
-			case 'i': {	// int
-				NSNumber *number = [coder decodeObjectForKey:key];
-				NSInteger i = [number intValue];
-				unsigned int addr = (NSInteger)&i;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 'L': {	// unsigned long
-				NSNumber *number = [coder decodeObjectForKey:key];
-				unsigned long ul = [number unsignedLongValue];
-				unsigned int addr = (NSInteger)&ul;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 'Q': {	// unsigned long long
-				NSNumber *number = [coder decodeObjectForKey:key];
-				unsigned long long ull = [number unsignedLongLongValue];
-				unsigned int addr = (NSInteger)&ull;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 'l': {	// long
-				NSNumber *number = [coder decodeObjectForKey:key];
-				long longValue = [number longValue];
-				unsigned int addr = (NSInteger)&longValue;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 'I': {	// unsigned
-				NSNumber *number = [coder decodeObjectForKey:key];
-				unsigned unsignedValue = [number unsignedIntValue];
-				unsigned int addr = (NSInteger)&unsignedValue;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-			case 's': {	// short
-				NSNumber *number = [coder decodeObjectForKey:key];
-				short shortValue = [number shortValue];
-				unsigned int addr = (NSInteger)&shortValue;
-				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
-				break;
-			}
-
-			default:
-				break;
-		}
-	}];
-}
-@end
 @interface  AZObject ()
 + (void)setLastModifiedKey:(NSString*)key forInstance:(id)object;
 @end
@@ -406,7 +232,7 @@ NSString *const AZObjectSharedInstanceUpdatedNotification = @"AZObjectSharedInst
 	[representedObject bind: binding toObject: obj withKeyPath: keyPath options: options];
 }
 
-- (void)unbind:(NSS*)binding 				{		[representedObject unbind: binding];	}
+- (void) nbind:(NSS*)binding 				{		[representedObject unbind: binding];	}
 -   (id) copyWithZone:(NSZone *)zone 	{
 
 	id copy = [[self.class allocWithZone: zone] init];
@@ -534,14 +360,14 @@ static BOOL loadingFromResourceFile = NO;
 	return [self valueForKey:key];
 }
 
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key
+- (void) setObject:(id)object forKeyedSubscript:(NSString *)key
 {
 	if (isEmpty(object)) [self setValue:@"" forKey:key];
 	else [self setValue:object forKey:key];
 }
 
 // setValue:forKey: overload to dispatch change notification to our shared instance
-- (void)setValue:(id)value forKey:(NSString*)key
+- (void) setValue:(id)value forKey:(NSString*)key
 {
 	[super setValue:value forKey:key];
 	// If this is the shared instance, don't go any further
@@ -629,7 +455,7 @@ static NSString* lastModifiedKey;
 // keyChanged - dummy key set by setValue:forKey: on our shared instance, used to dispatch KVO notifications
 - (AZObject*)keyChanged	{	return [AZObject sharedInstance];	}
 
-- (void)setKeyChanged:(AZObject*)sampleObject	{}
+- (void) setKeyChanged:(AZObject*)sampleObject	{}
 
 // Holds metadata for subclasses of SMModelObject
 static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
@@ -723,7 +549,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 	return (NSUInteger)[self allKeys];
 }
 
-- (void)writeLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
+- (void) riteLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
 	[string appendString:@"\n"];
 	for (int i=0;i<tabCount;i++) [string appendString:@"\t"];
 }

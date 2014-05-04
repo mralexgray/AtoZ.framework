@@ -87,7 +87,7 @@
 	
 }
 
-- (void)toggleShake;
+- (void) oggleShake;
 {
 	if( [self isRunning] )
 	{
@@ -104,7 +104,7 @@
 	return ([self animationForKey:@"rotate"] != nil);
 }
 
-- (void)startShake;
+- (void) startShake;
 {
 	[self addSublayer:closeLayer];
 	// Tell the closeLayer to draw its contents which is
@@ -113,7 +113,7 @@
 	[self addAnimation:[self shakeAnimation] forKey:@"rotate"];
 }
 
-- (void)stopShake;
+- (void) topShake;
 {
 	[closeLayer removeFromSuperlayer];
 	[self removeAnimationForKey:@"rotate"];
@@ -180,7 +180,7 @@
 	return layer;
 }
 
-- (void)drawLayer:(CALayer *)layer
+- (void) drawLayer:(CALayer *)layer
 		inContext:(CGContextRef)context
 {
 	// Make sure the call is applying to our close

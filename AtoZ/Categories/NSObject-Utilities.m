@@ -1,21 +1,13 @@
-/*
- Erica Sadun, http://ericasadun.com
- iPhone Developer's Cookbook, 3.0 Edition
- BSD License, Use at your own risk	*/
+/* Erica Sadun, http://ericasadun.com iPhone Developer's Cookbook, 3.0 Edition BSD License, Use at your own risk	*/
+//#import <objc/objc-runtime.h>
+//#import <objc/objc-class.h>
 #import "AtoZ.h"
-
 #import "NSObject-Utilities.h"
-#import <objc/objc-runtime.h>
-
-
 
 @implementation NSInvocation(OCMAdditions)
+-   (id)        getArgumentAtIndexAsObject:(int)x {
 
-- (id)getArgumentAtIndexAsObject:(int)argIndex
-{
-	const char* argType;
-
-	argType = [[self methodSignature] getArgumentTypeAtIndex:argIndex];
+	const char* argType = [[self methodSignature] getArgumentTypeAtIndex:x];
 	while(strchr("rnNoORV", argType[0]) != NULL)
 		argType += 1;
 
@@ -28,105 +20,105 @@
 		case '@':
 		{
 			id value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return value;
 		}
 		case ':':
 		{
 			SEL s = (SEL)0;
-			[self getArgument:&s atIndex:argIndex];
+			[self getArgument:&s atIndex:x];
 			id value = NSStringFromSelector(s);
 			return value;
 		}
 		case 'i':
 		{
 			int value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithInt:value];
 		}
 		case 's':
 		{
 			short value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithShort:value];
 		}
 		case 'l':
 		{
 			long value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithLong:value];
 		}
 		case 'q':
 		{
 			long long value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithLongLong:value];
 		}
 		case 'c':
 		{
 			char value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithChar:value];
 		}
 		case 'C':
 		{
 			unsigned char value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithUnsignedChar:value];
 		}
 		case 'I':
 		{
 			unsigned int value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithUnsignedInt:value];
 		}
 		case 'S':
 		{
 			unsigned short value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithUnsignedShort:value];
 		}
 		case 'L':
 		{
 			unsigned long value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithUnsignedLong:value];
 		}
 		case 'Q':
 		{
 			unsigned long long value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithUnsignedLongLong:value];
 		}
 		case 'f':
 		{
 			float value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithFloat:value];
 		}
 		case 'd':
 		{
 			double value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithDouble:value];
 		}
 		case 'B':
 		{
 			bool value;
-			[self getArgument:&value atIndex:argIndex];
+			[self getArgument:&value atIndex:x];
 			return [NSNumber numberWithBool:value];
 		}
 		case '^':
         {
             void *value = NULL;
-            [self getArgument:&value atIndex:argIndex];
+            [self getArgument:&value atIndex:x];
             return [NSValue valueWithPointer:value];
         }
 		case '{': // structure
 		{
 			NSUInteger maxArgSize = [[self methodSignature] frameLength];
 			NSMutableData *argumentData = [NSMutableData.alloc initWithLength:maxArgSize];
-			[self getArgument:[argumentData mutableBytes] atIndex:argIndex];
+			[self getArgument:[argumentData mutableBytes] atIndex:x];
 			return [NSValue valueWithBytes:[argumentData bytes] objCType:argType];
 		}
 
@@ -134,9 +126,7 @@
 	[NSException raise:NSInvalidArgumentException format:@"Argument type '%s' not supported", argType];
 	return nil;
 }
-
-- (NSString *)invocationDescription
-{
+- (NSS*)             invocationDescription               {
 	NSMethodSignature *methodSignature = [self methodSignature];
 	NSUInteger numberOfArgs = [methodSignature numberOfArguments];
 
@@ -154,44 +144,39 @@
 
 	return description;
 }
-
-- (NSString *)argumentDescriptionAtIndex:(int)argIndex
-{
-	const char *argType = [[self methodSignature] getArgumentTypeAtIndex:argIndex];
+- (NSS*)        argumentDescriptionAtIndex:(int)x {
+	const char *argType = [[self methodSignature] getArgumentTypeAtIndex:x];
 	if(strchr("rnNoORV", argType[0]) != NULL)
 		argType += 1;
 
 	switch(*argType)
 	{
-		case '@':	return [self objectDescriptionAtIndex:argIndex];
-		case 'c':	return [self charDescriptionAtIndex:argIndex];
-		case 'C':	return [self unsignedCharDescriptionAtIndex:argIndex];
-		case 'i':	return [self intDescriptionAtIndex:argIndex];
-		case 'I':	return [self unsignedIntDescriptionAtIndex:argIndex];
-		case 's':	return [self shortDescriptionAtIndex:argIndex];
-		case 'S':	return [self unsignedShortDescriptionAtIndex:argIndex];
-		case 'l':	return [self longDescriptionAtIndex:argIndex];
-		case 'L':	return [self unsignedLongDescriptionAtIndex:argIndex];
-		case 'q':	return [self longLongDescriptionAtIndex:argIndex];
-		case 'Q':	return [self unsignedLongLongDescriptionAtIndex:argIndex];
-		case 'd':	return [self doubleDescriptionAtIndex:argIndex];
-		case 'f':	return [self floatDescriptionAtIndex:argIndex];
+		case '@':	return [self objectDescriptionAtIndex:x];
+		case 'c':	return [self charDescriptionAtIndex:x];
+		case 'C':	return [self unsignedCharDescriptionAtIndex:x];
+		case 'i':	return [self intDescriptionAtIndex:x];
+		case 'I':	return [self unsignedIntDescriptionAtIndex:x];
+		case 's':	return [self shortDescriptionAtIndex:x];
+		case 'S':	return [self unsignedShortDescriptionAtIndex:x];
+		case 'l':	return [self longDescriptionAtIndex:x];
+		case 'L':	return [self unsignedLongDescriptionAtIndex:x];
+		case 'q':	return [self longLongDescriptionAtIndex:x];
+		case 'Q':	return [self unsignedLongLongDescriptionAtIndex:x];
+		case 'd':	return [self doubleDescriptionAtIndex:x];
+		case 'f':	return [self floatDescriptionAtIndex:x];
 		// Why does this throw EXC_BAD_ACCESS when appending the string?
 		//	case NSObjCStructType: return [self structDescriptionAtIndex:index];
-		case '^':	return [self pointerDescriptionAtIndex:argIndex];
-		case '*':	return [self cStringDescriptionAtIndex:argIndex];
-		case ':':	return [self selectorDescriptionAtIndex:argIndex];
+		case '^':	return [self pointerDescriptionAtIndex:x];
+		case '*':	return [self cStringDescriptionAtIndex:x];
+		case ':':	return [self selectorDescriptionAtIndex:x];
 		default:	return [@"<??" stringByAppendingString:@">"];  // avoid confusion with trigraphs...
 	}
 
 }
-
-
-- (NSString *)objectDescriptionAtIndex:(int)anInt
-{
+- (NSS*)          objectDescriptionAtIndex:(int)x    {
 	id object;
 
-	[self getArgument:&object atIndex:anInt];
+	[self getArgument:&object atIndex:x];
 	if (object == nil)
 		return @"nil";
 	else if(![object isProxy] && [object isKindOfClass:NSString.class])
@@ -199,13 +184,11 @@
 	else
 		return [object description];
 }
-
-- (NSString *)charDescriptionAtIndex:(int)anInt
-{
+- (NSS*)            charDescriptionAtIndex:(int)x    {
 	unsigned char buffer[128];
 	memset(buffer, 0x0, 128);
 
-	[self getArgument:&buffer atIndex:anInt];
+	[self getArgument:&buffer atIndex:x];
 
 	// If there's only one character in the buffer, and it's 0 or 1, then we have a BOOL
 	if (buffer[1] == '\0' && (buffer[0] == 0 || buffer[0] == 1))
@@ -213,127 +196,97 @@
 	else
 		return [NSString stringWithFormat:@"'%c'", *buffer];
 }
-
-- (NSString *)unsignedCharDescriptionAtIndex:(int)anInt
-{
+- (NSS*)    unsignedCharDescriptionAtIndex:(int)x    {
 	unsigned char buffer[128];
 	memset(buffer, 0x0, 128);
 
-	[self getArgument:&buffer atIndex:anInt];
+	[self getArgument:&buffer atIndex:x];
 	return [NSString stringWithFormat:@"'%c'", *buffer];
 }
-
-- (NSString *)intDescriptionAtIndex:(int)anInt
-{
+- (NSS*)             intDescriptionAtIndex:(int)x    {
 	int intValue;
 
-	[self getArgument:&intValue atIndex:anInt];
+	[self getArgument:&intValue atIndex:x];
 	return [NSString stringWithFormat:@"%d", intValue];
 }
-
-- (NSString *)unsignedIntDescriptionAtIndex:(int)anInt
-{
+- (NSS*)     unsignedIntDescriptionAtIndex:(int)x    {
 	unsigned int intValue;
 
-	[self getArgument:&intValue atIndex:anInt];
+	[self getArgument:&intValue atIndex:x];
 	return [NSString stringWithFormat:@"%d", intValue];
 }
-
-- (NSString *)shortDescriptionAtIndex:(int)anInt
-{
+- (NSS*)           shortDescriptionAtIndex:(int)x    {
 	short shortValue;
 
-	[self getArgument:&shortValue atIndex:anInt];
+	[self getArgument:&shortValue atIndex:x];
 	return [NSString stringWithFormat:@"%hi", shortValue];
 }
-
-- (NSString *)unsignedShortDescriptionAtIndex:(int)anInt
-{
+- (NSS*)   unsignedShortDescriptionAtIndex:(int)x    {
 	unsigned short shortValue;
 
-	[self getArgument:&shortValue atIndex:anInt];
+	[self getArgument:&shortValue atIndex:x];
 	return [NSString stringWithFormat:@"%hu", shortValue];
 }
-
-- (NSString *)longDescriptionAtIndex:(int)anInt
-{
+- (NSS*)            longDescriptionAtIndex:(int)x    {
 	long longValue;
 
-	[self getArgument:&longValue atIndex:anInt];
+	[self getArgument:&longValue atIndex:x];
 	return [NSString stringWithFormat:@"%ld", longValue];
 }
-
-- (NSString *)unsignedLongDescriptionAtIndex:(int)anInt
-{
+- (NSS*)    unsignedLongDescriptionAtIndex:(int)x    {
 	unsigned long longValue;
 
-	[self getArgument:&longValue atIndex:anInt];
+	[self getArgument:&longValue atIndex:x];
 	return [NSString stringWithFormat:@"%lu", longValue];
 }
-
-- (NSString *)longLongDescriptionAtIndex:(int)anInt
-{
+- (NSS*)        longLongDescriptionAtIndex:(int)x    {
 	long long longLongValue;
 
-	[self getArgument:&longLongValue atIndex:anInt];
+	[self getArgument:&longLongValue atIndex:x];
 	return [NSString stringWithFormat:@"%qi", longLongValue];
 }
-
-- (NSString *)unsignedLongLongDescriptionAtIndex:(int)anInt
-{
+- (NSS*)unsignedLongLongDescriptionAtIndex:(int)x   {
 	unsigned long long longLongValue;
 
-	[self getArgument:&longLongValue atIndex:anInt];
+	[self getArgument:&longLongValue atIndex:x];
 	return [NSString stringWithFormat:@"%qu", longLongValue];
 }
-
-- (NSString *)doubleDescriptionAtIndex:(int)anInt;
-{
+- (NSS*)          doubleDescriptionAtIndex:(int)x    {
 	double doubleValue;
 
-	[self getArgument:&doubleValue atIndex:anInt];
+	[self getArgument:&doubleValue atIndex:x];
 	return [NSString stringWithFormat:@"%f", doubleValue];
 }
-
-- (NSString *)floatDescriptionAtIndex:(int)anInt
-{
+- (NSS*)           floatDescriptionAtIndex:(int)x    {
 	float floatValue;
 
-	[self getArgument:&floatValue atIndex:anInt];
+	[self getArgument:&floatValue atIndex:x];
 	return [NSString stringWithFormat:@"%f", floatValue];
 }
-
-- (NSString *)structDescriptionAtIndex:(int)anInt;
-{
+- (NSS*)          structDescriptionAtIndex:(int)x    {
 	void *buffer;
 
-	[self getArgument:&buffer atIndex:anInt];
+	[self getArgument:&buffer atIndex:x];
 	return [NSString stringWithFormat:@":(struct)%p", buffer];
 }
-
-- (NSString *)pointerDescriptionAtIndex:(int)anInt
-{
+- (NSS*)         pointerDescriptionAtIndex:(int)x    {
 	void *buffer;
 
-	[self getArgument:&buffer atIndex:anInt];
+	[self getArgument:&buffer atIndex:x];
 	return [NSString stringWithFormat:@"%p", buffer];
 }
-
-- (NSString *)cStringDescriptionAtIndex:(int)anInt
-{
+- (NSS*)         cStringDescriptionAtIndex:(int)x    {
 	char buffer[128];
 
 	memset(buffer, 0x0, 128);
 
-	[self getArgument:&buffer atIndex:anInt];
+	[self getArgument:&buffer atIndex:x];
 	return [NSString stringWithFormat:@"\"%s\"", buffer];
 }
-
-- (NSString *)selectorDescriptionAtIndex:(int)anInt
-{
+- (NSS*)        selectorDescriptionAtIndex:(int)x    {
 	SEL selectorValue;
 
-	[self getArgument:&selectorValue atIndex:anInt];
+	[self getArgument:&selectorValue atIndex:x];
 	return [NSString stringWithFormat:@"@selector(%@)", NSStringFromSelector(selectorValue)];
 }
 
@@ -380,17 +333,15 @@
 
 @implementation NSObject (Utilities)
 
-
+- (NSA*) superclassesAsStrings {  return [[self.superclasses map:^id(id obj) { return NSStringFromClass(obj); }] arrayWithoutStringContaining:@"NSObject"]; }
 - (NSA*) superclasses { // Return an array of an object's superclasses
 
 	Class cl = self.class; NSMutableArray *results = @[cl].mutableCopy;
 	do {	cl = cl.superclass; [results addObject:cl]; }	while (![cl isEqual:NSObject.class]);
 	return results;
 }
-
 // Return an invocation based on a selector and variadic arguments
-- (NSInvocation *) invocationWithSelector: (SEL) selector andArguments:(va_list) arguments
-{
+- (NSInvocation *) invocationWithSelector: (SEL) selector andArguments:(va_list) arguments  {
 	if (![self respondsToSelector:selector]) return NULL;
 	
 	NSMethodSignature *ms = [self methodSignatureForSelector:selector];
@@ -501,10 +452,8 @@
 	
 	return inv;
 }
-
 // Return an invocation with the given arguments
-- (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector, ...
-{
+- (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector, ...  {
 	va_list arglist;
 	va_start(arglist, selector);
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
@@ -513,19 +462,16 @@
 }
 
 // Peform the selector using va_list arguments
-- (BOOL) performSelector: (SEL) selector withReturnValue: (void *) result andArguments: (va_list) arglist
-{
+- (BOOL) performSelector: (SEL) selector withReturnValue: (void *) result andArguments: (va_list) arglist {
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
 	if (!inv) return NO;
 	[inv invoke];
 	if (result) [inv getReturnValue:result];
 	return YES;	
 }
-
 // Perform a selector with an arbitrary number of arguments
 // Thanks to Kevin Ballard for assist!
-- (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...
-{
+- (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...  {
 	va_list arglist;
 	va_start(arglist, result);
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
@@ -535,10 +481,8 @@
 	va_end(arglist);
 	return YES;		
 }
-
 // Returning objects by performing selectors
-- (id) objectByPerformingSelectorWithArguments: (SEL) selector, ...
-{
+- (id) objectByPerformingSelectorWithArguments: (SEL) selector, ... {
 	id result;
 	va_list arglist;
 	va_start(arglist, selector);
@@ -548,24 +492,7 @@
 	CFShow((__bridge CFTypeRef)(result));
 	return result;
 }
-/*
-- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
-{
-	return [self objectByPerformingSelectorWithArguments:selector, object1, object2];
-}
-
-- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1
-{
-	return [self objectByPerformingSelectorWithArguments:selector, object1];
-}
-
-- (id) objectByPerformingSelector:(SEL)selector
-{
-	return [self objectByPerformingSelectorWithArguments:selector];
-} */
-
-- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
-{
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2  {
 	if (![self respondsToSelector:selector]) return nil;
 	
 	// Retrieve method signature and return type
@@ -609,7 +536,7 @@
 	// return c-string
 	if (strcmp(returnType, @encode (char*)) == 0)
 	{
-		char *s;
+		char *s = NULL;
 		[inv getReturnValue:s];
 		return @(s);
 	}
@@ -619,20 +546,14 @@
 	[inv getReturnValue:&l];
 	return @(l);
 }
-
-- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1
-{
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 {
 	return [self objectByPerformingSelector:selector withObject:object1 withObject:nil];
 }
-
-- (id) objectByPerformingSelector:(SEL)selector
-{
+- (id) objectByPerformingSelector:(SEL)selector {
 	return [self objectByPerformingSelector:selector withObject:nil withObject:nil];
 }
-
 // Delayed selectors
-- (void) performSelector: (SEL) selector withCPointer: (void *) cPointer afterDelay: (NSTimeInterval) delay
-{
+- (void) performSelector: (SEL) selector withCPointer: (void *) cPointer afterDelay: (NSTimeInterval) delay {
 	NSMethodSignature *ms = [self methodSignatureForSelector:selector];
 	NSInvocation *inv = [NSInvocation invocationWithMethodSignature:ms];
 	[inv setTarget:self];
@@ -640,38 +561,26 @@
 	[inv setArgument:cPointer atIndex:2];
 	[inv performSelector:@selector(invoke) withObject:nil afterDelay:delay];
 }
-
-- (void) performSelector: (SEL) selector withBool: (BOOL) boolValue afterDelay: (NSTimeInterval) delay
-{
+- (void) performSelector: (SEL) selector withBool: (BOOL) boolValue afterDelay: (NSTimeInterval) delay  {
 	[self performSelector:selector withCPointer:&boolValue afterDelay:delay];
 }
-
-- (void) performSelector: (SEL) selector withInt: (int) intValue afterDelay: (NSTimeInterval) delay
-{
+- (void) performSelector: (SEL) selector withInt: (int) intValue afterDelay: (NSTimeInterval) delay {
 	[self performSelector:selector withCPointer:&intValue afterDelay:delay];
 }
-
-- (void) performSelector: (SEL) selector withFloat: (float) floatValue afterDelay: (NSTimeInterval) delay
-{
+- (void) performSelector: (SEL) selector withFloat: (float) floatValue afterDelay: (NSTimeInterval) delay {
 	[self performSelector:selector withCPointer:&floatValue afterDelay:delay];
 }
-
-- (void) performSelector: (SEL) selector afterDelay: (NSTimeInterval) delay
-{
+- (void) performSelector: (SEL) selector afterDelay: (NSTimeInterval) delay {
 	[self performSelector:selector withObject:nil afterDelay: delay];
 }
-
 // private. only sent to an invocation
-- (void) getReturnValue: (void *) result
-{
+- (void) getReturnValue: (void *) result  {
 	NSInvocation *inv = (NSInvocation *) self;
 	[inv invoke];
 	if (result) [inv getReturnValue:result];
 }
-
 // Delayed selector
-- (void) performSelector: (SEL) selector withDelayAndArguments: (NSTimeInterval) delay,...
-{
+- (void) performSelector: (SEL) selector withDelayAndArguments: (NSTimeInterval) delay,...  {
 	va_list arglist;
 	va_start(arglist, delay);
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
@@ -680,10 +589,8 @@
 	if (!inv) return;
 	[inv performSelector:@selector(invoke) afterDelay:delay];
 }
-
 #pragma mark values
-- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
-{
+- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2 {
 	if (![self respondsToSelector:selector]) return nil;
 	
 	// Retrieve method signature and return type
@@ -706,19 +613,14 @@
 	free(bytes);
 	return returnValue;
 }
-
-- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1
-{
+- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1  {
 	return [self valueByPerformingSelector:selector withObject:object1 withObject:nil];
 }
-
-- (id) valueByPerformingSelector:(SEL)selector
-{
+- (id) valueByPerformingSelector:(SEL)selector  {
 	return [self valueByPerformingSelector:selector withObject:nil withObject:nil];
 }
 // Return an array of all an object's selectors
-+ (NSA*) getSelectorListForClass
-{
++ (NSA*) getSelectorListForClass  {
 	NSMutableArray *selectors = [NSMutableArray array];
 	unsigned int num;
 	Method *methods = class_copyMethodList(self, &num);
@@ -727,20 +629,16 @@
 	free(methods);
 	return selectors;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*) selectors
-{
+- (NSD*) selectors  {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getSelectorListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getSelectorListForClass];
 	return dict;
 }
-
 // Return an array of all an object's properties
-+ (NSA*) getPropertyListForClass
-{
++ (NSA*) getPropertyListForClass  {
 	NSMutableArray *propertyNames = [NSMutableArray array];
 	unsigned int num;
 	objc_property_t *properties = class_copyPropertyList(self, &num);
@@ -749,20 +647,16 @@
 	free(properties);
 	return propertyNames;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*) properties
-{
+- (NSD*) properties {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getPropertyListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getPropertyListForClass];
 	return dict;
 }
-
 // Return an array of all an object's properties
-+ (NSA*) getIvarListForClass
-{
++ (NSA*) getIvarListForClass  {
 	NSMutableArray *ivarNames = [NSMutableArray array];
 	unsigned int num;
 	Ivar *ivars = class_copyIvarList(self, &num);
@@ -771,20 +665,16 @@
 	free(ivars);
 	return ivarNames;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*) ivars
-{
+- (NSD*) ivars  {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getIvarListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getIvarListForClass];
 	return dict;
 }
-
 // Return an array of all an object's properties
-+ (NSA*) getProtocolListForClass
-{
++ (NSA*) getProtocolListForClass  {
 	NSMutableArray *protocolNames = [NSMutableArray array];
 //	unsigned int num;
 	unsigned int protocolIndex = 0;
@@ -796,160 +686,142 @@
 	CFRelease(protocols);// free(protocols);
 	return protocolNames;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*) protocols
-{
+- (NSD*) protocols  {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	dict[NSStringFromClass([self class])] = [[self class] getProtocolListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getProtocolListForClass];
 	return dict;
 }
-
 // https://github.com/nodemaker/Additions/blob/master/NSObject/NSObject%2BUtilities.m
-- (NSD*) runtime_properties
-{
+- (NSD*) runtime_properties   {
 	NSMD *dict = NSMD.new;
 	dict[NSStringFromClass([self class])] = [[self class] getPropertyListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getPropertyListForClass];
 	return dict;
 }
-
 // Runtime checks of properties, etc.
-- (BOOL) hasProperty: (NSS*) propertyName
-{
+- (BOOL) hasProperty: (NSS*) propertyName {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = [self runtime_properties];
 	for (NSArray *properties in [dict allValues])
 		[set addObjectsFromArray:properties];
 	return [set containsObject:propertyName];
 }
-
-- (BOOL) hasIvar: (NSS*) ivarName
-{
+- (BOOL) hasIvar:     (NSS*) ivarName     {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = self.ivars;
 	for (NSArray *ivars in [dict allValues])
 		[set addObjectsFromArray:ivars];
 	return [set containsObject:ivarName];
 }
++ (BOOL) classExists:(NSS*)className  { return (NSClassFromString(className) != nil); }
++   (id) instanceOfClassNamed:(NSS*)clsNme  { return !!NSClassFromString(clsNme) ? NSClassFromString(clsNme).new : nil; }
+// Return a C-string with a selector's return type may extend this idea to return a class
+- (const char*) returnTypeForSelector:(SEL)sel {	return [self methodSignatureForSelector:sel].methodReturnType; }
+// Choose the first selector that an object can respond to. Thank Kevin Ballard for assist!
+- (SEL) chooseSelector:(SEL)sel, ... {
 
-+ (BOOL) classExists: (NSS*) className
-{
-	return (NSClassFromString(className) != nil);
-}
-
-+ (id) instanceOfClassNamed: (NSS*) className
-{
-	if (NSClassFromString(className) != nil)
-		return [NSClassFromString(className) new];
-	else 
-		return nil;
-}
-
-// Return a C-string with a selector's return type
-// may extend this idea to return a class
-- (const char *) returnTypeForSelector:(SEL)selector
-{
-	NSMethodSignature *ms = [self methodSignatureForSelector:selector];
-	return [ms methodReturnType];
-}
-
-// Choose the first selector that an object can respond to
-// Thank Kevin Ballard for assist!
-- (SEL) chooseSelector: (SEL) aSelector, ...
-{
-	if ([self respondsToSelector:aSelector]) return aSelector;
-	
-	va_list selectors;
-	va_start(selectors, aSelector);
-	SEL selector = va_arg(selectors, SEL);
-	while (selector)
-	{
-		if ([self respondsToSelector:selector]) return selector;
-		selector = va_arg(selectors, SEL);
-	}
-	
+	if ([self respondsToSelector:sel]) return sel; va_list selectors; va_start(selectors, sel);  
+  SEL    selector = va_arg(selectors, SEL);
+	while (selector) {  if ([self respondsToSelector:selector]) return selector; 
+         selector = va_arg(selectors, SEL);	}
 	return NULL;
 }
-
 // Perform the selector if possible, returning any return value. Otherwise return nil.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-
-- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2 {
-	return ([self respondsToSelector:aSelector]) ? [self performSelector:aSelector withObject: object1 withObject: object2] : nil;
+CLANG_IGNORE(-Warc-performSelector-leaks)
+- (id) tryPerformSelector:(SEL)sel withObject:(id)x1 withObject:(id)x2 {
+	return [self respondsToSelector:sel] ? [self performSelector:sel withObject:x1 withObject:x2] : nil;
 }
-#pragma clang diagnostic pop
-
-- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1	{ return [self tryPerformSelector:aSelector withObject:object1 withObject:nil]; }
-- (id) tryPerformSelector: (SEL) aSelector 									{ return [self tryPerformSelector:aSelector withObject:nil withObject:nil];     }
+CLANG_POP
+- (id) tryPerformSelector:(SEL)sel withObject:(id)x	{ return [self tryPerformSelector:sel withObject:x withObject:nil]; }
+- (id) tryPerformSelector:(SEL)sel 									{ return [self tryPerformSelector:sel withObject:nil withObject:nil];     }
 
 @end
 
-#define OVERRIDE_CLASS_METHOD YES // Whether to override the -class method to return the old class name rather than the one from the override subclass.
+static BOOL OVERRIDE_CLASS_METHOD = YES; // Whether to override the -class method to return the old class name rather than the one from the override subclass.
 
-static Class OverrideClass(id bSelf, SEL aCmd)	{	NSS *className = $UTF8(object_getClassName(bSelf)),
-																		 *prefix 	= $(@"AZOverride_%p_", bSelf);
+static Class OverrideClass(id bSelf, SEL aCmd)	{
 
-	return objc_getClass(([className hasPrefix:prefix] ? [className substringFromIndex:prefix.length] : className).UTF8String);
+  NSS *className = [NSString.alloc initWithUTF8String:object_getClassName(bSelf)];
+	NSS *prefix 	 = $(@"AZOverride_%p_", bSelf);
+  const char *c        = ([className hasPrefix:prefix] ? [className substringFromIndex:prefix.length] : className).UTF8String;
+	return objc_getClass(c);
 }
-@implementation NSObject (AZOverride)
 
-- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block	{
+@implementation NSObject (AZOverride)
++ (void) az_overrideClassMethods:(BOOL)should { OVERRIDE_CLASS_METHOD = should; }
+-  (BOOL) az_overrideSelector:(SEL)selector withBlock:(void*)block	{
 
 	Method        m = NULL;
 	BOOL	  success = NO;
-	Class selfClass = self.class, 
-			 subclass = NULL;
-	NSS 	  *prefix = $(@"AZOverride_%p_", self),
-		  *className = OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : NSStringFromClass(selfClass),
+	Class selfClass = self.class,
+			   subclass = NULL;
+	NSS 	 * prefix = $(@"AZOverride_%p_", self),
+		  * className = OVERRIDE_CLASS_METHOD ? [NSS stringWithUTF8String:object_getClassName(self)] : NSStringFromClass(selfClass),
 		  	    *name = [prefix withString:className];
 
-	if (![className hasPrefix:prefix])	{
-				  
-		    subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
+	if ([className hasPrefix:prefix])	subclass = OVERRIDE_CLASS_METHOD ? objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
+	else {
+
+    subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
 		
-		if (OVERRIDE_CLASS_METHOD && subclass == NULL) 											return NSLog(@"Couldn't create subclass"), NO;
-		if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))	return NSLog(@"Couldn't add 'class' method to class %@",AZOBJCLSSTR(subclass)), NO;
+		if (OVERRIDE_CLASS_METHOD && subclass == NULL) return NSLog(@"Couldn't create subclass"), NO;
+		if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))
+      return NSLog(@"Couldn't add 'class' method to class %@",AZOBJCLSSTR(subclass)), NO;
 		
 		objc_registerClassPair(subclass);	object_setClass(self, subclass);
 	}
-	else  subclass = OVERRIDE_CLASS_METHOD ? objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
 
-	if ((m = class_getInstanceMethod(selfClass, selector)) == NULL) 						return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass)), NO;
+	if ((m = class_getInstanceMethod(selfClass, selector)) == NULL)
+    return NSLog(@"Could not find method %@ in class %@", NSStringFromSelector(selector), NSStringFromClass(selfClass)), NO;
 
 	IMP imp = imp_implementationWithBlock((__bridge id)block);				// See also: http://www.friday.com/bbum/2011/03/17/ios-4-3-imp_implementationwithblock/
-	success = class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)); 	return success ?:	NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO;
+	success = class_addMethod(subclass, selector, imp, method_getTypeEncoding(m));
+  return success ?:	NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO;
 }	
- 
-- (void *)az_superForSelector:(SEL)selector	{
+- (void*) az_superForSelector:(SEL)selector	{
 
-	if (OVERRIDE_CLASS_METHOD)	return [self.class instanceMethodForSelector:selector];
+  void *impy = NULL;
+
+	if (OVERRIDE_CLASS_METHOD) {
+//    NSLog(@"%@", self);
+    Class k = [self class];
+    impy = [k instanceMethodForSelector:selector];
+    return impy;
+  }
 	NSString *prefix 	= $(@"AZOverride_%p_", self);
 	Class theClass 	= self.class;
 	while (theClass != nil)	{	NSString *className = NSStringFromClass(theClass);
 										theClass = theClass.superclass;
 		if ([className hasPrefix:prefix]) return (void*)[theClass instanceMethodForSelector:selector];
 	}
-	NSLog(@"Could not find superclass for %@", NSStringFromSelector(selector));
+	NSLog(@"Could not find superclass for [%@ %@];", AZCLSSTR, NSStringFromSelector(selector));
 	return NULL;
 }
-+ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS	{ 	Method oldM = NULL, newM = NULL;
++  (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS	{ 	Method oldM = NULL, newM = NULL;
 	newM = class_getInstanceMethod(self, newS);
 	oldM = class_getInstanceMethod(self, oldS);
 	class_addMethod 	  	(self.class,oldS, method_getImplementation(newM), method_getTypeEncoding(newM))
 ? 	class_replaceMethod	(self.class,newS, method_getImplementation(oldM), method_getTypeEncoding(oldM))
 :													  method_exchangeImplementations(oldM, newM);	}
+- (void) setDescription:(NSS*)x { self[@"__description"] = [x copy];
 
+
+  [self az_overrideSelector:@selector(description) withBlock:(__bridge void *)^NSS*(id _self, SEL sel){
+
+    return self[@"__description"];
+  }];
+}
 
 @end
 
 @implementation NSProxy (AZOverride)
 
-- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void*)block	{
+-  (BOOL)     az_overrideSelector:(SEL)selector withBlock:(void*)block	{
+
 
 	Class selfClass	= self.class, subclass = nil;
 	NSS 	*prefix 		= $(@"AZOverride_%p_", self),
@@ -974,8 +846,7 @@ static Class OverrideClass(id bSelf, SEL aCmd)	{	NSS *className = $UTF8(object_g
 	return class_addMethod(subclass, selector, imp, method_getTypeEncoding(m)) ?:
 		NSLog(@"Could not add method %@ to class %@", NSStringFromSelector(selector), NSStringFromClass(subclass)), NO;
 }
- 
-- (void *)az_superForSelector:(SEL)selector	{
+- (void*)     az_superForSelector:(SEL)selector	{
 
 	if (OVERRIDE_CLASS_METHOD)	return [self.class instanceMethodForSelector:selector];
 	NSString *prefix = $(@"AZOverride_%p_", self);
@@ -986,15 +857,22 @@ static Class OverrideClass(id bSelf, SEL aCmd)	{	NSS *className = $UTF8(object_g
 		if ([className hasPrefix:prefix])
 			return (void *)[theClass instanceMethodForSelector:selector];
 	}
-	NSLog(@"Could not find superclass for %@", NSStringFromSelector(selector));
+	NSLog(@"Could not find superclass for PROXIED [%@ %@];", AZCLSSTR, NSStringFromSelector(selector));
 	return NULL;
 }
-+ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS	{ 	Method oldM = NULL, newM = NULL;
++  (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS	{ 	Method oldM = NULL, newM = NULL;
 	newM = class_getInstanceMethod(self, newS);
 	oldM = class_getInstanceMethod(self, oldS);
 	class_addMethod 	  	(self.class,oldS, method_getImplementation(newM), method_getTypeEncoding(newM))
 ? 	class_replaceMethod	(self.class,newS, method_getImplementation(oldM), method_getTypeEncoding(oldM))
 :													  method_exchangeImplementations(oldM, newM);	}
-
 @end
 
+//#import "AOPProxy/AOPProxy.h"
+//- (BOOL)az_overrideSelector:(SEL)selector callSuper:(InterceptionPoint)point withBlock:(void*)block	{ return NO; }
+//  [AOProxy interceptMethodForSelector:(SEL)sel interceptorPoint:(InterceptionPoint)time block:(InterceptionBlock)block;
+
+/*
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2 { return [self objectByPerformingSelectorWithArguments:selector, object1, object2]; }
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1{return [self objectByPerformingSelectorWithArguments:selector, object1];}
+- (id) objectByPerformingSelector:(SEL)selector{	return [self objectByPerformingSelectorWithArguments:selector]; } */

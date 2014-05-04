@@ -35,7 +35,7 @@ NSString *taskWithPathAndArgs(NSString*path,NSArray *args);
 //- (NSString *)textForURL:(NSURL *)url;
 //- (NSString *)cachedTextForFile:(NSString *)file;
 //- (NSURL*)repositoryURL;
-//- (void)openRepositoryURL;
+//- (void) penRepositoryURL;
 
 @end
 //@interface AZGistLanguagesController : NSArrayController <IBSingleton>

@@ -77,7 +77,7 @@ static struct TUIFastIndexPath_staticStruct {
 	return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
+- (void) encodeWithCoder:(NSCoder *)coder
 {
 	[coder encodeInteger:section forKey:@"s"];
 	[coder encodeInteger:row forKey:@"r"];

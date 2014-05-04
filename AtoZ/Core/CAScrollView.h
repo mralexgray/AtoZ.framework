@@ -1,7 +1,7 @@
 
 
 
-#import "AtoZ.h"
+#import "AtoZUmbrella.h"
 
 @class CAScrollView;
 @protocol CAScrollViewDelegate <NSObject>
@@ -14,13 +14,13 @@
 @interface 	  CAScrollView : NSView
 
 @property (NATOM)  			NSSZ		unit;
-@property (NATOM,ASS) 		NSUI 		fixWatchdog;
+@property (NATOM) 		NSUI 		fixWatchdog;
 @property (RONLY)				NSA 		*allLayers;
-@property (NATOM, STRNG) 	NSMA 		*layerQueue;
-@property (NATOM, STRNG) 	CAL 		*hoveredLayer, *selectedLayer, *scrollLayer;
-@property (NATOM, ASS)  		AZOrient		oreo;
-@property (NATOM, ASS)		StateStyle 	hoverStyle, selectedStyle;
-@property (unsafe_unretained) id <CAScrollViewDelegate>  delegate;
+@property (NATOM) 	NSMA 		*layerQueue;
+@property (NATOM) 	CAL 		*hoveredLayer, *selectedLayer, *scrollLayer;
+@property (NATOM)  		AZOrient		oreo;
+
+@property (UNSF) id <CAScrollViewDelegate>  delegate;
 @property (RONLY) CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
 @property (RONLY) NSUI  sublayerCt;
 

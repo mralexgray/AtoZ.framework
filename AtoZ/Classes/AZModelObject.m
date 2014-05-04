@@ -114,7 +114,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 	return (NSUInteger)[self allKeys];
 }
 
-- (void)writeLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
+- (void) riteLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
 	[string appendString:@"\n"];
 	for (int i=0;i<tabCount;i++) [string appendString:@"\t"];
 }

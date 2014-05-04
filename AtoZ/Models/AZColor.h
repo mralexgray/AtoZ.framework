@@ -20,23 +20,23 @@
 //
 //@end
 
-@interface     AZColor : BaseModel
+@interface     AZColor : NSColor <NSCopying>
 
-+ (instancetype) colorWithColor:(NSC*)c;
-+ (instancetype) instanceWithObject:(NSD*)dic;
-+ (instancetype)  instanceWithColor:(NSC*)c
-															count:(NSUI)ct
-															total:(NSUI)tot;
++ (INST)     colorWithColor:(NSC*)c;
+//+ (INST) instanceWithObject:(NSD*)dic;
+//+ (INST)  instanceWithColor:(NSC*)c
+//															count:(NSUI)ct
+//															total:(NSUI)tot;
 
-@property (NATOM)	 NSS * name;
-@property (NATOM)	 NSC * color;
-@property (NATOM)	NSUI 	 total,
-												 count;
-@property (NATOM)  CGF   brightness,
-												 saturation,
-												 hue,
-												 hueComponent,
-												 percent;
+//@property (NATOM)	 NSS * name;
+@property (CP)     NSC * color;
+//@property (NATOM)	NSUI 	 total,
+//												 count;
+@property CGF   brightness,
+                saturation,
+								hue;
+//												 hueComponent,
+//												 percent;
 @end
 
 

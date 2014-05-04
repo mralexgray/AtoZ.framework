@@ -12,7 +12,7 @@
 
 - (id)initWithNibName:(NSS*)name bundle:(NSB*)nib	{	return self = self = [super initWithNibName:name bundle:nib];	 }
 
-- (void)awakeFromNib										 	{
+- (void) wakeFromNib										 	{
 
 //	[self clearFaviconCache:nil];
 	CGRect b 						= containerView.frame;

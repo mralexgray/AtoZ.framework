@@ -6,18 +6,19 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "AZPoint.h"
-#import "AZSize.h"
-#import "AZRect.h"
-#import "AZMatrix.h"
+#import "AtoZUmbrella.h"
+
+//#import "AZPoint.h"
+//#import "AZSize.h"
+//#import "AZRect.h"
+//#import "AZMatrix.h"
 
 /* NOTES note to self this is a bastard conglomeration two separate classes one is from pixen, one from lumumba?
 
   View Init.....
   	_grid = [AZGrid.alloc initWithUnitSize:NSMakeSize(1.0f, 1.0f)  color:GRAY2 shouldDraw:YES];
 
-		In view's   ..  - (void) rawRect:(NSRect)rect
+		In view's   ..  - (void) drawRect:(NSRect)rect
  	[_grid drawRect:rect];
 */
 
@@ -58,7 +59,7 @@ JREnumDeclare( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
 - (NSNumber*) indexAtPoint:(NSP)point;
 - (id) objectAtIndex:(NSUInteger)index;
 - (id) objectAtPoint:(NSP)point;
-- (AZPoint*) pointAtIndex:(NSUInteger)index;
+- (NSP) pointAtIndex:(NSUInteger)index; // was AZPoint*
 
 - (void) addObject:(id) anObject;
 - (void) insertObject:(id) anObject atIndex:(NSUInteger)index;

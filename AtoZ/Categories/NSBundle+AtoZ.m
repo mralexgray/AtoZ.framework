@@ -1,10 +1,5 @@
-//
-//  NSBundle+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 9/14/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+//fprintf(stderr, "__TEXT,__info_plist section not found\n"),1;
+
 #import "AtoZ.h"
 #import "NSBundle+AtoZ.h"
 #import <mach-o/getsect.h>
@@ -12,64 +7,46 @@
 
 @implementation NSBundle (AtoZ)
 
-
-+ (id) infoPlist {
-
-		const struct section_64 *__info_plist = getsectbyname("__TEXT", "__info_plist");
-
-		if (!__info_plist)  return nil;//fprintf(stderr, "__TEXT,__info_plist section not found\n"),1;
-		NSData *plist					= [NSData dataWithBytesNoCopy:(void*)__info_plist->addr length:__info_plist->size freeWhenDone:NO];
-		NSData *xmlSignature	= [NSData dataWithBytesNoCopy:"<?xml" length:5 freeWhenDone:NO];
-			return [[plist subdataWithRange:NSMakeRange(0, xmlSignature.length)] isEqualToData:xmlSignature] ?
-//			prinf("raw __info_plist section:\n-------------------------\n%s\n",
-			[NSString.alloc initWithData:plist encoding:NSUTF8StringEncoding]
-			:[NSPropertyListSerialization propertyListFromData:plist mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
-
-//		: printf("binary __info_plist section:\n----------------------------\n%s\n", .UTF8String);
-//		printf("\nmainBundle infoDictionary:\n--------------------------\n%s\n",
-//			[NSBundle.mainBundle.infoDictionary description].UTF8String);
++ (id) infoPlist {    const struct section_64 *__info_plist; if (!(__info_plist = getsectbyname("__TEXT", "__info_plist")))  return nil;
+  
+	DTA * plist				 = [DTA dataWithBytesNoCopy:(void*)__info_plist->addr length:__info_plist->size freeWhenDone:NO],
+  * xmlSignature = [DTA dataWithBytesNoCopy:"<?xml"                   length:5                  freeWhenDone:NO];
+  
+  return [[plist subdataWithRange:NSMakeRange(0, xmlSignature.length)] isEqualToData:xmlSignature] ? plist.UTF8String     
+  : [NSPropertyListSerialization propertyListFromData:plist mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+  
+  // printf("binary __info_plist section:\n----------------------------\n%s\n", .UTF8String);printf("\nmainBundle infoDictionary:\n--------------------------\n%s\n",  [NSBundle.mainBundle.infoDictionary description].UTF8String);//prinf("raw __info_plist section:\n-------------------------\n%s\n",
 }
 
-+( NSB*) bundleForApplicationName:(NSString *)appName {
-	return [self bundleWithIdentifier:[self bundleIdentifierForApplicationName:appName]];
++ (NSB*) bundleForApplicationName:(NSS*)appName { return [self bundleWithIdentifier:[self bundleIdentifierForApplicationName:appName]]; }
++ (NSS*) bundleIdentifierForApplicationName:(NSS*)appName { 
+  
+  return ({ NSS*appPath = [AZWORKSPACE fullPathForApplication:appName]; !appPath ? nil : [[self bundleWithPath:appPath] bundleIdentifier]; });
 }
 
-+ (NSString *) bundleIdentifierForApplicationName:(NSString *)appName
-{
-    NSWorkspace * workspace = [NSWorkspace sharedWorkspace];
-    NSString * appPath = [workspace fullPathForApplication:appName];
-    if (appPath) {
-        NSBundle * appBundle = [self.class bundleWithPath:appPath];
-        return [appBundle bundleIdentifier];
-    }
-    return nil; 
-}
-
-- (NSA*) frameworks {
-//	NSS* basePath = $UTF8(getenv("BUILDPATH")) ?: ;
-	return [NSB.allFrameworks filter :^BOOL(NSB* obj){		return [obj.bundlePath contains:AZFWORKBUNDLE.bundlePath];	}];
-}
-- (NSA*) frameworkIdentifiers 		{ return [self.frameworks cw_mapArray:^id(NSB* p){	return p.bundleIdentifier;	}]; }
-- (NSA*) frameworkInfoDictionaries	{ return [self.frameworks cw_mapArray:^id(NSB* p){	return p.infoDictionary;	}]; }
-- (NSD*) infoDictionaryWithIdentifier:(NSS*)identifier	{
-
-	NSB* theB =  [self.frameworks filterOne:^BOOL(NSB* b) { return areSame(b.bundleIdentifier, identifier); }];
-	return theB ? theB.infoDictionary : nil; 
++ (NSA*) azFrameworkBundles             { return [NSB.allFrameworks filter :^BOOL(NSB* obj){		return [obj.bundlePath contains:AZFWORKBUNDLE.bundlePath.stringByDeletingLastPathComponent];	}]; }
++ (NSA*) azFrameworks                   { return self.azFrameworkIds[@"pathExtension"][@"alphabetized"];  }
++ (NSA*) azFrameworkIds                 { return self.azFrameworkBundles[@"bundleIdentifier"];  }
++ (NSA*) azFrameworkInfos               { return self.azFrameworkBundles[@"infoDictionary"];    }
++ (NSD*) azFrameworkInfoForId:(NSS*)bId	{
+  
+  return [self.azFrameworkInfos findDictionaryWithValue:bId];
+  
 }
 
 + (void) loadAZFrameworks {
-
+  
 	[[self pathsForResourcesOfType:@"framework" inDirectory:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
 		[[self bundleWithPath:obj]load];
 	}];
-//[[[AZFILEMANAGER visibleDirectoryContentsAtPath:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
-//	[NSB frameworkBundleNamed:[obj ]
+  //[[[AZFILEMANAGER visibleDirectoryContentsAtPath:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
+  //	[NSB frameworkBundleNamed:[obj ]
 }
 
 + (NSBundle*) frameworkBundleNamed:(NSS*)name {
 	NSS* str = [[AZBUNDLE privateFrameworksPath]withPath:[name withString:@".framework"]];
 	return [NSBundle bundleWithPath:str];
-//	AZLOG(fw);
+  //	AZLOG(fw);
 }
 /**	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
  the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory. */
@@ -80,7 +57,7 @@
 }
 
 + (NSS*)appSuppDir {
-
+  
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
 	return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
@@ -93,21 +70,21 @@
 {
 	static NSS* appsupport = nil;
 	if (!appsupport) {
-
+    
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) ?:
 		@[[@"~/Library/Application Support/" stringByExpandingTildeInPath]];
 		NSString *applicationSupportDirectory = [paths objectAtIndex:0];
 		printf("Application Support: %s", applicationSupportDirectory.UTF8String);
 		NSString *appName = [NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey]
-						  ?: [[NSBundle bundleForClass:AtoZ.class] objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey] ?: @"AtoZ";
+    ?: [[NSBundle bundleForClass:AtoZ.class] objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey] ?: @"AtoZ";
 		appsupport = [applicationSupportDirectory withPath:appName];//Create App directory if not exists:
-	//	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
-	//	NSArray* urlPaths = [AZFILEMANAGER URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
-	//	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:[NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey] isDirectory:YES];
+    //	NSString* bundleID = [[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier];
+    //	NSArray* urlPaths = [AZFILEMANAGER URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
+    //	NSURL* appDirectory = [urlPaths[0] URLByAppendingPathComponent:[NSB.mainBundle objectForInfoDictionaryKey:(NSS*)kCFBundleNameKey] isDirectory:YES];
 		if (![AZFILEMANAGER fileExistsAtPath:appsupport])
 			[AZFILEMANAGER createDirectoryAtPath:appsupport withIntermediateDirectories:NO attributes:nil error:nil];
 	}
-
+  
 	return  appsupport;
 }
 //	//build path
@@ -138,34 +115,34 @@
 + (NSString*) calulatedBundleIDForPath:(NSString*)path
 {
 	return [[self class] bundleWithPath:path] ? [[[self class] bundleWithPath:path] bundleIdentifier]
-									  		  : @"unknown";
+  : @"unknown";
 }
 
 - (NSA*)definedClasses
 {
-   NSMA *array = NSMA.new;		int numClasses;		Class *classes = NULL;	
+  NSMA *array = NSMA.new;		int numClasses;		Class *classes = NULL;	
 	
 	numClasses = objc_getClassList(NULL, 0);
-//	NSLog(@"Number of classes: %d", numClasses);
+  //	NSLog(@"Number of classes: %d", numClasses);
 	if (numClasses > 0 )
-	{
+    {
 		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
 		numClasses = objc_getClassList(classes, numClasses);
 		for (int i = 0; i < numClasses; i++) {
 			[array addObject:$UTF8(class_getName(classes[i]))];	//		NSLog(@"Class name: %s", class_getName(classes[i]));
 		}
 		free(classes);
-	}
-//	int numberOfClasses = objc_getClassList(NULL, 0);
-//	Class *classes = calloc(sizeof(Class), numberOfClasses);
-//	numberOfClasses = objc_getClassList(classes, numberOfClasses);
-//	for (int i = 0; i < numberOfClasses; ++i) {
-//		Class c = classes[i];
-//		if ([NSBundle bundleForClass:c] == self) {
-//			[array addObject:c];
-//		}
-//	}
-//	free(classes);
+    }
+  //	int numberOfClasses = objc_getClassList(NULL, 0);
+  //	Class *classes = calloc(sizeof(Class), numberOfClasses);
+  //	numberOfClasses = objc_getClassList(classes, numberOfClasses);
+  //	for (int i = 0; i < numberOfClasses; ++i) {
+  //		Class c = classes[i];
+  //		if ([NSBundle bundleForClass:c] == self) {
+  //			[array addObject:c];
+  //		}
+  //	}
+  //	free(classes);
 	return [array sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
 
@@ -191,23 +168,23 @@
 {
 	NSFileManager *fm = NSFileManager.new; // +defaultManager is not thread safe
 	NSDirectoryEnumerator *enumerator = [fm enumeratorAtPath: [self resourcePath]];
-
+  
 	NSA* files = [enumerator.allObjects filter:^BOOL(NSS* filePath) {
-
+    
 		return !isEmpty(name.pathExtension) ? [filePath endsWith:name]
-													  : [[filePath stringByDeletingPathExtension] endsWith:name];
-
+    : [[filePath stringByDeletingPathExtension] endsWith:name];
+    
 	}];
 	NSS *file = nil;
 	if (files.count) file = [files filterOne:^BOOL(NSS* filePath) {  return areSame(name, filePath.lastPathComponent); }];
 	if (!file && files.count) file = files[0];
 	
 	return file ? [[self resourcePath] stringByAppendingPathComponent:file] : nil;
-
+  
 }
 
 - (NSA*)recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath{
-
+  
 	NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
 	NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
 	NSString *filePath;
@@ -219,54 +196,72 @@
 	return filePaths;
 }
 
-- (NSA*) cacheImages;	{	static NSA* cachedImages = nil;
+- (NSA*) cacheImages	{	 
 
-	[AZStopwatch named:$(@"Caching images for Bundle:%@", NSStringFromClass([self principalClass])) block:^{
-	if (!cachedImages) cachedImages = ^{
-		NSA*u = [@[@"pdf", @"png"] map:^(NSS *type){
-			return  [[self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]] cw_mapArray:^id(NSS* path) {
+  AZNew(NSMA,cachedImages);
+  
+	[AZStopwatch named:$(@"Cached %lu images in bundle:%@",cachedImages.count,self.bundlePath) block:^{
 
-				NSS*name = [path.lastPathComponent stringByDeletingPathExtension];
-				return [NSIMG imageNamed:name] ? name : ^{
-					NSImage *needsPath = [NSIMG.alloc  initByReferencingFile:path];
-					if (needsPath) needsPath.name = name;
-					return needsPath;
-				}();
-			}];
-		}];
-		AZLOG($(@"Cached %ld images: %@.",u.count, [u valueForKeyPath:@"name"] ));
-
-	return  [NSArray arrayWithArrays:[u valueForKeyPath:@"name"]];
-	}();
-}];
-
-return cachedImages;
+//    if (!cachedImages) cachedImages = ^{
+    for (NSS *type in @[@"pdf", @"png", @"jpg", @"jpeg"]) {
+      [[self recursivePathsForResourcesOfType:type inDirectory:self.resourcePath] do:^(NSS* path) {
+        NSS*name = path.lastPathComponent.stringByDeletingPathExtension;
+        if (![NSIMG imageNamed:name])  {
+            NSIMG *needsPath = [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:path]];
+            if (!needsPath.name) needsPath.name = name;
+            [cachedImages addObject:name];
+        }
+      }];
+    }
+  }];
+//      AZLOG($(@"Cached %ld images: %@.",u.count, [u valueForKeyPath:@"name"] ));
+//      return  [NSArray arrayWithArrays:[u valueForKeyPath:@"name"]];
+//    }();
+//  }];
+  
+  return cachedImages;
 }
 
+- (NSA*) imageResources { return [self resourcesWithExtensions:NSIMG.imageFileTypes]; }
+- (NSA*) resourcesWithExtensions:(NSA*)exts {
+
+  AZNewVal(rsrcs, NSMA.new);
+  for (NSS* ext in exts) {
+    id x = [self pathsForResourcesOfType:ext inDirectory:nil];
+    for (NSS *filePath in x) {
+      id img; if ((img = [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:filePath]])) [rsrcs addObject:img];
+    }
+  }
+  return rsrcs;
+//  return [exts reduce:NSMA.new withBlock:^id(NSMA* sum, id obj) {
+//    [sum addObjectsFromArray:({ id x = [self pathsForResourcesOfType:obj inDirectory:nil];
+//    
+//     x ? [x map:^id(id url) {
+//      return [NSIMG imageFromURL:[NSURL fileURLWithPath:url]];
+//    }] : @[]; })];
+//    return sum;
+//  }];
+}
 
 - (void) cacheNamedImages;
 {
-	NSCountedSet *typesCounter = [NSCountedSet new];
-	NSArray *types = [NSImage imageFileTypes];
-	NSEnumerator *e = [types objectEnumerator];
-	NSString *type;
-	while ((type = [e nextObject]) != nil) {
-		NSArray *files = [self recursivePathsForResourcesOfType:type inDirectory:[self resourcePath]];
-		NSEnumerator *e2 = [files objectEnumerator];
-		NSString *imagepath;
-		while ((imagepath = [e2 nextObject]) != nil) {
-		   NSString *name = [[imagepath lastPathComponent] stringByDeletingPathExtension];
-		   NSImage *image = [NSImage imageNamed:name];
-		   if (!image) {
-				image = [NSImage.alloc  initByReferencingFile:imagepath];
-				if (image) {
-				   [image setName: name];
-				}
-			}
-			if (image) [typesCounter addObject:type];
+	AZNew(NSCS,typesCounter);
+	AZNewVal(types,NSIMG.imageFileTypes);
+
+	NSENUM *e = types.objectEnumerator; NSS *type;
+
+	while (!!(type = e.nextObject)) {
+  
+		NSA *files = [self recursivePathsForResourcesOfType:type inDirectory:self.resourcePath];
+		NSEnumerator *e2 = files.objectEnumerator; NSS *imagepath;
+		while ((imagepath = e2.nextObject) != nil) {
+      NSString *name = [imagepath.lastPathComponent stringByDeletingPathExtension];
+      NSImage *image = [NSImage imageNamed:name];
+      if (image || !(image = [NSImage.alloc  initByReferencingFile:imagepath])) continue;
+			[image          setName:name];
+      [typesCounter addObject:type];
 		}
-	}
-	LOG_EXPR(typesCounter);
+  }	LOG_EXPR(typesCounter);
 }
 
 NSString *appSupportSubpath = @"/System/Library/Frameworks";
@@ -326,18 +321,23 @@ NSString *ext = @"framework";
 - (NSString*)appIconPath {
 	// Oddly, I can't find a constant for the bundle icon file.
 	// Compare to kCFBundleNameKey, which is apparently "CFBundleName".
-	NSString* iconFilename = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIconFile"] ;
+	NSString* iconFilename = AZAPPINFO[@"CFBundleIconFile"] ;
 	// I do not use -pathForImageResource, in case the Resources also contains
 	// an image file, for example a png, with the same name.  I want the .icns.
 	NSString* iconBasename = [iconFilename stringByDeletingPathExtension] ;
 	NSString* iconExtension = [iconFilename pathExtension] ;  // Should be "icns", but for some reason it's in Info.plist
 	return [[NSBundle mainBundle] pathForResource:iconBasename
-										   ofType:iconExtension] ;
+                                         ofType:iconExtension] ;
 }
 
 - (NSImage*)appIcon {
-	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
-	return appIcon ;
+
+  return [NSIMG imageNamed:AZAPPINFO[@"CFBundleIconFile"]];
+
+//	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
+//	return appIcon ;
 }
+
++ (NSA*) allFrameworkPaths { return self.allFrameworks[@"bundlePath"]; }
 
 @end

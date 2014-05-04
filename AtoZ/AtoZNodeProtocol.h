@@ -5,9 +5,6 @@
 
 #define CEL NSCell
 
-JREnumDeclare( AZOutlineCellStyle, 	AZOutlineCellStyleToggleHeader,
-												AZOutlineCellStyleScrollList,
-												AZOutlineCellStyleScrollListItem );
 
 AZStruct(AZNodeProtocolKeyPaths,	__unsafe_unretained NSS *keyPath;
 											__unsafe_unretained NSS *valuePath;
@@ -20,7 +17,7 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 
 @protocol AtoZNodeProtocol	<NSObject>
 @required
-- (AZNodeProtocolKeyPaths) keyPaths;
+@property (RONLY) AZNodeProtocolKeyPaths keyPaths;
 - (void) addChild:(id<AtoZNodeProtocol>)c;
 @optional
 //@property (readonly) NSString *valuePath, *keyPath, *childrenPath;
@@ -49,10 +46,9 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 
 @interface NSCoder (AZNodeProtocolKeyPaths)
 - (struct AZNodeProtocolKeyPaths)decodeKeyPaths:(id)arg1;
-- (void)encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
+- (void) encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
 @end
-@interface	AZNode : NSObject	<AtoZNodeProtocol, NSCopying, NSCoding>
-
+@interface	AZNode : NSObject	<AtoZNodeProtocol>//, NSCopying, NSCoding>
 @end
 
 

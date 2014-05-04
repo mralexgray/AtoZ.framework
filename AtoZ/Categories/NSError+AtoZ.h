@@ -17,5 +17,5 @@
 //- (BOOL)causedByUserCancelling;
 //
 //- initWithPropertyList:(NSD*)propertyList;
-- (NSD*)toPropertyList;
+- (NSDictionary*)toPropertyList;
 @end

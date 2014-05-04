@@ -16,9 +16,9 @@
 
 @end
 @interface NSWorkspace (JAAdditions)
-- (void)openURLInBackground:(NSURL *)url;
-- (void)openURLsInBackground:(NSArray *)urls;
-- (void)openURLs:(NSArray *)urls;
+- (void) penURLInBackground:(NSURL *)url;
+- (void) penURLsInBackground:(NSArray *)urls;
+- (void) penURLs:(NSArray *)urls;
 
 - (NSString *)applicationSupportDirectory;
 - (NSString *)preferencesDirectory;

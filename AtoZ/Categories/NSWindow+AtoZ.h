@@ -1,85 +1,69 @@
 
 #import "AtoZUmbrella.h"
-#import "AtoZCategories.h"
-#import "NSArray+AtoZ.h"
-#import "JREnum.h"
-	
 #define CRNR OSCornerType
 
-
 @interface NSAnimationContext (Blocks)
-+ (void)groupWithDuration:(NSTimeInterval)duration
-   timingFunctionWithName:(NSString *)timingFunction
-        completionHandler:(void (^)(void))completionHandler
-           animationBlock:(void (^)(void))animationBlock;
 
-+ (void)groupWithDuration:(NSTimeInterval)duration
-        completionHandler:(void (^)(void))completionHandler
-           animationBlock:(void (^)(void))animationBlock;
++ (void) groupWithDuration:(NSTI)duration
+    timingFunctionWithName:(NSS*)tFnunc
+         completionHandler:(VBlk)cHndlr
+            animationBlock:(VBlk)aniBlk;
 
-+ (void)groupWithDuration:(NSTimeInterval)duration
-           animationBlock:(void (^)(void))animationBlock;
++ (void) groupWithDuration:(NSTI)duration
+         completionHandler:(VBlk)cHndlr
+            animationBlock:(VBlk)aniBlk;
+
++ (void)groupWithDuration:(NSTI)duration
+           animationBlock:(VBlk)aniBlk;
 @end
+
+@interface NSResponder (AtoZ) @property BOOL acceptsFirstResponder, performKeyEquivalent; @end
 
 JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTopRightCorner = 2, NSWindowResizeBottomRightCorner = 3, NSWindowResizeBottomLeftCorner = 4);
 
 @interface NSWindow (SBSWindowAdditions)
-
 + (void) setLiveFrameTracking:(BOOL) bol;
 + (BOOL) isLiveFrameTracking;
-
 @end
+
 @interface NSWindow (Resize)
-
-- (void) resizeToWidth:(CGF)theWidth height:(CGF)theHeight;
-- (void) resizeToWidth:(CGF)theWidth height:(CGF)theHeight origin:(NSWindowResize)theOrigin;
-- (void) resizeToWidth:(CGF)theWidth height:(CGF)theHeight origin:(NSWindowResize)theOrigin duration:(NSTI)theDuration;
-
+- (void) resizeToWidth:(CGF)w height:(CGF)h;
+- (void) resizeToWidth:(CGF)w height:(CGF)h origin:(NSWindowResize)theOrigin;
+- (void) resizeToWidth:(CGF)w height:(CGF)h origin:(NSWindowResize)theOrigin duration:(NSTI)dur;
 @end
 
-/*
- Provides a "zoom" animation for windows when ordering on and off screen.
- For more details, check out the related blog posts at http://www.noodlesoft.com/blog/2007/06/30/animation-in-the-time-of-tiger-part-1/ and http://www.noodlesoft.com/blog/2007/09/20/animation-in-the-time-of-tiger-part-3/	*/
-/*
-@interface NSWindow (NoodleEffects)
+@interface NSWindow		(AtoZ)  <RectLike> 
 
-- (void) animateToFrame: (NSRect) frameRect duration:(NSTimeInterval)duration;
-- (void) zoomOnFromRect: (NSRect) startRect;
-- (void) zoomOffToRect:  (NSRect) endRect;
+- (void) toggleVisibility;
+@property (NATOM) NSA* childWindows;
 
-@end
-*/
+- (void)  overrideCanBecomeKeyWindow:(BOOL)canBecomeKey;
+- (void) overrideCanBecomeMainWindow:(BOOL)canBecomeMain;
 
++ (INST) windowWithFrame:(NSR)r view:(NSView*)v mask:(NSUI)m;
++ (INST) windowWithFrame:(NSR)r mask:(NSUI)m;
 
-@interface NSWindow		(AtoZ)
-+ (NSW*) borderlessWindowWithContentRect: (NSRect)aRect;
++ (NSW*) borderlessWindowWithContentRect:(NSR)aRect;
 +   (id) hitTest:			(NSE*) event;
 +   (id) hitTestPoint:(NSP)location;
 + (NSA*) appWindows;
 
-- (void) setFrame:		(NSR)frame;
-@property (readonly) NSR   bounds;
-@property						 CAL * layer;
-@property (readonly) CGR contentRect;
-@property (readonly) CGF originX, originY;
-// Size
-@property (nonatomic) CGF width;
-@property (nonatomic) CGF height;
-@property (nonatomic) NSSZ size;
-
-- (void) setWidth: (CGF) t;
-- (void) setHeight: (CGF) t;
-- (void) setSize: (NSSZ) size;
+@property (RONLY) NSV * frameView;
+@property         NSV * view;
+@property	(RONLY) CAL * windowLayer,
+                      * contentLayer;
+@property (RONLY) CGR   contentRect;
 
 - (NSA*) windowAndChildren;
 + (NSA*) allWindows;
-- (CAL*) veilLayer;
+
+@property (RONLY) CAL* veilLayer;
 - (CAL*) veilLayerForView: (NSV*)view;
 
--  (NSP)	midpoint; //get the midpoint of the window
-- (void)	setMidpoint:		(NSPoint) midpoint; //set the midpoint of the window
-- (void)	addViewToTitleBar:	(NSView*) viewToAdd atXPosition:(CGFloat)x;
--  (CGF)	heightOfTitleBar;
+//-  (NSP) midpoint; //get the midpoint of the window
+//- (void) setMidpoint:		(NSPoint) midpoint; //set the midpoint of the window
+- (void) addViewToTitleBar:	(NSView*) viewToAdd atXPosition:(CGFloat)x;
+-  (CGF) heightOfTitleBar;
 - (void) setContentSize:		(NSSize) aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag;
 - (void) betterCenter;
 
@@ -93,56 +77,13 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 - (void) slideDown;
 - (void) extendVerticallyBy: (CGF) amount;
 //- (void) setDefaultFirstResponder;
-
+- (void) animateInsetTo:(CGF)f anchored:(AZA)edge;
 - (void) setIgnoresEventsButAcceptsMoved;
 - (void) delegateBlock: (void(^)(NSNOT*))block;
 @end
 
 #define kNTSetDefaultFirstResponderNotification @"NTSetDefaultFirstResponderNotification"  // object is the window, must check
 
-/*@interface NSWindow (Utilities)
-//- (void)veil:(NSView*)view;
-
-+ (void) cascadeWindow:(NSWindow*)inWindow;
-
-+ (NSA*) visibleWindows:(BOOL)ordered;
-
-//+ (NSA*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
-//- (NSWindow*)topWindowWithDelegateClass:(Class)klass;
-//+ (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)klass;
-
-+ (BOOL) isAnyWindowVisible;
-+ (NSA*) miniaturizedWindows;
-
-- (void) setFloating:(BOOL)set;
-- (BOOL) isFloating;
-
-- (BOOL) isMetallic;
-- (BOOL) isBorderless;
-
-// returns parentWindow if an NSDrawerWindow, returns self if not a drawerWindow
-- (NSWindow*) parentWindowIfDrawerWindow;
-
-- (BOOL) dimControls;
-- (BOOL) dimControlsKey;
-- (BOOL) keyWindowIsMenu;
-
-- (void) flushActiveTextFields;
-
-- (NSRect) setContentViewAndResizeWindow: (NSView*)view 		display:(BOOL)display;
-- (NSRect) resizeWindowToContentSize: (NSSize)contentSize 	display:(BOOL)display;
-- (NSRect) windowFrameForContentSize: (NSSize)contentSize;
-
-+ (BOOL) windowRectIsOnScreen: (NSRect)windowRect;
-
-
-@end
-*/
-
-//@interface NSWindow (UndocumentedRoutines)
-//- (void)setBottomCornerRounded:(BOOL)set;
-//- (BOOL)bottomCornerRounded;
-//@end
 
 #define NSBorderlessWindowMaskSet(bitMask) (bitMask == 0)  // NSBorderlessWindowMask == 0
 #define NSTexturedBackgroundWindowMaskSet(bitMask) ((bitMask & NSTexturedBackgroundWindowMask) != 0)
@@ -165,3 +106,65 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 -  (NSR) windowFrameForNewContentViewSize:(NSSize)newSize;
 
 @end
+
+/*@interface NSWindow (Utilities)
+- (void) eil:(NSView*)view;
++ (void) cascadeWindow:(NSWindow*)inWindow;
++ (NSA*) visibleWindows:(BOOL)ordered;
++ (NSA*)visibleWindows:(BOOL)ordered delegateClass:(Class)delegateClass;
+- (NSWindow*)topWindowWithDelegateClass:(Class)klass;
++ (BOOL)isAnyWindowVisibleWithDelegateClass:(Class)klass;
+
++ (BOOL) isAnyWindowVisible;
++ (NSA*) miniaturizedWindows;
+
+- (void) setFloating:(BOOL)set;
+- (BOOL) isFloating;
+
+- (BOOL) isMetallic;
+- (BOOL) isBorderless;
+
+// returns parentWindow if an NSDrawerWindow, returns self if not a drawerWindow
+- (NSWindow*) parentWindowIfDrawerWindow;
+
+- (BOOL) dimControls;
+- (BOOL) dimControlsKey;
+- (BOOL) keyWindowIsMenu;
+
+- (void) flushActiveTextFields;
+
+ (NSRect) setContentViewAndResizeWindow: (NSView*)view 		display:(BOOL)display;
+- (NSRect) resizeWindowToContentSize: (NSSize)contentSize 	display:(BOOL)display;
+- (NSRect) windowFrameForContentSize: (NSSize)contentSize;
++ (BOOL) windowRectIsOnScreen: (NSRect)windowRect;
+@end
+
+@interface NSWindow (UndocumentedRoutines)
+- (void) setBottomCornerRounded:(BOOL)set;
+- (BOOL)bottomCornerRounded;
+@end
+*/
+/*
+ Provides a "zoom" animation for windows when ordering on and off screen.
+ For more details, check out the related blog posts at http://www.noodlesoft.com/blog/2007/06/30/animation-in-the-time-of-tiger-part-1/ and http://www.noodlesoft.com/blog/2007/09/20/animation-in-the-time-of-tiger-part-3/	*/
+/*
+@interface NSWindow (NoodleEffects)
+
+- (void) animateToFrame: (NSRect) frameRect duration:(NSTimeInterval)duration;
+- (void) zoomOnFromRect: (NSRect) startRect;
+- (void) zoomOffToRect:  (NSRect) endRect;
+
+@end
+//- (void) setFrame:(NSR)frame;
+//@property (RONLY) NSR   bounds;
+//@property (RONLY) CGF   originX, originY;
+// Size
+//@property (nonatomic) CGF width;
+//@property (nonatomic) CGF height;
+//@property (nonatomic) NSSZ frameSize;
+
+//- (void) setWidth: (CGF) t;
+//- (void) setHeight: (CGF) t;
+//- (void) setFrameSize: (NSSZ) size;
+
+*/

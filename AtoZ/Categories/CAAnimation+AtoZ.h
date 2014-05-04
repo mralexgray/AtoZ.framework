@@ -1,22 +1,20 @@
-//  CAA+AtoZ.h
-//  AtoZ
 
-#import <QuartzCore/QuartzCore.h>
+//@import QuartzCore;
 #import <BlocksKit/BlocksKit.h>
 #import "F.h"
-#import "CABlockDelegate.h"
+#import "BlockDelegate.h"
+
 
 @interface CAAnimationGroup (oneLine)
 + (CAAnimationGroup*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)layer;
 @end
 
-
 typedef void (^AZCAAnimationCompletionBlock)();
 
 //Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
 @interface CATransaction (AtoZ)
++ (void) transactionWithLength:(NSTI)l actions:(VoidBlock)block completion:(VoidBlock)comp;
 + (void)flushBlock:(VoidBlock)block;
-
 //+ (void)CADisabledBlock:(void(^)(void))block;
 //+ (void) immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block;
 //+ (void)az_performWithDisabledActions:(void(^)(void))block
@@ -39,9 +37,13 @@ extern void disableCA();
 + (CAKA*) shakeAnimation:(NSR)frame;
 + (CAKA*) jumpAnimation;
 + (CAKA*) dockBounceAnimationWithIconHeight:(CGF)iconHeight;
++ (CAKA*) colorAnimationWithPalette:(NSA*)p duration:(NSTI)t;
 @end
 
 @interface CABA (AtoZ)
++ (CABA*) animationWithKeyPath:(NSS*)path from:(id)v1 to:(id)v2 duration:(NSTI)time repeat:(CGF)ct;
++ (CABA*) dashPhaseAnimation;
++ (CABA*) dashPhaseAnimationForPerimeter:(CGF)phase;
 + (CABA*) groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption:(id)from to:(id)to andSet:(CAL*)set;
 + (CABA*) withKP:(NSS*)path duration:(NSTI)interval fromOption:(id)from to:(id)to andSet:(CAL*)set;
 @end
@@ -58,6 +60,8 @@ extern void disableCA();
 + (CAAG*) blowupAnimationAtPoint: (CGP)p;
 
 + (CAA*)	shakeAnimation;
++ (CAA*) fadeInAnimation;
++ (CAA*) fadeOutAnimation;
 + (CAA*)	animationForOpacity;
 + (CAA*)	flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*)	animationOnPath: (CGPR)path  duration:	(CFTI)d 	  timeOffset: (CFTI)o;
@@ -68,6 +72,7 @@ extern void disableCA();
 
 @property (NATOM, CP) AZCAAnimationCompletionBlock az_completionBlock;
 @end
+
 
 //+ (CAA*) animationForScale;
 //+ (CAA*) animationForRotation;
@@ -84,7 +89,15 @@ extern void disableCA();
 @end
 
 @interface CATransition (AtoZ)
++ (INST) transitionOfType:(NSS*)type;
 + (CATransition*) randomTransition;
 + (NSA*)transitionsFor:(id)targetView;
+@end
+
+
+@interface CAKA (AtoZ)
+/**	Returns an animation with _vals.@count keyframes. 
+ * @param vals The array of KeyVals */
++ (CAKA*) animationWithKeyPath:(NSS*)path values:(NSA*)vals duration:(NSTI)time repeat:(CGF)ct;
 @end
 

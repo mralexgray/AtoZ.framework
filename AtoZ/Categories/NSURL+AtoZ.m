@@ -21,7 +21,7 @@
 //@end
 
 //@implementation NSMutableURLRequest (SpecialProtocol)
-//- (void)setSpecialVars:(NSD*)specialVars {
+//- (void) setSpecialVars:(NSD*)specialVars {
 //	NSLog(@"%@ received %@", self, NSStringFromSelector(_cmd));
 //	NSDictionary *specialVarsCopy = [specialVars copy];
 //	[NSURLProtocol setProperty:specialVarsCopy

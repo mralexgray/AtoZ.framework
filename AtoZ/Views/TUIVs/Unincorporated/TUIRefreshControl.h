@@ -43,11 +43,11 @@
 // design choice taken to accomodate for targeting users who both have and
 // do not have a multitouch trackpad. It is more natural to not be able to
 // see the refresh indicator when using a mouse scroll wheel.
-- (void)beginRefreshing;
+- (void) eginRefreshing;
 
 // End the refresh process. Note that if a bounce scroll triggers an automatic
 // refresh process, the only way to end it is to call this method.
 // By design, the refresh indicator disappears.
-- (void)endRefreshing;
+- (void) ndRefreshing;
 
 @end

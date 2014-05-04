@@ -46,8 +46,8 @@
 //#define SynthesizeMutableAccessors(__COLLECTION_NAME__, __INTERNAL_KEYPATH__, __INSERTABLE_CLASS__)\
 //- (NSUI)countOfCAP {	return [[self valueForKeyPath:__INTERNAL_KEYPATH__] count]; }\
 //- (__INSERTABLE_CLASS__*)  objectIn__CAPPED_KEY__At:(NSUI)i	{	return [self __INTERNAL_KEYPATH__][i];  }\
-//- (void)removeObjectFrom__CAPPED_KEY__AtIndex:(NSUI)i { 	[[self __INTERNAL_KEYPATH__] removeObjectAtIndex:i];  };\
-//- (void)insertObject:(__INSERTABLE_CLASS__*)o in__CAPPED_KEY__AtIndex:(NSUI)i {	[[self __INTERNAL_KEYPATH__] insertObject:o atIndex:i]; }\
+//- (void) removeObjectFrom__CAPPED_KEY__AtIndex:(NSUI)i { 	[[self __INTERNAL_KEYPATH__] removeObjectAtIndex:i];  };\
+//- (void) insertObject:(__INSERTABLE_CLASS__*)o in__CAPPED_KEY__AtIndex:(NSUI)i {	[[self __INTERNAL_KEYPATH__] insertObject:o atIndex:i]; }\
 //
 //SynthesizeMutableAccessors(@"colors",cls[name],NSC);
 /*
@@ -89,7 +89,7 @@
 
 @end
 */
-#import "NSTerminal.h"
+//#import "NSTerminal.h"
 
 //@implementation NSArray (AZCLI)
 //- (NSS*) cliMenuFromContentsStarting:(NSUI)idx inPalette:(NSA*)pal {

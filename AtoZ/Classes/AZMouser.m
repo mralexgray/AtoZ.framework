@@ -223,7 +223,7 @@ void dragTo ( CGPoint dest ) {
 
 - (NSA*) arcPointsBetween:(CGPoint)a p2:(CGPoint)b
 {
-	CGF distance = distanceFromPoint(a,b);
+	CGF distance = AZDistanceFromPoint(a,b);
 	CGF radius = 25;
 	//	return [[@0 to:@20]arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 	NSBezierPath *originalPath = [NSBezierPath bezierPath];
@@ -475,7 +475,7 @@ void AZDragBetwixt(const CGPoint a, const CGPoint b) {
 	//	CGEventPost(kCGHIDEventTap, theEvent)
 	//	CGEventSetType(theEvent, type);
 	CGPoint next = a;
-	CGFloat range = distanceFromPoint(a,b);
+	CGFloat range = AZDistanceFromPoint(a,b);
 	CGEventRef dragTime;
 	for (int i = 0; i < 50; i++) {
 		next = AZMovePointAbs (next, b, .02 * range);

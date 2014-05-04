@@ -16,7 +16,7 @@
 @dynamic color, outlineColor, spinState;
 
 
-- (id)init {	return [self initWithFrame:[self.superlayer bounds]]; }
+- (id)init {	return self = [super init] ? self.frame = [self.superlayer bounds], self : nil; }
 
 //-(id)initWithRect:(CGRect)rect
 //{
@@ -118,7 +118,7 @@
 //	return defaultPaths;
 
 - (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-//- (void)drawLayer:(CALayer *)theLayer
+//- (void) drawLayer:(CALayer *)theLayer
 //		inContext:(CGContextRef)context 
 
 		[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{

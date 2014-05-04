@@ -1,6 +1,4 @@
 AtoZ/XcodeENV.sh
-AtoZ.xcodeproj.framework
-xcb
 Archive*
 git
 build
@@ -9,10 +7,6 @@ AtoZ.framework
 .idea/
 *User Data
 Documentation
-#.gitignore
-# AtoZ.xcworkspace/xcuserdata/*
-# AtoZ/Resources/Frameworks/*
-AtoZ/AtoZiTunes.framework
 Frameworks/Cocotron
 Frameworks/CocoatechStrings
 # Xcode
@@ -34,34 +28,3 @@ profile
 .DS_Store
 Notes.txt
 *Breakpoints
-AtoZ/Compile*
-AtoZ/Compiled Frameworks/CocoaPuffs.framework/Versions/A/CocoaPuffs
-AtoZ/AtoZ Entitlement/AtoZ.xcdatamodeld/AtoZ.xcdatamodel/contents
-AtoZ/AtoZ Entitlement/AtoZ.xcdatamodeld/.xccurrentversion
-AtoZ/Resources/picol*
-/Sparkle
-Locked*
-Frameworks/PXListView
-AtoZ/Classes/CPAccelerationTimer
-libatoz/
-AtoZ/Views/README.md
-AtoZ.graffle/
-MailCore
-html
-AtoZ/html/*
-Frameworks/KVO-Test
-AtoZ/Classes/Nu.h
-AtoZ/Classes/Nu.m
-*AZScratch.h
-AtoZ/Views/AZScratch.h
-AtoZ/Resources/palettes/BORIS
-cocoa-configurations
-AtoZ/Resources/palettes/COLORMATE.CLR
-Tosti*
-src/libextobjc
-CABlockDelegate
-AtoZ/AIUtilities.*
-buildTemplate.pdf
-bootstrap-ui
-index.html
-1b4cf7d8cc3db9988980981a0328e35b6655ccf5

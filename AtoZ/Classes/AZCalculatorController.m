@@ -32,7 +32,7 @@
 //NSWindowController * windowController = [NSWindowController.alloc ;
 //[windowController window];
 
-	//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	//- (void) pplicationDidFinishLaunching:(NSNotification *)aNotification {
 //
 
 - (id)init
@@ -67,7 +67,7 @@
 	[self setLabel];
 }
 
-- (void)setLabel {
+- (void) setLabel {
 	labelValue = [NSString stringWithFormat:@"%ld", [_calc accumulatorValue]];
 	[_label setStringValue:labelValue];
 }

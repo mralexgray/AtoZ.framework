@@ -1,4 +1,4 @@
-
+  
 #import <objc/runtime.h>
 #import "AtoZAutoBox/AtoZAutoBox.h"
 #import "AtoZ.h"
@@ -6,26 +6,31 @@
 //#import "AtoZFunctions.h"
 #import "NSObject+AtoZ.h"
 
-@implementation 																																		NSObject (NibLoading)
-+ (INST) loadFromNib {	static NSNib   *aNib = nil;	NSArray *objs = nil;
+@implementation NSObject (NibLoading)
++ (INST) loadFromNib                              {	static NSNib   *aNib = nil;	NSArray *objs = nil;
 	[aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];
 	return [objs objectWithClass:self.class];
-}																															@end
-@implementation 																																		NSObject (GCD)
-- (void) performOnMainThread:								 (void(^)(void))block wait:(BOOL)shouldWait {
-
-		shouldWait 	?  dispatch_sync (dispatch_get_main_queue(), block)	// Synchronous
-       				:	dispatch_async(dispatch_get_main_queue(), block);  // Asynchronous
 }
-- (void) performAsynchronous:								 (void(^)(void))block {    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+@end
+@implementation NSObject (GCD)
+- (void) performOnMainThread:(VoidBlock)block
+                        wait:(BOOL)wait           {
+
+		wait 	?  dispatch_sync (dispatch_get_main_queue(), block)	// Synchronous
+       		:	 dispatch_async(dispatch_get_main_queue(), block);  // Asynchronous
+}
+- (void) performAsynchronous:(VoidBlock)block     {    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 																										 dispatch_async(queue, block);
 }
-- (void) performAfter:(NSTimeInterval)seconds block:(void(^)(void))block {
+- (void) performAfter:(NSTI)sec
+                block:(VoidBlock)block            {
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, seconds * NSEC_PER_SEC);
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, sec * NSEC_PER_SEC);
+CLANG_IGNORE(-Wdeprecated-declarations)
     dispatch_after(popTime, dispatch_get_current_queue(), block);
+CLANG_POP
 }														@end
-@implementation 																																		NSObject (ClassAssociatedReferences)
+@implementation NSObject (ClassAssociatedReferences)
 + (void) setValue:(id)value forKey:(NSS*)key {	[self setAssociatedValue:value forKey:key policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];}
 +   (id) valueForKey:				  (NSS*)key {return objc_getAssociatedObject(self,(__bridge const void *)key); }																							@end
 @implementation 																																		NSObject (HidingAssocitively)
@@ -66,7 +71,8 @@ IMP impOfCallingMethod(id lookupObject, SEL selector)		{
     }
 	 return (IMP)closest;
 }
-@implementation 																																		NSObject (SupersequentImplementation)
+
+@implementation NSObject (SupersequentImplementation)
 - (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip	{
 	BOOL found = NO;
 	Class currentClass = object_getClass(self);
@@ -97,13 +103,16 @@ IMP impOfCallingMethod(id lookupObject, SEL selector)		{
 		currentClass = class_getSuperclass(currentClass);
 	}
 	return nil;
-}																			@end
+}
+@end
 static id addMethodTrampoline(id self, SEL _cmd) 			{
 	id(^block)(id, SEL) = objc_getAssociatedObject([self class], _cmd);
 	return block(self, _cmd);
 }
-@implementation 																																		NSObject (AddMethod)
-+ (BOOL) addMethodFromString:  (NSS*)s withArgs:(NSA*)a	{
+
+@implementation NSObject (AddMethod)
++ (BOOL)   addMethodFromString:(NSS*)s
+                      withArgs:(NSA*)a    {
 	
 	// get an Objective-C selector variable for the method
 	SEL mySelector;
@@ -129,73 +138,124 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 //	IMP myIMP = imp_implementationWithBlock(^(id _self, NSString *string) {		NSLog(@"Hello %@", string);
 //	});
 //	class_addMethod([self class], NSSelectorFromString(s), myIMP, "v@:@");
+  return YES;
 }
-+ (BOOL) addMethodForSelector: (SEL)sel typed:(const char*)types implementation:(id)blkPtr {
++ (BOOL)  addMethodForSelector:(SEL)sel
+                         typed:(const char*)types
+                implementation:(id)blkPtr {
 
 	objc_setAssociatedObject(self, sel, blkPtr, OBJC_ASSOCIATION_COPY_NONATOMIC);
 	class_addMethod(self, sel, (IMP)addMethodTrampoline, types);
 	return YES;
 }
-- (NSA*) methodSignatureArray: (SEL)selector {
+- (NSA*)  methodSignatureArray:(SEL)sel   {
 
-	NSMethodSignature *s =	[self methodSignatureForSelector:selector];
+	NSMethodSignature *s =	[self methodSignatureForSelector:sel];
 	return [[@0 to:@([s numberOfArguments] - 1)] nmap:^(id ob, NSUI ud){ return $UTF8([s getArgumentTypeAtIndex:ud]);	}];
 }
-+ (NSA*) methodSignatureArray: (SEL)selector {
-	NSMethodSignature *s =	[self methodSignatureForSelector:selector];
++ (NSA*)  methodSignatureArray:(SEL)sel   {
+	NSMethodSignature *s =	[self methodSignatureForSelector:sel];
 	return  [[@0 to: @([s numberOfArguments] - 1)] nmap:^(id ob, NSUI ud){ return $UTF8([s getArgumentTypeAtIndex:ud]);	}];
 }
-- (NSS*) methodSignatureString:(SEL)selector {	return [NSS stringFromArray:[self methodSignatureArray:selector]];	}
-+ (NSS*) methodSignatureString:(SEL)selector {return [NSS stringFromArray:[self methodSignatureArray:selector]]; }																							@end
-@implementation 																																		NSObject (AssociatedValues)
-- (void)          setAssociatedValue : (id)v forKey:(NSS*)k							{
-	[self setAssociatedValue:v forKey:k policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+- (NSS*) methodSignatureString:(SEL)sel   {	return [NSS stringFromArray:[self methodSignatureArray:sel]];	}
++ (NSS*) methodSignatureString:(SEL)sel   {return [NSS stringFromArray:[self methodSignatureArray:sel]]; }
+@end
+
+@implementation NSObject (AssociatedValues)
+
+- (void)          setAssociatedValue:(id)v forKey:(NSS*)k     {
+	[self associateValue:v  forKey:(void*)k policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
-- (void)          setAssociatedValue : (id)v forKey:(NSS*)k policy:(PLCY)p		{
+- (void)          setAssociatedValue:(id)v forKey:(NSS*)k
+                                           policy:(PLCY)p     {
 	objc_setAssociatedObject(self, (__bridge const void *)(k), v, p);
 }
--   (id)       associatedValueForKey : (NSS*)k											{
-	return objc_getAssociatedObject(self, (__bridge const void *)(k));
-}
-- (void) removeAssociatedValueForKey : (NSS*)k											{
+//-   (id)       associatedValueForKey:(NSS*)k									{
+//	return objc_getAssociatedObject(self, (__bridge const void *)(k));
+//}
+- (void) removeAssociatedValueForKey:(NSS*)k									{
 	objc_setAssociatedObject(self, (__bridge const void *)(k), nil, OBJC_ASSOCIATION_ASSIGN);
 }
-- (void)   removeAllAssociatedValues 														{
+- (void)   removeAllAssociatedValues 													{
 	objc_removeAssociatedObjects(self);
 }
-- (BOOL)    hasAssociatedValueForKey : (NSS*)k 											{
+- (BOOL)    hasAssociatedValueForKey:(NSS*)k 									{
 	return objc_getAssociatedObject(self,(__bridge const void*)k) != nil;
 }
--   (id)       associatedValueForKey :	(NSS*)k orSetTo:(id)def 					{ /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
+-   (id)       associatedValueForKey:(NSS*)k orSetTo:(id)def 	{ /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
 	return [self associatedValueForKey:k orSetTo:def policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
--   (id)       associatedValueForKey : (NSS*)k orSetTo:(id)def policy:(PLCY)p {
+-   (id)       associatedValueForKey:(NSS*)k orSetTo:(id)def
+                                              policy:(PLCY)p  {
 
 	return [self hasAssociatedValueForKey:k] ? objc_getAssociatedObject(self,(__bridge const void*)k)
     : (id)([self setAssociatedValue:def forKey:k policy:p], def);
-}												@end
-
-@interface AZValueTransformer ()		@property (nonatomic, copy) id (^transformBlock)(id value);	@end
-@implementation AZValueTransformer	@synthesize transformBlock;
-+ (BOOL)allowsReverseTransformation {	return NO;}
-- (id)transformedValue:(id)value 	{    return self.transformBlock(value);}
-+ (instancetype) transformerWithBlock:(id (^)(id value))block {
-	NSParameterAssert(block != NULL);	AZValueTransformer *transformer = [self.alloc init];	transformer.transformBlock = block;	return transformer;
 }
 @end
+
+@implementation AZValueTransformer	@synthesize transformBlock;
++         (BOOL) allowsReverseTransformation            {	return NO; }
+-           (id) transformedValue:(id)v                 { return self.transformBlock(v);}
++ (instancetype) transformerWithBlock:(TransformBlock)b {
+	NSParameterAssert(b != NULL);
+  AZValueTransformer *trnsfrmr = self.class.new;	trnsfrmr.transformBlock = b;	return trnsfrmr;
+}
+@end
+
+//- (BOOL) expanded                   { return [FETCH bV]; }
+//- (void) setExpanded:(BOOL)expanded {  if (self.expanded == expanded) return; [self willChangeValueForKey:@"expanded"]; ASSIGNBOOL(@selector(expanded), expanded); [self didChangeValueForKey:@"expanded"]; }
+//SYNTHESIZE_ASC_PRIMITIVE(expanded,setExpanded,BOOL);
+
+#define KVOTRIGGER(x) [ willChangeValueForKey : x][bSelf setValue : y forKey : x];  [bSelf didChangeValueForKey:x]; })
 
 @implementation NSObject (AtoZ)
 
 
+
+-  (void) triggerKVO:(NSS*)k block:(bSelf)blk {           
+                                                            [self willChangeValueForKey:k]; 
+  [self blockSelf:^(__typeof(self)_self){ blk(_self); }];   [self  didChangeValueForKey:k];
+}
+-  (void) blockSelf:(VoidObjBlock)block { AZBlockSelf(_self); block(_self); }
+- (NSAS*) attributedDescription {  NSMAS *as = [NSMAS.alloc initWithString:self.description attributes:[NSAS.defaults dictionaryWithValue:BLACK forKey:NSForegroundColorAttributeName]];
+
+  [as.string enumerateSubstringsInRange:(NSRange){0, as.length} options:NSStringEnumerationByWords
+                             usingBlock:^(NSS *substring, NSRNG subRng, NSRNG enclRng, BOOL *stop) {
+    SameString(@"YES", substring) ? [as setColor:GREEN inRange:subRng] :
+    SameString(@"NO", substring)  ? [as setColor:RED inRange:subRng] : nil;
+  }];
+  return as;
+}
+
+- (const char*) cDesc { return self.description.cchar; }
+
+- (NSS*) descriptionForKey:(NSS*)k {
+
+  id x = [self vFK:k]; if (!x) return nil;
+  return [x respondsToSelector:@selector(boolValue)] && ISA(x,objc_getClass("__NSCFNumber")) && ([x integerValue] == 0 || [x integerValue] == 1) ? StringFromBOOL([self boolForKey:k]) : $(@"%@",x);
+}
+- (void) willChangeValueForKeysBlock:(void(^)(id _self))blk keys:(NSString*)keys, ... {
+
+  azva_list_to_nsarray(keys, allKeys);
+  for (NSString *k in allKeys) [self willChangeValueForKey:k];
+  AZBlockSelf(_myself);
+  blk(_myself);
+  for (NSString *k in allKeys.reversed) [self didChangeValueForKey:k];
+}
+- (void)       sVs:(NSA*)vs     fKs:(NSA*)ks { [self setValues:vs forKeys:ks]; }
+- (void) setValues:(NSA*)vs forKeys:(NSA*)ks {  NSParameterAssert (vs && ks && ISA(vs,NSA) && ISA(ks, NSA) && vs.count == ks.count);
+
+  [[ks pairedWith:vs] eachWithVariadicPairs:^(id a, id b) { [self sV:b fK:a]; }];
+}
+- (void)  setValue:(id)x forKeys:(NSA*)ks { for(id z in ks) [self sV:x fK:z]; }
+
 - (BOOL) ISA:(Class)k {  return [self ISKINDA:ISACLASS(k) ? k : [k class]]; }
 
-+ (void)load {
-	 [$ swizzleMethod:@selector(setValue:forKey:) with:@selector(swizzleSetValue:forKey:) in:self.class];
-}
+//	 [$ swizzleMethod:@selector(setValue:forKey:) with:@selector(swizzleSetValue:forKey:) in:self.class];
 
 @synthesizeAssociation(NSObject,propertiesThatHaveBeenSet)
 
-- (void)swizzleSetValue:(id)v forKey:(NSS*)k {
+- (void) swizzleSetValue:(id)v forKey:(NSS*)k {
 	id x = [self valueForKey:k];
 	if (!IS_OBJECT(x) || x != nil) {
 		NSMA *setAlready = self.propertiesThatHaveBeenSet ?: NSMA.new;
@@ -204,31 +264,32 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	}
 	[self swizzleSetValue:v forKey:k];
 }
+- (BOOL) valueWasSetForKey:(NSS*)key {
 
-- (BOOL) valueWasSetForKey:(NSS*)key {	[self.propertiesThatHaveBeenSet containsObject:key];	}
-//id(^blockGetter)(id,id) = ^id(id _self,id getter) {	NSString *newUid = nil;
-//	if (!getter) { newUid = NSS.newUniqueIdentifier; [_self setUuid:newUid]; }
-//	return getter ?: newUid;
-//};
+return [self.propertiesThatHaveBeenSet containsObject:key];	}
+//id(^blockGetter)(id,id) = ^id(id _self,id getter) {	NSString *newUid = nil;	if (!getter) { newUid = NSS.newUniqueIdentifier; [_self setUuid:newUid]; }	return getter ?: newUid; };
 //@synthesizeAssGetSet(NSObject,uuid,AZGETTER,blockGetter)
 
 - (NSS*) uuid { return  [self associatedValueForKey:AZSELSTR orSetTo:NSS.newUniqueIdentifier]; }
 
-@dynamic undefinedKeys;
-
--    (id) valueForUndefinedKey:(NSS*)key 				{
-
-	id thing = objc_getAssociatedObject(self,(__bridge const void*)key);
-	if (thing!=nil) return thing;  else return NSLog(@"warning.. no value forUndefinedKey:%@", key),nil;
-}
--  (void) setUndefinedKeys:	 (NSMA*)ks 					{ objc_setAssociatedObject(self, (__bridge const void*)@"undefinedKeys", ks, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
-- (NSMA*) undefinedKeys 									{ return [self associatedValueForKey:@"undefinedKeys" orSetTo:NSMA.new]; }
-- (NSMA*) addUndefinedKey:(NSS*)k 						{  id x; [x=self.undefinedKeys addObject:k]; self.undefinedKeys = x; }
--  (void) setValue:(id)v forUndefinedKey:(NSS*)k  {
-
-	[self.undefinedKeys doesNotContainObject:k] ? [self addUndefinedKey:k] : nil;
-	objc_setAssociatedObject(self,(__bridge const void*)k,v,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//@dynamic undefinedKeys;
+//
+//-    (id) valueForUndefinedKey:(NSS*)k 				{
+//
+//  id thing;
+//  if ((thing = objc_getAssociatedObject(self,(__bridge const void*)k))) return thing;
+//  if ((thing = [self.associatedDictionary objectForKey:k])) return thing;
+//  if (0) NSLog(@"Warning. No AtoZ-associated value for %@'s UndefinedKey:%@", self, k);
+//  return nil;
+//}
+//-  (void) setUndefinedKeys:	 (NSMA*)ks 					{ objc_setAssociatedObject(self, (__bridge const void*)@"undefinedKeys", ks, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+//- (NSMA*) undefinedKeys 									{ return [self associatedValueForKey:@"undefinedKeys" orSetTo:NSMA.new]; }
+//- (NSMA*) addUndefinedKey:(NSS*)k 						{  [self.undefinedKeys addObject:k]; }
+//-  (void) setValue:(id)v forUndefinedKey:(NSS*)k  {
+//
+//	[self.undefinedKeys doesNotContainObject:k] ? [self addUndefinedKey:k] : nil;
+//	objc_setAssociatedObject(self,(__bridge const void*)k,v,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 + (instancetype) instanceWithProperties:(NSS*)firstKey,...  {
 	azva_list_to_nsdictionaryKeyFirst(firstKey, propertyMap);
@@ -238,12 +299,12 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 }
 - (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ... {
 	azva_list_to_nsarrayBLOCKSAFE(block, VARARGS);
-	__block typeof(self) blockSelf = self;
+  AZBlockSelf(blockSelf);
 	block(blockSelf, [VARARGS subarrayFromIndex:1]);
 }
 - (void) performBlockEachVararg:(void(^)(NSO*_self,id obj))block, ... {
 
-	__block typeof(self) blockSelf = self;
+	AZBlockSelf(blockSelf);
 	azva_list_to_nsarrayBLOCKSAFE(block, VARARGS);
 	[[VARARGS subarrayFromIndex:1] each:^(id obj) { block(blockSelf, obj); }];
 }
@@ -259,56 +320,66 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 
 	[self blockSelf:^(id _self) {	[objKps each:^(id obj){ [_self bind:obj toObject:o withKeyPath:obj options:nil]; }]; }];
 }
--(void) propagateValue:(id)value forBinding:(NSString*)binding;
-{
+- (void) propagateValue:(id)value forBinding:(NSString*)binding; {
+
 	NSParameterAssert(binding != nil);
 
 	//WARNING: bindingInfo contains NSNull, so it must be accounted for
-	NSDictionary* bindingInfo = [self infoForBinding:binding];
-	if(!bindingInfo)
-		return; //there is no binding
+	NSD* bindingInfo = [self infoForBinding:binding];
+	if(!bindingInfo) return; //there is no binding
 
 	//apply the value transformer, if one has been set
-	NSDictionary* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
-	if(bindingOptions){
-		NSValueTransformer* transformer = [bindingOptions valueForKey:NSValueTransformerBindingOption];
-		if(!transformer || (id)transformer == [NSNull null]){
-			NSString* transformerName = [bindingOptions valueForKey:NSValueTransformerNameBindingOption];
-			if(transformerName && (id)transformerName != [NSNull null]){
-				transformer = [NSValueTransformer valueTransformerForName:transformerName];
-			}
+	NSD* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
+	if(bindingOptions) {
+		NSVT* transformer = [bindingOptions valueForKey:NSValueTransformerBindingOption];
+		if(!transformer || (id)transformer == AZNULL){
+			NSString* transformerName = bindingOptions[NSValueTransformerNameBindingOption];
+			if(transformerName && (id)transformerName != AZNULL) transformer = [NSValueTransformer valueTransformerForName:transformerName];
 		}
-
-		if(transformer && (id)transformer != [NSNull null]){
-			if([[transformer class] allowsReverseTransformation]){
-				value = [transformer reverseTransformedValue:value];
-			} else {
-				NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
-			}
-		}
+		if(transformer && (id)transformer != AZNULL)
+      if ([transformer.class allowsReverseTransformation]) value = [transformer reverseTransformedValue:value];
+      else NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
 	}
 
 	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
-	if(!boundObject || boundObject == AZNULL)
-		return NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+	if(!boundObject || boundObject == AZNULL) return NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
 	NSString* boundKeyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
 	if(!boundKeyPath||(id)boundKeyPath==AZNULL) return NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
 	[boundObject setValue:value forKeyPath:boundKeyPath];
 }
 #define DEFAULTOPTSWITHNULL(x)  @{NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption:x}
+- (void) bindFrameToBoundsOf:(id)obj { [self b:@"frame" tO:obj wKP:@"bounds" o:nil]; }
+- (void)    bindKeys:(NSA*)b tO:(id)o { for (NSS*k in b) [self b:k tO:o]; }
+- (void)    b:(NSS*)b to:(NSS*)kp using:(id)wild type:(BindType)bType {
 
-- (void) bind:(NSS*)b toObject:(id)o      withKeyPathUsingDefaults:(NSS*)kp 			{ [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(AZNULL)]; 	}
-- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp o:(NSD*)opt { [self bind:b toObject:o withKeyPath:kp  options:opt]; 	}
-- (void) bind:(NSS*)b toObject:(id)o withKeyPath:(NSS*)kp nilValue:(id)nilV 			{ [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(nilV)];	 	}
-- (void)bind:(NSS*)binding toObject:(id)object withKeyPath:(NSS*)keyPath transform:(id (^)(id value))transformBlock {
-	AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:transformBlock];
-	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption:@(YES), NSValueTransformerBindingOption:transformer}];
+  bType == NSNotFound                           ? [self b:b tO:self wKP:kp o: wild ?: nil] :
+  bType == BindTypeSelector                     ? [self b:b tO:self wKP:kp s:NSSelectorFromString(wild)] :
+  bType == BindTypeTransform  ? [self b:b tO:self wKP:kp t:wild] :  // && [wild isaBlock]
+  bType == BindTypeIfNil                        ? [self b:b tO:self wKP:kp n:wild] : NSLog(@"WARN: Nothing appropriate to be done here!");
 }
+- (void)    b:(NSS*)b       tO:(id)o                                                                { [self bind:b toObject:o withKeyPath:b  options:nil]; 	}
+- (void) bind:(NSS*)b toObject:(id)o withKeyPathUsingDefaults:(NSS*)kp                              { [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(AZNULL)]; 	}
+- (void)    b:(NSS*)b       tO:(id)o                      wKP:(NSS*)kp         o:(NSD*)opt          { [self bind:b toObject:o withKeyPath:kp  options:opt]; 	}
+- (void) bind:(NSS*)b toObject:(id)o              withKeyPath:(NSS*)kp  nilValue:(id)nilV           { [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(nilV)];	 	}
+- (void)    b:(NSS*)b       tO:(id)o                      wKP:(NSS*)kp         n:(id)nilV           { [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(nilV)];	}
+- (void) bind:(NSS*)b toObject:(id)o              withKeyPath:(NSS*)kp transform:(TransformBlock)t  {
 
-- (void)bind:(NSString *)binding toObject:(id)object withNegatedKeyPath:(NSString *)keyPath {
-	[self bind:binding toObject:object withKeyPath:keyPath options:@{NSContinuouslyUpdatesValueBindingOption: @(YES), NSValueTransformerNameBindingOption : NSNegateBooleanTransformerName}];
+  if (self == nil || b == nil || kp == nil || !t) return NSLog(@"warning: bailed on binding.. self:%@ b:%@ o:%@ kp:%@ t:%@", self, b, o, kp, t);
+
+  [self bind:b toObject:o withKeyPath:kp
+     options:@{ NSContinuouslyUpdatesValueBindingOption:@YES,
+                        NSValueTransformerBindingOption:[AZValueTransformer transformerWithBlock:t]}];
 }
+- (void)    b:(NSS*)b       tO:(id)o                      wKP:(NSS*)kp         t:(TransformBlock)t  { [self bind:b toObject:o withKeyPath:kp transform:t]; }
+- (void) bind:(NSS*)b toObject:(id)o       withNegatedKeyPath:(NSS*)kp                              {
+	[self bind:b toObject:o withKeyPath:kp options:@{NSContinuouslyUpdatesValueBindingOption: @(YES), NSValueTransformerNameBindingOption : NSNegateBooleanTransformerName}];
+}
+- (void)    b:(NSS*)b       tO:(id)o                      wKP:(NSS*)kp         s:(SEL)select        { [self bind:b toObject:o withKeyPath:kp  selector:select]; }
+- (void) bind:(NSS*)b toObject:(id)x              withKeyPath:(NSS*)kp  selector:(SEL)select        {
 
+  [self b:b tO:x wKP:kp t:^id(id value) { return objc_msgSend(value, select); }];
+}
+- (void)    b:(NSS*)b toKP:(NSS*)selfkp { [self b:b tO:self wKP:selfkp o:nil]; }
 
 
 -(id) filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil {
@@ -325,14 +396,13 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 //	id __block (^find_recursor)(id) = mayReturnOtherObjectOrNil; // first define the recursor
 //	id         (^find_)			(id) = ^id(id topLevel){ 	// then define the block.
 
-- (void)performBlock:(void (^)())block	{ block();	}
+- (void)performBlock:(VoidBlock)block	{ block();	}
 
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay	{
 //    void (^block_)() = [block copy]; // autorelease this if you're not using ARC
 //    [self performSelector:@selector(performBlock:) withObject:block_ afterDelay:delay];
 //}
 //+ (void) load { [$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class]; }
-
 - (NSS*)swizzleDescription {
 
 	return [self swizzleDescription];
@@ -341,9 +411,7 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 - (NSS*) xmlRepresentation {
 	return [NSS stringWithData:[AZXMLWriter dataWithPropertyList:self] encoding:NSUTF8StringEncoding];
 }
-
 - (BOOL)saveAs:(NSS*)file { return [self writeToFile:file atomically:YES]; }
-
 - (NSURL *)urlified {
 	NSURL *theURL;
 	if ([self isKindOfClass:NSS.class]) {
@@ -354,6 +422,68 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	if ([self isKindOfClass:NSURL.class]) theURL = areSame([(NSURL *)self scheme], @"http") ? (NSURL *)self : [NSURL URLWithFormat:@"http://%@", self];
 	return theURL;
 }
+
+
+- (void)DDLogError   {
+	DDLogError(@"%@", self);
+}                                                               // Red
+- (void)DDLogWarn       {
+	DDLogWarn(@"%@", self);
+}                                                               // Orange
+- (void)DDLogInfo               {
+	DDLogInfo(@"%@", self);
+}                                                               // Default (black)
+- (void)DDLogVerbose {
+	DDLogVerbose(@"%@", self);
+}                                                               // Default (black)
+
+- (void)bindArrayKeyPath:(NSS*) array toController:(NSAC*)controller {
+	[self bind:array toObject:controller withKeyPath:@"arrangedObjects" options:nil];
+}
+- (id) performString:(NSS*)string                     {
+	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:nil];
+}
+- (id) performString:(NSS*)string withObject:(id)obj  {
+	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
+}
+
+/*
+ + (NSA*) instanceMethods
+ {
+ NSMA *array = NSMA.new;
+ unsigned int method_count;
+ Method *method_list = class_copyMethodList([self class], &method_count);
+ int i;
+ for (i = 0; i < method_count; i++) {
+ //		[array addObject: ]
+ //		[array addObject:[NuMethod.alloc initWithMethod:method_list[i]]];// autorelease]];
+ }
+ free(method_list);
+ [array sortUsingSelector:@selector(compare:)];
+ return array;
+ }
+ */
+
+- (NSA*) instanceMethodNames {
+	Class clazz             = [self class];         u_int count;
+	Method *methods         = class_copyMethodList(clazz, &count);
+
+	NSA*ns = [[@0 to : @(count - 1)] nmap:^id (id obj, NSUI index) {
+		return $UTF8(sel_getName(method_getName(methods [(u_int)index]) ));
+	}];
+	return [ns cw_mapArray:^id(id object) {return [object containsAnyOf:@[@"cxx_destruct", @"init", @"dealloc"]] ? nil : object;}];
+	//	free(	methods );
+	//	return  methodArray;
+}
+- (NSS*) instanceMethodsInColumns {
+	return [[self instanceMethodNames]formatAsListWithPadding:30];
+}
+-    (BOOL) isaBlock                        { return [self.className containsAnyOf:@[@"NSGlobalBlock", @"NSBlock"]]; }
+-    (BOOL) isKindOfBlock:(id)anotherBlock  {  return [self.blockSignature isEqual:[anotherBlock blockSignature]]; }
+-    (NSS*) blockDescription                {	return self.blockSignature.debugDescription;	}
+- (NSMSIG*) blockSignature                  { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
+
+
 
 // adapted from the CocoaDev MethodSwizzling page
 /*
@@ -445,83 +575,13 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 
  [boundObject setValue:value forKeyPath:boundKeyPath];
  }
- */
 
-- (void)DDLogError   {
-	DDLogError(@"%@", self);
-}                                                               // Red
-
-- (void)DDLogWarn       {
-	DDLogWarn(@"%@", self);
-}                                                               // Orange
-
-- (void)DDLogInfo               {
-	DDLogInfo(@"%@", self);
-}                                                               // Default (black)
-
-- (void)DDLogVerbose {
-	DDLogVerbose(@"%@", self);
-}                                                               // Default (black)
-
-
-- (void)bindArrayKeyPath:(NSS*) array toController:(NSArrayController *)controller {
-	[self bind:array toObject:controller withKeyPath:@"arrangedObjects" options:nil];
-}
-
-- (id)performString:(NSS*) string;
-{
-	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:nil];
-}
-
-- (id)performString:(NSS*) string withObject:(id)obj;
-{
-	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
-}
-
-/*
- + (NSA*) instanceMethods
- {
- NSMA *array = NSMA.new;
- unsigned int method_count;
- Method *method_list = class_copyMethodList([self class], &method_count);
- int i;
- for (i = 0; i < method_count; i++) {
- //		[array addObject: ]
- //		[array addObject:[NuMethod.alloc initWithMethod:method_list[i]]];// autorelease]];
- }
- free(method_list);
- [array sortUsingSelector:@selector(compare:)];
- return array;
- }
- */
-- (NSA*) instanceMethodNames {
-	Class clazz             = [self class];         u_int count;
-	Method *methods         = class_copyMethodList(clazz, &count);
-
-	NSA*ns = [[@0 to : @(count - 1)] nmap:^id (id obj, NSUI index) {
-		return $UTF8(sel_getName(method_getName(methods [(u_int)index]) ));
-	}];
-	return [ns cw_mapArray:^id(id object) {return [object containsAnyOf:@[@"cxx_destruct", @"init", @"dealloc"]] ? nil : object;}];
-	//	free(	methods );
-	//	return  methodArray;
-}
-
-- (NSS*) instanceMethodsInColumns {
-	return [[self instanceMethodNames]formatAsListWithPadding:30];
-}
-
-- (BOOL) isKindOfBlock:(id)anotherBlock {  return [[self blockSignature] isEqual:[anotherBlock blockSignature]]; }
-- (NSS*) blockDescription {	return self.blockSignature.debugDescription;	}
-- (NSMethodSignature*) blockSignature { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
-
-/*! Get an array containing the names of the instance methods of a class. */
+//! Get an array containing the names of the instance methods of a class. 
 //- (NSA*) instanceMethodNames
 //{
 //	NSA* methods = [self instanceMethodArray];
 //	return [methods mapSelector:@selector(name)];
 //}
-
-/**
 
  -(void) propagateValue: (id)value forBinding: (NSS*)binding;
  {
@@ -641,7 +701,6 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 		return [self isKindOfClass:object];
 	}];
 }
-
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
 
 	NSMD* x = objc_getAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray");
@@ -658,13 +717,13 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 //	return [x normal:idx];
 }
 
+/*
 - (id)objectForKeyedSubscript:(id)key {
 	return [self hasPropertyForKVCKey:key] ? [self valueForKey:key] 
 														: [self vFKP:$(@"dictionary.%@",key)] 
 													  ?: objc_getAssociatedObject(self, (__bridge const void *)key)
 													  ?: nil;         // [super objectForKeyedSubscript:key];
 }
-
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key { 	
 
 	if 			(!key) 	return;
@@ -692,16 +751,15 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 	//	}();
 //	wasSet ? : NSLog(@"subscrpipt key:%@ NOT set, despite edfforts", key);
 }
+*/
 
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
 	//	block = [[block copy] autorelease];
 	[self performSelector:@selector(fireBlockAfterDelay:) withObject:block afterDelay:delay];
 }
-
 - (void)fireBlockAfterDelay:(void (^)(void))block {
 	block();
 }
-
 - (NSMD *)getDictionary {
 	if (objc_getAssociatedObject(self, @"dictionary") == nil) objc_setAssociatedObject(self, @"dictionary", NSMD.new, OBJC_ASSOCIATION_RETAIN);
 	return (NSMD *)objc_getAssociatedObject(self, @"dictionary");
@@ -717,7 +775,6 @@ static char windowPosition;
 - (void)setWindowPosition:(AZWindowPosition)pos {
 	objc_setAssociatedObject(self, &windowPosition, @(pos), OBJC_ASSOCIATION_RETAIN);
 }
-
 - (AZWindowPosition)windowPosition {
 	return [objc_getAssociatedObject(self, &windowPosition) integerValue];
 }
@@ -749,7 +806,6 @@ static char windowPosition;
 + (NSS*) autoDescribe {
 	return $(@"%@:%p::%@", self.class, self, [self autoDescribeWithClassType:[self class]]);
 }
-
 - (NSS*) autoDescribe {
 	Class clazz     = self.class;
 	u_int count;
@@ -776,10 +832,17 @@ static char windowPosition;
 		[methodArray addObject:[NSS stringWithUTF8String:methodName]];
 	}
 	free(methods);
-	NSLog(@"%@",    @{      @"ivars" : [ivarArray formatAsListWithPadding:30],
+	return $(@"%@",    @{      @"ivars" : [ivarArray formatAsListWithPadding:30],
 			@"properties": [propertyArray formatAsListWithPadding:30],
 			@"methods": [methodArray formatAsListWithPadding:30] });
 }
+- (DTA*) dataKey:(NSS*)def { id x = [self vFK:def];	return [x isKindOfClass:objc_lookUpClass("NSData")]       ? x : (id)nil; }
+- (NSS*)  strKey:(NSS*)def { id x = [self vFK:def];	return [x isKindOfClass:objc_lookUpClass("NSString")]     ? x : (id)nil; }
+- (NSA*)  arrKey:(NSS*)def { id x = [self vFK:def]; return [x isKindOfClass:objc_lookUpClass("NSArray")]      ? x : (id)nil; }
+- (NSD*)  dicKey:(NSS*)def { id x = [self vFK:def];	return [x isKindOfClass:objc_lookUpClass("NSDictionary")] ? x : (id)nil; }
+- (BOOL) boolKey:(NSS*)def { id x = [self vFK:def];	return [x isKindOfAnyClass:@[NSN.class, NSS.class]] ? [x boolValue] :NO; }
+- (NSI)     iKey:(NSS*)def { id x = [self vFK:def]; return [x isKindOfAnyClass:@[NSN.class, NSS.class]]	? [x integerValue] :0; }
+- (CGF)     fKey:(NSS*)def { id x = [self vFK:def]; return [x isKindOfAnyClass:@[NSN.class, NSS.class]]	? [x fV] :0; }
 
 @end
 
@@ -900,7 +963,6 @@ static char windowPosition;
 				[$UTF8(type) startsWith:@"b"]	? $(@"A bit field of %ld bits",[[$UTF8(type) stringByDeletingPrefix:@"b"] integerValue]) :
 				[$UTF8(type) startsWith:@"^"]	? $(@"A pointer to type %@", [NSO stringFromType:[$UTF8(type) stringByDeletingPrefix:@"^"].UTF8String]) : nil ;
 }
-
 - (void*) performSelector:(SEL)selector withValue:(void*)value andValue:(void*)value2 {
 
 	NSInvocation *invocation = [self invocationWithSelector:selector];
@@ -1074,7 +1136,6 @@ static char windowPosition;
 // Our NSInvocation is already autoreleased, so we're done.
  
 }
-
 - (void)log {	[self logInColor:RANDOMCOLOR];}
 - (void)logInColor:(NSC *)color {	LOGCOLORS(color,[self description], nil);}
 
@@ -1124,7 +1185,6 @@ static char windowPosition;
 		} else return nil;
 	} else return nil;
 }
-
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3 withObject:(id)p4 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
@@ -1143,7 +1203,6 @@ static char windowPosition;
 		} else return nil;
 	} else return nil;
 }
-
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
            withObject:(id)p4 withObject:(id)p5 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
@@ -1168,7 +1227,6 @@ static char windowPosition;
 		return nil;
 	}
 }
-
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
            withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
@@ -1194,7 +1252,6 @@ static char windowPosition;
 		return nil;
 	}
 }
-
 - (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
            withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 withObject:(id)p7 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
@@ -1235,12 +1292,9 @@ static char windowPosition;
 //	[[sender delegate] performSelector:fabricated withValue:optionPtr];
 //	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 //}
-
 - (NSS*) segmentLabel {
-	return [self isKindOfClass:[NSSegmentedControl class]]
-	? [(NSSegmentedControl *)self labelForSegment : [(NSSegmentedControl *)self selectedSegment]] : nil;
+	return ISA(self,NSSegmentedControl) ? [(NSSegmentedControl*)self labelForSegment : ((NSSegmentedControl*)self).selectedSegment] : nil;
 }
-
 -(NSS*) firstResponsiveString:(NSA*)selectors;
 {
 	for (NSS* candidate in selectors) if ([self respondsToString:candidate]) return candidate;
@@ -1250,8 +1304,7 @@ static char windowPosition;
 {	NSS* responder;
 	return (responder = [self firstResponsiveString:selectors])	? NSSelectorFromString(responder) : NULL;
 }
-
-- (id) responds:(NSS*)selStr do:(id)doBlock{	__block typeof (self) bSelf = self;
+- (id) responds:(NSS*)selStr do:(id)doBlock{	__block __typeof__ (self) bSelf = self;
 
 	id (^idBlock)(id) = doBlock;
 	return [self respondsToSelector:NSSelectorFromString(selStr)] ? idBlock(bSelf) ?: nil : nil;
@@ -1263,33 +1316,24 @@ BOOL respondsToString(id obj, NSS *string) {
 BOOL respondsTo(id obj, SEL selector) {
 	return [obj respondsToSelector:selector];
 }
-
 - (BOOL)respondsToString:(NSS*) string {
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }
-
 - (id)respondsToStringThenDo:(NSS*) string {
 	return [self respondsToStringThenDo:string withObject:nil withObject:nil];
 }
-
 - (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj {
 	return [self respondsToStringThenDo:string withObject:obj withObject:nil];
 }
-
 - (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj withObject:(id)objtwo {
-	SEL select 	= NSSelectorFromString(string);
-	BOOL doesit =  [self respondsToSelector:select];
-	return
-		!	doesit
-		? 		nil
-		:	doesit && obj && objtwo
-		? 		[self performSelectorARC:select withObject:obj withObject:objtwo]
-		:	doesit && obj
-		? 		[self performSelectorARC:select withObject:obj]
-		:	doesit
-		? 		[self cw_ARCPerformSelector:select] : nil;
-}
 
+	SEL  select = NSSelectorFromString(string);
+	return
+		! [self respondsToSelector:select] ? nil
+		: obj && objtwo   ? [self performSelectorARC:select withObject:obj withObject:objtwo]
+		: obj             ?	[self performSelectorARC:select withObject:obj]
+		:                   [self cw_ARCPerformSelector:select];
+}
 - (IBAction)performActionFromLabel:(id)sender;
 {
 	NSS *stringSel, *setter;
@@ -1307,7 +1351,6 @@ BOOL respondsTo(id obj, SEL selector) {
 		if ([self respondsToString:label]) [self performSelector:NSSelectorFromString(label) withValue:nil];
 	}
 }
-
 - (IBAction)increment:(id)sender;
 {
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
@@ -1323,7 +1366,6 @@ BOOL respondsTo(id obj, SEL selector) {
 		[self setValue:[NSVAL value:(const void *)newVal withObjCType:[self typeOfPropertyNamed:label]] forKey:label];
 	}
 }
-
 - (void)setFromSegmentLabel:(id)sender {
 	BOOL isSelected;        NSS *label;
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
@@ -1338,25 +1380,6 @@ BOOL respondsTo(id obj, SEL selector) {
 	}
 	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
 }
-
-//- (void)performActionFromLabel: (id)sender {
-//
-//	BOOL isSelected;	NSS*label;
-//	BOOL isButton = [sender isKindOfClass:[NSButton class]];
-//	NSI buttonState = [sender state];
-//	//		 = [sender isSelectedForSegment:selectedSegment];
-//	label = [sender label];
-//	BOOL *optionPtr = &buttonState;
-//	//	} else
-//	//		label = [sender label];
-//	SEL fabricated = NSSelectorFromString(label);
-//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
-//	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
-//}
-//- (BOOL) respondsToSelector: (SEL) aSelector {
-//	NSLog (@"%s", (char *) aSelector);
-//	return ([super respondsToSelector: aSelector]);
-//} // respondsToSelector
 
 static const char * getPropertyType(objc_property_t property) {
 	const char *attributes = property_getAttributes(property);
@@ -1374,6 +1397,7 @@ static const char * getPropertyType(objc_property_t property) {
 		: attribute[0] == 'T' && attribute[1] == '@' ? (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes]
 		: "";
 	}
+  return "";
 }
 
 + (NSD *)classPropsFor:(Class)klass {
@@ -1393,8 +1417,41 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 	free(properties);       return results;                 // returning a copy here to make sure the dictionary is immutable
 }
+- (NSS*) methods {
+	return [[[self class] classMethods]formatAsListWithPadding:30];
+}
++ (NSA*) classMethods {
+	const char *className = class_getName([self class]);
+	int unsigned numMethods;
+	NSMA *ii = [NSMA array];
+	Method *methods = class_copyMethodList(objc_getMetaClass(className), &numMethods);
+	for (int i = 0; i < numMethods; i++) {
+		[ii addObject:NSStringFromSelector(method_getName(methods[i]))];
+		//		NSLog(@"%@", NSStringFromSelector(method_getName(methods[i])));
+	}
+	return ii.copy;
+}
 
 /*
+- (void)performActionFromLabel: (id)sender {
+
+	BOOL isSelected;	NSS*label;
+	BOOL isButton = [sender isKindOfClass:[NSButton class]];
+	NSI buttonState = [sender state];
+	//		 = [sender isSelectedForSegment:selectedSegment];
+	label = [sender label];
+	BOOL *optionPtr = &buttonState;
+	//	} else
+	//		label = [sender label];
+	SEL fabricated = NSSelectorFromString(label);
+	[[sender delegate] performSelector:fabricated withValue:optionPtr];
+	//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+}
+- (BOOL) respondsToSelector: (SEL) aSelector {
+	NSLog (@"%s", (char *) aSelector);
+	return ([super respondsToSelector: aSelector]);
+} // respondsToSelector
+
  - (NSA*) methodDumpForClass: (Class)klass {
 
  int numClasses;
@@ -1439,22 +1496,6 @@ static const char * getPropertyType(objc_property_t property) {
  return [rtn filteredArrayUsingPredicate:predicate];
  }	*/
 
-- (NSS*) methods {
-	return [[[self class] classMethods]formatAsListWithPadding:30];
-}
-
-+ (NSA*) classMethods {
-	const char *className = class_getName([self class]);
-	int unsigned numMethods;
-	NSMA *ii = [NSMA array];
-	Method *methods = class_copyMethodList(objc_getMetaClass(className), &numMethods);
-	for (int i = 0; i < numMethods; i++) {
-		[ii addObject:NSStringFromSelector(method_getName(methods[i]))];
-		//		NSLog(@"%@", NSStringFromSelector(method_getName(methods[i])));
-	}
-	return ii.copy;
-}
-
 // aps suffix to avoid namespace collsion
 //   ...for Andrew Paul Sardone
 //- (NSD *)propertiesDictionariate;
@@ -1463,151 +1504,132 @@ static const char * getPropertyType(objc_property_t property) {
 - (NSS*) stringFromClass {
 	return AZCLSSTR;
 }
-
 - (void)setIntValue:(NSI)i forKey:(NSS*) key     {
 	[self setValue:[NSNumber numberWithInt:i] forKey:key];
 }
-
 - (void)setIntValue:(NSI)i forKeyPath:(NSS*) keyPath {
 	[self setValue:[NSNumber numberWithInt:i] forKeyPath:keyPath];
 }
-
 - (void)setFloatValue:(CGF)f forKey:(NSS*) key       {
 	[self setValue:[NSNumber numberWithFloat:f] forKey:key];
 }
-
 - (void)setFloatValue:(CGF)f forKeyPath:(NSS*) keyPath {
 	[self setValue:[NSNumber numberWithFloat:f] forKeyPath:keyPath];
 }
-
 - (BOOL)isEqualToAnyOf:(id<NSFastEnumeration>)enumerable {
 	for (id o in enumerable) {
 		if ([self isEqual:o]) return YES;
 	}
 	return NO;
 }
-
 - (void)fire:(NSS*) notificationName {
 	[AZNOTCENTER postNotificationName:notificationName object:self];
 }
-
 - (void)fire:(NSS*) notificationName userInfo:(NSD *)context  {
 	[AZNOTCENTER postNotificationName:notificationName object:self userInfo:context];
 }
-
-- (id)observeObject:(NSS*) notificationName usingBlock:(void (^)(NSNOT *))block {
-	return [AZNOTCENTER addObserverForName:notificationName object:self queue:nil usingBlock:block];
+- (id)observeObject:(NSS*) notificationName usingBlock:(void (^)(NSNOT*n))block {
+	return [AZNOTCENTER addObserverForName:notificationName object:self queue:NSOQ.mainQueue usingBlock:block];
 }
-
-- (id)observeName:(NSS*) notificationName usingBlock:(void (^)(NSNOT *))block {
-	return [AZNOTCENTER addObserverForName:notificationName object:self queue:nil usingBlock:block];
+- (id)observeName:(NSS*) notificationName usingBlock:(void (^)(NSNOT *n))block {
+	return [AZNOTCENTER addObserverForName:notificationName object:nil queue:NSOQ.mainQueue usingBlock:block];
 }
-
 - (void)observeObject:(NSObject *)object forName:(NSS*) notificationName calling:(SEL)selector {
 	[AZNOTCENTER addObserver:self selector:selector name:notificationName object:object];
 }
-
 - (void)observeName:(NSS*) notificationName calling:(SEL)selector {
 	[AZNOTCENTER addObserver:self selector:selector name:notificationName object:nil];
 }
-
 - (void)stopObserving:(NSObject *)object forName:(NSS*) notificationName {
 	[AZNOTCENTER removeObserver:self name:notificationName object:object];
 }
 - (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... 			{
 
+  
 	azva_list_to_nsarray(firstNotificationName, namesAndBlocks);
-	NSA* names 			= [namesAndBlocks   subArrayWithMembersOfKind:NSS.class];
+	NSA* names        = [namesAndBlocks   subArrayWithMembersOfKind:NSS.class];
 	NSA* justBlocks 	= [namesAndBlocks arrayByRemovingObjectsFromArray:names];
-	[names eachWithIndex:^(id obj, NSInteger idx){ [self observeName:obj usingBlock:^(NSNOT*n){ ((void(^)(NSNOT*))justBlocks[idx])(n); }]; }];
+  
+//  NSAssert(justBlocks.count == names.count, @"need equal number of notifications as blocks");
+  [[names pairedWith:justBlocks] eachWithVariadicPairs:^(id a,id b){
+      [self observeName:a usingBlock:b];
+  }];
+
+//  [names eachWithIndex:^(id obj, NSI idx){ [self observeName:obj usingBlock:justBlocks[idx]]; }];
+//   ^(NSNOT*n){ ((void(^)(NSNOT*))justBlocks[idx])(n); }]; }];
 }
 
 
-- (BOOL)canPerformSelector: (SEL)aSelector {
+- (BOOL)canPerformSelector: (SEL)aSelector {	NSParameterAssert(aSelector != NULL); NSParameterAssert([self respondsToSelector:aSelector]);
 
-	NSParameterAssert(aSelector != NULL);
-	NSParameterAssert([self respondsToSelector:aSelector]);
-	NSMethodSignature *methodSig = [self methodSignatureForSelector:aSelector];
-	if (methodSig == nil) return NO;
-	const char *retType = [methodSig methodReturnType];
-	return (strcmp(retType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0);
+	NSMethodSignature *methodSig; const char *retType;
+	if (!(methodSig = [self methodSignatureForSelector:aSelector])) return NO;
+	return (strcmp(retType = methodSig.methodReturnType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0);
 }
-- (id)performSelectorSafely:(SEL)aSelector;
-{
-	NSParameterAssert(aSelector != NULL);
-	NSParameterAssert([self respondsToSelector:aSelector]);
-	NSMethodSignature *methodSig = [self methodSignatureForSelector:aSelector];
-	if (methodSig == nil) return nil;
-	const char *retType = [methodSig methodReturnType];
-	if (strcmp(retType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-		return [self performSelector:aSelector];
-#pragma clang diagnostic pop
-	} else {
-		NSLog(@"-[%@ performSelector:@selector(%@)] shouldn't be used. The selector doesn't return an object or void", [self className], NSStringFromSelector(aSelector));
-		return nil;
-	}
-}
+- (id) performSelectorIfResponds:(SEL)s { return [self respondsToSelector:s] ? [self performSelectorWithoutWarnings:s] : nil; }
+- (id)performSelectorSafely:(SEL)s {
 
+	NSParameterAssert(s     != NULL);
+	NSParameterAssert(self  != nil);
+	NSParameterAssert([self respondsToSelector:s]);
+	NSMethodSignature *methodSig; const char *retType;
+  return !(methodSig = [self methodSignatureForSelector:s]) ? nil :
+         strcmp(retType = methodSig.methodReturnType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0 ? (id) ({
+
+CLANG_IGNORE(-Warc-performSelector-leaks)
+  [self performSelector:s];
+CLANG_POP
+}) :
+  NSLog(@"-[%@ performSelector:@selector(%@)] shouldn't be used. The selector doesn't return an object or void", self.className, NSStringFromSelector(s)), nil;
+}
 - (id)performSelectorARC:(SEL)selector withObject:(id)obj {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector withObject:obj];
 #pragma clang diagnostic pop
 }
-
 - (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector withObject:one withObject:two];
 #pragma clang diagnostic pop
 }
-
 - (id)performSelectorWithoutWarnings:(SEL)aSelector {
 	return [self performSelectorSafely:aSelector];
 }
-
 - (id)performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	//	return (id)
-	[self performSelector:aSelector withObject:obj];
+	return [self performSelector:aSelector withObject:obj];
 #pragma clang diagnostic pop
 }
-
 - (id)performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	//	return	(id)
-	[self performSelector:aSelector withObject:obj withObject:obj2];
+	return [self performSelector:aSelector withObject:obj withObject:obj2];
 #pragma clang diagnostic pop
 }
-
 - (void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds {
 	[self performSelector:aSelector withObject:nil afterDelay:seconds];
 }
-
 - (void)observeKeyPath:(NSS*) keyPath {
 	[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
-
 - (void)addObserver:(NSObject *)observer forKeyPath:(NSS*) keyPath {
 	[self addObserver:observer forKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
-
-- (void)addObserver:(NSObject *)observer forKeyPaths:(id<NSFastEnumeration>)keyPaths {
+- (void)addObserver:(NSO*)observer forKeyPaths:(id<NSFastEnumeration>)keyPaths {
 	for (NSS *keyPath in keyPaths) {
 		[self addObserver:observer forKeyPath:keyPath];
 	}
 }
-
-- (void)removeObserver:(NSObject *)observer forKeyPaths:(id<NSFastEnumeration>)keyPaths {
+- (void)removeObserver:(NSO*)observer forKeyPaths:(id<NSFastEnumeration>)keyPaths {
 	for (NSS *keyPath in keyPaths) {
 		[self removeObserver:observer forKeyPath:keyPath];
 	}
 }
-
 - (void)az_willChangeValueForKeys:(NSA*)keys; { //(id<NSFastEnumeration>)keys {
 	for (id key in keys) {
 		[self willChangeValueForKey:key];
@@ -1615,12 +1637,9 @@ static const char * getPropertyType(objc_property_t property) {
 }
 - (void) triggerChangeForKeys:(NSA*)keys;{
 	for (id key in keys) {
-		[self willChangeValueForKey:key];
-	}
-	for (id key in keys) {
-		[self didChangeValueForKey:key];
-	}
-
+    [self performSelector:@selector(willChangeValueForKey:) withObject:key];
+    [self performSelector:@selector(didChangeValueForKey:)  withObject:key];
+  }
 }
 - (void)az_didChangeValueForKeys:(NSA*)keys;{//(id<NSFastEnumeration>)keys {
 	for (id key in keys) {
@@ -1668,7 +1687,6 @@ static const char * getPropertyType(objc_property_t property) {
 }
 
 + (instancetype)instanceWithDictionary:(NSD *)properties; { return [self.class newFromDictionary:properties]; }
-
 - (instancetype)initWithProperties:(NSD *)properties {
 	//	if ([self isKindOfClass:[CALayer class]]) {
 	//		if ([[properties allKeys]containsObject:@"frame"]){
@@ -1761,25 +1779,21 @@ static const char * getPropertyType(objc_property_t property) {
 
 @end
 
-
 @implementation  NSObject (ImageVsColor)
 
-- (NSC *)colorValue {
+-   (NSC*) colorValue {
 	if ([self isKindOfClass:NSC.class]) return (NSC *)self;
 	NSC * c = [self isKindOfClass:NSIMG.class] ? ((NSIMG *)self).quantize[0] : nil;
 	return c ? : [self respondsToString:@"color"] ? [self valueForKey:@"color"] : nil;
 }
-
-- (NSIMG *)imageValue;
-{
+- (NSIMG*) imageValue {
 	if (ISA(self,NSIMG)) return (NSIMG*)self;
-	NSIMG * i = ISA(self,NSC) ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDimension(256)] :
-  ISA(self,NSS) ? [NSIMG imageForSize:AZSizeFromDimension(100) withDrawingBlock:^{
+	NSIMG * i = ISA(self,NSC) ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDim(256)] :
+  ISA(self,NSS) ? [NSIMG imageForSize:AZSizeFromDim(100) withDrawingBlock:^{
     [(NSS*)self drawAtPoint:NSZeroPoint withAttributes:NSAS.defaults];
   }] : nil;
 	return i ? : [self respondsToString:@"image"] ? [self valueForKey:@"image"] : nil;
 }
-
 @end
 
 #import <ApplicationServices/ApplicationServices.h>
@@ -1788,8 +1802,6 @@ static const char * getPropertyType(objc_property_t property) {
 
 // Heard somewhere that this prototype may be missing in some cases so adding it here just in case.
 CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceStateID source, CGEventType eventType)  AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
-
-
 // Semi-private method. Used by the public methods
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime startTime:(NSTimeInterval)startTime {
 	CFTimeInterval idleTime;
@@ -1831,11 +1843,9 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 		[self performSelectorWithoutWarnings:aSelector withObject:anArgument];
 	}
 }
-
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay {
 	[self performSelector:aSelector withObject:anArgument afterSystemIdleTime:delay withinTimeLimit:-1];
 }
-
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime {
 	SInt32 version;
 
@@ -1856,10 +1866,8 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 
 @end
 
-
 // thanks Landon Fuller
 #define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))
-
 
 @implementation NSObject (SadunUtilities)
 
@@ -2008,6 +2016,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	CFShow((__bridge CFTypeRef)(result));
 	return result;
 }
+
 /*
  - (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
  {
@@ -2024,7 +2033,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
  return [self objectByPerformingSelectorWithArguments:selector];
  } */
 
-- (id)objectByPerformingSelector:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
 	if (![self respondsToSelector:selector]) return nil;
 
 	// Retrieve method signature and return type
@@ -2074,17 +2083,14 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	[inv getReturnValue:&l];
 	return [NSNumber numberWithLong:l];
 }
-
-- (id)objectByPerformingSelector:(SEL)selector withObject:(id)object1 {
+- (id) objectByPerformingSelector:(SEL)selector withObject:(id)object1 {
 	return [self objectByPerformingSelector:selector withObject:object1 withObject:nil];
 }
-
-- (id)objectByPerformingSelector:(SEL)selector {
+- (id) objectByPerformingSelector:(SEL)selector {
 	return [self objectByPerformingSelector:selector withObject:nil withObject:nil];
 }
-
 // Delayed selectors
-- (void)performSelector:(SEL)selector withCPointer:(void *)cPointer afterDelay:(NSTimeInterval)delay {
+- (void) performSelector:(SEL)selector withCPointer:(void *)cPointer afterDelay:(NSTimeInterval)delay {
 	NSMethodSignature *ms = [self methodSignatureForSelector:selector];
 	NSInvocation *inv = [NSInvocation invocationWithMethodSignature:ms];
 	[inv setTarget:self];
@@ -2092,33 +2098,26 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	[inv setArgument:cPointer atIndex:2];
 	[inv performSelector:@selector(invoke) withObject:nil afterDelay:delay];
 }
-
-- (void)performSelector:(SEL)selector withBool:(BOOL)boolValue afterDelay:(NSTimeInterval)delay {
+- (void) performSelector:(SEL)selector withBool:(BOOL)boolValue afterDelay:(NSTimeInterval)delay {
 	[self performSelector:selector withCPointer:&boolValue afterDelay:delay];
 }
-
-- (void)performSelector:(SEL)selector withInt:(int)intValue afterDelay:(NSTimeInterval)delay {
+- (void) performSelector:(SEL)selector withInt:(int)intValue afterDelay:(NSTimeInterval)delay {
 	[self performSelector:selector withCPointer:&intValue afterDelay:delay];
 }
-
-- (void)performSelector:(SEL)selector withFloat:(CGF)floatValue afterDelay:(NSTimeInterval)delay {
+- (void) performSelector:(SEL)selector withFloat:(CGF)floatValue afterDelay:(NSTimeInterval)delay {
 	[self performSelector:selector withCPointer:&floatValue afterDelay:delay];
 }
-
-- (void)performSelector:(SEL)selector afterDelay:(NSTimeInterval)delay {
+- (void) performSelector:(SEL)selector afterDelay:(NSTimeInterval)delay {
 	[self performSelector:selector withObject:nil afterDelay:delay];
 }
-
 // private. only sent to an invocation
-- (void)getReturnValue:(void *)result {
+- (void) getReturnValue:(void *)result {
 	NSInvocation *inv = (NSInvocation *)self;
 	[inv invoke];
 	if (result) [inv getReturnValue:result];
 }
-
 // Delayed selector
-- (void)performSelector:(SEL)selector withDelayAndArguments:(NSTimeInterval)delay, ...
-{
+- (void) performSelector:(SEL)selector withDelayAndArguments:(NSTimeInterval)delay, ... {
 	va_list arglist;
 	va_start(arglist, delay);
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
@@ -2152,17 +2151,15 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	free(bytes);
 	return returnValue;
 }
-
 - (id)valueByPerformingSelector:(SEL)selector withObject:(id)object1 {
 	return [self valueByPerformingSelector:selector withObject:object1 withObject:nil];
 }
-
 - (id)valueByPerformingSelector:(SEL)selector {
 	return [self valueByPerformingSelector:selector withObject:nil withObject:nil];
 }
 
 // Return an array of all an object's selectors
-+ (NSA*)getSelectorListForClass {
++ (NSA*)selectorList {
 	NSMutableArray *selectors = [NSMutableArray array];
 	unsigned int num;
 	Method *methods = class_copyMethodList(self, &num);
@@ -2172,19 +2169,17 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	free(methods);
 	return selectors;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*)selectors {
+- (NSD*) selectors {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setObject:[[self class] getSelectorListForClass] forKey:NSStringFromClass([self class])];
+	[dict setObject:[[self class] selectorList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
-		[dict setObject:[cl getSelectorListForClass] forKey:NSStringFromClass(cl)];
+		[dict setObject:[cl selectorList] forKey:NSStringFromClass(cl)];
 	}
 	return dict;
 }
-
 // Return an array of all an object's properties
-+ (NSA*)getPropertyListForClass {
++ (NSA*)propertyList {
 	NSMutableArray *propertyNames = [NSMutableArray array];
 	unsigned int num;
 	objc_property_t *properties = class_copyPropertyList(self, &num);
@@ -2194,19 +2189,17 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	free(properties);
 	return propertyNames;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*)properties {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setObject:[[self class] getPropertyListForClass] forKey:NSStringFromClass([self class])];
+	[dict setObject:[[self class] propertyList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
-		[dict setObject:[cl getPropertyListForClass] forKey:NSStringFromClass(cl)];
+		[dict setObject:[cl propertyList] forKey:NSStringFromClass(cl)];
 	}
 	return dict;
 }
-
 // Return an array of all an object's properties
-+ (NSA*)getIvarListForClass {
++ (NSA*) ivarList {
 	NSMutableArray *ivarNames = [NSMutableArray array];
 	unsigned int num;
 	Ivar *ivars = class_copyIvarList(self, &num);
@@ -2216,19 +2209,17 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	free(ivars);
 	return ivarNames;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*)ivars {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setObject:[[self class] getIvarListForClass] forKey:NSStringFromClass([self class])];
+	[dict setObject:[[self class] ivarList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
-		[dict setObject:[cl getIvarListForClass] forKey:NSStringFromClass(cl)];
+		[dict setObject:[cl ivarList] forKey:NSStringFromClass(cl)];
 	}
 	return dict;
 }
-
 // Return an array of all an object's properties
-+ (NSA*)getProtocolListForClass {
++ (NSA*) protocolList {
 
 //	Class clazz             = [self class];         u_int count;
 //	Protocol **protocols      = class_copyProtocolList(self, &count);
@@ -2246,19 +2237,17 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	free(protocols);
 	return protocolNames;
 }
-
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*)protocols {
+- (NSD*) protocols {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setObject:[[self class] getProtocolListForClass] forKey:NSStringFromClass([self class])];
+	[dict setObject:[[self class] protocolList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
-		[dict setObject:[cl getProtocolListForClass] forKey:NSStringFromClass(cl)];
+		[dict setObject:[cl protocolList] forKey:NSStringFromClass(cl)];
 	}
 	return dict;
 }
-
 // Runtime checks of properties, etc.
-- (BOOL)hasProperty:(NSS*)propertyName {
+- (BOOL)  hasProperty:(NSS*)propertyName {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = self.propertiesPlease;
 	for (NSArray * properties in [dict allValues]) {
@@ -2266,8 +2255,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	}
 	return [set containsObject:propertyName];
 }
-
-- (BOOL)hasIvar:(NSS*)ivarName {
+- (BOOL)      hasIvar:(NSS*)ivarName {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = self.ivars;
 	for (NSArray * ivars in [dict allValues]) {
@@ -2275,28 +2263,22 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	}
 	return [set containsObject:ivarName];
 }
-
-+ (BOOL)classExists:(NSS*)className {
++ (BOOL) classExists:(NSS*)className {
 	return (NSClassFromString(className) != nil);
 }
 
-+ (id)instanceOfClassNamed:(NSS*)className {
++   (id) instanceOfClassNamed:(NSS*)className {
 	if (NSClassFromString(className) != nil) return [[[NSClassFromString(className) alloc] init] autorelease];
 	else return nil;
 }
 
-
-// Return a C-string with a selector's return type
-// may extend this idea to return a class
+// Return a C-string with a selector's return type. may extend this idea to return a class
 - (const char *)returnTypeForSelector:(SEL)selector {
 	NSMethodSignature *ms = [self methodSignatureForSelector:selector];
 	return [ms methodReturnType];
 }
-
-// Choose the first selector that an object can respond to
-// Thank Kevin Ballard for assist!
-- (SEL)chooseSelector:(SEL)aSelector, ...
-{
+// Choose the first selector that an object can respond to. Thank Kevin Ballard for assist!
+- (SEL)chooseSelector:(SEL)aSelector, ... {
 	if ([self respondsToSelector:aSelector]) return aSelector;
 
 	va_list selectors;
@@ -2319,11 +2301,9 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 #pragma clang diagnostic pop
 
 }
-
 - (id)tryPerformSelector:(SEL)aSelector withObject:(id)object1 {
 	return [self tryPerformSelector:aSelector withObject:object1 withObject:nil];
 }
-
 - (id)tryPerformSelector:(SEL)aSelector {
 	return [self tryPerformSelector:aSelector withObject:nil withObject:nil];
 }
@@ -2332,7 +2312,6 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 /*
 //JREnumDefine(AZBOOLEAN);
 @implementation AZBool {  privateValue; }
-
 - (instancetype) init { return self = super.init ? privateValue =
 //To accomplish this, we'll add forward invocation to NSDictionary to redirect zero parameter calls to call valueForKey: and one parameter calls (starting with set) to setValue:forKey:.
 
@@ -2374,58 +2353,39 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 @implementation NSObject (FOOCoding)
 
 
-- (id)initWithDictionary:(NSD*)dictionary;
-{
-	if (!(self = [self init])) return nil;
-
-	[self setValuesForKeysWithDictionary:dictionary];
-
-	return self;
-}
-
+//- (id)initWithDictionary:(NSD*)dictionary;
+//{
+//	if (!(self = [self init])) return nil;
+//
+//	[self setValuesForKeysWithDictionary:dictionary];
+//
+//	return self;
+//}
 - (NSA*)arrayForKey:(NSS*)key;
 {
 	return [self valueForKey:key assertingClass:[NSArray class]];
 }
 
-- (NSA*)arrayOfClass:(Class)objectClass forKey:(NSS*)key;
-{
-	NSAssert1([objectClass respondsToSelector:@selector(initWithDictionary:)], @"%@ does not respond to initWithDictionary:", NSStringFromClass(objectClass));
+//- (NSA*)arrayOfClass:(Class)objectClass forKey:(NSS*)key;
+//{
+//	NSAssert1([objectClass respondsToSelector:@selector(initWithDictionary:)], @"%@ does not respond to initWithDictionary:", NSStringFromClass(objectClass));
+//
+//	NSArray *keyedObjects = [self arrayOfDictionariesForKey:key];
+//	if (!keyedObjects || ![keyedObjects isKindOfClass:[NSArray class]] || !keyedObjects.count)
+//		return nil;
+//
+//	id newObject = nil;
+//	NSMutableArray *newObjects = [NSMutableArray array];
+//	for (NSDictionary *keyedObject in keyedObjects)
+//		if ((newObject = [objectClass.alloc initWithDictionary:keyedObject]))
+//			[newObjects addObject:newObject];
+//
+//	if (!newObjects.count)
+//		return nil;
+//
+//	return newObjects;
+//}
 
-	NSArray *keyedObjects = [self arrayOfDictionariesForKey:key];
-	if (!keyedObjects || ![keyedObjects isKindOfClass:[NSArray class]] || !keyedObjects.count)
-		return nil;
-
-	id newObject = nil;
-	NSMutableArray *newObjects = [NSMutableArray array];
-	for (NSDictionary *keyedObject in keyedObjects)
-		if ((newObject = [objectClass.alloc initWithDictionary:keyedObject]))
-			[newObjects addObject:newObject];
-
-	if (!newObjects.count)
-		return nil;
-
-	return newObjects;
-}
-
-- (NSA*)arrayOfClass:(Class)objectClass;
-{
-	NSAssert1([objectClass respondsToSelector:@selector(initWithDictionary:)], @"%@ does not respond to initWithDictionary:", NSStringFromClass(objectClass));
-
-	if (![self isKindOfClass:[NSArray class]] || ![(NSA*)self count])
-		return nil;
-
-	id newObject = nil;
-	NSMutableArray *newObjects = [NSMutableArray array];
-	for (NSDictionary *keyedObject in (NSA*)self)
-		if ((newObject = [objectClass.alloc initWithDictionary:keyedObject]))
-			[newObjects addObject:newObject];
-
-	if (!newObjects.count)
-		return nil;
-
-	return newObjects;
-}
 
 - (NSA*)arrayOfDictionariesForKey:(NSS*)key;
 {
@@ -2436,7 +2396,6 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	NSAssert(NO, @"Collection does not contain only dictionaries");
 	return nil;
 }
-
 - (NSA*)arrayOfStringsForKey:(NSS*)key;
 {
 	NSArray *allegedStrings = [self valueForKey:key assertingClass:[NSArray class]];
@@ -2447,10 +2406,9 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	return nil;
 }
 
-- (void) testBoolForKey {
+//- (void) testBoolForKey {
 //		Class testClass = objc_allocateClassPair(NSObject, "BoolKeyTestClass", 0);
-}
-
+//}
 - (BOOL) boolForKey:(NSS*)key def:(BOOL)def   {
 
 	BOOL hasBeenSet = [self.propertiesThatHaveBeenSet containsObject:key];
@@ -2464,21 +2422,25 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	//	}
 //	else return [self associatedValueForKey:key orSetTo:@(defaultValue) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
+-    (BOOL)          toggleBoolForKey : (id)key		{
 
-- (void) toggleBoolForKey:(NSS *)key		{
-	[self setBool:![self boolForKey:key def:NO] forKey:key];
+  BOOL newB = ![self boolForKey:key];
+  [self setBool:newB forKey:key];
+  return newB;
+//  BOOL newB = ![self boolForKey:key def:YES];
+//	[self setBool:newB forKey:key];
+
 	//[NSN numberWithBool:![self boolForKey:key defaultValue:YES]]
 }
 - (BOOL)boolForKey:(NSS*)key;
 {
-	return [[self valueForKey:key assertingRespondsToSelector:@selector(boolValue)] boolValue];
+  id x = [self valueForKey:key assertingRespondsToSelector:@selector(boolValue)];
+	return [x boolValue];
 }
-
 - (NSData *)dataForKey:(NSS*)key;
 {
 	return [self valueForKey:key assertingClass:[NSData class]];
 }
-
 - (NSDate *)dateForKey:(NSS*)key;
 {
 	id value = [self valueForKey:key];
@@ -2492,37 +2454,30 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 
 	return nil;
 }
-
 - (NSD*)dictionaryForKey:(NSS*)key;
 {
 	return [self valueForKey:key assertingClass:[NSDictionary class]];
 }
-
 - (double)doubleForKey:(NSS*)key;
 {
 	return [[self valueForKey:key assertingRespondsToSelector:@selector(doubleValue)] doubleValue];
 }
-
 - (CGFloat)floatForKey:(NSS*)key;
 {
 	return [[self valueForKey:key assertingRespondsToSelector:@selector(floatValue)] floatValue];
 }
-
 - (NSInteger)integerForKey:(NSS*)key;
 {
 	return [[self valueForKey:key assertingRespondsToSelector:@selector(integerValue)] integerValue];
 }
-
 - (NSS*)stringForKey:(NSS*)key;
 {
 	return [self valueForKey:key assertingClass:NSString.class];
 }
-
 - (NSUInteger)unsignedIntegerForKey:(NSS*)key;
 {
 	return [[self valueForKey:key assertingRespondsToSelector:@selector(unsignedIntegerValue)] unsignedIntegerValue];
 }
-
 - (NSURL *)URLForKey:(NSS*)key;
 {
 	id stringValue = [self valueForKey:key assertingClass:NSString.class];
@@ -2534,7 +2489,15 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;
 };
 
-- (id) mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath {
+//-   (id) valueForKeyPathThatExist:(id)kp {
+//    id x = [self valueForKeyOrKeyPath:kp];
+//    return [x  filterNonNil:^id(id z) {
+//        if (!z) return nil;
+//        if (ISA(z, NSA)
+//    }
+//  
+//}
+-   (id) mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath {
 	if ( !keyOrKeyPath || ![keyOrKeyPath  ISKINDA:NSS.class] ) 	return  nil;  // Bail if not a string. Key...? or key..path!???
 	if ( [keyOrKeyPath containsString:@"."] ) { __block id result = self;  // NSLog(@"serching for KP components: %@", components);
 
@@ -2550,8 +2513,7 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
 
 }
-
-- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
+-   (id) valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
 
 	if (! [keyOrKeyPath ISKINDA:NSS.class] ) return nil;
 
@@ -2574,8 +2536,7 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 		 return transformationBlock(object);
 	}] : transformationBlock(foundvalue);
 }
-
-- (id)valueForKeyOrKeyPath:(id)keyOrKeyPath  {
+-   (id) valueForKeyOrKeyPath:(id)keyOrKeyPath  {
 
 	if ( ![keyOrKeyPath  ISKINDA:NSS.class] ) 					return  nil;  // Bail if not a string. Key...? or key..path!???
 	if ( [keyOrKeyPath containsString:@"."] ) { __block id result = self;  // NSLog(@"serching for KP components: %@", components);
@@ -2596,36 +2557,29 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
 	
 }
-
-- (id)valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;
-{
+-   (id) valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto {
 	id value = [self vFK:key];
 	if (!value || value == [NSNull null]) return nil;
 	NSAssert1([value conformsToProtocol:proto], @"AZCoding expects an object conforming to prootcol %@", NSStringFromProtocol(proto));
 	return [value conformsToProtocol:proto] ? value : nil;
 }
-- (id)valueForKey:(NSS*)key assertingClass:(Class)theClass;
-{
+-   (id) valueForKey:(NSS*)key assertingClass:(Class)theClass {
 	id value = [self valueForKey:key];
 	if (!value || value == [NSNull null]) return nil;
 	NSAssert2([value isKindOfClass:theClass], @"FOOCoding expects an object of class %@, but class of return value is %@", NSStringFromClass(theClass), NSStringFromClass([value class]));
 	return [value isKindOfClass:theClass] ? value : nil;
 }
-
-- (id)valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
-{
+-   (id) valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector {
 	id value = [self valueForKey:key];
 	if (!value || value == [NSNull null]) return nil;
-	NSAssert2([value respondsToSelector:theSelector], @"Object of class %@ does not respond to selector %@", NSStringFromClass([value class]), NSStringFromSelector(theSelector));
+	NSAssert2([value respondsToSelector:theSelector], @"Object of class %@ does not respond to selector %@", [value className], NSStringFromSelector(theSelector));
 	return [value respondsToSelector:theSelector] ? value : nil;
 }
-
-- (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
-{
+- (BOOL) contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass {
 	for (id theObject in theCollection) if (![theObject isKindOfClass:theClass]) return NO;
 	return YES;
 }
-
-- (void)sV:(id)v fKP:(id)k {  [self setValue:v forKeyPath:k]; }
-- (void)sV:(id)v fK:(id)k {  [self setValue:v forKey:k]; }
+- (void)  sV:(id)v   fKP:(id)k    {  [self setValue:v forKeyPath:k]; }
+- (void)  sV:(id)v    fK:(id)k    {  [self setValue:v forKey:k]; }
+- (void) sVs:(NSA*)v fKs:(NSA*)k  {  [self setValues:v forKeys:k]; }
 @end

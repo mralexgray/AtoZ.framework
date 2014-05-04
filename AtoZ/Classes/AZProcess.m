@@ -45,8 +45,8 @@
 //	Fixed a memory leak during command allocation when the parser failed - Steve Gehrman
 //	Fixed a memory leak when deallocating an instance -- the annotation was not being freed - Craig Hockenberry
 //	Added annotations for Konfabulator widgets - Craig Hockenberry
-#import "AZProcess.h"
-#import <Foundation/Foundation.h>
+
+#import <AtoZ/AtoZ.h>
 #include <mach/mach_host.h>
 #include <mach/mach_port.h>
 #include <mach/mach_traps.h>
@@ -58,6 +58,9 @@
 #include <sys/param.h>
 #include <sys/sysctl.h>
 #include <sys/types.h>
+//@import system;
+//@import stdio;
+//@import libproc;
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -65,7 +68,7 @@
 #include <string.h>
 #include <errno.h>
 #include <libproc.h>
-
+#import "AZProcess.h"
 
 #define GLOBAL_SHARED_TEXT_SEGMENT	0x90000000U
 #define GLOBAL_SHARED_DATA_SEGMENT	0xA0000000U

@@ -20,33 +20,33 @@
 
 + (AZSize*) sizeOf:(id) object {
 	AZSize *re = [AZSize.alloc initWithWidth:0 height:0];
-	
-	if (object == nil) {
-	return re;
-	}
-	
-	if ([object isKindOfClass:[NSNumber class]]) {
-	NSNumber *n = (NSNumber*) object;
-	re.width  = n.floatValue;
-	re.height = n.floatValue;
-	} else if ([object isKindOfClass:[AZPoint class]]) {
-	AZPoint *pt = (AZPoint*) object;
-	re.width  = pt.x;
-	re.height = pt.y;
-	} else if ([object isKindOfClass:[AZSize class]]) {
-	AZSize *s = (AZSize*) object;
-	re.width  = s.width;
-	re.height = s.height;
-	} else if ([object isKindOfClass:[NSView class]]) {
-	NSView *v = (NSView*) object;
-	re.width = v.frame.size.width;
-	re.height = v.frame.size.height;
-	} else if ([object isKindOfClass:[CALayer class]]) {
-	CALayer *l = (CALayer*) object;
-	re.width = l.frame.size.width;
-	re.height = l.frame.size.height;
-	}
-	
+//	
+//	if (object == nil) {
+//	return re;
+//	}
+//	
+//	if ([object isKindOfClass:[NSNumber class]]) {
+//	NSNumber *n = (NSNumber*) object;
+//	re.width  = n.floatValue;
+//	re.height = n.floatValue;
+//	} else if ([object isKindOfClass:[AZPoint class]]) {
+//	AZPoint *pt = (AZPoint*) object;
+//	re.width  = pt.x;
+//	re.height = pt.y;
+//	} else if ([object isKindOfClass:[AZSize class]]) {
+//	AZSize *s = (AZSize*) object;
+//	re.width  = s.width;
+//	re.height = s.height;
+//	} else if ([object isKindOfClass:[NSView class]]) {
+//	NSView *v = (NSView*) object;
+//	re.width = v.frame.size.width;
+//	re.height = v.frame.size.height;
+//	} else if ([object isKindOfClass:[CALayer class]]) {
+//	CALayer *l = (CALayer*) object;
+//	re.width = l.frame.size.width;
+//	re.height = l.frame.size.height;
+//	}
+//	
 	return re;
 }
 

@@ -1,91 +1,52 @@
 
-//  NSColot+AtoZ.h
-//  AtoZ
-
 #import "AtoZUmbrella.h"
-
-JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, AZeColoraquamarine, AZeColorazure, AZeColorbeige, AZeColorbisque, AZeColorblack, AZeColorblanchedalmond, AZeColorblue, AZeColorblueviolet, AZeColorbrown, AZeColorburlywood, AZeColorcadetblue, AZeColorchartreuse, AZeColorchocolate, AZeColorcoral, AZeColorcornflowerblue, AZeColorcornsilk, AZeColorcrimson, AZeColorcyan, AZeColordarkblue, AZeColordarkcyan, AZeColordarkgoldenrod, AZeColordarkgray, AZeColordarkgrey, AZeColordarkgreen, AZeColordarkkhaki, AZeColordarkmagenta, AZeColordarkolivegreen, AZeColordarkorange, AZeColordarkorchid, AZeColordarkred, AZeColordarksalmon, AZeColordarkseagreen, AZeColordarkslateblue, AZeColordarkslategray, AZeColordarkslategrey, AZeColordarkturquoise, AZeColordarkviolet, AZeColordeeppink, AZeColordeepskyblue, AZeColordimgray, AZeColordimgrey, AZeColordodgerblue, AZeColorfirebrick, AZeColorfloralwhite, AZeColorforestgreen, AZeColorfuchsia, AZeColorgainsboro, AZeColorghostwhite, AZeColorgold, AZeColorgoldenrod, AZeColorgray, AZeColorgrey, AZeColorgreen, AZeColorgreenyellow, AZeColorhoneydew, AZeColorhotpink, AZeColorindianred, AZeColorindigo, AZeColorivory, AZeColorkhaki, AZeColorlavender, AZeColorlavenderblush, AZeColorlawngreen, AZeColorlemonchiffon, AZeColorlightblue, AZeColorlightcoral, AZeColorlightcyan, AZeColorlightgoldenrodyellow, AZeColorlightgray, AZeColorlightgrey, AZeColorlightgreen, AZeColorlightpink, AZeColorlightsalmon, AZeColorlightseagreen, AZeColorlightskyblue, AZeColorlightslateblue, AZeColorlightslategray, AZeColorlightslategrey, AZeColorlightsteelblue, AZeColorlightyellow, AZeColorlime, AZeColorlimegreen, AZeColorlinen, AZeColormagenta, AZeColormaroon, AZeColormediumaquamarine, AZeColormediumblue, AZeColormediumorchid, AZeColormediumpurple, AZeColormediumseagreen, AZeColormediumslateblue, AZeColormediumspringgreen, AZeColormediumturquoise, AZeColormediumvioletred, AZeColormidnightblue, AZeColormintcream, AZeColormistyrose, AZeColormoccasin, AZeColornavajowhite, AZeColornavy, AZeColoroldlace, AZeColorolive, AZeColorolivedrab, AZeColororange, AZeColororangered, AZeColororchid, AZeColorpalegoldenrod, AZeColorpalegreen, AZeColorpaleturquoise, AZeColorpalevioletred, AZeColorpapayawhip, AZeColorpeachpuff, AZeColorperu, AZeColorpink, AZeColorplum, AZeColorpowderblue, AZeColorpurple, AZeColorred, AZeColorrosybrown, AZeColorroyalblue, AZeColorsaddlebrown, AZeColorsalmon, AZeColorsandybrown, AZeColorseagreen, AZeColorseashell, AZeColorsienna, AZeColorsilver, AZeColorskyblue, AZeColorslateblue, AZeColorslategray, AZeColorslategrey, AZeColorsnow, AZeColorspringgreen, AZeColorsteelblue, AZeColortan, AZeColorteal, AZeColorthistle, AZeColortomato, AZeColorturquoise, AZeColorviolet, AZeColorvioletred, AZeColorwheat, AZeColorwhite, AZeColorwhitesmoke, AZeColoryellow, AZeColoryellowgreen); 
-
-
-@interface AZColorList : NSColorList
-
-@end
 
 @interface NSColor (AtoZ)
 
-- (NSComparisonResult)compare:(NSC*)other;
+@property (RONLY)  	BOOL	 isBoring,   isExciting,
+                           isBright,   isDark,
+                           isBlueish,  isRedish,   isGreenish,   isYellowish;
 
-@property (nonatomic) NSS* name;
+@property (RONLY) 	 CGF	 luminance, relativeBrightness,
+                           rgbWeight,	hsbWeight;
+
+@property (RONLY)	  CGCR 	 cgColor;
+
+@property (RONLY) 	 NSC * closestWebColor, * closestNamedColor,  * closestColorListColor,
+                         * lessOpaque,      * opaque,             * moreOpaque,
+                         * darker,          * dark,               * muchDarker,
+                         * deviceRGBColor,  * calibratedRGBColor,
+                         * brighter,        * bright,
+                         * redshift,        * blueshift,
+                         * whitened,        * blackened,
+                         * rgbComplement,   *	complement,
+                         * contrastingForegroundColor,
+                         * translucent,
+                         * watermark,
+                         * inverted;
+
+@property            NSS * nameOfColor;
+
+@property (RONLY)    NSS * name, * crayonName, * toHex;
+
+@property (RONLY)	   NSG * gradient;
 
 +   (id) colorWithHTMLString:(NSS*)str defaultColor:(NSC*)d;
 + (NSC*)	colorWithHTMLString:(NSS*)hex;
 + (NSD*) colorNamesDictionary;
 
-@property (RONLY)		BOOL	isBoring,
-									isExciting,
-									isBright,
-									isDark,
-									isBlueish,
-							  		isRedish,
-							  		isGreenish,
-							  		isYellowish;
-
-@property (RONLY)		NSG * gradient;
-
-@property (RONLY)	  CGCR 	cgColor;
-
-@property (RDWRT)		NSS *	nameOfColor;
-
-@property (RONLY)		NSS * crayonName;
-
-@property (RONLY)		NSC * closestWebColor,
-								 * closestNamedColor,
-	 							 * closestColorListColor,
-								 *	inverted,
-								 *	deviceRGBColor,
-								 *	calibratedRGBColor;
-
-@property (RONLY) 	CGF	luminance,
-									relativeBrightness;
-
-@property (RONLY) 	NSC *	brighter,
-								 *	bright,
-								 * dark,
-								 * darker,
-								 *	muchDarker,
-								 * redshift,
-								 * blueshift;
-
-@property (RONLY)		NSC *	whitened,
-								 *	blackened;
-@property (RONLY) 	NSC *	contrastingForegroundColor,
-								 * rgbComplement,
-								 *	complement,
-								 * translucent,
-								 *	lessOpaque,
-								 *	opaque,
-								 * moreOpaque,
-								 *	watermark;
-@property (RONLY)	CGF 		rgbWeight,
-									hsbWeight;
-
-
 /* lists all like...  BlueSkyTulips = "NSColorList 0x7fb2963794d0 
 										  name:BlueSkyTulips device:(null)
 										  file:/Volumes/2T/ServiceData/Develo...Build/Products/Debug/AtoZ.framework/Resources/BlueSkyTulips.clr
 										loaded:1"; */
--(NSC*)blend:(NSC*)other;
-
 + (NSMD*) colorLists;
 +  (NSA*) colorListNames;
 + (NSCL*) randomList;
-+ (void) logPalettes;
++  (void) logPalettes;
 + (NSCL*) createColorlistWithColors:(NSA*)cs andNames:(NSA*)ns named:(NSS*)name;
 +  (NSA*) fengshui;
-//+  (NSA*) colorsInFrameworkListNamed:(NSString*)name;
-//+  (NSA*) colorListsInFramework;
++  (NSA*) flatUI;
 +  (NSA*) colorsInListNamed:(NSS*)name;
-//+  (NSA*) allColors;			// NOT WORKING
 +  (NSA*) randomPalette;
 +  (NSA*) systemColors;
 +  (NSA*) systemColorNames;
@@ -103,76 +64,76 @@ typedef void(^colorFadeBlock)(NSC*c);
 
 #pragma mark - Conveience
 
++ (NSC*) r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)a;
 + (NSC*) white:(CGF)percent;
 + (NSC*) white:(CGF)percent a:(CGF)alpha;
-+ (NSC*) 	 r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans;
-- (NSC*) alpha:(CGF)percent;
-
 + (NSC*) linen;
-+ (NSC*) linenTintedWithColor: (NSC*) color;
-+ (NSC*) leatherTintedWithColor:(NSC*)color;
-+ (NSC*) checkerboardWithFirstColor:(NSC*)firstColor secondColor:(NSC*)secondColor squareWidth:(CGF)width;
++ (NSC*) linenTintedWithColor:(NSC*)c;
++ (NSC*) leatherTintedWithColor:(NSC*)c;
++ (NSC*) checkerboardWithFirstColor:(NSC*)one secondColor:(NSC*)two squareWidth:(CGF)dim;
 + (NSA*) colorNames; // preferred "CSS" color names method
 + (NSA*) allSystemColorNames; // i guess this is names of installed clr names;
-+ (NSC*) colorNamed:(NSS*)string;
+//+ (NSC*) colorNamed:(NSS*)string;
++ (NSA*) boringColors;
++ (NSC*) randomLightColor;
++ (NSC*) randomBrightColor;
++ (NSC*) randomDarkColor;
++ (NSC*) randomColor;
++ (NSC*) randomOpaqueColor;
++ (NSC*) colorFromHexRGB:(NSS*)clrStr;
++ (NSC*) crayonColorNamed:(NSS*)key;
++ (NSC*) colorWithName:(NSS*)colorName;
++ (NSC*) colorFromString:(NSS*)string;
++ (NSC*) colorFromHexString:(NSS*)hexString;
 
-
-//+ (NSA*) colorsWithNames;
-//+ (NSD*) colorsAndNames;
-//- (NSDictionary*)	closestColor;  //name, list, and color
-
-+  (NSA*) boringColors;
-
-+  (NSC*) randomLightColor;
-+  (NSC*) randomBrightColor;
-+  (NSC*) randomDarkColor;
-+  (NSC*) randomColor;
-+  (NSC*) randomOpaqueColor;
-+  (NSC*) colorFromHexRGB: (NSString*) inColorString;
-//+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
-+ (NSC*)	crayonColorNamed: (NSString*) key;
-
-+ (NSC*)	colorWithName:(NSString*)colorName;
-+ (NSC*)	colorFromString: 	(NSString*)	string;
-+ (NSC*)	colorFromHexString: (NSString*)	hexString;
-- (NSS*)	toHex;
+- (NSC*) alpha:(CGF)percent;
+- (NSC*) blend:(NSC*)other;
 - (NSC*) rgbDistanceToColor:(NSC*)color;
 - (NSC*) colorWithSaturation:(CGF)sat brightness:(CGF)bright;
 - (NSC*) hsbDistanceToColor:(NSC*)color;
-
-//@property (RONLY)	BOOL isBasicallyWhite;
-//@property (RONLY)	BOOL isBasicallyBlack;
+- (NSComparisonResult)compare:(NSC*)other;
+/// Returns the color with its saturation, in the HSBA model, multiplied by a certain amount.
+/// Note that the saturation is clamped between 0 and 1.
+- (NSC*)colorWithSaturationMultiplier:(CGF)factor;
+- (NSC*)colorWithSaturation:(CGF)sat;
 
 @end
 
 
 @interface NSString (THColorConversion)
-- (NSC*)	colorValue;
-- (NSData*)	 colorData;
-+ (NSC*)	colorFromData:(NSData*)theData;
+- (NSC*) colorValue;
+- (DTA*) colorData;
++ (NSC*) colorFromData:(DTA*)data;
 @end
 
 @interface NSArray (THColorConversion)
-- (NSA*)colorValues;
+- (NSA*) colorValues;
 @end
 
 @interface NSCoder (AGCoder)	 //(TDBindings)
 
-+(void)encodeColor:(CGColorRef)theColor  withCoder:(NSCoder*)encoder withKey:(NSString*)theKey;
 
+- (void) encode:(id)me withKeys:(NSA*)ks;
+- (void) encode:(id)me withKeysForProps:(NSD*)ksAndDs;
+
+- (void) decode:(id)me withKeysForProps:(NSD*)ksAndDs;
+- (void) decode:(id)me withKeys:(NSA*)ks;
+
++(void) encodeColor:(CGCLRREF)cgC withCoder:(NSCoder*)e withKey:(NSS*)k;
 @end
+
 @interface NSColor (NSColor_ColorspaceEquality)
-
-- (BOOL)	isEqualToColor:(NSC*)inColor colorSpace:(NSString*)inColorSpace;
-
+- (BOOL) isEqualToColor:(NSC*)inColor colorSpace:(NSS*)space;
 @end
+
 @interface NSColor (NSColor_CSSRGB)
-
-+ (NSC*)	colorWithCSSRGB:(NSString*)rgbString;
-
++ (NSC*) colorWithCSSRGB:(NSS*)rgbString;
 @end
 
-//#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
+JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, AZeColoraquamarine, AZeColorazure, AZeColorbeige, AZeColorbisque, AZeColorblack, AZeColorblanchedalmond, AZeColorblue, AZeColorblueviolet, AZeColorbrown, AZeColorburlywood, AZeColorcadetblue, AZeColorchartreuse, AZeColorchocolate, AZeColorcoral, AZeColorcornflowerblue, AZeColorcornsilk, AZeColorcrimson, AZeColorcyan, AZeColordarkblue, AZeColordarkcyan, AZeColordarkgoldenrod, AZeColordarkgray, AZeColordarkgrey, AZeColordarkgreen, AZeColordarkkhaki, AZeColordarkmagenta, AZeColordarkolivegreen, AZeColordarkorange, AZeColordarkorchid, AZeColordarkred, AZeColordarksalmon, AZeColordarkseagreen, AZeColordarkslateblue, AZeColordarkslategray, AZeColordarkslategrey, AZeColordarkturquoise, AZeColordarkviolet, AZeColordeeppink, AZeColordeepskyblue, AZeColordimgray, AZeColordimgrey, AZeColordodgerblue, AZeColorfirebrick, AZeColorfloralwhite, AZeColorforestgreen, AZeColorfuchsia, AZeColorgainsboro, AZeColorghostwhite, AZeColorgold, AZeColorgoldenrod, AZeColorgray, AZeColorgrey, AZeColorgreen, AZeColorgreenyellow, AZeColorhoneydew, AZeColorhotpink, AZeColorindianred, AZeColorindigo, AZeColorivory, AZeColorkhaki, AZeColorlavender, AZeColorlavenderblush, AZeColorlawngreen, AZeColorlemonchiffon, AZeColorlightblue, AZeColorlightcoral, AZeColorlightcyan, AZeColorlightgoldenrodyellow, AZeColorlightgray, AZeColorlightgrey, AZeColorlightgreen, AZeColorlightpink, AZeColorlightsalmon, AZeColorlightseagreen, AZeColorlightskyblue, AZeColorlightslateblue, AZeColorlightslategray, AZeColorlightslategrey, AZeColorlightsteelblue, AZeColorlightyellow, AZeColorlime, AZeColorlimegreen, AZeColorlinen, AZeColormagenta, AZeColormaroon, AZeColormediumaquamarine, AZeColormediumblue, AZeColormediumorchid, AZeColormediumpurple, AZeColormediumseagreen, AZeColormediumslateblue, AZeColormediumspringgreen, AZeColormediumturquoise, AZeColormediumvioletred, AZeColormidnightblue, AZeColormintcream, AZeColormistyrose, AZeColormoccasin, AZeColornavajowhite, AZeColornavy, AZeColoroldlace, AZeColorolive, AZeColorolivedrab, AZeColororange, AZeColororangered, AZeColororchid, AZeColorpalegoldenrod, AZeColorpalegreen, AZeColorpaleturquoise, AZeColorpalevioletred, AZeColorpapayawhip, AZeColorpeachpuff, AZeColorperu, AZeColorpink, AZeColorplum, AZeColorpowderblue, AZeColorpurple, AZeColorred, AZeColorrosybrown, AZeColorroyalblue, AZeColorsaddlebrown, AZeColorsalmon, AZeColorsandybrown, AZeColorseagreen, AZeColorseashell, AZeColorsienna, AZeColorsilver, AZeColorskyblue, AZeColorslateblue, AZeColorslategray, AZeColorslategrey, AZeColorsnow, AZeColorspringgreen, AZeColorsteelblue, AZeColortan, AZeColorteal, AZeColorthistle, AZeColortomato, AZeColorturquoise, AZeColorviolet, AZeColorvioletred, AZeColorwheat, AZeColorwhite, AZeColorwhitesmoke, AZeColoryellow, AZeColoryellowgreen); 
+
+@interface AZColorList : NSColorList @end
+
 #define AZNormalFloat(x) x = x < 0 ? 0 : x > 1 ? 1 : x
 
 /*
@@ -584,3 +545,13 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 #define RANDOMLINEN                   [NSC linenTintedWithColor:RANDOMCOLOR]
 #define CHECKERS                       [NSC checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
 
+//+  (NSA*) colorsInFrameworkListNamed:(NSString*)name;
+//+  (NSA*) colorListsInFramework;
+//+  (NSA*) allColors;			// NOT WORKING
+//+ (NSA*) colorsWithNames;
+//+ (NSD*) colorsAndNames;
+//- (NSDictionary*)	closestColor;  //name, list, and color
+//+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
+//@property (RONLY)	BOOL isBasicallyWhite;
+//@property (RONLY)	BOOL isBasicallyBlack;
+//#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }

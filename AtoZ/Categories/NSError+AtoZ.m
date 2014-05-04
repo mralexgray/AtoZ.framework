@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 10/18/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
+#import "AtoZUmbrella.h"
 #import "NSError+AtoZ.h"
 
 @implementation NSError (AtoZ)

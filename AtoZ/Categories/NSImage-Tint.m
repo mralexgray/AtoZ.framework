@@ -17,7 +17,6 @@
 //https://github.com/mhallendal/imagetinter
 
 @implementation NSImage (Transform)
-
 - (NSImage*)imageRotatedByDegrees:(CGFloat)degrees {
 	// Calculate the bounds for the rotated image
 	// We do this by affine-transforming the bounds rectangle
@@ -55,13 +54,8 @@
 
 	return rotatedImage;
 }
-
 @end
-
-
 @implementation NSImage (ImageMerge)
-
-
 + (NSImage*)imageByTilingImages:(NSA*)images
 					   spacingX:(CGFloat)spacingX
 					   spacingY:(CGFloat)spacingY
@@ -196,13 +190,9 @@
 
 	return image;
 }
-
 @end
 
-
-@interface NSImage(BBlockPrivate)
-+ (NSCache *)drawingCache;
-@end
+@interface NSImage(BBlockPrivate) + (NSCache *)drawingCache;  @end
 
 @implementation NSImage(BBlock)
 
@@ -241,27 +231,13 @@
 }
 
 @end
-CGFloat const TBITintMatrixGrayscale[] = {
-	0.3, 0.59, 0.11,
-	0.3, 0.59, 0.11,
-	0.3, 0.59, 0.11
-};
 
-CGFloat const TBITintMatrixSepia[] = {
-	0.393, 0.769, 0.189,
-	0.349, 0.686, 0.168,
-	0.272, 0.534, 0.131
-};
+CGFloat const TBITintMatrixGrayscale[] = { 0.3, 0.59, 0.11,	0.3, 0.59, 0.11, 0.3, 0.59, 0.11 };
+CGFloat const TBITintMatrixSepia[] = { 0.393, 0.769, 0.189, 0.349, 0.686, 0.168, 0.272, 0.534, 0.131 };
+CGFloat const TBITintMatrixBluetone[] = {	0.272, 0.534, 0.131, 0.349, 0.686, 0.168, 0.393, 0.769, 0.189 };
 
-CGFloat const TBITintMatrixBluetone[] = {
-	0.272, 0.534, 0.131,
-	0.349, 0.686, 0.168,
-	0.393, 0.769, 0.189
-};
+void tint_pixel_rgb (unsigned char *bitmapData, int red_index, const CGFloat *matrix) {
 
-void
-tint_pixel_rgb (unsigned char *bitmapData, int red_index, const CGFloat *matrix)
-{
 	int green_index = red_index + 1;
 	int blue_index = red_index + 2;
 	
@@ -313,7 +289,6 @@ tint_pixel_rgb (unsigned char *bitmapData, int red_index, const CGFloat *matrix)
 		
 	NSTimeInterval elapsedSeconds = -[start timeIntervalSinceNow];
 	NSLog(@"Elapsed time: %.2f ms", elapsedSeconds * 1000);
-	
 	return image;
 }
 

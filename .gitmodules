@@ -296,3 +296,6 @@
 [submodule "AtoZ/Classes/M13OrderedDictionary"]
 	path = AtoZ/Classes/M13OrderedDictionary
 	url = https://github.com/mralexgray/M13OrderedDictionary.git
+[submodule "AtoZ/Views/iCarousel"]
+	path = AtoZ/Views/iCarousel
+	url = https://github.com/mralexgray/iCarousel.git

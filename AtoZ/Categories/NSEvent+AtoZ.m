@@ -6,7 +6,6 @@
 
 typedef BOOL(^AZVisualTestCase)(NSString *instruction, SEL selector,...);
 
-JREnumDefine(AZEvent);
 
 @implementation NSTableView (TargetAction)  // GOOD EXAMPLE OF SWIZZLING 
 
@@ -69,7 +68,7 @@ CLANG_POP
 
 - (void(^)(AZEvent,id))eventActionBlock { return objc_getAssociatedObject(self,_cmd); }
 
-- (void)setEventActionBlock:(void (^)(AZEvent, id))eventActionBlock{
+- (void) setEventActionBlock:(void (^)(AZEvent, id))eventActionBlock{
 	
 	self.target = eventActionBlock == NULL ? NULL : self;   if (eventActionBlock == NULL) return;
 	self.action = @selector(actionHandler:);
@@ -114,8 +113,15 @@ AZPROPERTY(void(^handler)(AZDragHandler*), copy);
 }
 @end
 
-static NSMD *scrolls = nil;	static NSE *theDrag;
 @implementation NSEvent (AtoZ)
+
+- (NSSZ) deltaSize    { return NSMakeSize(self.deltaX, self.deltaY);  }
+- (NSSZ) deltaSizeAZ  { return NSMakeSize(self.deltaX, self.deltaY == 0 ? 0 : -self.deltaY); }
+
+- (NSP) delta { return AZPointFromSize(self.deltaSizeAZ); }
+
+static NSMD *scrolls = nil;	
+
 - (NSSZ) scrollOffsetInView:(NSV*)view 												{
 
 	if (!scrolls) scrolls = [NSMutableDictionary new];
@@ -138,28 +144,34 @@ static NSMD *scrolls = nil;	static NSE *theDrag;
 	newRect.origin.y = newRect.origin.y + deltaY;
 	return newRect;	
 }
-+ (void) whileDragging:(void(^)(NSE*click, NSE*drag)) block						{
-	__block id handler = [self addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask handler:^NSE*(NSE *click){
-//		NSLog(@"click caller at %@", AZString(click.locationInWindow));
-		theDrag = [click dragHandlerForClickWithBlock:block];
-		return click;
-	}];
-	[self addLocalMonitorForEventsMatchingMask:NSLeftMouseUpMask handler:^NSEvent *(NSEvent *e) {
-		theDrag = nil;
-		handler = nil;
-		return e;
-	}];
+
+//static NSE *theClick; static id theHandler;
+
++ (void) whileDragging:(void(^)(NSE*click, NSE*drag, id context)) block						{ 
+
+  [NSEVENTLOCALMASK:NSLeftMouseDownMask handler:^NSE*(NSE *click){ //		NSLog(@"click caller at %@", AZString(click.locationInWindow));
+    
+    __block id dragCTX = NSO.new, handler =
+    
+    [NSEVENTLOCALMASK:NSLeftMouseDraggedMask|NSLeftMouseUpMask handler:^NSE *(NSE *e) { 
+    
+      if (e.type == NSLeftMouseUp || !dragCTX) { [self removeMonitor:handler]; dragCTX = nil; handler = nil; }
+      if (e.type == NSLeftMouseDragged && dragCTX) block(click, e, dragCTX);
+    XX(@"hi");
+      return e;
+    }];
+    return click;
+  }];
 }
--   (id) dragHandlerForClickWithBlock:(void(^)(NSE*click, NSE*drag)) block	{
-	return [self.class addLocalMonitorForEventsMatchingMask:NSLeftMouseDraggedMask handler:^NSEvent *(NSEvent *drag) {
+//-   (id) dragHandlerForClickWithBlock:(void(^)(NSE*click, NSE*drag, id context)) block	{
+
+
+  
+//  else if ( click.type == NSLeftMouseUp )
 //		drag = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];
 //			[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:drag];
 //			if ( drag.type == NSLeftMouseDragged )
-		block(self, drag);
-//			else if ( click.type == NSLeftMouseUp )
-			return drag;
-	}];
-}
+
 + (void) shiftClick:(void(^)(void))block 												{
 
 	[NSEvent addLocalMonitorForEventsMatchingMask:NSKeyDownMask handler: ^(NSEvent *event){
@@ -173,7 +185,7 @@ static NSMD *scrolls = nil;	static NSE *theDrag;
 
 //static NSString *NSTVDOUBLEACTIONBLOCKKEY = @"com.mrgray.NSTV.double.action.block";
 //
-//- (void)setDoubleActionBlock:(NSControlVoidActionBlock)block	{
+//- (void) setDoubleActionBlock:(NSControlVoidActionBlock)block	{
 //	[self setDoubleActionString:@"callDoubleActionBlock" withTarget:self];
 //	[self setAssociatedValue:block forKey: NSTVDOUBLEACTIONBLOCKKEY policy:OBJC_ASSOCIATION_COPY];
 //}
@@ -224,7 +236,7 @@ static NSMD *scrolls = nil;	static NSE *theDrag;
 //
 //	}];
 //
-//- (void)mouseDown:(NSEvent *)theEvent
+//- (void) mouseDown:(NSEvent *)theEvent
 //{
 //	BOOL keepOn = YES;
 //	BOOL isInside = YES;
@@ -261,13 +273,13 @@ static NSMD *scrolls = nil;	static NSE *theDrag;
 //	return (NSControlActionBlock)objc_getAssociatedObject(self,(__bridge const void *)NSCONTROLBLOCKACTIONKEY);
 ////	return(theBlock);
 //}
-//- (void)setActionBlock:(NSControlActionBlock)inBlock			{
+//- (void) setActionBlock:(NSControlActionBlock)inBlock			{
 //	self.target = self;
 //	self.action = @selector(callAssociatedBlock:);
 //	[self setAssociatedValue:inBlock forKey: NSCONTROLBLOCKACTIONKEY policy:OBJC_ASSOCIATION_COPY];
 //}
 //- (NSControlVoidActionBlock) voidActionBlock 					{	return (NSControlVoidActionBlock)objc_getAssociatedObject(self,(__bridge const void *)NSCONTROLVOIDBLOCKACTIONKEY);}
-//- (void)setVoidActionBlock:(NSControlVoidActionBlock)inBlock{
+//- (void) setVoidActionBlock:(NSControlVoidActionBlock)inBlock{
 //	[self setActionString:@"callAssociatedVoidBlock" withTarget:self];
 //	[self setAssociatedValue:inBlock forKey: NSCONTROLVOIDBLOCKACTIONKEY policy:OBJC_ASSOCIATION_COPY];
 //}

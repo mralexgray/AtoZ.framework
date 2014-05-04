@@ -5,8 +5,8 @@
 //  Copyright 2009 Kelan Champagne. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
+#import "AtoZUmbrella.h"
+
 @interface AZSpinnerLayer : CALayer {
 	BOOL _isRunning;
 	NSTimer *_animationTimer;

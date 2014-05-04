@@ -28,7 +28,7 @@ static NSInteger snapshotNumber;
 	[root addConstraintsSuperSize];
 //	root.layoutManager 			= [CAConstraintLayoutManager layoutManager];
 //	root.autoresizingMask 		= kCALayerHeightSizable | kCALayerWidthSizable;
-	CALayer *contentLayer 		= NewLayerWithFrame(root.frame);//[CALayer layer];				// Our container layer
+	CALayer *contentLayer 		= [CAL layerWithFrame:root.frame];//[CALayer layer];				// Our container layer
 	root.contentLayer 			= contentLayer;
 //	contentLayer.anchorPoint 	= CGPointMake(0, 0);
 //	contentLayer.bounds 		= CGRectMake(00, 00, 50, 50);
@@ -56,8 +56,8 @@ static NSInteger snapshotNumber;
 //	labelLayer.anchorPoint = AZCenterOfRect(contentLayer.bounds);
 //	labelLayer.bounds = CGRectMake(0, 0, contentLayer.bounds.size.w, contentLayer.bounds.size.height);
 //	AddBloom(labelLayer);
-	AddShadow(labelLayer);
-	AddPulsatingBloom(labelLayer);
+	[labelLayer addShadow];
+	[labelLayer addPulsatingBloom];
 
 //	labelLayer.zPosition = 23;
 
@@ -66,7 +66,7 @@ static NSInteger snapshotNumber;
 	[root addSublayer:contentLayer];
 	return root;
 }
-- (void)didChangeValueForKey:(NSString *)key {
+- (void) idChangeValueForKey:(NSString *)key {
 		if ([key isEqualToString:@"bounds"] || [key isEqualToString:@"frame"]) {
 		_labelLayer.fontSize = _labelLayer.bounds.size.height;
 //		 setNeedsLayout];
@@ -81,7 +81,7 @@ static NSInteger snapshotNumber;
 								AZConstScaleOff(kCAConstraintMaxX, 	@"superlayer", .9,0),
 								AZConstRelSuper(kCAConstraintMidY)	];
 
-	_imageLayer.contents = [[objectRep valueForKey:@"image"] imageScaledToFitSize:AZSizeFromDimension(512)];
+	_imageLayer.contents = [[objectRep valueForKey:@"image"] imageScaledToFitSize:AZSizeFromDim(512)];
 	_imageLayer.contentsGravity = kCAGravityResizeAspect;
 	_imageLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
 	[_contentLayer addSublayer:_imageLayer];
@@ -123,7 +123,8 @@ static NSInteger snapshotNumber;
 			_labelLayer.hidden = NO;
 			self.masksToBounds = NO;
 			self.mask = _labelLayer;
-			CAShapeLayer * l = [self.class lassoLayerForLayer:self];
+			/// CAShapeLayer * l = 
+      [Lasso rope:self];// self.class lassoLayerForLayer:self];
 //			l.name = @"lasso";
 //			[self addSublayer:l];
       //		NSBeep();

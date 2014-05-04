@@ -5,7 +5,8 @@
 //  Created by Michael Ash on 8/9/09.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "AtoZUmbrella.h"
+
 typedef void (^BasicBlock)(void);
 
 void RunInBackground			  			 (BasicBlock block);
@@ -66,9 +67,9 @@ void Parallelized(int count, void (^block)(int i));
 
 @interface NSArray (CollectionsAdditions)
 
-- (void)do: (void (^)(id obj))block;
-- (NSArray *)select: (BOOL (^)(id obj))block;
-- (NSArray *)map: (id (^)(id obj))block;
+- (void)    do:(void(^)(id obj))b;
+- (NSA*)select:(BOOL(^)(id obj))b;
+- (NSA*)   map:(  id(^)(id obj))b;
 
 /*
 	NSArray *testArray = @[@"1", @"2", @"3"];

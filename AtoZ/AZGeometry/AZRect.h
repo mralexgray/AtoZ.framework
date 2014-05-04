@@ -2,100 +2,81 @@
 
 //#import "AZGeometry.h"
 //#import "AZGeometricFunctions.h"
-//#import <CALayer/CALayer.h>
-#import "AtoZUmbrella.h"
-//#import "AtoZTypes.h"
-#import "AZPoint.h"
-//#import "BoundingObject.h"
+#import "BoundingObject.h"
+//#import "AtoZMacroDefines.h"
+//#import "AZPoint.h"
+//+ (INST) r;
+//+ (INST) rect;
 
-#define AZRECTUNDERMENU [AZRect screnFrameUnderMenu]
-//#define $AZRECT(r)    [AZRect rectWithRect:r]
 
-#define     AZR             AZRect
-#define    $AZR(_r_)        [AZR rect:_r_]
-#define  $AZRBy(_x_,_y_)    $AZR( AZRectBy(_x_,_y_) )
-#define $AZRDim(_d_)        $AZR(AZRectFromDim(_d_))
 
-@interface AZRect : AZSize1 	 //<Pinnable>
+@interface AZRect : NSO <RectLike>  // {  CGF width, height;	}
 
-+ (INST) rect:(NSR)r;
-+ (INST) rect:(NSR)r inside:(NSR)outer;
-+ (INST) rect:(NSR)r inside:(NSR)outer mask:(enum CAAutoresizingMask)m;
+- (INST) shiftedX:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
++ (INST) withRect:(NSR)r;
++ (INST) x:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
 
-@property (NATOM) AZPOS	orient;
-@property (RONLY)   CGF 	area;
-@property (RONLY)   NSP 	apex;
-@property (NATOM)   NSR   rect,    r;
-@property (NATOM)   CGP 	anchor;
-//                          position;
-@property (NATOM)   CGF 	w,          // width,
-                          h,           /// height,
-                          maxX,
-                          maxY,
-                          minY,
-                          minX;
-//@property (NATOM)   NSP 	origin,
-//                          center;
-//@property (NATOM)  NSSZ 	size;
+//@prop_RO NSR r;
 
+#ifdef UNIMPLENETED 
++ (INST) screnFrameUnderMenu;
+@property (RONLY) CGF 	area;
+- (BOOL)     contains:(id)obj;
+//- (BOOL)    contaiNSP:(NSP)p;
+- (BOOL) containsRect:(NSR)r;
+#endif
 
 @end
 
+#define AZR             AZRect
+
+#define $AZR(_r_)       [AZR withRect:_r_]
+#define AZRBy(_x_,_y_)  $AZR(AZRectBy(_x_,_y_))
+#define AZRDim(_d_)     $AZR(AZRectFromDim(_d_))
+#define AZRUNDERMENU     AZR.screenFrameUnderMenu
+
+
+//+ (INST) rect:(NSR)r inside:(NSR)outer;
+//+ (INST) rect:(NSR)r inside:(NSR)outer mask:(enum CAAutoresizingMask)m;
+//+ (INST) rectOf:			(id)object;
+//+ (INST) rectWithOrigin:(NSP)origin andSize:(NSSZ)size;
+//+ (INST) rectWithX:		(CGF)x andY:(CGF)y  width:(CGF)width  height:(CGF)height;
+//+ (INST) rect:(NSR)frame oriented:(AZPOS)pos;
+
+//+ (BOOL)maybeRect:(id) object;
+
+//- (AZA) alignInside:(NSR)ext;
+//+ (AZRect*) rectWithRect:	(NSR)rect;
 //- (id) initWithRect: (NSR)rect;
 //- (id) initWithSize: (NSSZ)size;
 //- (id) initFromPoint:(NSP)ptOne toPoint:(NSP)ptTwo;
 //- (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
 
-@interface AZRect (AtoZ)
+//@property (NATOM) CGP 		anchor;//, position;
+//@property (NATOM) CGF 		 maxX, maxY, minY, minX;//, w, h;width, height,
+//@property (NATOM) NSP 		origin, center, apex;
+//@property (NATOM) NSSZ 	size;
+//@property (NATOM) NSR 		 r; // rect,
+//@property (NATOM) AZA	orient;
 
-+ (INST) screenFrameUnderMenu;
+//- (void) setApex:(NSP)p move1Scale2:(NSN*)n;
 
-+ (BOOL) maybeRect:(id)obj;
-- (void) setApex:(NSP)p move1Scale2:(NSN*)n;
+//- (id) shrinkBy:(id) object;
+//- (id) shrinkByPadding:(NSI)padding;
+//- (id) shrinkBySizePadding:(NSSZ)padding;
+
+//- (id) growBy:				 	(id) object;
+//- (id) growByPadding:		(NSI)padding;
+//- (id) growBySizePadding:	(NSSZ)padding;
 
 
-
-- (INST) shiftedX:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
-
-- (id) shrinkBy:(id) object;
-- (id) shrinkByPadding:(NSI)padding;
-- (id) shrinkBySizePadding:(NSSZ)padding;
-
-- (id)            growBy:(id) object;
-- (id)     growByPadding:(NSI)padding;
-- (id) growBySizePadding:(NSSZ)padding;
-
-- (BOOL)     contains:(id)obj;
-- (BOOL)    contaiNSP:(NSP)p;
-- (BOOL) containsRect:(NSR)r;
-
-- (id) centerOn:(id)bounds;
-- (id) moveTo:  (id)relationPoint ofRect:(id) bounds;
-- (id) sizeTo:  (id)relationPoint ofRect:(id) bounds;
+//- (id) centerOn:(id)bounds;
+//- (id) moveTo:  (id)relationPoint ofRect:(id) bounds;
+//- (id) sizeTo:  (id)relationPoint ofRect:(id) bounds;
 
 // graphing
-- (void) drawFrame;
-- (void) fill;
-
-@end
-
-
-//+ (INST)           rect;
-//+ (INST)         rectOf:(id)x;
-//+ (INST)   rectWithRect:(NSR)r;
-//+ (INST) rectWithOrigin:(NSP)o
-//                andSize:(NSSZ)z;
-//+ (INST)      rectWithX:(CGF)x
-//                   andY:(CGF)y
-//                  width:(CGF)w
-//                 height:(CGF)h;
-//+ (INST)           rect:(NSR)f
-//               oriented:(AZPOS)o;
-//+ (INST)              x:(CGF)x
-//                      y:(CGF)y
-//                      w:(CGF)w
-//                      h:(CGF)h;
-
+//- (void) drawFrame;
+//- (void) fill;
 
 /** Returns a rect that uses aSize as its size and centered inside the given rect.
 
@@ -120,10 +101,18 @@ static inline NSR AZCenteredRect(NSSize aSize, NSR inRect)
 	return NSMakeRect(x, y, aSize.width, aSize.height);
 }
 
+@interface AZEdge : NSObject
++ (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide;
+@property (NATOM) AZA alignment;
+@property (NATOM) AZOrient orient;
+@property (NATOM) CGF cornerTreshHold, snapThreshold;
+//- (void) moveInDirection:(NSSZ)sz;
+@end
+
+
 @interface NSObject (AZRectResponder)
 
 @end
-
 
 /*	Returns a rect that uses aSize scaled based on the content aspect rule and then centered inside the given rect.
 	The returned rect is expressed relative the given rect parent coordinate space.
@@ -144,14 +133,3 @@ static inline NSR AZScaleRect(NSRect frame, CGF factor) {
 	return frame;
 }
 */
-
-
-@interface AZEdge : AZPoint
-+ (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide;
-@property (NATOM) AZA alignment;
-@property (NATOM) AZOrient orient;
-@property (NATOM) CGF cornerTreshHold, snapThreshold;
-//- (void) moveInDirection:(NSSZ)sz;
-@end
-
-//- (AZA) alignInside:(NSR)ext;

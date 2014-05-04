@@ -11,11 +11,7 @@
 		7B0E20D9174FDC4000DF3D20 /* RMSuggestionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0E20D7174FDC4000DF3D20 /* RMSuggestionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0E20DA174FDC4000DF3D20 /* RMSuggestionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E20D8174FDC4000DF3D20 /* RMSuggestionPanel.m */; };
 		7B232FA51727EE6F00B111FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B232FA41727EE6F00B111FE /* QuartzCore.framework */; };
-		7B3366391754D3320037DE96 /* BPODial.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3366361754D3310037DE96 /* BPODial.m */; };
-		7B33663A1754D3320037DE96 /* BPOSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3366371754D3310037DE96 /* BPOSliderCell.m */; };
 		7B33663B1754D3320037DE96 /* NSAffineTransform+Rotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3366381754D3310037DE96 /* NSAffineTransform+Rotation.m */; };
-		7B33663F1754D3600037DE96 /* BPODial.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B33663C1754D3600037DE96 /* BPODial.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B3366401754D3600037DE96 /* BPOSliderCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B33663D1754D3600037DE96 /* BPOSliderCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B3366411754D3600037DE96 /* NSAffineTransform+Rotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B33663E1754D3600037DE96 /* NSAffineTransform+Rotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4636BB17552A2500072CA0 /* _MTTokenCompletionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4636AA17552A2500072CA0 /* _MTTokenCompletionTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4636BC17552A2500072CA0 /* _MTTokenCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4636AB17552A2500072CA0 /* _MTTokenCompletionTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -38,6 +34,13 @@
 		7B4636CF17552A9E00072CA0 /* NSAttributedString+MTTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4636CD17552A9E00072CA0 /* NSAttributedString+MTTokenField.m */; };
 		7B5E022E171078730086AF70 /* NSButton+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B5E022C171078730086AF70 /* NSButton+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B5E022F171078730086AF70 /* NSButton+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B5E022D171078730086AF70 /* NSButton+AtoZ.m */; };
+		7B6BD25418A3F17600056A55 /* CALayer+NBBControlAnimations.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4AC88B173BFB8E002CD411 /* CALayer+NBBControlAnimations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6BD25618A3F18000056A55 /* CALayer+NBBControlAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4AC88C173BFB8E002CD411 /* CALayer+NBBControlAnimations.m */; };
+		7B784D7918ACE426006DC29D /* AtoZAppKit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B657CE3176225ED000BF102 /* AtoZAppKit.xib */; };
+		7B82C80F18DBB84300C5F083 /* BPODial.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B33663C1754D3600037DE96 /* BPODial.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B82C81118DBB84900C5F083 /* BPODial.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3366361754D3310037DE96 /* BPODial.m */; };
+		7B82C81218DBB89200C5F083 /* BPOSliderCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B33663D1754D3600037DE96 /* BPOSliderCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B82C81318DBB89B00C5F083 /* BPOSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3366371754D3310037DE96 /* BPOSliderCell.m */; };
 		7B8ED445175537A1008C405D /* NSBezierPath+MCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8ED44417553797008C405D /* NSBezierPath+MCAdditions.m */; };
 		7B8ED446175537A9008C405D /* NSBezierPath+MCAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8ED44317553779008C405D /* NSBezierPath+MCAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B8ED44717553816008C405D /* SNRHUDSegmentedCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -138,18 +141,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7B3366011754A6B70037DE96 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		13F8B88807B434F6008AE28D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		13F8B88A07B434F6008AE28D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -160,7 +151,6 @@
 		7B0E20D8174FDC4000DF3D20 /* RMSuggestionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSuggestionPanel.m; sourceTree = "<group>"; };
 		7B232FA41727EE6F00B111FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../../FunSize.framework/FunSize.xcodeproj; sourceTree = "<group>"; };
-		7B3365FF1754A6AE0037DE96 /* FunSize.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunSize.framework; path = "../../../../../../../Users/localadmin/Library/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/FunSize.framework"; sourceTree = "<group>"; };
 		7B3366241754D2B30037DE96 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7B3366251754D2B30037DE96 /* screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot1.png; sourceTree = "<group>"; };
 		7B3366261754D2B30037DE96 /* screenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot2.png; sourceTree = "<group>"; };
@@ -225,7 +215,7 @@
 		7B4AC8B4173BFB8E002CD411 /* NSWindow+NBBWindowProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+NBBWindowProxy.m"; sourceTree = "<group>"; };
 		7B5E022C171078730086AF70 /* NSButton+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSButton+AtoZ.h"; sourceTree = "<group>"; };
 		7B5E022D171078730086AF70 /* NSButton+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSButton+AtoZ.m"; sourceTree = "<group>"; };
-		7B657CE2176225ED000BF102 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		7B657CE2176225ED000BF102 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AtoZAppKit.xib; sourceTree = "<group>"; };
 		7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNRHUDSegmentedCell.h; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDSegmentedCell.h; sourceTree = "<group>"; };
 		7B8ED432175536D9008C405D /* SNRHUDSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SNRHUDSegmentedCell.m; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDSegmentedCell.m; sourceTree = "<group>"; };
 		7B8ED433175536D9008C405D /* SNRHUDTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNRHUDTextFieldCell.h; path = submodules/SNRHUDKit/SNRHUDKit/Classes/SNRHUDTextFieldCell.h; sourceTree = "<group>"; };
@@ -245,7 +235,6 @@
 		7BDC5F731724D4A8002C62E7 /* BFColorPickerPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFColorPickerPopover.m; path = Classes/BFColorPickerPopover.m; sourceTree = "<group>"; };
 		7BFB9892163DCEAB00254DCF /* AZFlatTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFlatTheme.m; sourceTree = "<group>"; };
 		7BFB98A0163DFB5700254DCF /* AZDebugTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDebugTheme.m; sourceTree = "<group>"; };
-		8D1AC97B0486D23100FE50C9 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E7050814104AD68D00F2212D /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
 		E706FE790E12DE180017E470 /* BGHUDOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGHUDOutlineView.h; sourceTree = "<group>"; };
@@ -322,8 +311,9 @@
 		0259C574FE90428111CA0C5A /* BGHUDAppKit */ = {
 			isa = PBXGroup;
 			children = (
+				E71317D60E10667D00885A23 /* AtoZAppKit.h */,
 				7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */,
-				7B657CE3176225ED000BF102 /* MainMenu.xib */,
+				7B657CE3176225ED000BF102 /* AtoZAppKit.xib */,
 				7B8ED431175536D9008C405D /* SNRHUDSegmentedCell.h */,
 				7B8ED432175536D9008C405D /* SNRHUDSegmentedCell.m */,
 				7B8ED433175536D9008C405D /* SNRHUDTextFieldCell.h */,
@@ -338,8 +328,6 @@
 				7B8ED43C175536D9008C405D /* SNRHUDScrollView.m */,
 				7B4636A917552A2500072CA0 /* MTTokenField */,
 				7B3366031754D2B30037DE96 /* BPODial */,
-				7B3365FF1754A6AE0037DE96 /* FunSize.framework */,
-				E71317D60E10667D00885A23 /* AtoZAppKit.h */,
 				7BDC5F721724D4A8002C62E7 /* BFColorPickerPopover.h */,
 				7BDC5F731724D4A8002C62E7 /* BFColorPickerPopover.m */,
 				E7CEE1C90F49D8DF00F5DABB /* BGHUD */,
@@ -360,7 +348,6 @@
 				2E58F364FFB232C311CA0CBA /* Frameworks */,
 				7B4AC892173BFB8E002CD411 /* AtoZAppKit-Prefix.pch */,
 				53DF68FE067E5B5A0090B5B0 /* AtoZAppKitFramework-Info.plist */,
-				8D1AC97F0486D23B00FE50C9 /* InfoPlist.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -498,18 +485,18 @@
 		7B5E022B171078450086AF70 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				7B8ED44417553797008C405D /* NSBezierPath+MCAdditions.m */,
-				7B8ED44317553779008C405D /* NSBezierPath+MCAdditions.h */,
-				7B4636CC17552A9E00072CA0 /* NSAttributedString+MTTokenField.h */,
-				7B4636CD17552A9E00072CA0 /* NSAttributedString+MTTokenField.m */,
-				7B33663E1754D3600037DE96 /* NSAffineTransform+Rotation.h */,
-				7B3366381754D3310037DE96 /* NSAffineTransform+Rotation.m */,
 				7B4AC88B173BFB8E002CD411 /* CALayer+NBBControlAnimations.h */,
 				7B4AC88C173BFB8E002CD411 /* CALayer+NBBControlAnimations.m */,
-				7B5E022C171078730086AF70 /* NSButton+AtoZ.h */,
-				7B5E022D171078730086AF70 /* NSButton+AtoZ.m */,
 				7B4AC8AE173BFB8E002CD411 /* NSActionCell+NBBSwappable.h */,
 				7B4AC8AF173BFB8E002CD411 /* NSActionCell+NBBSwappable.m */,
+				7B33663E1754D3600037DE96 /* NSAffineTransform+Rotation.h */,
+				7B3366381754D3310037DE96 /* NSAffineTransform+Rotation.m */,
+				7B4636CC17552A9E00072CA0 /* NSAttributedString+MTTokenField.h */,
+				7B4636CD17552A9E00072CA0 /* NSAttributedString+MTTokenField.m */,
+				7B8ED44317553779008C405D /* NSBezierPath+MCAdditions.h */,
+				7B8ED44417553797008C405D /* NSBezierPath+MCAdditions.m */,
+				7B5E022C171078730086AF70 /* NSButton+AtoZ.h */,
+				7B5E022D171078730086AF70 /* NSButton+AtoZ.m */,
 				7B4AC8B0173BFB8E002CD411 /* NSControl+NBBControlProxy.h */,
 				7B4AC8B1173BFB8E002CD411 /* NSControl+NBBControlProxy.m */,
 				7B4AC8B2173BFB8E002CD411 /* ProxyCategories */,
@@ -621,6 +608,7 @@
 				7B4636C717552A2500072CA0 /* MTTokenField.h in Headers */,
 				7B4636C917552A2500072CA0 /* MTTokenFieldCell.h in Headers */,
 				7B4636CB17552A2500072CA0 /* MTTokenFieldDelegate.h in Headers */,
+				7B6BD25418A3F17600056A55 /* CALayer+NBBControlAnimations.h in Headers */,
 				7BDC5F741724D4A8002C62E7 /* BFColorPickerPopover.h in Headers */,
 				E71317E00E10667D00885A23 /* BGHUDButtonCell.h in Headers */,
 				E71317E20E10667D00885A23 /* BGTheme.h in Headers */,
@@ -628,6 +616,7 @@
 				E79C25D00E109BB500742AF4 /* BGHUDTextFieldCell.h in Headers */,
 				E7894D850E12978C00D28139 /* BGHUDPopUpButtonCell.h in Headers */,
 				E7894DC20E12A03300D28139 /* BGHUDSliderCell.h in Headers */,
+				7B82C81218DBB89200C5F083 /* BPOSliderCell.h in Headers */,
 				E7981ED60E12D3460081E937 /* NSTokenAttachmentCell.h in Headers */,
 				E7894E300E12A7F100D28139 /* BGHUDScroller.h in Headers */,
 				E7894E3D0E12A9E700D28139 /* BGHUDScrollView.h in Headers */,
@@ -646,14 +635,13 @@
 				E7DAC65D0E60729B00549353 /* BGHUDLabel.h in Headers */,
 				F62F7C290EC7DC1400343989 /* BGHUDComboBoxCell.h in Headers */,
 				E7E069650F48A68B0000BDAB /* BGHUDView.h in Headers */,
+				7B82C80F18DBB84300C5F083 /* BPODial.h in Headers */,
 				E7CEE1CC0F49D8FB00F5DABB /* BGHUDBox.h in Headers */,
 				E782C7600F8A25F8002657B1 /* BGHUDStepperCell.h in Headers */,
 				E70CA2BD0FB6F89D0073E3DF /* BGHUDTabViewItem.h in Headers */,
 				E70CA2C20FB6FFBB0073E3DF /* BGHUDTabView.h in Headers */,
 				E71317DF0E10667D00885A23 /* AtoZAppKit.h in Headers */,
 				7B0E20D9174FDC4000DF3D20 /* RMSuggestionPanel.h in Headers */,
-				7B33663F1754D3600037DE96 /* BPODial.h in Headers */,
-				7B3366401754D3600037DE96 /* BPOSliderCell.h in Headers */,
 				7B3366411754D3600037DE96 /* NSAffineTransform+Rotation.h in Headers */,
 				7B5E022E171078730086AF70 /* NSButton+AtoZ.h in Headers */,
 				7B4636CE17552A9E00072CA0 /* NSAttributedString+MTTokenField.h in Headers */,
@@ -667,11 +655,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C056397F08A954F8003078D8 /* Build configuration list for PBXNativeTarget "AtoZAppKit" */;
 			buildPhases = (
-				7B02A2C0172A826500973A80 /* ShellScript */,
 				53DF68FA067E5B5A0090B5B0 /* Sources */,
 				53DF68FB067E5B5A0090B5B0 /* Frameworks */,
 				53DF68F8067E5B5A0090B5B0 /* Headers */,
-				7B3366011754A6B70037DE96 /* CopyFiles */,
+				7B784D7818ACE421006DC29D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -690,7 +677,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AZ;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = mrgray.com;
 			};
 			buildConfigurationList = C056398B08A954F8003078D8 /* Build configuration list for PBXProject "AtoZAppKit" */;
@@ -736,21 +723,16 @@
 		};
 /* End PBXReferenceProxy section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		7B02A2C0172A826500973A80 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
+/* Begin PBXResourcesBuildPhase section */
+		7B784D7818ACE421006DC29D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
+				7B784D7918ACE426006DC29D /* AtoZAppKit.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# logger  \"ZZZZZZZZZZZZZZZZZZZZZ  :   ${BUILT_PRODUCTS_DIR}\"";
 		};
-/* End PBXShellScriptBuildPhase section */
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53DF68FA067E5B5A0090B5B0 /* Sources */ = {
@@ -764,8 +746,6 @@
 				7B8ED45017553834008C405D /* SNRHUDButtonCell.m in Sources */,
 				7B8ED45117553834008C405D /* SNRHUDTextView.m in Sources */,
 				7B8ED45217553834008C405D /* SNRHUDScrollView.m in Sources */,
-				7B3366391754D3320037DE96 /* BPODial.m in Sources */,
-				7B33663A1754D3320037DE96 /* BPOSliderCell.m in Sources */,
 				7B33663B1754D3320037DE96 /* NSAffineTransform+Rotation.m in Sources */,
 				E71317E10E10667D00885A23 /* BGHUDButtonCell.m in Sources */,
 				E71317E30E10667D00885A23 /* BGTheme.m in Sources */,
@@ -781,6 +761,7 @@
 				E7981ED20E12D3390081E937 /* BGHUDTokenFieldCell.m in Sources */,
 				E7981EF60E12D6AA0081E937 /* BGHUDTableView.m in Sources */,
 				E7981EF80E12D6AA0081E937 /* BGHUDTableViewHeaderCell.m in Sources */,
+				7B82C81318DBB89B00C5F083 /* BPOSliderCell.m in Sources */,
 				E706FE7C0E12DE180017E470 /* BGHUDOutlineView.m in Sources */,
 				E70CE5020E188A61000139C1 /* BGHUDTableCornerView.m in Sources */,
 				E7649D0F0E1AC55B001F7E20 /* BGHUDSegmentedCell.m in Sources */,
@@ -800,7 +781,9 @@
 				7BDC5F751724D4A8002C62E7 /* BFColorPickerPopover.m in Sources */,
 				7B0E20DA174FDC4000DF3D20 /* RMSuggestionPanel.m in Sources */,
 				7B4636BC17552A2500072CA0 /* _MTTokenCompletionTableView.m in Sources */,
+				7B6BD25618A3F18000056A55 /* CALayer+NBBControlAnimations.m in Sources */,
 				7B4636BE17552A2500072CA0 /* _MTTokenCompletionWindow.m in Sources */,
+				7B82C81118DBB84900C5F083 /* BPODial.m in Sources */,
 				7B4636C017552A2500072CA0 /* _MTTokenCompletionWindowController.m in Sources */,
 				7B4636C217552A2500072CA0 /* _MTTokenTextAttachment.m in Sources */,
 				7B4636C417552A2500072CA0 /* _MTTokenTextView.m in Sources */,
@@ -822,21 +805,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7B657CE3176225ED000BF102 /* MainMenu.xib */ = {
+		7B657CE3176225ED000BF102 /* AtoZAppKit.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7B657CE2176225ED000BF102 /* en */,
 			);
-			name = MainMenu.xib;
+			name = AtoZAppKit.xib;
 			path = submodules/SNRHUDKit/Catalog;
-			sourceTree = "<group>";
-		};
-		8D1AC97F0486D23B00FE50C9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D1AC97B0486D23100FE50C9 /* English */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -846,36 +821,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "./Resources/AtoZAppKit-Prefix.pch";
-				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = NO;
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
-				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = NO;
-				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
-				GCC_WARN_MISSING_PARENTHESES = NO;
-				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = NO;
-				GCC_WARN_PEDANTIC = NO;
-				GCC_WARN_SIGN_COMPARE = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				GCC_WARN_UNUSED_FUNCTION = NO;
-				GCC_WARN_UNUSED_LABEL = NO;
-				GCC_WARN_UNUSED_PARAMETER = NO;
-				GCC_WARN_UNUSED_VALUE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AtoZAppKit;
@@ -888,25 +840,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "./Resources/AtoZAppKit-Prefix.pch";
-				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = NO;
-				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = NO;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO;
-				GCC_WARN_MISSING_PARENTHESES = NO;
-				GCC_WARN_SIGN_COMPARE = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AtoZAppKit;
@@ -918,7 +857,6 @@
 		C056398C08A954F8003078D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_PREPROCESSOR_DEFINITIONS = PARTOF_AtoZ;
@@ -934,7 +872,6 @@
 		C056398D08A954F8003078D8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_PREPROCESSOR_DEFINITIONS = PARTOF_AtoZ;

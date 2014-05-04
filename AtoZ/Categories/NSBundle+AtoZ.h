@@ -27,18 +27,21 @@
     DTXcode = 0501;
     DTXcodeBuild = 5A2053;
 */
-+ (id) infoPlist;
++   (id) infoPlist;
 + (void) loadAZFrameworks;
-
-+( NSB*) bundleForApplicationName:					(NSS*)appName;
-- (NSD*) infoDictionaryWithIdentifier:			(NSS*)identifier;
++ (NSB*) bundleForApplicationName:					(NSS*)appName;
+//- (NSD*) infoDictionaryWithIdentifier:			(NSS*)identifier;
 + (NSS*) bundleIdentifierForApplicationName:	(NSS*)appName;
 
-@property (RONLY)	 	NSA	* frameworks,
-									  	* frameworkIdentifiers,
-									  	* frameworkInfoDictionaries,
-										* definedClasses;
++ (NSA*) azFrameworkBundles;
++ (NSA*) azFrameworks;
++ (NSA*) azFrameworkIds;
++ (NSA*) azFrameworkInfos;
++ (NSD*) azFrameworkInfoForId:(NSS*)bId;
 
+- (NSA*) definedClasses;
+
++ (NSA*) allFrameworkPaths;
 + (NSB*) frameworkBundleNamed:(NSS*)name;
 + (NSS*) appSuppDir;
 + (NSS*) appSuppFolder;
@@ -51,12 +54,14 @@
 - (NSA*) recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
 - (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 
+- (NSA*) resourcesWithExtensions:(NSA*)exts;
+@property (RONLY) NSA* imageResources;
 //- (NSA*) frameworkClasses;
 //+ (NSMutableArray *)systemFrameworks;
 /*! @brief	Returns the path to the application's icon file, derived from the .icns file specified by "CFBundleIconFile" in the application's Info.plist.	*/
-- (NSString*)appIconPath ;
+@property (RONLY) NSS * appIconPath;
 /*!
  @brief	Returns the image in the file specified by -appIconPath.	*/
-- (NSImage*)appIcon ;
+@property (RONLY) NSIMG * appIcon;
 
 @end

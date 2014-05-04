@@ -82,7 +82,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	return [[self _representedObject] objectAtIndex:index];
 }
 
-- (void)addObject:(id)anObject;
+- (void) ddObject:(id)anObject;
 {
 	if(insert)
 		insert(proxyObject, insertSel, anObject, [self count]); 
@@ -95,7 +95,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 }
 
-- (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
+- (void) insertObject:(id)anObject atIndex:(NSUInteger)index;
 {
 	if(insert)
 	{
@@ -110,7 +110,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 }
 
-- (void)removeLastObject;
+- (void) emoveLastObject;
 {
 	if(remove)
 		remove(proxyObject, removeSel, [self count]-1); 
@@ -123,7 +123,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)index;
+- (void) emoveObjectAtIndex:(NSUInteger)index;
 {
 	if(remove)
 		remove(proxyObject, removeSel, index); 
@@ -136,7 +136,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 }
 
-- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject;
+- (void) eplaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject;
 {
 	if(replace)
 		replace(proxyObject, replaceSel, index, anObject);

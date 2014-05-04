@@ -4,7 +4,7 @@
 //
 //  Created by Michael Ash on 8/9/09.
 //
-
+#import <AtoZ/AtoZ.h>
 #import "BlocksAdditions.h"
 @implementation NSObject (BlocksAdditions)
 
@@ -91,13 +91,14 @@ void Parallelized(int count, void (^block)(int i)) {
 @end
 @implementation NSArray (CollectionsAdditions)
 
-- (void)do: (void (^)(id obj))block	{	for(id obj in self)		block(obj);	}
+- (void)do: (void (^)(id obj))block	{	if(!self || !self.count || !block) return; for(id x in self) block(x);	}
 
-- (NSArray *)select: (BOOL (^)(id obj))block	{	NSMutableArray *new = [NSMutableArray array];
+- (NSA*) select:(BOOL(^)(id obj))block	{	NSMutableArray *new = [NSMutableArray array];
 	for(id obj in self)		if(block(obj))		[new addObject: obj];	return new;
 }
 
-- (NSArray *)map: (id (^)(id obj))block	{		NSMutableArray *new = [NSMutableArray array];
+- (NSArray*) map:(id (^)(id obj))block	{		NSMA *new = NSMA.new;
+
 	for(id obj in self)	{
 		id newObj = block(obj);		[new addObject: newObj ? newObj : [NSNull null]];
 	}

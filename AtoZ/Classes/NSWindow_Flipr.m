@@ -9,6 +9,7 @@
 #import "NSWindow_Flipr.h"
 #import <QuartzCore/QuartzCore.h>
 #include <sys/sysctl.h>
+#include <mach/mach_time.h>
 
 // Read the "ReadMe.rtf" file for general discussion.
 
@@ -32,7 +33,7 @@
 
 // We call this to start the animation just beyond the first frame.
 
-- (void)startAtProgress:(NSAnimationProgress)value withDuration:(NSTimeInterval)duration {
+- (void) startAtProgress:(NSAnimationProgress)value withDuration:(NSTimeInterval)duration {
 	[super setCurrentProgress:value];
 	[self setDuration:duration];
 	[self startAnimation];
@@ -40,7 +41,7 @@
 
 // Called periodically by the NSAnimation timer.
 
-- (void)setCurrentProgress:(NSAnimationProgress)progress {
+- (void) setCurrentProgress:(NSAnimationProgress)progress {
 // Call super to update the progress value.
 	[super setCurrentProgress:progress];
 	if ([self isAnimating]&&(progress<0.99)) {
@@ -96,7 +97,7 @@
 
 // Notice that we don't retain the initial and final windows, so we don't release them here either.
 
-- (void)dealloc {
+- (void) dealloc {
 	[finalImage release];
 	[transitionFilter release];
 	[shadow release];
@@ -113,7 +114,7 @@
 // The initial and final windows aren't retained, so weird things might happen if
 // they go away during the animation. We assume both windows have the exact same frame.
 
-- (void)setInitialWindow:(NSWindow*)initial andFinalWindow:(NSWindow*)final forward:(BOOL)forward {
+- (void) setInitialWindow:(NSWindow*)initial andFinalWindow:(NSWindow*)final forward:(BOOL)forward {
 	NSWindow* flipr = [NSWindow flippingWindow];
 	if (flipr) {
 		[NSCursor hide];
@@ -184,7 +185,7 @@
 
 // This is called when the animation has finished.
 
-- (void)animationDidEnd:(NSAnimation*)theAnimation {
+- (void) nimationDidEnd:(NSAnimation*)theAnimation {
 // We order the flipping window out and make the final window visible again.
 	NSDisableScreenUpdates();
 	[[NSWindow flippingWindow] orderOut:self];
@@ -201,15 +202,26 @@
 	[NSCursor unhide];
 }
 
+typedef int64_t timestamp_t;
+static inline timestamp_t getUpTime(void)
+{
+  static mach_timebase_info_data_t s_timebase_info;
+  if (s_timebase_info.denom == 0) (void) mach_timebase_info(&s_timebase_info);
+  /* returns nsec (billionth of seconds) */
+  return (timestamp_t)((mach_absolute_time() * (timestamp_t)s_timebase_info.numer) / s_timebase_info.denom);
+}
+
 // All the magic happens here... drawing the flipping animation.
 
-- (void)drawRect:(NSRect)rect {
+- (void) drawRect:(NSRect)rect {
 	if (!initialWindow) {
 // If there's no window yet, we don't need to draw anything.
 		return;
 	}
 // For calculating the draw time...
-	AbsoluteTime startTime = UpTime();
+//  timestamp_t startTime = getUpTime();
+CLANG_IGNORE(-Wdeprecated-declarations)
+	AbsoluteTime  startTime = UpTime();
 // time will vary from 0.0 to 1.0. 0.5 means halfway.
 	float time = [animation currentValue];
 // This code was adapted from http://www.macs.hw.ac.uk/~rpointon/osx/coreimage.html by Robert Pointon.
@@ -252,6 +264,7 @@
 	[outputCIImage drawInRect:bounds fromRect:NSMakeRect(-originalRect.origin.x,-originalRect.origin.y,bounds.size.width,bounds.size.height) operation:NSCompositeSourceOver fraction:1.0];
 // Calculate the time spent drawing
 	frameTime = UnsignedWideToUInt64(AbsoluteDeltaToNanoseconds(UpTime(),startTime))/1E9;
+CLANG_POP
 }
 
 @end
@@ -309,7 +322,7 @@ static NSWindow* flippingWindow = nil;
 
 // This is called from outside to start the animation process.
 
-- (void)flipToShowWindow:(NSWindow*)window forward:(BOOL)forward {
+- (void) lipToShowWindow:(NSWindow*)window forward:(BOOL)forward {
 // We resize the final window to exactly the same frame.
 	[window setFrame:[self frame] display:NO];
 	NSWindow* flipr = [NSWindow flippingWindow];

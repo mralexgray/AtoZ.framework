@@ -69,7 +69,7 @@ AZPROPRDO (NSMA, defaultCollection);
 
 @interface BaseModel ()
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel;
-- (void)forwardInvocation:(NSInvocation*)invocation;  // FIERCE
+- (void) orwardInvocation:(NSInvocation*)invocation;  // FIERCE
 - (BOOL)respondsToSelector:(SEL)selector;
 @end
 */

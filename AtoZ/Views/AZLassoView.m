@@ -34,7 +34,7 @@
 	}
 	return self;
 }
-- (void)handleAntAnimationTimer:(NSTimer*)timer {
+- (void) andleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, self.inset, self.inset)];
 }
@@ -46,7 +46,7 @@
 	//	} else
 	return (AZMaxDim([self bounds].size) * .1);
 }
-//- (void)updateTrackingAreas
+//- (void) updateTrackingAreas
 //{
 ////	[super updateTrackingAreas];
 //	if (trackingArea)
@@ -57,7 +57,7 @@
 //	trackingArea = [NSTrackingArea.alloc initWithRect:NSZeroRect options:options owner:self userInfo:nil];
 //	[self addTrackingArea:trackingArea];
 //}
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 	NSBezierPath	*standard = [NSBezierPath bezierPathWithRoundedRect:
 		NSInsetRect(self.bounds, self.inset, self.inset) xRadius:self.radius yRadius:self.radius];
@@ -98,20 +98,23 @@
 	return ( (2*dim.size.width) + (2*dim.size.height) - (( 8 - ((2 * pi) * self.radius))));
 }
 
-- (void)setSelected:(BOOL)state {
+- (void) setSelected:(BOOL)state {
+
 	if (!state) [timer invalidate];
-	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
+	else {
+    mPhase  = 0;
+    timer   = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:NSSelectorFromString(@"handleAntAnimationTimer:") userInfo:nil repeats:YES];
 	}
 	_selected = state;
 	[self setNeedsDisplay:YES];
 }
 
-- (void)setHovered:(BOOL)hovered {
+- (void) setHovered:(BOOL)hovered {
 	_hovered = hovered;
 	[self setNeedsDisplay:YES];
 }
 
-//- (void)setInset:(float)inset {
+//- (void) setInset:(float)inset {
 //	inset_ = inset;
 //	[self setNeedsDisplay:YES];
 //}
@@ -127,7 +130,7 @@
 //	[self setNeedsDisplay:YES];
 //}
 
-//- (void)mouseExited:(NSEvent *)event
+//- (void) mouseExited:(NSEvent *)event
 //{
 //	self.hovered = NO;
 //}

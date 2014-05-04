@@ -7,8 +7,7 @@
 //
 
 //#import <Cocoa/Cocoa.h>
-//#import <Foundation/Foundation.h>
-//#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AtoZ.h>//#import <AtoZ/AtoZ.h>
 @interface AtoZCLI : NSObject
 @end
 
@@ -74,7 +73,7 @@ int main(int argc, const char * argv[])
 //			//		mouseDrag(1, (int)B.x, (int)B.y);
 //		
 //		NSLog(@"%@ DISTANCE: %f",		NSStringFromPoint(MousePoint()),
-//			  distanceFromPoint(A, B) );
+//			  AZDistanceFromPoint(A, B) );
 //		
 //		
 //		AZFile *dic = [[[AtoZ dock] valueForKeyPath:@"name"]  filterOne:^BOOL(id object) {

@@ -11,9 +11,9 @@
 
 @class TUICarouselNavigationController;
 @protocol TUICarouselNavigationControllerDelegate  <NSObject>
-- (void)navigationController:(TUICarouselNavigationController *)navigationController willShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
-- (void)navigationController:(TUICarouselNavigationController *)navigationController didShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
-- (void)navigationController:(TUICarouselNavigationController *)navigationController cancelShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+- (void) avigationController:(TUICarouselNavigationController *)navigationController willShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+- (void) avigationController:(TUICarouselNavigationController *)navigationController didShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+- (void) avigationController:(TUICarouselNavigationController *)navigationController cancelShowViewController:(TUIViewController *)viewController animated:(BOOL)animated;
 @end
 @interface TUICarouselNavigationController : TUIViewController
 @property (unsafe_unretained, nonatomic, readonly) TUIViewController *currentController;
@@ -23,14 +23,14 @@
 @property (nonatomic, assign) BOOL couldUseSlideEvent;
 - (id)initWithViewControllers:(NSArray *)viewControllers initialController:(id)initialController;
 - (id)initWithViewControllers:(NSArray *)viewControllers;
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
+- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 - (TUIViewController *)nextViewController;
 - (TUIViewController *)prevViewController;
-- (void)slideToViewController:(TUIViewController *)viewController animated:(BOOL)animated;
-- (void)slideToViewController:(TUIViewController *)viewController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
-- (void)slideToNextViewControllerAnimated:(BOOL)animated;
-- (void)slideToNextViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
-- (void)slideToPrevViewControllerAnimated:(BOOL)animated;
-- (void)slideToPrevViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void) lideToViewController:(TUIViewController *)viewController animated:(BOOL)animated;
+- (void) lideToViewController:(TUIViewController *)viewController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void) lideToNextViewControllerAnimated:(BOOL)animated;
+- (void) lideToNextViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+- (void) lideToPrevViewControllerAnimated:(BOOL)animated;
+- (void) lideToPrevViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 @end

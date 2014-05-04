@@ -25,7 +25,7 @@
 //	((TodoItem*)TodoList.sharedInstance.items[((NSTableView*)self.controlView).selectedRow]).priority = @( val < 8 ? val + 1 : 0 );
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+- (void) drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	[NSColor.darkGrayColor set];
 	NSRectFill ( cellFrame );
@@ -61,7 +61,7 @@
 	return GREEN;
 }
 - (NSRect)drawingRectForBounds:(NSRect)theRect { return  theRect; }
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {	[_colorForObjectValue(self.objectValue) set];	NSRectFill(cellFrame); 
+- (void) drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {	[_colorForObjectValue(self.objectValue) set];	NSRectFill(cellFrame); 
 	[super drawWithFrame:cellFrame inView:controlView];
 }
 
@@ -69,7 +69,7 @@
 
 @implementation AZDarkButtonCell
 
-- (void)drawImage:(NSImage*)image withFrame:(NSRect)frame inView:(NSView*)controlView
+- (void) drawImage:(NSImage*)image withFrame:(NSRect)frame inView:(NSView*)controlView
 {
 	NSGraphicsContext *ctx = AZGRAPHICSCTX;
 	CGContextRef contextRef = [ctx graphicsPort];
@@ -103,7 +103,7 @@
 	}
 }
 
-- (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
+- (void) drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
 {
 	NSGraphicsContext *ctx = AZGRAPHICSCTX;
 

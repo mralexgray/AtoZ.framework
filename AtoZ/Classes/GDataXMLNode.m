@@ -132,7 +132,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 // setter/getter of the dealloc flag for the underlying node
 - (BOOL)shouldFreeXMLNode;
-- (void)setShouldFreeXMLNode:(BOOL)flag;
+- (void) setShouldFreeXMLNode:(BOOL)flag;
 
 @end
 
@@ -308,7 +308,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return self;
 }
 
-- (void)releaseCachedValues {
+- (void) releaseCachedValues {
 
   [cachedName_ release];
   cachedName_ = nil;
@@ -374,7 +374,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return result;
 }
 
-- (void)dealloc {
+- (void) dealloc {
 
   if (xmlNode_ && shouldFreeXMLNode_) {
     xmlFreeNode(xmlNode_);
@@ -386,7 +386,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 #pragma mark -
 
-- (void)setStringValue:(NSString *)str {
+- (void) setStringValue:(NSString *)str {
   if (xmlNode_ != NULL && str != nil) {
 
     if (xmlNode_->type == XML_NAMESPACE_DECL) {
@@ -767,7 +767,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
             int result = xmlXPathRegisterNs(xpathCtx, prefix, nsPtr->href);
             if (result != 0) {
 #if DEBUG
-              NSCAssert1(result == 0, @"GDataXMLNode XPath namespace %S issue",
+              NSCAssert1(result == 0, @"GDataXMLNode XPath namespace %s issue",
                         prefix);
 #endif
             }
@@ -890,7 +890,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return shouldFreeXMLNode_;
 }
 
-- (void)setShouldFreeXMLNode:(BOOL)flag {
+- (void) setShouldFreeXMLNode:(BOOL)flag {
   shouldFreeXMLNode_ = flag;
 }
 
@@ -961,7 +961,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return array;
 }
 
-- (void)setNamespaces:(NSArray *)namespaces {
+- (void) setNamespaces:(NSArray *)namespaces {
 
   if (xmlNode_ != NULL) {
 
@@ -991,7 +991,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   }
 }
 
-- (void)addNamespace:(GDataXMLNode *)aNamespace {
+- (void) addNamespace:(GDataXMLNode *)aNamespace {
 
   if (xmlNode_ != NULL) {
 
@@ -1009,7 +1009,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   }
 }
 
-- (void)addChild:(GDataXMLNode *)child {
+- (void) addChild:(GDataXMLNode *)child {
   if ([child kind] == GDataXMLAttributeKind) {
     [self addAttribute:child];
     return;
@@ -1038,7 +1038,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   }
 }
 
-- (void)removeChild:(GDataXMLNode *)child {
+- (void) removeChild:(GDataXMLNode *)child {
   // this is safe for attributes too
   if (xmlNode_ != NULL) {
 
@@ -1215,7 +1215,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return array;
 }
 
-- (void)addAttribute:(GDataXMLNode *)attribute {
+- (void) addAttribute:(GDataXMLNode *)attribute {
 
   if (xmlNode_ != NULL) {
 
@@ -1591,7 +1591,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 
 @interface GDataXMLDocument (PrivateMethods)
-- (void)addStringsCacheToDoc;
+- (void) addStringsCacheToDoc;
 @end
 
 @implementation GDataXMLDocument
@@ -1648,7 +1648,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return self;
 }
 
-- (void)addStringsCacheToDoc {
+- (void) addStringsCacheToDoc {
   // utility routine for init methods
 
 #if DEBUG
@@ -1683,7 +1683,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return [NSString stringWithFormat:@"%@ %p", [self class], self];
 }
 
-- (void)dealloc {
+- (void) dealloc {
   if (xmlDoc_ != NULL) {
     // release the strings cache
     //
@@ -1730,7 +1730,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-- (void)setVersion:(NSString *)version {
+- (void) setVersion:(NSString *)version {
 
   if (xmlDoc_ != NULL) {
     if (xmlDoc_->version != NULL) {
@@ -1745,7 +1745,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   }
 }
 
-- (void)setCharacterEncoding:(NSString *)encoding {
+- (void) setCharacterEncoding:(NSString *)encoding {
 
   if (xmlDoc_ != NULL) {
     if (xmlDoc_->encoding != NULL) {

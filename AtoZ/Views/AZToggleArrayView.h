@@ -107,15 +107,15 @@ extern NSS *const AZToggleState;
 //- (CAL*)	itemLayerWithName:(NSS*)name relativeTo:(NSS*)r onText:(NSS*)on  offText:(NSS*)off 
 //							state:(BOOL)state		index:(NSUI)index	  labelPositioned:(AZPOS)pos;
 
-- (CAL*) itemLayerWithName:(NSS*)name 	relativeTo:(NSS*)r onText:(NSS*)on  offText:(NSS*)off
-							state:(BOOL)state 		 index:(NSUI)index;
-							
+//- (CAL*) itemLayerWithName:(NSS*)name 	relativeTo:(NSS*)r onText:(NSS*)on  offText:(NSS*)off
+//							state:(BOOL)state 		 index:(NSUI)index;
+
 //- (AZTCL*) toggleLayerWithOnText:(NSS*)on offText:(NSS*)off initialState:(BOOL)state;
 - (AZTCL*) toggleLayerWithOnText:(NSS*)on offText:(NSS*)off initialState:(BOOL)state
 														  title:(NSS*)title		index:(NSUI)index;
 
 - (CATXTL*) itemTextLayerWithName:(NSS*)name;
-- (CAL*)		itemLayerWithName:	 (NSS*)name	relativeTo:(NSS*)relative index:(NSUI)index;
+//- (CAL*)		itemLayerWithName:	 (NSS*)name	relativeTo:(NSS*)relative index:(NSUI)index;
 
 @property (NATOM,STRNG) NSA *questions;
 @property (NATOM,ASS)				AZOrient orientation;

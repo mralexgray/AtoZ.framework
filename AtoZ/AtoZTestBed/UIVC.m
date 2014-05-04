@@ -30,24 +30,6 @@
 }
 - 			     (id) outlineView:(NSOutlineView*)v child:(NSInteger)idx ofItem:(id)x	{	return !x ? self.root : [x children][idx];	}  
 
--  (NSDictionary*) expansions 						{	NSString *e = nil;	NSPropertyListFormat fmt;
-	return [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:@"/Volumes/2T/ServiceData/AtoZ.framework/AtoZMacroDefines.plist"] mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&fmt errorDescription:&e];
-} 															/* parse the plist */
--        (AZNode*) root 								{ 
-
-	__block AZNode*_root = AZNode.new; _root.key = @"Expansions"; __block AZNode *cat, *def; 
-	NSMutableArray *_allKeywords, *_allReplacements, *_allCats;	
-	_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
-	return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		[_root addChild:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
-		[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
-			[cat addChild:def = AZNode.new];
-			[_allKeywords 		addObject:def.key = macro]; 
-			[_allReplacements addObject:def.value = expansion];	
-		}];
-//			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
-	}], _root;
-}
 
 - (IBAction)showXFLDragDrop:(id)sender;
 {
@@ -86,7 +68,7 @@
 	_spinning = spinning;
 }
 - (BGThemeManager*) sharedThemeManager { return  [BGThemeManager sharedManager]; }
-- (void)setBaseColor:(NSColor *)baseColor
+- (void) setBaseColor:(NSColor *)baseColor
 {
 	[((BGTheme*)((BGHUDView*)_windowView).theme) setBaseColor:_baseColor = baseColor];
 	[self.windowView setNeedsDisplay:YES];

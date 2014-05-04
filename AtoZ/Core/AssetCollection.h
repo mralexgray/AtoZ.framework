@@ -1,10 +1,10 @@
 
+#import "AtoZUmbrella.h"
+
 #define AssetDataType @"AssetDataTypeForTableViewDrag"
 
-
-
 JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS, AssetTypeHTML5, AssetTypePHP, AssetTypeBASH,
-									AssetTypeObjC, AssetTypeTXT, AssetTypeUNKNOWN = 99 );
+									AssetTypeObjC, AssetTypeTXT, AssetTypeUNKNOWN = 99, AssetTypeNotFound = NSNotFound );
 
 //static NSArray* extensionsForAssetType(AssetType type);
 
@@ -12,7 +12,7 @@ JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS, AssetTypeHTML5, AssetTypeP
 
 @property (STR) NSMA *assets;
 
-+ (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit;
+//+ (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit;
 -         (void) addFolder:(NSS*)path matchingType:(AssetType)fileType;
 
 @end
@@ -31,6 +31,7 @@ JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS, AssetTypeHTML5, AssetTypeP
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit;
 @end
 @interface AssetTypeTransformer: NSValueTransformer	@end
+
 @interface NSString (AssetType)
 -      (NSS*) wrapInHTML;
 @end

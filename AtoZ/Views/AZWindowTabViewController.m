@@ -10,6 +10,7 @@
 
 @interface AZWindowTabViewController ()
 
+//@property (assign) 		 		 AZAlign   alignment;
 @end
 
 @implementation AZWindowTabViewController

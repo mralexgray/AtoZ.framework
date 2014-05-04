@@ -1,198 +1,327 @@
 
-//  AZBorderlessResizeWindow.m
-//  AtoZ
-//
-//  Created by Alex Gray on 10/11/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
-
-#import "AZBorderlessResizeWindow.h"
 #import "AtoZ.h"
+#import "AZBorderlessResizeWindow.h"
 
-@interface AZHandlebarWindow : NSWindow
+@interface EdgeIndicatorLayer : CALayer
+@property AZPOS pos;
 @end
-@implementation AZHandlebarWindow
+@implementation EdgeIndicatorLayer 
+- (void) drawInContext:(CGContextRef)ctx {
+  [NSGC drawInContext:ctx flipped:NO actions:^{
+    [[NSBP bezierPathWithTriangleInRect:self.bounds orientation:self.pos] fillWithColor:PURPLE];
+  }];
+}
+@end
+@implementation  AZHandlebarWindow
 
-- (id)init; {
+-   (id) init              {
 
-	if (( self = [super initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] ))
-	{
-		self.animationBehavior = NSWindowAnimationBehaviorNone;
-		self.acceptsMouseMovedEvents = NO;
-		self.movableByWindowBackground = NO;
-		self.ignoresMouseEvents = YES;
-		self.backgroundColor = RANDOMCOLOR;
-//		self.contentView = [AZSimpleView withFrame:NSZeroRect color:RANDOMCOLOR];
-//		[((AZSimpleView*)self.contentView) setAutoresizingMask:NSSIZEABLE];
-	}
+	if ( self != [super initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO]) return nil;
+  self.acceptsFirstResponder = NO;
+  [self    overrideCanBecomeKeyWindow:NO];
+  [self   overrideCanBecomeMainWindow:NO];
+  _color = [RED alpha:.5];
+
+  self.view = [BLKV viewWithFrame:self.contentRect drawBlock:^(NSV*v,NSR r) {
+
+    AZHandlebarWindow        * handle = (id)v.window;
+    AZBorderlessResizeWindow * parent = (id)handle.parentWindow;
+    [AZGRAPHICSCTX setCompositingOperation:NSCompositePlusDarker];
+    AZPOS edge  = parent.mouseEdge;
+    NSBP * pth  = [NSBP bezierPathWithRoundedRect:r cornerRadius:parent.cornerRadius aligned:edge];
+    if      (edge == AZPositionCenter)                                      [pth fillWithColor:[BLACK alpha:.3]];
+    else if (edge == AZPositionOutside && ISA(parent,AZMagneticEdgeWindow)) [pth fillWithColor:PINK];// NSFrameRectWithWidthWithColor(mag.inFrame.r, 4, BLACK);
+    else                                                                    [pth fillGradientFrom:handle.color to:CLEAR startAlign:edge];
+  }];
+  self.movable                    =
+  self.acceptsMouseMovedEvents    =
+  self.movableByWindowBackground  = NO;
+  self.ignoresMouseEvents         = YES;
+//  self.animationBehavior          = NSWindowAnimationBehaviorNone;
 	return self;
 }
-- (BOOL) acceptsFirstResponder { return  NO; }
-
+//- (void) sendEvent:(NSE*)e { [self.parentWindow sendEvent:e]; }
 @end
 
-
-@interface AZBorderlessResizeWindow  ()
-{
-	BOOL shouldDrag,shouldRedoInitials;
-	NSPoint initialLocation, initialLocationOnScreen, currentLocation,  newOrigin;
-	NSRect windowFrame, screenFrame, initialFrame;
-	float minY;
-}
-@property (ASS, NATOM) NSP initialMouseLocation;
-@property (ASS, NATOM) NSR initialWindowFrame;
-@property (ASS, NATOM) BOOL isResizeOperation;
-@property (nonatomic, strong) AZHandlebarWindow *handle;
+@interface AZBorderlessResizeWindow () <NSWindowDelegate> //@property (NATOM)  NSP   mouseLocation, dragStart;  @property (NATOM) BOOL   dragging, resizing, mouseDown; @property (NATOM)  NSR   dragFrame;
 @end
-
-
 @implementation AZBorderlessResizeWindow
-@synthesize  initialMouseLocation, initialWindowFrame, isResizeOperation ;
++ (NSD*) codableProperties {
 
-- (id) initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+  return [[NSD dictionaryWithValue:@"NSNumber" forKeys:@[@"handleInset", @"cornerRadius",  @"mouseEdge",     @"screenEdge", @"isOnEdge", @"isDragging", @"isHovered", @"isResizing", @"isClicked"]]
+               dictionaryWithValue:@"NSValue"  forKeys:@[@"snappedRect", @"contentRect", @"mouseLocation", @"mouseEdgeRect", @"bounds"]];
+}
++ (INST) windowWithContentRect:(NSR)r {  return [self.class.alloc initWithContentRect:r styleMask:NSNotFound backing:NSNotFound defer:NO]; }
 
-	if (self != [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag] ) return nil;
+-   (id) initWithContentRect:  (NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+
+	if (!( self = [super initWithContentRect:r styleMask:NSBorderlessWindowMask backing:b > 2 ? 2 : b defer:d] )) return nil;
+  [self  overrideCanBecomeKeyWindow:YES];
+  [self overrideCanBecomeMainWindow:YES];
+  self.level                      = NSNormalWindowLevel;
+  self.movableByWindowBackground  = NO;
+  self.isVisible                  =
+  self.acceptsMouseMovedEvents    = YES;
+  self.delegate                   = self;
+  _cornerRadius                   = 5;
+  _handleInset                    = 30;
+  self.childWindows               = @[_handle = AZHandlebarWindow.new];
+  self.view                       = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(NSV*v,NSR rect) { [self.windowPath fillWithColor:LINEN]; [self.windowPath bezel]; }];
+  EdgeIndicatorLayer *indi = [EdgeIndicatorLayer layerWithFrame:AZCornerRectPositionedWithSize(self.contentRect, AZPositionTopRight, AZSizeFromDim(60))];
+
+  [indi b:@"pos" tO:self wKP:@"screenEdge" o:nil];
+  [self.view.layer addSublayer:indi];
+  [indi setNeedsDisplay];
+//  [_handle b:@"frame" tO:self wKP:@"edgeRect"    o:nil]; /* update _handle's frame when our active edge rect changes */
+  [_handle b:@"faded" tO:self wKP:@"mouseEdge" t:^id(id mE) { return  @([mE uIV] == AZPositionOutside); }];
+  [self b:@"frame" tO:self wKP:@"snappedRect" o:nil];
+//  [self observeNotificationsUsingBlocks:
+//      NSWindowWillStartLiveResizeNotification,  ^(NSNOT*n) { self.mouseDown = self.dragging = YES; }, nil];
+//    NSWindowDidMoveNotification,              ^(NSNOT*n) {
+
+//      [n.object triggerChangeForKeys:@[@"frame"]]; }, nil];  //screenEdge"]]; }, nil];//self.dragFrame = [n.object frame]; XX(@"didMoveNote"); }, nil];
+
+//  [self b:@"dragStart" tO:self wKP:@"dragging" t:^id(id value) { return AZVpoint([value bV] ? NSE.mouseLocation : NSZeroPoint); /* save initial mouse Location point */ }];
+  return self;
+}
+
+- (NSBP*) windowPath { return [NSBP bezierPathWithRoundedRect:self.bounds cornerRadius:_cornerRadius]; }
+
++ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
+
+  objswitch(k)
+    objcase(@"isHovered")   return NSSET(@"mouseLocation");
+    objcase(@"isOnEdge")    return NSSET(@"mouseLocation");
+    objcase(@"mouseEdge")     return NSSET(@"mouseLocation", @"isOnEdge");
+    objcase(@"mouseEdgeRect") return NSSET(@"mouseEdge", @"frame");
+    objcase(@"screenEdge")  return NSSET(@"dragFrame",@"frame");
+//    objcase(@"dragging")    return NSSET(@"mouseDown");
+    defaultcase             return [super keyPathsForValuesAffectingValueForKey:k];
+  endswitch
+}
+
+-  (BOOL) isHovered   { return NSPointInRect(NSE.mouseLocation,self.frame);                              }
+-  (BOOL) isOnEdge    { return AZPointIsInInsetRects(_mouseLocation, self.contentRect, AZSizeFromDim(_handleInset)); }
+- (AZPOS) mouseEdge   { /* update mouseOnEdgeBool whenever mouse moves. */
+
+  return !self.isOnEdge ? NSPointInRect(_mouseLocation,self.contentRect) ? AZCntr : AZOtsd
+                           : AZPosOfPointInInsetRects(_mouseLocation, self.contentRect, AZSizeFromDim(_handleInset));
+}
+- (AZPOS) screenEdge     { return AZOutsideEdgeOfRectInRect ( /*self.isDragging ? self.dragFrame :*/ self.frame, AZScreenFrameUnderMenu()); }
+-   (NSR) mouseEdgeRect  {
+
+ //self.activeEdge == AZPositionOutside && [self respondsToString:@"inFrame"] ? [[self vFK:@"inFrame"]r] :
+
+  NSR r = AZRectOffset(AZInsetRectInPosition(self.contentRect, AZSizeFromDim(_handleInset), self.mouseEdge), self.frame.origin);
+  [_handle setFrame:r display:YES animate:YES];
+  return r;
+//  [_handle bwResizeToSize:AZSizeFromRect(eRect) animate:YES];
+}
+- (NSR) snappedRect { AZR *r = $AZR(self.frame);
+
+  switch (self.screenEdge) {
+    case AZAlignLeft:   r.x = 0;                 break;
+    case AZAlignTop:    r.maxY = AZScreenHeight();  break;
+    case AZAlignRight:  r.maxX = AZScreenWidth();   break;
+    case AZAlignBottom: r.y = 0;                 break;
+  }
+  return r.frame;
+}
+
+-  (void) sendEvent:(NSE*)e {
+
+  AZLOG([NSThread  callStackSymbols]);
+
+  XX(AZEventToString(e.type));
+
+  switch (e.type) {
+    case NSMouseMoved:    if (self.isHovered || self.isOnEdge) [self setPoint:self.view.windowPoint forKey:@"mouseLocation"]; break;
+    case NSLeftMouseDown :
+      [self setBool:YES forKey:@"isClicked"];
+      [self setBool:self.isOnEdge forKey:@"isResizing"];
+      if (!_isResizing) return;
+      NSP dragStart = NSE.mouseLocation;
+      NSR wOrig     = self.frame;   // save initial origin.
+    //  NSPoint dragOffset = AZSubtractPoints(_dragStart, wOrig);
+    //  NSR dragFrameStart = self.frame;
+      [self setBool:YES forKey:@"isDragging"];
+
+      while (e.type != NSLeftMouseUp) {
+
+        e = [self nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask];
+    //		self.insideEdge = AZOutsideEdgeOfPointInRect ( NSE.mouseLocation, _outerRect.r);
+        NSP p  = AZSubtractPoints (NSE.mouseLocation, dragStart);// AZSubtractPoints(_dragStart, dragFrameStart.origin));
+        [self setFrame:AZRectOffset(wOrig, p) display:YES animate:NO];//     _slideState == AZIn ? self.inFrame.r : self.outFrame.r;
+      }
+    //  [self setBool:NO forKey:@"isDragging"];
+      [self setValue:@NO forKeys:@[@"isResizing",@"isClicked",@"isDragging"]];
+    break;
+  }
+
+}
+//- (void) setFrame:(NSR)r display:(BOOL)f {
+//  NSR rct = AZInsetRectInPosition(AZScreenFrameUnderMenu(), AZSizeFromRect(r), self.insideEdge);
+//  [super setFrame:rct display:f];
+//}
+@end
+@implementation FadeVisibilityWindow
+- (NSS*) description      {
+
+  return [self.codableProperties.allKeys.alphabetized map:^id(id k){
+    return $(@"%@: %@",k,[@[@"screenEdge", @"mouseEdge"] containsObject:k] ? AZAlignToString([self unsignedIntegerForKey:k]) : [self descriptionForKey:k]);
+  }].joinedByNewlines;
+}
+- (NSC*) backgroundColor  { return CLEAR; }
+- (BOOL) isOpaque         { return NO;    }
+@end
+
+@implementation AZMagneticEdgeWindow
+
+//+ (NSD*) codableProperties { NSMD *d = super.codableProperties.mutableCopy;
+//
+//  [d setValue:@"AZRect" forKeys:@[@"outFrame", @"inFrame"]];
+//  return d;
+//}
+//
+//+ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
+//
+//  objswitch(k)
+//    objcase(@"inFrame")   return NSSET(@"edgeInset",@"outFrame");
+//    objcase(@"outFrame")  return NSSET(@"fullSize", @"dragFrame");
+//    defaultcase           return [super keyPathsForValuesAffectingValueForKey:k];
+//  endswitch
+//}
+//- (AZRect*) inFrame { return
+//
+//  self.insideEdge == AZTop ? $AZR(AZLowerEdge(self.bounds, self.edgeInset))
+//: self.insideEdge == AZLft ? $AZR(AZRightEdge(self.bounds, self.edgeInset))
+//:	self.insideEdge == AZBtm ? $AZR(AZUpperEdge(self.bounds, self.edgeInset))
+//: self.insideEdge == AZRgt ? $AZR(AZLeftEdge (self.bounds, self.edgeInset))
+//: $AZR( AZCornerRectPositionedWithSize(	self.bounds,	AZPositionOpposite(self.insideEdge), AZSizeFromDim(self.edgeInset*2)));//self.grabInset * 2)));
+//
+////AZRect *theStart = self.outFrame; NSR startR = theStart.r;
+//
+////    return $AZR(NSZeroRect);
+////    self.insideEdge == AZLft ? [self.outFrame   AZRectExceptOriginX(startR,   		  	     - self.width  + AZMinDim(_fullSize) * 2) //self.grabInset * 2))
+////  : self.insideEdge == AZTop ? AZRectExceptOriginY(startR, theStart.minY + theStart.height - AZMinDim(_fullSize))//self.grabInset))
+////  : self.insideEdge == AZRgt ? AZRectExceptOriginX(startR, theStart.minX + theStart.width  - AZMinDim(_fullSize))//self.grabInset))
+////  : self.insideEdge == AZBtm ? AZRectExceptOriginY(startR, theStart.minY - theStart.height + AZMinDim(_fullSize)) : startR);
+//}
+//- (AZRect*) outFrame { return $AZR(AZRectInsideRectOnEdge(AZRectFromSize(self.fullSize), AZScreenFrameUnderMenu(), self.insideEdge)); }
+//-      (id) initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+//
+//  if (!(self = [super initWithContentRect:r styleMask:m backing:b defer:d])) return nil;
+//  [self b:@"fullSize" tO:self wKP:@"frame" t:^id(id value) { return AZVsize( AZSizeFromRect([value rV])); }];
+//  BLKVIEW *corners;
+//  [self.view addSubview:corners = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(BLKV *bv, NSR rr) {
+//
+//  }]];
+//  return self;
+//}
+//- (CRNR)outsideCorners           {	 AZPOS o = AZPositionOpposite(self.insideEdge);
+//	return 	o == AZTop ? (OSBottomLeftCorner|OSBottomRightCorner)
+//			: 	o == AZLft ? (  OSTopRightCorner|OSBottomRightCorner)
+//			: 	o == AZBtm ? (   OSTopLeftCorner|OSTopRightCorner   )
+//			:   /*AZRght*/   (   OSTopLeftCorner|OSBottomLeftCorner );
+//}
+@end
 
 
-	self.opaque		= NO;
-	self.bgC		= [NSColor clearColor];
-	self.level		= NSNormalWindowLevel; //NSPopUpMenuWindowLevel];
-	self.styleMask	= NSBorderlessWindowMask;
-	self.isVisible 	= YES;
-	self.minSize 	= self.frame.size;
-	self.animationBehavior = NSWindowAnimationBehaviorNone;
-	self.acceptsMouseMovedEvents = YES;
-	self.movableByWindowBackground = YES;
-	self.showsResizeIndicator = YES;
-	self.resizeIncrements = NSMakeSize(100, 100);
+/**********/
+
+
+
+@implementation AZEdgeAwareWindow
+
+-  (void) resizeBy:    (NSSZ)sz { if (NSEqualSizes(NSZeroSize, sz)) return;
+
+  [self setSize:AZAddSizes(self.size, sz)];
+//	[self setFrame: AZCenterRectOnPoint(AZRectResizedBySize(self.frame,sz), self.center)];
+}
+-  (void) scrollWheel: (NSE*)e  { [self resizeBy:e.deltaSizeAZ];  }
+
+- (id) initWithContentRect:(NSRect)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+
+	if (self != [super initWithContentRect:r styleMask:m == NSNotFound ? 1|2|8 : m backing:b > 2 ? 2 : b defer:NO] ) return nil;
+	self.opaque                     = NO;
+	self.bgC                        = CHECKERS;
+	self.minSize                    = self.frame.size;
+	self.resizeIncrements           = AZSizeFromDim(100);
+	self.movableByWindowBackground  = self.acceptsMouseMovedEvents = self.showsResizeIndicator = self.isVisible = YES;
+	self.level                      = NSNormalWindowLevel; //NSPopUpMenuWindowLevel];
+	self.animationBehavior          = NSWindowAnimationBehaviorNone;
+  self.collectionBehavior         = NSWindowCollectionBehaviorDefault;
 	return self;
 }
-
-- (BOOL)canBecomeKeyWindow	{	return YES;	}
-
-- (BOOL)canBecomeMainWindow	{	return YES;	}
-
-- (void)mouseDragged:(NSEvent *)theEvent
-{
-	if (shouldRedoInitials)
-	{
-		initialLocation = [theEvent locationInWindow];
-		initialLocationOnScreen = [self convertBaseToScreen:[theEvent locationInWindow]];
-		initialFrame = [self frame];
-		shouldRedoInitials = NO;
- 
-		shouldDrag =! initialLocation.x > initialFrame.size.width - 20 && initialLocation.y < 20;
-
-		screenFrame = AZScreenFrame();
-		windowFrame = [self frame];
- 
-		minY = windowFrame.origin.y+(windowFrame.size.height-288);
-	}
- 
- 
-	// 1. Is the Event a resize drag (test for bottom right-hand corner)?
-	if (shouldDrag == FALSE)
-	{
-		// i. Remember the current downpoint
-		NSPoint currentLocationOnScreen = [self convertBaseToScreen:[self mouseLocationOutsideOfEventStream]];
-		currentLocation = [theEvent locationInWindow];
- 
-		// ii. Adjust the frame size accordingly
-		float heightDelta = (currentLocationOnScreen.y - initialLocationOnScreen.y);
- 
-		if ((initialFrame.size.height - heightDelta) < 289)
-		{
-			windowFrame.size.height = 288;
-			//windowFrame.origin.y = initialLocation.y-(initialLocation.y - windowFrame.origin.y)+heightDelta;
-			windowFrame.origin.y = minY;
-		} else
-		{
-			windowFrame.size.height = (initialFrame.size.height - heightDelta);
-			windowFrame.origin.y = (initialFrame.origin.y + heightDelta);
-		}
- 
-		windowFrame.size.width = initialFrame.size.width + (currentLocation.x - initialLocation.x);
-		if (windowFrame.size.width < 323)
-		{
-			windowFrame.size.width = 323;
-		}
- 
-		// iii. Set
-		[self setFrame:windowFrame display:YES animate:NO];
-	}
-	else
-	{
-		//grab the current global mouse location; we could just as easily get the mouse location 
-		//in the same way as we do in -mouseDown:
-		currentLocation = [self convertBaseToScreen:[self mouseLocationOutsideOfEventStream]];
-		newOrigin.x = currentLocation.x - initialLocation.x;
-		newOrigin.y = currentLocation.y - initialLocation.y;
- 
-		// Don't let window get dragged up under the menu bar
-		if( (newOrigin.y+windowFrame.size.height) > (screenFrame.origin.y+screenFrame.size.height) )
-		{
-			newOrigin.y=screenFrame.origin.y + (screenFrame.size.height-windowFrame.size.height);
-		}
- 
-		//go ahead and move the window to the new location
-		[self setFrameOrigin:newOrigin];
- 
-	}
-}
- 
-- (void)mouseUp:(NSEvent*)e 	{	shouldRedoInitials = YES; }
-
--(void) mouseMoved:(NSEvent *)theEvent
-{
-
-	NSPoint p = [self.contentView convertPoint:[theEvent locationInWindow]fromView:nil];
-	NSR 	r = [self.contentView bounds];
-	NSSZ 	i = AZSizeFromDimension(30);
-	if ( AZPointIsInInsetRects(p, r, i) ) {
-		AZPOS d = AZPosOfPointInInsetRects(p, r, i);
-		NSLog(@"%@   %@", NSStringFromPoint(p), AZWindowPositionToString(d));
-		NSR new = AZInsetRectInPosition(r, i, d);
-		NSR rel = AZOffsetRect(new, self.frame.origin);
-
-//		NSR flp = AZRectFlippedOnEdge(rel, d);
-		_handle = _handle ?: [AZHandlebarWindow.alloc init];
-		if (![_handle isVisible]) [self addChildWindow:_handle ordered:NSWindowAbove];
-		[_handle setFrame:rel display:YES animate:YES];
-	}
-}
-
--(void) scrollWheel:(NSEvent *)theEvent
-{
-
-	//	CGF off = theEvent.deltaY < 0 ? - 10 : 10;
-	NSR new = self.frame;
-	new.size.width += theEvent.deltaX /10;//NSOffsetRect(self.frame,off, 0);
-	new.size.height += theEvent.deltaY/10 ;
-	new.size.height = new.size.height < 100? 100 : new.size.height;
-	new.size.width = new.size.width < 100 ? 100  : new.size.width;
-	[[self animator] setFrame:new display:YES animate:YES];
-	[[[self contentView]subviews]each:^(id obj) {
-		[[obj animator] setFrame:new];
-	}];
-}
-
-- (void)setIsVisible:(BOOL)flag
-{
-	[[self animator] setAlphaValue:flag ? 1.0 : 0.0];
-	[super setIsVisible:flag];
-}
-
-- (void)toggleVisibility
-{
-	[self setIsVisible:![self isVisible]];
-}
+- (void) setFrameChanged:(WindowFrameChange)blk { [self.contentView observeFrameChange:^(NSV*v){ (_frameChanged = [blk copy])(_owner,self); }]; }
+@end
 
 
 /*
+	if (!_dragging) {
+		_initialLocation          = e.locationInWindow;
+		_initialLocationOnScreen  = [self convertBaseToScreen:e.locationInWindow];
+		_initialFrame             = self.frame;
+		_shouldDrag               = ! _initialLocation.x > _initialFrame.size.width - 20 && _initialLocation.y < 20;
+		_windowFrame             = self.frame;
+ 		_minY                    = _windowFrame.origin.y + (_windowFrame.size.height-288);
+
+
+	if (!_shouldDrag)	{ // 1. Is the Event a resize drag (test for bottom right-hand corner)?
+
+		// i. Remember the current downpoint
+		NSP currentLocationOnScreen = [self convertBaseToScreen:self.mouseLocationOutsideOfEventStream];
+		_currentLocation = e.locationInWindow;
+ 		// ii. Adjust the frame size accordingly
+		CGF heightDelta = currentLocationOnScreen.y - _initialLocationOnScreen.y;
+ 
+		if ((_initialFrame.size.height - heightDelta) < 289)
+		{
+			_windowFrame.size.height = 288;      //windowFrame.origin.y = initialLocation.y-(initialLocation.y - windowFrame.origin.y)+heightDelta;
+			_windowFrame.origin.y = _minY;
+		} else {
+			_windowFrame.size.height = (_initialFrame.size.height - heightDelta);
+			_windowFrame.origin.y = (_initialFrame.origin.y + heightDelta);
+		}
+		_windowFrame.size.width = _initialFrame.size.width + (_currentLocation.x - _initialLocation.x);
+		if (_windowFrame.size.width < 323) _windowFrame.size.width = 323;
+		// iii. Set
+		[self setFrame:_windowFrame display:YES animate:NO];
+
+  }	else {
+		//grab the current global mouse location; we could just as easily get the mouse location 
+		//in the same way as we do in -mouseDown:
+		_currentLocation = [self convertBaseToScreen:self.mouseLocationOutsideOfEventStream];
+		_newOrigin.x = _currentLocation.x - _initialLocation.x;
+		_newOrigin.y = _currentLocation.y - _initialLocation.y;
+ 
+		// Don't let window get dragged up under the menu bar
+		if( (_newOrigin.y+_windowFrame.size.height) > (_screenFrame.origin.y+_screenFrame.size.height) )
+		{
+			_newOrigin.y=_screenFrame.origin.y + (_screenFrame.size.height-_windowFrame.size.height);
+		}
+ 
+		//go ahead and move the window to the new location
+		[self setFrameOrigin:_newOrigin];
+ 
+	}
+
+- (void) scrollWheel: (NSE*)e {
+
+	//	CGF off = theEvent.deltaY < 0 ? - 10 : 10;
+	NSR new          = self.frame;
+	new.size.width  += e.deltaX /10;//NSOffsetRect(self.frame,off, 0);
+	new.size.height += e.deltaY/10 ;
+	new.size.height = MIN(new.size.height,100);
+	new.size.width  = MIN(new.size.width, 100);
+  [self.animator setFrame:new display:YES animate:YES];
+	[[self.contentView subviews] do:^(id obj) { [[obj animator] setFrame:new]; }];
+}
+
 static NSP currentLocation, newOrigin, initialLocation;
 static NSR screenFrame, windowFrame;
 
-- (void)mouseDragged:(NSEvent *)theEvent
+- (void) mouseDragged:(NSEvent *)theEvent
 {
 	static dispatch_once_t onceToken;	dispatch_once(&onceToken, ^{	screenFrame = AZScreenFrame();
 																		windowFrame	= self.frame;	});
@@ -213,7 +342,7 @@ static NSR screenFrame, windowFrame;
 	[self setFrameOrigin:newOrigin]; LOG_EXPR(newOrigin);
 }
 
-- (void)mouseDown:(NSEvent *)theEvent
+- (void) mouseDown:(NSEvent *)theEvent
 {
 	// Get mouse location in global coordinates
 	initialLocation = [self convertBaseToScreen:[theEvent locationInWindow]];
@@ -221,57 +350,160 @@ static NSR screenFrame, windowFrame;
 	initialLocation.y -= windowFrame.origin.y;
 	NSLog(@"initial: %@", AZString(initialLocation));
 }
+
+
+- (void) mouseMoved:(NSEvent *)event
+{
+	//set movableByWindowBackground to YES **ONLY** when the mouse is on the title bar
+	NSPoint mouseLocation = [event locationInWindow];
+	if (NSPointInRect(mouseLocation, AZUpperEdge([self frame], 40)))
+		[self setMovableByWindowBackground:YES];
+	else
+		[self setMovableByWindowBackground:NO];
+
+	//This is a good place to set the appropriate cursor too
+}
+
+- (void) mouseDown:(NSEvent *)event
+{
+	//Just in case there was no mouse movement before the click AND
+	//is inside the title bar frame then setMovableByWindowBackground:YES
+	NSPoint mouseLocation = [event locationInWindow];
+	if (NSPointInRect(mouseLocation, AZUpperEdge([self frame], 40)))
+		[self setMovableByWindowBackground:YES];
+	else //if (NSPointInRect(mouseLocation, bottomRightResizingCornerRect))
+		[self doBottomRightResize:event];
+	//... do all other resizings here. There are 6 more in OSX 10.7!
+}
+
+- (void) mouseUp:(NSEvent *)event
+{
+	//movableByBackground must be set to YES **ONLY**
+	//when the mouse is inside the titlebar.
+	//Disable it here :)
+	[self setMovableByWindowBackground:NO];
+}
+//All my resizing methods start in mouseDown:
+
+- (void) oBottomRightResize:(NSEvent *)event {
+	//This is a good place to push the appropriate cursor
+
+	NSRect r = [self frame];
+	while ([event type] != NSLeftMouseUp) {
+		event = [self nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
+		//do a little bit of maths and adjust rect r
+		[self setFrame:r display:YES];
+	}
+
+	//This is a good place to pop the cursor :)
+
+	//Dispatch unused NSLeftMouseUp event object
+	if ([event type] == NSLeftMouseUp) {
+		[self mouseUp:event];
+	}
+}
+
+@property (NATOM)  NSP initialMouseLocation, initialLocationOnScreen, initialLocation,  currentLocation,  newOrigin;
+@property (NATOM)  NSR initialWindowFrame,   windowFrame,             screenFrame,      initialFrame;
+@property (NATOM) BOOL isResizeOperation,    shouldRedoInitials,      shouldDrag;
+@property CGF minY;
+
+@property (NATOM) NSP initialMouseLocation;
+@property (NATOM) NSR initialWindowFrame;
+@property (NATOM) BOOL isResizeOperation;
+
+@synthesize  initialMouseLocation, initialWindowFrame, isResizeOperation ;
+
+
++ (NSSet*) keyPathsForValuesAffectingMouseOnEdge { return [NSSet setWithObjects:@"mouseLocation",@"edgeInset",nil]; }
+
+- (BOOL) mouseOnEdge { return AZPointIsInInsetRects(_mouseLocation,self.contentRect,AZSizeFromDim(_edgeInset)); }
+
++ (NSSet*) keyPathsForValuesAffectingActiveEdge {
+    NSLog(@"keyPathsForValuesAffectingAffectedValue called");
+  return [NSSet setWithObjects:@"mouseLocation",@"mouseOnEdge",nil]; }
+
+- (AZPOS) activeEdge { AZPOS edge = AZPosOfPointInInsetRects(_mouseLocation,self.contentRect,AZSizeFromDim(_edgeInset));
+  NSLog(@"%@ %@", NSStringFromPoint(_mouseLocation), AZWindowPositionToString(edge));
+  return edge;
+}
+
+//  [_handle.animator b:@"isVisible"  tO:self wKP:@"mouseOnEdge"   o:nil];
+//- (BOOL)canBecomeKeyWindow  { return YES; }
+//- (BOOL)canBecomeMainWindow { return YES; }
+- (void) mouseMoved:(NSEvent*)e {
+  //set movableByWindowBackground to
+ YES **ONLY** when the mouse is on the title bar
+  NSPoint mouseLocation = e.locationInWindow;
+  [self setMovableByWindowBackground:NSPointInRect(mouseLocation, AZUpperEdge([self frame], 40))];
+  //This is a good place to set the appropriate cursor too
+}
+- (void) mouseDown:(NSEvent *)event{
+    //Just in case there was no mouse movement before the click AND
+    //is inside the title bar frame then setMovableByWindowBackground:YES
+    NSPoint mouseLocation = [event locationInWindow];
+    if (NSPointInRect(mouseLocation, AZUpperEdge([self frame], 40)))
+        [self setMovableByWindowBackground:YES];
+    else //if (NSPointInRect(mouseLocation, bottomRightResizingCornerRect))
+        [self doBottomRightResize:event];
+    //... do all other resizings here. There are 6 more in OSX 10.7!
+}
+- (void) mouseUp:(NSEvent *)event{
+    //movableByBackground must be set to YES **ONLY**
+    //when the mouse is inside the titlebar.
+    //Disable it here :)
+    [self setMovableByWindowBackground:NO];
+}
+//All my resizing methods start in mouseDown:
+- (void) oBottomRightResize:(NSEvent *)event {
+    //This is a good place to push the appropriate cursor
+
+    NSRect r = [self frame];
+    while ([event type] != NSLeftMouseUp) {
+        event = [self nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
+        //do a little bit of maths and adjust rect r
+        [self setFrame:r display:YES];
+    }
+
+    //This is a good place to pop the cursor :)
+
+    //Dispatch unused NSLeftMouseUp event object
+    if ([event type] == NSLeftMouseUp) {
+        [self mouseUp:event];
+    }
+}
+
+//  [self   b:@"edgeRect"    tO:self wKP:@"activeEdge"   t:^id(NSN* edge){
+//    return AZVrect(AZRectOffset(AZInsetRectInPosition(self.contentRect, AZSizeFromDim(_edgeInset), edge.uIV), self.frame.origin));       //		NSR flp = AZRectFlippedOnEdge(rel, d);
+//  }];
+
+//  return JATExpand(
+//  @"loc:{0} \n\
+//  edgeRect:{1}\n\
+//  activeEdge:{2} insideEdge:{8}\n\
+//  mOver:{3|if:YES;NO}   mDown:{4|if:YES;NO}\n\
+//  onEdge:{5|if:YES;NO}  dragging:{6|if:YES;NO}\n\
+//  resizing:{7|if:YES;NO}",
+//
+//  AZString(self.mouseLocation),         /  0 * /   AZString(self.edgeRect),  / * 1 * /
+//  AZPositionToString(self.activeEdge),  / * 2 * /   self.mouseOver,           / * 3 * /
+//  self.mouseDown,                       / * 4 * /   self.mouseOnEdge,         / * 5 * /
+//  self.dragging,                        / * 6 * /   self.resizing,             / * 7 * /
+//  AZPositionToString(self.insideEdge)   / * 8 * /   );
+
+//- (void) setIsVisible:(BOOL)v { self.animator.alphaValue = (super.isVisible = v) ? 1. : 0.; }
+
+//{
+//  CGF _cornerRadius,   // Round corners by this amount.  Defaults to 5.
+//      _handleInset;      // How big are the "hot" edges?   Defaults to 30.
+//  AZPOS _screenEdge,
+//         _mouseEdge;
+//  NSP _mouseLocation;  // Updates whenever mouse moves in window.
+//  NSR _mouseEdgeRect;
+//  BOOL _isOnEdge,  _isDragging, _isResizing, _isClicked, _isHovered;
+//}
+
 */
 
-//- (void)mouseMoved:(NSEvent *)event
-//{
-//	//set movableByWindowBackground to YES **ONLY** when the mouse is on the title bar
-//	NSPoint mouseLocation = [event locationInWindow];
-//	if (NSPointInRect(mouseLocation, AZUpperEdge([self frame], 40)))
-//		[self setMovableByWindowBackground:YES];
-//	else
-//		[self setMovableByWindowBackground:NO];
-//
-//	//This is a good place to set the appropriate cursor too
-//}
-//
-//- (void)mouseDown:(NSEvent *)event
-//{
-//	//Just in case there was no mouse movement before the click AND
-//	//is inside the title bar frame then setMovableByWindowBackground:YES
-//	NSPoint mouseLocation = [event locationInWindow];
-//	if (NSPointInRect(mouseLocation, AZUpperEdge([self frame], 40)))
-//		[self setMovableByWindowBackground:YES];
-//	else //if (NSPointInRect(mouseLocation, bottomRightResizingCornerRect))
-//		[self doBottomRightResize:event];
-//	//... do all other resizings here. There are 6 more in OSX 10.7!
-//}
-//
-//- (void)mouseUp:(NSEvent *)event
-//{
-//	//movableByBackground must be set to YES **ONLY**
-//	//when the mouse is inside the titlebar.
-//	//Disable it here :)
-//	[self setMovableByWindowBackground:NO];
-//}
-////All my resizing methods start in mouseDown:
-//
-//- (void)doBottomRightResize:(NSEvent *)event {
-//	//This is a good place to push the appropriate cursor
-//
-//	NSRect r = [self frame];
-//	while ([event type] != NSLeftMouseUp) {
-//		event = [self nextEventMatchingMask:(NSLeftMouseDraggedMask | NSLeftMouseUpMask)];
-//		//do a little bit of maths and adjust rect r
-//		[self setFrame:r display:YES];
-//	}
-//
-//	//This is a good place to pop the cursor :)
-//
-//	//Dispatch unused NSLeftMouseUp event object
-//	if ([event type] == NSLeftMouseUp) {
-//		[self mouseUp:event];
-//	}
-//}
 
-@end
+

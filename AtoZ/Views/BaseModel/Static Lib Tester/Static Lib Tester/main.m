@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 Alex Gray. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+#import <AtoZ/AtoZ.h>
 int main(int argc, const char * argv[])
 {
 

@@ -31,7 +31,7 @@
 	return doubleValue;
 }
 
-- (void)setDoubleValue:(double)value
+- (void) setDoubleValue:(double)value
 {
 	if (doubleValue != value) {
 		doubleValue = value;
@@ -48,7 +48,7 @@
 	return animationDelay;
 }
 
-- (void)setAnimationDelay:(NSTimeInterval)value
+- (void) setAnimationDelay:(NSTimeInterval)value
 {
 	if (animationDelay != value) {
 		animationDelay = value;
@@ -60,7 +60,7 @@
 	return displayedWhenStopped;
 }
 
-- (void)setDisplayedWhenStopped:(BOOL)value
+- (void) setDisplayedWhenStopped:(BOOL)value
 {
 	if (displayedWhenStopped != value) {
 		displayedWhenStopped = value;
@@ -72,7 +72,7 @@
 	return spinning;
 }
 
-- (void)setSpinning:(BOOL)value
+- (void) setSpinning:(BOOL)value
 {
 	if (spinning != value) {
 		spinning = value;
@@ -95,7 +95,7 @@
 	}
 }
 
-- (void)animate:(NSTimer *)aTimer
+- (void) nimate:(NSTimer *)aTimer
 {
 	double value = fmod(([self doubleValue] + (5.0/60.0)), 1.0);
 
@@ -107,13 +107,13 @@
 	}
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+- (void) drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	// cell has no border
 	[self drawInteriorWithFrame:cellFrame inView:controlView];
 }
 
-- (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+- (void) drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	if ([self isSpinning] || [self isDisplayedWhenStopped]) {
 		float flipFactor = ([controlView isFlipped] ? 1.0 : -1.0);
@@ -164,7 +164,7 @@
 	}
 }
 
-- (void)setObjectValue:(id)value
+- (void) setObjectValue:(id)value
 {
 	if ([value respondsToSelector:@selector(boolValue)]) {
 		[self setSpinning:[value boolValue]];
@@ -173,7 +173,7 @@
 	}
 }
 
-//- (void)dealloc
+//- (void) dealloc
 //{
 //	[theTimer release];
 //	[super dealloc];

@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "BaseModel.h"
+#import <AtoZ/AtoZ.h>#import "BaseModel.h"
 
 int main(int argc, const char * argv[])
 {

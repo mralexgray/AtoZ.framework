@@ -43,7 +43,7 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 	return self;
 }
 
-- (void)loadView {
+- (void) oadView {
 	self.view = [TUIView.alloc initWithFrame:CGRectZero];
 	self.view.backgroundColor = [NSColor lightGrayColor];
 
@@ -76,11 +76,11 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 }
 
 #pragma mark - Methods
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
+- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
 	[self setViewControllers:viewControllers animated:animated completion:nil];
 }
 
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
 	CGFloat duration = (animated ? TUINavigationControllerAnimationDuration : 0);
 
 	TUIViewController *viewController = [viewControllers lastObject];
@@ -124,11 +124,11 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 	}];
 }
 
-- (void)pushViewController:(TUIViewController *)viewController animated:(BOOL)animated {
+- (void) ushViewController:(TUIViewController *)viewController animated:(BOOL)animated {
 	[self pushViewController:viewController animated:animated completion:nil];
 }
 
-- (void)pushViewController:(TUIViewController *)viewController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void) ushViewController:(TUIViewController *)viewController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
 
 	TUIViewController *last = [self topViewController];
 	[_stack addObject:viewController];

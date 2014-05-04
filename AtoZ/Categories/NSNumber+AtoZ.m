@@ -11,6 +11,25 @@
 
 @implementation NSNumber (AtoZ)
 
++ (NSN*) randomFloatBetween:(CGF)min :(CGF)max { return [self numberWithFloat:RAND_FLOAT_VAL(min, max)]; }
+
+//- (NSUI) bitInUse { int is_in_use(int car_num) {
+    // pow returns an int, but in_use will also be promoted to an int
+    // so it doesn't have any effect; we can think of this as an operation
+    // between chars
+//    return in_use & pow(2, car_num);
+//}
+
+- (NSS*) hexString { return $(@"0x%08lx", (long)self.iV); }
+
+- (NSUI) length {  return self.stringValue.length; }
+
++ (NSR) rectBy:(NSA*)sizes {
+  return sizes.count <= 2 ? !sizes.count      ? AZRectFromSize(NSZeroSize) :
+                             sizes.count == 1	? AZRectFromDim([sizes[0] fV])
+                                              : AZRectBy([sizes[0] fV], [sizes[1] fV])
+                          : NSMakeRect([sizes[0] fV], [sizes[1] fV], [sizes[2] fV], sizes.count == 4 ? [sizes[3] fV]:0);
+}
 - (NSA*) toArray { return [@0 to:self]; }
 
 + (NSNumber *) numberWithBytes:(const void *) bytes objCType:(const char *) type {
@@ -56,20 +75,40 @@
 	} else return nil;
 }
 
-- (NSN*)plus:(NSN*)toAdd {			/*	!! @YES = 1, @NO = 0  !! */
+- (NSN*) dividedBy:(CGF)f {  return @(self.fV / f); }
+
+- (NSN*)plus:(NSN*)toAdd { return [self basicMathWith:toAdd add:YES]; }
+
+- (NSN*)minus:(NSN*)toSub { return [self basicMathWith:toSub add:NO]; }
+
+- (NSN*) basicMathWith:(NSN*)arg add:(BOOL)add {  /*	!! @YES = 1, @NO = 0  !! */
+
 //	[@4.999 objCType] = d; [@YES objCType] = c; [@0 objCType] = i; [[NSN numberWithUnsignedInteger:66] objCType] = q
 
-	return 	strcmp("d", self.objCType) ?  @(self.doubleValue   		 	+ toAdd.doubleValue 				):
-				strcmp("c", self.objCType) ?	@(self.charValue      			+ toAdd.charValue   				):
-				strcmp("i", self.objCType) ?	@(self.integerValue   			+ toAdd.integerValue  			):
-				strcmp("q", self.objCType) ?	@(self.unsignedIntegerValue  	+ toAdd.unsignedIntegerValue  ):
-				strcmp("f", self.objCType) ?	@(self.floatValue   				+ toAdd.floatValue				):
-														@(self.longLongValue				+ toAdd.longLongValue			);
+	return 	strcmp("d", self.objCType) ?  @(self.doubleValue          + add ? arg.doubleValue : -arg.doubleValue           ):
+          strcmp("c", self.objCType) ?	@(self.charValue      			+ add ? arg.charValue    : -arg.charValue):
+          strcmp("i", self.objCType) ?	@(self.integerValue   			+ add ? arg.integerValue : -arg.integerValue          ):
+          strcmp("q", self.objCType) ?	@(self.unsignedIntegerValue + add ? arg.unsignedIntegerValue : -arg.unsignedIntegerValue  ):
+          strcmp("f", self.objCType) ?	@(self.floatValue   				+ add ? arg.floatValue : -arg.floatValue            ):
+                                        @(self.longLongValue				+ add ? arg.longLongValue : -arg.longLongValue         );
 }
+- (NSN*)plusF:(CGF)toAdd  { return @(self.fV + toAdd); }
+- (NSN*)minusF:(CGF)toSub { return @(self.fV - toSub); }
+- (NSN*)plusI:(NSI)toAdd  { return @(self.iV + toAdd); }
+- (NSN*)minusI:(NSI)toSub { return @(self.iV - toSub); }
+
+
 + (NSN*)integerWithHexString:(NSS*)hexString;
 {
   NSScanner *scanner = [NSScanner scannerWithString:hexString];  NSUInteger value;
   return [scanner scanHexInt:(NSInteger)&value] ? [NSNumber numberWithInteger:value] : nil;
+}
+- (NSS*) sVal {
+
+  NSNumberFormatter *formatter = NSNumberFormatter.new;
+  formatter.roundingIncrement = @(0.01);
+  formatter.numberStyle = NSNumberFormatterDecimalStyle;
+  return [formatter stringFromNumber:self];
 }
 
 - (CFNumberType) type {  return CFNumberGetType((CFNumberRef)self); }
@@ -116,57 +155,44 @@
 	return @([self intValue]+1);
 }
 -(NSA*)times:(id (^)(void))block {
-	int n = self.intValue;
+
+  return self.intValue < 0 ? nil
+                           :[@(self.intValue).toArray mapArray:^id(id obj) { return block(); }];
+}
+-(NSA*)to:(NSN*)to {	return [self to:to by:@1.0]; }
+
+-(NSA*)to:(NSN*)to by:(NSN*)by { 	NSMA *re = NSMA.new;
+
+	double alpha = self.doubleValue, omega = to.doubleValue, delta = by.doubleValue;
 	
-	if (n < 0) {
-		return nil;
-	}
-	
-	NSMutableArray *re = [NSMutableArray.alloc initWithCapacity:n];
-	
-	for (int i = 0; i < n; i++) {
-		id o = block();
-		if (o) {
-			[re addObject:o];
-		}
-	}
-	
+	delta = alpha > omega && delta || alpha < omega && delta < 0 ? -delta : delta;
+
+	BOOL (^_)(double) = delta ? ^(double g){ return (BOOL) (g <= omega); }
+                            : ^(double g){ return (BOOL) (g >= omega); };
+
+	for (double gamma = alpha; _(gamma); gamma += delta) [re addObject:@(gamma)];
 	return re;
 }
-
--(NSA*)to:(NSN*)to {
-	return [self to:to by:@1.0];
-}
-
--(NSA*)to:(NSN*)to by:(NSN*)by {
-	double alpha = self.doubleValue;
-	double omega = to.doubleValue;
-	double delta = by.doubleValue;
-	
-	if ((alpha > omega && delta > 0)
-		|| (alpha < omega && delta < 0)
-		) {
-		delta = -delta;
-	}
-	
-	BOOL (^_)(double) = delta > 0
-	? ^(double g){ return (BOOL) (g <= omega); }
-	: ^(double g){ return (BOOL) (g >= omega); }
-	;
-	
-	NSMutableArray *re = NSMutableArray.new;
-	
-	for (double gamma = alpha; _(gamma); gamma += delta) {
-		[re addObject:@(gamma)];
-	}
-	
-	return re;
-}
-
 
 @end
 
 @implementation NSNumber (Description)
+
++ (void)load	    				{
+  SEL d = @selector(description);
+  SEL swizzleD = @selector(swizzleDescription);
+//  NSClassFromString(@"__NSCFNumber")
+//  [$ swizzleMethod:d in:NSN.class with:swizzleD in:NSN.class];
+  Class c = objc_getClass("__NSCFNumber");
+  [ConciseKit swizzleMethod:d in:c with:swizzleD in:self.class];
+
+}
+
+- (NSS*) swizzleDescription {
+
+  return // NSStringFromClass(self.class);
+          [self isEqualToNumber:@YES] || [self isEqualToNumber:@NO] ? StringFromBOOL(self.boolValue) : [self swizzleDescription];
+}
 
 - (NSS*)typeFormedDescription {
 	if ([self.className isEqualToString:@"__NSCFNumber"]) {

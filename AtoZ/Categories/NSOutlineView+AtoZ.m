@@ -1,14 +1,14 @@
 #import "AtoZ.h"
-#import "AtoZ.h"
-//
-//  NSOutlineView+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 3/27/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
-
 #import "NSOutlineView+AtoZ.h"
+
+@concreteprotocol(NSOutlineViewDraggable)
+
+- (BOOL) outlineView:(NSOV*)ov          isItemExpandable:(id)x      { return NO; }
+-  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem:(id)x      { return 0;  }
+-   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem:(id)x      { return nil; }
+-   (id) outlineView:(NSOV*)ov objectValueForTableColumn:(NSTC*)col 
+                                                  byItem:(id)x;     { return nil; }
+@end
 
 @implementation NSOutlineView (AtoZ)
 
@@ -50,7 +50,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 #pragma mark NSCopying
 - (id)copyWithZone:(NSZone *)zone {
 
-	typeof(self) copy = [super performString:@"copyWithZone:" withObject:(__bridge id)zone];
+	__typeof__(self) copy = [super performString:@"copyWithZone:" withObject:(__bridge id)zone];
 	copy->_parentNode = _parentNode;
 	copy->_childNodes = [_childNodes mutableCopy];
 	return copy;
@@ -59,7 +59,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 - (id)mutableCopyWithZone:(NSZone *)zone {
 
 //	typeof(self) copy = [super mutableCopyWithZone:zone];
-	typeof(self) copy = [super performString:@"mutableCopyWithZone:" withObject:(__bridge id)zone];	copy->_parentNode = _parentNode;
+	__typeof__(self) copy = [super performString:@"mutableCopyWithZone:" withObject:(__bridge id)zone];	copy->_parentNode = _parentNode;
 	NSMutableArray *cnodes = [NSMutableArray.alloc initWithCapacity:[_childNodes count]];
 	copy->_childNodes = cnodes;
 	for (AZTreeNode *node in _childNodes)
@@ -165,7 +165,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 
 }
 - (void) selectNone		{	[self removeSelectionIndexPaths:self.selectionIndexPaths];	/*makes a blank selection in the outline view*/ }
-- (NSA*) rootNodes		{	return [self.arrangedObjects childNodes];	}
+- (NSA*) rootNodes		{	return (NSA*)[self.arrangedObjects childNodes];	}
 - (NSTreeNode*) nodeAtIndexPath:(NSIndexPath*)indexPath	{	return [self.arrangedObjects descendantNodeAtIndexPath:indexPath];	}
 - (NSA*) flattenedContent	{		// all the real objects in the tree, depth-first searching
 
@@ -206,7 +206,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 // returns an array of NSTreeNodes descending from self
 - (NSA*) descendants			{
 
-	return [self.childNodes reduce:NSMA.new withBlock:^id(id sum, id child) {
+	return [self.childNodes reduce:NSMA.new withBlock:^id(NSMA* sum, id child) {
 		[sum addObject:child];	if (![child isLeaf]) [sum addObjectsFromArray:[child descendants]]; return sum;
 	}];
 }
@@ -218,7 +218,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 }
 - (NSA*) leafDescendants	{
 	
-	return [[self.childNodes reduce:NSMA.new withBlock:^id(id sum, NSTreeNode *item){
+	return [[self.childNodes reduce:NSMA.new withBlock:^id(NSMA* sum, NSTreeNode *item){
 		item.isLeaf ? [sum addObject:item]:	[sum addObjectsFromArray:[item leafDescendants]]; return sum;
 	}]copy];
 }

@@ -125,7 +125,7 @@ typedef NSUInteger GDataXMLNodeKind;
 + (id)textWithStringValue:(NSString *)value;
 
 - (NSString *)stringValue;
-- (void)setStringValue:(NSString *)str;
+- (void) setStringValue:(NSString *)str;
 
 - (NSUInteger)childCount;
 - (NSArray *)children;
@@ -156,7 +156,7 @@ typedef NSUInteger GDataXMLNodeKind;
 // access to the underlying libxml node; be sure to release the cached values
 // if you change the underlying tree at all
 - (xmlNodePtr)XMLNode;
-- (void)releaseCachedValues;
+- (void) releaseCachedValues;
 
 @end
 
@@ -166,11 +166,11 @@ typedef NSUInteger GDataXMLNodeKind;
 - (id)initWithXMLString:(NSString *)str error:(NSError **)error;
 
 - (NSArray *)namespaces;
-- (void)setNamespaces:(NSArray *)namespaces;
-- (void)addNamespace:(GDataXMLNode *)aNamespace;
+- (void) setNamespaces:(NSArray *)namespaces;
+- (void) addNamespace:(GDataXMLNode *)aNamespace;
 
-- (void)addChild:(GDataXMLNode *)child;
-- (void)removeChild:(GDataXMLNode *)child;
+- (void) addChild:(GDataXMLNode *)child;
+- (void) removeChild:(GDataXMLNode *)child;
 
 - (NSArray *)elementsForName:(NSString *)name;
 - (NSArray *)elementsForLocalName:(NSString *)localName URI:(NSString *)URI;
@@ -178,7 +178,7 @@ typedef NSUInteger GDataXMLNodeKind;
 - (NSArray *)attributes;
 - (GDataXMLNode *)attributeForName:(NSString *)name;
 - (GDataXMLNode *)attributeForLocalName:(NSString *)name URI:(NSString *)attributeURI;
-- (void)addAttribute:(GDataXMLNode *)attribute;
+- (void) addAttribute:(GDataXMLNode *)attribute;
 
 - (NSString *)resolvePrefixForNamespaceURI:(NSString *)namespaceURI;
 
@@ -197,8 +197,8 @@ typedef NSUInteger GDataXMLNodeKind;
 
 - (NSData *)XMLData;
 
-- (void)setVersion:(NSString *)version;
-- (void)setCharacterEncoding:(NSString *)encoding;
+- (void) setVersion:(NSString *)version;
+- (void) setCharacterEncoding:(NSString *)encoding;
 
 // This is the preferred entry point for nodesForXPath.  This takes an explicit
 // namespace dictionary (keys are prefixes, values are URIs).

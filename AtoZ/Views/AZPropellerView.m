@@ -43,7 +43,7 @@
 	self.badgeView = [NSImageView.alloc initWithFrame:frame];
 	
 	// set it on the center of the parent container
-	_badgeView.center = self.getCenter;
+	_badgeView.center = self.center;
 	_badgeView.image  = self.badgeTemplate;
 
 	NSImage *spinner = [NSImage frameworkImageNamed:@"AZPropellerBar.png"];
@@ -71,7 +71,7 @@
 // -----------------------
 #pragma mark - Spinning
 // -----------------------
-- (void)spin
+- (void) spin
 {
 	// ensure the acnhor point is the center so it animates with respect to the center
 	self.progressImage.layer.anchorPoint = CGPointMake(0.5, 0.5);
@@ -80,7 +80,7 @@
 	[self.progressImage.layer addAnimation:[self rotateAnimation] forKey:@"rotate"];
 	self.isSpinning = YES;
 }
-- (void)stop
+- (void) stop
 {
 	// remove the animations from the layer
 	[self.progressImage.layer removeAllAnimations];
@@ -176,7 +176,7 @@
 	return self;
 }
 
-- (void)spin
+- (void) pin
 {
 	// ensure the acnhor point is the center
 	// so it animates with respect to the center
@@ -186,7 +186,7 @@
 }
 
 
-- (void)stop
+- (void) top
 {
 	// remove the animations from the layer
 	[self.progressImage.layer removeAllAnimations];
@@ -194,7 +194,7 @@
 
 //+ (NSSet*) keyPathsForValuesAffectingIsSpinning { return $SET( @")
 
-- (void)toggle { _isSpinning ? [self stop] : [self spin]; _isSpinning = !_isSpinning;	}
+- (void) oggle { _isSpinning ? [self stop] : [self spin]; _isSpinning = !_isSpinning;	}
 
 // -----------------------
 #pragma mark - Rotate Animation

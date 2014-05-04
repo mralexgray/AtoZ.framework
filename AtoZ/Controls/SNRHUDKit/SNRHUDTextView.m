@@ -27,7 +27,7 @@
 
 @implementation SNRHUDTextView
 
-- (void)awakeFromNib
+- (void) wakeFromNib
 {
 	[super awakeFromNib];
 	NSScrollView *scrollView = [self enclosingScrollView];
@@ -52,7 +52,7 @@
 	[self setSelectedTextAttributes:dict];
 }
 
-- (void)drawViewBackgroundInRect:(NSRect)rect
+- (void) rawViewBackgroundInRect:(NSRect)rect
 {
 	NSRect backgroundRect = [self visibleRect];
 	backgroundRect.size.height -= 1.f;

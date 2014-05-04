@@ -128,11 +128,11 @@
 //	[[NSApplication sharedApplication]hide:self];
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification {
+- (void) pplicationWillTerminate:(NSNotification *)notification {
 	[self saveNotes];
 }
 
-- (void)fiesta {
+- (void) iesta {
 	CGFloat f = AZPerimeter(  AZScreenFrame());
 	int unit = floor([AtoZ dockSorted].count / f);
 
@@ -234,7 +234,7 @@
 - (NSA*) preferencePaneControllerClasses {
 	return @[[SDGeneralPrefPane class]];
 }
-- (void)toggleWindowInWindow:(id)window atPoint:(NSPoint) buttonPoint
+- (void) oggleWindowInWindow:(id)window atPoint:(NSPoint) buttonPoint
 {
 
 	// Attach/detach window

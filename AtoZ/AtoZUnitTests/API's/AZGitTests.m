@@ -13,7 +13,7 @@
 @implementation 	AZGitTests
 
 
-- (void)testGitUsername	{
+- (void) testGitUsername	{
 
 	NSString* user = AZGit.lookupUsername;
 	XCTAssertTrue((SameString(user, @"alex@mrgray.com")||SameString(user, @"mralexgray")),

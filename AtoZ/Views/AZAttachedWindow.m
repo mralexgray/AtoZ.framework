@@ -137,7 +137,7 @@
 					 inWindow:nil onSide:AZPositionAutomatic 
 				   atDistance:0];
 }
-- (void)dealloc
+- (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
@@ -691,7 +691,7 @@
 	}
 }
 # pragma mark Notification handlers
-- (void)windowDidResize:(NSNotification *)note
+- (void) indowDidResize:(NSNotification *)note
 {
 	[self _redisplay];
 }
@@ -699,7 +699,7 @@
 - (NSColor *)windowBackgroundColor {
 	return _AZBackgroundColor;
 }
-- (void)setBackgroundColor:(NSColor *)value {
+- (void) setBackgroundColor:(NSColor *)value {
 	if (_AZBackgroundColor != value) {
 		_AZBackgroundColor = [value copy];
 		
@@ -709,7 +709,7 @@
 //- (NSColor *)borderColor {
 //	return borderColor;
 //}
-- (void)setBorderColor:(NSColor *)value {
+- (void) setBorderColor:(NSColor *)value {
 	if (_borderColor != value) {
 		_borderColor = [value copy];
 		
@@ -719,7 +719,7 @@
 //- (float)borderWidth {
 //	return borderWidth;
 //}
-- (void)setBorderWidth:(float)value {
+- (void) setBorderWidth:(CGF)value {
 	if (self.borderWidth != value) {
 		float maxBorderWidth = self.viewMargin;
 		if (value <= maxBorderWidth) {
@@ -734,7 +734,7 @@
 //- (float)viewMargin {
 //	return viewMargin;
 //}
-- (void)setViewMargin:(float)value {
+- (void) setViewMargin:(CGF)value {
 	if (self.viewMargin != value) {
 		_viewMargin = MAX(value, 0.0);
 		
@@ -745,7 +745,7 @@
 //- (float)arrowBaseWidth {
 //	return arrowBaseWidth;
 //}
-- (void)setArrowBaseWidth:(float)value {
+- (void) setArrowBaseWidth:(CGF)value {
 	float maxWidth = (MIN(_viewFrame.size.width, _viewFrame.size.height) + 
 					  (self.viewMargin * 2.0)) - self.cornerRadius;
 	if (self.drawsRoundCornerBesideArrow) {
@@ -762,7 +762,7 @@
 //- (float)arrowHeight {
 //	return arrowHeight;
 //}
-- (void)setArrowHeight:(float)value {
+- (void) setArrowHeight:(CGF)value {
 	if (self.arrowHeight != value) {
 		_arrowHeight = value;
 		
@@ -772,7 +772,7 @@
 //- (float)hasArrow {
 //	return hasArrow;
 //}
-- (void)setHasArrow:(BOOL)value {
+- (void) setHasArrow:(BOOL)value {
 	if (self.hasArrow != value) {
 		_hasArrow = value;
 		
@@ -782,14 +782,11 @@
 //- (float)cornerRadius {
 //	return cornerRadius;
 //}
-- (void)setCornerRadius:(float)value {
+- (void) setCornerRadius:(CGF)value {
 	float maxRadius = ((MIN(_viewFrame.size.width, _viewFrame.size.height) + 
 						(self.viewMargin * 2.0)) - self.arrowBaseWidth) / 2.0;
-	if (value <= maxRadius) {
-		_cornerRadius = value;
-	} else {
-		_cornerRadius = maxRadius;
-	}
+	_cornerRadius = value <= maxRadius ? value : maxRadius;
+
 	_cornerRadius = MAX(self.cornerRadius, 0.0);
 	
 	// Adjust arrowBaseWidth appropriately.
@@ -798,21 +795,21 @@
 //- (float)drawsRoundCornerBesideArrow {
 //	return drawsRoundCornerBesideArrow;
 //}
-- (void)setDrawsRoundCornerBesideArrow:(BOOL)value {
+- (void) setDrawsRoundCornerBesideArrow:(BOOL)value {
 	if (_drawsRoundCornerBesideArrow != value) {
 		_drawsRoundCornerBesideArrow = value;
 		
 		[self _redisplay];
 	}
 }
-- (void)setBackgroundImage:(NSImage *)value
+- (void) setBackgroundImage:(NSImage *)value
 {
 	if (value) {
 		[self setBackgroundColor:[NSColor colorWithPatternImage:value]];
 	}
 }
 
-- (void)mouseDragged:(NSEvent *)theEvent
+- (void) mouseDragged:(NSEvent *)theEvent
  {
  NSPoint currentLocation;
  NSPoint newOrigin;
@@ -844,7 +841,7 @@
  }
  [self setFrameOrigin:newOrigin];
  }
- - (void)mouseDown:(NSEvent *)theEvent
+ - (void) mouseDown:(NSEvent *)theEvent
  {
  NSRect windowFrame = [self frame];
 

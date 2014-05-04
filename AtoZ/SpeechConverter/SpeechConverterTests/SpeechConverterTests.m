@@ -10,21 +10,21 @@
 
 @implementation SpeechConverterTests
 
-- (void)setUp
+- (void) setUp
 {
 	[super setUp];
 	
 	// Set-up code here.
 }
 
-- (void)tearDown
+- (void) earDown
 {
 	// Tear-down code here.
 	
 	[super tearDown];
 }
 
-- (void)testExample
+- (void) estExample
 {
 	STFail(@"Unit tests are not implemented yet in SpeechConverterTests");
 }

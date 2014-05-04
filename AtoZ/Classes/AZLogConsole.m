@@ -2,9 +2,10 @@
 //	name:@"AZLogConsoleFakeStdin" object:nil ];
 //  Created by Patrick Geiller on 16/08/08.
 
+#import <ScriptingBridge/ScriptingBridge.h>
+#import <WebKit/WebKit.h>
 #import "AtoZ.h"
 #import "AZLogConsole.h"
-#import <ScriptingBridge/ScriptingBridge.h>
 
 BOOL 	inited = NO;
 void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.sharedConsole updateLogWithFile:file lineNumber:line];}
@@ -110,7 +111,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 //	NSMA* names = NSMA.new;
 //	NSLog(@"%@",
 //	[[AtoZ classMethods]each:^(id obj) {
-	return	[[AZFWORKBUNDLE definedClasses] map:^id(id obj) {
+	return	[AZFWBNDL.definedClasses   map:^id(id obj) { //AZFWORKBUNDLE
 					return @{@"names":obj};
 				}];
 
@@ -218,7 +219,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 	NSNumber *file; if (f != NULL) file =  @((int)f); else file = @0;
 	NSD* theD = @{	@"string": st.copy, @"file": file, @"line": @(ln)};
 	// Queue message if WebView has not finished loading
-	if (!webViewLoaded)	[messageQueue addObject:theD];
+	if (!webViewLoaded)	[(NSMA*)messageQueue addObject:theD];
 	else 	[self.windowScriptObject callWebScriptMethod:@"log" withArguments:theD.allKeys];
 } // Notify WebView of new message
 

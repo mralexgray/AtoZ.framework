@@ -68,7 +68,7 @@ typedef NSUInteger NSKeyValueSetMutationKind;
 @end
 
 @protocol NSKeyValueObserver
-- (void)observeValueForKeyPath:(NSS*)keyPath ofObject:(id)object change:(NSD*)change context:(void *)context;
+- (void) bserveValueForKeyPath:(NSS*)keyPath ofObject:(id)object change:(NSD*)change context:(void *)context;
 @end
 
 

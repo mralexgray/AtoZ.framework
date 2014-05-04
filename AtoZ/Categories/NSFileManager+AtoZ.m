@@ -7,13 +7,15 @@
 
 #import "AtoZ.h"
 #import "NSFileManager+AtoZ.h"
-#include <glob.h>
+@import os;
+@import Darwin;
+//#include <glob.h>
 #import <sys/xattr.h>
-#import <sys/sysctl.h>
-#import <unistd.h>
-#import <dirent.h>
-#import <sys/stat.h>
-
+//#import <sys/sysctl.h>
+//#import <unistd.h>
+//#import <dirent.h>
+//#import <sys/stat.h>
+//#include <assert.h>
 
 NSString *NSDocumentsFolder()
 {
@@ -341,7 +343,8 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 		return;
 	}
 
-	OBASSERT(sizeof(ino_t) == sizeof(unsigned long long));
+	assert(sizeof(ino_t) == sizeof(unsigned long long));
+  
 	[str appendFormat:@"%llu  ", [[attributes objectForKey:NSFileSystemFileNumber] unsignedLongLongValue]];
 
 	BOOL isDirectory = NO;
@@ -352,7 +355,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	} else if ([fileType isEqualToString:NSFileTypeSymbolicLink]) {
 		[str appendString:@"l"];
 	} else {
-		OBASSERT([fileType isEqualToString:NSFileTypeRegular]); // could add more cases if ever needed
+		assert([fileType isEqualToString:NSFileTypeRegular]); // could add more cases if ever needed
 		[str appendString:@"-"];
 	}
 
@@ -384,7 +387,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	}
 }
 
-- (void)logPropertiesOfTreeAtURL:(NSURL *)url;
+- (void) ogPropertiesOfTreeAtURL:(NSURL *)url;
 {
 	NSMutableString *str = NSMutableString.new;
 	_appendPropertiesOfTreeAtURL(self, str, url, 0);

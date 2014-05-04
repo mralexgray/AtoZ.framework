@@ -7,7 +7,10 @@
 #define LOG NSLog
 #import "OperationsRunner.h"
 #import "OperationsRunnerProtocol.h"
+#if 0
 #import "WebFetcher.h"
+#endif
+
 #pragma mark - Notification constants and keys
 NSString * const AZOperationWillStart		= @"AZOperationWillStart";
 NSString * const AZOperationDidFinish		= @"AZOperationDidFinish";
@@ -261,9 +264,10 @@ static char *opContext = "opContext";
 {
 #ifndef NDEBUG
 	if(!noDebugMsgs) LOG(@"Run Operation: %@", msg);
-	if([op isKindOfClass:[WebFetcher class]]) {
-		WebFetcher *fetcher = (WebFetcher *)op;
-		fetcher.runMessage = msg;
+  Class k = NSClassFromString(@"WebFetcher");
+	if([op isKindOfClass:k]) {
+		id fetcher = op;
+		[fetcher sV:msg fK:@"runMessage"];
 	}
 #endif
 

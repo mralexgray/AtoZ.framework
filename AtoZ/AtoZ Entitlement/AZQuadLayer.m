@@ -195,7 +195,7 @@
 	[_contentLayer setNeedsDisplay];
 
 }
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 	if (_lassoLayer) {
 		[_lassoLayer removeFromSuperlayer];
@@ -229,7 +229,7 @@
 	//}
 
 /*
- - (void)orientWithX:(float)x andY:(float)y {
+ - (void) rientWithX:(float)x andY:(float)y {
  CATransform3D transform = CATransform3DMakeRotation(x, 0, 1, 0);
  transform = CATransform3DRotate(transform, y, 0, 1, 0);
  //	transform = CATransform3DMakeTranslation(x, 0, x);// (transform, 0, 1, 0);
@@ -238,7 +238,7 @@
  contentLayer.sublayerTransform = transform;
  //	contentLayer.sublayerTransform = CATransform3DMakePerspective(x/100, 0);//0.002
  }
- - (void)mouseDragged:(NSEvent *)theEvent {
+ - (void) mouseDragged:(NSEvent *)theEvent {
  // Get view coordinates
  CGPoint point = NSPointToCGPoint([self convertPoint:theEvent.locationInWindow fromView:nil]);
  draggedDuringThisClick = true;
@@ -247,7 +247,7 @@
  deltaY = -(point.y - dragStart.y)/200;
  [self orientWithX:(angleX+deltaX) andY:(angleY+deltaY)];
  }	*/
-- (void)mouseDown:(NSEvent *)theEvent{
+- (void) mouseDown:(NSEvent *)theEvent{
 		// Getting clicked point.
 	NSPoint mousePointInView = [self convertPoint:theEvent.locationInWindow fromView:nil];
 	mousePointInView = [self.layer convertPoint:mousePointInView toLayer:self.layer];

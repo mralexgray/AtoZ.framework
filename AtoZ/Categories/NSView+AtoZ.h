@@ -1,7 +1,4 @@
 
-//  NSView+AtoZ.h
-//  AtoZ
-
 #import <objc/objc.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AtoZUmbrella.h"
@@ -19,7 +16,7 @@
 	ll.bgC = cgRANDOMCOLOR;
 	ll.needsDisplayOnBoundsChange = YES;
 	ll.arMASK = RAND_INT_VAL(0,8);
-	CABlockDelegate delegateFor:ll ofType:CABlockTypeDrawBlock withBlock:^(CAL*lll, CGCREF ref){
+	BlockDelegate delegateFor:ll ofType:CABlockTypeDrawBlock withBlock:^(CAL*lll, CGCREF ref){
 		[NSGC drawInContext:ref flipped:NO actions:^{
 			R r = AZCenterRectOnPoint(AZRectFromDim(20),ll.position);
 			NSRectFillWithColor (r, WHITE);
@@ -36,7 +33,7 @@
  		if  (hitL)	[CATRANNY immediately:^{	hitL.position = AZSubtractPoints(refP,move);	[hitL setNeedsDisplay];	}];} 
 	mouseUp:^{	hitL = nil;}];  // clear the hitlayer in between drags, or do whatever
 */
-- (void) dragBlock:(void(^)(NSP click,NSP delta))block mouseUp:(void(^)(void))upBlock;
+- (void) dragBlock:(void(^)(NSP click,NSP delta, NSMD * context))block mouseUp:(void(^)(void))upBlock;
 @end
 
 typedef NS_ENUM(NSI, AZViewAnimationType) {
@@ -49,44 +46,42 @@ extern void AZResizeView			 	( NSV* view, 	CGF dX, CGF dY );
 extern void AZResizeViewMovingSubviews	( NSV* view, 	CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom );
 extern NSV* AZResizeWindowAndContent	( NSW* window, 	CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom, BOOL moveSubviews);
 
-@interface NSView (ObjectRep)
-@property (nonatomic, retain) id objectRep;
-- (NSV*)viewWithObjectRep:(id)object;
-@end
-
-@interface NSObject (AZPreview)
-+ (id) preview;
-@end
-
 typedef void (^viewFrameDidChangeBlock)(void);
 
 #define NSViewDidMoveToWindowNotification @"NSViewDidMoveToWindowNotification"
 
-@class CALayerNoHit;
+@class AZWT;
 @interface NSView (AtoZ)
 
+@property (NATOM) VoidObjBlock onEndLiveResize;
+@property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..
+
+@property (NATOM) NSI tag;
+@property (RONLY) NSIMG* captureFrame;
+@property (NATOM) BOOL faded;
 @property (RONLY) NSA* visibleSubviews;
 @property (RONLY) CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
 
-+ (instancetype)viewBy:(NSN*)width,...;
-+ (instancetype)viewWithFrame:(NSR)r;
++ (instancetype) viewBy:(NSN*)width,...;
++ (instancetype) viewWithFrame:(NSR)r;
++ (instancetype) viewWithFrame:(NSR)r mask:(NSUI)m;
 
-@property (nonatomic, strong) NSMA* needsDisplayForKeys;
+@property NSA* needsDisplayForKeys;
 
-@property (getter=getBackground, setter=doSetBackground:) id background;
+@property // (getter=getBackground, setter=doSetBackground:)
+  id background;
 
 - (NSV*) dragSubviewWihEvent:(NSE*)e;
-
 - (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
+
 - (NSSplitView*) split;
 - (void) debug;
 - (void) debuginQuadrant:(AZQuad)q;
 
--(void)goFullScreen;
-
-- (NSManagedObjectContext*)managedObjectContext;
-+ (id) preview; //	returns new window
-+ (id) previewOfClass:(Class)klass;
+- (void) goFullScreen;
+- (AZWT*) preview;
++ (AZWT*) preview; //	returns new window
++ (AZWT*) previewOfClass:(Class)klass;
 
 -(CALayer *)layerFromContents;
 
@@ -100,6 +95,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (CGP) layerPoint: (NSE*)event;
 - (CGP) layerPoint: (NSE*)event toLayer: (CAL*)layer;
 
+@property (NATOM) BOOL postsRectChangedNotifications;
+
 - (void) observeFrameChange: (void(^)(NSV*))block;
 - (void) observeFrameChangeUsingBlock: (void(^)(void))block;
 - (void) observeFrameNotifications:(void(^)(NSNOT*n))block;
@@ -109,33 +106,32 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (BOOL) isSubviewOfView: (NSV*) theView;
 - (BOOL) containsSubView: (NSV*) subview;
 
-- (NSP)  getCenterOnFrame;
-- (NSP)  getCenter;
-- (void) setCenter: (NSP)center;
+//- (NSP)  getCenterOnFrame;
+//@property NSP center;
 
-- (void) maximize;
-- (NSR)  centerRect: (NSR)aRect onPoint:(NSP) aPoint;
-- (void) centerOriginInBounds;
-- (void) centerOriginInFrame;
-- (void) centerOriginInRect: (NSR)aRect;
+//- (void) maximize;
+//- (NSR)  centerRect: (NSR)aRect onPoint:(NSP) aPoint;
+//- (void) centerOriginInBounds;
+//- (void) centerOriginInFrame;
+//- (void) centerOriginInRect: (NSR)aRect;
 
-@property (readonly) CAL* azLayer,*zLayer;
+@property (readonly) CAL * azLayer,
+                         * zLayer,
+                         * setupHostView,
+                         * setupHostViewNoHit,
+                         * guaranteedLayer;
 
-- (CAL*) setupHostView;
-- (CALayerNoHit*) setupHostViewNoHit;
 - (CAL*) setupHostViewNamed:(NSS*)name;
 
-
-- (NSA*) allSubviews;
-- (NSV*) firstSubview;
-- (NSV*) lastSubview;
+@property (RONLY) NSA * allSubviews, *subviewsRecursive;
+@property id firstSubview;
+@property (RONLY) id  lastSubview,  lastSplitPane, lastLastSubview;
 - (void) removeAllSubviews;
-- (void) setLastSubview:(NSV*)view;
 
-- (NSIMG*) snapshot;
+@property (RONLY) NSIMG* snapshot;
 - (NSIMG*) snapshotFromRect:(NSR) sourceRect;
 - (BOOL)  requestFocus;
-- (NSTA*) trackFullView;
+@property (RONLY) NSTA* trackFullView;
 - (NSTA*) trackAreaWithRect:(NSR)rect;
 - (NSTA*) trackAreaWithRect:(NSR)rect  userInfo:(NSD*)context;
 
@@ -143,15 +139,13 @@ typedef void (^viewFrameDidChangeBlock)(void);
 // @property (assign) NSPoint center;
 //- (NSImage*) captureFrame;
 
-- (NSP) center;
-
 - (void) swapSubs: (NSV*)view;
 - (void) resizeFrameBy: (int)value;
 
 - (void) animate: (AZViewAnimationType)type;
 - (void) stopAnimating;
 - (void) slideUp;
-- (void) slideDown;
+//- (void) slideDown;
 - (void) fadeOut;
 - (void) fadeIn;
 - (void) animateToFrame:(NSR) rect;
@@ -174,39 +168,15 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (NSP) localPoint;
 - (NSP) windowPoint;
 
+@property (RONLY) CAL* hitTestLayer;
+
 @end
 
 @interface NSView (Layout)
 
-// Origin X
-@property (nonatomic, assign) CGF leftEdge;
-@property (nonatomic, assign) CGF rightEdge;
-@property (nonatomic, assign) CGF centerX;
-- (void) setLeftEdge:(CGF)t;
-- (void) setRightEdge:(CGF)t ;
-- (void) setCenterX:(CGF)t ;
-
-// Origin Y
-@property (nonatomic, assign) CGF bottom;
-@property (nonatomic, assign) CGF top;
-@property (nonatomic, assign) CGF centerY;
-- (void) setBottom:(CGF)t ;
-- (void) setTop:(CGF)t ;
-- (void) setCenterY:(CGF)t ;
 - (void) setBottom:(CGF)bot duration:(NSTI)t ;
 - (void) setTop:(CGF)top duration:(NSTI)t;
 - (void) setCenterY:(CGF)center duration:(NSTI)t ;
-
-@property (nonatomic, assign) CGF originY, originX;
-
-// Size
-@property (nonatomic, assign) CGF width;
-@property (nonatomic, assign) CGF height;
-@property (nonatomic, assign) NSSZ size;
-
-- (void) setWidth:  (CGF) t;
-- (void) setHeight: (CGF) t;
-- (void) setSize:   (NSSZ) size;
 
 // Incrememental Changes
 - (void) deltaX: (CGF)dX  deltaW: (CGF)dW ;
@@ -267,14 +237,14 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @interface NSView (findSubview)
 
-- (NSA*) subviewsOfKind: (Class)kind  withTag:(NSI)tag;
-- (NSA*) subviewsOfKind: (Class)kind;
+- (NSA*) subviewsOfKind: (Class)k withTag:(NSI)tag;
+- (NSA*) subviewsOfKind: (Class)k;
 
-- (NSV*) firstSubviewOfClass:(Class)k;
-- (NSA*) subviewsOfClass:(Class)k;
+-   (id) firstSubviewOfClass:(Class)k;
+- (NSA*)     subviewsOfClass:(Class)k;
 
-- (NSV*)firstSubviewOfKind: (Class)kind  withTag:(NSI)tag;
-- (NSV*)firstSubviewOfKind: (Class)kind;
+-   (id) firstSubviewOfKind:(Class)k withTag:(NSI)tag;
+-   (id) firstSubviewOfKind:(Class)k;
 
 @end
 

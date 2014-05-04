@@ -45,7 +45,7 @@
 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
 
 }
-- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name{
+- (void) oggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name{
 
 	NSLog(@"Toggle notifies delegtae:  %@, %@", name, (state ? @"YES"  :@"NO"));
 //	NSArray *choices = @[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
@@ -88,7 +88,7 @@
 		//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
 		//	}];
 }
-- (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
+- (void) ourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
 {
 
 	[item setObjectValue:[[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
@@ -160,7 +160,7 @@
 
 	return NO;
 }
-- (void)sourceListSelectionDidChange:(NSNotification *)notification
+- (void) ourceListSelectionDidChange:(NSNotification *)notification
 {
 	NSIndexSet *selectedIndexes = [_sourceList selectedRowIndexes];
 
@@ -200,7 +200,7 @@
 		//		[selectedItemLabel setStringValue:@"(none)"];
 		//	}
 }
-- (void)sourceListDeleteKeyPressedOnRows:(NSNotification *)notification
+- (void) ourceListDeleteKeyPressedOnRows:(NSNotification *)notification
 {
 	NSIndexSet *rows = [notification userInfo][@"rows"];
 

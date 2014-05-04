@@ -443,7 +443,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 
-- (void)setValuesForKeysWithDictionary:(NSD*)keyedValues
+- (void) setValuesForKeysWithDictionary:(NSD*)keyedValues
 {
 	id en=[keyedValues keyEnumerator];
 	NSString* key;

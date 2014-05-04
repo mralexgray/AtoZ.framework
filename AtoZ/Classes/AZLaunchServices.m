@@ -5,10 +5,10 @@
 //  Created by Alex Gray on 8/17/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
+@import CoreServices;
+#import <AtoZ/AtoZ.h>
 #import "AZLaunchServices.h"
 
-#import <CoreServices/CoreServices.h>
 
 /* Private prototype from the LaunchServices framework */
 OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
@@ -27,7 +27,7 @@ typedef  id (^AZMappingBlock)(id obj);
 
 	return self;
 }
-//- (void)dealloc
+//- (void) dealloc
 //{
 //	[url release];
 	/* We don't release other ivars, because thay are all autorelease'd */

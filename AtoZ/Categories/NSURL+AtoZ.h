@@ -17,7 +17,7 @@
 - (NSD*)specialVars;
 @end
 @interface NSMutableURLRequest (SpecialProtocol)
-- (void)setSpecialVars:(NSD*)caller;
+- (void) setSpecialVars:(NSD*)caller;
 @end
 
 @interface NSURLRequest (UserAgentSwizzling)

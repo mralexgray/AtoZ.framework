@@ -75,10 +75,10 @@ const BOOL usr = YES;
 								@[ @"--data-format=LEF32@8000", @"-o", [self.tempPath withExt:@"caf"], self.wordsToSynthesize]];													}
 
 
-+ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet withAudioView:(WebView*)wv
-{
-
-}
+//+ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet withAudioView:(WebView*)wv
+//{
+//
+//}
 
 + (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet
 {

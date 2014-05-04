@@ -514,9 +514,9 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 
 - (void)drawGridInClipRect:(NSRect)rect
 {
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 	NSRange columnRange = [self columnsInRect:rect];
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+//#pragma GCC diagnostic warning "-Wdeprecated-declarations"
 	int i;
 		NSLog(@"inside gridrect");
 	[[NSColor lightGrayColor] set];

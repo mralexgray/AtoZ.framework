@@ -9,37 +9,47 @@
 #import "AZColor.h"
 #import "AtoZ.h"
 
-@implementation AZColor
-//@synthesize     brightness,     saturation,hue, count, name,color, hueComponent,   total;
-+ (instancetype)colorWithColor:(NSColor *)color {  AZColor *cc = self.instance;    cc.color		= color; return cc; }
+@implementation AZColor     //@synthesize     brightness,     saturation,hue, count, name,color, hueComponent,   total;
 
+@dynamic  brightness,hue, saturation;
 
-+ (instancetype)instanceWithColor:(NSColor *)color count:(NSUI)c total:(NSUI)totes {
-    AZColor *cc = self.class.instance;
-    cc.color		= color;
-    cc.count		= c;
-    cc.total		= totes;
-    return cc;
++ (instancetype)colorWithColor:(NSColor *)color {  AZColor *cc = [self new];  cc.color = color.deviceRGBColor; return cc; }
+
++ (id) forwardingTargetForSelctor:(SEL)s {
+  return NSC.class;
 }
+- (id) forwardingTargetForSelctor:(SEL)s {  XX(NSStringFromSelector(s));
 
-- (CGF)percent {    return _percent = self.count / self.total;
+  return _color;// && [_color respondsToSelector:s] ? _color : self;
 }
+//+ (instancetype)instanceWithColor:(NSColor *)color count:(NSUI)c total:(NSUI)totes {
+//
+//    AZColor *cc = self.class.new;
+//    cc.color		= color;
+////    cc.count		= c;
+////    cc.total		= totes;
+//    return cc;
+//}
 
-+ (instancetype)instanceWithObject:(NSDictionary *)dic {
+///- (CGF)percent {    return _percent = self.count / self.total; }
 
-    if (!dic[@"color"]) return nil;
-    AZColor *color = [self.class instanceWithColor:dic[@"color"]];
-    color.name        =  dic [@"name"] ? dic [@"name"] : @"";
-    color.count   =  dic [@"count"] ? [dic [@"count"] intValue] : 0;
-    color.total   =  dic [@"percent"] ? (color.count / [dic [@"percent"] floatValue]) : 1;
-    //	percent =dic [@"percent"] ? [dic [@"percent"] floatValue]  : 0;
-    return color;
-}
+//+ (instancetype)instanceWithObject:(NSDictionary *)dic {
+//
+//    if (!dic[@"color"]) return nil;
+//    AZColor *color = [self.class instanceWithColor:dic[@"color"]];
+//    color.name        =  dic [@"name"] ? dic [@"name"] : @"";
+//    color.count   =  dic [@"count"] ? [dic [@"count"] intValue] : 0;
+//    color.total   =  dic [@"percent"] ? (color.count / [dic [@"percent"] floatValue]) : 1;
+//    //	percent =dic [@"percent"] ? [dic [@"percent"] floatValue]  : 0;
+//    return color;
+//}
+- (void) setSaturation:(CGF)s {	self.color = [_color colorWithSaturation:s brightness:_color.brightnessComponent]; }
+- (void) setBrightness:(CGF)b {	self.color = [_color colorWithBrightnessMultiplier:b]; }
+- (void)        setHue:(CGF)h {	self.color = [NSC colorWithCalibratedHue:h saturation:self.saturation brightness:self.brightness alpha:self.alphaComponent]; }
 
-//-(CGFloat) saturation     {	return [_color saturationComponent]; }
-//-(CGFloat) hue            {	return [_color hueComponent];		 }
-//-(CGFloat) brightness     {	return [_color brightnessComponent]; }
-//-(CGFloat) hueComponent {	return [color_ hueComponent];		        }
+- (CGFloat) saturation     {	return self.color.saturationComponent;  }
+- (CGFloat) hue            {	return self.color.hueComponent;         }
+- (CGFloat) brightness     {	return self.color.brightnessComponent;  }
 
 /*
    -(NSA*) colorsForImage:(NSImage*)image {

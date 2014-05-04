@@ -1,6 +1,7 @@
 
-#import "AZHomeBrew.h"
 #import "AtoZ.h"
+#import "AZHomeBrew.h"
+
 
 @implementation AZBrewFormula
 
@@ -144,7 +145,7 @@
 }
 -(void) updateAllFormulaeInfo	{  [self.available.childNodes each:^(AZBrewFormula* obj) { [self setInfoForFormula:obj]; }]; }
 
--(NSS*)setInfoForFormula:(AZBrewFormula*)formula {
+-(void)setInfoForFormula:(AZBrewFormula*)formula {
 
 	[[CWTask.alloc initWithExecutable:self.brewPath
 							   andArguments:@[_commands[@(BrewOperationInfo)], formula.name] atDirectory:nil]

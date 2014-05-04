@@ -4,32 +4,32 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AZLassoLayer ()
-@property (STRNG)	 		CALNH  *root;
-@property (STRNG) 		CASLNH *blk, *wht;
+@property (STRNG)	 		CAL  *root;
+@property (STRNG) 		CASHL *blk, *wht;
 @property (NATOM,ASS) 	CGF 	 dynamicStroke;
 @end
 
 @implementation AZLassoLayer
 
-+ (NSR) frame { return [(CALNH*)[[self shared] root]frame]; }
++ (NSR) frame { return [(CAL*)[[self shared] root]frame]; }
 
 + (void) setLayer:(CAL*)layer 	{ //if (![self hasSharedInstance])	
 												//	[self setSharedInstance: self.instance];
 						 [self.shared setLayer:layer];
 }
 
--  (CGF) dynamicStroke {  return 	_dynamicStroke = AZMinDim(_root.boundsSize) * _strokeMultiplier * .1; }
+-  (CGF) dynamicStroke {  return 	_dynamicStroke = AZMinDim(_root.size) * _strokeMultiplier * .1; }
 
 - (void) setUp {
 
 //	if (self != self.class.sharedInstance) return;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		_root	= [CALNH layerWithFrame:AZRectFromDim(100)];
+		_root	= [CAL noHitLayerWithFrame:AZRectFromDim(100)];
 //		_root.frame = AZRectBy(10,10);
 		_root.zPosition 		= 1000;
-		_wht	= [CASLNH layerWithFrame:AZRectFromDim(100)];
-		_blk = [CASLNH layerWithFrame:AZRectFromDim(100)];
+		_wht	= [CASHL noHitLayerWithFrame:AZRectFromDim(100)];
+		_blk = [CASHL noHitLayerWithFrame:AZRectFromDim(100)];
 		_root.sublayers		= @[_wht, _blk];
 		_blk.fillColor			= _wht.fillColor	= cgCLEARCOLOR;
 		_blk.lineWidth			= _wht.lineWidth	= self.dynamicStroke;

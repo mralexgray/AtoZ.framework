@@ -63,7 +63,7 @@
 	return self;
 }
 
-- (void)setRepresentedObject:(id)representedObject {
+- (void) setRepresentedObject:(id)representedObject {
 	representedObject_ = representedObject;
 	if ( [representedObject_ isKindOfClass:[AZFile class]] ){
 		AZFile *c = representedObject_;
@@ -90,7 +90,7 @@
 	//	tv = self.tv;//	[self makeTv];
 	//	[self addSubview:tv];
 }
-- (void)handleAntAnimationTimer:(NSTimer*)timer {
+- (void) andleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect(self.bounds, self.inset, self.inset)];
 }
@@ -117,7 +117,7 @@
 	return (
 			NSTrackingInVisibleRect | NSTrackingMouseEnteredAndExited | NSTrackingActiveInKeyWindow  | NSTrackingActiveAlways | NSTrackingMouseMoved);
 }
-- (void)updateTrackingAreas{
+- (void) updateTrackingAreas{
 
 	[super updateTrackingAreas];
 	if (tArea)
@@ -157,7 +157,7 @@
 	return atv;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 //	[NSGraphicsContext saveGraphicsState];
 	//		NSBezierPath *outerClip = [NSBezierPath bezierPathWithRoundedRect:frame xRadius:_radius yRadius:_radius];
@@ -234,18 +234,18 @@
 //	[NSGraphicsContext restoreGraphicsState];
 	//	if (!tv) tv = self.tv; 	[self addSubview:tv]; }
 }
-- (void)setSelected:(BOOL)state {
+- (void) setSelected:(BOOL)state {
 	if (!state) [timer invalidate];
-	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
-	}
+//	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
+//	}
 	selected_ = state;
 	[self setNeedsDisplay:YES];
 }
-- (void)setInset:(float)inset {
+- (void) setInset:(float)inset {
 	inset_ = inset;
 	[self setNeedsDisplay:YES];
 }
-- (void)setHovered:(BOOL)hovered	{
+- (void) setHovered:(BOOL)hovered	{
 //	NSLog(@"im that actual box..  my objectrep is:%@", representedObject_);
 	hovered_ = hovered;
 	[self setNeedsDisplay:YES];
@@ -274,7 +274,7 @@
 	}];
 }
 
-- (void)prepareForReuse {
+- (void) repareForReuse {
 	self.selected = NO;
 //	self.drawSelection = YES;
 //	hovered_ = NO;
@@ -293,7 +293,7 @@
 //		[[self superview] addObserver:self forKeyPath:@"desiredNumberOfColumns" options:NSKeyValueObservingOptionOld context:nil];
 //		[self addObserver:self forKeyPath:@"multiplier" options:NSKeyValueObservingOptionOld context:nil];
 //	}
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 //	if (context == DotViewUndoAndRedisplay) {
 //		NSUndoManager *undoManager = [[self window] undoManager];
 //		if ([keyPath isEqual:@"center"]) [[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];

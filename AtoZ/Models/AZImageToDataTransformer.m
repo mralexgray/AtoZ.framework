@@ -15,7 +15,7 @@
 
 	NSPDFImageRep *img =  value;
 	//[NSPDFImageRep imageRepsWithContentsOfFile:[AZBUNDLE pathForImageResource:@"volume_mute.pdf"]];
-	NSSize size = AZSizeFromDimension(512);
+	NSSize size = AZSizeFromDim(512);
 	NSBitmapImageRep* bmRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																	  pixelsWide:size.width
 																	  pixelsHigh:size.height
@@ -64,7 +64,7 @@
 //	int count = [img pageCount];
 //	for(int i = 0 ; i < count ; i++){
 //		[img setCurrentPage:0];
-//		NSImage* pdfImage = [NSImage.alloc initWithSize:AZSizeFromDimension(64)];
+//		NSImage* pdfImage = [NSImage.alloc initWithSize:AZSizeFromDim(64)];
 //		[pdfImage addRepresentation:img];
 //	NSImage *temp = NSImage.new;
 //		[temp addRepresentation:img];
@@ -82,7 +82,7 @@
 
 	NSPDFImageRep *img = // value;
 	[NSPDFImageRep imageRepWithData:value];////   imageRepsWithContentsOfFile:[AZBUNDLE pathForImageResource:@"volume_mute.pdf"]];
-	NSSize size = AZSizeFromDimension(512);
+	NSSize size = AZSizeFromDim(512);
 	NSBitmapImageRep* bmRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
 																	  pixelsWide:size.width
 																	  pixelsHigh:size.height

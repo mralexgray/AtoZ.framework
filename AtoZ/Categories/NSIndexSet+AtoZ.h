@@ -1,13 +1,26 @@
-//
-//  NSIndexSet+AtoZ.h
-//  AtoZ
-//
-//  Created by Alex Gray on 12/10/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-#import <Foundation/Foundation.h>
 
+@interface NSIndexPath (AtoZ)
+
+#pragma mark - CFIAdditions
+
++ (INST)  indexPathForRow:(NSI)row  inSection:(NSI)x;  // #ifdef TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED <= 60000
++ (INST) indexPathForItem:(NSI)item inSection:(NSI)x;
+
+#pragma mark - JAListViewExtensions
+
++ (INST) indexPathForIndex:(NSUI)idx inSection:(NSUI)x;
++ (INST) indexPathForSection:(NSUI)section;
+
+@property (RONLY) NSUI index, section;
+
+#pragma mark - ESExtensions
+
+@property (RONLY) NSUI firstIndex, lastIndex;
+@property (RONLY) NSIP *indexPathByIncrementingLastIndex;
+
+- (NSIP*) indexPathByReplacingIndexAtPosition:(NSUI)pos withIndex:(NSUI)idx;
+@end
 
 @interface NSObject (AtoZKVO)
 + (NSSet*)keyPathsForValuesAffecting: (NSS*)key fromDictionary:(NSD*)pairs;
@@ -16,16 +29,7 @@
 @end
 
 @interface NSIndexSet (AtoZ)
-+ (instancetype) indexWithIndexes:(NSA*)indexes;
++ (instancetype) indexWithIndexes:(NSA*)idxs;
 + (instancetype) indexesOfObjects:(NSA*)objs inArray:(NSA*)ref;
-@end
-
-@interface NSIndexPath (ESExtensions)
-
-
-- (NSUInteger)firstIndex;
-- (NSUInteger)lastIndex;
-- (NSIndexPath *)indexPathByIncrementingLastIndex;
-- (NSIndexPath *)indexPathByReplacingIndexAtPosition:(NSUInteger)position withIndex:(NSUInteger)index;
 @end
 

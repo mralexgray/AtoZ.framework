@@ -11,7 +11,7 @@
 
 @implementation AZMatteFocusedGradientBox
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 	[super drawRect:dirtyRect];
 	
@@ -25,7 +25,7 @@
 
 #pragma mark Redrawing when the window becomes Active/Inactive
 
-- (void)viewWillMoveToWindow:(NSWindow *)window
+- (void) iewWillMoveToWindow:(NSWindow *)window
 {
 	//NSLog(@"viewWillMoveToWindow: %d", [self isActive]);
 	
@@ -46,15 +46,15 @@
 	
 	[self setNeedsDisplay:YES];
 }
-- (void)viewDidMoveToWindow
+- (void) iewDidMoveToWindow
 {
 	[self setNeedsDisplay:YES];
 }
-- (void)windowDidBecomeMain:(NSNotification *)notif
+- (void) indowDidBecomeMain:(NSNotification *)notif
 {	
 	[self setNeedsDisplay:YES];
 }
-- (void)windowDidResignMain:(NSNotification *)notif
+- (void) indowDidResignMain:(NSNotification *)notif
 {	
 	[self setNeedsDisplay:YES];
 }

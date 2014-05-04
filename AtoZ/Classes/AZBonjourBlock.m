@@ -43,7 +43,7 @@
 																	forKey:@"bonjourHash"];
 	}];
 }
-//- (void)netServiceBrowser:(NSNetServiceBrowser*)netServiceBrowser didRemoveService:(NSNetService*)service moreComing:(BOOL)moreComing {
+//- (void) setServiceBrowser:(NSNetServiceBrowser*)netServiceBrowser didRemoveService:(NSNetService*)service moreComing:(BOOL)moreComing {
 //	// If a service went away, stop resolving it if it's currently being resolved,
 //	// remove it from the list and update the table view if no more events are queued.
 //	[self willChangeValueForKey:@"services"];
@@ -54,11 +54,11 @@
 //	if (!moreComing) [self rearrangeObjects];
 //}	
 
-//- (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindService:(NSNetService *)netService moreComing:(BOOL)moreServicesComing {
+//- (void) setServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindService:(NSNetService *)netService moreComing:(BOOL)moreServicesComing {
 
-//- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
-//- (void)netServiceDidResolveAddress:(NSNetService *)service {
-//- (void)netServiceDidPublish:(NSNetService *)service {
+//- (void) setServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)service moreComing:(BOOL)moreComing {
+//- (void) setServiceDidResolveAddress:(NSNetService *)service {
+//- (void) setServiceDidPublish:(NSNetService *)service {
 
 	// If a service came online, add it to the list and update the table view if no more events are queued.
 
@@ -84,25 +84,25 @@
 //        _outStream=outStream;
 //    }
 
-- (void)netServiceWillPublish:(NSNetService *)netService {
+- (void) setServiceWillPublish:(NSNetService *)netService {
     COLORLOG(@"netServiceWillPublish netServicePort:", @(netService.port),nil);	//    [services addObject:netService];
 }
-- (void)netServiceDidPublish:(NSNetService *)sender {
+- (void) setServiceDidPublish:(NSNetService *)sender {
     COLORLOG(@"netServiceDidPublish netServicePort:",@([sender port]),nil);
 	 [self updateConsumers];
 }
  
-- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {
+- (void) setService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {
     COLORLOG(@"didNotPublish netServicePort:%ld", @([sender port]), nil );
 }
  
-- (void)netServiceWillResolve:(NSNetService *)sender {
+- (void) setServiceWillResolve:(NSNetService *)sender {
    COLORLOG(@"netServiceWillResolve netServicePort:%ld",@([sender port]), nil);
 }
  
 
 
-- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
+- (void) setService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
 
 
     NSLog(@"didNotResolve netServicePort:%ld", [sender port]);
@@ -122,28 +122,28 @@
 //    NSLog(@"%@", [NSString stringWithFormat:@"Resolved:%@-->%@:%hu\n", [service hostName], ipString, port]);
 //    [self openStreams];}
 
-- (void)netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data {
+- (void) setService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data {
     NSLog(@"didUpdateTXTRecordData netServicePort:%ld", [sender port]);
 }
-- (void)netServiceDidStop:(NSNetService *)netService {
+- (void) setServiceDidStop:(NSNetService *)netService {
     NSLog(@"netServiceDidStop netServicePort:%ld", netService.port); //    [services removeObject:netService];
 }
 #pragma mark - NSNetServiceBrowserDelegate Methods
-- (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindDomain:(NSString *)domainName moreComing:(BOOL)moreDomainsComing {
+- (void) setServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didFindDomain:(NSString *)domainName moreComing:(BOOL)moreDomainsComing {
     NSLog(@"didFindDomain");
 }
-- (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didRemoveDomain:(NSString *)domainName moreComing:(BOOL)moreDomainsComing {
+- (void) setServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didRemoveDomain:(NSString *)domainName moreComing:(BOOL)moreDomainsComing {
     NSLog(@"didRemoveDomain");
 }
-- (void)netServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didNotSearch:(NSDictionary *)errorInfo {
+- (void) setServiceBrowser:(NSNetServiceBrowser *)netServiceBrowser didNotSearch:(NSDictionary *)errorInfo {
     NSLog(@"didNotSearch");
 }
  
-- (void)netServiceBrowserWillSearch:(NSNetServiceBrowser *)netServiceBrowser {
+- (void) setServiceBrowserWillSearch:(NSNetServiceBrowser *)netServiceBrowser {
     NSLog(@"netServiceBrowserWillSearch");
 }
  
-- (void)netServiceBrowserDidStopSearch:(NSNetServiceBrowser *)netServiceBrowser {
+- (void) setServiceBrowserDidStopSearch:(NSNetServiceBrowser *)netServiceBrowser {
     NSLog(@"netServiceBrowserDidStopSearch");
 }
 

@@ -1,3 +1,22 @@
+//- (void) _delegateSelf      { [self setDelegate:(SOCKSRVRD)self]; }
+//- (void) setDidAcceptCnxn: (void(^)(ASOCK*socket))didAcceptCnxn											{
+
+//	[self _delegateSelf]; _didAcceptCnxn = didAcceptCnxn;
+//}
+//- (void) setClientDisconnected:										(void(^)(ASOCK*socket))clientDisconnected									{
+//
+//	[self _delegateSelf]; _clientDisconnected = clientDisconnected;
+//}
+//- (void) setCouldNotParseRawDataFromCnxnWithError:(void(^)(NSData*data, ASOCK*sock, NSERR*e))couldNotParse	{
+//
+//	[self _delegateSelf]; _couldNotParseRawDataFromCnxnWithError = couldNotParse;
+//}
+//- (void) setDidReceiveDataFromCnxn:								(void(^)(NSData*data, ASOCK*sock))				didReceiveData	{
+//
+//	[self _delegateSelf]; _didReceiveDataFromCnxn = didReceiveData;
+//}
+
+//- (BOOL) _shouldDelegate:(NSS*)key	{ return self.delegate == (SOCKSRVRD)self && ([self vFK:key]); }
 
 #import "AtoZ.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -6,73 +25,54 @@
 
 JREnumDefine(WebSocketMessageType);
 
-@implementation AZWebSocketServer {	EXTMultiObject *_delegator;	}
+@interface AZWebSocketServer ()
+/* Answers to native calls AND responds to all RoutingHttpServer methods 
+    via EXTMultiObject proxy object. */
+@property (nonatomic)        id   delegator;
+@property RoutingHTTPServer * router;
+@property    GCDAsyncSocket * socket;
+@end
+@implementation AZWebSocketServer
 
-@synthesize delegator = _delegator;
 
-- (void) _delegateSelf		{ [self setDelegate:(SOCKSRVRD)self]; }
-- (void) setDidAcceptCnxn:												(void(^)(ASOCK*socket))didAcceptCnxn											{
-
-	[self _delegateSelf]; _didAcceptCnxn = didAcceptCnxn;
-}
-- (void) setClientDisconnected:										(void(^)(ASOCK*socket))clientDisconnected									{
-
-	[self _delegateSelf]; _clientDisconnected = clientDisconnected;
-}
-- (void) setCouldNotParseRawDataFromCnxnWithError:(void(^)(NSData*data, ASOCK*sock, NSERR*e))couldNotParse	{
-
-	[self _delegateSelf]; _couldNotParseRawDataFromCnxnWithError = couldNotParse;
-}
-- (void) setDidReceiveDataFromCnxn:								(void(^)(NSData*data, ASOCK*sock))				didReceiveData	{
-
-	[self _delegateSelf]; _didReceiveDataFromCnxn = didReceiveData;
-}
-
-- (BOOL) _shouldDelegate:(NSS*)key	{ return self.delegate == (SOCKSRVRD)self && ([self vFK:key]); }
-- (void) webSocketServer:(SOCKSRVR*)me  didAcceptConnection:(ASOCK*)cnxn																									{
-
-  if ([self _shouldDelegate:@"didAcceptCnxn"]) self.didAcceptCnxn(cnxn);
-}
-- (void) webSocketServer:(SOCKSRVR*)me   clientDisconnected:(ASOCK*)cnxn																									{
-
-	if ([self _shouldDelegate:@"clientDisconnected"]) self.clientDisconnected(cnxn);
-}
-- (void) webSocketServer:(SOCKSRVR*)me       didReceiveData:(NSData*)data		 fromConnection:(ASOCK*)cnxn									{
-
-	if ([self _shouldDelegate:@"didReceiveDataFromCnxn"]) self.didReceiveDataFromCnxn(data,cnxn);
-}
-- (void) webSocketServer:(SOCKSRVR*)me couldNotParseRawData:(NSData*)rawData fromConnection:(ASOCK*)cnxn error:(NSERR*)e	{
-
-	if ([self _shouldDelegate:@"couldNotParseRawDataFromCnxnWithError"]) self.couldNotParseRawDataFromCnxnWithError(rawData,cnxn,e);
-}
-
-- (RoutingHTTPServer *)router { return _router = _router ?: RoutingHTTPServer.new; }
+- (void) webSocketServer:(WSSRVR*)s  
+     didAcceptConnection:(ASOCK*)cx { !_didAcceptCnxn       ?: self.didAcceptCnxn(cx); }
+- (void) webSocketServer:(WSSRVR*)s
+      clientDisconnected:(ASOCK*)cx { !_clientDisconnected  ?: self.clientDisconnected(cx); }
+- (void) webSocketServer:(WSSRVR*)s   
+          didReceiveData:(DTA*)dtRx
+          fromConnection:(ASOCK*)cx { !_didReceiveDataFromCnxn ?: self.didReceiveDataFromCnxn(dtRx,cx); }
+- (void) webSocketServer:(WSSRVR*)s 
+    couldNotParseRawData:(DTA*)rwDt
+          fromConnection:(ASOCK*)cx 
+                   error:(NSERR*)er { !_couldNotParseRawDataFromCnxnWithError ?: self.couldNotParseRawDataFromCnxnWithError(rwDt,cx,er); }
 
 @passthrough(AZWebSocketServer, get:withBlock:,		self.router);
 @passthrough(AZWebSocketServer, setPort:,					self.router);
 @passthrough(AZWebSocketServer, setDocumentRoot:, self.router);
 @passthrough(AZWebSocketServer, start:,						self.router);
 
-- (EXTMultiObject*) delegator { if (_delegator) return _delegator;
+- (id) delegator { 
 
+  return _delegator = _delegator ?: ({
+  
 	NSMA *multiObjs = (self.router ? @[_router] : @[]).mutableCopy;
 
-	if (_socket)			[multiObjs addObject:_socket];
-	if (_delegate)		[multiObjs addObject:_delegate];
-	if (_connections)	[multiObjs addObject:_connections];
+	if (_socket)            [multiObjs addObject:_socket];
+	if (self.storage.count)	[multiObjs addObject:self.storage];
 	[multiObjs addObject:self];
+  [EXTMultiObject multiObjectForObjectsInArray:multiObjs]; });
 
-	return _delegator =  [EXTMultiObject multiObjectForObjectsInArray:multiObjs];
 }
-- (id) init										{	SUPERINIT;
 
-	_connections	= NSAC.new;
-	_connections.content = NSMA.new;
+- (id) init										{	SUPERINIT; //	[_socket setIPv6Enabled:NO];
+
 	_socket				= [GCDAsyncSocket.alloc initWithDelegate:self delegateQueue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
-//	[_socket setIPv6Enabled:NO];
-	_port					= AZRANDOMPORT;
+  _router       = RoutingHTTPServer.new; 
+//	_port					= AZRANDOMPORT;
 	return self;
 }
+/*
 + (instancetype) server				{ __strong static AZWebSocketServer *_server = nil;   static dispatch_once_t uno;
 
 	dispatch_once(&uno, ^{   _server = self.new; NSERR *error = nil;
@@ -103,17 +103,16 @@ JREnumDefine(WebSocketMessageType);
 		}];
 		[_writer writeJavascript:[KSHTMLWriter markupForAZJSWithID:@"AZWebSocketServer.baseHTML"] useCDATA:NO];
 	}];
-/**
-    [_writer writeElement:@"body" content:^{
-  had to diable because no content selector... is KSHTNMML in ATp or ROuttingframework?
-		[_writer writeElement:@"div" className:@"container" content:^{
-			[_writer writeElement:@"div" className:@"basic-template" content:^{
-				[_writer writeHTMLString:@"<a class='ui-notify-cross ui-notify-close' href='#'>x</a><h1>#{title}</h1><p>#{text}</p>"];
-			}];
-			[_writer writeElement:@"input" idName:@"input" text:@""];
-		}];
-	}];
-  */
+//    [_writer writeElement:@"body" content:^{
+//  had to diable because no content selector... is KSHTNMML in ATp or ROuttingframework?
+//		[_writer writeElement:@"div" className:@"container" content:^{
+//			[_writer writeElement:@"div" className:@"basic-template" content:^{
+//				[_writer writeHTMLString:@"<a class='ui-notify-cross ui-notify-close' href='#'>x</a><h1>#{title}</h1><p>#{text}</p>"];
+//			}];
+//			[_writer writeElement:@"input" idName:@"input" text:@""];
+//		}];
+//	}];
+
 	return _mString;
 }
 
@@ -143,7 +142,10 @@ JREnumDefine(WebSocketMessageType);
 
 - (NSS*) handshakeResponseForData:(NSData*)data { id(^throw)() = ^{ @throw @"Invalid handshake from client"; return (id)nil; };
 
-	NSA *strings = [NSS stringWithUTF8Data:data].eolines;  /* \r\n */	LOGCOLORS(strings, [NSC randomBrightColor],nil);
+	NSA *strings = [NSS stringWithUTF8Data:data].eolines;  
+  
+//   \r\n   
+  LOGCOLORS(strings, [NSC randomBrightColor],nil);
 
 	return !strings.count || ![strings[0] isEqualToString:@"GET / HTTP/1.1"] ? throw() : [strings filterNonNil:^id(NSString *line){		NSArray *parts;
 
@@ -160,15 +162,15 @@ JREnumDefine(WebSocketMessageType);
 
 #pragma mark - GCDAsyncSocketDelegate
 
-- (void)socket:(ASOCK*)sock     didAcceptNewSocket:(ASOCK*)cnxn		{
+- (void) socket:(ASOCK*)sock     didAcceptNewSocket:(ASOCK*)cnxn		{
 
 	//NSLog(@"%@ .. connections:%lu",NSStringFromSelector(_cmd), self.clientCount);
 	[self.connections addObject:cnxn]; // retainer
 	if (self.didAcceptNewSocket) self.didAcceptNewSocket(cnxn);
 	[cnxn readDataWithTimeout:-1 tag:1];
 
-}		/* didAcceptNewSocket */
-- (void)socket:(ASOCK*)cnxn					   didReadData:(NSData*)data
+}		// didAcceptNewSocket 
+- (void) socket:(ASOCK*)cnxn					   didReadData:(NSData*)data
 																					 withTag:(long)tag			{		//AZLOGCMD;
 
 	@try {	const unsigned char *bytes = data.bytes;
@@ -210,18 +212,18 @@ JREnumDefine(WebSocketMessageType);
 
 			[cnxn readDataToLength:N withTimeout:-1 buffer:nil bufferOffset:0 tag:16 + tag];
 		}
-		else if (tag == 0x21 || tag == 0x22 || tag == 0x28 || tag == 0x29) { /* read complete payload (0x21) */
+		else if (tag == 0x21 || tag == 0x22 || tag == 0x28 || tag == 0x29) { // read complete payload (0x21) 
 
 			NSMutableData *unmaskedData = NSMutableData.new;//[NSMutableData dataWithCapacity:data.length - 4];
 			for (int x = 4; x < data.length; ++x) {		char c = bytes[x] ^ bytes[x%4];		[unmaskedData appendBytes:&c length:1];	}
 			if	((tag & 0xf) == 1 && [(NSO*)_delegate respondsToSelector:@selector(webSocketServer:didReceiveData:fromConnection:)])
 				dispatch_async(dispatch_get_main_queue(), ^{ [_delegate webSocketServer:self didReceiveData:unmaskedData fromConnection:cnxn];	});
-			else if ((tag & 0xf) == 8) { /*CLOSE*/
+			else if ((tag & 0xf) == 8) { // CLOSE
 				char rsp[4] = {0x88, 2, bytes[1], bytes[0]};	// final two bytes are network-byte-order statusCode that we echo back
 				[cnxn writeData:[NSData dataWithBytes:rsp length:4] withTimeout:-1 tag:-1];
 			}
-			else if ((tag & 0xf) == 9) { /*PING*/
-
+			else if ((tag & 0xf) == 9) { // PING
+      
 				NSMutableData *pong = [[self.class webSocketFrameDataForObject:unmaskedData]mutableCopy]; // FIXME inefficient (but meh)
 				((char*)pong.mutableBytes)[0] = 0x8a;
 				[cnxn writeData:pong withTimeout:-1 tag:-1];
@@ -236,8 +238,8 @@ JREnumDefine(WebSocketMessageType);
 			dispatch_sync(dispatch_get_main_queue(), ^{	[_delegate webSocketServer:self couldNotParseRawData:data fromConnection:cnxn error:err]; });
 		[cnxn disconnect]; // FIXME some cases do not require disconnect
 	}
-}		/* didReadData */
-- (void)socket:(ASOCK*)cnxn    didWriteDataWithTag:(long)tag			{		if (tag != 2) return;
+}		// didReadData 
+- (void) socket:(ASOCK*)cnxn    didWriteDataWithTag:(long)tag			{		if (tag != 2) return;
 
 	[AZSOQ addOperationWithBlock:^{
 
@@ -247,22 +249,26 @@ JREnumDefine(WebSocketMessageType);
 
 	[cnxn readDataToLength:2 withTimeout:-1 buffer:nil bufferOffset:0 tag:4];
 
-}		/* didWriteDataWithTag */
-- (void)socketDidDisconnect:(ASOCK*)cnxn withError:(NSERR*)err		{
+}		// didWriteDataWithTag 
+- (void) socketDidDisconnect:(ASOCK*)cnxn withError:(NSERR*)err		{
 
 	AZLOGCMD;
 	[_connections removeObject:cnxn];
 	if ([(NSO*)_delegate respondsToSelector:@selector(webSocketServer:clientDisconnected:)])
 		[AZSOQ addOperationWithBlock:^{	[_delegate webSocketServer:self clientDisconnected:cnxn];	}];
 
-}   /* socketDidDisconnect */
+}   // socketDidDisconnect 
 
-+  (id) webSocketFrameDataForObject:(id)x {
+*/
+@end
 
-	if ([x ISKINDA:NSData.class]) {	NSData *object = x; NSMutableData *data = [NSMutableData dataWithLength:10];
+@concreteprotocol(WebSocketFrame)
+-  (id) webSocketDataValue { objswitch(self.class)
 
+  objcase(NSData.class)
+
+    NSData *object = self; NSMutableData *data = [NSMutableData dataWithLength:10];
 		char *header = data.mutableBytes; 	header[0] = 0x81;
-
 		if (object.length > 65535) {
 			header[1] = 127;
 			header[2] = (object.length >> 56) & 255;
@@ -285,11 +291,12 @@ JREnumDefine(WebSocketMessageType);
 			data.length = 2;
 		}
 		[data appendData:object];		return data;
-	}
-	else if ([x ISKINDA:NSS.class]) return [self webSocketFrameDataForObject:[x UTF8Data]];
-	return nil;
+    
+  objcase(NSS.class) return ((NSS*)self).UTF8Data.webSocketDataValue;
+  defaultcase 
+    return NSLog(@"no default imp. for %@ for %@", AZSELSTR, self.className), nil;
+  endswitch
 }
-
 @end
 
 @implementation																		NSString (AZWebSocketServer)
@@ -314,7 +321,11 @@ JREnumDefine(WebSocketMessageType);
 @end
 @implementation															GCDAsyncSocket (AZWebSocketServer)
 
-- (void)writeWebSocketFrame:(id)object {	[self writeData:[AZWebSocketServer webSocketFrameDataForObject:object] withTimeout:-1 tag:3];	}
+- (void) writeWebSocketFrame:(id<WebSocketFrame>)object {	
+
+
+  [self writeData:object.webSocketDataValue withTimeout:-1 tag:3];	
+}
 
 @end
 

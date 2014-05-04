@@ -1,14 +1,14 @@
 
+#import "AtoZMacroDefines.h"
 
-//@class BLKCELL;
-//#define DRAWCELLBLK ^(BLKCELL*cell,NSR cellFrame,NSV*controlView)
-//typedef void(^AZCellBlockDrawer)	(BLKCELL*cell, NSR cF, NSV*cV);
-//@interface BLKCELL : NSButtonCell
-//+ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*,NSR,NSV*))blk;
-//@property (NATOM, CP) AZCellBlockDrawer 			dBlock;
-//@end
+@class BLKVIEW;
+typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSR r);
+typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CAL *l);
 
+typedef void(^RectBlock) (NSR rect);
+typedef void(^ObjRectBlock) (id _self, NSR rect);
 
+#define BLKVIEWRBLK BlkViewRectBlock
 
 /** AZBlockView.h - USAGE
 
@@ -20,24 +20,7 @@
 	}]
 ]positioned:NSWindowBelow relativeTo:anotherView];
 
-*/
-
-
-//@class AZBlockView;
-//// Declare the AZBlockViewDrawer block type:
-//typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
-//@interface AZBlockView : NSView {
-//	AZBlockViewDrawer drawBlock;
-//	BOOL opaque;
-//}
-//+ (AZBlockView *)viewWithFrame:(NSRect)frame
-//						 opaque:(BOOL)opaque
-//				drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
-//@property (NATOM, CP) AZBlockViewDrawer drawBlock;
-//@property (nonatomic, assign) BOOL opaque;
-//@end
-
-/*		Usage:
+ Usage: @code
 
 - (void) awakeFromNib {
  	block __typeof(self) blockSelf = self; 
@@ -47,7 +30,25 @@
  	}]];
 }
 
-**** IN NSIMAGE + AZOTZ  ***
+*/
+
+@interface BNRBlockView : NSView
+
++ (INST) drawInView:(NSV*)v                            block:(RectBlock)blk;
++ (INST) viewWithFrame:(NSR)f                      drawBlock:(BLKVIEWRBLK)blk;
++ (INST) inView:(NSV*)v withFrame:(NSR)f           inContext:(BlkViewLayerBlock)blk;
+//+ (INST) inView:(NSV*)v                            withBlock:(BlkViewLayerDelegate)ctxBlk;
++ (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BLKVIEWRBLK)dBlk;
+
+@property                      BOOL   opaque;
+@end
+
+@interface AZBlockWindow : NSWindow
++ (AZBlockWindow *)windowWithFrame:(NSRect)frame drawnUsingBlock:(ObjRectBlock)dBlock;
+@property (CP) ObjRectBlock drawBlock;
+@end
+
+/*! @note **** IN NSIMAGE + AZOTZ  ***
 typedef void(^NSImageDrawer)(void);
 
 @interface NSImage (AtoZDrawBlock)
@@ -55,31 +56,31 @@ typedef void(^NSImageDrawer)(void);
 @end
 */
 
-
-@class BLKVIEW;
-#define DRAWBLK ^(BLKVIEW*v,NSR r)
-//#define BLKVIEWinVIEW(v,blk) [v addSubview:[BLKVIEW
-typedef void(^BNRBlockViewDrawer)		(BLKVIEW*v, NSR r);
-typedef void(^BNRBlockViewLayerDelegate) (BLKVIEW*v, CAL*l);
-
-@interface BNRBlockView : NSView
-
+/*
 //[BLKVIEW inView:win.contentView withFrame:win.contentRect inContext:^(BLKVIEW*v, CAL*l){ NSRectFillWithColor(l.bounds, GREEN); }];
-+ (BLKVIEW*) inView:(NSV*)v withFrame:(NSR)f inContext:(void(^)(BLKVIEW*view, CAL*lay))block;
 
-+ (BLKVIEW*) inView:(NSV*)v withBlock:(BNRBlockViewLayerDelegate)ctxBlock;
+@class BLKCELL;
+#define DRAWCELLBLK ^(BLKCELL*cell,NSR cellFrame,NSV*controlView)
+typedef void(^AZCellBlockDrawer)	(BLKCELL*cell, NSR cF, NSV*cV);
+@interface BLKCELL : NSButtonCell
++ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*,NSR,NSV*))blk;
+@property (NATOM, CP) AZCellBlockDrawer 			dBlock;
+@end
 
-+ (BLKVIEW*) viewWithFrame:(NSR)frame  opaque:(BOOL)opaque
-			  drawnUsingBlock:(BNRBlockViewDrawer) drawBlock;
-
-@property (NATOM, CP) BNRBlockViewDrawer 			dBlock;
-@property (NATOM, CP) BNRBlockViewLayerDelegate lBlock;
+@class AZBlockView;
+// Declare the AZBlockViewDrawer block type:
+typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
+@interface AZBlockView : NSView {
+	AZBlockViewDrawer drawBlock;
+	BOOL opaque;
+}
++ (AZBlockView *)viewWithFrame:(NSRect)frame
+						 opaque:(BOOL)opaque
+				drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
+@property (NATOM, CP) AZBlockViewDrawer drawBlock;
 @property (nonatomic, assign) BOOL opaque;
 @end
 
+#define BLKVIEWinVIEW(v,blk) [v addSubview:[BLKVIEW
 
-@class BNRBlockView;
-@interface AZBlockWindow : NSWindow
-+ (AZBlockWindow *)windowWithFrame:(NSRect)frame drawnUsingBlock:(BNRBlockViewDrawer)drawBlock;
-@property (NATOM, CP) BNRBlockViewDrawer drawBlock;
-@end
+*/

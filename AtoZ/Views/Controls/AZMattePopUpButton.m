@@ -13,7 +13,7 @@
 
 @implementation AZMattePopUpButtonCell
 
-- (void)drawBezelWithFrame:(NSRect)rect inView:(NSView *)controlView
+- (void) drawBezelWithFrame:(NSRect)rect inView:(NSView *)controlView
 {
 	NSImage *image = [NSImage.alloc initWithSize:rect.size];
 	[image lockFocus];

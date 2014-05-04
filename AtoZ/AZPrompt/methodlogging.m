@@ -1,23 +1,16 @@
 //
 //  methodlogging.m
 //  AtoZ
-//
-//  Created by Alex Gray on 7/8/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
-
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
 #import <AtoZ/AtoZ.h>
 
 @interface SomeClass :NSObject											@end
 @implementation SomeClass
-- (void)methodA {		// imagine some meaningful actions here
+- (void) sethodA {		// imagine some meaningful actions here
 	NSLog(@"Doing important methodA stuff");	}
 - (int)methodB {	// imagine some meaningful actions here
 	NSLog(@"Doing important methodB stuff");	return 42;}
-- (void)methodCWithInt:(int)i {	// imagine some meaningful actions here
+- (void) sethodCWithInt:(int)i {	// imagine some meaningful actions here
 	NSLog(@"Doing important methodC stuff");}										@end
 @interface LoggingInterceptor :NSObject 								@end
 @implementation LoggingInterceptor

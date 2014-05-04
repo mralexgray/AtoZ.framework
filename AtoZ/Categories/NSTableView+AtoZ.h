@@ -40,7 +40,8 @@
 
 @interface NSTableView (AtoZ)
 
+//- (id) selectedObjectValue;
 
-- (void)selectItemsInArray:(NSA*)selectedItems usingSourceArray:(NSA*)sourceArray;
+- (void) electItemsInArray:(NSArray*)selectedItems usingSourceArray:(NSArray*)sourceArray;
 @end
 

@@ -11,11 +11,12 @@
 
 
 @interface AZDebugLayer : CAL
+@property NSC* color;
 //@property (strong) CAShapeLayer *anchorPointLayer, *positionLayer;
 @end
 
 @interface AZDebugLayerView : NSView
-@property (nonatomic, strong) AZDebugLayer *dLayer;
-@property (nonatomic, strong) CAL *root;
+@property (nonatomic) AZDebugLayer *dLayer;
+@property (nonatomic) CAL *root;
 @end
 

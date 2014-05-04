@@ -5,7 +5,7 @@
 
 
 //@protocol AZWebKitProgressDelegate <NSObject>
-//- (void)webKitProgressDidChangeFinishedCount:(NSInteger)finishedCount ofTotalCount:(NSInteger)totalCount;
+//- (void) ebKitProgressDidChangeFinishedCount:(NSInteger)finishedCount ofTotalCount:(NSInteger)totalCount;
 //@end
 
 //@interface AZWebKitProgressController : NSObject
@@ -16,9 +16,9 @@ typedef NS_ENUM(NSUI,BarProgressPhase) { AZProgressPhaseNone = 0, AZProgressPhas
 
 //@class AZURLBar;
 //@protocol AZURLBarDelegate <NSObject>
-//- (void)urlBar:(AZURLBar *)urlBar didRequestURL:(NSURL *)url;
+//- (void) rlBar:(AZURLBar *)urlBar didRequestURL:(NSURL *)url;
 //@optional
-//- (void)urlBarColorConfig;
+//- (void) rlBarColorConfig;
 //@end
 //@property (nonatomic, weak) id<AZURLBarDelegate> delegate;
 

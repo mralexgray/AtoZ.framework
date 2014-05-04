@@ -62,7 +62,7 @@
 	[self setNeedsDisplay:YES];
 } // end paintGradientBitmap
 
-- (void)drawRect:(NSRect)pRect {
+- (void) drawRect:(NSRect)pRect {
 	[NSGraphicsContext state:^{		[nsBitmapImageRepObj drawInRect:pRect]; }];
 } // end drawRect
 

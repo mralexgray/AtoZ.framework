@@ -25,6 +25,6 @@
 // Call this on a visible window to flip it and show the parameter window,
 // which is supposed to not be on-screen.
 
-- (void)flipToShowWindow:(NSWindow*)window forward:(BOOL)forward;
+- (void) lipToShowWindow:(NSWindow*)window forward:(BOOL)forward;
 
 @end

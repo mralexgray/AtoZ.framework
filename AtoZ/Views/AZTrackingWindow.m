@@ -1,8 +1,10 @@
 
+#import "AtoZ.h"
+#import "AZTrackingWindow.h"
+
 typedef struct AZTri {		CGPoint a;	CGPoint b;	CGPoint c;	}AZTri;
 typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
-#import "AZTrackingWindow.h"
 
 @interface NSWindow (Animations)
 - (void) shake;
@@ -104,7 +106,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//	}];
 
 		//		AZMakeRectFromSize(contentRect.size)]/
-		//AZCenteredRect(contentRect.size)		AZSizeFromDimension(AZMinDim([self frame].size)), [self frame])];
+		//AZCenteredRect(contentRect.size)		AZSizeFromDim(AZMinDim([self frame].size)), [self frame])];
 		//		_handle.
 		//		az_imageNamed:@"tab.png"];
 		//		NSLog(@"handleimage %@", _handle.image);
@@ -258,7 +260,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 																				//		[[window animator] setFrame: (window.slideState == AZOut ? window.visibleFrame : window.outFrame ) display:YES animate:YES];
 	}
 }
-- (void)shake;
+- (void) shake;
 //+ (void)shakeWindow:(NSWindow*)window
 {
 	[self setAnimations:@{ @"frameOrigin" : [CAKeyframeAnimation shakeAnimation:[self frame]] }];
@@ -336,7 +338,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 	//	[[self delegate] ignoreMouseDown:theEvent];
 	//}
 
-/*- (void)mouseDragged:(NSEvent*)theEvent
+/*- (void) mouseDragged:(NSEvent*)theEvent
  {
  if (shouldRedoInitials)
  {

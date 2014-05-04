@@ -1,7 +1,8 @@
 
-#import "AZURLBar.h"
+#import <WebKit/WebKit.h>
 #import "AtoZ.h"
 #import "AZLogConsole.h"
+#import "AZURLBar.h"
 
 
 #define kAZURLBarGradientColorTop [NSColor colorWithCalibratedRed:0.9f green:0.9f blue:0.9f alpha:1.0f]
@@ -140,8 +141,7 @@
 	if (totalCount == finishedCount)
 	{
 		double delayInSeconds = 1.0;
-
-		__weak typeof(self) weakSelf = self;
+    AZBlockSelf(weakSelf);
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
 							{
@@ -239,7 +239,7 @@
 		self.urlTextField.focusRingType 		= NSFocusRingTypeNone;
 		self.urlTextField.drawsBackground 	= NO;
 		self.urlTextField.textColor 			= [NSColor blackColor];
-		[self.urlTextField.cell setLineBreakMode:NSLineBreakByTruncatingTail];
+		[(NSTextFieldCell*)self.urlTextField.cell setLineBreakMode:NSLineBreakByTruncatingTail];
 		self.urlTextField.formatter 			= AZURLFormatter.new;
 		self.urlTextField.action 				= @selector(didPressEnter:);
 		self.urlTextField.target 				= self;

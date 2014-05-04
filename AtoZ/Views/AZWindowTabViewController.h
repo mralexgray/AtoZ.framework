@@ -1,4 +1,4 @@
-#import "AtoZ.h"
+
 //
 //  AZWindowTabViewController.h
 //  AtoZ
@@ -8,13 +8,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AtoZUmbrella.h"
 
 @class AZWindowTab;
 @interface AZWindowTabViewController : NSViewController
 
 @property (weak) IBOutlet 		 WebView * webView;
 @property (weak) 				AZWindowTab * windowTab;
-@property (assign) 		 		 AZAlign   alignment;
 //@property (strong) 		 		      id   representedObject;
 @end
 

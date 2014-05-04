@@ -16,7 +16,7 @@ NSString* APPLICATION_ID = @"223404761008769";
 
 + (instancetype) initWithQuery:(NSString*)q param:(NSString*)key thenDo:(FBTextBlock)block {
 
-	AZFacebookConnection *me = [AZFacebookConnection sharedInstance];
+	AZFacebookConnection *me = [AZFacebookConnection sharedInstance]; return me;
 //	[me.fb sendRequest:q params:ket usePostRequest:<#(BOOL)#>]
 
 }

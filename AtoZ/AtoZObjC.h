@@ -60,10 +60,10 @@
 /*
 // Block to call when animation fails
 // Delegate method called by CAAnimation at start of animation @param theAnimation animation which issued the callback.
-- (void)animationDidStart:(CAAnimation *)theAnimation;
+- (void) nimationDidStart:(CAAnimation *)theAnimation;
  
 // Delegate method called by CAAnimation at end of animation @param theAnimation animation which issued the callback.  @param finished BOOL indicating whether animation succeeded or failed.
-- (void)animationDidStop:(CAAnimation *)theAnimation 
+- (void) nimationDidStop:(CAAnimation *)theAnimation 
                 finished:(BOOL)flag;
 @end
 

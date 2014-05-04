@@ -126,7 +126,7 @@ static CFHashCode _hashString(const void *value)
 }
 
 //-(id<CAAction>)actionForKey:(NSString *)event {
-- (void)runActionForKey:(NSString *)event object:(id)anObject arguments:(NSDictionary *)dict {
+- (void) unActionForKey:(NSString *)event object:(id)anObject arguments:(NSDictionary *)dict {
 		NSLog(@"runA4:%@  on:%@  dic:%@", event, anObject, dict);
 //	return [@[@"content", @"color"]containsObject:event] ? [CABA propertyAnimation : @{  zkeyP	: event, zdurA : @3, zfromV	: self.permaPresentation[event], ztimeF : CAMEDIAEASEOUT}]
 //		 : [event isEqualToString:@"hovered"] 			 ? [self anim]]
@@ -219,7 +219,7 @@ static CFHashCode _hashString(const void *value)
 //	return [super actionForKey:event];
 //}
 
-- (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key;
+- (void) addAnimation:(CAAnimation *)anim forKey:(NSString *)key;
 {
 	if ([self isContentAnimation:anim]) {
 		// Sadly, even though we set it, removedOnCompletion seems to do nothing (and we can't really depend on subclasses remembering to do this), so keep track of the active animations here.
@@ -233,7 +233,7 @@ static CFHashCode _hashString(const void *value)
 
 #pragma mark CAAnimation deleate
 
-- (void)animationDidStart:(CAAnimation *)anim;
+- (void) nimationDidStart:(CAAnimation *)anim;
 {
 	// Have to do the add here instead of in -addAnimation:forKey: since a copy is started, not the original passed in.
 	if ([self isContentAnimation:anim]) {
@@ -246,7 +246,7 @@ static CFHashCode _hashString(const void *value)
 	}
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
+- (void) nimationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
 {
 	NSUInteger animIndex = [_activeContentAnimations indexOfObjectIdenticalTo:anim];
 	if (animIndex == NSNotFound)
@@ -317,7 +317,7 @@ static CFHashCode _hashString(const void *value)
 
 
 /*
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 
 	if ([layer.name contains:@"back"] ) {
 		NSBezierPath*  k = [NSBezierPath bezierPathWithRect:[self bounds]];
@@ -333,7 +333,7 @@ static CFHashCode _hashString(const void *value)
 			[atv setBackgroundColor:CLEAR];
 			[[atv textStorage] setForegroundColor:BLACK];
 			[[atv textStorage] setAttributedString:string];
-		[NSShadow setShadowWithOffset:AZSizeFromDimension(3) blurRadius:10 color:c.contrastingForegroundColor];
+		[NSShadow setShadowWithOffset:AZSizeFromDim(3) blurRadius:10 color:c.contrastingForegroundColor];
 		[string drawAtPoint:NSMakePoint(10,8)]; main.contrastingForegroundColor
 		NSLog(@"didnt dfraw in context");
 	}
@@ -342,7 +342,7 @@ static CFHashCode _hashString(const void *value)
 }
 	NSImage* i = [_object valueForKey:@"image"];
 	[i drawInRect:[self bounds] fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
-	drawRepresentation:[i bestRepresentationForSize:AZSizeFromDimension(256)] inRect:[self bounds]];
+	drawRepresentation:[i bestRepresentationForSize:AZSizeFromDim(256)] inRect:[self bounds]];
 	drawCenteredinRect:[self bounds] operation:NSCompositeSourceOver fraction:1];
 	CGContextAddPath(ctx, [k quartzPath]);   CGContextFillPath(ctx);
 	NSBezierPath *k = [NSBezierPath bezierPathWithRect:[self bounds]];
@@ -352,7 +352,7 @@ static CFHashCode _hashString(const void *value)
 - (void) setImage:(NSImage*)image
  {
  if (_iconL) 			[_iconL removeFromSuperlayer];
- //	_image 					= [image imageScaledToFitSize:AZSizeFromDimension(256)];
+ //	_image 					= [image imageScaledToFitSize:AZSizeFromDim(256)];
  self.iconL 				= ReturnImageLayer(	self, image.copy, 1);//kCALayerNotSizable
  //	_iconL.contentsGravity	= kCAGravityResizeAspect;
  //	[_iconL addConstraintsSuperSizeScaled:.4];

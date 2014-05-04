@@ -26,11 +26,11 @@
 
 @implementation NSWorkspace (JAAdditions)
 
-- (void)openURLInBackground:(NSURL *)url {
+- (void) penURLInBackground:(NSURL *)url {
 	[self openURLsInBackground:[NSArray arrayWithObject:url]];
 }
 
-- (void)openURLsInBackground:(NSArray *)urls {
+- (void) penURLsInBackground:(NSArray *)urls {
 	LSLaunchURLSpec urlSpec;
 
 	urlSpec.appURL = nil;
@@ -43,7 +43,7 @@
 	LSOpenFromURLSpec(&urlSpec, nil);
 }
 
-- (void)openURLs:(NSArray *)urls {
+- (void) penURLs:(NSArray *)urls {
 	for(NSURL *url in urls) {
 		[[NSWorkspace sharedWorkspace] openURL:url];
 	}

@@ -169,7 +169,7 @@
 }
 
 
-- (void)dealloc
+- (void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [borderColor release];
@@ -777,7 +777,7 @@
 # pragma mark Notification handlers
 
 
-- (void)windowDidResize:(NSNotification *)note
+- (void) indowDidResize:(NSNotification *)note
 {
     [self _redisplay];
 }
@@ -786,7 +786,7 @@
 #pragma mark Accessors
 
 
-- (void)setPoint:(NSPoint)point side:(MAWindowPosition)side
+- (void) setPoint:(NSPoint)point side:(MAWindowPosition)side
 {
 	// Thanks to Martin Redington.
 	_point = point;
@@ -803,7 +803,7 @@
 }
 
 
-- (void)setBackgroundColor:(NSColor *)value {
+- (void) setBackgroundColor:(NSColor *)value {
     if (_MABackgroundColor != value) {
         [_MABackgroundColor release];
         _MABackgroundColor = [value copy];
@@ -818,7 +818,7 @@
 }
 
 
-- (void)setBorderColor:(NSColor *)value {
+- (void) setBorderColor:(NSColor *)value {
     if (borderColor != value) {
         [borderColor release];
         borderColor = [value copy];
@@ -833,7 +833,7 @@
 }
 
 
-- (void)setBorderWidth:(float)value {
+- (void) setBorderWidth:(float)value {
     if (borderWidth != value) {
         float maxBorderWidth = viewMargin;
         if (value <= maxBorderWidth) {
@@ -852,7 +852,7 @@
 }
 
 
-- (void)setViewMargin:(float)value {
+- (void) setViewMargin:(float)value {
     if (viewMargin != value) {
         viewMargin = MAX(value, 0.0);
         
@@ -867,7 +867,7 @@
 }
 
 
-- (void)setArrowBaseWidth:(float)value {
+- (void) setArrowBaseWidth:(float)value {
     float maxWidth = (MIN(_viewFrame.size.width, _viewFrame.size.height) + 
                       (viewMargin * 2.0)) - cornerRadius;
     if (drawsRoundCornerBesideArrow) {
@@ -888,7 +888,7 @@
 }
 
 
-- (void)setArrowHeight:(float)value {
+- (void) setArrowHeight:(float)value {
     if (arrowHeight != value) {
         arrowHeight = value;
         
@@ -902,7 +902,7 @@
 }
 
 
-- (void)setHasArrow:(float)value {
+- (void) setHasArrow:(float)value {
     if (hasArrow != value) {
         hasArrow = value;
         
@@ -916,7 +916,7 @@
 }
 
 
-- (void)setCornerRadius:(float)value {
+- (void) setCornerRadius:(float)value {
     float maxRadius = ((MIN(_viewFrame.size.width, _viewFrame.size.height) + 
                         (viewMargin * 2.0)) - arrowBaseWidth) / 2.0;
     if (value <= maxRadius) {
@@ -936,7 +936,7 @@
 }
 
 
-- (void)setDrawsRoundCornerBesideArrow:(float)value {
+- (void) setDrawsRoundCornerBesideArrow:(float)value {
     if (drawsRoundCornerBesideArrow != value) {
         drawsRoundCornerBesideArrow = value;
         
@@ -945,7 +945,7 @@
 }
 
 
-- (void)setBackgroundImage:(NSImage *)value
+- (void) setBackgroundImage:(NSImage *)value
 {
     if (value) {
         [self setBackgroundColor:[NSColor colorWithPatternImage:value]];

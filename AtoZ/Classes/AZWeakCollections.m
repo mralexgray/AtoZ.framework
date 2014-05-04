@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 11/20/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-
+#import <Zangetsu/Zangetsu.h>
 #import "AZWeakCollections.h"
 
 
@@ -96,23 +96,23 @@
 	return [(WeakReferenceObject *)[array objectAtIndex:index] baseObject];
 }
 
-- (void)insertObject:(id)anObject atIndex:(NSUInteger)index {
+- (void) insertObject:(id)anObject atIndex:(NSUInteger)index {
 	[array insertObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject] atIndex:index];
 }
 
-- (void)addObject:(id)anObject {
+- (void) addObject:(id)anObject {
 	[array addObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject]];
 }
 
-- (void)removeObjectAtIndex:(NSUInteger)index {
+- (void) removeObjectAtIndex:(NSUInteger)index {
 	[array removeObjectAtIndex:index];
 }
 
-- (void)removeLastObject {
+- (void) removeLastObject {
 	[array removeLastObject];
 }
 
-- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
+- (void) replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
 	[array replaceObjectAtIndex:index withObject:[WeakReferenceObject weakReferenceObjectWithObject:anObject]];
 }
 
@@ -163,14 +163,14 @@
 	return [WeakSetEnumerator.alloc initWithSet:set];
 }
 
-- (void)addObject:(id)object {
+- (void) addObject:(id)object {
 	if (object) {
 		WeakReferenceObject *weakObject = [WeakReferenceObject weakReferenceObjectWithObject:object];
 		[set addObject:weakObject];
 	}
 }
 
-- (void)removeObject:(id)object {
+- (void) removeObject:(id)object {
 	WeakReferenceObject *weakObject = [self member:object];
 	if (weakObject) {
 		[set removeObject:weakObject];

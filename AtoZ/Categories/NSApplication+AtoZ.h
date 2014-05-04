@@ -14,9 +14,9 @@
 - (void) setItemArray:(NSA*)items;
 
 - (NSMenuItem *)selectedItem;
-- (void)selectItem:(NSMenuItem *)menuItem;
+- (void) electItem:(NSMenuItem *)menuItem;
 - (NSMenuItem *)selectItemWithRepresentedObject:(id)representedObject;
-- (void)deselectItem;
+- (void) eselectItem;
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag;
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector;
 @end
@@ -26,6 +26,7 @@
 
 @end
 
+OBJC_EXPORT void SetDockIconImage(NSIMG *i);
 
 extern NSString *const kShowDockIconUserDefaultsKey;
 

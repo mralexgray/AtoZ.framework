@@ -22,16 +22,15 @@
 //
 
 #import "WebFetcher.h"
+//#import  <CocoaAsyncSocket/CocoaAsyncSocket.h>
 
 // If you have some means to report progress
 #define PROGRESS_OFFSET 0.25f
 #define PROGRESS_UPDATE(x) ( ((x)*.75f)/(responseLength) + PROGRESS_OFFSET)
 
 @interface WebFetcher ()
-@property(nonatomic, strong, readwrite) NSURLConnection *connection;
-@property(nonatomic, strong, readwrite) NSMutableData *webData;
-@property(nonatomic, assign) NSUI _htmlStatus;
-
+@property(nonatomic, readwrite) NSURLConnection *connection;
+@property(nonatomic, readwrite) NSMutableData *webData;
 @end
 
 @implementation WebFetcher
@@ -44,8 +43,8 @@
 #endif
 + (BOOL)printDebugging 	{ return NO; }						// set to yes for debugging
 - (BOOL)setup				{
-	[super setup];
-	self.thread.name = runMessage;								// debugging crashes
+//	[super setup];
+	[self thread].name = runMessage;								// debugging crashes
 	NSURL *url 	= [NSURL      URLWithString:urlStr];
 	request 		= [NSMURLREQ    requestWithURL:url];
 	return request ? self.connect : NO;

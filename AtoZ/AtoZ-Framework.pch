@@ -1,64 +1,272 @@
 
 #ifdef __OBJC__
 
+//  #import b<RoutingHTTPServer/RoutingHTTPServer.h>
+  #import <AtoZBezierPath/AtoZBezierPath.h>
+  #import <BlocksKit/A2DynamicDelegate.h>
+  #import <BlocksKit/BlocksKit.h>
+  #import <BWTK/BWToolkitFramework.h>
+  #import <CFAAction/CFAAction.h>
+  #import <CocoaPuffs/CocoaPuffs.h>
+  #import <CocoatechCore/CocoatechCore.h>
+  #import <DrawKit/DKDrawKit.h>
+  #import <FunSize/FunSize.h>
+  #import <KSHTMLWriter/KSHTMLWriter.h>
+  #import <MenuApp/MenuApp.h>
+  #import <NMSSH/NMSSH.h>
+  #import <NoodleKit/NoodleKit.h>
+  #import <PhFacebook/PhFacebook.h>
+  #import <Rebel/Rebel.h>
+  #import <AtoZAppKit/AtoZAppKit.h>
 
-//@import ApplicationServices;
-//#import <ApplicationServices/ApplicationServices.h>
-//@import AudioToolbox;
-//#import <AudioToolbox/AudioToolbox.h>
-//@import AVFoundation;
-//#import <AVFoundation/AVFoundation.h>
-//@import Cocoa;
-#import <Cocoa/Cocoa.h>
-//@import CoreServices;
-//#import <CoreServices/CoreServices.h>
-//#import <Dispatch/Dispatch.h>
-#import <Foundation/Foundation.h>
-#import <Foundation/NSObjCRuntime.h>
-#import <QuartzCore/QuartzCore.h>
-//#import <SystemConfiguration/SystemConfiguration.h>
-//#import <WebKit/WebKit.h>
-//#import <objc/runtime.h>
+  #define autorelease self
 
+  #import "AtoZAutoBox/AtoZAutoBox.h"
+//  #import "BaseModel.h"
+//  #import "JREnum.h"
+//
+//  #import "AtoZMacroDefines.h"
+//  #import "AtoZUmbrella.h"
+//  #import "BoundingObject.h"
+//  #import "AtoZGeometry.h"
+//  #import "AtoZCategories.h"
 
-#import <Zangetsu/Zangetsu.h>
-#import <AtoZAppKit/AtoZAppKit.h>
-#import "AtoZAutoBox/AtoZAutoBox.h"
-#import <AtoZBezierPath/AtoZBezierPath.h>
-#import <BlocksKit/A2DynamicDelegate.h>
-#import <BlocksKit/BlocksKit.h>
-#import <BWTK/BWToolkitFramework.h>
-#import <CFAAction/CFAAction.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <CocoatechCore/CocoatechCore.h>
-#import <DrawKit/DKDrawKit.h>
-#import <FunSize/FunSize.h>
-#import <KSHTMLWriter/KSHTMLWriter.h>
-#import <MenuApp/MenuApp.h>
-#import <NMSSH/NMSSH.h>
-#import <NoodleKit/NoodleKit.h>
-#import <PhFacebook/PhFacebook.h>
-#import <Rebel/Rebel.h>
-
-#import "AtoZAutoBox/AtoZAutoBox.h"
-#import "AtoZMacroDefines.h"
-#import "BaseModel.h"
-#import "JREnum.h"
   
-#import "AtoZTypes.h"
-#import "AtoZUmbrella.h"
-#import "AtoZGeometry.h"
 #endif
 
-//	#import <Availability.h>
-//	#import <TargetConditionals.h>
-//	#if TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED
-//	#import <SystemConfiguration/SystemConfiguration.h>
-//	#import <MobileCoreServices/MobileCoreServices.h>
-//	#import <sys/xattr.h>
-//	#else
-//	#import <objc/NSObjCRuntime.h>
+//#define release self
+//#import "AtoZTypes.h"
+//#define JROptionsDeclare(ENUM_TYPENAME...) JREnumDeclare(ENUM_TYPENAME,__VA_ARGS__)
+//#define JROptionsDefine(X) JREnumDefine(X)
+
+
+
+/*! @abstract		Enforcement of compiler warning flags */
+
+#ifndef __clang__
+#error "Please consider using Clang as compiler!"
+#endif
+
 /*
+#ifdef AZWARNINGS 
+
+#pragma clang diagnostic fatal "-Wabi"
+#pragma clang diagnostic fatal "-Waddress-of-temporary"
+#pragma clang diagnostic fatal "-Waddress"
+#pragma clang diagnostic fatal "-Waggregate-return"
+#pragma clang diagnostic fatal "-Wall"
+#pragma clang diagnostic fatal "-Wambiguous-member-template"
+#pragma clang diagnostic fatal "-Warc-abi"
+#pragma clang diagnostic fatal "-Warc-non-pod-memaccess"
+#pragma clang diagnostic fatal "-Warc-retain-cycles"
+#pragma clang diagnostic fatal "-Warc-unsafe-retained-assign"
+#pragma clang diagnostic fatal "-Warc"
+#pragma clang diagnostic fatal "-Watomic-properties"
+#pragma clang diagnostic fatal "-Wattributes"
+#pragma clang diagnostic fatal "-Wavailability"
+#pragma clang diagnostic fatal "-Wbad-function-cast"
+#pragma clang diagnostic fatal "-Wbind-to-temporary-copy"
+#pragma clang diagnostic fatal "-Wbitwise-op-parentheses"
+#pragma clang diagnostic fatal "-Wbool-conversions"
+#pragma clang diagnostic fatal "-Wbuiltin-macro-redefined"
+#pragma clang diagnostic fatal "-Wc++-compat"
+#pragma clang diagnostic fatal "-Wc++0x-compat"
+#pragma clang diagnostic fatal "-Wc++0x-extensions"
+#pragma clang diagnostic fatal "-Wcast-align"
+#pragma clang diagnostic fatal "-Wcast-qual"
+#pragma clang diagnostic fatal "-Wchar-align"
+#pragma clang diagnostic fatal "-Wchar-subscripts"
+#pragma clang diagnostic fatal "-Wcomment"
+#pragma clang diagnostic fatal "-Wcomments"
+#pragma clang diagnostic fatal "-Wconditional-uninitialized"
+#pragma clang diagnostic fatal "-Wconversion"
+#pragma clang diagnostic fatal "-Wctor-dtor-privacy"
+#pragma clang diagnostic fatal "-Wcustom-atomic-properties"
+#pragma clang diagnostic fatal "-Wdeclaration-after-statement"
+#pragma clang diagnostic fatal "-Wdelegating-ctor-cycles"
+#pragma clang diagnostic fatal "-Wdelete-non-virtual-dtor"
+#pragma clang diagnostic fatal "-Wdeprecated-declarations"
+#pragma clang diagnostic fatal "-Wdeprecated-implementations"
+#pragma clang diagnostic fatal "-Wdeprecated-writable-strings"
+#pragma clang diagnostic fatal "-Wdeprecated"
+#pragma clang diagnostic fatal "-Wdisabled-optimization"
+#pragma clang diagnostic fatal "-Wdiscard-qual"
+#pragma clang diagnostic fatal "-Wdiv-by-zero"
+#pragma clang diagnostic fatal "-Wduplicate-method-arg"
+#pragma clang diagnostic fatal "-Weffc++"
+#pragma clang diagnostic fatal "-Wempty-body"
+#pragma clang diagnostic fatal "-Wendif-labels"
+#pragma clang diagnostic fatal "-Wexit-time-destructors"
+#pragma clang diagnostic fatal "-Wextra-tokens"
+#pragma clang diagnostic fatal "-Wextra"
+#pragma clang diagnostic fatal "-Wformat-extra-args"
+#pragma clang diagnostic fatal "-Wformat-nonliteral"
+#pragma clang diagnostic fatal "-Wformat-zero-length"
+#pragma clang diagnostic fatal "-Wformat"
+#pragma clang diagnostic fatal "-Wformat=2"
+#pragma clang diagnostic fatal "-Wfour-char-constants"
+#pragma clang diagnostic fatal "-Wglobal-constructors"
+#pragma clang diagnostic fatal "-Wgnu-designator"
+#pragma clang diagnostic fatal "-Wgnu"
+#pragma clang diagnostic fatal "-Wheader-hygiene"
+#pragma clang diagnostic fatal "-Widiomatic-parentheses"
+#pragma clang diagnostic fatal "-Wignored-qualifiers"
+#pragma clang diagnostic fatal "-Wimplicit-atomic-properties"
+#pragma clang diagnostic fatal "-Wimplicit-function-declaration"
+#pragma clang diagnostic fatal "-Wimplicit-int"
+#pragma clang diagnostic fatal "-Wimplicit"
+#pragma clang diagnostic fatal "-Wimport"
+#pragma clang diagnostic fatal "-Wincompatible-pointer-types"
+#pragma clang diagnostic fatal "-Winit-self"
+#pragma clang diagnostic fatal "-Winitializer-overrides"
+#pragma clang diagnostic fatal "-Winline"
+#pragma clang diagnostic fatal "-Wint-to-pointer-cast"
+#pragma clang diagnostic fatal "-Winvalid-offsetof"
+#pragma clang diagnostic fatal "-Winvalid-pch"
+#pragma clang diagnostic fatal "-Wlarge-by-value-copy"
+#pragma clang diagnostic fatal "-Wliteral-range"
+#pragma clang diagnostic fatal "-Wlocal-type-template-args"
+#pragma clang diagnostic fatal "-Wlogical-op-parentheses"
+#pragma clang diagnostic fatal "-Wlong-long"
+#pragma clang diagnostic fatal "-Wmain"
+#pragma clang diagnostic fatal "-Wmicrosoft"
+#pragma clang diagnostic fatal "-Wmismatched-tags"
+#pragma clang diagnostic fatal "-Wmissing-braces"
+#pragma clang diagnostic fatal "-Wmissing-declarations"
+#pragma clang diagnostic fatal "-Wmissing-field-initializers"
+#pragma clang diagnostic fatal "-Wmissing-format-attribute"
+#pragma clang diagnostic fatal "-Wmissing-include-dirs"
+#pragma clang diagnostic fatal "-Wmissing-noreturn"
+#pragma clang diagnostic fatal "-Wmost"
+#pragma clang diagnostic fatal "-Wmultichar"
+#pragma clang diagnostic fatal "-Wnested-externs"
+#pragma clang diagnostic fatal "-Wnewline-eof"
+#pragma clang diagnostic fatal "-Wnon-gcc"
+#pragma clang diagnostic fatal "-Wnon-virtual-dtor"
+#pragma clang diagnostic fatal "-Wnonnull"
+#pragma clang diagnostic fatal "-Wnonportable-cfstrings"
+#pragma clang diagnostic fatal "-Wnull-dereference"
+#pragma clang diagnostic fatal "-Wobjc-nonunified-exceptions"
+#pragma clang diagnostic fatal "-Wold-style-cast"
+#pragma clang diagnostic fatal "-Wold-style-definition"
+#pragma clang diagnostic fatal "-Wout-of-line-declaration"
+#pragma clang diagnostic fatal "-Woverflow"
+#pragma clang diagnostic fatal "-Woverlength-strings"
+#pragma clang diagnostic fatal "-Woverloaded-virtual"
+#pragma clang diagnostic fatal "-Wpacked"
+#pragma clang diagnostic fatal "-Wparentheses"
+#pragma clang diagnostic fatal "-Wpointer-arith"
+#pragma clang diagnostic fatal "-Wpointer-to-int-cast"
+#pragma clang diagnostic fatal "-Wprotocol"
+#pragma clang diagnostic fatal "-Wreadonly-setter-attrs"
+#pragma clang diagnostic fatal "-Wredundant-decls"
+#pragma clang diagnostic fatal "-Wreorder"
+#pragma clang diagnostic fatal "-Wreturn-type"
+#pragma clang diagnostic fatal "-Wself-assign"
+#pragma clang diagnostic fatal "-Wsemicolon-before-method-body"
+#pragma clang diagnostic fatal "-Wsequence-point"
+#pragma clang diagnostic fatal "-Wshadow"
+#pragma clang diagnostic fatal "-Wshorten-64-to-32"
+#pragma clang diagnostic fatal "-Wsign-compare"
+#pragma clang diagnostic fatal "-Wsign-promo"
+#pragma clang diagnostic fatal "-Wsizeof-array-argument"
+#pragma clang diagnostic fatal "-Wstack-protector"
+#pragma clang diagnostic fatal "-Wstrict-aliasing"
+#pragma clang diagnostic fatal "-Wstrict-overflow"
+#pragma clang diagnostic fatal "-Wstrict-prototypes"
+#pragma clang diagnostic fatal "-Wstrict-selector-match"
+#pragma clang diagnostic fatal "-Wsuper-class-method-mismatch"
+#pragma clang diagnostic fatal "-Wswitch-default"
+#pragma clang diagnostic fatal "-Wswitch-enum"
+#pragma clang diagnostic fatal "-Wswitch"
+#pragma clang diagnostic fatal "-Wsynth"
+#pragma clang diagnostic fatal "-Wtautological-compare"
+#pragma clang diagnostic fatal "-Wtrigraphs"
+#pragma clang diagnostic fatal "-Wtype-limits"
+#pragma clang diagnostic fatal "-Wundeclared-selector"
+#pragma clang diagnostic fatal "-Wuninitialized"
+#pragma clang diagnostic fatal "-Wunknown-pragmas"
+#pragma clang diagnostic fatal "-Wunnamed-type-template-args"
+#pragma clang diagnostic fatal "-Wunneeded-internal-declaration"
+#pragma clang diagnostic fatal "-Wunneeded-member-function"
+#pragma clang diagnostic fatal "-Wunused-argument"
+#pragma clang diagnostic fatal "-Wunused-exception-parameter"
+#pragma clang diagnostic fatal "-Wunused-function"
+#pragma clang diagnostic fatal "-Wunused-label"
+#pragma clang diagnostic fatal "-Wunused-member-function"
+#pragma clang diagnostic fatal "-Wunused-parameter"
+#pragma clang diagnostic fatal "-Wunused-value"
+#pragma clang diagnostic fatal "-Wunused-variable"
+#pragma clang diagnostic fatal "-Wunused"
+#pragma clang diagnostic fatal "-Wused-but-marked-unused"
+#pragma clang diagnostic fatal "-Wvector-conversions"
+#pragma clang diagnostic fatal "-Wvla"
+#pragma clang diagnostic fatal "-Wvolatile-register-var"
+#pragma clang diagnostic fatal "-Wwrite-strings"
+*/
+
+/* Not wanted:*/
+/*
+#pragma clang diagnostic ignored "-Wgnu"
+#pragma clang diagnostic ignored "-Wpadded"
+#pragma clang diagnostic ignored "-Wselector"
+#pragma clang diagnostic ignored "-Wvariadic-macros"
+*/
+
+/*
+* Not recognized by Apple implementation:
+* 
+* #pragma clang diagnostic fatal "-Wdefault-arg-special-member"
+* #pragma clang diagnostic fatal "-Wauto-import"
+* #pragma clang diagnostic fatal "-Wbuiltin-requires-header"
+* #pragma clang diagnostic fatal "-Wc++0x-narrowing"
+* #pragma clang diagnostic fatal "-Wc++11-compat"
+* #pragma clang diagnostic fatal "-Wc++11-extensions"
+* #pragma clang diagnostic fatal "-Wc++11-narrowing"
+* #pragma clang diagnostic fatal "-Wc++98-compat-bind-to-temporary-copy"
+* #pragma clang diagnostic fatal "-Wc++98-compat-local-type-template-args"
+* #pragma clang diagnostic fatal "-Wc++98-compat-pedantic"
+* #pragma clang diagnostic fatal "-Wc++98-compat-unnamed-type-template-args"
+* #pragma clang diagnostic fatal "-Wc1x-extensions"
+* #pragma clang diagnostic fatal "-Wc99-extensions"
+* #pragma clang diagnostic fatal "-Wcatch-incomplete-type-extensions"
+* #pragma clang diagnostic fatal "-Wduplicate-method-match"
+* #pragma clang diagnostic fatal "-Wflexible-array-extensions"
+* #pragma clang diagnostic fatal "-Wmalformed-warning-check"
+* #pragma clang diagnostic fatal "-Wmissing-method-return-type"
+* #pragma clang diagnostic fatal "-Wmodule-build"
+* #pragma clang diagnostic fatal "-WNSObject-attribute"
+* #pragma clang diagnostic fatal "-Wnull-character"
+* #pragma clang diagnostic fatal "-Wobjc-missing-super-calls"
+* #pragma clang diagnostic fatal "-Wobjc-noncopy-retain-block-property"
+* #pragma clang diagnostic fatal "-Wobjc-property-implementation"
+* #pragma clang diagnostic fatal "-Wobjc-protocol-method-implementation"
+* #pragma clang diagnostic fatal "-Wobjc-readonly-with-setter-property"
+* #pragma clang diagnostic fatal "-Woverriding-method-mismatch"
+* #pragma clang diagnostic fatal "-Wsentinel"
+* #pragma clang diagnostic fatal "-Wunicode"
+* #pragma clang diagnostic fatal "-Wunused-comparison"
+* #pragma clang diagnostic fatal "-Wunused-result"
+* #pragma clang diagnostic fatal "-Wuser-defined-literals"
+
+#endif
+
+*/
+
+/*
+//	#import <objc/message.h>
+//	#import <objc/runtime.h>
+//	#import <libkern/OSAtomic.h>
+
+	#import <Availability.h>
+	#import <TargetConditionals.h>
+	#if TARGET_OS_IPHONE && __IPHONE_OS_VERSION_MIN_REQUIRED
+	#import <SystemConfiguration/SystemConfiguration.h>
+	#import <MobileCoreServices/MobileCoreServices.h>
+	#import <sys/xattr.h>
+	#else
+	#import <objc/NSObjCRuntime.h>
+
 	#import <pwd.h>
 	#import <stdio.h>
 	#import <netdb.h>
@@ -75,11 +283,11 @@
 	#import <arpa/inet.h>
 	#import <objc/objc.h>
 	#import <netinet/in.h>
-*/
-//	#import <objc/message.h>
-//	#import <objc/runtime.h>
-//	#import <libkern/OSAtomic.h>
-/*
+
+	#import <objc/message.h>
+	#import <objc/runtime.h>
+	#import <libkern/OSAtomic.h>
+
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
 #import <Quartz/Quartz.h>
@@ -87,7 +295,7 @@
 #import <Python/Python.h>
 
 	#import <dispatch/dispatch.h>
-	#import <WebKit/WebKit.h>
+	#import <WebKit/WebView.h>
 	#import <Foundation/Foundation.h>
 	#import <Security/Security.h>
 	#import <QuartzCore/QuartzCore.h>
@@ -102,7 +310,7 @@
 	#import <Foundation/NSObjCRuntime.h>
 	#import "AZObserversAndBinders.h"
 	#import <TwUI/TUIKit.h>
-	#import <RoutingHTTPServer/RoutingHTTPServer.h>
+
 
 
 //	#import <extobjc_OSX/e.h>
@@ -118,7 +326,7 @@
 	#import <AtoZBezierPath/AtoZBezierPath.h>
 	#import "AtoZAutoBox/AtoZAutoBox.h"
 	#import "KVOMap/KVOMap.h"
-	#import "F.h"
+
 //	#import "GCDAsyncSocket.h"
 //	#import "GCDAsyncSocket+AtoZ.h"
 	#import "objswitch.h"
@@ -135,15 +343,13 @@
 //	#import "GCDAsyncSocket.h"
 //	#import "HTTPServer.h"
 
-*/
-/*	#define EXCLUDE_STUB_PROTOTYPES 1
+	#define EXCLUDE_STUB_PROTOTYPES 1
 	#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 	#import <MenuApp/MenuApp.h>
 #import <Rebel/Rebel.h>
 	#import <KSHTMLWriterKit/KSHTMLWriterKit.h>
 	#import <NanoStore/NanoStore.h>
-*/
-/*
+
 #import <ApplicationServices/ApplicationServices.h>
 #import "BaseModel.h"
 //	#import <AIUtilities/AIUtilities.h>
@@ -151,14 +357,11 @@
 
 	#define release 			self										// Is this right?  Why's mine different?
   #define autorelease 		self										// But shit hits fan without.
-*/
-/*
+
 	#import "AZLog.h"
 	#import "NSUserDefaults+Subscript.h"
 	#import "AZProcess.h"
-*/
 
-/**
 //#endif  //  END AZFRAMEWORK PCH  #ifdef __OBJC__
 #ifndef _OmniBase_assertions_h_
 #define _OmniBase_assertions_h_
@@ -191,8 +394,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
 #define OBASSERT_NOT_REACHED(reason)
 #endif
 #endif // _OmniBase_assertions_h_
-*/
-/*
+
 #endif
 
 #import <MapKit/MapKit.h>
@@ -233,277 +435,277 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  #import "ASIInputStream.h"
  #import "ASINetworkQueue.h"
  #import "ASIProgressDelegate.h"
-*/
- //#import "AssetCollection.h"
- //#import "AtoZ.h"
- //#import "AtoZColorWell.h"
- //#import "AtoZFunctions.h"
- //#import "AtoZGeometry.h"
- //#import "AtoZGridView.h"
- //#import "AtoZGridViewProtocols.h"
- //#import "AtoZInfinity.h"
- //#import "AtoZModels.h"
- //#import "AtoZStack.h"
- //#import "AtoZTypes.h"
- //#import "AtoZUmbrella.h"
- //#import "AtoZWebSnapper.h"
- //#import "AtoZWebSnapperGridViewController.h"
- //#import "AtoZWebSnapperWindowController.h"
- //#import "AutoCoding.h"
- //#import "AZApplePrivate.h"
- //#import "AZASIMGV.h"
- //#import "AZAttachedWindow.h"
- //#import "AZAXAuthorization.h"
- //#import "AZBackground.h"
- //#import "AZBackgroundProgressBar.h"
- //#import "AZBlockView.h"
- //#import "AZBorderlessResizeWindow.h"
- //#import "AZBox.h"
- //#import "AZBoxGrid.h"
- //#import "AZBoxMagic.h"
- //#import "AZButton.h"
- //#import "AZCalculatorController.h"
- //#import "AZCLI.h"
- //#import "AZCLICategories.h"
- //#import "AZCLITests.h"
- //#import "AZCoreScrollView.h"
- //#import "AZCSSColorExtraction.h"
- //#import "AZDarkButtonCell.h"
- //#import "AZDebugLayer.h"
- //#import "AZDockQuery.h"
- //#import "AZExpandableView.h"
- //#import "AZFacebookConnection.h"
- //#import "AZFavIconManager.h"
- //#import "AZFile.h"
- //#import "AZFoamView.h"
- //#import "AZGrid.h"
- //#import "AZHomeBrew.h"
- //#import "AZHostView.h"
- //#import "AZHoverButton.h"
- //#import "AZHTMLParser.h"
- //#import "AZHTTPRouter.h"
- //#import "AZHTTPURLProtocol.h"
- //#import "AZImageToDataTransformer.h"
- //#import "AZIndeterminateIndicator.h"
- //#import "AZInfiniteCell.h"
- //#import "AZInstantApp.h"
- //#import "AZLassoLayer.h"
- //#import "AZLassoView.h"
- //#import "AZLaunchServices.h"
- //#import "AZLayer.h"
- //#import "AZMatrix.h"
- //#import "AZMatteButton.h"
- //#import "AZMatteFocusedGradientBox.h"
- //#import "AZMattePopUpButton.h"
- //#import "AZMattePopUpButtonView.h"
- //#import "AZMatteSegmentedControl.h"
- //#import "AZMedallionView.h"
- //#import "AZMouser.h"
- //#import "AZNamedColors.h"
- //#import "AZPoint.h"
- //#import "AZPopupWindow.h"
- //#import "AZPrismView.h"
- //#import "AZProgressIndicator.h"
- //#import "AZPropellerView.h"
- //#import "AZProportionalSegmentController.h"
- //#import "AZQueue.h"
- //#import "AZRect.h"
- //#import "AZScrollerLayer.h"
- //#import "AZScrollerProtocols.h"
- //#import "AZScrollPaneLayer.h"
- //#import "AZSegmentedRect.h"
- //#import "AZSemiResponderWindow.h"
- //#import "AZSimpleView.h"
- //#import "AZSize.h"
- //#import "AZSizer.h"
- //#import "AZSnapShotLayer.h"
- //#import "AZSound.h"
- //#import "AZSourceList.h"
- //#import "AZSpeechRecognition.h"
- //#import "AZSpinnerLayer.h"
- //#import "AZStopwatch.h"
-//  #import "AZTalker.h"
- //#import "AZTimeLineLayout.h"
- //#import "AZToggleArrayView.h"
- //#import "AZTrackingWindow.h"
- //#import "AZURLSnapshot.h"
- //#import "AZVeil.h"
- //#import "AZWeakCollections.h"
- //#import "AZWikipedia.h"
- //#import "AZWindowExtend.h"
- //#import "AZXMLWriter.h"
-// #import "BaseModel.h"
-// #import "BaseModel+AtoZ.h"
-// #import "BBMeshView.h"
-// #import "BlocksAdditions.h"
-// #import "Bootstrap.h"
-// #import "CAAnimation+AtoZ.h"
-// #import "CALayer+AtoZ.h"
-// #import "CalcModel.h"
-// #import "CAScrollView.h"
-// #import "CAWindow.h"
-// #import "CKAdditions.h"
-// #import "CKMacros.h"
-// #import "CKSingleton.h"
-// #import "ConciseKit.h"
-// #import "ConcurrentOperation.h"
-// #import "CPAccelerationTimer.h"
-// #import "CTBadge.h"
-// #import "CTGradient.h"
-// #import "DDData.h"
-// #import "DDNumber.h"
-// #import "DDRange.h"
-// #import "EGOCache.h"
-// #import "EGOImageLoadConnection.h"
-// #import "EGOImageLoader.h"
-// #import "EGOImageView.h"
-// #import "F.h"
-// #import "GCDAsyncSocket.h"
-// //#import "GTMHTTPFetcher.h"
-// //#import "GTMNSString+HTML.h"
-// #import "HRCoder.h"
-// #import "HTMLNode.h"
-// #import "HTMLParserViewController.h"
-// #import "HTTPAsyncFileResponse.h"
-// #import "HTTPAuthenticationRequest.h"
-// #import "HTTPConnection.h"
-// #import "HTTPDataResponse.h"
-// #import "HTTPDynamicFileResponse.h"
-// #import "HTTPErrorResponse.h"
-// #import "HTTPFileResponse.h"
-// #import "HTTPLogging.h"
-// #import "HTTPMessage.h"
-// #import "HTTPRedirectResponse.h"
-// #import "HTTPResponse.h"
-// #import "HTTPResponseProxy.h"
-// #import "HTTPServer.h"
-// #import "iCarousel.h"
-// #import "IGIsolatedCookieWebView.h"
-// #import "INAppStoreWindow.h"
-// #import "JREnum.h"
-// #import "JsonElement.h"
-// #import "JSONKit.h"
-// #import "KGNoise.h"
-// #import "LetterView.h"
-// #import "LoremIpsum.h"
-// #import "MAAttachedWindow.h"
-// #import "MAKVONotificationCenter.h"
- //#import "MArray.h"
-// #import "MediaServer.h"
-// #import "MetalUI.h"
-// #import "MultipartFormDataParser.h"
-// #import "MultipartMessageHeader.h"
-// #import "MultipartMessageHeaderField.h"
-// #import "NotificationCenterSpy.h"
-// #import "NSApplication+AtoZ.h"
-// #import "NSArray+AtoZ.h"
-// #import "NSArray+ConciseKit.h"
-// #import "NSArray+F.h"
-// #import "NSArray+UsefulStuff.h"
-// #import "NSBag.h"
-// #import "NSBezierPath+AtoZ.h"
-// #import "NSBundle+AtoZ.h"
-// #import "NSCell+AtoZ.h"
-// #import "NSColor+AtoZ.h"
-// #import "NSDate+AtoZ.h"
-// #import "NSDictionary+AtoZ.h"
-// #import "NSDictionary+ConciseKit.h"
-// #import "NSDictionary+F.h"
-// #import "NSError+AtoZ.h"
-// #import "NSEvent+AtoZ.h"
-// #import "NSFileManager+AtoZ.h"
-// #import "NSFont+AtoZ.h"
-// #import "NSHTTPCookie+Testing.h"
-// #import "NSImage-Tint.h"
-// #import "NSImage+AtoZ.h"
-// #import "NSIndexSet+AtoZ.h"
-// #import "AZLogConsole.h"
-// #import "NSNotificationCenter+AtoZ.h"
-// #import "NSNumber+AtoZ.h"
-// #import "NSNumber+F.h"
-// #import "NSObject-Utilities.h"
-// #import "NSObject+AtoZ.h"
-// #import "NSObject+Properties.h"
-// #import "NSOperationStack.h"
-// #import "NSOrderedDictionary.h"
-// #import "NSOutlineView+AtoZ.h"
-// #import "NSScreen+AtoZ.h"
-// #import "NSShadow+AtoZ.h"
-// #import "NSSplitView+DMAdditions.h"
-// #import "NSString+AtoZ.h"
-// #import "NSString+AtoZEnums.h"
-// #import "NSString+ConciseKit.h"
-// #import "NSString+PathAdditions.h"
-// #import "NSString+URLAdditions.h"
-// #import "NSString+UUID.h"
-// #import "NSTableView+AtoZ.h"
-// #import "NSTask+OneLineTasksWithOutput.h"
-// #import "NSTextView+AtoZ.h"
-// #import "NSThread+AtoZ.h"
-// #import "NSURL+AtoZ.h"
-// #import "NSUserDefaults+Subscript.h"
-// #import "NSValue+AtoZ.h"
-// #import "NSView+AtoZ.h"
-// #import "NSWindow_Flipr.h"
-// #import "NSWindow+AtoZ.h"
-//
-// #import "OperationsRunner.h"
-// #import "OperationsRunnerProtocol.h"
-// #import "PreferencesController.h"
-// #import "PXListDocumentView.h"
-// #import "PXListView.h"
-// #import "PXListViewCell.h"
-// #import "PythonOperation.h"
-// #import "RoundedView.h"
-// #import "Route.h"
-// #import "RouteRequest.h"
-// #import "RouteResponse.h"
-// #import "RoutingConnection.h"
-// #import "RoutingHTTPServer.h"
-// #import "RuntimeReporter.h"
-// #import "SDCloseButtonCell.h"
-// #import "SDCommonAppDelegate.h"
-// #import "SDDefines.h"
-// #import "SDFoundation.h"
-// #import "SDInsetDividerView.h"
-// #import "SDInsetTextField.h"
-// #import "SDInstructionsWindow.h"
-// #import "SDInstructionsWindowController.h"
-// #import "SDIsNotEmptyValueTransformer.h"
-// #import "SDNextRunloopProxy.h"
-// #import "SDOpenAtLoginController.h"
-// #import "SDPreferencesController.h"
-// #import "SDRoundedInstructionsImageView.h"
-// #import "SDSingleton.h"
-// #import "SDToolkit.h"
-// #import "SDWindowController.h"
-// #import "SIAppCookieJar.h"
-// #import "SIAuthController.h"
-// #import "SIConstants.h"
-// #import "SIInboxDownloader.h"
-// #import "SIInboxModel.h"
-// #import "SIViewControllers.h"
-// #import "SIWindow.h"
-// #import "SNRHUDButtonCell.h"
-// #import "SNRHUDScrollView.h"
-// #import "SNRHUDSegmentedCell.h"
-// #import "SNRHUDTextFieldCell.h"
-// #import "SNRHUDTextView.h"
-// #import "SNRHUDWindow.h"
-// #import "StandardPaths.h"
-// #import "StarLayer.h"
-//
-// #import "StickyNoteView.h"
-// #import "Transition.h"
-// #import "TransparentWindow.h"
-// #import "TUIView+Dimensions.h"
-// #import "WebFetcher.h"
-// #import "WebSocket.h"
-// #import "WebView+AtoZ.h"
-// #import "XLDragDropView.h"
 
- //#import "AtoZ.h"
- 
+#import "AssetCollection.h"
+#import "AtoZ.h"
+#import "AtoZColorWell.h"
+#import "AtoZFunctions.h"
+#import "AtoZGeometry.h"
+#import "AtoZGridView.h"
+#import "AtoZGridViewProtocols.h"
+#import "AtoZInfinity.h"
+#import "AtoZModels.h"
+#import "AtoZStack.h"
+#import "AtoZTypes.h"
+#import "AtoZUmbrella.h"
+#import "AtoZWebSnapper.h"
+#import "AtoZWebSnapperGridViewController.h"
+#import "AtoZWebSnapperWindowController.h"
+#import "AutoCoding.h"
+#import "AZApplePrivate.h"
+#import "AZASIMGV.h"
+#import "AZAttachedWindow.h"
+#import "AZAXAuthorization.h"
+#import "AZBackground.h"
+#import "AZBackgroundProgressBar.h"
+#import "AZBlockView.h"
+#import "AZBorderlessResizeWindow.h"
+#import "AZBox.h"
+#import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "AZButton.h"
+#import "AZCalculatorController.h"
+#import "AZCLI.h"
+#import "AZCLICategories.h"
+#import "AZCLITests.h"
+#import "AZCoreScrollView.h"
+#import "AZCSSColorExtraction.h"
+#import "AZDarkButtonCell.h"
+#import "AZDebugLayer.h"
+#import "AZDockQuery.h"
+#import "AZExpandableView.h"
+#import "AZFacebookConnection.h"
+#import "AZFavIconManager.h"
+#import "AZFile.h"
+#import "AZFoamView.h"
+#import "AZGrid.h"
+#import "AZHomeBrew.h"
+#import "AZHostView.h"
+#import "AZHoverButton.h"
+#import "AZHTMLParser.h"
+#import "AZHTTPRouter.h"
+#import "AZHTTPURLProtocol.h"
+#import "AZImageToDataTransformer.h"
+#import "AZIndeterminateIndicator.h"
+#import "AZInfiniteCell.h"
+#import "AZInstantApp.h"
+#import "AZLassoLayer.h"
+#import "AZLassoView.h"
+#import "AZLaunchServices.h"
+#import "AZLayer.h"
+#import "AZMatrix.h"
+#import "AZMatteButton.h"
+#import "AZMatteFocusedGradientBox.h"
+#import "AZMattePopUpButton.h"
+#import "AZMattePopUpButtonView.h"
+#import "AZMatteSegmentedControl.h"
+#import "AZMedallionView.h"
+#import "AZMouser.h"
+#import "AZNamedColors.h"
+#import "AZPoint.h"
+#import "AZPopupWindow.h"
+#import "AZPrismView.h"
+#import "AZProgressIndicator.h"
+#import "AZPropellerView.h"
+#import "AZProportionalSegmentController.h"
+#import "AZQueue.h"
+#import "AZRect.h"
+#import "AZScrollerLayer.h"
+#import "AZScrollerProtocols.h"
+#import "AZScrollPaneLayer.h"
+#import "AZSegmentedRect.h"
+#import "AZSemiResponderWindow.h"
+#import "AZSimpleView.h"
+#import "AZSize.h"
+#import "AZSizer.h"
+#import "AZSnapShotLayer.h"
+#import "AZSound.h"
+#import "AZSourceList.h"
+#import "AZSpeechRecognition.h"
+#import "AZSpinnerLayer.h"
+#import "AZStopwatch.h"
+  #import "AZTalker.h"
+#import "AZTimeLineLayout.h"
+#import "AZToggleArrayView.h"
+#import "AZTrackingWindow.h"
+#import "AZURLSnapshot.h"
+#import "AZVeil.h"
+#import "AZWeakCollections.h"
+#import "AZWikipedia.h"
+#import "AZWindowExtend.h"
+#import "AZXMLWriter.h"
+ #import "BaseModel.h"
+ #import "BaseModel+AtoZ.h"
+ #import "BBMeshView.h"
+ #import "BlocksAdditions.h"
+ #import "Bootstrap.h"
+ #import "CAAnimation+AtoZ.h"
+ #import "CALayer+AtoZ.h"
+ #import "CalcModel.h"
+ #import "CAScrollView.h"
+ #import "CAWindow.h"
+ #import "CKAdditions.h"
+ #import "CKMacros.h"
+ #import "CKSingleton.h"
+ #import "ConciseKit.h"
+ #import "ConcurrentOperation.h"
+ #import "CPAccelerationTimer.h"
+ #import "CTBadge.h"
+ #import "CTGradient.h"
+ #import "DDData.h"
+ #import "DDNumber.h"
+ #import "DDRange.h"
+ #import "EGOCache.h"
+ #import "EGOImageLoadConnection.h"
+ #import "EGOImageLoader.h"
+ #import "EGOImageView.h"
+ #import "F.h"
+ #import "GCDAsyncSocket.h"
+ //#import "GTMHTTPFetcher.h"
+ //#import "GTMNSString+HTML.h"
+ #import "HRCoder.h"
+ #import "HTMLNode.h"
+ #import "HTMLParserViewController.h"
+ #import "HTTPAsyncFileResponse.h"
+ #import "HTTPAuthenticationRequest.h"
+ #import "HTTPConnection.h"
+ #import "HTTPDataResponse.h"
+ #import "HTTPDynamicFileResponse.h"
+ #import "HTTPErrorResponse.h"
+ #import "HTTPFileResponse.h"
+ #import "HTTPLogging.h"
+ #import "HTTPMessage.h"
+ #import "HTTPRedirectResponse.h"
+ #import "HTTPResponse.h"
+ #import "HTTPResponseProxy.h"
+ #import "HTTPServer.h"
+ #import "iCarousel.h"
+ #import "IGIsolatedCookieWebView.h"
+ #import "INAppStoreWindow.h"
+ #import "JREnum.h"
+ #import "JsonElement.h"
+ #import "JSONKit.h"
+ #import "KGNoise.h"
+ #import "LetterView.h"
+ #import "LoremIpsum.h"
+ #import "MAAttachedWindow.h"
+ #import "MAKVONotificationCenter.h"
+#import "MArray.h"
+ #import "MediaServer.h"
+ #import "MetalUI.h"
+ #import "MultipartFormDataParser.h"
+ #import "MultipartMessageHeader.h"
+ #import "MultipartMessageHeaderField.h"
+ #import "NotificationCenterSpy.h"
+ #import "NSApplication+AtoZ.h"
+ #import "NSArray+AtoZ.h"
+ #import "NSArray+ConciseKit.h"
+ #import "NSArray+F.h"
+ #import "NSArray+UsefulStuff.h"
+ #import "NSBag.h"
+ #import "NSBezierPath+AtoZ.h"
+ #import "NSBundle+AtoZ.h"
+ #import "NSCell+AtoZ.h"
+ #import "NSColor+AtoZ.h"
+ #import "NSDate+AtoZ.h"
+ #import "NSDictionary+AtoZ.h"
+ #import "NSDictionary+ConciseKit.h"
+ #import "NSDictionary+F.h"
+ #import "NSError+AtoZ.h"
+ #import "NSEvent+AtoZ.h"
+ #import "NSFileManager+AtoZ.h"
+ #import "NSFont+AtoZ.h"
+ #import "NSHTTPCookie+Testing.h"
+ #import "NSImage-Tint.h"
+ #import "NSImage+AtoZ.h"
+ #import "NSIndexSet+AtoZ.h"
+ #import "AZLogConsole.h"
+ #import "NSNotificationCenter+AtoZ.h"
+ #import "NSNumber+AtoZ.h"
+ #import "NSNumber+F.h"
+ #import "NSObject-Utilities.h"
+ #import "NSObject+AtoZ.h"
+ #import "NSObject+Properties.h"
+
+ #import "NSOrderedDictionary.h"
+ #import "NSOutlineView+AtoZ.h"
+ #import "NSScreen+AtoZ.h"
+ #import "NSShadow+AtoZ.h"
+ #import "NSSplitView+DMAdditions.h"
+ #import "NSString+AtoZ.h"
+ #import "NSString+AtoZEnums.h"
+ #import "NSString+ConciseKit.h"
+ #import "NSString+PathAdditions.h"
+ #import "NSString+URLAdditions.h"
+ #import "NSString+UUID.h"
+ #import "NSTableView+AtoZ.h"
+ #import "NSTask+OneLineTasksWithOutput.h"
+ #import "NSTextView+AtoZ.h"
+ #import "NSThread+AtoZ.h"
+ #import "NSURL+AtoZ.h"
+ #import "NSUserDefaults+Subscript.h"
+ #import "NSValue+AtoZ.h"
+ #import "NSView+AtoZ.h"
+ #import "NSWindow_Flipr.h"
+ #import "NSWindow+AtoZ.h"
+
+ #import "OperationsRunner.h"
+ #import "OperationsRunnerProtocol.h"
+ #import "PreferencesController.h"
+ #import "PXListDocumentView.h"
+ #import "PXListView.h"
+ #import "PXListViewCell.h"
+ #import "PythonOperation.h"
+ #import "RoundedView.h"
+ #import "Route.h"
+ #import "RouteRequest.h"
+ #import "RouteResponse.h"
+ #import "RoutingConnection.h"
+ #import "RoutingHTTPServer.h"
+ #import "RuntimeReporter.h"
+ #import "SDCloseButtonCell.h"
+ #import "SDCommonAppDelegate.h"
+ #import "SDDefines.h"
+ #import "SDFoundation.h"
+ #import "SDInsetDividerView.h"
+ #import "SDInsetTextField.h"
+ #import "SDInstructionsWindow.h"
+ #import "SDInstructionsWindowController.h"
+ #import "SDIsNotEmptyValueTransformer.h"
+ #import "SDNextRunloopProxy.h"
+ #import "SDOpenAtLoginController.h"
+ #import "SDPreferencesController.h"
+ #import "SDRoundedInstructionsImageView.h"
+ #import "SDSingleton.h"
+ #import "SDToolkit.h"
+ #import "SDWindowController.h"
+ #import "SIAppCookieJar.h"
+ #import "SIAuthController.h"
+ #import "SIConstants.h"
+ #import "SIInboxDownloader.h"
+ #import "SIInboxModel.h"
+ #import "SIViewControllers.h"
+ #import "SIWindow.h"
+ #import "SNRHUDButtonCell.h"
+ #import "SNRHUDScrollView.h"
+ #import "SNRHUDSegmentedCell.h"
+ #import "SNRHUDTextFieldCell.h"
+ #import "SNRHUDTextView.h"
+ #import "SNRHUDWindow.h"
+ #import "StandardPaths.h"
+ #import "StarLayer.h"
+
+ #import "StickyNoteView.h"
+ #import "Transition.h"
+ #import "TransparentWindow.h"
+ #import "TUIView+Dimensions.h"
+ #import "WebFetcher.h"
+ #import "WebSocket.h"
+ #import "WebView+AtoZ.h"
+ #import "XLDragDropView.h"
+
+#import "AtoZ.h"
+*/ 
  
 
 /*
@@ -582,4 +784,21 @@ STR_CONST(MyOtherConst, "Hello world");
 #define SYNTHESIZE_CONSTS
 #import "myfile.h"
 #undef SYNTHESIZE_CONSTS
+
+//@import ApplicationServices;
+//#import <ApplicationServices/ApplicationServices.h>
+//@import AudioToolbox;
+//#import <AudioToolbox/AudioToolbox.h>
+//@import AVFoundation;
+//#import <AVFoundation/AVFoundation.h>
+//@import Cocoa;
+//@import CoreServices;
+//#import <CoreServices/CoreServices.h>
+//#import <Dispatch/Dispatch.h>
+//#import <SystemConfiguration/SystemConfiguration.h>
+//#import <WebKit/WebView.h>
+//#import <objc/runtime.h>
+//#import <Foundation/NSObjCRuntime.h>
+
+
 */

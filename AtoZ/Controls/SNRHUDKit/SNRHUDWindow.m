@@ -39,7 +39,7 @@
 @end
 
 @interface SNRHUDWindowFrameView : NSView
-- (void)snr_drawTitleInRect:(NSRect)rect;
+- (void) nr_drawTitleInRect:(NSRect)rect;
 @end
 
 @implementation SNRHUDWindow {
@@ -77,7 +77,7 @@
 	return windowContent;
 }
 
-- (void)setContentView:(NSView *)aView
+- (void) setContentView:(NSView *)aView
 {
 	if ([__customContentView isEqualTo:aView]) return;
 	NSRect bounds = self.frame; bounds.origin = NSZeroPoint;
@@ -115,7 +115,7 @@
 
 @implementation SNRHUDWindowFrameView
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void) rawRect:(NSRect)dirtyRect
 {
 	NSRect drawingRect = NSInsetRect(self.bounds, 0.5f, 0.5f);
 	NSBP *path = [NSBP bezierPathWithRoundedRect:drawingRect cornerRadius:SNRWindowCornerRadius
@@ -145,7 +145,7 @@
 	[SNRWindowBorderColor set];
 	[path stroke];}
 
-- (void)snr_drawTitleInRect:(NSRect)titleBarRect
+- (void) nr_drawTitleInRect:(NSRect)titleBarRect
 {
 	NSString *title = [[self window] title];
 	if (!title) { return; }
@@ -165,7 +165,7 @@
 
 @implementation SNRHUDWindowButtonCell
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+- (void) rawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	NSRect drawingRect = NSInsetRect(cellFrame, 1.5f, 1.5f);
 	drawingRect.origin.y = 0.5f;

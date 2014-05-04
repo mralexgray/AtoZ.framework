@@ -1,7 +1,9 @@
 
 #import "AZCLI.h"
 #import "AZGrid.h"
-#import "AtoZUmbrella.h"
+//#import "NSTerminal.h"
+#include <assert.h>
+#include <SystemConfiguration/SystemConfiguration.h>
 
 
 static NSString* _AZCurrentUser;
@@ -25,12 +27,9 @@ void(^fillInTheBlanks)() = ^{
 NSUI  AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
 NSS * AZCurrentUser() { return _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
 
-NSString * AZReadStdin () { NSFileHandle *input;  NSData *inData;
-	input = NSFileHandle.fileHandleWithStandardInput;
-	inData = input.availableData;
+NSString * AZReadStdin () { NSFileHandle *input = NSFileHandle.fileHandleWithStandardInput;  NSData *inData = input.availableData;
 	return [[NSS stringWithUTF8Data:inData] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
 }
-
 
 static NSApplication *sharedApp;		static NSMenuItem *appMenuItem;	static NSMenu *menubar,*appMenu;
 static dispatch_once_t onceToken;	static AZCLIMenu *meths, *fws;	static NSMD	*selectionDecoder;
@@ -45,15 +44,12 @@ typedef id(^eval)(id blockArgs, ...);
 
 -    	   (id) init 						{	if (self != super.init ) return nil;
 
-	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
+//	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
 //	 dCTL	= DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
 //	_stdinHandle = AZSTDIN;		 										// read stdin
-	[@[	@"AZBackground", 	
-//			@"AZGrid", 
-//			@"AZPrismView", @"AZBackground2", 
-//			@"AZBackgroundProgressBar",
-			@"IsometricView"	]each:^(id o) {	
-			[NSClassFromString(o) preview]; }];  // load up some text views... 	*/
+//	[@[	@"AZBackground", @"IsometricView"	]each:^(id o) {	 [NSClassFromString(o) preview]; }];  // load up some text views... 	*/
+//			@"AZGrid", 		@"AZPrismView", @"AZBackground2", @"AZBackgroundProgressBar",
+
 
 	dispatch_once(&onceToken, ^{		int policy  =  NSApplicationActivationPolicyRegular;
 												[sharedApp 	= NSApplication.sharedApplication setActivationPolicy:  policy];
@@ -67,20 +63,24 @@ typedef id(^eval)(id blockArgs, ...);
 +      (void) mainMenu 					{
 
 	__block VoidBlock k = ^{ [NSTerminal readString]; };
-	VoidBlock(^loopBack)(NSS*,const char*) = ^VoidBlock(NSS* inputs, const char *raw){ if (ignoreNext) { ignoreNext = NO; return nil; }
+
+	ScanBlock loopBack = ^(NSS* inputs, const char *raw){ 
+
+    if (ignoreNext) { ignoreNext = NO; return; }
 		LOGCOLORS(@"response rec'd from fws CLI menu ", inputs,ORANGE, nil);
 //		[AZTalker say: NSS.randomDicksonism];
 //		LOGCOLORS(@"you matched: ", [selectionDecoder.allKeys containsObject:inputs] ? selectionDecoder[inputs] : @"NOTHING!", RANDOMPAL, nil );
 //		[$(@"%@",selectionDecoder.allKeys)log];
-		id foundit = [AZCLIMenu valueForIndex:[inputs integerValue]];
-		if (foundit) { [AZTalker say:foundit]; LOG_EXPR(foundit); }ignoreNext = YES;
-		//[NSTerminal clearInputBlocks];
-		return ^{ [NSTerminal printBuffer]; [NSTerminal readString];  }; //[NSTerminal addInputBlock:loopBack];  [NSTerminal readString]; return nil;
+		id foundit  = [AZCLIMenu valueForIndex:[inputs integerValue]];
+		if (foundit) { [AZTalker say:foundit]; LOG_EXPR(foundit); } ignoreNext = YES; 		//[NSTerminal clearInputBlocks];
+		//return ^{ 
+    [NSTerminal printBuffer];
+    [NSTerminal readString];  //[NSTerminal addInputBlock:loopBack];  [NSTerminal readString]; return nil;
 	};
 //	k = ^{   [NSTerminal addInputBlock:loopBack];  	};
 //	void(^rezhuzh)(void) = ^{ [NSTerminal printBuffer];	[NSTerminal readString]; };
 	NSA* methods = @[	@"mainMenu",@"runAClassMethod",	@"envTest",	@"instanceMethodNames", @"frameworkMenu",	@"rainbowArrays",	@"variadicColorLogging",@"processInfo"];
-	[AZCLIMenu addMenuFor:AZBUNDLE.frameworkIdentifiers starting:100 palette:RANDOMPAL];
+	[AZCLIMenu addMenuFor:NSB.azFrameworkIds starting:100 palette:RANDOMPAL];
 //					    input:(TINP)blk { responder(blk); }];// (NSS*(^)(NSS*, const char*))inBlock { responder(inblock); }];  //^NSS*(NSS* inputs, const char * enc){    }];
 	[NSTerminal printString:[[COLORIZE(@"Welcome to AtoZCLI!",				 RANDOMCOLOR, nil)[0] clr]withString:zNL]];
 	[NSTerminal printString:[[COLORIZE(@"Please choose a test option:",	      PURPLE, nil)[0] clr]withString:zNL]];
@@ -114,13 +114,11 @@ typedef id(^eval)(id blockArgs, ...);
 -      (void) envTest						{
   ;;
 //  struct winsize w;	ioctl(0, TIOCGWINSZ, &w);
-
 //	LOGCOLORS($(@"TTYlines: %u.\n", w.ws_row),RED, $(@"TTYColumns:%u\n", w.ws_col), ORANGE, $(@"BUILD_DIR:%s\n", getenv("BUILD_DIR")), GREEN,nil);
 }
--      (NSA*) palette						{ 	return  _palette ?: [NSC colorsInListNamed:@"flatui"]; } //FengShui"]; }
--      (NSC*) nextColor	      	  		{    static NSUI _p = 0; _p++; return [self.palette normal:_p];	}
 -      (void) rainbowArrays 				{ LOGCOLORS(NSS.dicksonBible.words, NSC.randomPalette,nil); }
 -      (void) variadicColorLogging	 	{
+
     LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
 }
 -      (void) textWasEntered:(NSS*)s	{	[AZTalker say: s];				}
@@ -133,16 +131,16 @@ typedef id(^eval)(id blockArgs, ...);
 @end
 
 @implementation AZCLIMenuItem
-+ (instancetype) cliMenuItem:(NSS*)display index:(NSI)index color:(NSC*)c {// action:(VoidBlock)blk {
-	AZCLIMenuItem *m = [self.alloc init];  m.display = display; m .index = index; m.color = c; return m;} //m.actionBlock = blk;  return m; }
++ (INST) cliMenuItem:(NSS*)display index:(NSI)index color:(NSC*)c {
+	AZCLIMenuItem *m = self.new;  m.display = display; m .index = index; m.color = c; return m;} //m.actionBlock = blk;  return m; }
 @end
 
 @implementation AZCLIMenu 			static NSMA* menus = nil; NSMIS *toPrint;
 
-+ (NSS*) menu										{
++ (NSS*) menu         {
 
 	return [[menus objectsAtIndexes:toPrint] reduce:@"" withBlock:^NSS*(NSS* outString, AZCLIMenu* m){  	// kist print "toPrint" indexes.
-		  NSUI maxlen 		= ceil([[m.defaultCollection vFKP:@"display"] lengthOfLongestMemberString] * 1);		// deduce longest string
+		  NSUI maxlen   = ceil([[m.defaultCollection vFKP:@"display"] lengthOfLongestMemberString] * 1);		// deduce longest string
 		  NSUI cols 		= floor(120.f/(float) maxlen);																		// accomodate appropriate number of cols.
 __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1;											// ascertain first index.
 	  	  NSUI maxIndex	= $(@"%lu: ", i + [[m defaultCollection] count]).length; 										// make sure numbers fit nice
@@ -154,20 +152,20 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 								: sum;
 	}]]; }];
 }
-+ (void) hardReset 								{ menus = NSMA.new; toPrint = NSMIS.indexSet; } // resets all
-+ (void) resetPrinter 							{ toPrint = NSMIS.indexSet; }	// just reset printer output, keep referenes.
 
-+ (NSS*) valueForIndex:		  	(NSI)index	{	id winner;
++ (void) resetPrinter { toPrint = NSMIS.indexSet; }	// just reset printer output, keep referenes.
+
++ (NSS*) valueForIndex:(NSI)index	{	id winner;
 
 	return (winner = [[NSA arrayWithArrays:[menus vFKP:@"defaultCollection"]] filterOne:^BOOL(AZCLIMenuItem *o) {
    return o.index == index; }]) ?[winner vFK:@"display"] : nil;
 }
 
-+ (instancetype) addMenuFor:	(NSA*)items
-						 starting:	(NSUI)idx
-						  palette:	(id)p 		{
-//							 input:(TINP)blk 	{
-							 AZCLIMenu *m = self.instance; 	if(!menus) [self hardReset];
++ (INST) addMenuFor:(NSA*)items
+           starting:(NSUI)idx
+					  palette:(id)p         {
+            
+  AZCLIMenu *m = self.instance; 	if(!menus) { menus = NSMA.new; toPrint = NSMIS.indexSet; } // resets all
 	[(NSMA*)[m defaultCollection] addObjectsFromArray:[items nmap:^id(NSS* obj, NSUI  index) {
 		return [AZCLIMenuItem cliMenuItem:obj index:idx + index color:[p normal:index]]; }]];  //action:(VoidBlock)blk];}];
 //	[NSTerminal addInputBlock:blk];
@@ -375,7 +373,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 
 
 @implementation AtoZ (CLIWindow)
-+ (NSW*) popDrawWindow:(BNRBlockViewDrawer)blk {
++ (NSW*) popDrawWindow:(DRAWBLK)blk {
 
 	BOOL running = 		[[NSApplication sharedApplication]isRunning];
 	if (!running) {

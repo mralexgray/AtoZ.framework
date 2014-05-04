@@ -60,14 +60,14 @@ JREnumDefine(AZGridOrder);
 					   shouldDraw:[coder decodeBoolForKey:@"gridShouldDraw"]];
 }
 
-- (void) ncodeWithCoder:(NSCoder *)coder
+- (void) encodeWithCoder:(NSCoder *)coder
 {
 	[coder encodeBool:[self shouldDraw] forKey:@"gridShouldDraw"];
 	[coder encodeObject:[self color] forKey:@"gridColor"];
 	[coder encodeSize:[self unitSize] forKey:@"gridUnitSize"];
 }
 
-- (void) rawRect:(NSRect)drawingRect
+- (void) drawRect:(NSRect)drawingRect
 {
 	if (!self.shouldDraw)
 		return;
@@ -101,7 +101,7 @@ JREnumDefine(AZGridOrder);
 - (void) setDefaultParameters
 {
 
-	if (![AZUSERDEFS objectForKey:AZGridColorDataKey])
+	if (![AZUSERDEFS objectForKey:@"AZGridColorDataKey"])
 	{
 		self.shouldDraw = NO;
 		self.unitSize = NSMakeSize(1.0f, 1.0f);
@@ -109,9 +109,9 @@ JREnumDefine(AZGridOrder);
 	}
 	else
 	{
-		self.shouldDraw = [AZUSERDEFS boolForKey:AZGridShouldDrawKey];
-		self.unitSize = NSMakeSize([AZUSERDEFS floatForKey:AZGridUnitWidthKey], [AZUSERDEFS floatForKey:AZGridUnitHeightKey]);
-		self.color = [NSKeyedUnarchiver unarchiveObjectWithData:[AZUSERDEFS objectForKey:AZGridColorDataKey]];
+		self.shouldDraw = [AZUSERDEFS boolForKey:@"AZGridShouldDrawKey"];
+		self.unitSize = NSMakeSize([AZUSERDEFS floatForKey:@"AZGridUnitWidthKey"], [AZUSERDEFS floatForKey:@"AZGridUnitHeightKey"]);
+		self.color = [NSKeyedUnarchiver unarchiveObjectWithData:[AZUSERDEFS objectForKey:@"AZGridColorDataKey"]];
 	}
 }
 
@@ -228,9 +228,9 @@ JREnumDefine(AZGridOrder);
 	return self.size.max;
 }
 
-- (AZPoint*) pointAtIndex:(NSUInteger)index {
+- (NSP) pointAtIndex:(NSUInteger)index {
 	if (self.count == 0) {
-	return nil;
+	return NSZeroPoint;
 	}
 	
 	AZSize *s = self.size;
@@ -246,7 +246,7 @@ JREnumDefine(AZGridOrder);
 	y = floor(index / s.width);
 	}
 	
-	return [AZPoint pointWithPoint:NSMakePoint(x, y)];
+	return NSMakePoint(x, y); //[AZPoint pointWithPoint:];
 }
 
 - (NSNumber*) indexAtPoint:(NSP)point {

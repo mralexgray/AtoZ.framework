@@ -51,11 +51,11 @@
 	return LogAndReturn(self);
 }
 
-- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
+- (void) nimationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
 	NSLog(@"The ani: %@ stopped with flag %@", theAnimation, AZString(flag));
 }
 
-- (void)sendEvent:(NSE*)e
+- (void) endEvent:(NSE*)e
 {
 	_hit = (AZLayer*)[_content hitTest:[self.contentView convertPoint:e.locationInWindow fromView:nil] forClass:[AZLayer class]] ?: nil;
 	if (_semiResponder  && respondsToString(_semiResponder, @"logString:")) [_semiResponder logString:_hit.debugDescription];//, AZString(e.locationInWindow)];
@@ -233,14 +233,14 @@
 
 #pragma mark - CAAnimationDelegate
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+- (void) nimationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
 	// Remove any sublayers marked for removal
 	//	for ( CALayer *layer in self.sublayers ) [[layer valueForKey:@"toRemove"] boolValue]  ?: [layer removeFromSuperlayer];
 }
 
 // works.  just need to observe
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if (areSame(@"offset",keyPath)) 			[self setNeedsLayout];
 }
@@ -343,7 +343,7 @@
  }
  }	*/
 /*
- - (void)sendEvent:(NSEvent *)theEvent
+ - (void) endEvent:(NSEvent *)theEvent
  {
  [theEvent type] == NSLeftMouseDragged  ? ^{
  //		NSP newp = (NSP) {theEvent.locationInWindow.x, dragStart.y};
@@ -440,7 +440,7 @@
  //	 AZHeightUnderMenu() - unit, unit, unit};
  //		layer.frame = (NSR){ 0, AZHeightUnderMenu() - unit, unit, unit};
  //	= AZRectExceptOriginY(AZRectExceptOriginX(AZRectFromSize(perfectRect.size), (idx-1) * unit + _scrollPoint.x),AZHeightUnderMenu() - obj.boundsWidth);
- //	r.size = AZSizeFromDimension(unit);
+ //	r.size = AZSizeFromDim(unit);
 
 
  //- (void) addTabConstraintsToTab:(CAL*)l {
@@ -607,7 +607,7 @@
 //			 NSWindowCollectionBehaviorTransient];
 //   	} else {
 
-//- (void)setFilter:(NSString *)filterName{
+//- (void) setFilter:(NSString *)filterName{
 //	if ( fid ){	CGSRemoveWindowFilter( cid, wid, fid );	CGSReleaseCIFilter( cid, fid );	}
 //	if ( filterName ) {	CGError error = CGSNewCIFilterByName( cid, (CFStringRef)filterName, &fid );
 //		if ( error == noErr ) 		{	CGSAddWindowFilter( cid, wid, fid, 0x00003001 );
@@ -625,7 +625,7 @@
  click view must be a sub view of the NSWindow contentView
 	*/
 
-//- (void)addClickView:(AZSimpleView *)aView
+//- (void) addClickView:(AZSimpleView *)aView
 //{
 //	if ([aView isDescendantOf:[self contentView]] && [aView respondsToSelector:@selector(subviewClicked:)])
 // _clickViews will maintain a weak ref to aView so we don't need to remove it
@@ -719,7 +719,7 @@
 //		obj.orient = pos;
 //		AddShadow(obj);
 //		obj.cornerRadius = idx == 0 ? AZMaxDim(obj.boundsSize) *.2 : AZMaxDim(obj.boundsSize) *.1;
-//		obj.anchorPoint = AZAnchorPointForPosition(pos);
+//		obj.anchorPoint = AZAnchorPtAligned(pos);
 //		obj.bgC = idx == 0 ? cgWHITE : [[NSColor leatherTintedWithColor:RANDOMCOLOR]CGColor];
 //		//		[obj addConstraints:@[AZConstRelSuperScaleOff(kCAConstraintHeight, .9, 0), AZConstRelSuperScaleOff(kCAConstraintWidth, .9, 0)]];
 //		obj.delegate = self;
@@ -773,7 +773,7 @@
 //	- click in the resize box should resize the window
 //	- click anywhere else will drag the window.
 //
-//- (void)mouseDown:(NSEvent *)event
+//- (void) mouseDown:(NSEvent *)event
 //{
 //	NSPoint pointInView = [self convertPoint:[event locationInWindow] fromView:nil];
 //
@@ -866,7 +866,7 @@
 //
 // Draws the frame of the window.
 //
-//- (void)drawRect:(NSRect)rect
+//- (void) drawRect:(NSRect)rect
 //{
 //	[RED set];
 //	NSRectFill(self.resizeRect);
@@ -941,6 +941,6 @@
 
 //	Then, I implement an animationDidStop:finished: method, that checks for a block at the specified key and executes it if found:
 
-/*	 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag	 {
+/*	 - (void) nimationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag	 {
  animationCompletionBlock theBlock = theAnimation[kAnimationCompletionBlock];
  theBlock ? theBlock() : nil;	 }	*/

@@ -25,7 +25,7 @@
     return sharedMediaServer;
 }
 
-- (void)fetchTweetsForSearch:(NSString *)searchString block:(FetchBlock)block;
+- (void) setchTweetsForSearch:(NSString *)searchString block:(FetchBlock)block;
 {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         NSError *error                          = nil;

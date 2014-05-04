@@ -14,7 +14,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+- (void) pplicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	NSManagedObject *blog = [NSEntityDescription insertNewObjectForEntityForName:@"Foo" inManagedObjectContext:self.managedObjectContext];
 	[blog setValue:[[NSDate date] description] forKey:@"bar"];

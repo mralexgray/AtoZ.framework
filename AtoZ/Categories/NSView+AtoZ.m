@@ -1,113 +1,102 @@
 
-
-#import "CALayer+AtoZ.h"
-#import "AtoZGeometry.h"
-#import "NSView+AtoZ.h"
+#import <WebKit/WebKit.h>
 #import "AtoZ.h"
+#import "NSView+AtoZ.h"
 
-//#import <DrawKit/DKShapeFactory.h>
-
-//@interface NSView ()
-//+ (void)runEndBlock:(void (^)(void))completionBlock;
-//@end
-
-NSRect frameMovedFromPointToPoint(NSRect frame, NSPoint point1, NSPoint point2) {
-	frame.origin.x += point2.x - point1.x;
-	frame.origin.y += point2.y - point1.y;
-	return frame;
-}
-NSRect frameResizedFromPointToPoint(NSRect frame, NSPoint point1, NSPoint point2, int quadrant) {
-	int xMod = (quadrant == 3 || quadrant == 4) ? -1 : 1;
-	int yMod = (quadrant == 2 || quadrant == 3) ? -1 : 1;
-  
-	
-	frame.size.width += xMod * (point2.x - point1.x);
-	frame.size.height += yMod * (point2.y - point1.y);
-	
-	if (xMod < 0) frame.origin.x -= xMod * (point2.x - point1.x);
-	if (yMod < 0) frame.origin.y -= yMod * (point2.y - point1.y);
-	return frame; 
-}
 
 
 @implementation NSView (MoveAndResize)
 
-- (void)setNewFrameFromMouseDrag:(NSRect)newFrame {
+- (void) setNewFrameFromMouseDrag:(NSR)newFrame {
   [[self window] setFrame:newFrame display:YES];
 }
+- (void) trackMouseDragsForEvent:(NSE*)theEvent clickType:(int)clickType{
 
-
-- (void)trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType{
-  NSPoint point1 = NSEvent.mouseLocation;
-		NSRect frame = self.window.frame;		
-		NSEvent *anotherEvent;
-		while ((anotherEvent = [self.window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask])
+  NSP point1 = NSEvent.mouseLocation;
+	NSR frame = self.window.frame;		
+	NSEvent *anotherEvent;
+	while ((anotherEvent = [self.window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask])
            && [anotherEvent type] != NSLeftMouseUp) {
-			NSRect newFrame;
-			NSPoint point2 = NSEvent.mouseLocation;
-			newFrame = clickType ? 	frameResizedFromPointToPoint(frame, point1, point2, clickType):
-											frameMovedFromPointToPoint(frame, point1, point2);
+			NSR newFrame;
+			NSP point2 = NSEvent.mouseLocation;
+			newFrame = clickType  ? AZRectResizedLikePointsInQuad(frame, point1, point2, clickType)
+                            :        AZRectOffsetLikePoints(frame, point1, point2);
  	     [self setNewFrameFromMouseDrag:newFrame];
 		}
 }
+- (void) dragBlock:(void(^)(NSP click,NSP delta,NSMD*context))block mouseUp:(void(^)(void))upBlock {
 
-- (void) dragBlock:(void(^)(NSP click,NSP delta))block mouseUp:(void(^)(void))upBlock {
+//	[self az_overrideSelector:@selector(mouseDown:) withBlock:(__bridge void *)^(id _self, NSE*e){
+  [NSEVENTLOCALMASK:NSLeftMouseDownMask| NSLeftMouseUpMask |NSMouseMovedMask handler:^NSEvent *(NSEvent *e) {
+    if (e.type != NSLeftMouseDownMask) return e;  //		void(^newB)(NSP,NSP,NSMD*) = [block copy];
+    __block NSMD* contextual = NSMD.new;  //		__block NSEvent *eBlock = e;	__block void(^trackBlock)(void) = ^{
+    NSP point1 = [self convertPoint:e.locationInWindow toView:nil]; //      NSP zeroP  = NSZeroPoint; NSP *reference = &zeroP;
+    while (e.type != NSLeftMouseUp) {     //				e = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask
+                                      //											  untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];	@autoreleasepool {
+      NSP point2 = [self convertPoint:e.locationInWindow fromView:nil];
+      NSP delta 	= AZSubtractPoints( point1, point2 );
+      block (point1,delta,contextual);
+    }
+    upBlock();	NSLog(@"MouseUp.. PHEW!!");
+    return e;
+  }];
+//      [[_self nextResponder] mouseUp:e];
+//      SEL sel = @selector(mouseUp:);
+//      void (*superIMP)(id, SEL, NSE*) = [[_self nextResponder] az_superForSelector:sel];
+//      superIMP(_self, sel, e);
 
-	[self az_overrideSelector:@selector(mouseDown:) withBlock:(__bridge void *)^(id _self, NSE*e){
-
-		void(^newB)(NSP,NSP) = [block copy];
-//		__block NSEvent *eBlock = e;
-//		__block void(^trackBlock)(void) = ^{
-			NSPoint point1 		= [_self convertPoint:e.locationInWindow toView:nil];
-			while (e.type != NSLeftMouseUp) {
-				e = [NSApp nextEventMatchingMask:NSLeftMouseDraggedMask|NSLeftMouseUpMask
-											  untilDate:FUTURE inMode:NSEventTrackingRunLoopMode dequeue:YES];
-				@autoreleasepool {
-					NSPoint point2 = [_self convertPoint:e.locationInWindow fromView:nil];
-					NSPoint delta 	= AZSubtractPoints( point1, point2 );
-					newB ( point1, delta );
-				}
-			}
-			upBlock();	NSLog(@"MouseUp.. PHEW!!");
-//			eBlock = nil;
-//		};
-//		trackBlock();
-	}];
+//			eBlock = nil; }; 		trackBlock();
+//	}];
 }
-
-//		SEL sel = @selector(mouseDown:);void (*superIMP)(id, SEL, NSE*) = [_self az_superForSelector:sel];superIMP(_self, sel, e);
-
 @end
 
-NSTimeInterval AZDefaultAnimationDuration = -1; // -1 makes the system provide a default duration
-NSAnimationBlockingMode AZDefaultAnimationBlockingMode = NSAnimationNonblocking;
-NSAnimationCurve AZDefaultAnimationCurve = NSAnimationEaseInOut;
+                   NSTI AZDefaultAnimationDuration      = 1; // -1 makes the system provide a default duration
+NSAnimationBlockingMode AZDefaultAnimationBlockingMode  = NSAnimationNonblocking;
+       NSAnimationCurve AZDefaultAnimationCurve         = NSAnimationEaseInOut;
 
-#import <objc/runtime.h>
+#define ifARGC(...) do { int x = metamacro_argcount(__VA_ARGS__); 
 
-//static char const * const ObjectTagKey = "ObjectTag";
-static char const * const ObjectRepKey = "ObjectRep";
+@implementation NSView (AtoZ) @dynamic onEndLiveResize;
 
-@implementation NSView (ObjectRep)
-@dynamic objectRep;
+- (void) setOnEndLiveResize:(VoidObjBlock)b { static dispatch_once_t onLive;
 
-- (id)objectRep {
-	return objc_getAssociatedObject(self, ObjectRepKey);
+  dispatch_once(&onLive, ^{ [self az_overrideSelector:@selector(viewDidEndLiveResize) withBlock:(__bridge void *)^(id _self){
+
+      VoidBlock xx; if ((xx = objc_getAssociatedObject(_self,@selector(viewDidEndLiveResize)))) xx(_self);
+
+  }]; });
+
+  [self triggerKVO:@"onEndLiveResize" block:^(id _self) {  objc_setAssociatedObject(_self, @selector(viewDidEndLiveResize), [b copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC); }];
 }
 
-- (void)setObjectRep:(id)newObjectRep {
-	objc_setAssociatedObject(self, ObjectRepKey, newObjectRep, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void) setOpaque:(BOOL)x {  static dispatch_once_t uno;
+
+  dispatch_once(&uno, ^{ [self az_overrideSelector:@selector(isOpaque) withBlock:(__bridge void *)^BOOL(id _self){
+
+      return [objc_getAssociatedObject(self, @selector(isOpaque)) bV];
+
+  }]; });
+
+  [self triggerKVO:@"isOpaque" block:^(id _self) {  objc_setAssociatedObject(_self, @selector(isOpaque), @(x), OBJC_ASSOCIATION_RETAIN_NONATOMIC); }];
+
 }
-- (NSImage*) captureFrame
-{
+
+-  (void) setTag:(NSI)t { self.associatedDictionary[@"_AZViewTag"] = @(t);
+
+  if (self.tag != t) 
+    [self az_overrideSelector:@selector(tag) withBlock:(__bridge void *)^NSI(id _self) {
+      return [[_self associatedDictionary] integerForKey:@"_AZViewTag"];
+    }];
+}
+- (NSIMG*) captureFrame             {
 	
-	NSRect originRect = [[self window] convertRectToScreen:[self bounds]]; // toView:[[self window] contentView]];
+	NSR originRect = [self.window convertRectToScreen:self.bounds]; // toView:[[self window] contentView]];
 	
-	NSRect rect = originRect;
+	NSR rect = originRect;
 	rect.origin.y = 0;
-	rect.origin.x += [self window].frame.origin.x;
-	rect.origin.y += [[self window] screen].frame.size.height - [self window].frame.origin.y - [self window].frame.size.height;
-	rect.origin.y += [self window].frame.size.height - originRect.origin.y - originRect.size.height;
+	rect.origin.x += self.window.frame.origin.x;
+	rect.origin.y += self.window.screen.frame.size.height - self.window.frame.origin.y - self.window.frame.size.height;
+	rect.origin.y += self.window.frame.size.height - originRect.origin.y - originRect.size.height;
 	
 	CGImageRef cgimg = CGWindowListCreateImage(rect,
 															 kCGWindowListOptionIncludingWindow,
@@ -117,113 +106,75 @@ static char const * const ObjectRepKey = "ObjectRep";
 	CFRelease(cgimg);
 	return img;
 }
-- (NSView *)viewWithObjectRep:(id)object {
-	// Raise an exception if object is nil
-	if (object == nil) {
-		[NSException raise:NSInternalInconsistencyException format:@"Argument to -viewWithObjectTag: must not be nil"];
-	}
-	
-	// Recursively search the view hierarchy for the specified objectTag
-	if ([self.objectRep isEqual:object]) {
-		return self;
-	}
-	for (NSView *subview in self.subviews) {
-		NSView *resultView = [subview viewWithObjectRep:object];
-		if (resultView != nil) {
-			return resultView;
-		}
-	}
-	return nil;
-}
 
-@end
+SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(needsDisplayForKeys, setNeedsDisplayForKeys, ^{}, ^{ AZBlockSelf(view);
 
-static NSString *ANIMATION_IDENTIFER = @"animation";
-static char const * const ISANIMATED_KEY = "ObjectRep";
-
-@implementation NSObject (AZPreview)
-+ (id) preview {
-
-	return [NSView previewOfClass:self.class];
-	// [[[@"a" classProxy] vFK:AZCLSSTR]performSelector:@selector(preview)];
-//	NSEXPQUOTE(klass)
-
-}
-@end
-#import <QuartzCore/QuartzCore.h>
-#import <ApplicationServices/ApplicationServices.h>
-
-#define ifARGC(...) do { int x = metamacro_argcount(__VA_ARGS__); 
-
-@implementation NSView (AtoZ)
+  if ([self.needsDisplayForKeys isEqual:value]) return;
+  if (self.needsDisplayForKeys.count) [self.needsDisplayForKeys do:^(id k){ [view unbind:k]; }];
+	[self addObserverForKeyPaths:value task:^(id obj, NSS *keyPath) { 		  
+    [view setNeedsDisplay:YES]; if (0) JATLog(@"displaying... because of key:{keyPath}",keyPath);
+	}];
+});
 
 - (NSA*) visibleSubviews          { return [self.subviews filter:^BOOL(id object) { return ![object isHidden]; }]; }
 //} objectsWithValue:@NO forKey:@"isHidden"]; }
--  (CGF) heightOfSubviews         { return [[self.subviews vFK:@"height"] sum].fV; }
--  (CGF) widthOfSubviews          { return [[self.subviews vFK:@"width"] sum].fV; } //return [[self.subviews reduce:@0 withBlock:^id(NSN* sum, NSV* sub) { return [sum plus:@(sub.width)]; }]fV]; }
--  (CGF) heightOfVisibleSubviews  { return [[self.visibleSubviews vFK:@"height"] sum].fV; } // reduce:@0 withBlock:^id(NSN*sum, NSV*sub) { return [sum plus:@(sub.height)]; }]fV]; }
--  (CGF) widthOfVisibleSubviews   { return [[self.visibleSubviews vFK:@"width"] sum].fV; } // reduce:@0 withBlock:^id(NSN*sum, NSV* sub) { return [sum plus:@(sub.width)]; }]fV]; }
+-  (CGF) heightOfSubviews         { return [self.subviews sumFloatWithKey:@"height"]; }
+-  (CGF) widthOfSubviews          { return [self.subviews sumFloatWithKey: @"width"]; } //return [[self.subviews reduce:@0 withBlock:^id(NSN* sum, NSV* sub) { return [sum plus:@(sub.width)]; }]fV]; }
+-  (CGF) heightOfVisibleSubviews  { return [self.visibleSubviews sumFloatWithKey:@"height"]; } // reduce:@0 withBlock:^id(NSN*sum, NSV*sub) { return [sum plus:@(sub.height)]; }]fV]; }
+-  (CGF) widthOfVisibleSubviews   { return [self.visibleSubviews sumFloatWithKey: @"width"]; } // reduce:@0 withBlock:^id(NSN*sum, NSV* sub) { return [sum plus:@(sub.width)]; }]fV]; }
 
 
-+ (instancetype)viewBy:(NSN*)width, ... {	AZVA_ARRAY(width,sizes);
-	return [self viewWithFrame:AZRectFromSize(	!sizes.count				? NSZeroSize
-																					   : sizes.count == 1		? AZSizeFromDimension([sizes[0] fV])
-																						 :											NSMakeSize([sizes[1] fV], [sizes[1] fV]))];
++ (instancetype)        viewBy:(NSN*)dimOne, ... {
+
+  NSParameterAssert(ISA(dimOne,NSN));
+    azva_list_to_nsarray(dimOne,sizes);
+    NSLog(@"sizes:%@", sizes);
+    NSR fr = [NSN rectBy:sizes];
+    NSLog(@"%@", AZString(fr));
+
+    return [self viewWithFrame:fr];
 }
 
-+ (instancetype)viewWithFrame:(NSR)r { return [self.class.alloc initWithFrame:r]; }
++ (instancetype) viewWithFrame:(NSR)r mask:(NSUI)m { return [[self.class.alloc initWithFrame:r] objectBySettingValue:@(m) forKey:@"autoresizingMask"]; }
++ (instancetype) viewWithFrame:(NSR)r { return [self viewWithFrame:r mask:NSSIZEABLE]; }
 
--   (id) getBackground 				{ id bg = nil; 
+//-   (id) background	{ id bg = nil;
 
-	if ( [self respondsToSelector:@selector(background)]) {
-			bg = [(id)self background]; if (bg) return bg;
-	}
-	return objc_getAssociatedObject(self, _cmd); 
-}
-- (void) doSetBackground:(id)bg 	{ 
+//	if ( [self.class instancesRespondToSelector:]) {
+//			bg = [(id)self background]; if (bg) return bg;
+//	}
+//	return objc_getAssociatedObject(self, _cmd); 
+//}
+//- (void) setBackground:(id)bg 	{ 
+//
+//  IF_ICAN_THEN(background,({ 
+//    
+//    NSMethodSignature *s = [self methodSignatureForSelector:@selector(background)];
+//		if (strcmp([bg objCType],[s getArgumentTypeAtIndex:2])) 
+//      return [(id)self setBackground:bg];
+//  }));
 
-	if ([self respondsToSelector:@selector(background)]) {
-		NSMethodSignature *s = [self methodSignatureForSelector:@selector(background)];
-		if (strcmp([bg objCType],[s getArgumentTypeAtIndex:2])) return [(id)self setBackground:bg];
-	}
-
-	id existing = self.getBackground;  if ([existing isEqualTo:bg]) return;	
-
-	objc_setAssociatedObject(self, @selector(getBackground), bg, OBJC_ASSOCIATION_RETAIN_NONATOMIC); 
-	if (existing) return;
-	SEL dRectSelect = @selector(drawRect:);
-	[self az_overrideSelector:dRectSelect withBlock:(__bridge void *)^(id _self, NSRect dRect)	{ 
-		if 			([bg ISKINDA:NSC.class]) NSRectFillWithColor(dRect,((NSView*)_self).background);
-		else if		([bg ISKINDA:NSG.class]) [(NSG*)[_self background] drawInRect:dRect angle:-90];
-		void (*superIMP)(id, SEL, NSR) = [_self az_superForSelector:dRectSelect];
-		superIMP(_self, dRectSelect, dRect);
-	}];
-}
+//	id existing = self.getBackground;  if ([existing isEqualTo:bg]) return;	
+SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
+//	objc_setAssociatedObject(self, @selector(getBackground), bg, OBJC_ASSOCIATION_RETAIN_NONATOMIC); 
+//	IF_RETURN(existing);
+//  if ( 
+  
+    SEL dRectSelect = @selector(drawRect:);
+    [self az_overrideSelector:dRectSelect withBlock:(__bridge void *)^(id _self, NSR dRect)	{ 
+    
+      ISA(value,NSC) ? NSRectFillWithColor(dRect,value) :
+      ISA(value,NSG) ? [(NSG*)value drawInRect:dRect angle:-90] : nil;
+      void (*superIMP)(id, SEL, NSR) = [_self az_superForSelector:dRectSelect];
+      superIMP(_self, dRectSelect, dRect);
+    }];
+    
+})
 
 //SYNTHESIZE_ASC_OBJ_BLOCK( 	needsDisplayForKeys,
 //									setNeedsDisplayForKeys,
 //									^{
 //									
-- (void)setNeedsDisplayForKeys:(NSMA*)keys { __block id view = self;
-	[self addObserverForKeyPaths:keys task:^(id obj, NSString *keyPath) {
-		JATLog(@"displaying... because of key:{keyPath}",keyPath);
-		[view setNeedsDisplay:YES];
-	}];
-}
-
-+ (void) load {
-	[$ swizzleMethod:@selector(setWantsLayer:) with:@selector(swizzleSetWantsLayer:) in:self.class];
-	[$ swizzleMethod:@selector(didMoveToWindow) with:@selector(swizzleDidMoveToWindow) in:self.class];
-
-}
-- (void) swizzleDidMoveToWindow {
-	[self swizzleDidMoveToWindow];
-	[AZNOTCENTER postNotificationName:NSViewDidMoveToWindowNotification object:self userInfo:@{@"window":self.window}];
-}
-- (void) swizzleSetWantsLayer:(BOOL)yeah {
-	[self swizzleSetWantsLayer:yeah];
-	[(CAL*)self.layer setHostView:self];
-}
 
 
 - (NSV*) dragSubviewWihEvent:(NSE*)e { 
@@ -276,22 +227,26 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	}
 	return(YES);
 }
+//  self.window.contentView == self ? [self.window setContentView:newSplt] :
 */
+- (CAL*) guaranteedLayer {  return self.layer ?: self.setupHostView; }
 
-- (NSSplitView*) split { NSRect r = self.frame; NSView *oldSuper = self.superview ?: self; BOOL selfIsSuper = oldSuper == self;
+- (NSSplitView*) split {
 
-	NSSplitView *s = [NSSplitView.alloc initWithFrame:r];
-	[oldSuper performSelectorOnMainThread:@selector(addSubview:) withObject:s];
-	s.subviews = @[selfIsSuper ? [NSView.alloc initWithFrame:r] : self, [NSView.alloc initWithFrame:r]];
-	s.vertical = ![self ISKINDA:NSSplitView.class] ?: ![(NSSplitView*)self isVertical];
-	s.dividerStyle = NSSplitViewDividerStyleThick;
-	s.autoresizingMask 	= ((NSView*)s.subviews[0]).autoresizingMask = ((NSView*)s.subviews[1]).autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
-	return s;
+	NSSPLTV *newSplt = nil;
+  @synchronized(self) {
+    newSplt = [NSSPLTV viewWithFrame:self.bounds mask:self.autoresizingMask];
+    newSplt.vertical              = ISA(self,NSSPLTV) ? !((NSSPLTV*)self).isVertical : YES;
+    newSplt.dividerStyle          = NSSplitViewDividerStyleThick;
+    __strong __typeof__(self) selfish = ISA(self,NSClipView) ? self.enclosingScrollView : self;
+    [self isEqual:self.window.contentView] ? [self.window setContentView:newSplt]
+                                           : [self.superview addSubview:newSplt];
+    newSplt.subviews = @[selfish, [AZSimpleView withFrame:self.bounds color:AtoZ.globalPalette.nextNormalObject]];
+  }
+	return newSplt;
 }
-
-- (void) debug { [self debuginQuadrant:AZQuadBotLeft]; }
-
-- (void) debuginQuadrant:(AZQuad)q {
+- (void) debug                      { [self debuginQuadrant:AZQuadBotLeft]; }
+- (void) debuginQuadrant:(AZQuad)q  {
 	
 	NSD* attrs = @{	NSForegroundColorAttributeName:WHITE, 
 							NSFontAttributeName:[NSFont fontWithName:@"UbuntuMono-Bold" size:18], 
@@ -316,7 +271,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 		if (!c) [l setValue: c = RANDOMCOLOR forKey:@"alexColor"];
 		NSRectFillWithColor(l.bounds,[c alpha:.8]);
 		l.arMASK = resize;
-//		l.anchorPoint = AZAnchorPointForPosition(q);
+//		l.anchorPoint = AZAnchorPtAligned(q);
 		[title drawInRect:l.bounds];
 		theL = l;
 	}]];
@@ -349,9 +304,8 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 }
 
-// this is a fun one.  we are going to make a new window
-// and put ourselves into it (taking ourselves out of the old window)
--(void)goFullScreen {
+// this is a fun one.  we are going to make a new window and put ourselves into it (taking ourselves out of the old window)
+- (void) goFullScreen {
 	
 	// get the screen that we want to go to
 	__block CGF area = 0; __block NSUI x;
@@ -417,7 +371,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	// now do some hocus pocus on the old window to squeeze it down
 	// because taking myself out left a big hole
 //	oldWindowFrame = [self.oldWindow frame];
-//	NSRect squished = oldWindowFrame;
+//	NSR squished = oldWindowFrame;
 //	squished.size.height -= NSHeight(oldFrame);
 //	squished.origin.y += NSHeight(oldFrame);
 //	[[self.oldWindow animator] setFrame:(NSR){{ display:YES];
@@ -427,22 +381,16 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 //	[fullScreenButton setAction:@selector(closeFullScreenWindow:)];
 }
 
-//- (NSManagedObjectContext*)managedObjectContext {
-// return [((NSObject*)[[self.window windowController] document]) managedObjectContext];
-//}
+- (AZWT*) preview	{ // [[[@"a" classProxy] vFK:AZCLSSTR]performSelector:@selector(preview)];
 
-
-+ (id) preview	{	
-	return [self.class previewOfClass:self.class];
-}
-+(id) previewOfClass:(Class)klass {	
-
-	AZWindowTab *window = [AZWindowTab new];
-	[window setView:[klass.alloc initWithFrame:NSZeroRect]];
-	[window makeKeyAndOrderFront: nil]; return window;
+	AZWindowTab *w = AZWindowTab.new; w.View = self; [w makeKeyAndOrderFront:nil]; return w;
 }
 
--(CALayer *)layerFromContents		{
++ (AZWT*) preview	{ return [NSView previewOfClass:self.class];  }
+
++ (AZWT*) previewOfClass:(Class)klass { return [(NSV*)[klass.alloc initWithFrame:NSZeroRect] preview]; }
+
+-  (CAL*) layerFromContents		{
 
 	CALayer *newLayer = CALayer.layer;
 	newLayer.bounds = NSRectToCGRect(self.bounds);
@@ -451,69 +399,62 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	newLayer.contents =  [NSIMG.alloc initWithData:bitmapRep.TIFFRepresentation];
 	return newLayer;
 }
-
 - (NSBP*) path {  return [NSBP bezierPathWithRect:self.bounds]; }
-
-- (CGF) maxDim { return AZMaxDim(self.size); }
-- (CGF) minDim { return AZMinDim(self.size); }
-
+-   (CGF) maxDim { return AZMaxDim(self.size); }
+-   (CGF) minDim { return AZMinDim(self.size); }
 
 - (NSV*) autosizeable { self.arMASK = NSSIZEABLE; return self; }
-
-
 // setup 3d transform
-- (void) setZDistance: (NSUInteger) zDistance
-{
+- (void) setZDistance:(NSUI)zDistance {
 	CATransform3D aTransform = CATransform3DIdentity;
 	aTransform.m34 = -1.0 / zDistance;
 	if (!self.layer) [self setupHostView];
 	self.layer.sublayerTransform = aTransform;
 }
 
-- (CGP)layerPoint:(NSEvent*)event;
-{
-	return [self convertPointToLayer:[self convertPoint:event.locationInWindow fromView:nil]];
-}
-- (CGP)layerPoint:(NSEvent*)event toLayer:(CAL*)layer;
-{
-	return [self.layer convertPoint:[self layerPoint:event] toLayer:layer];
-}
+- (CGP)layerPoint:(NSE*)e                 { return [self convertPointToLayer:[self convertPoint:e.locationInWindow fromView:nil]]; }
+- (CGP)layerPoint:(NSE*)e toLayer:(CAL*)l { return [self.layer convertPoint:[self layerPoint:e] toLayer:l];                        }
 
-- (void) observeFrameChange: (void(^)(NSV*))block; {
-	self.postsFrameChangedNotifications  =	self.postsBoundsChangedNotifications = YES;
+@dynamic postsRectChangedNotifications;
+
+- (BOOL) postsRectChangedNotifications            { return self.postsBoundsChangedNotifications && self.postsFrameChangedNotifications; }
+- (void) setPostsRectChangedNotifications:(BOOL)x { self.postsBoundsChangedNotifications = self.postsFrameChangedNotifications = x;     }
+
+- (void) observeFrameChange: (void(^)(NSV*))block; { self.postsRectChangedNotifications = YES;
+
 	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
 		[self observeName:name usingBlock:^(NSNOT*n) {	block(self); }]; }];
 }
+- (void) observeFrameChangeUsingBlock:(void(^)(void))block	{ self.postsRectChangedNotifications = YES;
 
-- (void) observeFrameChangeUsingBlock:(void(^)(void))block	{
-	self.postsFrameChangedNotifications  =	self.postsBoundsChangedNotifications = YES;
 	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
 										[self observeName:name usingBlock:^(NSNOT*n) {	block();	}]; }];
 }
+- (void) observeFrameNotifications:(void(^)(NSNOT*n))block  {  self.postsRectChangedNotifications = YES;
 
-- (void) observeFrameNotifications:(void(^)(NSNOT*n))block
-{
-	self.postsFrameChangedNotifications  =  self.postsBoundsChangedNotifications = YES;
-	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
-									[self observeName:name usingBlock:^(NSNOT*n) {	 block(n);	}]; }];
+	for (id name in @[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification])
+    [self observeName:name usingBlock:^(NSNOT*n) {	block(n);	}];
+
+//	[@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] each:^(NSS* name){
+//  [AZNOTCENTER addObserverForKeyPaths:@[NSViewFrameDidChangeNotification, NSViewBoundsDidChangeNotification] task:^(id obj, NSString *keyPath) {
+//    [obj isEqual:self] ? block()
+//									[self observeName:name usingBlock:^(NSNOT*n) {	 block(n);	}]; }];
 }
 
-- (BOOL)isSubviewOfView:(NSView*) theView
-{
+- (BOOL) isSubviewOfView:(NSV*)theView  {
 	__block BOOL isSubView = NO;
 	[[theView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([self isEqualTo:(NSView*) obj]) {
+		if ([self isEqualTo:(NSV*) obj]) {
 			isSubView = YES;
 			*stop = YES;
 		}
 	}];
 	return isSubView;
 }
-- (BOOL)containsSubView:(NSView*) subview
-{
+- (BOOL) containsSubView:(NSV*)subview  {
 	__block BOOL containsSubView = NO;
 	[[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([subview isEqualTo:(NSView*) obj]) {
+		if ([subview isEqualTo:(NSV*) obj]) {
 			containsSubView = YES;
 			*stop = YES;
 		}
@@ -521,79 +462,13 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return containsSubView;
 }
 
-- (void)setCenter:(NSPoint)center
-{
-	[self setFrameOrigin:NSMakePoint(floorf(center.x - (NSWidth([self bounds])) / 2),
-												floorf(center.y - (NSHeight([self bounds])) / 2))];
-}
-- (NSPoint)getCenter
-{
-	return NSMakePoint(floorf(self.bounds.origin.x + (self.bounds.size.width / 2)),
-							 floorf(self.bounds.origin.y + (self.bounds.size.height / 2)));
-}
-- (NSPoint)getCenterOnFrame
-{
-	return NSMakePoint(floorf(self.frame.origin.x + (self.frame.size.width / 2)),
-							 floorf(self.frame.origin.y + (self.frame.size.height / 2)));
-}
-
-- (void) maximize{
-	NSRect r = [self.window.contentView bounds];
-	self.autoresizesSubviews = YES;
-	self.autoresizingMask = NSSIZEABLE;
-	[self setFrame:r];
-	[self setNeedsDisplay:YES];
-	
-}
-//@dynamic center;
-- (NSRect) centerRect:(NSRect) aRect onPoint:(NSPoint) aPoint
-{
-	float
-	height = NSHeight(aRect),
-	width = NSWidth(aRect);
-	
-	return NSMakeRect(aPoint.x-(width/2.0), aPoint.y - (height/2.0), width, height);
-}
-
-- (void) centerOriginInBounds { [self centerOriginInRect:[self bounds]];  }
-- (void) centerOriginInFrame { [self centerOriginInRect:[self convertRect:[self frame] fromView:[self superview]]];  }
-- (void) centerOriginInRect:(NSRect) aRect  { [self translateOriginToPoint:NSMakePoint(NSMidX(aRect), NSMidY(aRect))]; }
-- (void) slideDown {
-	
-	NSRect newViewFrame;
-	if ([self valueForKeyPath:@"dictionary.visibleRect"] ) {
-		newViewFrame = 	[[self valueForKeyPath:@"dictionary.visibleRect"]rectValue];
-	} else {
-		/*		id aView = [ @[ self, [ self superview], [self window]] filterOne:^BOOL(id object) {
-		 return  [object respondsToSelector:@selector(orientation)] ? YES : NO ;
-		 }];
-		 if  (aView) { 	AZOrient b = (AZOrient)[aView valueForKey:@"orientation"];
-		 //		NSLog(@"computed orentation  %ld", b);
-		 NSLog(@"computed orentation %@", AZOrientName[b]);
-		 }
-		 */		newViewFrame = AZMakeRectFromSize([[self superview]frame].size);
-		//		AZRectVerticallyOffsetBy( [self frame], -[self frame].size.height);
-	}
-	
-	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"frame"];
-	[animation setFromValue:AZVrect([self frame])];
-	[animation setToValue:	AZVrect(newViewFrame)];
-	
-	//	CABasicAnimation *fader = [CABasicAnimation animationWithKeyPath:@"alphaValue"];
-	//	[fader setFromValue:@0.f];
-	//	[fader setToValue:@1.f];
-	[self setAnimations:	@{ @"frame" : animation}];
-	
-	[[self animator] setFrame:newViewFrame];
-}
-
--(void) slideUp {
+- (void) slideUp      {
 	
 	if (! [self valueForKeyPath:@"dictionary.visibleRect"] ) {
 		NSLog(@"avaing cvisirect: %@", NSStringFromRect([self frame]));
 		[self setValue:AZVrect([self frame]) forKeyPath:@"dictionary.visibleRect"];
 	}
-	NSRect newViewFrame = [self frame];
+	NSR newViewFrame = [self frame];
 	AZWindowPosition r = AZPositionOfQuadInRect([[self window]frame], AZScreenFrameUnderMenu());
 	NSSize getOut = AZDirectionsOffScreenWithPosition(newViewFrame,r);
 	newViewFrame.size.width  += getOut.width;
@@ -605,35 +480,46 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[[self animator] setFrame:newViewFrame];
 }
 
-- (NSA*)allSubviews {
-	NSMutableArray *allSubviews = [NSMutableArray arrayWithObject:self];
+- (NSA*) subviewsRecursive { return [self.subviews reduce:nil withBlock:^id(NSMA* sum, NSV* obj) {
+    sum = sum ?: @[].mutableCopy;
+    if (!obj.subviews.count) [sum addObject:obj];
+    else [sum addObjectsFromArray:obj.subviewsRecursive];
+		return [sum count] ? sum : nil;
+	}];
+}
+
+- (id) lastLastSubview { NSA* x; return (x = self.subviewsRecursive).count ? x.last : nil; }
+
+- (id) lastSplitPane { NSA *a = self.subviewsRecursive; return !a.count ? nil : (a = [a arrayOfClass:NSSPLTV.class]).count ? [a.last lastSubview] : nil; }
+
+- (NSA*) allSubviews  {
+
+	NSMA *allSubviews = [NSMutableArray arrayWithObject:self];
 	NSArray *subviews = [self subviews];
 	for (NSView *view in subviews) {
 		[allSubviews addObjectsFromArray:[view allSubviews]];
 	}
-	return [allSubviews copy];
+	return allSubviews;
 }
--(void)setAnimationIdentifer:(NSS*)newAnimationIdentifer{
+
+static        NSS * ANIMATION_IDENTIFER   = @"animation";
+static char const * const ISANIMATED_KEY  = "ObjectRep";
+
+- (void) setAnimationIdentifer:(NSS*)newAnimationIdentifer{
 	objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+- (NSS*) animationIdentifer { return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER); }
 
--(NSString*)animationIdentifer{
-	return objc_getAssociatedObject(self, &ANIMATION_IDENTIFER);
-}
-
--(void) replaceSubviewWithRandomTransition:(NSView *)oldView with:(NSView *)newView
-{
+- (void) replaceSubviewWithRandomTransition:(NSV*)oldView with:(NSV*)newView {
 	BOOL hasLayer = (self.layer == nil);
 	if (!hasLayer) [self setWantsLayer:YES];
 	[self setAnimations:@{@"subviews":[CATransition randomTransition]}];
 	[self replaceSubview:oldView with:newView];
 	if (!hasLayer) [self setWantsLayer:NO];
 }
-
-- (void) swapSubs:(NSView*)view;
-{
-	NSS* firstID = [[self firstSubview]identifier];
-	[[self firstSubview]fadeOut];
+- (void) swapSubs:(NSV*)view {
+	NSS* firstID = [self.firstSubview vFK:@"identifier"];
+	[self.firstSubview fadeOut];
 	[self removeAllSubviews];
 	
 	[view setHidden:YES];
@@ -643,9 +529,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	NSLog(@"Swapped subview: %@ for %@", firstID, view);
 }
 
--(NSPoint) center {
-	return AZCenterOfRect ([self frame]);
-}
+
 
 //-(void)setCenter:(NSPoint)center {
 //	objc_setAssociatedObject(self, &ISANIMATED_KEY, NSPoiu numberWithBool:animated], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -684,8 +568,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	i.name = name;
 	return i;
 }
--(CALNH*) setupHostViewNoHit {
-	CALNH *layer = [CALNH layerNamed:@"root"];
+-(CAL*) setupHostViewNoHit {
+
+	CAL *layer = [[CAL noHitLayer] objectBySettingValue:@"root" forKey:@"name"];
 	[self setLayer:layer];
 	[self setWantsLayer:YES];
 	NSLog(@"setup NOHIT hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
@@ -693,42 +578,45 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 //@synthesize  zLayer;
 
-- (CAL*)zLayer {return self.setupHostView; }
+- (CAL*) zLayer {return self.setupHostView; }
 
--(CALayer*) setupHostView {
-	if (self.layer) return self.layer; 
-	CALayer *layer = [CALayer layerNamed:@"root"];
-	layer.hostView = self;
-	
-	//	layer.frame = [self bounds];
-	//	layer.position = [self center];
-	//	layer.bounds = [self bounds];
-	//	layer.needsDisplayOnBoundsChange = YES;
-	//	layer.backgroundColor = cgRANDOMCOLOR;
-	//	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
-	self.layer 			= layer;
-	self.wantsLayer 	= YES;
+-(CAL*) setupHostView { IF_RETURNIT(self.layer);
+
+  CAL *l          = CAL.layer;
+  self.layer      = l;
+  self.wantsLayer = YES;
+	return l;
+//  XX(self.description);
+//  XX(self.superviews);
+//  XX(self.layer);
+////	CALayer *layer = [CALayer layerNamed:@"root"];
+//	layer.hostView = self;
+//	layer.frame = [self bounds];
+//	layer.position = [self center];
+//	layer.bounds = [self bounds];
+//	layer.needsDisplayOnBoundsChange = YES;
+//	layer.backgroundColor = cgRANDOMCOLOR;
+//	layer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+//	self.layer 			= layer;
+//	self.wantsLayer 	= YES;
 	//	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
-	return layer;
 }
-- (NSView *)firstSubview
-{
-	return [self.subviews count] == 0 ? nil: self.subviews[0];
+- (id)firstSubview { return self.subviews.count ? self.subviews.first : nil; }
+- (void) setFirstSubview:(id)firstSubview {
+  NSParameterAssert(ISA(firstSubview,NSV));
+  self.subviews = [@[firstSubview] arrayByAddingAbsentObjectsFromArray:self.subviews];
 }
+- (id) lastSubview { return self.subviews.count ? self.subviews.last  : nil; }
 
-- (NSView *)lastSubview {
-	return self.subviews.count == 0 ? nil : [self.subviews lastObject];
-}
+- (void) setLastSubview:(NSV*)view { if ([self.subviews doesNotContainObject:view]) [self addSubview:view];
 
-- (void)setLastSubview:(NSView *)view {
-	[self addSubview:view];
 }
 
 //Remove all the subviews from a view
 - (void)removeAllSubviews;
 {
 	NSEnumerator* enumerator = [[self subviews] reverseObjectEnumerator];
-	NSView* view;
+	NSV* view;
 	
 	while (view = [enumerator nextObject])
 		[view removeFromSuperviewWithoutNeedingDisplay];
@@ -753,11 +641,11 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return area;
 }
 
--(NSTrackingArea *)trackAreaWithRect:(NSRect)rect {
+-(NSTrackingArea *)trackAreaWithRect:(NSR)rect {
 	return [self trackAreaWithRect:rect userInfo:nil];
 }
 
--(NSTrackingArea *)trackAreaWithRect:(NSRect)rect
+-(NSTrackingArea *)trackAreaWithRect:(NSR)rect
 									 userInfo:(NSD*)context
 {
 	NSTrackingAreaOptions options = NSTrackingMouseEnteredAndExited
@@ -813,7 +701,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	[self.layer removeAllAnimations];
 }
 - (void)resizeFrameBy:(int)value {
-	NSRect frame = [self frame];
+	NSR frame = [self frame];
 	[[self animator]setFrame:CGRectMake(frame.origin.x,
 													frame.origin.x,
 													frame.size.width + value,
@@ -829,15 +717,16 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	animationDetails[NSViewAnimationTargetKey] = self;
 	return @[animationDetails];
 }
-+ (NSViewAnimation*) animationWithDefaultsWithAnimations:(NSArray*)anis {
++ (NSViewAnimation*) animationWithDefaultsWithAnimations:(NSA*)anis {
 
-	NSViewAnimation *ani = [NSViewAnimation.alloc initWithViewAnimations:anis];
+	NSVA *ani                   = [NSVA.alloc initWithViewAnimations:anis];
 	ani.animationBlockingMode 	= AZDefaultAnimationBlockingMode;
-	ani.duration 					= AZDefaultAnimationDuration;
-	ani.animationCurve 			= AZDefaultAnimationCurve;
+	ani.duration                = AZDefaultAnimationDuration;
+	ani.animationCurve          = AZDefaultAnimationCurve;
 	return ani;
 }
 - (void)playAnimationWithParameters:(NSD*)params	{
+
 	NSViewAnimation *animation = [self.class animationWithDefaultsWithAnimations:[self animationArrayForParameters:params]];
 	[animation setDelegate:(id)self];
 	[animation startAnimation];
@@ -854,8 +743,16 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 }
 
 - (void)fadeWithEffect:effect	{ [self playAnimationWithParameters:@{	NSViewAnimationEffectKey: effect}];	}
-- (void)fadeOut 					{ [self fadeWithEffect:NSViewAnimationFadeOutEffect];								}
-- (void)fadeIn						{ [self fadeWithEffect:NSViewAnimationFadeInEffect];								}
+- (void)fadeOut               {
+
+  self.layer ? [self.layer fadeOut] : [self fadeWithEffect:NSViewAnimationFadeOutEffect];
+}
+- (void)fadeIn                {
+
+  //[self.subviews makeObjectsPerformSelector:_cmd];
+  self.layer ? [self.layer fadeIn] : [self fadeWithEffect:NSViewAnimationFadeInEffect];
+}
+
 - (void)animateToFrame:(NSR)n	{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n)}];	}
 - (void)fadeToFrame:(NSR)n		{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n),
 																						 	NSViewAnimationEffectKey  : self.isHidden ?
@@ -868,7 +765,7 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 - (NSImage *) snapshot { return [self snapshotFromRect:[self frame]]; }
 
 //  This method creates a new image from a portion of the receiveing view.
-- (NSImage *) snapshotFromRect:(NSRect) sourceRect; {
+- (NSImage *) snapshotFromRect:(NSR) sourceRect; {
 	NSImage *snapshot = [NSImage.alloc initWithSize:sourceRect.size];
 	[self lockFocus];
 	NSBitmapImageRep *rep = [NSBitmapImageRep.alloc initWithFocusedViewRect:sourceRect];
@@ -895,9 +792,9 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 
 /////[i convertPoint: [[i window] convertScreenToBase:[NSEvent mouseLocation]] fromView: nil ]
 - (NSP) windowPoint 	{
-	NSPoint globalLocation 	= NSE.mouseLocation;
-	NSPoint windowLocation 	= [self.window convertScreenToBase:globalLocation];
-	NSPoint viewLocation 		= [self convertPoint: windowLocation fromView: nil];
+	NSP globalLocation 	= NSE.mouseLocation;
+	NSP windowLocation 	= [self.window convertScreenToBase:globalLocation];
+	NSP viewLocation 		= [self convertPoint: windowLocation fromView: nil];
 	return viewLocation;
 }
 - (NSP) localPoint	{ return [self convertPoint: [self.window convertScreenToBase:mouseLoc()] fromView:nil];
@@ -917,28 +814,28 @@ static char const * const ISANIMATED_KEY = "ObjectRep";
 	return;
 }
 
-@end
 
-void AZMoveView(NSView* view, CGF dX, CGF dY) {
-	NSRect frame = [view frame] ;
+- (CAL*) hitTestLayer { return [self.layer hitTest:self.windowPoint]; }
+
+@end
+void AZMoveView(NSV* view, CGF dX, CGF dY) {
+	NSR frame = [view frame] ;
 	frame.origin.x += dX ;
 	frame.origin.y += dY ;
 	[view setFrame:frame] ;
 }
-
-void AZResizeView(NSView* view, CGF dX, CGF dY) {
-	NSRect frame = [view frame] ;
+void AZResizeView(NSV* view, CGF dX, CGF dY) {
+	NSR frame = [view frame] ;
 	frame.size.width += dX ;
 	frame.size.height += dY ;
 	[view setFrame:frame] ;
 }
-
-void AZResizeViewMovingSubviews(NSView* view, CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom) {
+void AZResizeViewMovingSubviews(NSV* view, CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom) {
 	AZResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
 	
 	NSArray* subviews = [view subviews] ;
 	NSEnumerator* e ;
-	NSView* subview ;
+	NSV* subview ;
 	
 	// If we wanted to change the "left", move all existing subviews to the right
 	if (dXLeft != 0.0) {
@@ -958,13 +855,13 @@ void AZResizeViewMovingSubviews(NSView* view, CGF dXLeft, CGF dXRight, CGF dYTop
 	[view display] ;
 }
 
-NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom, BOOL moveSubviews) {
-	NSView* view = [window contentView] ;
+NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYTop, CGF dYBottom, BOOL moveSubviews) {
+	NSV* view = [window contentView] ;
 	if (moveSubviews)
 		AZResizeViewMovingSubviews(view, dXLeft, dXRight, dYTop, dYBottom) ;
 	else
 		AZResizeView(view, dXLeft + dXRight, dYTop + dYBottom) ;
-	NSRect frame = [window frame] ;
+	NSR frame = [window frame] ;
 	frame.size.width += (dXLeft + dXRight) ;
 	frame.size.height += (dYTop + dYBottom) ;
 	// Since window origin is at the bottom, and we want  the bottom to move instead of the top, we also adjust the origin.y
@@ -976,31 +873,10 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 @implementation NSView (Layout)
 
-- (CGF)leftEdge {	return [self frame].origin.x ;	}
-
-- (CGF)rightEdge {	return [self frame].origin.x + [self width] ;	}
-
-- (CGF)centerX {	return ([self frame].origin.x + [self width]/2) ;	}
-
-- (void)setLeftEdge:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.x = t ;	[self setFrame:frame] ;	}
-
-- (void)setRightEdge:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.x = t - [self width] ;	[self setFrame:frame];	}
-
-- (void)setCenterX:(CGF)t {	float center = [self centerX] ;	float adjustment = t - center ;
-	NSRect frame = [self frame] ;	frame.origin.x += adjustment ;	[self setFrame:frame];
-}
-
-- (CGF)bottom {	return [self frame].origin.y ;	}
-
-- (CGF)top {		return [self frame].origin.y + [self height] ;	}
-
-- (CGF)centerY {	return ([self frame].origin.y + [self height]/2) ;}
-
-- (void)setBottom:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.y = t ;	[self setFrame:frame] ;	}
 
 - (void) setBottom:(CGF)t duration:(NSTI)time
 {
-	[NSAnimationContext runAnimationBlock:^{	NSRect frame = self.frame;	frame.origin.y = t;
+	[NSAnimationContext runAnimationBlock:^{	NSR frame = self.frame;	frame.origin.y = t;
 		[[self animator] setFrame:frame]; }
 							  completionHandler:nil	duration: time];
 }
@@ -1010,65 +886,9 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 }
 - (void) setCenterY:(CGF)t duration:(NSTI)time {}
 
-- (void)setTop:(CGF)t {	NSRect frame = [self frame] ;	frame.origin.y = t - [self height] ;	[self setFrame:frame] ;	}
-
-- (void)setCenterY:(CGF)t {		float center = [self centerY] ;		float adjustment = t - center ;
-	NSRect frame = [self frame] ;	frame.origin.y += adjustment ;		[self setFrame:frame] ;
-}
-
-- (CGF)width {	return [self frame].size.width ;		}
-
-- (CGF)height {	return [self frame].size.height ;	}
-
-- (void)setWidth:(CGF)w {
-
-	if (w != self.width) [self setFrame:AZRectExceptWide(self.frame,w)],self.superview.needsDisplay =YES;
-
-//	NSRect frame = [self frame] ;
-//	frame.size.width = t ;
-//	[self setFrame:frame] ;
-//   [[self superview] setNeedsDisplay:YES];
-}
-
-- (void)setHeight:(CGF)t 	{ 	
-
-//self.frame = AZRectExceptHigh(self.frame, t); [[self superview] setNeedsDisplay:YES];}
-	if (t != self.height) [self setFrame:AZRectExceptHigh(self.frame,t)],self.superview.needsDisplay =YES;
-}
-
-
-- (CGF)originX {
-    return [self frame].origin.x;
-}
-- (CGF)originY {
-    return [self frame].origin.y;
-}
-
-- (void)setOriginX:(CGF)x {
-	if (x != self.originX) [self setFrame:AZRectExceptOriginX(self.frame,x)],self.superview.needsDisplay =YES;
-//    if (aFloat != [self originX]) {
-//        NSRect frame = [self frame];
-//        frame.origin.x = aFloat;
-//        [self setFrame:frame];
-//        [self setNeedsDisplay:YES];
-//    }
-}
-- (void)setOriginY:(CGF)y {
-	if (y != self.originY) [self setFrame: AZRectExceptOriginY(self.frame,y)],self.superview.needsDisplay =YES;
-}
-- (NSSize)size 				{	return  self.bounds.size; }
-
-- (void)setSize:(NSSize)size
-{
-	NSR frame = self.frame ;
-	frame.size.width  = size.width ;
-	frame.size.height = size.height ;
-	self.frame = frame;
-}
-
 - (void)deltaX:(CGF)dX
 		  deltaW:(CGF)dW {
-	NSRect frame = [self frame] ;
+	NSR frame = [self frame] ;
 	frame.origin.x += dX ;
 	frame.size.width += dW ;
 	[self setFrame:frame] ;
@@ -1076,7 +896,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 - (void)deltaY:(CGF)dY
 		  deltaH:(CGF)dH {
-	NSRect frame = [self frame] ;
+	NSR frame = [self frame] ;
 	frame.origin.y += dY ;
 	frame.size.height += dH ;
 	[self setFrame:frame] ;
@@ -1118,14 +938,14 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 			if (font == nil)				font = [NSFont fontWithName:@"Helvetica" size:12] ;
 			height = [[(NSTextView*)self string] heightForWidth:width	font:font] ;
 		}
-		NSRect frame = [self frame] ;
+		NSR frame = [self frame] ;
 		frame.size.height = allowShrinking ? height : MAX(height, oldHeight) ;
 		[self setFrame:frame] ;
 	}
 	else if ([self isKindOfClass:[NSTextField class]]) {
 		gNSStringGeometricsTypesetterBehavior = NSTypesetterBehavior_10_2_WithCompatibility ;
 		height = [[(NSTextField*)self stringValue] heightForWidth:width	font:[(NSTextView*)self font]] ;
-		NSRect frame = [self frame] ;
+		NSR frame = [self frame] ;
 		frame.size.height = allowShrinking ? height : MAX(height, oldHeight) ;
 		[self setFrame:frame] ;
 	}
@@ -1134,20 +954,13 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	}
 	// Clip if taller than screen
 	float screenHeight = [[NSScreen mainScreen] frame].size.height ;
-	if ([self height] > screenHeight) {	NSRect frame = [self frame] ;	frame.size.height = screenHeight ;	[self setFrame:frame] ;	}
+	if ([self height] > screenHeight) {	NSR frame = [self frame] ;	frame.size.height = screenHeight ;	[self setFrame:frame] ;	}
 }
 
-- (NSComparisonResult)compareLeftEdges:(NSView*)otherView {
-	float myLeftEdge = [self leftEdge] ;
-	float otherLeftEdge = [otherView leftEdge] ;
-	if (myLeftEdge < otherLeftEdge) {
-		return NSOrderedAscending ;
-	}
-	else if (myLeftEdge > otherLeftEdge) {
-		return NSOrderedDescending ;
-	}
-	
-	return NSOrderedSame ;
+- (NSComparisonResult)compareLeftEdges:(NSV*)otherView {
+	float myLeftEdge = [self x] ;
+	float otherLeftEdge = [otherView x] ;
+  return myLeftEdge < otherLeftEdge ? NSOrderedAscending  : myLeftEdge > otherLeftEdge ? NSOrderedDescending  : NSOrderedSame;
 }
 
 // The normal margin of "whitespace" that one leaves at the bottom of a window
@@ -1156,13 +969,13 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 - (void)sizeHeightToFit {
 	CGFloat minY = 0.0 ;
-	for (NSView* subview in [self subviews]) {
+	for (NSV* subview in [self subviews]) {
 		minY = MIN([subview frame].origin.y - BOTTOM_MARGIN, minY) ;
 	}
 	
 	// Set height so that minHeight is the normal window edge margin of 20
 	CGFloat deltaH = -minY ;
-	NSRect frame = [self frame] ;
+	NSR frame = [self frame] ;
 	frame.size.height += deltaH ;
 	[self setFrame:frame] ;
 	
@@ -1173,8 +986,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 
 @implementation  NSScrollView (Notifications)
 
-- (void) performBlockOnScroll:(void (^)(void))block
-{
+- (void) performBlockOnScroll:(void (^)(void))block {
 	[self setPostsBoundsChangedNotifications:YES];
 	
 	[AZNOTCENTER addObserver:self keyPath:NSViewBoundsDidChangeNotification options:0 block:^(MAKVONotification *notification) {
@@ -1182,7 +994,6 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	}];
 	//	addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:contentView];
 }
-
 - (BOOL) autoScrollToBottom {  return [self associatedValueForKey:@"autoScroll"]; }
 
 #define AUTOSCROLL_CATCH_SIZE 	20	//The distance (in pixels) that the scrollview must be within (from the bottom) for auto-scroll to kick in.
@@ -1219,17 +1030,8 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 //    }
 //}
 
-//Scroll to the top of our view
-- (void)scrollToTop
-{    
-    [[self documentView] scrollPoint:NSZeroPoint];
-}
-
-//Scroll to the bottom of our view
-- (void)scrollToBottom
-{
-    [[self documentView] scrollPoint:NSMakePoint(0, 1000000)];
-}
+- (void) scrollToTop    { [self.documentView scrollPoint:NSZeroPoint]; } //Scroll to the top of our Doc view
+- (void) scrollToBottom { [self.documentView scrollPoint:NSMakePoint(0, 1000000)]; } //Scroll to the bottom of our Doc view
 
 @end
 
@@ -1242,15 +1044,17 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 		[self scrollPoint:NSMakePoint(0, y)] ;
 	}
 }
-
 @end
-
-
 @implementation NSView (findSubview)
 
+- (NSA*)  findSubviewsOfKind:(Class)kind withTag:(NSI)tag inView:(NSV*)v {
 
-- (NSV*) firstSubviewOfClass:(Class)k
-{
+  return [v.subviews reduce:!kind || ISA(v,kind) && (tag==NSNotFound || v.tag==tag) ?  @[v] : @[] withBlock:^id(id sum, id obj) {
+		return [sum arrayByAddingObjectsFromArray:[self findSubviewsOfKind:kind withTag:tag inView:obj]];
+  }];
+}
+
+- (id) firstSubviewOfClass:(Class)k                     {
 	__block NSV* v;
 	[self.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		 id x = [obj isKindOfClass:k] ? obj : [obj firstSubviewOfClass:k];
@@ -1258,61 +1062,31 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	}];
 	return v;
 }
-- (NSA*) subviewsOfClass:(Class)k
-{
+- (NSA*)     subviewsOfClass:(Class)k                     {
 	return [self.subviews filter:^BOOL(id object) {
 		return [object isKindOfClass:k];
 	}];
 }
-
-- (NSA*)findSubviewsOfKind:(Class)kind withTag:(NSInteger)tag inView:(NSView*)v {
-	NSMutableArray *array = [NSMutableArray array];
-	
-	if(kind==nil || [v isKindOfClass:kind]) {
-		if(tag==NSNotFound || v.tag==tag) {
-			[array addObject:v];
-		}
-	}
-	
-	for (id subview in v.subviews) {
-		NSArray *vChild = [self findSubviewsOfKind:kind withTag:tag inView:subview];
-		[array addObjectsFromArray:vChild];
-	}
-	
-	return array;
-}
-
-#pragma mark -
-
-- (NSA*)subviewsOfKind:(Class)kind withTag:(NSInteger)tag {
+- (NSA*)      subviewsOfKind:(Class)kind withTag:(NSI)tag {
 	return [self findSubviewsOfKind:kind withTag:tag inView:self];
 }
-
-- (NSA*)subviewsOfKind:(Class)kind {
+- (NSA*)      subviewsOfKind:(Class)kind                  {
 	return [self findSubviewsOfKind:kind withTag:NSNotFound inView:self];
 }
-
-- (NSView *)firstSubviewOfKind:(Class)kind withTag:(NSInteger)tag {
+- (id)  firstSubviewOfKind:(Class)kind withTag:(NSI)tag {
 	return [self findSubviewsOfKind:kind withTag:tag inView:self][0];
 }
-
-- (NSView *)firstSubviewOfKind:(Class)kind {
+- (id)  firstSubviewOfKind:(Class)kind                  {
 	return [self firstSubviewOfKind:kind withTag:NSNotFound];
 }
 @end
 
-
-//void NSAnimationContextRunAnimationBlock( dispatch_block_t group, dispatch_block_t completionHandler, NSTimeInterval time )
-//{
-//	[NSAnimationContext runAnimationBlock:group
-//						completionHandler:completionHandler
-//								 duration:time];
-//}
 @implementation NSAnimationContext (AtoZ)
 
-+ (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler
-					  duration:(NSTimeInterval)time		eased:(CAMediaTimingFunction*)timing;
-{
++ (void)runAnimationBlock:(dispatch_block_t)group
+        completionHandler:(dispatch_block_t)completionHandler
+					       duration:(NSTI)time
+                    eased:(CAMTF*)timing {
 	// run animation
 	[NSAnimationContext beginGrouping];
 	NSAnimationContext.currentContext.duration = time;
@@ -1328,9 +1102,8 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 }
 
 + (void)runAnimationBlock:(dispatch_block_t)group
-		  completionHandler:(dispatch_block_t)completionHandler
-					  duration:(NSTimeInterval)time
-{
+		    completionHandler:(dispatch_block_t)completionHandler
+					       duration:(NSTI)time     {
 	// run animation
 	
 	[NSAnimationContext beginGrouping];
@@ -1346,11 +1119,9 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 }
 @end
 
-@interface COICOPopoverView : AZSimpleView
-@end
+@interface      COICOPopoverView : AZSimpleView @end
 @implementation COICOPopoverView
-- (void)drawRect:(NSRect)aRect 
-{
+- (void)drawRect:(NSR)aRect {
 	self.backgroundColor = self.backgroundColor ?: [NSColor controlBackgroundColor];
 	NSG *gradient = [NSG.alloc initWithStartingColor:self.backgroundColor  endingColor:NSC.controlBackgroundColor];
 	[gradient drawInBezierPath:[NSBP bezierPathWithRoundedRect:self.bounds xRadius:5 yRadius:6] angle:270.0];
@@ -1364,26 +1135,30 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	
 	[NSPopover showRelativeToRect:rect ofView:view preferredEdge:edge string:string backgroundColor:NSC.controlBackgroundColor maxWidth:width];
 }
-
-+ (void) showRelativeToRect:(NSR)rect ofView:(NSV*)view preferredEdge:(NSRectEdge)edge	string:(NSS*)string backgroundColor:(NSC*)bg maxWidth:(float)width {
++ (void) showRelativeToRect:(NSR)rect ofView:(NSV*)view preferredEdge:(NSRectEdge)edge string:(NSS*)string backgroundColor:(NSC*)bg maxWidth:(float)width {
 	
 	[NSPopover showRelativeToRect:rect ofView:view  preferredEdge:edge string:string backgroundColor:bg
 					  foregroundColor:NSColor.controlTextColor	font:[NSFont systemFontOfSize:NSFont.systemFontSize] maxWidth:width];
 }
-
-+ (void) showRelativeToRect:(NSR)rect ofView:(NSV*)view preferredEdge:(NSRectEdge)edge string:(NSS*)string backgroundColor:(NSC*)bg
-				foregroundColor:(NSColor *)foregroundColor			  font:(NSFont *)font maxWidth:(float)width {
-	
-	[NSPopover showRelativeToRect:rect ofView:view preferredEdge:edge attributedString:	[NSMAS.alloc initWithString:string 
-			attributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: foregroundColor }] backgroundColor:bg maxWidth:width];
++ (void) showRelativeToRect:(NSR)rect ofView:(NSV*)view preferredEdge:(NSRectEdge)edge
+                                                               string:(NSS*)string
+                                                      backgroundColor:(NSC*)bg
+                                                      foregroundColor:(NSC*)fg
+                                                                 font:(NSFont*)font
+                                                             maxWidth:(float)width {
+  [NSPopover showRelativeToRect:rect ofView:view preferredEdge:edge
+               attributedString:[NSMAS.alloc initWithString:string attributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName:fg}]
+                backgroundColor:bg
+                       maxWidth:width];
 }
-
-+ (void) showRelativeToRect:(NSR)rect ofView:(NSV*)view preferredEdge:(NSRectEdge)edge attributedString:(NSAS*)attributedString
-				backgroundColor:(NSC*)backgroundColor  			 maxWidth:(float)width {
++ (void) showRelativeToRect:(NSR)rect ofView:(NSV*)view preferredEdge:(NSRectEdge)edge
+                                                     attributedString:(NSAS*)attributedString
+                                                      backgroundColor:(NSC*)backgroundColor
+                                                             maxWidth:(float)width {
 	
 	float padding = 15;
 	
-	NSRect containerRect = [attributedString boundingRectWithSize:NSMakeSize(width, 0) options:NSStringDrawingUsesLineFragmentOrigin];
+	NSR containerRect = [attributedString boundingRectWithSize:NSMakeSize(width, 0) options:NSStringDrawingUsesLineFragmentOrigin];
 	containerRect.size.width = containerRect.size.width *= (25/(containerRect.size.width+2)+1);
 	NSSize size = containerRect.size;
 	NSSize popoverSize = NSMakeSize(containerRect.size.width + (padding * 2), containerRect.size.height + (padding * 2));
@@ -1413,19 +1188,11 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	popover.behavior					= NSPopoverBehaviorTransient;
 	[popover showRelativeToRect:rect ofView:view preferredEdge:edge];
 }
-
-
 @end
 
-
-@interface AZRBLPopBack :RBLPopoverBackgroundView
-@end
-
+@interface AZRBLPopBack :RBLPopoverBackgroundView @end
 @implementation AZRBLPopBack
-
-- (CGPathRef)newPopoverPathForEdge:(CGRectEdge)popoverEdge inFrame:(CGRect)frame;
-
-{
+- (CGPathRef)newPopoverPathForEdge:(CGRectEdge)popoverEdge inFrame:(CGRect)frame {
 	CGF tailArea = .4 * AZMaxDim( frame.size );
 	CGR box 	= popoverEdge == CGRectMaxXEdge ? AZRectTrimmedOnLeft  (	frame, tailArea) 
 				: popoverEdge == CGRectMaxYEdge ? AZRectTrimmedOnTop   (	frame, tailArea)
@@ -1440,11 +1207,8 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	return  pp.quartzPath;
 
 }
-
 @end
-
 @implementation RBLPopover (AtoZ)
-
 + (void) showRelativeTo:(NSR)r ofView:(NSV*)v edge:(NSRectEdge)edge string:(NSS*)s bg:(NSC*)bg size:(NSSZ)sz {
 
 	
@@ -1452,7 +1216,7 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	
 	NSAS *as = 	[NSAS.alloc initWithString:s attributes:@{NSFontAttributeName: AtoZ.controlFont, NSForegroundColorAttributeName: bg.contrastingForegroundColor }];
 
-	NSRect containerRect = [as boundingRectWithSize:NSMakeSize(sz.width, 0) options:NSStringDrawingUsesLineFragmentOrigin];
+	NSR containerRect = [as boundingRectWithSize:NSMakeSize(sz.width, 0) options:NSStringDrawingUsesLineFragmentOrigin];
 	containerRect.size.width = containerRect.size.width *= (25/(containerRect.size.width+2)+1);
 	NSSize size = containerRect.size;
 	NSSize popoverSize = NSMakeSize(containerRect.size.width + (padding * 2), containerRect.size.height + (padding * 2));
@@ -1477,15 +1241,43 @@ NSView* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF 
 	controller.view 				 = container;
 	
 	RBLPopover *popover = [RBLPopover.alloc initWithContentViewController:controller];
-	popover.backgroundViewClass   = AZRBLPopBack.class;
-//	popover.backgroundView			= [AZRBLPopBack.alloc initWithFrame:AZRectFromSize(popoverSize) popoverEdge:edge originScreenRect:AZScreenFrame()];
+//	popover.backgroundViewClass   = AZRBLPopBack.class;
+//	popover.backgroundView = [AZRBLPopBack.alloc initWithFrame:
+//    AZRectFromSize(popoverSize)];
+
+//  popoverEdge:edge
+//                                                 originScreenRect:AZScreenFrame()];
 	popover.contentSize				= popoverSize;
 	popover.contentViewController = controller;
 	popover.animates					= YES;
-	popover.behavior					= RBLPopoverViewControllerBehaviorTransient;
+	popover.behavior					= RBLPopoverBehaviorTransient;
 	[popover showRelativeToRect:r ofView:v preferredEdge:edge];
 
 //	[popover showRelativeToRect:rect ofView:view preferredEdge:edge];
 }
-
 @end
+
+//#import <DrawKit/DKShapeFactory.h>
+//@interface NSView ()+ (void)runEndBlock:(void (^)(void))completionBlock;@end
+//		SEL sel = @selector(mouseDown:);void (*superIMP)(id, SEL, NSE*) = [_self az_superForSelector:sel];superIMP(_self, sel, e);
+
+
+//  NSR r             = self.frame;                   // establish frame
+//  NSView *oldSuper  = self.superview ?: self;       // if superview doesnt exist, use self.
+//  BOOL selfIsSuper  = [oldSuper isEqual:self];      // are we super?
+//  id firstSub = oldSuper == self ? self : ;
+//  XX(firstSub);
+//  XX(newSplt);
+//  XX(oldSuper.superviews);
+//  XX(oldSuper.subviews);
+//  XX(oldSuper.layer);
+//  [firstSub swa];
+//	[newSplt performSelector:@selector(addSubview:) withObject:];
+//  [newSplt performSelector:@selector(addSubview:) withObject:];
+//	newSplt.autoresizingMask 	= NSSIZEABLE;// ((NSV*)newSplt.subviews[0]).arMASK = ((NSV*)newSplt.subviews[1]).arMASK = NSSIZEABLE;
+//  [oldSuper performSelectorOnMainThread:@selector(addSubview:) withObject:newSplt waitUntilDone:YES];
+
+//- (NSManagedObjectContext*)managedObjectContext { return [((NSObject*)[[self.window windowController] document]) managedObjectContext]; }
+//#import "CALayer+AtoZ.h"
+//#import "AtoZGeometry.h"
+

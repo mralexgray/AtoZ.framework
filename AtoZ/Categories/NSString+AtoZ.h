@@ -1,15 +1,11 @@
 
-//  NSString+AtoZ.h
-//  AtoZ
-
+#import "AtoZTypes.h"
 
 #import "NSString+SymlinksAndAliases.h"
-
 
 @interface NSData (AtoZ)
 @property (RONLY) NSS* UTF8String;
 @end
-
 
 @interface NSParagraphStyle (AtoZ)
 + (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d;
@@ -19,11 +15,11 @@
 - (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
 @end
 
-@class AZDefinition;
-@interface NSString (AtoZ)
-
+@class AZDefinition;  @interface NSString (AtoZ)
++ (NSA*) alphabet;
 @property (RONLY) BOOL isInteger;
 @property 			NSRNG	subRange;
+@property (RONLY) NSRNG range;
 
 - (void) openInTextMate;
 
@@ -49,7 +45,8 @@
 							 *	decodeAllAmpersandEscapes,
 							 *	urlEncoded,
 							 *	urlDecoded,
-							 * MD5String;
+							 * MD5String,
+               * humanReadableEncoding;
 
 @property (RONLY) NSData *UTF8Data;
 
@@ -61,6 +58,9 @@
 + (NSS*) newUniqueIdentifier;
 + (NSS*) randomAppPath;
 + (NSA*) testDomains;
++ (NSA*) weirdUnicodes;
+
+@property (readonly) NSA* letters;
 
 - (NSS*) tidyHTML;
 - (NSS*) decodeHTMLCharacterEntities;
@@ -75,15 +75,46 @@
 + (NSA*) badWords;
 + (NSS*) randomBadWord;
 
++ (NSD*) properNamesByLetter; 
 + (NSA*) properNames;
+/** A "random" Wiipedia definition.. from some list of words I rustle up, from somewhere..
+  * @exception Still gives you a string, but it will say something like "No Wikipedia Entry for adenomyxosarcoma!"
 
+    NSString.randomWiki ->
+    subinfeudation: In English law, subinfeudation is the practice by which tenants, holding land under the king or other superior lord, carved out new and distinct tenures in their turn by sub-letting or alienating a part of their lands. The tenants were termed "mesne-lords," with regard to those holding from them, the immediate tenant being tenant in capite. The lowest tenant of all was the freeholder, or, as he was sometimes termed tenant paravail. The Crown, who in theory owned all lands, was lord paramount.
+*/
 + (NSS*) randomWiki;
-- (NSS*) wikiDescription;
 
+/** A smartly parsed + concise "Wikipedia" "definition" of an NSString instance.
+ *  @see NSString wikiDescription
+    @"apple".wikiDescription ->
+    Apple Inc. is an American multinational corporation that designs and sells consumer electronics, computer software, and personal computers. The company's best-known hardware products are the Macintosh line of computers, the iPod, the iPhone and the iPad.
+*/
+@property (RONLY) NSS* wikiDescription;
+
+/** @return A "random" word, like _dehydrogenate_ fetched from the kind folks at http://randomword.setgetgo.com/get.php */
 + (NSS*) randomWord;
-+ (AZDefinition *)randomUrbanD;
-+ (void)randomUrabanDBlock:(void (^)(AZDefinition *definition))block;
+
+/** A "random" `AZDefinition` containing an entry from UrbanDictionary.com.
+  * @see AZDefinition
+    @warning  This is a sycronous call, and can be slow..  For better results..
+    @see +[NSString randomUrabanDBlock:]
+    id x = NSS.randomUrbanD;
+    XX([x word]);       -> [x word] = GPA
+    XX([x definition]); -> [x definition] = Overated system for determining a students intelligence but on occasion it does reflect a person's brain power. Designed primarily for parents and ...
+*/
++ (AZDefinition*) randomUrbanD;
+
++ (void) randomUrabanDBlock:(void (^)(AZDefinition *definition))block;
+/** Provides a limitless bountry of nonsense words!
+    @param The number of words you want.
+    [NSString randomWords:10] -> neque lacus morbi a lacinia nonummy bibendum cras iaculis nunc mollis
+*/
 + (NSS*) randomWords:(NSI)number;
+/** A gramatically-sound, entirely incompreghensible number of complete "phrases".
+    @param The number of "sentences" you want.
+    [NSString randomSentences:2] = Lacus morbi a lacinia nonummy bibendum cras iaculis nunc mollis ac nec et sem. Nibh cum vitae leo tellus in eget penatibus neque sed taciti velit ipsum integer in augue sapien.
+*/
 + (NSS*) randomSentences:(NSI)number;
 
 
@@ -106,6 +137,7 @@
 - (CGF) pointSizeForFrame:(NSR)frame withFont:(NSS*) fontName;
 + (CGF) pointSizeForFrame:(NSR)frame withFont:(NSS*) fontName forString:(NSS*) string;
 
+- (NSS*)stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix;
 - (NSS*) stringByReplacingAllOccurancesOfString:(NSS*) search withString:(NSS*) replacement;
 
 - (NSS*)	substringToLastCharacter;
@@ -134,7 +166,8 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 							 * camelized,		/*** Returns a CamelCase Version of this string */
 							 * hyphonized,
 							 * underscored;
-@property (RONLY) BOOL   isEmpty;		/*** Returns YES if this string is nil or contains nothing but whitespaces */
+@property (RONLY) BOOL   isHexString,
+                         isEmpty;		/*** Returns YES if this string is nil or contains nothing but whitespaces */
 @property (RONLY) NSUI   indentationLevel;									/*** Counts the whitespace chars that prefix this string */
 - (NSUI)count:(NSS*)aString;														/*** Counts occurrences of a given string */
 - (NSUI)count:(NSS*)aString options:(NSStringCompareOptions)flags; 	/*** Cunts occurrences of a given string with sone compare options */
@@ -190,11 +223,15 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 @property (RONLY) NSS *ucfirst;
 @property (RONLY) NSS *lcfirst;
 
+@property (RONLY) NSAS *attributedWithDefaults;
+
+
 + (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 + (NSS*)   stringWithCGFloat: (CGF)f		 maxDigits: (NSUI)numDigits;
 //- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
-- (NSAS *)attributedWithFont:(NSF *)font andColor:(NSC *)color;
-- (NSMAS *)attributedParagraphWithSpacing:(CGF)spacing;
+- (NSAS*) attributedWith:(NSD*)attrs;
+- (NSAS*) attributedWithFont:(NSF *)font andColor:(NSC *)color;
+- (NSMAS*) attributedParagraphWithSpacing:(CGF)spacing;
 - (NSS*) truncatedForRect:(NSR)frame withFont:(NSF *)font;
 //-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
 
@@ -218,6 +255,7 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 - (NSMS*) underscorize;
 - (NSMS*) replaceAll:(NSS*)needle withString:(NSS*)replacement;
 @end
+/**
 @interface NSString (RuntimeReporting)
 - (BOOL) hasSubclasses;
 - (NSA*) subclassNames;
@@ -226,8 +264,21 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 - (NSA*) propertyNames;
 - (NSA*) protocolNames;
 @end
+*/
+
+@interface NSMutableAttributedString (AtoZ)
+- (void)resizeTo:(CGFloat)size;
+- (void)setFont:(NSFont*)f;
+@end
 @interface NSAttributedString (AtoZ)
+- (void) drawInRect:(NSR)r withBackground:(NSC*)c;
+- (void) drawInRect:(NSR)r withContrastingBackground:(NSC*)c;
+- (void) drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c;
+- (void) draw;
+@property (RONLY) NSFont *font;
+@property (RONLY) NSMD* attributes;
 + (NSD*) defaults;
+- (NSAS*) stringBySettingAttributes:(NSD*)attr;
 @end
 
 
@@ -279,26 +330,26 @@ extern int gNSStringGeometricsTypesetterBehavior;
 - (void)drawCenteredVerticallyInRect:(NSRect)rect;
 
 // Measuring Attributed Strings
-- (NSSize)sizeForWidth:	(float)width height:(float)height;
-- (float)heightForWidth:(float)width;
-- (float)widthForHeight:(float)height;
+- (NSSize)sizeForWidth:	(CGF)width height:(CGF)height;
+- (CGF)heightForWidth:(CGF)width;
+- (CGF)widthForHeight:(CGF)height;
 
 @end
 
 @interface NSString (Geometrics)
 
 // Measuring a String With Attributes
-- (NSSize)sizeForWidth: (float)width
-					 height: (float)height attributes:(NSD*)attributes;
-- (float)heightForWidth:(float)width  attributes:(NSD*)attributes;
-- (float)widthForHeight:(float)height attributes:(NSD*)attributes;
+- (NSSize)sizeForWidth: (CGF)width
+					 height: (CGF)height attributes:(NSD*)attributes;
+- (CGF)heightForWidth:(CGF)width  attributes:(NSD*)attributes;
+- (CGF)widthForHeight:(CGF)height attributes:(NSD*)attributes;
 
 // Measuring a String with a constant Font
 //- (NSSize)sizeInSize: (NSSize)size      font: (NSFont*)font;
 
-- (NSSize)sizeForWidth:(float)width height:(float)height font:(NSFont *)font;
-- (float)heightForWidth:(float)width font:(NSFont *)font;
-- (float)widthForHeight:(float)height font:(NSFont *)font;
+- (NSSize)sizeForWidth:(CGF)width height:(CGF)height font:(NSFont *)font;
+- (CGF)heightForWidth:(CGF)width font:(NSFont *)font;
+- (CGF)widthForHeight:(CGF)height font:(NSFont *)font;
 
 @end
 
@@ -356,8 +407,10 @@ extern int gNSStringGeometricsTypesetterBehavior;
 -  (NSS*) stringByDeletingSuffix:(NSS*) suffix;
 -  (NSS*) stringByReplacingPrefix:(NSS*) prefix withString:(NSS*) string;
 -  (NSS*) stringByReplacingSuffix:(NSS*) suffix withString:(NSS*) string;
--  (BOOL) isIntegerNumber;
 
+@property (RONLY) BOOL  isIntegerNumber, isFloatNumber;
+@property (RONLY) NSA *sentences;
+@property (RONLY) NSS *firstSentence;
 @end
 
 @interface NSMutableString (Extensions)
@@ -569,23 +622,18 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 @end
 
-
-
 @interface NSString (SNRAdditions)
-- (NSS*)stringByRemovingExtraneousWhitespace;
+@property (RONLY) NSS * stringWithoutSpaces,  * stringByRemovingExtraneousWhitespace, * MD5, * URLEncodedString,
+                      * normalizedString,     * upperBoundsString,                    * spaceSeparatedComponents;
+
 - (NSS*)stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
 - (NSS*)stringByRemovingNonAlphanumbericCharacters;
 + (NSS*)stringFromFileSize:(NSUInteger)theSize;
-- (NSS*)MD5;
-- (NSS*)URLEncodedString;
 - (NSS*)URLEncodedStringForCharacters:(NSS*)characters;
-- (NSS*)normalizedString;
-- (NSS*)upperBoundsString;
 + (NSS*)timeStringForTimeInterval:(NSTimeInterval)interval;
 + (NSS*)humanReadableStringForTimeInterval:(NSTimeInterval)interval;
-- (NSA*)spaceSeparatedComponents;
 + (NSS*)randomUUID;
-+ (NSData *)HMACSHA256EncodedDataWithKey:(NSS*)key data:(NSS*)data;
++ (NSData*)HMACSHA256EncodedDataWithKey:(NSS*)key data:(NSS*)data;
 @end
 
 @interface NSAttributedString (SNRAdditions)
@@ -595,22 +643,24 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 @interface NSString (IngredientsUtilities)
 
-- (BOOL)startsWith:(NSS*)s;
-- (BOOL)containsString:(NSS*)s;
-- (BOOL)caseInsensitiveContainsString:(NSS*)s;
-- (BOOL)caseInsensitiveHasPrefix:(NSS*)s;
-- (BOOL)caseInsensitiveHasSuffix:(NSS*)s;
-- (BOOL)isCaseInsensitiveEqual:(NSS*)s;
+- (BOOL) startsWith:(NSS*)s;
+- (BOOL) containsString:(NSS*)s;
+- (BOOL) caseInsensitiveContainsString:(NSS*)s;
+- (BOOL) caseInsensitiveHasPrefix:(NSS*)s;
+- (BOOL) caseInsensitiveHasSuffix:(NSS*)s;
+- (BOOL) isCaseInsensitiveEqual:(NSS*)s;
 
 @end
 
 /** Convenience NSString functions. */
 @interface NSString (additions)
 
++ (id) stringWithCharacter:(unichar)c;
+
 /** Count lines.
  * @returns The number of lines in the string.
  */
-- (NSInteger)numberOfLines;
+@property (RONLY) NSI numberOfLines;
 
 /** Count occurrences of a character.
  * @param ch The character to search for.
@@ -633,12 +683,14 @@ extern int gNSStringGeometricsTypesetterBehavior;
 /**
  * @returns YES if the string is in uppercase.
  */
-- (BOOL)isUppercase;
+@property (RONLY) BOOL isUppercase,
 
 /*** @returns YES if the string is in lowercase */
-- (BOOL)isLowercase;
-- (NSA*)keyCodes;
-+ (NSS*)visualStringWithKeySequence:(NSA*)keySequence;
+                        isLowercase;
+
+@property (RONLY) NSA * keyCodes;
+
++ (NSS*) visualStringWithKeySequence:(NSA*)keySequence;
 @end
 
 
@@ -781,7 +833,7 @@ Implements fuzzy matching for strings.
  Returns 0.0 <= x <= 1.0.  0.0 == not equal (or error), 1.0 == equal.
  Uses Search Kit (a.k.a. AIAT, V-Twin) technology.
  */
-- (float)isSimilarToString:(NSS*)aString;
+- (CGF)isSimilarToString:(NSS*)aString;
 
 @end
 

@@ -6,12 +6,13 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "AtoZGeometry.h"
+//#import <Cocoa/Cocoa.h>
+//#import "AtoZGeometry.h"
 // #import "AtoZ.h"  // Do not change..  Weirdly essential.
+#import "AtoZUmbrella.h"
+#import "AZRect.h"
 
-
-@class AZPoint, AZSize,  AZRect;
+@class AZPoint, AZSize;
 @interface AZSegmentedRect : AZRect {	NSP segments;			BOOL emptyBorder;
 											NSSize minimumSegmentSize;	NSSize maximumSegmentSize;
 }
@@ -36,7 +37,7 @@
 - (id) setDimensionWidth: (NSUInteger) width 	height: (NSUInteger) height;
 
 - (NSP) 	indicesOfSegmentAtIndex: (NSUInteger) index;
-- (NSUInteger) 	indexAtPoint: 			  (NSP)   pt;
+//- (NSUInteger) 	indexAtPoint: 			  (NSP)   pt;
 
 - (AZRect*) segmentAtIndex: (NSUInteger) index;
 - (AZRect*) segmentAtX: 	 (NSUInteger) x 	y:(NSUInteger) y;

@@ -4,57 +4,59 @@
 //  Created by Ben Reeves on 09/03/2010.
 //  Copyright 2010 Ben Reeves. All rights reserved.
 
-#import "AZHTMLParser.h"
-#include <libxml2/libxml/HTMLparser.h>
-//HTMLparser.h>
-
+#import "AtoZ.h"
+#include <libxml2/libxml/HTMLparser.h>      //HTMLparser.h>
 #import "HTMLNode.h"
+#import "AZHTMLParser.h"
 
 @interface AZHTMLParser ()
-@property (ASS) htmlDocPtr _doc;
+@property htmlDocPtr docPtr;
 @end
 
-@implementation AZHTMLParser		@synthesize _doc;
--(HTMLNode*)doc	{ return _doc == NULL ? NULL : [[HTMLNode.alloc initWithXMLNode:(xmlNode*)_doc] autorelease];	}
--(HTMLNode*)html	{ return _doc == NULL ? NULL : [self.doc findChildTag:@"html"];	}
--(HTMLNode*)head	{ return _doc == NULL ? NULL : [self.doc findChildTag:@"head"];	}
--(HTMLNode*)body	{ return _doc == NULL ? NULL : [self.doc findChildTag:@"body"];	}
--(id)initWithString:			(NSString*)string error:(NSError**)error	{	if (!(self = [super init])) return nil;
-	_doc = NULL;
+@implementation AZHTMLParser
 
-	if 	([string length] > 0)	{
-		CFStringEncoding cfenc 	= CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
-		CFStringRef cfencstr 	= CFStringConvertEncodingToIANACharSetName(cfenc);
-		const char *enc 			= CFStringGetCStringPtr(cfencstr, 0);
+-(HTMLND*) doc	{ return _docPtr == NULL ? nil : [HTMLNode instanceWithXMLNode:(xmlNode*)_docPtr];	}
+-(HTMLND*) html	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"html"];	}
+-(HTMLND*) head	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"head"];	}
+-(HTMLND*) body	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"body"];	}
+
+-  (id)        initWithString:(NSS*)str error:(NSERR**)e  {
+
+  if (!(self = super.init)) return nil;	_docPtr = NULL;
+
+	if (str.length)	{
+		CFStringEncoding cfenc = CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
+		CFStringRef   cfencstr = CFStringConvertEncodingToIANACharSetName(cfenc);
+		const char       * enc = CFStringGetCStringPtr(cfencstr, 0);
 		// _doc = htmlParseDoc((xmlChar*)[string UTF8String], enc);
-		int optionsHtml 			= HTML_PARSE_RECOVER;
-		optionsHtml 				= optionsHtml | HTML_PARSE_NOERROR; //Uncomment this to see HTML errors
-		optionsHtml 				= optionsHtml | HTML_PARSE_NOWARNING;
-		_doc = htmlReadDoc ((xmlChar*)[string UTF8String], NULL, enc, optionsHtml);
+		int        optionsHtml = HTML_PARSE_RECOVER;
+		           optionsHtml = optionsHtml | HTML_PARSE_NOERROR; //Uncomment this to see HTML errors
+               optionsHtml = optionsHtml | HTML_PARSE_NOWARNING;
+                   _docPtr = htmlReadDoc ((xmlChar*)str.UTF8String, NULL, enc, optionsHtml);
 	}
-	else 	{	if (error) *error = [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil];		}
+	else *e = e ? [NSERR errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil] : *e;
 	return self;
 }
--(id)initWithData:			(NSData*)data 		error:(NSError**)error 	{ if (!(self = [super init])) return nil;
+-  (id)          initWithData:(DTA*)dta error:(NSERR**)e  { if (!(self = [super init])) return nil;
 
-	_doc = NULL;	if (data)	{
-		CFStringEncoding cfenc 	= CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
-		CFStringRef cfencstr 	= CFStringConvertEncodingToIANACharSetName(cfenc);
-		const char *enc 			= CFStringGetCStringPtr(cfencstr, 0);
-		//_doc = htmlParseDoc((xmlChar*)[data bytes], enc);
-		_doc = htmlReadDoc((xmlChar*)[data bytes],
-						 "",
-						enc,
-						XML_PARSE_NOERROR | XML_PARSE_NOWARNING);
+  _docPtr = NULL;
+
+  if (dta)	{
+		CFStringEncoding cfenc = CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding);
+		CFStringRef   cfencstr = CFStringConvertEncodingToIANACharSetName(cfenc);
+		const char       * enc = CFStringGetCStringPtr(cfencstr, 0);                                  //_doc = htmlParseDoc((xmlChar*)[data bytes], enc);
+		_docPtr = htmlReadDoc((xmlChar*)dta.bytes, "",	enc, XML_PARSE_NOERROR | XML_PARSE_NOWARNING);
 	}
-	else	{			if (error)	*error = [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil];	}
+	else	*e = e ? [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil] : *e;
 	return self;
 }
--(id)initWithContentsOfURL:(NSURL*)url 		error:(NSError**)error	{
-	
-	NSData * _data = [NSData.alloc initWithContentsOfURL:url options:0 error:error];
-	if (_data == nil || *error) return [_data release], nil;
-	self = [self initWithData:_data error:error];	[_data release];
-	return self;
+-  (id) initWithContentsOfURL:(NSURL*)u error:(NSERR**)e  {
+
+	NSData * _data = [NSData.alloc initWithContentsOfURL:u options:0 error:e];
+	if (_data == nil || *e) return nil;
+	return self = [self initWithData:_data error:e];
 }
--(void)dealloc																			{	if (_doc)	xmlFreeDoc(_doc);	[super dealloc];	}			@end
+
+- (void) dealloc {	if (_docPtr)	xmlFreeDoc(_docPtr); }
+
+@end

@@ -8,7 +8,7 @@
 #import "RoundedView.h"
 
 @implementation RoundedView
-- (void)drawRect:(NSRect)rect
+- (void) drawRect:(NSRect)rect
 {
 	NSColor *bgColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.9];
 	NSRect bgRect = rect;

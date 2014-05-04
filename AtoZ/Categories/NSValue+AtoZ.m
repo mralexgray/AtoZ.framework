@@ -32,7 +32,84 @@
 
 }@end
 
+
 @implementation NSValue (AtoZAutoBox)
+
++ (void)load	    				{
+  SEL d = @selector(description), swizzleD = @selector(swizzleDescription);
+  [$ swizzleMethod:d in:objc_getClass("NSConcreteValue") with:swizzleD in:self.class];
+//  [$ swizzleMethod:d with:@selector(swizzleDescription) in:self.class];
+
+}
+
+- (NSS*)swizzleDescription {
+//  void* buffer = malloc(bufferSize);
+//  [self getValue:buffer];
+//  id x = AZString(buffer) ?: [self swizzleDescription];//(__bridge id)buffer;
+//  return x ?: @"N/A";//AZToStringFromTypeAndValue([self objCType],x);
+
+//  NSUI size = 0;
+//  NSGetSizeAndAlignment([self objCType], &size, NULL);
+
+//  NSData *rep = [NSData dataWithBytes:self->_data length:size];
+  if (strcmp([self objCType],@encode(AZPOS)) == 0 ) {
+    NSUInteger pos = NSNotFound;
+    [self getValue:&pos];
+    return AZPositionToString(pos);
+  }
+  NSA *raw = ((NSValue*)self).swizzleDescription.words;
+  NSA*left = [NSA arrayWithArrays:[raw map:^id(id obj) {
+    return [obj rangeOfString:@"{"].location != NSNotFound ? [obj split:@"{"] : @[obj]; }]];
+  NSA*right = [NSA arrayWithArrays:[left map:^id(id obj) {
+    return [obj rangeOfString:@"}"].location != NSNotFound ? [obj split:@"}"] : @[obj]; }]];
+  NSA*comma = [NSA arrayWithArrays:[right map:^id(id obj) {
+    return [obj rangeOfString:@","].location != NSNotFound ? [obj split:@","] : @[obj]; }]];
+
+  return //[@"SWIZ " withString:[
+    [[comma map:^id(id obj) {
+    return [obj isFloatNumber] ? $(@"%.2f",[obj floatValue]) : obj;
+
+  }]componentsJoinedByString:@" "];//];
+
+//  }]
+//  NSUInteger ct = [desc occurrencesOfCharacter:"."];
+//  for (int i = 0; i < ct; ct++) {
+//
+//    NSRange r = [desc ran]
+//
+//  }
+//  // First of all create the scanner using the string that you want to scan
+//   NSScanner* scanner = [NSScanner scannerWithString:desc];
+//
+//  // Scanning method to find an integer
+//  // First we create an integer
+//  float numberToFind;
+//    // next we find the number and send it to the integer
+//  [scanner scanFloat:&numberToFind];
+//
+  // Scanning string up to a set of characters
+  //First we need a pointer to a string to send the result to
+//  NSString* s;
+//    // next we send our NSScanner instance the method scanUpToCharactersFromSet:CharacterSetWithCharactersInString:intoString:
+
+//  [scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"have"]
+//                   intoString:&s];
+
+//    NSLog(@"%@ %i", s, numberToFind);
+//  [desc enu]
+//  NSUInteger resetter = 0;
+//  for (int i=0; i< desc.length; i++) {
+//    if (strcmp(".", [desc characterAtIndex:i])
+//
+//
+//       isdigit()) {
+//                [strippedString appendFormat:@"%c",[str characterAtIndex:i]];
+//        }
+//}
+//
+//  return [@"swizzled:" withString:desc]; // [(NSValue*)self swizzleDescription];//AZString([self pointerValue]);//[NSString stringWithFormat: @"(%@) %@", objctype, [rep description]];
+}
+
 + (id)valueWithColor: (NSColor*) color 
 {
 	return (NSVAL*)[NSValue valueWithBytes:[color.hexString dataUsingEncoding:NSUTF8StringEncoding].bytes objCType:@encode(NSS)];

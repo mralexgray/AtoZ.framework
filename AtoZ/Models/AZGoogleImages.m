@@ -41,8 +41,8 @@ AZPROP(AZHTMLParser,parser);
 	NSS * sentinel	= @"imgres?imgurl=", *f2=@"<a href=\"/imgres?imgurl=", *f3=@"&amp;imgrefurl=";
 	NSA * nodes 	= [_parser.body findChildrenWithAttribute:@"id" matchingName:@"ires" allowPartial:FALSE];
 
-	[self blockSelf:^(typeof(self) bSelf) { 
-		[nodes each:^(HTMLNode *node) {	NSA* them;
+	[self blockSelf:^(AZGoogleQuery *bSelf) {
+		[nodes do:^(HTMLNode *node) {	NSA* them;
 			if ((them = [node findChildrenWithAttribute:@"href" 
 													 matchingName:sentinel 
 													 allowPartial:TRUE]))
@@ -54,7 +54,7 @@ AZPROP(AZHTMLParser,parser);
 }
 @end
 
-#define BASECOLLECTION ({ id c; if (!(c=[[self.class sharedInstance]defaultCollection])) c = NSMA.new; c; })
+#define BASECOLLECTION (NSMA*)({ id c; if (!(c=[[self.class sharedInstance]defaultCollection])) c = NSMA.new; c; })
 @implementation AZGoogleImages
 
 + (NSA*) imagesForQuery:(NSS*)q count:(NSUInteger)ct { return @[]; }
@@ -65,11 +65,13 @@ AZPROP(AZHTMLParser,parser);
 											  [azq startTiming];
 	azq.imageUrlsBlock = block;
 	azq.query					 = query;
-	[AZSSOQ addOperationWithBlock:
-		[NSBlockOperation blockOperationWithBlock:^{ [azq loadMoreURLs]; }]
-	];
-	[BASECOLLECTION containsObject: azq] ? nil : 
-   [BASECOLLECTION      addObject: azq];
+//	[/*AZSSOQ*/NSOQ.mainQueue
+//    addOperationWithBlock:
+//		[NSBlockOperation blockOperationWithBlock:^{
+      [azq loadMoreURLs];
+//      }]
+//	];
+	![BASECOLLECTION containsObject:azq] ?: [BASECOLLECTION addObject:azq];
 	return azq;
 }
 
@@ -77,7 +79,9 @@ AZPROP(AZHTMLParser,parser);
 
 + (NSA*) queries { return BASECOLLECTION; }
 
-+ (NSA*) urlsForQuery:(NSS*)query {	AZGoogleQuery *q;	return (q = [BASECOLLECTION objectWithValue:query forKey:@"query"])
++ (NSA*) urlsForQuery:(NSS*)query {
+
+  AZGoogleQuery *q;	return (q = [BASECOLLECTION objectWithValue:query forKey:@"query"])
 
 																				? q.urls : ([(q = [self searchGoogleImages:query withBlock:nil]) urls].count)
 																				? q.urls : nil;

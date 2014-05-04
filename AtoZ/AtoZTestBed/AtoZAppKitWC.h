@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AtoZAppKitWC : NSWindowController
-
+@interface AtoZAppKitWC : NSWindowController <RMSuggestionPanelDatasource>
+@property (assign) IBOutlet RMSuggestionPanel *suggestionPanel;
 @end

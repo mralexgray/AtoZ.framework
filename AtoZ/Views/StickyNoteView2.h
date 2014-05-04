@@ -1,3 +1,36 @@
+
+#import <Cocoa/Cocoa.h>
+#import <QuartzCore/QuartzCore.h>
+#import "AtoZMacroDefines.h"
+
+@class StickyNoteView2;
+
+@protocol StickyNoteViewDelegate <NSObject>
+- (void)stickyNoteViewShouldBeDismissed:(StickyNoteView2*)stickyNoteView;
+@end
+
+@interface StickyNoteView2 : NSControl
+
+@property (weak) id <StickyNoteViewDelegate> delegate;
+@property NSSize minSize;
+@property NSSize maxSize;
+@property NSPoint flippedTopLeftPoint; // bindable
+@property (copy) NSColor *noteColor;
+@property (copy) NSColor *textColor;
+
+@end
+
+// Geometry Functions
+NSSZ sizeConstrainedToMinimumSize (NSSZ size, NSSZ minimums);
+NSSZ sizeConstrainedToMaximumSize (NSSZ size, NSSZ maximums);
+ NSR constrainRectToInsideRect    (NSR internalRect, NSR enclosingRect, BOOL *internalRectExceedsBounds);
+ NSP constrainPointToInsideRect   (NSP point, NSR rect);
+ NSP pointInFlippedCoords         (NSP point, NSR enclosingBounds);
+ NSR nonNegativeRect              (NSR aRect);
+
+
+
+
 /*
  * StickyNoteView.h
  * 
@@ -30,27 +63,4 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
-#import <Cocoa/Cocoa.h>
-#import <QuartzCore/QuartzCore.h>
-
-
-@class StickyNoteView;
-
-@protocol StickyNoteViewDelegate <NSObject>
-- (void)stickyNoteViewShouldBeDismissed:(StickyNoteView *)stickyNoteView;
-@end
-
-@interface StickyNoteView : NSControl 
-
-@property (weak) id <StickyNoteViewDelegate> delegate;
-@property NSSize minSize;
-@property NSSize maxSize;
-@property NSPoint flippedTopLeftPoint; // bindable
-@property (copy) NSColor *noteColor;
-@property (copy) NSColor *textColor;
-
-@end
-
-
 

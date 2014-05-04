@@ -1,58 +1,42 @@
 
-//  AtoZGridView.h
-
-//  Created by cocoa:naut on 06.10.12.
-//  Copyright (c) 2012 cocoa:naut. All rights reserved.
-
-#import "AtoZ.h"
-
-#pragma mark Managing selection
-/** @name Managing selection */
-
-#define AZGV 	 AtoZGridView
-#define AZGVI 	 AtoZGridViewItem
-#define AZGVDATA AtoZGridViewDataSouce
-#define AZGVDEL  AtoZGridViewDelegate
+#import "AtoZUmbrella.h"
 
 @class 	   AtoZGridView, AtoZGridViewItem;
-@protocol 			  AtoZGridViewDelegate  <NSObject>
+@protocol  AtoZGridViewDelegate  <NSObject>
 @optional
-- (void) gridView: (AZGV*) gridView  willHovertemAtIndex:		(NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  willUnhovertemAtIndex:		(NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  willSelectItemAtIndex:		(NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didSelectItemAtIndex:		(NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  willDeselectItemAtIndex:   (NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didDeselectItemAtIndex:	(NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didClickItemAtIndex:		(NSUI)index  inSection: (NSUI)section;
-- (void) gridView: (AZGV*) gridView  didDoubleClickItemAtIndex: (NSUI)index  inSection: (NSUI)section;
-
-- (void) gridView: (AZGV*) gridView  rightMouseButtonClickedOnItemAtIndex:(NSUI)index inSection:(NSUI)section;
+- (void) gridView:(AZGV*)v                  willHovertemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v                willUnhovertemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v                willSelectItemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v                 didSelectItemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v              willDeselectItemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v               didDeselectItemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v                  didClickItemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v            didDoubleClickItemAtIndex:(NSUI)i inSection:(NSUI)s;
+- (void) gridView:(AZGV*)v rightMouseButtonClickedOnItemAtIndex:(NSUI)i inSection:(NSUI)s;
 @end
 
 @class AtoZGridView;
 @protocol AtoZGridViewDataSource <NSObject>
-- (NSUI)   gridView: (AZGV*) gridView			numberOfItemsInSection:(NSI)section;
-- (AZGVI*) gridView: (AZGV*) gridView itemAtIndex:(NSI)index  inSection:(NSI)section;
+-   (NSUI) gridView:(AZGV*)v       numberOfItemsInSection:(NSI)s;
+- (AZGVI*) gridView:(AZGV*)v itemAtIndex:(NSI)i inSection:(NSI)s;
 @optional
-- (NSUI) numberOfSectionsInGridView:	(AZGV*) gridView;
-- (NSS*) gridView: 						(AZGV*) gridView titleForHeaderInSection:(NSI)section;
-- (NSA*) sectionIndexTitlesForGridView: (AZGV*) gridView;
+- (NSUI) numberOfSectionsInGridView:(AZGV*)v;
+- (NSS*) gridView:(AZGV*)v titleForHeaderInSection:(NSI)s;
+- (NSA*) sectionIndexTitlesForGridView:(AZGV*)v;
 @end
 
 @class 	AtoZGridView;
-@interface AtoZGridViewAuto : NSView <AtoZGridViewDataSource>//, AtoZGridViewDelegate>
+@interface AtoZGridViewAuto : NSView <ArrayLike, AtoZGridViewDataSource>//, AtoZGridViewDelegate>
 
-@property (NATOM, STRNG) NSSCRLV 	*scrollView;
-@property (NATOM, STRNG) AZGV 	*grid;
-@property (NATOM, STRNG) NSMA	*items;
+@property (NATOM) NSSCRLV * scrollView;
+@property (NATOM)    AZGV * grid;
 
-- (id) 	 initWithFrame:(NSR)frame andArray:(NSArray *)array;
-
-- (NSUI) countOfItems;
-- (id)   objectInItemsAtIndex: (NSUI)index;
-- (void) insertObject:(id)obj inItemsAtIndex: (NSUI)index;
-- (void) removeObjectFromItemsAtIndex: 		  (NSUI)index;
-- (void) replaceObjectInItemsAtIndex:  		  (NSUI)index withObject:(id)obj;
++ (INST) gridWithFrame:(NSR)f withObjects:(NSA*)a;
+//- (NSUI) countOfItems;
+//-   (id) objectInItemsAtIndex: (NSUI)index;
+//- (void) insertObject:(id)obj inItemsAtIndex: (NSUI)index;
+//- (void) removeObjectFromItemsAtIndex: 		  (NSUI)index;
+//- (void) replaceObjectInItemsAtIndex:  		  (NSUI)index withObject:(id)obj;
 
 @end
 
@@ -106,7 +90,7 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 /** @name Managing Selections */
 /**	Property for setting whether the grid view allows item selection or not.
  	The default value is `YES`. */
-@property (NATOM, ASS) BOOL allowsSelection, allowsMultipleSelection, useSelectionRing, useHover;
+@property (NATOM) BOOL allowsSelection, allowsMultipleSelection, useSelectionRing, useHover;
 
 /**	A bit mask that defines the content a `AtoZGridViewItem` should show.
  There are three possible values:  Default value is `AtoZGridViewItemVisibleContentImage | AtoZGridViewItemVisibleContentTitle`. */
@@ -132,10 +116,10 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 
 #pragma mark - Managing the Content
 /** @name  Managing the Content */
-- (void) removeItem:(AZGVI*) theItem;
-- (void) removeItemAtIndex:(NSUI)index;
-- (void) removeAllItems;
-- (void) removeAllSelectedItems;
+//- (void) removeItem:(AZGVI*) theItem;
+//- (void) removeItemAtIndex:(NSUI)index;
+//- (void) removeAllItems;
+//- (void) removeAllSelectedItems;
 
 #pragma mark - Reloading GridView Data
 /** @name  Reloading GridView Data */
@@ -162,20 +146,20 @@ __unused static NSS *kAtoZGridViewItemClearSelectionNotification;
 
 #pragma mark - Reusing Grid View Items
 /** @name Reusing Grid View Items */
-@property (STRNG	   ) NSS *reuseIdentifier;
-@property (RONLY, NATOM) BOOL isReuseable;
+@property NSS *reuseIdentifier;
+@property (RONLY) BOOL isReuseable;
 - (void) prepareForReuse;
 
 #pragma mark - Item Default Content
 /** @name Item Default Content */
-@property (NATOM, STRNG)   NSC 		*itemColor;
-@property (STRNG) IBOutlet NSIMG 	*itemImage;
-@property (STRNG) IBOutlet NSS 		*itemTitle;
-@property (ASS) 		   NSI 		index;
+@property (NATOM)   NSC 		*itemColor;
+@property IBOutlet NSIMG 	*itemImage;
+@property IBOutlet NSS 		*itemTitle;
+@property NSI 		index;
 
 #pragma mark - Grid View Item Layout
 /** @name Grid View Item Layout */
-@property (weak) AtoZGridView *grid;
+@property (WK) AtoZGridView *grid;
 //AtoZGridViewItemLayout *standardLayout, *hoverLayout, *selectionLayout;
 @property (NATOM, ASS) BOOL useLayout;
 

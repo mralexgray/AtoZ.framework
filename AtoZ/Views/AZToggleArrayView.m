@@ -91,13 +91,13 @@ NSString *const AZToggleState		= @"AZToggleState";
 //			toggle.backgroundColor = cgRANDOMCOLOR;
 			toggle.constraints = @[ 		AZConstRelSuperScaleOff	(kCAConstraintMaxX,1,-5.0f),
 												  AZConstRelSuper				(kCAConstraintMidY)	];
-			toggle.frameSize = (NSSZ) { 80, 24 };
+			toggle.size = (NSSZ) { 80, 24 };
 			
 			NSS	*label 			= [_datasource toggleLabelForView:self atIndex:i] ?: @"";
 			CATXTL *labelLayer   = [self itemTextLayerWithName:label];
 			labelLayer.constraints	= 	@[ 	AZConstRelSuper(kCAConstraintMidX),
 		 								AZConstRelSuperScaleOff( kCAConstraintWidth, 1, -10.0 )];//,
-			labelLayer.frameHeight = 30;// forKeyPath:@"frame.size.height"];
+			labelLayer.height = 30;// forKeyPath:@"frame.size.height"];
 			toggleUnit.sublayers	 = @[ labelLayer, toggle]; 
 //			AddTextLayer(toggleUnit, @"hello", AtoZ.controlFont, CASIZEABLE);
 			return toggleUnit;
@@ -166,7 +166,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 	 
 //	if ([_delegate respondsToSelector:@selector(numberOfTogglesInView:)]) {
 //		NSUI numItems = [_delegate numberOfTogglesInView:self];
-//		self.questions 		= [[NSArray arrayFrom:1 To:numItems] arrayUsingIndexedBlock:^id(id obj, NSUI idx) {
+//		self.questions 		= [[NSArray arrayFromto:numItems] arrayUsingIndexedBlock:^id(id obj, NSUI idx) {
 //			NSString *toggleQuestion = [_delegate toggleView:self questionAtIndex:idx];
 //			AZPOS where = [_delegate respondsToSelector:@selector(positionForQuestion:)]
 //								   ? [_delegate positionForQuestion:obj]
@@ -314,15 +314,16 @@ NSString *const AZToggleState		= @"AZToggleState";
 
 - (CAL*) itemLayerWithName:(NSS*)name relativeTo:(NSS*)relative	index:(NSUI)index
 {
-	return [self itemLayerWithName:name relativeTo:relative onText:nil offText:nil state:NO index:index];
+  return (id)nil;
+//	return [self itemLayerWithName:name relativeTo:relative onText:nil offText:nil state:NO index:index];
 }
 
 
-- (CAL*) itemLayerWithName:(NSS*)name	relativeTo:(NSS*)relative onText:(NSS*)onText offText:(NSS*)offText
-						 	state:(BOOL)state 		  index:(NSUI)index
-{
+//- (CAL*) itemLayerWithName:(NSS*)name	relativeTo:(NSS*)relative onText:(NSS*)onText offText:(NSS*)offText
+//						 	state:(BOOL)state 		  index:(NSUI)index
+//{
 //	return [self itemLayerWithName:name relativeTo:relative onText:onText offText:offText state:state index:index labelPositioned:99];
-}
+//}
 
 
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSEvent*)event

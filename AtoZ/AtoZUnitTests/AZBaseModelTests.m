@@ -1,5 +1,5 @@
 
-#import <XCTest/XCTest.h>
+#import <SenTestingKit/SenTestingKit.h>
 #import <AtoZ/BaseModel.h>
 #import <AtoZ/BaseModel+AtoZ.h>
 
@@ -9,7 +9,7 @@
 @end
 
 
-@interface AZBaseModelTests : XCTestCase {
+@interface AZBaseModelTests : SenTestCase {
 @private
 	TestModel *sharedOne, 	*sharedTwo;
 	TestModel *one, 			*two;
@@ -17,10 +17,10 @@
 @end
 @implementation AZBaseModelTests
 
-- (void)testNothing {
+- (void) testNothing {
 }
 
-- (void)setUp
+- (void) setUp
 {
 	[super setUp];
 	sharedOne = TestModel.sharedInstance;
@@ -29,10 +29,10 @@
 - (void) testSharedSingletonness
 {
 	sharedTwo = TestModel.sharedInstance;
-	XCTAssertTrue (sharedOne == sharedTwo, @"setting a different instance %@ as the prvious sharedInstance %@ should point to itself", sharedTwo, sharedOne);
+	STAssertTrue (sharedOne == sharedTwo, @"setting a different instance %@ as the prvious sharedInstance %@ should point to itself", sharedTwo, sharedOne);
 }
 
-//- (void)tearDown
+//- (void) tearDown
 //{
     // Put teardown code here; it will be run once, after the last test case.
 
@@ -40,7 +40,7 @@
 //[super tearDown];
 //}
 
-//- (void)testExample
+//- (void) testExample
 //{
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}

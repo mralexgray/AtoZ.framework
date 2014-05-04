@@ -1,6 +1,10 @@
 
 
-#import <Foundation/Foundation.h>
+//@interface NSO (KVOSpy)
+
+//- (void) observe:(id)o key:(NSS*)k task:
+
+
 @interface KeyValueObserver : NSObject
 
 @property (nonatomic, weak) id target;

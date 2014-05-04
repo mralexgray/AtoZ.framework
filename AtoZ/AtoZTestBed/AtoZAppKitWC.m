@@ -14,20 +14,38 @@
 
 @implementation AtoZAppKitWC
 
-- (id)initWithWindow:(NSWindow *)window
-{
-    self = [super initWithWindow:window];
-    if (self) {
-        // Initialization code here.
-    }
-    return self;
-}
+static NSA *rmObjects;
 
-- (void)windowDidLoad
+-(id) init { return [super initWithWindowNibName:self.className] ? rmObjects = NSIMG.monoIcons, self : nil; }
+
+- (void) indowDidLoad
 {
     [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    AZLOGCMD;
+    XX(_suggestionPanel);
+    [_suggestionPanel reloadData];
+}
+
+
+#pragma mark - RMSuggestionPanel Datasource
+
+
+- (int) numberOfItemsOfSuggestionPanel:(RMSuggestionPanel *) textfield { AZLOGCMD;
+
+  XX(rmObjects);
+  return rmObjects.count;
+}
+- (NSString *) identifierOfItemIndex: (int) index ofSuggestionPanel:(RMSuggestionPanel *) textfield {
+  return [NSS.badWords normal:index];
+}
+- (NSString *) titleOfItemIndex: (int) index ofSuggestionPanel:(RMSuggestionPanel *) textfield {
+  return [NSS.badWords normal:index];
+}
+- (NSString *) informationTextOfItemIndex: (int) index ofSuggestionPanel:(RMSuggestionPanel *) textfield {
+  return [NSS.dicksonisms normal:index];
+}
+- (NSImage *) imageOfItemIndex: (int) index ofSuggestionPanel:(RMSuggestionPanel *) textfield {
+  return [rmObjects normal:index];
 }
 
 @end

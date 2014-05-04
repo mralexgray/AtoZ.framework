@@ -5,11 +5,10 @@
 #import "AtoZ.h"
 
 @implementation AZEnum
-//@synthesize name, ordinal;
-//- (void) dealloc	{    name = nil    [super dealloc];	}
-- (void)encodeWithCoder:(NSCoder *)aCoder	{    
+//@synthesize name, ordinal; //- (void) dealloc	{    name = nil    [super dealloc];	}
+- (void) encodeWithCoder:(NSCoder *)aCoder	{    
 		
-		[@[@"name", @"properties"] do:^(id o){ [aCoder encodeObject:[self vFK:o] forKey:o]; }]; 
+		[@[@"name", @"eProperties"] do:^(id o){ [aCoder encodeObject:[self vFK:o] forKey:o]; }]; 
 		[aCoder encodeInt:_ordinal forKey:@"ordinal"]; 
 }
 - (id)initWithCoder:(NSCoder *)aDecoder	{	if (self != [super initWithCoder:aDecoder] ) return nil;
@@ -24,7 +23,7 @@
 	}
 	// no enum for this name, so treat as normal, which is the best we can hope for currently
 	_name = ename;// retain];
-	_properties = [aDecoder decodeObjectForKey:@"properties"];// retain];
+	_eProperties = [aDecoder decodeObjectForKey:@"properties"];// retain];
 	_ordinal = [aDecoder decodeIntForKey:@"ordinal"];
    return self;
 }
@@ -34,7 +33,7 @@
 	if (self != super.init ) return nil;
 	_name = [aname copy];// retain];
 	_ordinal = anordinal;
-	_properties = [aproperties copy];// retain];
+	_eProperties = [aproperties copy];// retain];
 	return self;
 }
 
@@ -58,8 +57,8 @@
 - (NSString *) description	{	  return _name;		}
 - (NSString *) debugDescription
 {
-    if (_properties.count) {
-	return [NSString stringWithFormat: @"<%@:%@ %@=%d %@>",NSStringFromClass([self class]), self, _name, _ordinal, _properties];
+    if (_eProperties.count) {
+	return [NSString stringWithFormat: @"<%@:%@ %@=%d %@>",NSStringFromClass([self class]), self, _name, _ordinal, _eProperties];
     } else {
 	return [NSString stringWithFormat: @"<%@:%@ %@=%d>",NSStringFromClass([self class]), self, _name, _ordinal];
     }
@@ -69,9 +68,8 @@
     return [_name hash]; // use the hash of the string, that way "if two objects are
     // equal (as determined by the isEqual: method) they must have the same hash value"
 }
-- (BOOL) isEqual: (id) other
-{
-	return other == self ?: [other isKindOfClass:self.class] || [self isKindOfClass:[other class]] ? [_name isEqualToString:[other vFK:@"name"]] : NO;
+- (BOOL) isEqual:(id)x {
+	return x == self ?: ISA(x,self.class) || ISA(self,[x class]) ? [_name isEqualToString:[x vFK:@"name"]] : NO;
 }
 
 #pragma mark Accessing
@@ -168,16 +166,16 @@ static NSMutableDictionary *gAllEnums = nil;
 }
 
 #pragma mark dynamic ivar support
-- (id)valueForUndefinedKey:(NSString *)key	{	return _properties[key];	}
+- (id)valueForUndefinedKey:(NSString *)key	{	return _eProperties[key];	}
 
 // to speed this code up, should create a map from SEL to NSString mapping selectors to their keys.
 
 // converts a getter selector to an NSString, equivalent to NSStringFromSelector().
 NS_INLINE NSString *getterKey(SEL sel) {    return [NSString stringWithUTF8String:sel_getName(sel)];	}
 // Generic accessor methods for property types id, double, and NSRect.
-static id getProperty(AZEnum *self, SEL name) {    return [self->_properties objectForKey:getterKey(name)];	}
-static SEL getSelProperty(AZEnum *self, SEL name) {    return NSSelectorFromString([self->_properties objectForKey:getterKey(name)]);	}
-#define TYPEDGETTER(type,Type,typeValue) static type get ## Type ## Property(AZEnum *self, SEL name) { return [[self->_properties objectForKey:getterKey(name)] typeValue];	}
+static id getProperty(AZEnum *self, SEL name) {    return [self->_eProperties objectForKey:getterKey(name)];	}
+static SEL getSelProperty(AZEnum *self, SEL name) {    return NSSelectorFromString([self->_eProperties objectForKey:getterKey(name)]);	}
+#define TYPEDGETTER(type,Type,typeValue) static type get ## Type ## Property(AZEnum *self, SEL name) { return [[self->_eProperties objectForKey:getterKey(name)] typeValue];	}
 TYPEDGETTER(double, Double, doubleValue)
 TYPEDGETTER(float, Float, floatValue)
 TYPEDGETTER(char, Char, charValue)
@@ -192,7 +190,8 @@ TYPEDGETTER(long long, LongLong, longLongValue)
 TYPEDGETTER(unsigned long long, UnsignedLongLong, unsignedLongLongValue)
 TYPEDGETTER(BOOL, Bool, boolValue)
 TYPEDGETTER(void *, Pointer, pointerValue)
-#ifdef UIKIT_EXTERN
+//#ifdef UIKIT_EXTERN
+#if TARGET_OS_IPHONE
 static CGRect getCGRectProperty(GandEnum *self, SEL name) {
     return [[self->properties objectForKey:getterKey(name)] CGRectValue];
 }
@@ -204,9 +203,9 @@ static CGSize getCGSizeProperty(GandEnum *self, SEL name) {
 }
 #endif
 //#ifdef NSKIT_EXTERN
-static NSRect getNSRectProperty(AZEnum *self, SEL name) 		{ return [[self->_properties objectForKey:getterKey(name)] rectValue];	}
-static NSPoint getNSPointProperty(AZEnum *self, SEL name) 	{ return [[self->_properties objectForKey:getterKey(name)] pointValue];	}
-static NSSize getNSSizeProperty(AZEnum *self, SEL name) 		{ return [[self->_properties objectForKey:getterKey(name)] sizeValue];	}
+static NSRect getNSRectProperty(AZEnum *self, SEL name) 		{ return [[self->_eProperties objectForKey:getterKey(name)] rectValue];	}
+static NSPoint getNSPointProperty(AZEnum *self, SEL name) 	{ return [[self->_eProperties objectForKey:getterKey(name)] pointValue];	}
+static NSSize getNSSizeProperty(AZEnum *self, SEL name) 		{ return [[self->_eProperties objectForKey:getterKey(name)] sizeValue];	}
 //#endif
 
 static const char* getPropertyType(objc_property_t property) {
@@ -286,7 +285,8 @@ static BOOL getPropertyInfo(Class cls, NSString *propertyName, Class *propertyCl
 		case _C_CHARPTR:
 		    accessor = (IMP)getPointerProperty, signature = "*@:"; break;
 		case _C_STRUCT_B:
-#ifdef UIKIT_EXTERN
+//#ifdef UIKIT_EXTERN/
+#ifndef TARGET_OS_MAC
 		    if (strncmp(propertyType, "{_CGRect=", 9) == 0)
 			accessor = (IMP)getCGRectProperty, signature = "{_CGRect}@:";
 		    if (strncmp(propertyType, "{_CGPoint=", 10) == 0)
@@ -319,7 +319,7 @@ static BOOL getPropertyInfo(Class cls, NSString *propertyName, Class *propertyCl
 /*
 @implementation AZEnum
 
-- (void)encodeWithCoder:(NSCoder*)aCoder		{
+- (void) encodeWithCoder:(NSCoder*)aCoder		{
     [aCoder encodeObject:_name forKey:@"name"];
     [aCoder encodeObject:_properties forKey:@"properties"];
     [aCoder encodeInt:_ordinal forKey:@"ordinal"];

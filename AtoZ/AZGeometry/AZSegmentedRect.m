@@ -6,6 +6,10 @@
 	//  Copyright 2011 Rogue Coding. All rights reserved.
 	//
 
+#define rect withRect
+  
+#import <AtoZ/AtoZ.h>
+
 #import "AZSegmentedRect.h"
 //#import "AtoZ.h"
 //#import "AZRect.h"
@@ -14,11 +18,11 @@
 @implementation AZSegmentedRect
 
 + (AZSegmentedRect*) rectWithRect:(NSR)rect {
-	return [AZSegmentedRect.alloc initWithRect:rect];
+	return [AZSegmentedRect rect:rect];
 }
 
 + (AZSegmentedRect*) rectWithRect:(NSR)rect cubicSize:(NSUInteger)size {
-	AZSegmentedRect *re = [AZSegmentedRect.alloc initWithRect:rect];
+	AZSegmentedRect *re = [AZSegmentedRect rect:rect];
 	re.horizontalSegments = size;
 	re.verticalSegments = size;
 	return re;
@@ -28,7 +32,7 @@
 					   width:(NSUInteger)wv
 					  height:(NSUInteger)hv
 {
-	AZSegmentedRect *re = [AZSegmentedRect.alloc initWithRect:rect];
+	AZSegmentedRect *re = [AZSegmentedRect rect:rect];
 	re.horizontalSegments = wv;
 	re.verticalSegments = hv;
 	return re;
@@ -99,13 +103,13 @@
 
 	return NSMakePoint(px, py);
 }
-- (NSUInteger)indexAtPoint:(NSP)pt {
-	AZPoint *ppt = [AZPoint pointWithPoint:pt];
-	[ppt divideBy:[AZSize sizeWithSize:self.segmentSize]];
-	[ppt floor];
+//- (NSUInteger)indexAtPoint:(NSP)pt {
+//	AZPoint *ppt = [AZPoint pointWithPoint:pt];
+//	[ppt divideBy:[AZSize sizeWithSize:self.segmentSize]];
+//	[ppt floor];
 
-	return ppt.x + ppt.y * self.height;
-}
+//	return ppt.x + ppt.y * self.height;
+//}
 
 - (NSP)pointOfSegmentAtIndex:(NSUInteger)index {
 	NSP pt = [self indicesOfSegmentAtIndex:index];
@@ -132,8 +136,8 @@
 				  size.height);
 }
 
-- (AZRect*) rectForPerimeterIndex:(NSUInteger)index {
-}
+//- (AZRect*) rectForPerimeterIndex:(NSUInteger)index {
+//}
 
 - (AZRect*) segmentAtIndex:(NSUInteger)index {
 	NSP pt = [self indicesOfSegmentAtIndex:index];
@@ -142,7 +146,7 @@
 - (AZRect*) segmentAtX:(NSUInteger)vx
 				y:(NSUInteger)vy
 {
-	return [AZRect rectWithRect:[self rectOfSegmentAtX:vx y:vy]];
+	return [AZRect rect:[self rectOfSegmentAtX:vx y:vy]];
 }
 
 - (NSP)pointWithString:(NSString*) string {
@@ -177,19 +181,24 @@
 
 @end
 
+
 @implementation AZRect (AZSegmentedRect)
+
 - (AZSegmentedRect*) segmentedRect {
-	return [AZSegmentedRect rectWithRect:self.rect];
+	return [AZSegmentedRect rectWithRect:self.r];
 }
 - (AZSegmentedRect*) segmentedRectWithCubicSize:(NSUInteger)size {
-	return [AZSegmentedRect rectWithRect:self.rect cubicSize:size];
+	return [AZSegmentedRect rectWithRect:self.r cubicSize:size];
 }
 - (AZSegmentedRect*) segmentedRectWithWidth:(NSUInteger)wv
 								height:(NSUInteger)hv
 {
-	return [AZSegmentedRect rectWithRect:self.rect width:hv height:wv];
+	return [AZSegmentedRect rectWithRect:self.r width:hv height:wv];
 }
+
 @end
+
+
 @implementation NSBezierPath (AZSegmentedRect)
 
 - (id) traverseSegments:(NSString*) segmentDefinition

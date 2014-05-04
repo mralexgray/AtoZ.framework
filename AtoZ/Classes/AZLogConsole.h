@@ -1,6 +1,6 @@
 
 //@import WebKit;
-#import <WebKit/WebKit.h>
+#import <WebKit/WebView.h>
 
 
 @protocol AZLogConsoleDelegate <NSObject>
@@ -34,7 +34,7 @@ void			NSLogPostLog(char* file, int line);
 @property (assign)	unsigned long long	fileOffset;
 @property (RONLY) 	NSA 				*classes;
 @property (STRNG)		NSS				*windowTitle, *logPath;
-+ (instancetype) sharedConsole;
++ (instancetype) sharedConsole __attribute__((const));;
 - (void) open;
 - (void) close;
 - (BOOL) isOpen;

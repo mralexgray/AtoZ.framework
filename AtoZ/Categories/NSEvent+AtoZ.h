@@ -1,15 +1,16 @@
 
-#import "AtoZTypes.h"
+#import "AtoZUmbrella.h"
+
 
 @interface NSColorPanel (AtoZ)
-@property (nonatomic,copy) void(^actionBlock)(id);
+@property (CP) void(^actionBlock)(id);
 @end
 
 
 @protocol NSActionBlock <NSObject>
 @concrete
-@property (nonatomic,copy) void(^actionBlock)(id);
-@property (nonatomic,copy) void(^voidActionBlock)(void);
+@property (CP) VoidObjBlock actionBlock;
+@property (CP) VBlk voidActionBlock;
 @end
 
 @interface NSControl (AtoZ)
@@ -20,22 +21,29 @@
 
 //typedef void (^whileDragging)(void);
 //typedef void (^insideDrag)(NSE*, NSP, whileDragging);
-typedef void (^EventBlock)(NSE* e);
 
 @interface NSEvent (AtoZ)
+
+//+ (void) monitorDragRect:(BOOL)
+
+// deltasizeAZ has deltaY negated so it maessense to me.
+@property (readonly) NSSZ deltaSize,  deltaSizeAZ;
+@property (readonly) NSP delta;
 
 //+ (void) dragBlock:(void(^)(NSP click, NSP delta))block;
 
 /*	- (void) scrollWheel:(NSEvent *)theEvent	{	self.offset = [theEvent scrollOffsetInView:self];	
 																						    [self setNeedsDisplay:YES];	} */
 - (NSSZ) scrollOffsetInView:(NSV*)view;
-/*	- (void)magnifyWithEvent:(NSEvent *)event {	[self setFrame:[event magnifyRect:self.frame]]; */
+/*	- (void) agnifyWithEvent:(NSEvent *)event {	[self setFrame:[event magnifyRect:self.frame]]; */
 - (NSR) magnifyRect:(NSR)rect;
 //- (whileDragging)dragBlock:(NSE*)e;
-+ (void)whileDragging:(void(^)(NSE* click, NSE*drag))block;
++ (void)whileDragging:(void(^)(NSE* click, NSE*drag,id context))block;
 + (void) shiftClick:(void(^)(void))block;
 //+ (NSE*) whileDragging:(whileDragging)whileDraggingBlock;
-- (id) dragHandlerForClickWithBlock:(void(^)(NSE*click, NSE*drag)) block;
+#ifdef UNIMPLEMENTED
+- (id) dragHandlerForClickWithBlock:(void(^)(NSE*click, NSE*drag, id context)) block;
+#endif
 @end
 
 

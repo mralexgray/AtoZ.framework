@@ -47,11 +47,11 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 @interface AZButtonCell ()
 //- (BOOL)az_shouldDrawBlueButton;
 //- (BOOL)az_shouldDrawGreenButton;
-- (void)az_drawButtonBezelWithFrame:(NSRect)frame inView:(NSView*)controlView;
-- (void)az_drawCheckboxBezelWithFrame:(NSRect)frame inView:(NSView*)controlView;
-- (NSRect)az_drawButtonTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
-- (NSRect)az_drawCheckboxTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
-- (NSBezierPath *)az_checkmarkPathForRect:(NSRect)rect mixed:(BOOL)mixed;
+//- (void)az_drawButtonBezelWithFrame:(NSRect)frame inView:(NSView*)controlView;
+//- (void)az_drawCheckboxBezelWithFrame:(NSRect)frame inView:(NSView*)controlView;
+//- (NSRect)az_drawButtonTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
+//- (NSRect)az_drawCheckboxTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
+//- (NSBezierPath *)az_checkmarkPathForRect:(NSRect)rect mixed:(BOOL)mixed;
 
 @end
 
@@ -244,17 +244,22 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 }
 
 - (NSRect)az_drawButtonTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView {
-	NSColor *contrasting = [color contrastingForegroundColor];
-	BOOL blue = [self az_shouldDrawBlueButton];
-	NSString *label = [title string];
-	NSShadow *textShadow = [NSShadow new];
+
+	NSColor *contrasting  = color.contrastingForegroundColor;
+	BOOL blue             = self.az_shouldDrawBlueButton;
+	NSString *label       = title.string;
+	NSShadow *textShadow  = NSShadow.new;
+
 	[textShadow setShadowOffset:blue ? AZButtonBlueTextShadowOffset : AZButtonBlackTextShadowOffset];
 	//	[textShadow setShadowColor:[contrasting isDark] ? [NSColor whiteColor] : [NSColor blackColor]]; AZButtonBlueTextShadowColor : AZButtonBlackTextShadowColor];
 	[textShadow setShadowBlurRadius:blue ? AZButtonBlueTextShadowBlurRadius : AZButtonBlackTextShadowBlurRadius];
-	NSDictionary *attributes = @{NSFontAttributeName: AZButtonTextFont, NSForegroundColorAttributeName: contrasting, NSShadowAttributeName: textShadow};
-	NSAttributedString *attrLabel = [NSAttributedString.alloc initWithString:label attributes:attributes];
+
+//	NSDictionary *attributes = @{ NSFontAttributeName:            AtoZ.controlFont,
+//                                NSForegroundColorAttributeName: contrasting ?: WHITE,
+//                                NSShadowAttributeName:          textShadow};
+	NSAS * attrLabel = [NSAS.alloc initWithString:label attributes:nil];
 	NSSize labelSize = attrLabel.size;
-	NSRect labelRect = NSMakeRect(NSMidX(frame) - (labelSize.width / 2.f), NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
+	NSRect labelRect = NSMakeRect(NSMidX(frame) - (labelSize.width / 2.), NSMidY(frame) - (labelSize.height / 2.f), labelSize.width, labelSize.height);
 	[attrLabel drawInRect:NSIntegralRect(labelRect)];
 	return labelRect;
 	

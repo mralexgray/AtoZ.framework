@@ -155,35 +155,35 @@
 //#define addValuemakeRect A
 #define AZMakeValueRect(A,B,C,D) AZVrect ( NSMakeRect( A,B,C,D))
 //#define __add(A)  addObject:A
-- (NSA*) rects	{
+- (NSA*) rects	{ AZBlockSelf(_self);
 
 	if (!_positions) self.positions = [NSMA array]; static NSSZ sizeCheck;
 	return _rects = NSEqualSizes(sizeCheck, self.size) && _rects ? _rects :
 	^{
 //		NSLog(@"Size: %@.  Quant: %ld.	Cap: %ld. Rem:%ld Aspect:%@. Rows: %ld.  Cols:%ld", NSStringFromSize(_size), _quantity, self.capacity, self.remainder, self.aspectRatio , _rows, _columns );
-		return _orient == AZOrientGrid ?
+		return _self.orient == AZOrientGrid ?
 		^{
 			NSUI Q = 0;		NSMA *pRects = NSMA.new;
-			for ( int r = (_rows-1); r >= 0; r--){
-				for ( int c = 0; c < _columns; c++ ) {
-					if (Q < _quantity) {
-						[pRects addRect:nanRectCheck( (NSR) { (c * _width), (r *_height), _width, _height })];  Q++;
+			for ( int r = (_self.rows-1); r >= 0; r--){
+				for ( int c = 0; c < _self.columns; c++ ) {
+					if (Q < _self.quantity) {
+						[pRects addRect:nanRectCheck( (NSR) { (c * _self.width), (r *_self.height), _self.width, _self.height })];  Q++;
 					}	
 				}	
 			}
 			return pRects;// withMinItems:_quantity];
 		}()
-		: _orient == AZOrientPerimeter ? ^{ NSMA* rectss = NSMA.new;
+		: _self.orient == AZOrientPerimeter ? ^{ NSMA* rectss = NSMA.new;
 			
-			for(int i = 1; i < _columns; i++)
-				[rectss addObject: AZMakeValueRect( i * _width, 		0,		_width,		_height)];
-			for(int i = 1; i < _rows - 1; i++)
-				[rectss addObject: AZMakeValueRect(	NSWidth(_outerFrame) - _width, 	_height * i,	_width,	_height )];	
-			for(int i = 0; i < _columns; i++)
-				[rectss addObject: AZMakeValueRect(	(NSWidth(_outerFrame) - _width) - (i * _width), 
-																NSHeight(_outerFrame) - _height,   _width,	_height )];
-			for ( int i = 1; i < _rows; i++ ) 
-				[rectss addObject: AZMakeValueRect(	0,	NSHeight(_outerFrame) - (i * _height), _width, _height )];
+			for(int i = 1; i < _self.columns; i++)
+				[rectss addObject: AZMakeValueRect( i * _self.width, 		0,		_self.width,		_self.height)];
+			for(int i = 1; i < _self.rows - 1; i++)
+				[rectss addObject: AZMakeValueRect(	NSWidth(_self.outerFrame) - _self.width, 	_self.height * i,	_self.width,	_self.height )];
+			for(int i = 0; i < _self.columns; i++)
+				[rectss addObject: AZMakeValueRect(	(NSWidth(_self.outerFrame) - _self.width) - (i * _self.width),
+																NSHeight(_self.outerFrame) - _self.height,   _self.width,	_self.height )];
+			for ( int i = 1; i < _self.rows; i++ )
+				[rectss addObject: AZMakeValueRect(	0,	NSHeight(_self.outerFrame) - (i * _self.height), _self.width, _self.height )];
 
 			return rectss;// withMinItems:self.capacity];// withMaxItems:2* _columns + ((2 * _rows) - 2)];
 		}() : @[];

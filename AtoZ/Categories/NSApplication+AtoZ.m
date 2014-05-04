@@ -18,6 +18,14 @@
 #import "AtoZ.h"
 
 
+void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplication.dockTile; NSImageView *iv;
+
+  dock.contentView  = iv = [NSImageView.alloc initWithFrame:(NSRect){0,0,512,512}];
+  iv.imageScaling   = NSImageScaleProportionallyUpOrDown;
+  iv.image          = i;   [dock display];
+}
+
+
 @implementation NSMenu (SBAdditions)
 
 
@@ -38,7 +46,7 @@
 	return menuItem;
 }
 
-- (void)selectItem:(NSMenuItem *)menuItem
+- (void) electItem:(NSMenuItem *)menuItem
 {
 	for (NSMenuItem *item in [self itemArray])
 	{
@@ -63,7 +71,7 @@
 	return selectedItem;
 }
 
-- (void)deselectItem
+- (void) eselectItem
 {
 	for (NSMenuItem *item in [self itemArray])
 	{
@@ -128,7 +136,7 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 
 	/** this should be called from the application delegate's applicationDidFinishLaunching method or from some controller object's awakeFromNib method neat dockless hack using Carbon from <a href="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it" title="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it">http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-...</a> */
 	
-- (void)setShowsDockIcon:(BOOL)flag {
+- (void) setShowsDockIcon:(BOOL)flag {
 
 	if (flag) {
 		ProcessSerialNumber psn = { 0, kCurrentProcess };

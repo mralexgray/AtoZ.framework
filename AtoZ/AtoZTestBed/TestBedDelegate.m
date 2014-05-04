@@ -12,27 +12,30 @@
 
 @implementation TestBedDelegate
 
-- (IBAction)newTab:(id)sender{	[AZSimpleView preview];	}
+- (IBAction)newTab:(id)sender{
+
+  static AtoZAppKitWC *azappk;
+  [(azappk = azappk ?: AtoZAppKitWC.new).window makeKeyAndOrderFront:nil];
+//  [AZSimpleView preview];
+}
 
 -  (void) awakeFromNib {
-	[_menu   loadStatusMenu];
-	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
-	[NSC randomPaletteAnimationBlock:^(NSColor *c) {
 
-    NSLog(@"randomPaletteAnimationBlock:%@", c.nameOfColor);
-    _colorWell.color = c;
-  }];
-	
+//	[_menu   loadStatusMenu];
+	[((BGHUDView*)_contentView).theme bind:@"baseColor" toObject:_colorWell withKeyPath:@"color" options:nil];
+	[NSC randomPaletteAnimationBlock:^(NSC *c) {     _colorWell.color = c; }];
+//    NSLog(@"randomPaletteAnimationBlock:%@", c.nameOfColor);
+  [self setViewFromPopUp:@"General"];
 }
 -   (IBA) setViewFromPopUp:(id)sender	{ NSView * view;
 
-  objswitch([sender titleOfSelectedItem])
+  objswitch(ISA(sender,NSBUTT) ? [sender titleOfSelectedItem] : sender)
   objcase(@"General")       view = [_genVC    = _genVC    ?: NEWVC(GeneralVC) view];
 	objcase(@"UI")            view = [_uiVC     = _uiVC 		?: NEWVC(UIVC)      view];
 	objcase(@"Colors")        view = [_colorVC  = _colorVC 	?: NEWVC(ColorVC)   view];
 	objcase(@"Facebook")      view = [_fbV      = _fbV      ?: NEWVC(FBVC)  	  view];
 	objcase(@"TUIV")          view = [_tuiVC    = _tuiVC    ?: NEWVC(TUIVVC)    view];
-	objcase(@"BPODialTest")   view = (NSView*)BPODialTest.new;
+	objcase(@"BPODialTest")   view = (NSV*)[NSClassFromString(@"BPODial") new];
   endswitch
 	view && [view ISKINDA:NSView.class] ?
 		NSLog(@"view:%@",[view subviews]), [view setFrame:_targetView.bounds], [_targetView swapSubs:view] :

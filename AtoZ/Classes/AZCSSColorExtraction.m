@@ -22,8 +22,7 @@
 	}
 	return self;
 }
-- (NSA*)colorsInStyleSheet:(NSString*)text{
-}
+//- (NSA*)colorsInStyleSheet:(NSString*)text{ }
 //
 //	# |color| will be an array of 5 elements (5 regex groups)
 //	# group 1: hex

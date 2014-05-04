@@ -59,7 +59,7 @@
  	return NSZeroPoint;
 }
  
-- (void)moveMouseToScreenPoint:(NSPoint)point
+- (void) oveMouseToScreenPoint:(NSPoint)point
 {
 	CGPoint cgPoint = NSPointToCGPoint(point);
 	/* Set the interval that local hardware events may be suppressed following the posting of a Quartz event. This function sets the period of time in seconds that local hardware events may be suppressed after posting a Quartz event created with the specified event source. The default suppression interval is 0.25 seconds. */

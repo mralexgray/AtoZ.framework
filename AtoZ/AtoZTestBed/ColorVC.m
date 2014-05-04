@@ -17,7 +17,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
  	if (self != [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) return nil;
-	self.palette = [NSC.randomPalette map:^id(id obj) { return [NSIMG swatchWithColor:obj size:AZSizeFromDimension(self.autoGrid.width)]; }];
+	self.palette = [NSC.randomPalette map:^id(id obj) { return [NSIMG swatchWithColor:obj size:AZSizeFromDim(self.autoGrid.width)]; }];
 
 	[self.autoGrid bind:@"items"toObject:self withKeyPath:@"palette" options:nil];
 	return self;

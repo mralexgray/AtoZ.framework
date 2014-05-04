@@ -172,7 +172,7 @@
 	[[window animator] setAlphaValue:0.0];
 }
 
-- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
+- (void) nimationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
 	[NSApp tryToPerform:@selector(removeNoteFromCollection:) with:self];
 }
 

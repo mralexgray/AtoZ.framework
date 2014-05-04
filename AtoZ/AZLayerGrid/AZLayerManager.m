@@ -164,7 +164,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 	}
 }
 
-- (void)drawInContext:(CGContextRef)ctx
+- (void) drawInContext:(CGContextRef)ctx
 {
 	// Custom CALayer drawing implementation. Delegates to the cells to draw themselves
 	// in me; this is more efficient than having each cell have its own drawing.
@@ -268,7 +268,7 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 	}
 }
 
-- (void)drawInContext:(CGContextRef)ctx
+- (void) drawInContext:(CGContextRef)ctx
 {
 	if (!_animated) {
 		return;

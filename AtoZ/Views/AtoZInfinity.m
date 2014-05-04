@@ -202,9 +202,9 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 
 	}*/
 
-//- (void)setScale:(AZInfiteScale)aScale {	_scale = aScale;	[self stack]; 	}
+//- (void) setScale:(AZInfiteScale)aScale {	_scale = aScale;	[self stack]; 	}
 
-//- (void)setOrientation:(AZOrient)anOrientation{		_orientation = anOrientation;	[self stack];	}
+//- (void) setOrientation:(AZOrient)anOrientation{		_orientation = anOrientation;	[self stack];	}
 /**
 - (NSRect) unit {
 	NSSize 	cSize = [self frame].size;
@@ -398,9 +398,9 @@ NSClipView only invokes this method during automatic or user controlled scrollin
 //}
 
 /**
-- (void)recess:(NSRect)frame inView:(id)controlView
+- (void) ecess:(NSRect)frame inView:(id)controlView
 
-//- (void)drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
+//- (void) drawBezelWithFrame:(NSRect)frame inView:(NSView *)controlView
 {
 	static NSGradient *pressedGradient = nil;
 	static NSGradient *normalGradient = nil;

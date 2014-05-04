@@ -1,52 +1,57 @@
-
-//  THPoint.h   Lumumba Framework  Created by Benjamin Schüttler on 28.09.09.  Copyright 2011 Rogue Coding. All rights reserved.
+//  THPoint.h
+//  Lumumba Framework
+//  Created by Benjamin Schüttler on 28.09.09.
+//  Copyright 2011 Rogue Coding. All rights reserved.
 
 #import "AtoZUmbrella.h"
 
-
-@interface AZPoint (Methods)
-
-+ (INST)          point;
-+ (INST)      halfPoint;
-+ (INST)        pointOf:(id)obj;
-+ (INST)     pointWithX:(CGF)x
-                      y:(CGF)y;
-+ (INST) pointWithPoint:(NSP)p;
-
-+ (BOOL)     maybePoint:(id)x;
-
-- (id)    initWithPoint:(NSP)p;
-- (id)        initWithX:(CGF)x
-                      y:(CGF)y;
-
-- (INST)           moveTo:(id)x;
-- (INST)      moveTowards:(id)x
-             withDistance:(CGF)relativeDist;
-- (INST) moveTowardsPoint:(NSP)p
-             withDistance:(CGF)relativeDist;
-- (INST)           moveBy:(id)x;
-- (INST)      moveByPoint:(NSP)p;
-- (INST)          moveByX:(CGF)x
-                     andY:(CGF)y;
-- (INST)   moveByNegative:(id)x;
-- (INST)       multiplyBy:(id)x;
-- (INST)         divideBy:(id)x;
-
-@property (RONLY) AZPoint *swapped, *negated, *inverted, *floored, *ceiled, *squared, *rooted;
-
-- (BOOL)     equals:(id)x;
-- (BOOL)equalsPoint:(NSP)p;
-- (BOOL)   isWithin:(id)x;
-
-//- (INST) swap;
-//- (INST) negate;
-//- (INST) invert;
-//- (INST) floor;
-//- (INST) round;
-//- (INST) ceil;
-//- (INST) square;
-//- (INST) root;
-//- (INST) ratio;
-
+@class AZSize, AZRect, AZGrid, AGMatrix;
+@interface AZPoint : NSObject  {  CGF x, y;  }
+//+ (AZPoint*) point;
+//+ (AZPoint*) pointOf:(id)object;
+//+ (AZPoint*) pointWithX:(CGF)x y:(CGF)y;
+//+ (AZPoint*) pointWithPoint:(NSP)pt;
+//+ (AZPoint*) halfPoint;
+//
+//+ (BOOL)maybePoint:(id) object;
+//
+//- (id) initWithPoint:(NSP)pt;
+//- (id) initWithX:		(CGF)x y:(CGF)y;
+//
+//@property (RONLY) CGP cgpoint;
+//@property (ASS) NSP point;
+@property (ASS) CGF x, y;
+//
+//@property (RONLY) CGF min, max;
+//
+//- (id) moveTo:(id) object;
+//
+//- (id) moveTowards:		(id)object withDistance:(CGF)relativeDistance;
+//- (id) moveTowardsPoint:(NSP)pt withDistance:(CGF)relativeDistance;
+//
+//- (id) moveBy:			 (id) object;
+//- (id) moveByPoint:	 (NSP)pt;
+//- (id) moveByX:		 (CGF)x andY:(CGF)y;
+//- (id) moveByNegative:(id) object;
+//
+//- (id) multiplyBy:(id) object;
+//- (id) divideBy:	(id) object;
+//
+//- (id) swap;
+//- (id) negate;
+//- (id) invert;
+//
+//- (id) floor;
+//- (id) round;
+//- (id) ceil;
+//- (id) square;
+//- (id) root;
+//
+//- (id) ratio;
+//
+//- (BOOL)equals:(id) object;
+//- (BOOL)equalsPoint:(NSP)point;
+//
+//- (BOOL)isWithin:(id) object;
 
 @end

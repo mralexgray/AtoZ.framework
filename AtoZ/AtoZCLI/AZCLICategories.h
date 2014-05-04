@@ -33,6 +33,8 @@ NS_INLINE void	             AZCLogFormat	(const char *fmt,...) 				{ va_list arg
 																									  AZCLogFormatWithArguments(fmt,args); va_end(args);	}
 NS_INLINE NSD * AZObjCVars (void) { return @{
 
+/** CHIC! FIERCE! */
+
 	@"OBJC_HELP"									: @"describe available environment variables",
 	@"OBJC_PRINT_OPTIONS"						: @" list which options are set",
 	@"OBJC_PRINT_IMAGES"							: @"log image and library names as they are loaded",
@@ -52,7 +54,7 @@ NS_INLINE NSD * AZObjCVars (void) { return @{
 	@"OBJC_PRINT_EXCEPTIONS"					: @"log exception handling",
 	@"OBJC_PRINT_EXCEPTION_THROW"				: @"log backtrace of every objc_exception_throw()",
 	@"OBJC_PRINT_ALT_HANDLERS"					: @"log processing of exception alt handlers",
-	@"OBJC_PRINT_REPLACED_METHODS"			: @"log methods replaced by category implementations",
+	@"  "			: @"log methods replaced by category implementations",
 	@"OBJC_PRINT_DEPRECATION_WARNINGS"		: @"warn about calls to deprecated runtime functions",
 	@"OBJC_PRINT_POOL_HIGHWATER"				: @"log high-water marks for autorelease pools",
 	@"OBJC_PRINT_CUSTOM_RR"						: @"log classes with un-optimized custom retain/release methods",
@@ -85,8 +87,8 @@ NS_INLINE NSD * AZObjCVars (void) { return @{
 
 
 // send a simple program to clang using a GCD task
-//- (void)provideStdin:(NSFileHandle *)stdinHandle;
+//- (void) rovideStdin:(NSFileHandle *)stdinHandle;
 // read the output from clang and dump to console
 //- (void) getData:(NSNotification *)notifcation;
 // invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
-//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
+//- (void) pplicationDidFinishLaunching:(NSNotification *)aNotification;

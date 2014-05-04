@@ -5226,7 +5226,7 @@ typedef struct {
 @end
 
 @interface NSArray (F)
-+ (id)arrayFrom:(long long)arg1 To:(long long)arg2;
++ (id)arrayFromto:(long long)arg2;
 + (id)from:(long long)arg1 to:(long long)arg2;
 - (id)arrayFromIndexOn:(long long)arg1;
 - (id)arrayUntilIndex:(long long)arg1;
@@ -5913,7 +5913,7 @@ Here's the documentation for the individual functions:
 The numberArray NSArray contains a collection of NSNumbers, The dict NSDictionary contains the same collection - the keys are the names of the numbers
 
 ```objc
-    NSArray *numberArray = [NSArray arrayFrom:1 To:5];
+    NSArray *numberArray = [NSArray arrayFromto:5];
     NSArray *numberNamesArray = [NSArray arrayWithObjects:@"one", @"two", @"three", @"four", @"five", nil];
     NSDictionary *numberDict = [NSDictionary dictionaryWithObjects:numberArray forKeys:numberNamesArray];
 ```
@@ -6152,16 +6152,16 @@ Here's a simple example - it prints 'have i told you' once:
 
 ##NSArray additions
 
-###arrayFrom:To:
+###arrayFromto:
 
 Creates an array, that contains the range as individual NSNumbers
 
-- `+ (NSArray *) arrayFrom:(NSInteger) from To:(NSInteger) to;`
+- `+ (NSArray *) arrayFromto:(NSInteger) to;`
 
 Example:
 
 ```objc
-	NSArray *rArr = [NSArray arrayFrom:0 To:3];
+	NSArray *rArr = [NSArray arrayFromto:3];
     NSLog(@"Array from 0 to 3 %@", rArr);
 ```
 

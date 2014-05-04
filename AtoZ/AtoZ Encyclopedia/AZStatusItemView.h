@@ -4,7 +4,7 @@
 @protocol AZStatusItemDelegate <NSObject>
 @optional
 /*** Invoked when the cell at the given index was selected.  **/
-- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active;
+- (void) tatusView:(AZStatusItemView *)statusItem isActive:(BOOL)active;
 @end
 
 @interface AZStatusItemView : NSView

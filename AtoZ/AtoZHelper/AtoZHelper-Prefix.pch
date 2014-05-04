@@ -6,6 +6,6 @@
 	#import <Cocoa/Cocoa.h>
 	#import <AtoZ/AtoZ.h>
 	#import <QuartzCore/QuartzCore.h>
-	#import <WebKit/WebKit.h>
+	#import <WebKit/WebView.h>
 	
 #endif

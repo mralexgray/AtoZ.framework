@@ -1,27 +1,25 @@
-#import <Cocoa/Cocoa.h>
-#import <Quartz/Quartz.h>
+//#import <Cocoa/Cocoa.h>
+//#import <Quartz/Quartz.h>
 
+#import "AtoZUmbrella.h"
 #import "AZScrollerProtocols.h"
 
 #define AZSCROLLER_HEIGHT 50.0 // The default height
 
-JROptionsDeclare(AZScrollerMouseDownInput, AZNoInput = (1 << 1),
-	AZLeftArrowInput = (1 << 2),
-	AZRightArrowInput = (1 << 3),
-	AZSliderInput = (1 << 4),
-	AZTrayInputLeft = (1 << 5),
-	AZTrayInputRight = (1 << 6));
+//JREnumDeclare(AZScrollerMouseDownInput,
+
+typedef NS_OPTIONS(NSUI, AZScrollerMouseDownInput) {
+  AZNoInput = 1 << 1,
+	AZLeftArrowInput = 1 << 2,
+	AZRightArrowInput = 1 << 3,
+	AZSliderInput = 1 << 4,
+	AZTrayInputLeft = 1 << 5,
+	AZTrayInputRight = 1 << 6
+};
 
 @interface AZScrollerLayer : CALayer < AZScrollerContentController > {
 
-	CALayer* leftArrow;
-	CALayer* leftArrowHighlight;
-
-	CALayer* rightArrow;
-	CALayer* rightArrowHighlight;
-
-	CALayer* tray;
-	CALayer* slider;
+	CALayer* leftArrow,* leftArrowHighlight,* rightArrow, * rightArrowHighlight, * tray, * slider;
 
 	id <AZScrollerContent> __unsafe_unretained _scrollerContent;
 

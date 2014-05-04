@@ -20,7 +20,7 @@
 	return self;
 }
 
-- (void)numberInput:(NSString*)buttonNumber {
+- (void) numberInput:(NSString*)buttonNumber {
 	
 	double number = [buttonNumber doubleValue];
 	

@@ -65,14 +65,14 @@
 //[swatch lockFocus];
 //[ico drawInRect:AZMakeRectFromSize(ico.size) fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1];
 //	operation:NSCompositeDestinationIn fraction:1];
-//[NSShadow setShadowWithOffset:AZSizeFromDimension(3) blurRadius:10 color:c.contrastingForegroundColor];
+//[NSShadow setShadowWithOffset:AZSizeFromDim(3) blurRadius:10 color:c.contrastingForegroundColor];
 //[string drawAtPoint:NSMakePoint(10,8)];
 //[NSShadow clearShadow];
 //[swatch unlockFocus];
 //swatch = [swatch addReflection:.5];
 //view = [NSImageView.alloc initWithFrame:AZMakeRectFromSize(swatch.size)];
 //[(NSImageView *)view setImage:swatch];
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 
 //	NSLog(@"%@", [(AZFile*)_objectRep colors]);

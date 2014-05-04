@@ -5,6 +5,8 @@
 //  Created by Alex Gray on 10/18/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
+#import "BaseModel.h"
+#import "AtoZUmbrella.h"
 
 @interface AZFilters : BaseModel
 @property (RONLY) NSA *filterNames;

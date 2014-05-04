@@ -2,11 +2,8 @@
 #import "StickyNoteView.h"
 #import <QuartzCore/QuartzCore.h>
 
-JROptionsDefine(AZDraggingMode)
+JREnumDefine(AZDraggingMode)
 
-
-@interface StickyNote()
-@end
 @interface StickyNoteView ()
 - (void) _doubleMouse:(NSE*)theEvent;
 -  (NSR) _fillRectForCurrentFrame;
@@ -15,8 +12,10 @@ JROptionsDefine(AZDraggingMode)
 -  (NSR) _resizeHandleRectForCurrentFrame;
 -  (NSR) _constrainRectSize:(NSR)rect;
 @end
+
 @implementation StickyNote		static NSRect screens;	static NSMA* notes = nil;  static NSW* fullScreenWindow = nil;
-+  (void) initialize 			{				  screens = NSZeroRect;   notes = NSMA.new;
+#pragma mark - fix
++  (void) window /* was initialize, turned off because of breakpoint */ 			{	 screens = NSZeroRect;   notes = NSMA.new;
 
 	for (NSScreen *s in NSScreen.screens) screens = NSUnionRect(screens, [s frame]); // Union the entirety of the frame (not just the visible area)
 	fullScreenWindow = [NSWindow.alloc initWithContentRect:screens styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
@@ -37,7 +36,7 @@ JROptionsDefine(AZDraggingMode)
 
 		int err = dup2([file fileDescriptor], STDERR_FILENO); if (!err)	
 		return	NSLog(@"Couldn't redirect stderr"), NO;  
-		
+      return file;
 }
 +(instancetype)instanceWithFrame:(NSR)frame 				{	   				//	[NSEVENTLOCALMASK:NSMouseMovedMask handler:^NSEvent *(NSEvent *e) {	BOOL inframe = NSPointInRect(e.locationInWindow, [self frame]); NSLog(@"mousemoved:  %@  shouldignore: %@", AZStringFromPoint(e.locationInWindow), StringFromBOOL(inframe));	[fullScreenWindow setIgnoresMouseEvents:!inframe];		return e;	}];
 
@@ -121,7 +120,7 @@ JROptionsDefine(AZDraggingMode)
 	float y_amount = _lastDragPoint.y - newLocation.y;
 	newFrame = _draggingMode == AZDraggingModeMove 	? 	_align == AZPositionBottom || _align == AZPositionTop ? 	AZRectExceptOriginX(newFrame,-x_amount) 
 																	:	_align == AZPositionLeft || _align == AZPositionRight ?	AZRectExceptOriginY(newFrame, -y_amount)
-																	: AZOffsetRect(newFrame, NSMakePoint(-x_amount, y_amount)) : newFrame;
+																	: AZRectOffset(newFrame, NSMakePoint(-x_amount, y_amount)) : newFrame;
 																	
 	_draggingMode == AZDraggingModeResize 				? ^{	newFrame.size.width -= x_amount;		newFrame.origin.y -= y_amount;
 																			newFrame.size.height += y_amount;	newFrame = [self _constrainRectSize:newFrame]; }() : nil;
@@ -196,7 +195,7 @@ JROptionsDefine(AZDraggingMode)
 	 */
 	[[NSSHDW shadowWithOffset:NSMakeSize(0.0, -1.0) blurRadius:3.0 color:[BLACK alpha:.3]] set];
 	//	CIContext *context = [AZGRAPHICSCTX CIContext];
-	[[NSGradient gradientFrom:self.proxy.noteColor.brighter to:self.proxy.noteColor.darker.darker]drawInRect:rect angle:270];
+	[[NSGradient gradientFrom:[[self.proxy vFK:@"noteColor"]brighter] to:[[self.proxy vFK:@"noteColor"]darker].darker]drawInRect:rect angle:270];
 	[NSSHDW clearShadow];
 	//	[context drawImage:grad atPoint:CGPointMake(fillRect.origin.x, fillRect.origin.y) fromRect:CGRectMake(0.0, 0.0, fillRect.size.width, fillRect.size.height)];
 	//	[AZGRAPHICSCTX restoreGraphicsState];
@@ -320,27 +319,27 @@ JROptionsDefine(AZDraggingMode)
 	[[self cell] setEditable:NO];
 	return self;
 }
-- (void)viewDidMoveToWindow							{	
+- (void) iewDidMoveToWindow							{	
 		_trackingRectTag = (self.window) ? [self addTrackingRect:[self _fillRectForCurrentFrame] owner:self userData:nil assumeInside:NO] : _trackingRectTag;
 }
-- (void)viewWillMoveToWindow:(NSWindow*)w			{
+- (void) iewWillMoveToWindow:(NSWindow*)w			{
 	if ( (self.window) && _trackingRectTag ) [self removeTrackingRect:_trackingRectTag];
 }
-- (void)setFrame:(NSRect)frame 						{
+- (void) setFrame:(NSRect)frame 						{
     [super setFrame:frame];
     [self removeTrackingRect:_trackingRectTag];
     _trackingRectTag = [self addTrackingRect:[self _fillRectForCurrentFrame] owner:self userData:nil assumeInside:YES];
 }
 
 #pragma mark Note Properties
-- (void)setTextColor:(NSColor *)col					{	[[self cell] setTextColor:col];	}
+- (void) setTextColor:(NSColor *)col					{	[[self cell] setTextColor:col];	}
 - (NSColor *)textColor									{	return [[self cell] textColor];	}
-- (void)setPlaceholderString:(NSString *)string	{	[[self cell] setPlaceholderString:string];	}
+- (void) setPlaceholderString:(NSString *)string	{	[[self cell] setPlaceholderString:string];	}
 - (NSString *)placeholderString						{	return [[self cell] placeholderString];		}
 #pragma mark Note Controls
-- (void)mouseEntered:(NSE*)e	{		[self setNeedsDisplay:YES];	}
-- (void)mouseExited: (NSE*)e	{	[self setNeedsDisplay:YES];	}
-- (void)mouseDown:	(NSE*)e	{
+- (void) mouseEntered:(NSE*)e	{		[self setNeedsDisplay:YES];	}
+- (void) mouseExited: (NSE*)e	{	[self setNeedsDisplay:YES];	}
+- (void) mouseDown:	(NSE*)e	{
 	if(e.clickCount == 2)		{		[self _doubleMouse:e];	return;		}
 	_eventStartPoint 	= [self convertPoint:e.locationInWindow fromView:nil];
 	_lastDragPoint 	= [self.superview convertPoint:e.locationInWindow fromView:nil];
@@ -348,7 +347,7 @@ JROptionsDefine(AZDraggingMode)
 							  [self mouse:_eventStartPoint inRect:self._closeButtonRectForCurrentFrame]  ? AZDraggingModeNone  : 
 																																	 AZDraggingModeMove  ;
 }
-- (void)mouseDragged:(NSE*)e	{
+- (void) mouseDragged:(NSE*)e	{
 	NSRect origFrame = self.frame, newFrame = self.frame;
 	NSPoint newLocation = [[self superview] convertPoint:e.locationInWindow fromView:nil];
 	
@@ -377,7 +376,7 @@ JROptionsDefine(AZDraggingMode)
 		[[self superview] setNeedsDisplayInRect:NSUnionRect(origFrame, newFrame)];
 	}
 }
-- (void)mouseUp:		(NSE*)e	{
+- (void) mouseUp:		(NSE*)e	{
 
 	NSPoint mousePoint = [self convertPoint:e.locationInWindow fromView:nil];
 

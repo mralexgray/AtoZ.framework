@@ -11,9 +11,7 @@
 @property (assign) BOOL clear, glossy, gradient, checkerboard;
 @property (nonatomic, strong) NSColor *backgroundColor;
 
-
-+ (instancetype) withFrame:(NSR)f 		color:(NSC*)c;
-
++ (instancetype) withFrame:(NSR)f      color:(NSC*)c;
 -         (void) setFrameSizePinnedToTopLeft:(NSSZ)size;
 
 @end
@@ -35,6 +33,9 @@
 @interface AZOutlineView : NSOutlineView
 @property void(^rowBlock)(NSTableRowView*);
 @end
+
+// This should get made in -(NSV*)tableView:(NSTV*)t rowViewForRow:(NSI)r;
+// ColorTableRowView *rowView = [t makeViewWithIdentifier:NSTableViewRowViewKey owner:self];
 
 @interface ColorTableRowView : NSTableRowView
 @property (readonly) id xObjectValue;

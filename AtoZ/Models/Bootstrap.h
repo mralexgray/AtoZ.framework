@@ -59,6 +59,7 @@
 - (void) preview;
 @end
 
+@class ASOCK;
 @interface Gridly : KSHTMLWriter
 @property ASOCK *listenSocket;
 @property NSMutableArray *sockets;

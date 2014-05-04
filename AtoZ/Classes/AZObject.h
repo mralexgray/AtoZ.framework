@@ -35,10 +35,11 @@
 //@end
 
 
-@interface AZObject : NSObject <NSCoding,NSCopying,NSFastEnumeration>
-@property (strong) id representedObject;
-@property (copy) NSArray *keys;
-
+@interface AZObject : NSObject <NSCoding, NSCopying> //,NSFastEnumeration>
++ (INST) instanceWithKeysAndObjects:(NSS*)key1,...;
+@property id representedObject;
+@property (RONLY) NSA *keys;
+@end
 
 // Shared instance is the object modified after each key change
 //+ (AZObject*)sharedInstance;
@@ -51,7 +52,7 @@
 //@property (nonatomic, retain) AZObject *lastModifiedInstance;
 //@property (nonatomic, retain) AZObject *sharedInstance;
 //@property (nonatomic, retain) NSString *uniqueID;
-@end
+
 /*
 @interface NSObject (NSCoding)
 

@@ -50,7 +50,7 @@ NSString *const kRGTestCaseFormat 				= @"%@: %s (%.3fs)",
 
 + (NSString*) updatedOutputFormat:(NSString*)fmt	{ return [fmt isEqualToString:kXCTestCaseFormat] ? kRGTestCaseFormat : fmt; }
 
-- (void)testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)	{
+- (void) testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)	{
 
 	va_list arguments;	va_start(arguments, format);
 

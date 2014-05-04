@@ -1,44 +1,491 @@
 
+#import "AtoZMacroDefines.h"
+#import "JREnum.h"
 
-//#import "AtoZMacroDefines.h"
-//#import "JREnum.h"
-#import "AtoZAutoBox/AtoZAutoBox.h"
-#import "AtoZUmbrella.h"
-//#ifdef __OBJC__
+/*! The Bitwise operators supported by Objective-C language are listed in the following table.
+@code
+             unsigned int a = 60 == 0011 1100
+                          b = 13 == 0000 1101
+Op  Binary             
+==  ======
+&   AND             a & b ->  12 == 0000 1100  Copies a bit to the result if it exists in both operands.	 
+|   OR              a | b ->  61 == 0011 1101  Copies a bit if it exists in either operand.	 
+^   XOR             a ^ b ->  49 == 0011 0001  Copies the bit if it is set in one operand but not both.	
+~   1's Complement    ~ a -> -61 == 1100 0011  Operator is unary and has the effect of 'flipping' bits.	  in 2's complement form due to a signed binary number.
+>>	R Shift        a >> 2 ->  15 == 0000 1111  Left operand's value is moved right by the number of bits specified by the right operand.	 
+<<	L Shift        a << 2 -> 240 == 1111 0000  Left operand's value is moved left by the number of bits specified by the right operand.	 
 
+*/
+
+NS_INLINE NSString* AZEnumToBinary(int num) {  char str[9] = {0};
+
+  return [NSString stringWithFormat:@"%s", ({ int i; for(i=7;i>=0;i--){ str[i] = (num&1)?'1':'0'; num >>= 1; } str; })];
+}
+
+
+#define AZ01 AZParity  // Even or Odd?
+#define QUAD AZQuad    // Describe The 4 quadrants of a rect.
+#define AZA   AZAlign  // Multifaceted enumerator of edges, etc.
+#define AZPOS AZA      // Alias, that sounds better gramatically, sometimes, for AZAlign.
+
+#define AZAlignLeft         AZLft
+#define AZAlignRight        AZRgt		
+#define AZAlignTop          AZTop		
+#define AZAlignBottom       AZBtm		
+#define AZAlignTopLeft      AZTopLft	
+#define AZAlignBottomLeft   AZBtmLft	
+#define AZAlignTopRight     AZTopRgt	
+#define AZAlignBottomRight  AZBtmRgt	
+#define AZAlignCenter       AZCntr	
+#define AZAlignOutside      AZOtsd	
+#define AZAlignAutomatic    AZAuto	
+#define AZAlignUnset        AZUnset	
+
+#define VRT AZOrientVertical
+#define HRZ AZOrientHorizontal
+
+#define AZTW AZTrackingWindow
+#define iC iCarousel
+
+#define AZPositionToString AZAlignToString
+#define AZPosition AZAlign
+#define AZWindowPosition AZPosition
+
+#define   AZPositionLeft          AZAlignLeft
+#define   AZPositionRight         AZAlignRight		//			= 2, //NSMaxXEdge, // 2  preferredEdge
+#define 	AZPositionTop           AZAlignTop		   //	= 3, //NSMaxYEdge, // 3  compatibility
+#define 	AZPositionBottom        AZAlignBottom//			= 1,  //NSMinYEdge, // 1  numbering!
+#define 	AZPositionTopLeft       AZAlignTopLeft//	   	= 4,
+#define 	AZPositionBottomLeft		AZAlignBottomLeft//		= 5,
+#define 	AZPositionTopRight      AZAlignTopRight//	 	= 6,
+#define 	AZPositionBottomRight		AZAlignBottomRight//   = 7,
+#define 	AZPositionAutomatic     AZAlignAutomatic   //	 	= 8 );// AZWindowPosition;
+#define 	AZPositionCenter        AZAlignCenter
+#define 	AZPositionOutside       AZAlignOutside
+
+
+typedef NS_ENUM(unsigned short, AZArrow){ AZArrowLeft = 123, AZArrowRight = 124, AZArrowDown =  125, AZArrowUp = 126 };
+typedef NS_ENUM(NSUI,    AZOrder){ AZAscending, AZDescending, AZAlphabetically };
+
+JREnumDeclare(azkColor, azkColorNone, azkColorRed, azkColorOrange, azkColorYellow, azkColorGreen, azkColorBlue, azkColorPurple, azkColorGray);
 
 /*** AtoZ Block Types */
 
-typedef void (^AZObjIdxStopBlock)(id obj, NSUInteger idx, BOOL *stop);
+typedef void (^AZObjIdxStopBlock)         (id obj, NSUI idx, BOOL *stop);
+typedef   id (^AZIndexedAccumulationBlock)(id sum,   id obj, NSUI   idx);
 
-/** When defining a new class use the GENERICSABLE macro.
-	
-	GENERICSABLE(MyClass)
-	#@interface MyClass : NSObject<MyClass>	
-	@property (nonatomic, strong) NSString* name;
-	@end
-	# Now you can use generics with arrays and sets just as you normally do in Java, C#, etc. 
+/*! 
+@param NSControlActionBlock 
+@code
+  @property (UNSFE) IBOutlet NSButton 	*someButton;
+  [_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
+  
+*/
+typedef void(^EventBlock)               (NSEvent* e);
+typedef void(^NSControlActionBlock)     (id sender);
+
+JREnumDeclare(AZEvent,  AZEventLeftMouseDown = 1, AZEventLeftMouseUp, AZEventRightMouseDown, AZEventRightMouseUp,
+                        AZEventMouseMoved, AZEventLeftMouseDragged, AZEventRightMouseDragged, AZEventMouseEntered, AZEventMouseExited,
+                        AZEventKeyDown, AZEventKeyUp, AZEventFlagsChanged, 
+                        AZEventAppKitDefined, AZEventSystemDefined, AZEventApplicationDefined, AZEventPeriodic, AZEventCursorUpdate,
+                        AZEventScrollWheel, AZEventTabletPoint, AZEventTabletProximity,
+                        AZEventOtherMouseDown, AZEventOtherMouseUp, AZEventOtherMouseDragged,
+                        AZEventEventTypeGesture, AZEventEventTypeMagnify, AZEventEventTypeSwipe, AZEventEventTypeRotate, 
+                        AZEventEventTypeBeginGesture, AZEventTypeEndGesture);
+
+
+typedef void(^NSControlEventActionBlock)(AZEvent e,id sender);
+typedef void(^NSControlVoidActionBlock) (void);
+typedef void(^ReverseAnimationBlock)    (void);
+typedef void(^LayerBlock)               (CALayer *l);
+
+
+JREnumDeclare(AZParity, AZEven, AZOdd, AZUndefined);
+
+JREnumDeclare(AZQuad, AZQuadTopLeft, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
+
+JREnumDeclare( AZConstraintMask,  AZConstraintMaskMinX    = 1 << 0,
+                                  AZConstraintMaskMidX    = 1 << 1,
+                                  AZConstraintMaskMaxX    = 1 << 2,
+                                  AZConstraintMaskWidth   = 1 << 3,
+                                  AZConstraintMaskMinY    = 1 << 4,
+                                  AZConstraintMaskMidY    = 1 << 5,
+                                  AZConstraintMaskMaxY    = 1 << 6,
+                                  AZConstraintMaskHeight  = 1 << 7);
+
+JREnumDeclare( AZAlign,           AZUnset       = 0x00000000,
+                                  AZTop         = 0x00000001,
+                                  AZBtm     	  = 0x00000010,
+                                  AZLft	        = 0x00000100,
+                                  AZRgt         = 0x00001000,
+                                  AZTopLft      = 0x00000101,
+                                  AZTopRgt		  = 0x00001001,
+                                  AZBtmLft      = 0x00000110,
+                                  AZBtmRgt      = 0x00001010,
+                                  AZCntr        = 0x00001111,
+                                  AZOtsd  	    = 0x00010000,
+                                  AZAuto		    = 0x11111111,
+                                  AZAmbiguous		= 0x10101010,
+                                AZAIsVertical		= 0x00000011,
+                              AZAIsHorizontal		= 0x00001100,
+                                  AZNotFound    = NSNotFound );  //0x11111111,);
+
+//#define AZLft   AZAlignLeft
+//#define AZRgt		AZAlignRight
+//#define AZTop		AZAlignTop
+//#define AZBtm		AZAlignBottom
+//#define AZTopLft	AZAlignTopLeft
+//#define AZBtmLft	AZAlignBottomLeft
+//#define AZTopRgt	AZAlignTopRight
+//#define AZBtmRgt	AZAlignBottomRight
+//#define AZCntr	AZAlignCenter
+//#define AZOutside	AZAlignOutside
+//#define AZAAuto	AZAlignAutomatic
+//#define AZAUnset	AZAlignUnset
+
+
+JREnumDeclare( AZOrient,  AZOrientVertical, AZOrientHorizontal,  
+                          AZOrientTop, AZOrientLeft, AZOrientBottom, AZOrientRight,
+                          AZOrientGrid, AZOrientPerimeter, AZOrientFiesta );
+
+#define AZO AZOrient
+
+BOOL           isVertical(AZOrient o);
+AZOrient AZOrientOpposite(AZOrient o);
+
+
+JREnumDeclare(AZCompass,
+  AZCompassW          = 0x00000001,
+  AZCompassE          = 0x00000010,
+  AZCompassN	        = 0x00000100,
+  AZCompassS          = 0x00001000,
+  AZCompassNW         = 0x00000101,
+  AZCompassSW         = 0x00001001,
+  AZCompassNE         = 0x00000110,
+  AZCompassSE         = 0x00001010,
+);
+
+//AZAlignCenter    		= 0x00001111,
+//AZAlignOutside  		= 0x00000000,
+//AZAlignAutomatic		= 0x11111111
+
+
+
+
+
+//JREnumDeclare(AZAlign,AZAlignLeft,// = 0x00000001),
+
+/*  expanded....
+
+ typedef enum AZAlign : NSUInteger AZAlign;
+ enum AZAlign : NSUInteger { AZAlignLeft 			= 0x00000001,
+ AZAlignRight 			= 0x00000010,
+ AZAlignTop 				= 0x00000100,
+ AZAlignBottom 			= 0x00001000,
+ AZAlignTopLeft 		= 0x00000101,
+ AZAlignBottomLeft 	= 0x00001001,
+ AZAlignTopRight 		= 0x00000110,
+ AZAlignBottomRight 	= 0x00001010 };
+ extern NSDictionary* AZAlignByValue();
+ extern NSDictionary* AZAlignByLabel();
+ extern NSString* AZAlignToString(int enumValue);
+ extern BOOL AZAlignFromString(NSString *enumLabel, AZAlign *enumValue);
+ static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAlignRight = 0x00000010, AZAlignTop = 0x00000100, AZAlignBottom = 0x00001000, AZAlignTopLeft = 0x00000101, AZAlignBottomLeft = 0x00001001, AZAlignTopRight = 0x00000110, AZAlignBottomRight = 0x00001010";;
+
+
+				AZAlignNone	= 0, // 0
+		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
+			 AZAlignBottom	= 0x00000010,
+	  AZAlignBottomRight	= 0x00000110,
+	     	  AZAlignRight = 0x00001000,
+  	     AZAlignTopRight = 0x00001100,
+	          AZAlignTop = 0x00000000,
+			AZAlignTopLeft = 0x00000101,
+				AZAlignLeft = 0x00011100 // 1 << 0   aka (0x1 << 0), // => 0x00000001
+//	       = 0x00001000,
+	   = 0x00001001,
+	  = 0x00001010
 */
 
 
+
+typedef NS_ENUM(NSUI, CharacterSet) {
+	kCharacterSet_Newline, kCharacterSet_WhitespaceAndNewline, kCharacterSet_WhitespaceAndNewline_Inverted,
+	kCharacterSet_UppercaseLetters, kCharacterSet_DecimalDigits_Inverted, kCharacterSet_WordBoundaries,
+	kCharacterSet_SentenceBoundaries, kCharacterSet_SentenceBoundariesAndNewlineCharacter,kNumCharacterSets
+};
+
+typedef NS_ENUM (NSUInteger, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
+
+
+
+typedef NS_ENUM(NSUInteger, PXListViewDropHighlight) {
+	PXListViewDropNowhere,
+	PXListViewDropOn,
+	PXListViewDropAbove,
+	PXListViewDropBelow
+};
+
+
+typedef NS_ENUM(NSUInteger,  	OSCornerType) {
+	//typedef NS_NSENUM( OSCornerTypes {
+	OSTopLeftCorner = 1,
+	OSBottomLeftCorner = 2,
+	OSTopRightCorner = 4,
+	OSBottomRightCorner = 8
+};// OSCornerType;
+
+typedef NS_ENUM(NSUI,AMTriangleOrientation){ AMTriangleUp, AMTriangleDown, AMTriangleLeft, AMTriangleRight };
+
+NS_INLINE OSCornerType AZAlignToCorner(AZA a) {  return a == AZTopLft ? 1 : a == AZBtmLft ? 2 : AZTopRgt ? 4 :  8; }
+
+NS_INLINE NSUI AZAlignToNormalBitmask(AZA a){ return a == AZLft ? 2U :	a == AZRgt ? 3U : a == AZTop ? 0U :	a == AZBtm ? 1U : NSNotFound; }
+  
+	//	AZAlignTopLeft 	   = 0x00000101,
+	//	AZAlignBottomLeft		= 0x00001001,
+	//	AZAlignTopRight   	= 0x00000110,
+	//	AZAlignBottomRight  	= 0x00001010
+
+
+//CASCROLLVIEW
+//minimizing = 0x01, // 00000001
+//maximizing = 0x02, // 00000010
+//minimized  = 0x04, // 00000100
+//maximized  = 0x08  // 00001000
+
+
+
+//NSDATE NSSTRING ETC
+__unused static OSSpinLock _calendarSpinLock = 0;
+__unused static OSSpinLock _formattersSpinLock = 0;
+__unused static OSSpinLock _staticSpinLock = 0;
+
+
+typedef NS_ENUM(NSUInteger, BindType) {BindTypeIfNil, BindTypeTransform, BindTypeSelector, BindTypeNotFound = NSNotFound };
+
+
+typedef NS_ENUM(NSUInteger, AppCat) {
+	Games, Education, Entertainment,
+	Books, Lifestyle, Utilities, Business,
+	Travel, Music, Reference, Sports,
+	Productivity, News, HealthcareFitness,
+	Photography, Finance, Medical, SocialNetworking,
+	Navigation, Weather, Catalogs, FoodDrink, Newsstand
+};
+
+#define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
+
+
+typedef NS_ENUM(NSInteger,  AZStatus) { AZMIXED = NSMixedState, AZOFF =  NSOffState, AZON = NSOnState };
+
+JREnumDeclare(AZState, AZOff, AZOn, AZModifyingState, AZIdleState, AZCreatingState, AZDeletingState);
+
+//typedef NSInteger NSCellStateValue;
+
+typedef NS_ENUM(NSUInteger,    AZSlideState ) { AZIn, AZOut, AZToggle																						};
+
+typedef NS_ENUM(NSUInteger,    AZTrackState ) { LeftOn, LeftOff, TopOn, TopOff, RightOn, RightOff, BottomOn, BottomOff						};
+typedef NS_ENUM(NSUInteger,      AZDockSort ) { AZDockSortNatural, AZDockSortColor, AZDockSortPoint, AZDockSortPointNew						};
+typedef NS_ENUM(NSUInteger,      AZSearchBy ) { AZSearchByCategory, AZSearchByColor, AZSearchByName, AZSearchByRecent						};
+typedef NS_ENUM(NSUInteger,  AZMenuPosition ) { AZMenuN, AZMenuS, AZMenuE, AZMenuW, AZMenuPositionCount											};
+typedef NS_ENUM(NSUInteger, AZTrackPosition ) { AZTrackN, AZTrackS, AZTrackE, AZTrackW, AZTrackPositionCount									};
+typedef NS_ENUM(NSUInteger,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X, AZInfiteScale2X, AZInfiteScale3X, AZInfiteScale10X	};
+
+
+/*
+ //#ifndef ATOZTOUCH
+ typedef NS_OPTIONS(NSUInteger, AZWindowPosition) {
+ AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
+ AZPositionRight			= NSMaxXEdge, // 2  preferredEdge
+ AZPositionTop		   	= NSMaxYEdge, // 3  compatibility
+ AZPositionBottom			= NSMinYEdge, // 1  numbering!
+ AZPositionTopLeft	   	= 4,
+ AZPositionBottomLeft		= 5,
+ AZPositionTopRight	 	= 6,
+ AZPositionBottomRight   = 7,
+ AZPositionAutomatic	 	= 8
+ };// AZWindowPosition;
+ */
+//JREnumDeclare(AZPosition,
+//	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
+//	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
+//	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility
+//	AZPositionBottom			= 1,  //NSMinYEdge, // 1  numbering!
+//	AZPositionTopLeft	   	= 4,
+//	AZPositionBottomLeft		= 5,
+//	AZPositionTopRight	 	= 6,
+//	AZPositionBottomRight   = 7,
+//	AZPositionAutomatic	 	= 8 );// AZWindowPosition;
+
+
+
+//NSS* stringForPosition(AZWindowPosition enumVal);
+
+//NS_INLINE NSS* stringForPosition(AZPOS e) {	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
+//	return _pos.count >= e ? _pos[e] : @"outside of range for Positions";
+//}
+//NS_INLINE AZPOS positionForString(NSS* s)	{	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
+//															return (AZPOS) [_pos indexOfObject:s];
+//}
+
+typedef struct AZWhatever {
+	NSUInteger position;
+	char *aString;
+	int  anInt;
+} AZWhatever;
+
+// NSVALUE defined, see NSValue+AtoZ.h
+//#define AZWindowPositionTypeArray @[@"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic"]
+//#endif
+
+//JREnumDeclare(AZQuad, AZQuadTopLeft, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
+//#define QUAD AZQuad
+
+
+//JREnum() is fine for when you have an enum that lives solely in an .m file. But if you're exposing an enum in a header file, you'll have to use the alternate macros. In your .h, use JREnumDeclare():
+//	JREnumDeclare(StreamState,	   Stream_Disconnected,   	Stream_Connecting,                                                    										Stream_Connected, 		Stream_Disconnecting);
+//And then use JREnumDefine() in your .m:
+//	JREnumDefine(StreamState); for Free!!
+// NSString* AZQuadrantToString(int value);
+
+//JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad);
+
+//typedef NS_ENUM(NSUInteger, AZQuadrant){
+//	AZTopLeftQuad = 0,
+//	AZTopRightQuad,
+//	AZBotRightQuad,
+//	AZBotLeftQuad
+//};
+
+
+typedef struct {	CGFloat tlX; CGFloat tlY;
+	CGFloat trX; CGFloat trY;
+	CGFloat blX; CGFloat blY;
+	CGFloat brX; CGFloat brY;
+} CIPerspectiveMatrix;
+
+//extern NSString *const AZOrientName[AZOrientCount];
+//extern NSString *const AZMenuPositionName[AZMenuPositionCount];
+// NSLog(@"%@", FormatTypeName[XML]);
+//NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
+
+typedef NS_ENUM( NSUInteger, AZItemsViewFormat ){	AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames	};
+typedef NS_ENUM(NSUInteger, SandBox) {	ReadAccess = R_OK,	WriteAccess = W_OK,	ExecuteAccess = X_OK,	PathExists = F_OK };
+
+
+NS_INLINE void AZPrintEncodingTypes(){
+	NSLog(@"%15s: %s","AZPOS", @encode( AZPOS ));
+	NSLog(@"%15s: %s",  "NSP", @encode(   NSPoint ));
+	NSLog(@"%15s: %s","NSRGG", @encode( NSRange ));
+	NSLog(@"%15s: %s", "NSSZ", @encode(  NSSize ));
+	NSLog(@"%15s: %s",  "NSR", @encode(   NSRect ));
+	NSLog(@"%15s: %s", "BOOL", @encode(  BOOL ));
+	NSLog(@"%15s: %s","AZPOS", @encode( AZPOS ));
+	NSLog(@"%15s: %s",  "CGF", @encode(   CGFloat ));
+	NSLog(@"%15s: %s", "NSUI", @encode(  NSUInteger));
+	NSLog(@"%15s: %s",  "int", @encode(   int ));
+	NSLog(@"%15s: %s",  "NSI", @encode(   NSInteger ));
+	NSLog(@"%15s: %s", "CGCR", @encode(  CGColorRef ));
+	NSLog(@"%15s: %s",   "id", @encode(    id ));
+	NSLog(@"%15s: %s",  "NSA", @encode(   NSArray ));
+}
+
+//typedef enum {
+//	JSON = 0,		 // explicitly indicate starting index
+//	XML,
+//	Atom,
+//	RSS,
+//
+//	FormatTypeCount,  // keep track of the enum size automatically
+//} FormatType;
+//extern NSString *const FormatTypeName[FormatTypeCount];
+//NSLog(@"%@", FormatTypeName[XML]);
+//	// In a source file
+//NSString *const FormatTypeName[FormatTypeCount] = {
+//	[JSON] = @"JSON",
+//	[XML] = @"XML",
+//	[Atom] = @"Atom",
+//	[RSS] = @"RSS",
+//};
+//typedef enum {
+//	IngredientType_text  = 0,
+//	IngredientType_audio = 1,
+//	IngredientType_video = 2,
+//	IngredientType_image = 3
+//} IngredientType;
+//write a method like this in class:
+//+ (NSString*)typeStringForType:(IngredientType)_type {
+//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
+//	return NSLocalizedString(key, nil);
+//}
+//have the strings inside Localizable.strings file:
+///* IngredientType_text */
+//"IngredientType_0" = "Text";
+///* IngredientType_audio */
+//"IngredientType_1" = "Audio";
+///* IngredientType_video */
+//"IngredientType_2" = "Video";
+///* IngredientType_image */
+//"IngredientType_3" = "Image";
+//
+
+//typedef struct _GlossParameters{
+//	CGFloat color[4];
+//	CGFloat caustic[4];
+//	CGFloat expCoefficient;
+//	CGFloat expScale;
+//	CGFloat expOffset;
+//	CGFloat initialWhite;
+//	CGFloat finalWhite;
+//} GlossParameters;
+
+//#endif
+
+
+
+JREnumDeclare( AZOutlineCellStyle, 	AZOutlineCellStyleToggleHeader,
+												AZOutlineCellStyleScrollList,
+												AZOutlineCellStyleScrollListItem );
+
+//NS_INLINE NSA* CAConstraintAttributesForMask(AZConstraintMask mask) {
+//
+//  return [AZConstraintMaskByValue().allValues reduce:@[] usingBlock:^id(id sum, NSN * bit){
+//    return mask & bit.uIV ? [sum arrayByAddingObject:
+////  }
+//
+//}
+
+
+
+/*! When defining a new class use the GENERICSABLE macro.
+	@code
+
+	  GENERICSABLE(MyClass)
+	  @interface MyClass : NSObject<MyClass>
+	  @property (nonatomic, strong) NSString* name;
+    @end
+	
+  Now you can use generics with arrays and sets just as you normally do in Java, C#, etc.
+
+  @code
+    NSArray<Class>* classArray = @[];
+    NSStrtng* meaberName = classArray.lastObJect.name; //No castLng needed :)
+*/
+
 #if NS_BLOCKS_AVAILABLE
-#define GENERICSABLE(__className) \
-GENERICSABLEWITHOUTBLOCKS(__className) \
-GENERICSABLEWITHBLOCKS(__className)
+#define GENERICSABLE(__className) GENERICSABLEWITHOUTBLOCKS(__className) GENERICSABLEWITHBLOCKS(__className)
 #else
 #define GENERICSABLE(__className) GENERICSABLEWITHOUTBLOCKS(__className)
 #endif
 
-#define GENERICSABLEWITHOUTBLOCKS(__className)\
-@protocol __className <NSObject> \
-@end \
-@class __className;  \
-typedef NSComparisonResult (^__className##Comparator)(__className* obj1, __className* obj2);  \
+#define GENERICSABLEWITHOUTBLOCKS(__className)    \
 \
-@interface NSEnumerator (__className##_NSEnumerator_Generics) <__className>  \
-- (__className*)nextObject;  \
-- (NSArray<__className>*)allObjects; \
-@end  \
+@protocol __className <NSObject> @end             \
+@class    __className;                            \
+typedef NSComparisonResult(^__className##Comparator)(__className* obj1, __className* obj2); \
+\
+@interface NSEnumerator (__className##_NSEnumerator_Generics) <__className>                 \
+- (__className*) nextObject;  - (NSArray<__className>*)allObjects;  @end                    \
 \
 @interface NSArray (__className##_NSArray_Generics) <__className> \
 \
@@ -82,23 +529,23 @@ typedef NSComparisonResult (^__className##Comparator)(__className* obj1, __class
 \
 @interface NSMutableArray (__className##_NSMutableArray_Generics) <__className> \
 \
-- (void)addObjectsFromArray:(NSArray<__className>*)otherArray; \
-- (void)removeObject:(__className*)anObject inRange:(NSRange)range; \
-- (void)removeObject:(__className*)anObject; \
-- (void)removeObjectIdenticalTo:(__className*)anObject inRange:(NSRange)range; \
-- (void)removeObjectIdenticalTo:(__className*)anObject; \
-- (void)removeObjectsInArray:(NSArray<__className>*)otherArray; \
+- (void) addObjectsFromArray:(NSArray<__className>*)otherArray; \
+- (void) removeObject:(__className*)anObject inRange:(NSRange)range; \
+- (void) removeObject:(__className*)anObject; \
+- (void) removeObjectIdenticalTo:(__className*)anObject inRange:(NSRange)range; \
+- (void) removeObjectIdenticalTo:(__className*)anObject; \
+- (void) removeObjectsInArray:(NSArray<__className>*)otherArray; \
 \
-- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray range:(NSRange)otherRange; \
-- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray; \
-- (void)setArray:(NSArray<__className>*)otherArray; \
-- (void)sortUsingFunction:(NSInteger (*)(__className*, __className*, void *))compare context:(void *)context; \
+- (void) replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray range:(NSRange)otherRange; \
+- (void) replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray; \
+- (void) etArray:(NSArray<__className>*)otherArray; \
+- (void) sortUsingFunction:(NSInteger (*)(__className*, __className*, void *))compare context:(void *)context; \
 \
-- (void)insertObjects:(NSArray<__className>*)objects atIndexes:(NSIndexSet *)indexes; \
-- (void)removeObjectsAtIndexes:(NSIndexSet *)indexes; \
-- (void)replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray<__className>*)objects; \
+- (void) nsertObjects:(NSArray<__className>*)objects atIndexes:(NSIndexSet *)indexes; \
+- (void) removeObjectsAtIndexes:(NSIndexSet *)indexes; \
+- (void) replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray<__className>*)objects; \
 \
-- (void)setObject:(__className*)obj atIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0); \
+- (void) etObject:(__className*)obj atIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0); \
 \
 + (NSMutableArray<__className>*)array; \
 + (NSMutableArray<__className>*)arrayWithObject:(__className*)anObject; \
@@ -151,14 +598,14 @@ typedef NSComparisonResult (^__className##Comparator)(__className* obj1, __class
 \
 @interface NSMutableSet (__className##_NSMutableSet_Generics) <__className> \
 \
-- (void)addObject:(__className*)object; \
-- (void)removeObject:(__className*)object; \
-- (void)addObjectsFromArray:(NSArray<__className>*)array; \
-- (void)intersectSet:(NSSet<__className>*)otherSet; \
-- (void)minusSet:(NSSet<__className>*)otherSet; \
-- (void)unionSet:(NSSet<__className>*)otherSet; \
+- (void) addObject:(__className*)object; \
+- (void) removeObject:(__className*)object; \
+- (void) addObjectsFromArray:(NSArray<__className>*)array; \
+- (void) ntersectSet:(NSSet<__className>*)otherSet; \
+- (void) inusSet:(NSSet<__className>*)otherSet; \
+- (void) nionSet:(NSSet<__className>*)otherSet; \
 \
-- (void)setSet:(NSSet<__className>*)otherSet; \
+- (void) etSet:(NSSet<__className>*)otherSet; \
 + (NSSet<__className>*)setWithCapacity:(NSUInteger)numItems; \
 - (NSSet<__className>*)initWithCapacity:(NSUInteger)numItems; \
 \
@@ -171,8 +618,8 @@ typedef NSComparisonResult (^__className##Comparator)(__className* obj1, __class
 - (NSSet<__className>*)initWithSet:(NSSet<__className>*)set; \
 - (NSUInteger)countForObject:(__className*)object; \
 - (NSEnumerator<__className>*)objectEnumerator; \
-- (void)addObject:(__className*)object; \
-- (void)removeObject:(__className*)object; \
+- (void) addObject:(__className*)object; \
+- (void) removeObject:(__className*)object; \
 \
 @end \
 
@@ -181,17 +628,22 @@ typedef NSComparisonResult (^__className##Comparator)(__className* obj1, __class
 #define GENERICSABLEWITHBLOCKS(__className) \
 \
 @interface NSMutableArray (__className##_NSMutableArray_BLOCKS_Generics) <__className> \
-- (void)sortUsingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
-- (void)sortWithOptions:(NSSortOptions)opts usingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
+- (void) sortUsingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
+- (void) sortWithOptions:(NSSortOptions)opts usingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
 @end \
 @interface NSSet (__className##_NSSet_BLOCKS_Generics) <__className> \
-- (void)enumerateObjectsUsingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
-- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
+- (void) numerateObjectsUsingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
+- (void) numerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
 - (NSSet<__className>*)objectsPassingTest:(BOOL (^)(__className* obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0); \
 - (NSSet<__className>*)objectsWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(__className* obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0); \
 @end \
 
 #endif
+
+
+
+//GENERICSABLE(NSArray) @interface NSArray (Generics) <NSArray> @end
+
 
 /*  Created by Benedict Cohen on 10/01/2012.
 
@@ -289,9 +741,6 @@ typedef RECORD_NAME(^RECORD_NAME ## Record)(void);	/*typedef of Rec. that return
  static int flagbit6 		=  32;   // 2^^5    000...00100000
  static int flagbit7 		=  64;   // 2^^6    000...01000000
  static int flagbit8 		= 128;  	// 2^^7    000...10000000
- */
-#define AZA AZAlign
-#define AZPOS AZA
 
 //JROptionsDeclare(AZAlign, 	AZAlignLeft       = flagbit1, //0x00000001,
 //									AZAlignRight      = flagbit2, //0x00000010,
@@ -314,430 +763,18 @@ typedef RECORD_NAME(^RECORD_NAME ## Record)(void);	/*typedef of Rec. that return
 //					  AZ_arc__WEAK				= 0x00100000);
 
 
-#define QUALIFIER_FROM_BITMASK(q) q&AZ_arc_NATOM 					? nonatomic 			:\
-q&AZ_arc_NATOM|AZ_arc_STRNG 	? nonatomic,strong 	:\
-q&AZ_arc_RONLY 					? readonly 				:\
-q&AZ_arc__COPY 					? copy 					:\
-q&AZ_arc_NATOM|AZ_arc__COPY 	? nonatomic,copy 		:\
-q&AZ_arc__WEAK 					? weak    : assign
+//#import "AtoZMacroDefines.h"
+//#import "JREnum.h"
+//#import "AtoZUmbrella.h"
+//#ifdef __OBJC__
 
-
-//  AZPROP_HINTED(NSUInteger,ASS,poop);   -> @property (assign) NSUInteger _name;
-#define AZPROP_HINTED(_type_,_directives_,_name_) @property (_directives_) _type_ _name
-
-#define AZPROPS(_type_,_directives_,...) for(int i=2, i<VA_NUM_ARGS, i++) AZPROP
-
-
-#define NATOM_STR nonatomic,strong
-
-
-#define AZINTERFACE(_super_,_name_) @interface _name_ : _super_
-//#define AZINTERFACE(_name_,...) @interface _name_ : __VA_ARGS__ ?: NSObject   // AZINTERFACE(NSMA,Alex) -> @interface Alex : NSMutableArray
-
-
-#define STRONGNATOM strong,nonatomic
-#define AZPROPERTY(_kind_,_arc_,...) @property (_arc_) _kind_   __VA_ARGS__;
-#define AZPROPERTYIBO(_kind_,...) @property (assign) IBOutlet  _kind_   __VA_ARGS__;
-
-#define AZINTERFACEIMPLEMENTED(_super_,_name_,_BLOCK__)\
-	AZINTERFACE(_super_,_name_)\
-	_BLOCK__();\
-@end\
-@implementation _name_\
-@end
-
-//											 #QUALIFIER_FROM_BITMASK(_arc_)
-
-#define                                   AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
-
-//AZPROPASS(_kind_...) @property (NATOM,ASS) _kind_ __VA_ARGS__
-
-
-JROptionsDeclare(AZAlign, 	AZAlignLeft = 0x00000001,
-//JREnumDeclare(AZAlign,AZAlignLeft,// = 0x00000001),
-					  AZAlignRight      	= 0x00000010,
-					  AZAlignTop	        	= 0x00000100,
-					  AZAlignBottom    	= 0x00001000,
-					  AZAlignTopLeft 	   = 0x00000101,
-					  AZAlignBottomLeft		= 0x00001001,
-					  AZAlignTopRight   	= 0x00000110,
-					  AZAlignBottomRight  	= 0x00001010,
-					  AZAlignAutomatic		= 0x11111111);
-
-/*  expanded....
-
- typedef enum AZAlign : NSUInteger AZAlign;
- enum AZAlign : NSUInteger { AZAlignLeft 			= 0x00000001,
- AZAlignRight 			= 0x00000010,
- AZAlignTop 				= 0x00000100,
- AZAlignBottom 			= 0x00001000,
- AZAlignTopLeft 		= 0x00000101,
- AZAlignBottomLeft 	= 0x00001001,
- AZAlignTopRight 		= 0x00000110,
- AZAlignBottomRight 	= 0x00001010 };
- extern NSDictionary* AZAlignByValue();
- extern NSDictionary* AZAlignByLabel();
- extern NSString* AZAlignToString(int enumValue);
- extern BOOL AZAlignFromString(NSString *enumLabel, AZAlign *enumValue);
- static NSString *_AZAlign_constants_string = @"" "AZAlignLeft = 0x00000001, AZAlignRight = 0x00000010, AZAlignTop = 0x00000100, AZAlignBottom = 0x00001000, AZAlignTopLeft = 0x00000101, AZAlignBottomLeft = 0x00001001, AZAlignTopRight = 0x00000110, AZAlignBottomRight = 0x00001010";;
-
- */
-
-//				AZAlignNone	= 0, // 0
-//		AZAlignBottomLeft = 0x10000001, // 2 << 0  (0x1 << 1), // => 0x00000010
-//			 AZAlignBottom	= 0x00000010,
-//	  AZAlignBottomRight	= 0x00000110,
-//	     	  AZAlignRight = 0x00001000,
-//  	     AZAlignTopRight = 0x00001100,
-//	          AZAlignTop = 0x00000000,
-//			AZAlignTopLeft = 0x00000101,
-//				AZAlignLeft = 0x00011100 // 1 << 0   aka (0x1 << 0), // => 0x00000001
-////	       = 0x00001000,
-//	   = 0x00001001,
-//	  = 0x00001010
-
-
-
-typedef NS_ENUM(NSUInteger, CharacterSet) {
-	kCharacterSet_Newline = 0,
-	kCharacterSet_WhitespaceAndNewline,
-	kCharacterSet_WhitespaceAndNewline_Inverted,
-	kCharacterSet_UppercaseLetters,
-	kCharacterSet_DecimalDigits_Inverted,
-	kCharacterSet_WordBoundaries,
-	kCharacterSet_SentenceBoundaries,
-	kCharacterSet_SentenceBoundariesAndNewlineCharacter,
-	kNumCharacterSets
-};
-
-typedef NS_ENUM (NSUInteger, AGImageResizingMethod) {	AGImageResizeCrop,AGImageResizeCropStart,	AGImageResizeCropEnd, AGImageResizeScale };
-
-
-typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
-	AZNotInstalled			= 0,
-	AZInstalled				= 1 << 0,
-	AZNeedsUpdate			= 1 << 1,
-	//	UIViewAutoresizingFlexibleRightMargin  = 1 << 2,
-	//	UIViewAutoresizingFlexibleTopMargin	= 1 << 3,
-	//	UIViewAutoresizingFlexibleHeight	   = 1 << 4,
-	//	UIViewAutoresizingFlexibleBottomMargin = 1 << 5,
-	AZInstalledNeedsUpdate 	= AZInstalled|AZNeedsUpdate
-};
-
-
-typedef NS_ENUM(NSUInteger, PXListViewDropHighlight) {
-	PXListViewDropNowhere,
-	PXListViewDropOn,
-	PXListViewDropAbove,
-	PXListViewDropBelow
-};
-
-
-typedef NS_ENUM(NSUInteger,  	OSCornerType) {
-	//typedef NS_NSENUM( OSCornerTypes {
-	OSTopLeftCorner = 1,
-	OSBottomLeftCorner = 2,
-	OSTopRightCorner = 4,
-	OSBottomRightCorner = 8
-};// OSCornerType;
-
-typedef enum {
-	AMTriangleUp = 0,
-	AMTriangleDown,
-	AMTriangleLeft,
-	AMTriangleRight
-} AMTriangleOrientation;
-
-NS_INLINE NSUInteger AZAlignToNormalBitmask(AZA a){return
-
-	a == AZAlignLeft ? 2 :
-	a == AZAlignRight ? 3 :
-	a == AZAlignTop	 ? 0 :
-	a == AZAlignBottom  ? 1 : NSNotFound;
-	//	AZAlignTopLeft 	   = 0x00000101,
-	//	AZAlignBottomLeft		= 0x00001001,
-	//	AZAlignTopRight   	= 0x00000110,
-	//	AZAlignBottomRight  	= 0x00001010
-}
-JREnumDeclare(AZCompass,AZCompassN, AZCompassS, AZCompassW, AZCompassE, AZCompassNW, AZCompassNE, AZCompassSE, AZCompassSW );
-
-//CASCROLLVIEW
-//minimizing = 0x01, // 00000001
-//maximizing = 0x02, // 00000010
-//minimized  = 0x04, // 00000100
-//maximized  = 0x08  // 00001000
-
-typedef NS_OPTIONS(NSUInteger, ScrollFix)	{	LayerInsertFront, 		//= 0x01, // 00000001
-	LayerInsertEnd,
-	LayerRemoveFront,
-	LayerRemoveEnd,
-	LayerStateOK,// 			= 0x04, // 00000100
-	LayerStateUnresolved,// = 0x08,  // 00001000
-	LayerStateUnset
-};
-
-typedef NS_ENUM (NSUInteger, StateStyle)	{	Lasso,			InnerShadow,
-	DarkenOthers,	None				};
-
-#define VRT AZOrientVertical
-#define HRZ AZOrientHorizontal
-#define ScrollFixTypeArray @"LayerInsertFront",	@"LayerInsertEnd",				 @"LayerRemoveFront",	@"LayerRemoveEnd", \
-@"LayerStateOK",		@"LayerStateUnresolved",  @"LayerStateUnset",  	nil
-
-//@"LayerCopyInsertFront",@"LayerCopyInsertEnd"
-NS_INLINE NSString* stringForScrollFix(ScrollFix val) { return [[NSArray.alloc initWithObjects:ScrollFixTypeArray]objectAtIndex:val]; }
-
-
-
-
-//NSDATE NSSTRING ETC
-__unused static OSSpinLock _calendarSpinLock = 0;
-__unused static OSSpinLock _formattersSpinLock = 0;
-__unused static OSSpinLock _staticSpinLock = 0;
-
-
-
-typedef NS_ENUM(NSUInteger, AppCat) {
-	Games, Education, Entertainment,
-	Books, Lifestyle, Utilities, Business,
-	Travel, Music, Reference, Sports,
-	Productivity, News, HealthcareFitness,
-	Photography, Finance, Medical, SocialNetworking,
-	Navigation, Weather, Catalogs, FoodDrink, Newsstand
-};
-
-#define AppCatTypeArray @"Games", @"Education", @"Entertainment", @"Books", @"Lifestyle", @"Utilities", @"Business", @"Travel", @"Music", @"Reference", @"Sports", @"Productivity", @"News", @"Healthcare & Fitness", @"Photography", @"Finance", @"Medical", @"Social Networking", @"Navigation", @"Weather", @"Catalogs", @"Food & Drink", @"Newsstand", nil
-
-
-typedef NS_ENUM(NSInteger,          AZStatus) { AZMIXED = -1, AZOFF =  0, AZON =  1 };
-typedef NS_ENUM(NSInteger, 		 	AZState ) {	AZOff, AZOn, AZModifyingState, AZIdleState, AZCreatingState, AZDeletingState				};
-
-typedef NSInteger NSCellStateValue;
-
-typedef NS_ENUM(NSUInteger,    AZSlideState ) { AZIn, AZOut, AZToggle																						};
-
-typedef NS_ENUM(NSUInteger,    AZTrackState ) { LeftOn, LeftOff, TopOn, TopOff, RightOn, RightOff, BottomOn, BottomOff						};
-typedef NS_ENUM(NSUInteger,      AZDockSort ) { AZDockSortNatural, AZDockSortColor, AZDockSortPoint, AZDockSortPointNew						};
-typedef NS_ENUM(NSUInteger,      AZSearchBy ) { AZSearchByCategory, AZSearchByColor, AZSearchByName, AZSearchByRecent						};
-typedef NS_ENUM(NSUInteger,  AZMenuPosition ) { AZMenuN, AZMenuS, AZMenuE, AZMenuW, AZMenuPositionCount											};
-typedef NS_ENUM(NSUInteger, AZTrackPosition ) { AZTrackN, AZTrackS, AZTrackE, AZTrackW, AZTrackPositionCount									};
-typedef NS_ENUM(NSUInteger,  	AZInfiteScale ) { AZInfiteScale0X, AZInfiteScale1X, AZInfiteScale2X, AZInfiteScale3X, AZInfiteScale10X	};
-
-JREnumDeclare(AZOrient,	AZOrientTop, 	AZOrientLeft, 		AZOrientBottom, 	AZOrientRight,
-				  AZOrientGrid, 	AZOrientPerimeter,AZOrientFiesta,	AZOrientVertical, AZOrientHorizontal);
-
-#define AZTW AZTrackingWindow
-#define iC iCarousel
-/*
- //#ifndef ATOZTOUCH
- typedef NS_OPTIONS(NSUInteger, AZWindowPosition) {
- AZPositionLeft 			= NSMinXEdge, // 0  NSDrawer
- AZPositionRight			= NSMaxXEdge, // 2  preferredEdge
- AZPositionTop		   	= NSMaxYEdge, // 3  compatibility
- AZPositionBottom			= NSMinYEdge, // 1  numbering!
- AZPositionTopLeft	   	= 4,
- AZPositionBottomLeft		= 5,
- AZPositionTopRight	 	= 6,
- AZPositionBottomRight   = 7,
- AZPositionAutomatic	 	= 8
- };// AZWindowPosition;
- */
-#define  AZPositionToString AZWindowPositionToString
-#define AZPosition AZAlign
-#define AZWindowPosition AZPosition
-//JREnumDeclare(AZPosition,
-//	AZPositionLeft 			= 0,// NSMinXEdge, // 0  NSDrawer
-//	AZPositionRight			= 2, //NSMaxXEdge, // 2  preferredEdge
-//	AZPositionTop		   	= 3, //NSMaxYEdge, // 3  compatibility
-//	AZPositionBottom			= 1,  //NSMinYEdge, // 1  numbering!
-//	AZPositionTopLeft	   	= 4,
-//	AZPositionBottomLeft		= 5,
-//	AZPositionTopRight	 	= 6,
-//	AZPositionBottomRight   = 7,
-//	AZPositionAutomatic	 	= 8 );// AZWindowPosition;
-
-#define AZPositionLeft 		AZAlignLeft
-#define AZPositionRight		AZAlignRight		//			= 2, //NSMaxXEdge, // 2  preferredEdge
-#define 	AZPositionTop		AZAlignTop		   //	= 3, //NSMaxYEdge, // 3  compatibility
-#define 	AZPositionBottom		AZAlignBottom//			= 1,  //NSMinYEdge, // 1  numbering!
-#define 	AZPositionTopLeft 		AZAlignTopLeft//	   	= 4,
-#define 	AZPositionBottomLeft		AZAlignBottomLeft//		= 5,
-#define 	AZPositionTopRight		AZAlignTopRight//	 	= 6,
-#define 	AZPositionBottomRight		AZAlignBottomRight//   = 7,
-#define 	AZPositionAutomatic		AZAlignAutomatic   //	 	= 8 );// AZWindowPosition;
-
-#define AZLft 		AZPositionLeft
-#define AZRgt		AZPositionRight
-#define AZTop		AZPositionTop
-#define AZBot		AZPositionBottom
-#define AZTpLft	AZPositionTopLeft
-#define AZBtLft	AZPositionBottomLeft
-#define AZTpRgt	AZPositionTopRight
-#define AZBtRgt	AZPositionBottomRight
-
-//NSS* stringForPosition(AZWindowPosition enumVal);
-
-//NS_INLINE NSS* stringForPosition(AZPOS e) {	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
-//	return _pos.count >= e ? _pos[e] : @"outside of range for Positions";
-//}
-//NS_INLINE AZPOS positionForString(NSS* s)	{	_pos = _pos ?: [NSA arrayWithObjects:AZWindowPositionTypeArray];
-//															return (AZPOS) [_pos indexOfObject:s];
-//}
-
-
-typedef struct AZWhatever {
-	NSUInteger position;
-	char *aString;
-	int  anInt;
-} AZWhatever;
-
-// NSVALUE defined, see NSValue+AtoZ.h
-//#define AZWindowPositionTypeArray @[@"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic"]
-//#endif
-
-#define QUAD AZQuad
-
-
-//JREnum() is fine for when you have an enum that lives solely in an .m file. But if you're exposing an enum in a header file, you'll have to use the alternate macros. In your .h, use JREnumDeclare():
-//	JREnumDeclare(StreamState,	   Stream_Disconnected,   	Stream_Connecting,                                                    										Stream_Connected, 		Stream_Disconnecting);
-//And then use JREnumDefine() in your .m:
-//	JREnumDefine(StreamState); for Free!!
-// NSString* AZQuadrantToString(int value);
-
-//JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad);
-JREnumDeclare( AZQuad, AZQuadTopLeft = 0, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
-
-//typedef NS_ENUM(NSUInteger, AZQuadrant){
-//	AZTopLeftQuad = 0,
-//	AZTopRightQuad,
-//	AZBotRightQuad,
-//	AZBotLeftQuad
-//};
-
-
-typedef struct {	CGFloat tlX; CGFloat tlY;
-	CGFloat trX; CGFloat trY;
-	CGFloat blX; CGFloat blY;
-	CGFloat brX; CGFloat brY;
-} CIPerspectiveMatrix;
-
-//extern NSString *const AZOrientName[AZOrientCount];
-extern NSString *const AZMenuPositionName[AZMenuPositionCount];
-// NSLog(@"%@", FormatTypeName[XML]);
-//NSString *const FormatTypeName[FormatTypeCount] = { [JSON]=@"JSON", [XML]=@"XML", [Atom] = @"Atom", [RSS] = @"RSS", };
-
-typedef NS_ENUM( NSUInteger, AZItemsViewFormat ){	AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames	};
-
-typedef NS_ENUM(NSUInteger, SandBox) {	ReadAccess = R_OK,	WriteAccess = W_OK,	ExecuteAccess = X_OK,	PathExists = F_OK };
-
-
-NS_INLINE void AZPrintEncodingTypes(){
-	NSLog(@"%15s: %s","AZPOS", @encode( AZPOS ));
-	NSLog(@"%15s: %s",  "NSP", @encode(   NSPoint ));
-	NSLog(@"%15s: %s","NSRGG", @encode( NSRange ));
-	NSLog(@"%15s: %s", "NSSZ", @encode(  NSSize ));
-	NSLog(@"%15s: %s",  "NSR", @encode(   NSRect ));
-	NSLog(@"%15s: %s", "BOOL", @encode(  BOOL ));
-	NSLog(@"%15s: %s","AZPOS", @encode( AZPOS ));
-	NSLog(@"%15s: %s",  "CGF", @encode(   CGFloat ));
-	NSLog(@"%15s: %s", "NSUI", @encode(  NSUInteger));
-	NSLog(@"%15s: %s",  "int", @encode(   int ));
-	NSLog(@"%15s: %s",  "NSI", @encode(   NSInteger ));
-	NSLog(@"%15s: %s", "CGCR", @encode(  CGColorRef ));
-	NSLog(@"%15s: %s",   "id", @encode(    id ));
-	NSLog(@"%15s: %s",  "NSA", @encode(   NSArray ));
-}
-
-//typedef enum {
-//	JSON = 0,		 // explicitly indicate starting index
-//	XML,
-//	Atom,
-//	RSS,
-//
-//	FormatTypeCount,  // keep track of the enum size automatically
-//} FormatType;
-//extern NSString *const FormatTypeName[FormatTypeCount];
-//NSLog(@"%@", FormatTypeName[XML]);
-//	// In a source file
-//NSString *const FormatTypeName[FormatTypeCount] = {
-//	[JSON] = @"JSON",
-//	[XML] = @"XML",
-//	[Atom] = @"Atom",
-//	[RSS] = @"RSS",
-//};
-//typedef enum {
-//	IngredientType_text  = 0,
-//	IngredientType_audio = 1,
-//	IngredientType_video = 2,
-//	IngredientType_image = 3
-//} IngredientType;
-//write a method like this in class:
-//+ (NSString*)typeStringForType:(IngredientType)_type {
-//	NSString *key = [NSString stringWithFormat:@"IngredientType_%i", _type];
-//	return NSLocalizedString(key, nil);
-//}
-//have the strings inside Localizable.strings file:
-///* IngredientType_text */
-//"IngredientType_0" = "Text";
-///* IngredientType_audio */
-//"IngredientType_1" = "Audio";
-///* IngredientType_video */
-//"IngredientType_2" = "Video";
-///* IngredientType_image */
-//"IngredientType_3" = "Image";
-//
-
-//typedef struct _GlossParameters{
-//	CGFloat color[4];
-//	CGFloat caustic[4];
-//	CGFloat expCoefficient;
-//	CGFloat expScale;
-//	CGFloat expOffset;
-//	CGFloat initialWhite;
-//	CGFloat finalWhite;
-//} GlossParameters;
-
-//#endif
-
-
-JREnumDeclare(AZEvent, AZEventLeftMouseDown = 1,
-				   AZEventLeftMouseUp,
-				   AZEventRightMouseDown,
-				   AZEventRightMouseUp,
-				   AZEventMouseMoved,
-				   AZEventLeftMouseDragged,
-				   AZEventRightMouseDragged,
-				   AZEventMouseEntered,
-				   AZEventMouseExited,
-				   AZEventKeyDown,
-				   AZEventKeyUp,
-				   AZEventFlagsChanged,
-				   AZEventAppKitDefined,
-				   AZEventSystemDefined,
-				   AZEventApplicationDefined,
-				   AZEventPeriodic,
-				   AZEventCursorUpdate,
-				   AZEventScrollWheel,
-				   AZEventTabletPoint,
-				   AZEventTabletProximity,
-				   AZEventOtherMouseDown,
-				   AZEventOtherMouseUp,
-				   AZEventOtherMouseDragged,
-				   AZEventEventTypeGesture,
-				   AZEventEventTypeMagnify,
-				   AZEventEventTypeSwipe,
-				   AZEventEventTypeRotate,
-				   AZEventEventTypeBeginGesture,
-				   AZEventTypeEndGesture);
-
-/* USAGE:	
-@property (UNSFE) IBOutlet NSButton 	*someButton;
-...  .m
-[_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
 */
 
-typedef void(^NSControlActionBlock)(id sender);
-typedef void(^NSControlEventActionBlock)(AZEvent e,id sender);
-typedef void(^NSControlVoidActionBlock)(void);
 
 
+#import "AtoZUmbrella.h"
+
+
+//#import "AtoZAutoBox/AtoZAutoBox.h"
+//#import <Cocoa/Cocoa.h>
+//#import "JREnum.h"

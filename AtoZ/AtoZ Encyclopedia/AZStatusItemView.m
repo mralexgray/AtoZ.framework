@@ -29,7 +29,7 @@
 	//[NSKeyedArchiver archiveRootObject:[self standardMenu] toFile:[@"~/Desktop/main.dbmenu" stringByExpandingTildeInPath]];
 	return self;
 }
-- (void)dealloc {
+- (void) dealloc {
 	[NSStatusBar. systemStatusBar removeStatusItem:_item];
 }
 - (NSMenu *)standardMenu {
@@ -65,7 +65,7 @@
 	}
 	return self;
 }
-- (void)drawRect:(NSRect)rect {
+- (void) drawRect:(NSRect)rect {
 
 //	[self.color set];
 //	[[NSBezierPath  bezierPathWithOvalInRect: AZMakeSquare([self center], NSMaxY([self bounds])*.8)] fill];
@@ -83,7 +83,7 @@
 	}
 
 }
-- (void)mouseDown:(NSEvent *)event
+- (void) mouseDown:(NSEvent *)event
 {
 	NSRect frame = [[self window] frame];
 	NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
@@ -101,7 +101,7 @@
 	[self setNeedsDisplay:YES];
 }
 
-- (void)activeAppDidChange:(NSNotification *)notification {
+- (void) ctiveAppDidChange:(NSNotification *)notification {
 	self.currentApp = [[notification userInfo] objectForKey:NSWorkspaceApplicationKey];
 	NSLog(@"currentApp == %@", self.currentApp);
 
@@ -125,7 +125,7 @@
 //	}
 //	return self;
 //}
-//- (void)dealloc
+//- (void) dealloc
 //{
 //	controller = nil;
 //}

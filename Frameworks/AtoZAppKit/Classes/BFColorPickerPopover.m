@@ -15,9 +15,9 @@
 	return theColor;
 }
 
-+ (NSColor *)randomColor {
-	return [NSColor colorWithCalibratedRed:(float)random()/RAND_MAX green:(float) random()/RAND_MAX blue:(float) random()/RAND_MAX alpha:1.0f];
-}
+//+ (NSColor *)randomColor {
+//	return [NSColor colorWithCalibratedRed:(float)random()/RAND_MAX green:(float) random()/RAND_MAX blue:(float) random()/RAND_MAX alpha:1.0f];
+//}
 @end
 static BOOL colorPanelEnabled = YES;
 @interface BFColorPickerPopover ()

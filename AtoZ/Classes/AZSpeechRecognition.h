@@ -31,7 +31,7 @@ extern BOOL const useSox;
 + (instancetype) recognizeSynthesizedText:(NSString*)s completion:(SpeechToTextDone)done;
 + (instancetype) recordFor:(NSUI)s completion:(SpeechToTextDone)done;
 + (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet;
-+ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet withAudioView:(WebView*)wv;
+//+ (instancetype) recognizeSynthesizedText:(NSString*)s toControl:(id)outlet withAudioView:(WebView*)wv;
 
 @end
 

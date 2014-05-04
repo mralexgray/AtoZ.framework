@@ -31,7 +31,7 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 	 }
 	return self;
 }
-- (void)loadView {
+- (void) oadView {
 	self.view = [TUIView.alloc initWithFrame:CGRectZero];
 	self.view.backgroundColor = [NSColor lightGrayColor];
 	self.view.viewDelegate = (id<TUIViewDelegate>)self;
@@ -65,10 +65,10 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 		return nil;
 }
 #pragma mark - Methods
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
+- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated {
 	[self setViewControllers:viewControllers animated:animated completion:nil];
 }
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void) setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
 	CGFloat duration = (animated ? TUINavigationControllerAnimationDuration : 0);
 	TUIViewController *viewController = viewControllers[0];
 	BOOL containedAlready = ([_controllers containsObject:viewController]);
@@ -101,22 +101,22 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 			completion(finished);
 	}];
 }
-- (void)slideToNextViewControllerAnimated:(BOOL)animated {
+- (void) lideToNextViewControllerAnimated:(BOOL)animated {
 	[self slideToNextViewControllerAnimated:animated completion:nil];
 }
-- (void)slideToNextViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void) lideToNextViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
 	[self slideToViewController:self.nextViewController animated:animated completion:completion];
 }
-- (void)slideToPrevViewControllerAnimated:(BOOL)animated {
+- (void) lideToPrevViewControllerAnimated:(BOOL)animated {
 	[self slideToViewController:self.prevViewController animated:animated completion:nil];
 }
-- (void)slideToPrevViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void) lideToPrevViewControllerAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
 	[self slideToViewController:self.prevViewController animated:animated completion:completion];
 }
-- (void)slideToViewController:(TUIViewController *)newController animated:(BOOL)animated {
+- (void) lideToViewController:(TUIViewController *)newController animated:(BOOL)animated {
 	[self slideToViewController:newController animated:animated completion:nil];
 }
-- (void)slideToViewController:(TUIViewController *)newController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+- (void) lideToViewController:(TUIViewController *)newController animated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
 	if (![_controllers containsObject:newController]) {
 		 NSLog(@"View controller %@ is not in arrat", newController);
 		 return;
@@ -154,7 +154,7 @@ static CGFloat const TUINavigationControllerAnimationDuration = 0.25f;
 	}];
 }
 #pragma mark - Events
-- (void)view:(TUIView *)v scrollWheel:(NSEvent *)theEvent;
+- (void) iew:(TUIView *)v scrollWheel:(NSEvent *)theEvent;
 {
 	CGFloat treshold = 10;
 	if (!_couldUseSlideEvent || ![v eventInside:theEvent] ||

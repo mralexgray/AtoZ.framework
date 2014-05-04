@@ -48,14 +48,17 @@
 
 @implementation AZSimpleView
 
-+(instancetype)withFrame:(NSRect)frame color:(NSC*)c	{
+
++ (instancetype)withFrame:(NSRect)frame color:(NSC*)c	{
 	AZSimpleView *u = [AZSimpleView.alloc initWithFrame:frame];
-	u.backgroundColor = c;
-	return  u;
+	u.backgroundColor = c;return  u;
 }
 - (id)initWithFrame:(NSRect)frame	{ 	if (self != [super initWithFrame:frame]) return nil;
 	_backgroundColor  = RANDOMGRAY;
-	_glossy 	= _checkerboard = _clear = NO;  return  self;
+  self.arMASK = NSViewHeightSizable|NSViewWidthSizable;
+	_glossy 	= _checkerboard = _clear = NO;  
+  [self setNeedsDisplayForKeys:@[@"backgroundColor"]];	
+  return  self;
 }
 
 -(void)	setFrameSizePinnedToTopLeft: (NSSize)siz	{
@@ -71,7 +74,7 @@
 	[self setNeedsDisplay: YES];
 }
 
-- (void)drawRect:(NSRect)rect {
+- (void) drawRect:(NSRect)rect {
 
 	if (_glossy) {
 //		DrawGlossGradient([AZGRAPHICSCTXgraphicsPort],self.backgroundColor, [self bounds]);
@@ -99,7 +102,7 @@
 @implementation AZSimpleGridView
 @synthesize rows, columns, grid;
 
-- (void)awakeFromNib {
+- (void) wakeFromNib {
 
 	self.wantsLayer = YES;
 	self.grid = self.layer;

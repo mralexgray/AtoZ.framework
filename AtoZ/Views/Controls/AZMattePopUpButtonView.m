@@ -5,13 +5,13 @@
 //  Created by Alex Gordon on 20/04/2010.
 //  Written in 2010 by Fileability.
 //
-
+#import "AtoZ.h"
 #import "AZMattePopUpButtonView.h"
 
 
 @implementation AZMattePopUpButtonView
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 	[NSGraphicsContext saveGraphicsState];
 	CGContextSetAlpha([AZGRAPHICSCTX graphicsPort], [self isActive] ? 1.0 : 0.7);
@@ -37,7 +37,7 @@
 
 #pragma mark Redrawing when the window becomes Active/Inactive
 
-- (void)viewWillMoveToWindow:(NSWindow *)window
+- (void) iewWillMoveToWindow:(NSWindow *)window
 {
 	//NSLog(@"viewWillMoveToWindow: %d", [self isActive]);
 	
@@ -58,15 +58,15 @@
 	
 	[self setNeedsDisplay:YES];
 }
-- (void)viewDidMoveToWindow
+- (void) iewDidMoveToWindow
 {
 	[self setNeedsDisplay:YES];
 }
-- (void)windowDidBecomeMain:(NSNotification *)notif
+- (void) indowDidBecomeMain:(NSNotification *)notif
 {	
 	[self setNeedsDisplay:YES];
 }
-- (void)windowDidResignMain:(NSNotification *)notif
+- (void) indowDidResignMain:(NSNotification *)notif
 {	
 	[self setNeedsDisplay:YES];
 }

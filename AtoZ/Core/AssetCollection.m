@@ -19,7 +19,7 @@ static NSArray* extensionsForAssetType(AssetType type) {
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit {
 
 	Asset *n 		= self.instance;
-	n.assetType		= type == NSNotFound ? AssetTypeUNKNOWN : type;
+	n.assetType		= type == AssetTypeNotFound ? AssetTypeUNKNOWN : type;
 	n.path 			= path;
 	n.printInline 	= path == nil || isit ?: NO;
 	n.contents 		= contents;

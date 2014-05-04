@@ -10,6 +10,6 @@ static NSString * const kNBBJiggleTransformAnimation = @"NBBJiggleTransformAnima
 static NSString * const kNBBJiggleTransformTranslationXAnimation = @"NBBJiggleTransformTranslationXAnimation";
 
 @interface CALayer (NBBControlAnimations)
-- (void)startJiggling;
+- (void) startJiggling;
 - (void)stopJiggling;
 @end

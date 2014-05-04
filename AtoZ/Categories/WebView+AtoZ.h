@@ -6,24 +6,21 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <WebKit/WebKit.h>
+#import <WebKit/WebView.h>
 
 @interface WebView (AtoZ)
 
 - (void) loadJQ;
-
 - (void) makeMobile;
-
-- (void) loadFileAtPath:(NSS*)path;
-
+- (void) loadFileAtPath:(NSString*)path;
 - (NSImage *)snapshot;
 
--(void)appendTagToBody:(NSS*)tagName InnerHTML:(NSS*)innerHTML;
--(void)appendTag:(NSS*)tagName attrs:(NSD*)attrs inner:(NSS*)innerHTML;
+-(void)appendTagToBody:(NSString*)tagName InnerHTML:(NSString*)innerHTML;
+-(void)appendTag:(NSString*)tagName attrs:(NSDictionary*)attrs inner:(NSString*)innerHTML;
 
-- (void) evaluate:(NSS*)jsString;
-- (void) evaluateScriptAt:(NSS*)urlString;
-- (void) injectCSSAt:(NSS*)urlString;
-- (void) injectCSS:(NSS*)css;
+- (void) evaluate:(NSString*)jsString;
+- (void) evaluateScriptAt:(NSString*)urlString;
+- (void) injectCSSAt:(NSString*)urlString;
+- (void) injectCSS:(NSString*)css;
 @end
 

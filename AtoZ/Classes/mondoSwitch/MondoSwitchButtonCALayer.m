@@ -113,11 +113,11 @@ static const CGF
 
 - (void) switchSide {
   CGRect newFrame = theSwitch.frame;
-  CGFloat superWidth = self.frameWidth;
+  CGFloat superWidth = self.width;
 	
-  self.on = _currentEventState == PPdragOccurred ?
-     /* buttonCentre */ theSwitch.frameMidX + theSwitch.frameMinX > self.frameMidX /*centre */
-     : theSwitch.frameMinX == 0;
+//  self.on = _currentEventState == PPdragOccurred ?
+//     /* buttonCentre */ theSwitch.mid.x + theSwitch.center.x > self.center.x /*centre */
+//     : theSwitch.x == 0;
 
   newFrame.origin.x = _on ? superWidth - CGRectGetWidth(newFrame) : 0;
   
@@ -128,9 +128,9 @@ static const CGF
 - (BOOL)shouldDrag:(CGFloat)dx {
   
   // if delta negative and already to far left exit...
-  return dx < 0 && theSwitch.frameMinX <= 0  ||
+  return dx < 0 && theSwitch.x <= 0  ||
   // if delta positive and already to far right exit...
-        dx > 0 && theSwitch.frameMinX >= self.frameWidth - theSwitch.frameWidth
+        dx > 0 && theSwitch.x >= self.width - theSwitch.width
         ? NO : YES;
 }
 

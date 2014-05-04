@@ -1,33 +1,27 @@
-//
-//  NSString+AtoZEnums.h
-//  AtoZ
-//
-//  Created by Alex Gray on 4/16/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
+
 #import <objc/runtime.h>
 
-@interface AZEnum : NSObject<NSCopying, NSCoding> {
-//    NSString *name;
-//    int ordinal;
+@interface AZEnum : NSObject<NSCopying, NSCoding> {  //    NSString *name;     int ordinal;
     // cached to speed up prev/next - these are all "assign", not that it matters because they are all singletons 
     id previousWrappingEnum;
     id nextWrappingEnum;
     BOOL isFirstEnum, isLastEnum, isCacheValid;
 }
-@property (strong)    NSDictionary *properties;
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, assign) int ordinal;
+@property NSDictionary *eProperties;
+@property (nonatomic) NSString *name;
+@property (nonatomic) int ordinal;
+
 + (id) enumFromName: (NSString *) name;
 + (id) enumFromOrdinal: (int) ordinal;
 + (NSArray *) allEnums;
+
 // note the use of id make these no longer type safe
 + (id) firstEnum;
 + (id) lastEnum;
-@property (nonatomic, readonly) id previousEnum;
-@property (nonatomic, readonly) id nextEnum;
-@property (nonatomic, readonly) id previousWrappingEnum;
-@property (nonatomic, readonly) id nextWrappingEnum;
+@property (readonly) id previousEnum;
+@property (readonly) id nextEnum;
+@property (readonly) id previousWrappingEnum;
+@property (readonly) id nextWrappingEnum;
 - (id) deltaEnum: (NSInteger) delta wrapping: (BOOL) wrapping;
 // this should only be called from with the enum declaration methods
 - (id) initWithName: (NSString *) name ordinal: (int) ordinal properties: (NSDictionary *) properties;

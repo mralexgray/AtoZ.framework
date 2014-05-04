@@ -1,17 +1,23 @@
+
+#import "AtoZ.h"
 #import "CAScrollView.h"
 
+JREnum(ScrollFix, LayerInsertFront,	LayerInsertEnd, LayerRemoveFront, LayerRemoveEnd, LayerStateOK,	LayerStateUnresolved,	LayerStateUnset);
+JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
+
 @interface CAScrollView ()
-@property (NATOM,STRNG) 	CALNH *hostlayer;
-@property (NATOM,STRNG) 	NSA 	*shroudedLayers, *originalQueue;
-@property (NATOM,ASS) ScrollFix fixState;
-@property (NATOM,ASS)	 CGF 		offset;
-@property (NATOM,ASS) NSUI 		normalizedCopyIndex;
-@property (NATOM,ASS) BOOL 		recursiveFix, scrolling;
+@property (NATOM) 	CAL *hostlayer;
+@property (NATOM) 	NSA 	*shroudedLayers, *originalQueue;
+@property (NATOM) ScrollFix fixState;
+@property (NATOM)	 CGF 		offset;
+@property (NATOM) NSUI 		normalizedCopyIndex;
+@property (NATOM) BOOL 		recursiveFix, scrolling;
 @property (RONLY)	CAL	*lastLayer, *firstLayer;
 @property (RONLY) NSA 	*scrollLayersByAscendingPosition, *sSubs;
 @property (RONLY) 	BOOL 	isVRT;
 @property (STRNG) CWStack *stack;
 @property (STRNG) CAScrollLayer *sclr;
+@property (NATOM)		StateStyle 	hoverStyle, selectedStyle;
 @end
 
 #define WATCHDOGMAX  100
@@ -24,9 +30,9 @@
 {
 	if (self != [super initWithFrame:frameRect]) return nil;
 	oreo			 	 = HRZ;
-	selectedStyle 		 = Lasso;				/* StateStyle(s) Lasso, 	InnerShadow, DarkenOthers,	None */
+	selectedStyle 		 = LassoStyle;				/* StateStyle(s) Lasso, 	InnerShadow, DarkenOthers,	None */
 	hoverStyle 		 	 = DarkenOthers;
-	_hostlayer 			 = (CALNH*)[[[self setupHostViewNoHit] named:@"hostLayer"]colored:GREEN];
+	_hostlayer 			 = [[[self setupHostViewNoHit] named:@"hostLayer"]colored:GREEN];
 	_hostlayer.sblrs 	 = @[scrollLayer = [_hostlayer copyLayer]];
 	scrollLayer.loM 	 = self;
 	[scrollLayer addConstraintsSuperSize];
@@ -83,7 +89,7 @@
 		
 		[scrollLayer.sublayers each:^(CAL *obj) { NSP o = (NSP) { isVRT ? 0 : off, isVRT ?	off : 0  };
 																obj.frame = AZMakeRect(o, _unit);
-																off += isVRT ? obj.boundsHeight : obj.boundsWidth;
+																off += isVRT ? obj.height : obj.width;
 		}];
 	}];
 		_scrolling 		= NO;
@@ -106,7 +112,7 @@
 }
 -(void) setFixState:(ScrollFix)f
 {
-	LOGWARN(@"Fix:%@ dog:%ld subs:%ld q:%ld",stringForScrollFix(f),_fixWatchdog,self.sublayerCt,layerQueue.count);
+	LOGWARN(@"Fix:%@ dog:%ld subs:%ld q:%ld",ScrollFixToString(f),_fixWatchdog,self.sublayerCt,layerQueue.count);
 	
 	if (f == LayerStateOK || f == LayerStateUnresolved) { 	_fixWatchdog = 0; _recursiveFix = NO; 
 																				[scrollLayer setNeedsLayout]; return; }
@@ -182,12 +188,12 @@
 - (CGF) lastLaySpan	{ return [self aLayerSpan:self.lastLayer.modelLayer]; }
 - (CGF) firstLaySpan	{ return [self aLayerSpan:self.firstLayer.modelLayer]; }
 - (CGF) lastLayOrig	{ return [self.lastLayer.modelLayer  fKey: isVRT ? @"frameY"		: @"frameX"  ]; }
-- (CGF) superBounds	{ return isVRT ? scrollLayer.frameHeight : scrollLayer.frameWidth;			 }
+- (CGF) superBounds	{ return isVRT ? scrollLayer.height : scrollLayer.width;			 }
 - (CGF) sublayerSpan	{
 	return ((NSN*)[self.	sSubs reduce:^id(NSN*memo,CAL*cur) {
 		return @(memo.fV + [self aLayerSpan:cur]); } withInitialMemo:@0]).fV;
 }																														// Sizing getters
-- (CGF) aLayerSpan:(CAL*)l { return  isVRT ? [l.modelLayer boundsHeight] : [l.modelLayer boundsWidth]; }
+- (CGF) aLayerSpan:(CAL*)l { return  isVRT ? [(CAL*)l.modelLayer height] : [(CAL*)l.modelLayer width]; }
 
 
 - (void) scrollWheel:(NSE*)e																								//	Event Handling
@@ -219,7 +225,7 @@
 	switch (hoverStyle) {
   	case DarkenOthers:
 		self.shroudedLayers = nil;	 	self.shroudedLayers = hoveredLayer ? nil : @[_hoveredLayer]; break;
-	case Lasso:
+	case LassoStyle:
 		_hoveredLayer ? [self lasso:_hoveredLayer dymamicStroke:.05] : [self deLasso];	 break;
 	default:	  	
 		NSLog(@"no hover style set");		break;
@@ -229,26 +235,26 @@
 {
 	if ( selectedLayer == _selectedLayer ){
 		_selectedLayer.selected = NO;
-		selectedStyle 	 == Lasso 			? [self deLasso]	: selectedStyle == DarkenOthers 	? [self setShroudedLayers:nil]		 : nil;
+		selectedStyle 	 == LassoStyle 			? [self deLasso]	: selectedStyle == DarkenOthers 	? [self setShroudedLayers:nil]		 : nil;
 		[_selectedLayer setNeedsDisplay];
 		_selectedLayer = nil;
 		return;
 	}
 	_selectedLayer.selected = NO;
-	selectedStyle == Lasso			? [self deLasso]
+	selectedStyle == LassoStyle			? [self deLasso]
 : 	selectedStyle == DarkenOthers ? [self setShroudedLayers:nil]					 : nil;
 	[_selectedLayer setNeedsDisplay];
 	_selectedLayer = nil;
 	_selectedLayer = selectedLayer;
 	selectedLayer.selected = @YES;
 	selectedStyle == DarkenOthers ? [self setShroudedLayers: @[_selectedLayer]]
-:	selectedStyle == Lasso 			? [self lasso:_selectedLayer dymamicStroke:.05]
-:	selectedStyle == None 			? nil :nil;
+:	selectedStyle == LassoStyle 			? [self lasso:_selectedLayer dymamicStroke:.05] : nil;
+//:	selectedStyle == None 			? nil :nil;
 //NSLog(@"no selection style: %@", AZString(selectedStyle)) : [self autoDescribe];
 
 	[_selectedLayer setNeedsDisplay];
 	[(NSO*)_delegate respondsToStringThenDo:@"scrollView:didSelectLayer:" withObject:self withObject:_selectedLayer];
-//	CAL* l = _hoverStyle == Lasso ? [self lassoLayerWithFrame:_hoveredLayer.bounds dymamicStroke:.03] :
+//	CAL* l = _hoverStyle == LassoStyle ? [self lassoLayerWithFrame:_hoveredLayer.bounds dymamicStroke:.03] :
 //	[_hoveredLayer addSublayer:];
 }
 - (void) setShroudedLayers:(NSA*)actuallyAllLayersExcept
@@ -257,15 +263,15 @@
 												return;
 	}
 	NSA* all = [self.allLayers arrayWithoutObject:actuallyAllLayersExcept[0]];
-	_shroudedLayers = [all map:^id(CAL* obj) {  CALNH* l = [CALNH layerWithFrame:obj.bounds]; l.bgC = cgBLACK; l.opacity = .7; l.arMASK = CASIZEABLE; [obj addSublayer:l]; return l; }];
+	_shroudedLayers = [all map:^id(CAL* obj) {  CAL* l = [CAL noHitLayerWithFrame:obj.bounds]; l.bgC = cgBLACK; l.opacity = .7; l.arMASK = CASIZEABLE; [obj addSublayer:l]; return l; }];
 }
 - (void) lasso:(CAL*)layer dymamicStroke:(CGF)percent
 {
 	[self deLasso];
-	CGF dynamicStroke 	= AZMinDim(layer.boundsSize) * percent;
-	CASLNH *blk 			= [CASLNH layerWithFrame:layer.bounds];
-	CASLNH *wht 			= [CASLNH layerWithFrame:layer.bounds];
-	CALNH  *root 			= [CALNH  layerWithFrame:layer.bounds];
+	CGF dynamicStroke 	= AZMinDim(layer.size) * percent;
+	CASHL *blk 			= [CASHL noHitLayerWithFrame:layer.bounds];
+	CASHL *wht 			= [CASHL noHitLayerWithFrame:layer.bounds];
+	CAL  *root 			= [CAL   noHitLayerWithFrame:layer.bounds];
 	root.name			= @"lasso";
 	root.sublayers		= @[wht, blk];
 	root.zPosition 		= 1000;
@@ -285,7 +291,7 @@
 	[blk addAnimation:dashAnimation forKey:@"linePhase"];
 	[layer addSublayer:root];
 }
-- (void) deLasso { 	[self.allLayers each:^(CAL*l){ RemoveImmediately([l sublayerWithName:@"lasso"]); }]; }
+- (void) deLasso { 	[self.allLayers each:^(CAL*l){ [[l sublayerWithName:@"lasso"]removeImmediately]; }]; }
 
 
 - (IBAction) toggleOreo:			 (id)sender { self.oreo = ((NSBUTT*)sender).state == NSOnState ? VRT : HRZ; }

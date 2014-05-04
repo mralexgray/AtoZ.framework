@@ -14,7 +14,7 @@
 	return self;
 }
 
-- (void)drawRect:(NSRect)rect {
+- (void) drawRect:(NSRect)rect {
 
 	NSRect bounds = self.bounds;
 
@@ -39,7 +39,7 @@
 
 @implementation AZBackground2
 
-- (void)drawRect: (NSRect)dirtyRect	{
+- (void) drawRect: (NSRect)dirtyRect	{
 	//// Color Declarations
 	NSColor* backgroundColorTop = [NSColor colorWithCalibratedRed: 0.184 green: 0.211 blue: 0.226 alpha: 1];
 	NSColor* backgroundColorBottom = [backgroundColorTop shadowWithLevel: 0.5];

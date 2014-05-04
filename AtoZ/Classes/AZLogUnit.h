@@ -9,6 +9,6 @@
 @property (strong) GDataXMLElement 	*suitesElement,
 												*currentSuiteElement,
 												*currentCaseElement;
-- (void)writeResultFile;
+- (void) riteResultFile;
 
 @end

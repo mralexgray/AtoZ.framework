@@ -55,7 +55,7 @@
 }
 - (void) mouseDown:(NSEvent *)theEvent { NSLog(@"mdown :%@", AZString(theEvent.locationInWindow));
 	[_root setNeedsLayout];}
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)cgContext
+- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)cgContext
 {
 	// DEBUG
 	NSLog(@"Drawing layer: %@  ... %@", layer.name, layer.debugLayerTree);
@@ -170,7 +170,7 @@
 //}
 //
 //
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 //{
 //	// DEBUG
 //	// NSLog(@"value updated for keypath: %@ with change: %@", keyPath, [change description]);
@@ -192,7 +192,7 @@
 //	}
 //}
 //
-//- (void)frameDidChange:(NSNotification *)notification
+//- (void) frameDidChange:(NSNotification *)notification
 //{
 //	[_contentLayer layoutSublayers];
 //}
@@ -200,7 +200,7 @@
 //#pragma mark -
 //#pragma mark CALayoutManager Protocol Methods
 //
-////- (void)layoutSublayersOfLayer:(CALayer *)layer
+////- (void) layoutSublayersOfLayer:(CALayer *)layer
 ////{
 //// DEBUG
 //// NSLog(@"Laying out sublayers of %@...", layer.name);
@@ -286,7 +286,7 @@
 // }
 //
 // */
-//- (void)setContent:(NSMutableArray *)content {
+//- (void) setContent:(NSMutableArray *)content {
 //
 //	_content  = content;
 //	NSLog(@"making layers!");
@@ -426,7 +426,7 @@
 ////- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 ////	NSLog(@"context!");
 ////}
-//- (void)drawRect:(NSRect)dirtyRect
+//- (void) drawRect:(NSRect)dirtyRect
 //{
 ////	[self doLayout];
 //}

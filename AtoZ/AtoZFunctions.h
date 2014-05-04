@@ -1,12 +1,31 @@
 //  AtoZFunctions.h
 
-#import "AtoZUmbrella.h"
+
 #import <Carbon/Carbon.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <CoreServices/CoreServices.h>
 #import <BlocksKit/BlocksKit.h>
 #import <objc/objc-class.h>
 #import <objc/runtime.h>
+#import "AtoZUmbrella.h"
+
+
+/*! For Unit testing blocks etc... @code
+
+  __block NSInteger newIndex = -1;
+
+  [_noHitLayer addObserverForKeyPath:@"siblingIndexMax" task:^(id l) { newIndex = [l siblingIndexMax]; }];
+  [_noHitLayer.superlayer addSublayer:CAL.layer];
+
+  STAssertTrue(WaitFor(^BOOL { return newIndex != -1; }), @"still waiting");
+*/
+
+typedef BOOL(^UntilTrue)();
+NS_INLINE BOOL WaitFor(UntilTrue until){  
+
+  while(!until() && AZPROCINFO.systemUptime - AZPROCINFO.systemUptime <= 10)
+    [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.date];            return until();
+}
 
 
 NSString* AZTrace(void(^block)(void));
@@ -42,21 +61,32 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define __VA_ARG_CT__(...) __VA_ARG_CT__IMPL(0, ## __VA_ARGS__, 5,4,3,2,1,0)
 #define __VA_ARG_CT__IMPL(_0,_1,_2,_3,_4,_5,N,...) N
 
-
 //#define __VA_ARG_CT__(...) (sizeof(#__VA_ARGS__) == sizeof("") ? 0 : VA_NUM_ARGS_IMPL(__VA_ARGS__, 5,4,3,2,1))
 
 
 #define VA_NUM_ARGS(...) VA_NUM_ARGS_IMPL(__VA_ARGS__, 9,8,7,6,5,4,3,2,1) 	 	// USAGE int i = VA_NUM_ARGS("sssss",5,3);  -> i = 3
 #define VA_NUM_ARGS_IMPL(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...) N
 
-#define ISKINDA isKindOfClass                 // USAGE  [@"d" ISKINDA:NSNumber.class]   -> NO
-#define ISA(a,b) (BOOL)[a ISKINDA:[b class]]	// USAGE  ISA(@"apple",NSString)          -> YES
-#define ISACLASS(a) class_isMetaClass(object_getClass(a))
+#define ISKINDA isKindOfClass                                 /*! @code  [@"d" ISKINDA:NSNumber.class]   -> NO     */
+#define ISA(OBJ,KLS) (BOOL)([((id)OBJ) ISKINDA:[KLS class]])	/*! @code  ISA(@"apple",NSString)          -> YES    */
+#define ISNOTA(OBJ,KLASS) (BOOL)(!ISA(((id)OBJ),KLASS))       /*! @code  ISA(@"apple",NSString)          -> YES    */
+#define AM_I_A(KLASS) ISA(self,KLASS)                         /*! @code  AM_I_A(NSString)                -> YES    */
 
-#define ALLARE(OBJS,KLS) ({ \
-	NSParameterAssert(ISA(OBJS,NSA)); \
-	[OBJS all:^BOOL(id obj) { return ISA(obj,KLS); }]; \
-})
+
+//OBJC_EXPORT  BOOL AZISAAnyOfThese(Class x, ...); // under construction
+
+//#define ISANYOF(OBJ,...) AZISAAnyOfThese([OBJ class],__VA_ARGS__,NULL) // under construction
+
+OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...); 
+
+#define EQUAL2ANYOF(OBJ,...) (BOOL)AZEqualToAnyObject(OBJ,__VA_ARGS__)
+
+
+#define ISACLASS(OBJ) class_isMetaClass(object_getClass(OBJ))
+
+/*! ALLARE - check that all NSArray objects are a certain class.. @code  id x = @[RED, GREEN, @1]; ALLARE(x,NSC)) ? [x ...] : nil;  */
+
+#define ALLARE(OBJS,KLS) ({ NSParameterAssert(ISA(OBJS,NSA)); [OBJS all:^BOOL(id obj) { return ISA(obj,KLS); }]; })
 
 //object_getClass([a class]))					// USAGE  ISACLASS(NSString)					-> YES
 
@@ -77,25 +107,28 @@ PLAYMACRO(Chirp, /System/Library/PrivateFrameworks/ShareKit.framework/Versions/A
 // a function pointer is...			void(*pT)() = &playTrumpet;
 // and is called like...						pT();
 
-NS_INLINE void playTrumpet(void){ runCommand(@"afplay \"/System/Library/Frameworks/GameKit.framework/Versions/A/Resources/GKInvite.aif\""); }
+FOUNDATION_STATIC_INLINE void playTrumpet(void){ runCommand(@"afplay \"/System/Library/Frameworks/GameKit.framework/Versions/A/Resources/GKInvite.aif\""); }
 
-NS_INLINE void logger(NSS*toLog){ runCommand($(@"logger %@", toLog)); }
+void playTrumpetDeclared(void);
+
+FOUNDATION_STATIC_INLINE void logger(NSS*toLog){ runCommand($(@"logger %@", toLog)); }
 
 
 //NS_INLINE void playChirp  (void){ runCommand(@"afplay \"/System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/PlugIns/Twitter.sharingservice/Contents/Resources/tweet_sent.caf\""); }
 //NS_INLINE void playSound  (void){ runCommand(@"afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/accessibility/Sticky Keys ON.aif\"");}
 
 
-JREnumDeclare(azkColor,azkColorNone,azkColorRed,azkColorOrange,azkColorYellow,azkColorGreen,azkColorBlue,azkColorPurple,azkColorGray);
 NSG* GradForClr(azkColor c);
 NSC* Clr(azkColor c);
 
 
-CACONST * AZConstRelSuper                 ( CACONSTATTR attrb                                                  );
-CACONST * AZConst                         ( CACONSTATTR attrb, NSS* rel                                        );
-CACONST * AZConstScaleOff                 ( CACONSTATTR attrb, NSS* rel,                      CGF scl, CGF off );
-CACONST * AZConstRelSuperScaleOff         ( CACONSTATTR attrb,                                CGF scl, CGF off );
-CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* relName, CACONSTATTR aTwo, CGF scl, CGF off );
+CACONST * AZConstRelSuper                 ( CACONSTATTR attr);
+CACONST * AZConst                         ( CACONSTATTR attr, NSS* rel);
+CACONST * AZConstRelAttr                  ( CACONSTATTR aOne, NSS *rel, CACONSTATTR aTwo);
+CACONST * AZConstScaleOff                 ( CACONSTATTR attr, NSS* rel,                  CGF scl, CGF off );
+CACONST * AZConstRelSuperScaleOff         ( CACONSTATTR attr,                            CGF scl, CGF off );
+CACONST * AZConstAttrRelNameAttrScaleOff 	( CACONSTATTR aOne, NSS* rel, CACONSTATTR aTwo, CGF scl, CGF off );
+NSA* AZHorizontalConstraints();
 
 CAT3D  	m34();
 
@@ -128,7 +161,7 @@ NSTSK* launchMonitorAndReturnTask ( NSTask* task	);
 
 typedef void (^updateKVCKeyBlock)();
 @interface NSObject (KVONotifyBlock)
-- (void)setValueForKey:(NSString*)key andNotifyInBlock:(updateKVCKeyBlock)block;
+- (void) setValueForKey:(NSString*)key andNotifyInBlock:(updateKVCKeyBlock)block;
 @end
 
 ////must Initialize the value transformers used throughout the application bindings
@@ -159,14 +192,6 @@ typedef void(^AZActionCellBlock)(id objVal);
 #define boardPositionToIndex(pos, boardSize) ((pos).x - 1) + (((pos).y - 1) * boardSize)
 #define indexToBoardPosition(idx, boardSize) (CGPointMake((x) % boardSize, (int)((x) / boardSize) + 1))
 
-#define RNG AZRange
-typedef struct _AZRange {	NSI min;	NSI max;	} AZRange;
-
-RNG		AZMakeRange 	( 	NSI min,  NSI max	 );
-NSUI		AZIndexInRange (	NSI fake, RNG rng  );
-NSI  	AZNextSpotInRange (	NSI spot, RNG rng  );
-NSI  	AZPrevSpotInRange (	NSI spot, RNG rng  );
-NSUI		 AZSizeOfRange ( 				 RNG rng  );
 
 ///// ### SANDBOX
 NSS*	realHomeDirectory		();
@@ -225,8 +250,12 @@ static inline BOOL NSRangeContainsRange( NSRNG range1, NSRNG range2) {
 //BOOL isEmpty(id thing);
 //typedef int (^triple)(int number);
 
+#define AZAPPMAIN int main(int c, const char * v[]) {	return NSApplicationMain(c,(const char**)v); }
+
 
 //void (^now)(void) = ^ {	NSDate *date = [NSDate date]; NSLog(@"The date and time is %@", date); };
+
+//NS_INLINE void AZShowWindow(NSW*w){  [w setHidden]
 
 NS_INLINE	NSW* NSWINDOWINIT(NSR frame, NSUI mask){
 
@@ -239,10 +268,13 @@ NS_INLINE	NSW* AZBORDLESSWINDOWINIT	(NSR frame) {
 }
 #define AZWINDOWINIT NSWINDOWINIT(AZRectFromDim(100),1)
 
+#define AZBORDERLESSWIN AZBORDLESSWINDOWINIT(AZRectFromDim(100))
+
 NSS * AZStringForTypeOfValue		(id *obj); 				 //(NSString* (^)(void))blk;
 NSS * AZToStringFromTypeAndValue	(const char *typeCode, void *value);
 NSS * AZStringFromRect						(NSRect rect);
 NSS * AZStringFromPoint				(NSP p);
+NSS * AZStringFromSize(NSSZ sz);
 NSA * ApplicationPathsInDirectory			(NSString *searchPath);
 
 void DrawLabelAtCenterPoint (NSS* string, NSPoint center);
@@ -257,8 +289,10 @@ NSIMG* 		reflectedView				( NSV* view 							); // Creates an autoreleased refle
 CGImageRef CreateGradientImage(int pixelsWide, int pixelsHigh);
 CGF percent ( CGFloat val );
 CGF DegreesToRadians ( CGFloat degrees );
+void NSRectFillWithGradient(NSR rect, NSG *grad);
 void NSRectFillWithColor (NSRect rect, NSColor* color);
-
+void NSFrameRectWithColor(NSR rect, NSC *color);
+void NSFrameRectWithWidthWithColor(NSR rect, CGF frameWidth,NSC *color);
 void AZSpinnerInViewWithColor(NSV * view, NSC * color);
 
 //CGFloat DEG2RAD(CGFloat degrees);
@@ -450,3 +484,5 @@ NSUI sizeOfDirectoryAt(NSS* path);
 NSS* prettySizeOfDirAt(NSS *path);
 
 NSS* weatherForZip(NSUI zip);
+
+

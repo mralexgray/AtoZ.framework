@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+#import <AtoZ/AtoZ.h>
 #import "NSThread+AtoZ.h"
 
 
@@ -51,37 +52,32 @@
 @implementation NSThread (BlocksAdditions)
 
 + (void)performBlockInBackground:(void (^)())block {
-	[NSThread performSelectorInBackground:@selector(runBlock:)
-							   withObject:[[block copy] autorelease]];
+	[NSThread performSelectorInBackground:NSSelectorFromString(@"runBlock:")
+							               withObject:[[block copy] autorelease]];
 }
 - (void)performBlockOnMainThread:(void (^)())block {
 	[[NSThread mainThread] performBlock:block];
 }
-+ (void)runBlock:(void (^)())block{
-	block();
-}
++ (void)runBlock:(void (^)())block{	block(); }
 
 - (void)performBlock:(void (^)())block{
 
-	if ([[NSThread currentThread] isEqual:self])
-		block();
-	else
-		[self performBlock:block waitUntilDone:NO];
+	[[NSThread currentThread] isEqual:self] ? block() : [self performBlock:block waitUntilDone:NO];
 }
 
 
 - (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait{
 
-	[NSThread performSelector:@selector(runBlock:)
+	[NSThread performSelector:NSSelectorFromString(@"runBlock:")
 					 onThread:self
 				   withObject:[[block copy] autorelease]
 				waitUntilDone:wait];
 }
 - (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay{
 
-	[self performSelector:@selector(performBlock:)
-			   withObject:[[block copy] autorelease]
-			   afterDelay:delay];
+	[self performSelector:NSSelectorFromString(@"performBlock:")
+             withObject:[[block copy] autorelease]
+			       afterDelay:delay];
 }
 
 @end

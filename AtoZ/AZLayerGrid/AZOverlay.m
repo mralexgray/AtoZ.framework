@@ -22,16 +22,16 @@ typedef NSUInteger AZCorner;
 @interface AZOverlayView ()
 
 //initialization
-- (void)initialSetup;
-- (void)drawOverlays;
+- (void) nitialSetup;
+- (void) drawOverlays;
 
 //helpers
-- (void)setMouseForPoint:(NSPoint)point;
+- (void) setMouseForPoint:(NSPoint)point;
 - (CGPathRef)newRectPathWithSize:(NSSize)size handles:(BOOL)handles;
 - (id)layerAtPoint:(NSPoint)point;
 - (AZCorner)cornerOfLayer:(CALayer *)layer atPoint:(NSPoint)point;
 - (BOOL)rect:(NSRect)rect isValidForLayer:(CALayer *)layer;
-- (void)draggedFrom:(NSPoint)startPoint to:(NSPoint)endPoint done:(BOOL)done;
+- (void) draggedFrom:(NSPoint)startPoint to:(NSPoint)endPoint done:(BOOL)done;
 
 //maybe these should be put in categories on their respective objects?
 //NSCursor:
@@ -138,7 +138,7 @@ typedef NSUInteger AZCorner;
 	return self;
 }
 
-- (void)awakeFromNib
+- (void) wakeFromNib
 {
 	[super awakeFromNib];
 	
@@ -148,7 +148,7 @@ typedef NSUInteger AZCorner;
 	[self performSelector:@selector(initialSetup) withObject:nil afterDelay:0.0f];
 }
 
-- (void)initialSetup
+- (void) nitialSetup
 {
 	__AZ_topLayer = [CALayer layer];
 	
@@ -166,7 +166,7 @@ typedef NSUInteger AZCorner;
 	[self setOverlay:__AZ_topLayer forType:IKOverlayTypeImage];
 }
 
-- (void)reloadData
+- (void) eloadData
 {
 	if (__AZ_overlayDataSource) {
 		AZLOG($(@"Setting up overlays from overlayDataSouce: %@", __AZ_overlayDataSource));
@@ -184,7 +184,7 @@ typedef NSUInteger AZCorner;
 	[self drawOverlays];
 }
 
-- (void)drawOverlays
+- (void) drawOverlays
 {
 	AZLOG(@"start");
 //	if (![self allowsEmptyOverlaySelection] && __AZ_selectedOverlays.count == 0 && __AZ_overlayCache.count > 0) {
@@ -235,7 +235,7 @@ typedef NSUInteger AZCorner;
 
 #pragma mark Deallocation
 
-- (void)dealloc
+- (void) dealloc
 {
 	[self setOverlayDelegate:nil];
 	[self setOverlayDataSource:nil];
@@ -267,7 +267,7 @@ typedef NSUInteger AZCorner;
 
 #pragma mark Selection
 
-- (void)selectOverlayIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend
+- (void) electOverlayIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend
 {
 	if ([indexes count] == 0) {
 		return;
@@ -302,7 +302,7 @@ typedef NSUInteger AZCorner;
 	return __AZ_selectedOverlays;
 }
 
-- (void)deselectOverlay:(NSInteger)overlayIndex
+- (void) eselectOverlay:(NSInteger)overlayIndex
 {
 	[__AZ_selectedOverlays removeObject:__AZ_overlayCache[overlayIndex]];
 	[[NSNotificationCenter defaultCenter] postNotificationName:AZOverlayViewSelectionDidChangeNotification object:self];
@@ -332,14 +332,14 @@ typedef NSUInteger AZCorner;
 
 #pragma mark Mouse events
 
-- (void)mouseDown:(NSEvent *)theEvent
+- (void) mouseDown:(NSEvent *)theEvent
 {
 	__AZ_mouseDownPoint = [self convertWindowPointToImagePoint:[theEvent locationInWindow]];
 	
 	[super mouseDown:theEvent];
 }
 
-- (void)mouseDragged:(NSEvent *)theEvent
+- (void) mouseDragged:(NSEvent *)theEvent
 {
 	NSPoint mouseUpPoint = [self convertWindowPointToImagePoint:[theEvent locationInWindow]];
 	CGFloat epsilonSquared = 0.025;
@@ -354,7 +354,7 @@ typedef NSUInteger AZCorner;
 	}
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
+- (void) mouseUp:(NSEvent *)theEvent
 {
 	NSPoint mouseUpPoint = [self convertWindowPointToImagePoint:[theEvent locationInWindow]];
 	CGFloat epsilonSquared = 0.025;
@@ -413,7 +413,7 @@ typedef NSUInteger AZCorner;
 	}
 }
 
-- (void)rightMouseUp:(NSEvent *)theEvent
+- (void) ightMouseUp:(NSEvent *)theEvent
 {
 	NSPoint mouseUpPoint = [self convertWindowPointToImagePoint:[theEvent locationInWindow]];
 	
@@ -430,17 +430,17 @@ typedef NSUInteger AZCorner;
 	}
 }
 
-- (void)cursorUpdate:(NSEvent *)theEvent
+- (void) ursorUpdate:(NSEvent *)theEvent
 {
 	[self setMouseForPoint:[self convertWindowPointToImagePoint:[theEvent locationInWindow]]];
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent
+- (void) mouseMoved:(NSEvent *)theEvent
 {
 	[self setMouseForPoint:[self convertWindowPointToImagePoint:[theEvent locationInWindow]]];
 }
 
-- (void)mouseExited:(NSEvent *)theEvent
+- (void) mouseExited:(NSEvent *)theEvent
 {
 	[self setMouseForPoint:[self convertWindowPointToImagePoint:[theEvent locationInWindow]]];
 }
@@ -451,13 +451,13 @@ typedef NSUInteger AZCorner;
 	return YES;
 }
 
-- (void)keyDown:(NSEvent *)theEvent
+- (void) keyDown:(NSEvent *)theEvent
 {
 	//prevents "beep" on button click.
 	[super keyDown:theEvent];
 }
 
-- (void)keyUp:(NSEvent *)theEvent
+- (void) keyUp:(NSEvent *)theEvent
 {
 	id selection = [__AZ_selectedOverlays lastObject];
 	DLog(@"selection: %@", selection);
@@ -519,7 +519,7 @@ typedef NSUInteger AZCorner;
 
 #pragma mark Other events
 
-- (void)selectAll:(id)sender
+- (void) electAll:(id)sender
 {
 	[self selectAllOverlays:sender];
 	[self drawOverlays];
@@ -544,7 +544,7 @@ typedef NSUInteger AZCorner;
 	return __AZ_northEastSouthWestResizeCursor;
 }
 
-- (void)setMouseForPoint:(NSPoint)point
+- (void) setMouseForPoint:(NSPoint)point
 {
 	//Unfortunately necessary to do it this way since I don't get -cursorUpdate: messages when the mouse leaves a layer and goes back to the topLayer.
 	
@@ -686,7 +686,7 @@ typedef NSUInteger AZCorner;
 	return YES;
 }
 
-- (void)draggedFrom:(NSPoint)startPoint to:(NSPoint)endPoint done:(BOOL)done
+- (void) draggedFrom:(NSPoint)startPoint to:(NSPoint)endPoint done:(BOOL)done
 {
 	DLog(@"from %@ to %@", NSStringFromPoint(startPoint), NSStringFromPoint(endPoint));
 	
@@ -816,7 +816,7 @@ typedef NSUInteger AZCorner;
 	return __AZ_overlayDataSource;
 }
 
-- (void)setOverlayDataSource:(id)overlayDataSource
+- (void) setOverlayDataSource:(id)overlayDataSource
 {
 	__AZ_overlayDataSource = overlayDataSource;
 	
@@ -828,7 +828,7 @@ typedef NSUInteger AZCorner;
 	return __AZ_overlayDelegate;
 }
 
-- (void)setOverlayDelegate:(id)overlayDelegate
+- (void) setOverlayDelegate:(id)overlayDelegate
 {
 	if (__AZ_overlayDelegate != nil) {
 		[[NSNotificationCenter defaultCenter] removeObserver:__AZ_overlayDelegate
@@ -858,7 +858,7 @@ typedef NSUInteger AZCorner;
 
 //@synthesize overlayFillColor = __AZ_overlayFillColor;
 
-- (void)setOverlayFillColor:(CGColorRef)overlayFillColor
+- (void) setOverlayFillColor:(CGColorRef)overlayFillColor
 {
 	CGColorRelease(__AZ_overlayFillColor);
 	__AZ_overlayFillColor = overlayFillColor;
@@ -872,7 +872,7 @@ typedef NSUInteger AZCorner;
 
 //@synthesize overlayBorderColor = __AZ_overlayBorderColor;
 
-- (void)setOverlayBorderColor:(CGColorRef)overlayBorderColor
+- (void) setOverlayBorderColor:(CGColorRef)overlayBorderColor
 {
 	CGColorRelease(__AZ_overlayBorderColor);
 	__AZ_overlayBorderColor = overlayBorderColor;
@@ -886,7 +886,7 @@ typedef NSUInteger AZCorner;
 
 //@synthesize overlaySelectionFillColor = __AZ_overlaySelectionFillColor;
 
-- (void)setOverlaySelectionFillColor:(CGColorRef)overlaySelectionFillColor
+- (void) setOverlaySelectionFillColor:(CGColorRef)overlaySelectionFillColor
 {
 	CGColorRelease(__AZ_overlaySelectionFillColor);
 	__AZ_overlaySelectionFillColor = overlaySelectionFillColor;
@@ -900,7 +900,7 @@ typedef NSUInteger AZCorner;
 
 //@synthesize overlaySelectionBorderColor = __AZ_overlaySelectionBorderColor;
 
-- (void)setOverlaySelectionBorderColor:(CGColorRef)overlaySelectionBorderColor
+- (void) setOverlaySelectionBorderColor:(CGColorRef)overlaySelectionBorderColor
 {
 	CGColorRelease(__AZ_overlaySelectionBorderColor);
 	__AZ_overlaySelectionBorderColor = overlaySelectionBorderColor;

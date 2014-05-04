@@ -221,7 +221,7 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
 }
 
 
-/*- (void)mouseDragged:(NSEvent *)theEvent
+/*- (void) mouseDragged:(NSEvent *)theEvent
 {
 	NSPoint currentLocation;
 	NSPoint newOrigin;
@@ -255,7 +255,7 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
 	
 	[self setFrameOrigin:newOrigin];
 }
-- (void)mouseDown:(NSEvent *)theEvent
+- (void) mouseDown:(NSEvent *)theEvent
 {	
 	NSRect windowFrame = [self frame];
 	

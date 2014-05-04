@@ -8,6 +8,6 @@
 
 @interface XCTestLog (RedGreen)
 
-- (void)testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+- (void) testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
 
 @end

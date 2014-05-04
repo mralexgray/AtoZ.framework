@@ -1,38 +1,126 @@
 
-#import "AtoZ.h"
-#import "MASShortcutView.h"
-#import "MASShortcutView+UserDefaults.h"
-#import "MASShortcut+UserDefaults.h"
-#import "MASShortcut+Monitoring.h"
-
 #import <sys/sysctl.h>
 #import <sys/proc_info.h>
 #import <objc/runtime.h>
 #import <libproc.h>
+#import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
+#import "AtoZ.h"
 
-#import "AtoZFunctions.h"
-#import "AtoZUmbrella.h"
-#import "AtoZModels.h"
-#import "OperationsRunner.h"
+@implementation NSObject (AtoZEssential)
 
-NSS 	* AZGridShouldDrawKey 	= @"AZGridShouldDraw",	* AZGridUnitWidthKey 	= @"AZGridUnitWidth",
-		  * AZGridUnitHeightKey 	= @"AZGridUnitHeight",	* AZGridColorDataKey 	= @"AZGridColorData";
+-   (id) objectForKeyedSubscript:(id)k            {  AZBlockSelf(_self);
 
-@implementation NSObject (AZFunctional)
-- (id) processByPerformingFilterBlocks:(NSA*)filterBlocks	{	__block typeof(self) blockSelf = self;
-	[filterBlocks enumerateObjectsUsingBlock:^(void(^obj)(id), NSUInteger idx, BOOL *stop) { obj(blockSelf); }];
-	return blockSelf;
+    return  [self respondsToStringThenDo:k]
+        ?:  [self respondsToString:@"associatedDictionary"] && [self associatedDictionary].count
+        ?   [self.associatedDictionary objectForKey:k]
+        :   [k containsString:@"."] ? ^{
+          
+          __block NSO* reducer = nil; 
+          [[k componentsSeparatedByString:@"."] eachWithIndex:^(id obj, NSInteger idx) {
+             id reductee = idx ? _self : reducer;
+//            printf("reducing %s with key:%s\n",[reductee cDesc], [obj cDesc]);
+            reducer = [reductee kvc][obj]; 
+          }];
+          return reducer; 
+          }() : self.kvc[k];
 }
+- (void)               setObject:(id)x 
+               forKeyedSubscript:(id<NSCopying>)k	{
+               
+  ISA((id)k,NSS) && (ISA(self,CAL)  || 
+  [self canSetValueForKey:(NSS*)k])  ? [self sV:x fK:k] 
+                                     : ({ self.associatedDictionary[k] = x; });
+}
+
+
+- (void)blockSelf:(bSelf)block {	declareBlockSafeAs(self, bSelf); block(bSelf); }
+
+- (void)triggerKVO:(NSS*)k block:(bSelf)blk {
+
+	[self wCVfK:k]; [self blockSelf:^(__typeof(self)_self){	blk(_self); }];	[self dCVfK:k];
+}
+
+/*
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(orientation, setOrientation, AZ0, ^{}, ^{ objswitch(self.class)
+
+  objcase(CAL.class)
+    CAL* _self = (id)self;
+    _self.anchorPoint  = AZAnchorPtAligned(value);
+    _self.position     = AZAnchorPointOfActualRect(_self.superlayer.bounds, value); // ((id<BoundingObject>)self).super.bounds, value);
+  endswitch
+});
+*/
+
+
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(faded, setFaded, BOOL, ^{}, ^{ objswitch(self.class)
+
+  objcase(NSV.class)
+    NSV* vSelf = (id)self;
+    NSLog(@"fading a view! (%@)", StringFromBOOL(value));
+    if ( vSelf.layer && vSelf.layer != vSelf.superview.layer)
+      [vSelf.layer performSelectorWithoutWarnings:value ? @selector(fadeOut) : @selector(fadeIn)];
+    else if ( vSelf.isVisible &&  value) [vSelf fadeOut];
+    else if (!vSelf.isVisible && !value) [vSelf  fadeIn];
+
+  objcase(NSW.class)
+    ((NSW*)self).animator.alphaValue = !value;
+ endswitch
+});
+
+SYNTHESIZE_ASC_OBJ(representedObject, setRepresentedObject);
+
+//- (BOOL) selected	{ id x = [self vFK:@"_selected"]; return x && [x respondsToSelector:@selector(boolValue)] ? [x boolValue] : NO; }
+//- (void) setSelected:(BOOL)s	      {
+//	if (s == self.selected) return;
+//	[self willChangeValueForKey:@"selected"];
+//	[self triggerKVO:@"selected" block:^(NSO *bSelf) {
+//	[self setBool:s forKey:@"_selected"];// policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+//	[self didChangeValueForKey:@"selected"];
+////	[self setNeedsDisplay];
+//	[self.loM setNeedsLayout];
+//}
+//- (BOOL) hovered                        { id x = self[@"_hovered"]; if (!x) self[@"_hovered"] = (x = @NO);  return [x boolValue];  }
+//- (void) setHovered:(BOOL)h             {
+//	if (h == self.hovered) return;
+//	[self willChangeValueForKey:@"hovered"];
+//	//	[self triggerKVO:@"hovered" block:^(NSO *bSelf) { //willChangeValueForKey:@"hovered"];
+//	[self setBool:h forKey:@"_hovered"];
+//	//	[self setValue:@(h) forKey:@"_hovered"];
+//	[self didChangeValueForKey:@"hovered"];
+//	[self setNeedsDisplay];
+//	[self setNeedsLayout];
+//}
+
 @end
 
+@implementation AZClassProxy
+- (id)valueForUndefinedKey:(NSS*)key {
+
+  LOGCOLORS(@"-[", AZCLSSTR, zSPC, AZSELSTR, key, @"] returning:[", AZCLSSTR, @" class]", nil);
+  return NSClassFromString(key);	}
+@end
+
+/*! NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1 */
+
+@implementation NSObject (AZClassProxy)
+
++ (id)performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
+
+//	NSObject* anInstance = self.new;
+//	return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel];
+SYNTHESIZE_ASC_OBJ_LAZY(classProxy, AZClassProxy);
+//- (AZClassProxy*) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
+@end
+
+
 /* A shared operation que that is used to generate thumbnails in the background. *//**
-																												static NSOperationQueue *_AZGeneralOperationQueue = nil;
-																												return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
-																												_AZGeneralOperationQueue.maxConcurrentOperationCount = AZOQMAX;
-																												return _AZGeneralOperationQueue;
-																												}();																									*/
-NSOQ *AZSharedOperationStack() 			{	return AZDummy.sharedInstance.sharedStack; }
-NSOQ *AZSharedOperationQueue() 			{	return AZDummy.sharedInstance.sharedQ; }
+                                                                                    static NSOperationQueue *_AZGeneralOperationQueue = nil;
+                                                                                    return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
+                                                                                    _AZGeneralOperationQueue.maxConcurrentOperationCount = AZOQMAX;
+                                                                                    return _AZGeneralOperationQueue;
+                                                                                    }();																									*/
+NSOQ *AZSharedOperationStack() 			 {	return AZDummy.sharedInstance.sharedStack; }
+NSOQ *AZSharedOperationQueue() 			  {	return AZDummy.sharedInstance.sharedQ; }
 NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
 /**	static NSOperationQueue *_AZSingleOperationQueue = nil;
@@ -44,35 +132,23 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
 
  */
 
-// NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1
-
-@implementation AZClassProxy
-- (id)valueForUndefinedKey:(NSS*)key {	NSLog(@"-[%@ %@%@] returning:[%@ class]", AZCLSSTR,AZSELSTR,key,AZCLSSTR); return NSClassFromString(key);	}
-@end
-@implementation NSObject (AZClassProxy)
-
-+ (id)performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
-
-//	NSObject* anInstance = self.new;
-//	return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel];
-
-- (id) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
-@end
-
 @implementation AZDummy
-- (id)init							{	 if (self != super.init ) return nil;
-
-   _sharedStack = NSOperationStack.new;
-	_sharedQ = NSOQ.new;
-	_sharedSQ = NSOQ.new;
-	_sharedStack .maxConcurrentOperationCount = AZOQMAX;
-	_sharedQ .maxConcurrentOperationCount = AZOQMAX;
-	_sharedSQ .maxConcurrentOperationCount = 1;	return self;
-}
-+ (AZDummy*) sharedInstance	{ 	static AZDummy *sharedInstance = nil;	static dispatch_once_t isDispatched;
-	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 	return sharedInstance;
-}
+SYNTHESIZE_SINGLETON_FOR_CLASS(AZDummy, sharedInstance);
+SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedStack,[NSOperationStack.new  objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]);
+SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedQ,    [NSOQ.new              objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]);
+SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingValue:@(1)       forKey:@"maxConcurrentOperationCount"]);
 @end
+//- (id)init							{	 if (self != super.init ) return nil;
+//   _sharedStack = NSOperationStack.new;
+//	_sharedQ = NSOQ.new;
+//	_sharedSQ = NSOQ.new;
+//	_sharedStack .maxConcurrentOperationCount = AZOQMAX;
+//	_sharedQ .maxConcurrentOperationCount = AZOQMAX;
+//	_sharedSQ .maxConcurrentOperationCount = 1;	return self;
+//}
+//+ (AZDummy*) sharedInstance	{ 	static AZDummy *sharedInstance = nil;	static dispatch_once_t isDispatched;
+//	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 	return sharedInstance;
+//}
 
 @interface AToZFuntion	: BaseModel
 @property (STR,NATOM) NSS* name;
@@ -85,35 +161,100 @@ NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
  */
 
 
-@implementation NSObject (AZTestRoutine)
-+ (NSA*) testableClasses {
+@implementation NSObject (AZTestRoutine) static NSMD* testMethods;
 
-  NSArray
++ (NSA*) testableClasses { return (testMethods = testMethods ?: [RuntimeReporter.rootClasses mapToDictForgivingly:^AZKeyPair *(id kls){ return AZKPMake(kls,[kls instanceMethodNames]); }].mutableCopy).allKeys; }
++ (NSD*) testableMethods {
+
+  if (!testMethods) dispatch_sync(dispatch_get_main_queue(), ^{ [self testableClasses]; });
+  return testMethods;
 }
-+ (NSA*) testableMethods;
 @end
 
-
-static BOOL fontsRegistered;
-
-//@synthesize sManager; - (id)init {	self = [super init];	if (self) {	static NSA* cachedI = nil;
-//	AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
-//	if (!i) dispatch_once:^{		[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
-//		i =  [NSIMG imageNamed:name];	i.name 	= i.name ?: name;	 }();	i = [NSIMG imageNamed:name];	return i;
-//	return [NSIMG imageNamed:name];	?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
-//	i.name 	= i.name ?: name;	return/ i;	}
-
-@implementation AtoZ	{	__weak id _constantShortcutMonitor;	}
-
+// @synthesize sManager; - (id)init {	self = [super init];	if (self) {	static NSA* cachedI = nil;
+// AZLOG($(	@"AZImage! Name: %@.. SEL:%@", name, NSStringFromSelector(_cmd)));	NSIMG *i;  // =  [NSIMG  new];//imageNamed:name];
+// if (!i) dispatch_once:^{		[[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+// i=  [NSIMG imageNamed:name];	i.name 	= i.name ?: name;	 }();	i = [NSIMG imageNamed:name];	return i;
+// return [NSIMG imageNamed:name];	?: [[NSIMG alloc]initWithContentsOfFile: [AZFWORKBUNDLE pathForImageResource:name]];
+// i.name 	= i.name ?: name;	return/ i;	}
 //@synthesize delegates = _delegates;
 
+@interface      AtoZAssertionHandler : NSAssertionHandler @end
+@implementation AtoZAssertionHandler
+
+- (void) andleFailureInMethod:(SEL)selector
+                       object:(id)object
+                         file:(NSS*)fileName
+                   lineNumber:(NSI)line
+                  description:(NSS*)format, ...
+{
+  printf("%sfg124,12,255;%s%s", XCODE_COLORS_ESCAPE.UTF8String, [NSString stringWithFormat:@"NSAssert Failure: Method %@ for object %@ in %@#%li", NSStringFromSelector(selector), object, fileName, (long)line].UTF8String, XCODE_COLORS_RESET.UTF8String);
+}
+- (void) andleFailureInFunction:(NSString *)functionName
+                           file:(NSString *)fileName
+                     lineNumber:(NSInteger)line
+                    description:(NSString *)format, ...
+{
+  printf("%sfg124,122,25;%s%s",
+    XCODE_COLORS_ESCAPE.UTF8String,
+    [NSString stringWithFormat:@"NSCAssert Failure: Function (%@) in %@#%li", functionName, fileName, (long)line].UTF8String, XCODE_COLORS_RESET.UTF8String);
+  //  NSLog();
+}
+@end
+
+@implementation AtoZ	{	__weak id _constantShortcutMonitor;	} static BOOL fontsRegistered; const char*XCenv;
+
++ (void) load							{  int res;
+
+	XCenv = getenv("__XCODE_BUILT_PRODUCTS_DIR_PATHS") ?: getenv("AZBUILD");
+  //  if (XCenv != NULL) setenv("XCODE_COLORS", "YES", &res);  [self sharedInstance];
+}
+//globalRandoPalette = NSC.randomPalette.shuffeled; }
+//+ (void) initialize { [@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil]; }
+
++ (NSS*) macroFor:(NSS*)w { return [self.macros keyForObjectEqualTo:
+
+  [w stringByReplacingAnyOf:@[@"__NSCF",@"__NS"] withString:@"NS"]]; }
+
++  (NSD*) macros {	static NSD *macros; return macros = macros ?: ({ NSString *e = nil;	NSPropertyListFormat fmt;
+
+  macros = [NSPropertyListSerialization propertyListFromData:
+    [NSData dataWithContentsOfFile:@"/Volumes/2T/ServiceData/AtoZ.framework/AtoZMacroDefines.plist"] 
+                  mutabilityOption:NSPropertyListMutableContainersAndLeaves 
+                            format:&fmt errorDescription:&e]; macros; });
+} 															/* parse the plist */
+//-        (AZNode*) root 								{ 
+//
+//	__block AZNode*_root = AZNode.new; _root.key = @"Expansions"; __block AZNode *cat, *def; 
+//	NSMutableArray *_allKeywords, *_allReplacements, *_allCats;	
+//	_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
+//	return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+//		[_root addChild:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
+//		[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
+//			[cat addChild:def = AZNode.new];
+//			[_allKeywords 		addObject:def.key = macro]; 
+//			[_allReplacements addObject:def.value = expansion];	
+//		}];
+////			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
+//	}], _root;
+//}
 
 - (void) setUp 						{
 
-	[AZStopwatch named:$(@"AtoZ.framework Instanciate! (pid:%i)",AZPROCINFO.processIdentifier) block:^{
+  //  NSAssertionHandler *assertionHandler = AtoZAssertionHandler.new;
+  //  NSThread.currentThread.threadDictionary[NSAssertionHandlerKey] = assertionHandler;
+  //  LOGCOLORS(@"Set Assertion Handler:", assertionHandler, nil);
 
-		// set them in the standard user defaults
-		AZ_SET_DEFAULT(@"azHotKeyEnabled",@YES);
+  [NSB loadAZFrameworks];
+  LOGCOLORS( [[AZWELCOME componentsSeparatedByString:@"!"] map:^id(id w){ return [w withString:@"!"]; }], zNL,
+            AZProcess.currentProcess.command,
+            @" (",AZAPP_ID, @") has objc_arc_weak:", StringFromBOOL(__has_feature(objc_arc_weak)),
+            @" has objc_arc:",     StringFromBOOL( __has_feature(objc_arc)),nil);
+}
+
+//	[AZStopwatch named:$(@"PROCESS:%i\n%s\n",AZPROCINFO.processIdentifier,AZWELCOME) block:^{
+
+//		AZ_SET_DEFAULT(@"azHotKeyEnabled",@YES); 		// set them in the standard user defaults
 //		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKey
 // Command-Shift-D the default shortcut.
 //		self.azHotKeyView = [MASShortcutView.alloc initWithFrame:AZRectBy(200,100)];
@@ -140,32 +281,30 @@ static BOOL fontsRegistered;
 //		 Shortcut view will follow and modify user preferences automatically
 //		_azHotKeyView.associatedUserDefaultsKey = VARNAME(_azHotKey);
 
-		// Activate the global keyboard shortcut if it was enabled last time
-		//		_azHotKey forUserDefaultsKey:VARNAME(_azHotKey)];
-		// Activate the shortcut Command-F1 if it was enabled
-		[NSB loadAZFrameworks];
-		NSC* c = RANDOMCOLOR;
-		NSProcessInfo* infoD = AZPROCINFO;
-		NSS*initial = @"A";
+// Activate the global keyboard shortcut if it was enabled last time
+//		_azHotKey forUserDefaultsKey:VARNAME(_azHotKey)];
+// Activate the shortcut Command-F1 if it was enabled
+
+//		NSC* c = RANDOMCOLOR;
+//		NSProcessInfo* infoD = AZPROCINFO;
+//		NSS*initial = @"A";
 //		self.bonjourBlock = [AZBonjourBlock instanceWithTypes:nil consumer:^(NSNetService *svc) {
 //			[$(@"%@ was just notified about new service... %@", AZCLSSTR, svc) log];
 //			[AZWORKSPACE openURLs:@[$URL($(@"http://%@:%ld",svc.domain, svc.port))] withAppBundleIdentifier:@"com.google.Chrome.canary" options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
 //		}];
 
-		//		NSS *procName = [infoD processName];
-		//		initial = procName ? procName.firstLetter : @"A";
+//		NSS *procName = [infoD processName];
+//		initial = procName ? procName.firstLetter : @"A";
 
-		//		[NSApp setApplicationIconImage:[NSIMG badgeForRect:AZRectFromDim(256) withColor:c stroked:c.contrastingForegroundColor withString:initial]];
-		// imageNamed:@"logo.png"]];
+//		[NSApp setApplicationIconImage:[NSIMG badgeForRect:AZRectFromDim(256) withColor:c stroked:c.contrastingForegroundColor withString:initial]];
+// imageNamed:@"logo.png"]];
 //		_fonts = self.fonts;
-		[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
-		AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
-		AZSHAREDLOG.logFormatter = self;
-		//		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
-		//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
-		//		[NSS.randomDicksonism respondsToStringThenDo:obj];
-	}];
-}
+//		[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
+//		AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
+//		AZSHAREDLOG.logFormatter = self;
+//		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
+//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
+//		[NSS.randomDicksonism respondsToStringThenDo:obj];
 
 //- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
 //+ (NSMA*) delegates { return [sharedI delegates]; }
@@ -184,14 +323,14 @@ static BOOL fontsRegistered;
 - (NSW*) azWindow 					{ return _azWindow = _azWindow ?: ^{ return
 
 	[NSW.alloc initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask|NSResizableWindowMask
-																				 backing:NSBackingStoreBuffered defer:NO];
-	}();
+                         backing:NSBackingStoreBuffered defer:NO];
+}();
 }
 /*		[self.class playRandomSound];
- [[NSIMG imageFromLockedFocusSize:AZSizeFromDimension(256) lock:^NSImage *(NSImage *s) {
+ [[NSIMG imageFromLockedFocusSize:AZSizeFromDim(256) lock:^NSImage *(NSImage *s) {
  [NSGraphicsContext state:^{
  NSIMG* i = [NSIMG imageNamed:@"logo.png"];
- NSBP *bp = [NSBP bezierPathRoundedRectOfSize:AZSizeFromDimension(256)];
+ NSBP *bp = [NSBP bezierPathRoundedRectOfSize:AZSizeFromDim(256)];
  [bp addClip];
  [i drawInRect:AZRectFromSize(s.size) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
  }];
@@ -205,7 +344,7 @@ static BOOL fontsRegistered;
  [[SoundManager sharedManager] playSound:rando];
  [self registerHotKeys];
  */
-//	- (void)resetConstantShortcutRegistration	{
+//	- (void) resetConstantShortcutRegistration	{
 //		if (self.constantShortcutEnabled) {
 //			MASShortcut *shortcut = [MASShortcut shortcutWithKeyCode:kVK_F2 modifierFlags:NSCommandKeyMask];
 //			_constantShortcutMonitor = [MASShortcut addGlobalHotkeyMonitorWithShortcut:shortcut handler:^{
@@ -221,9 +360,9 @@ static BOOL fontsRegistered;
 + (void) processInfo							{
 
 	LOGCOLORS( RED, ORANGE, YELLOW, GREEN,
-				 $(@"\n\tEXE:\t%@",  															 AZPROCINFO.processName),
-				 $(@"\n\tCWD:\t%@\n", [AZFILEMANAGER.currentDirectoryPath truncateInMiddleForWidth:500]),
-				 $(@"argv[0]:\t%@\t\t[NSPROC]",  [AZPROCINFO.arguments[0] truncateInMiddleForWidth:500]), nil);
+            $(@"\n\tEXE:\t%@",  															 AZPROCINFO.processName),
+            $(@"\n\tCWD:\t%@\n", [AZFILEMANAGER.currentDirectoryPath truncateInMiddleForWidth:500]),
+            $(@"argv[0]:\t%@\t\t[NSPROC]",  [AZPROCINFO.arguments[0] truncateInMiddleForWidth:500]), nil);
 	//					$(@"\nargv[0]:\t%@\t[MAIN]",             [$UTF8(argv[0]) truncateInMiddleForWidth:500])
 
 	NSProcessInfo *pi = [NSProcessInfo processInfo];
@@ -246,19 +385,9 @@ static BOOL fontsRegistered;
 }
 
 
-+ (void) load							{  int res;	const char*XCenv = NULL;
-
-	XCenv = getenv("__XCODE_BUILT_PRODUCTS_DIR_PATHS");
-	if (XCenv != NULL) setenv("XCODE_COLORS", "YES", &res);
-	[$(@"AtoZ.framework %@. has objc_arc_weak:%@ objc_arc:%@", AZAPP_ID, StringFromBOOL(__has_feature(objc_arc_weak)), StringFromBOOL( __has_feature(objc_arc))) log];
-
-}
-//globalRandoPalette = NSC.randomPalette.shuffeled; }
-//+ (void) initialize 					{//												[@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil];
-//}
 
 
-- (void)handleURLEvent:(NSAppleEventDescriptor*)theEvent withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
+- (void) andleURLEvent:(NSAppleEventDescriptor*)theEvent withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
 
 	NSString* path = [[theEvent paramDescriptorForKeyword:keyDirectObject] stringValue];
 	NSLog(@"apple url event: %@", path);
@@ -317,8 +446,10 @@ static BOOL fontsRegistered;
 	return font ? [NSFont fontWithName:font size:size] : nil;
 }
 + (NSS*) randomFontName {	return AtoZ.sharedInstance.fonts.randomElement;	}
++ (CGFontRef) cfFont { return (__bridge CGFontRef)self.controlFont; }
 + (NSF*) controlFont 	{	return [self font:@"UbuntuMono-Bold" size:14];	}
-- (void)registerHotKeys	{
++ (NSA*) globalPalette { AZSTATIC_OBJ(NSA,gPal,RANDOMPAL); return gPal; }
+- (void) egisterHotKeys	{
 	EventHotKeyRef 	hotKeyRef; 		EventTypeSpec 	eventType;		EventHotKeyID 	hotKeyID;
 	eventType.eventClass  = kEventClassKeyboard;
 	eventType.eventKind   = kEventHotKeyPressed;
@@ -328,7 +459,7 @@ static BOOL fontsRegistered;
 	// Cmd+Ctrl+Space to toggle visibility.
 	RegisterEventHotKey(49, cmdKey+controlKey, hotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef);
 
-	//- (void)applicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
+	//- (void) pplicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
 
 }
 + (void) playRandomSound 			{	[SoundManager.sharedManager playSound:Sound.randomSound looping:NO]; }
@@ -357,8 +488,7 @@ static BOOL fontsRegistered;
 + (NSA*) macPortsCategories			{		static NSArray *mPortsCats;  return mPortsCats = mPortsCats ? mPortsCats :
 	@[@"amusements", @"aqua", @"archivers", @"audio", @"benchmarks", @"biology", @"blinkenlights", @"cad", @"chat", @"chinese", @"comms", @"compression", @"cross", @"crypt", @"crypto", @"database", @"databases", @"devel", @"editor", @"editors", @"education", @"electronics", @"emacs", @"emulators", @"erlang", @"fonts", @"framework", @"fuse", @"games", @"genealogy", @"gis", @"gnome", @"gnustep", @"graphics", @"groovy", @"gtk", @"haskell", @"html", @"ipv6", @"irc", @"japanese", @"java", @"kde", @"kde3", @"kde4", @"lang", @"lua", @"macports", @"mail", @"mercurial", @"ml", @"mono", @"multimedia", @"mww", @"net", @"network", @"news", @"ocaml", @"office", @"palm", @"parallel", @"pdf", @"perl", @"php", @"pim", @"print", @"python", @"rox", @"ruby", @"russian", @"scheme", @"science", @"security", @"shells", @"shibboleth", @"spelling", @"squeak", @"sysutils", @"tcl", @"tex", @"text", @"textproc", @"tk", @"unicode", @"vnc", @"win32", @"wsn", @"www", @"x11", @"x11-font", @"x11-wm", @"xfce", @"xml", @"yorick", @"zope"];
 }
-+ (NSA*) dock 								{	return (NSA*)[AZDock sharedInstance];
-}
++ (NSA*) dock 								{	return (NSA*)[AZDock sharedInstance]; }
 + (NSA*) dockSorted 						{ 	return [AZFolder samplerWithCount:20];} // sharedInstance].dockSorted; }
 + (void) plistToXML: (NSS*) path		{
 
@@ -366,7 +496,9 @@ static BOOL fontsRegistered;
 }
 + (void) trackIt							{	[NSThread performBlockInBackground:^{		trackMouse();		}];	}
 - (void) mouseSelector 					{	NSLog(@"selectot triggered!  by notificixation, even!");	}
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+// #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 + (NSA*) fonts 							{ return AtoZ.sharedInstance.fonts;
 
 	//+ (NSFont*) fontWithSize:(CGF)fontSize {	return 	[AtoZ  registerFonts:fontSize]; }
@@ -377,8 +509,8 @@ static BOOL fontsRegistered;
 		if (!obj) return nil; NSError *err; FSRef fsRef; OSStatus status;
 		CFURLGetFSRef((CFURLRef)obj, &fsRef);
 		if (status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal,
-																	 kATSFontFormatUnspecified, NULL,
-																	 kATSOptionFlagsDefault, 	NULL) != noErr)
+                                                  kATSFontFormatUnspecified, NULL,
+                                                  kATSOptionFlagsDefault, 	NULL) != noErr)
 			AZLOG($(@"Error: %@\nFailed to acivate font at %@!", [NSERR errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil], obj));
 		CFArrayRef desc = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
 		return [((NSA*)CFBridgingRelease(desc))[0] objectForKey:@"NSFontNameAttribute"] ?: (id)nil;
@@ -388,7 +520,7 @@ static BOOL fontsRegistered;
 	//#pragma GCC diagnostic ignored "-Wdeprecated-declarations"	- (NSFont*) registerFonts:(CGF)size {		if (!_fontsRegistered) {		NSBundle *aBundle = [NSBundle bundleForClass: [AtoZ class]]	NSURL *fontsURL = [NSURL fileURLWithPath:$(@"%@/Fonts",[aBundle resourcePath])]; if(fontsURL != nil)	{	OSStatus status;		FSRef fsRef;			NSError *err;				CFURLGetFSRef((CFURLRef)fontsURL, &fsRef);			status = ATSFontActivateFromFileReference(&fsRef, kATSFontContextLocal, kATSFontFormatUnspecified, NULL, kATSOptionFlagsDefault, NULL);			if (status != noErr)		{				err = @"Failed to acivate fonts!";  goto err;			} else  { _fontsRegistered = 1; NSLog(@"Fonts registered!"); }	} else NSLog(@"couldnt register fonts!");	}	return  [NSFont fontWithName:@"UbuntuTitling-Bold" size:size]; } #pragma GCC diagnostic warning "-Wdeprecated-declarations"
 
 }
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+// #pragma GCC diagnostic warning "-Wdeprecated-declarations"
 + (NSJS*) jsonRequest:(NSS*)url 		{ return [self.sharedInstance jsonRequest:url]; }
 - (NSJS*) jsonRequest:(NSS*)url 		{
 
@@ -434,78 +566,76 @@ static BOOL fontsRegistered;
 +  (NSA*) runningAppsAsStrings	 																	{
 
 	return [AZWORKSPACE.runningApplications cw_mapArray:^id(NSRunningApplication *obj){
-		return obj.activationPolicy != NSApplicationActivationPolicyProhibited 
-			&& obj.bundleURL && ![obj.bundleURL.path.lastPathComponent containsAnyOf:@[	@"Google Chrome Helper.app",
-																												  @"Google Chrome Worker.app",
-																												  @"Google Chrome Renderer.app"]] ? obj.bundleURL.path : nil;
+		return obj.activationPolicy != NSApplicationActivationPolicyProhibited
+    && obj.bundleURL && ![obj.bundleURL.path.lastPathComponent containsAnyOf:@[	@"Google Chrome Helper.app",
+                                                                                @"Google Chrome Worker.app",
+                                                                                @"Google Chrome Renderer.app"]] ? obj.bundleURL.path : nil;
 	}];
 }
 - (NSArray*)getCarbonProcessList	{    NSMutableArray *ret = NSMA.new;
 
-    ProcessSerialNumber psn = { kNoProcess, kNoProcess };
-    while (GetNextProcess(&psn) == noErr) {
-        CFDictionaryRef cfDict = ProcessInformationCopyDictionary(&psn,  kProcessDictionaryIncludeAllInformationMask);
-        if (cfDict) {
-            NSDictionary *dict = (__bridge NSDictionary *)cfDict;
-            [ret addObject:dict.copy];
-//				@{ @"pname": $(@"%@",[dict objectForKey:(id)kCFBundleNameKey],
-//										@"pid":  $(@"%@",[dict objectForKey:@"pid"])@"pid",
-//                            [NSString stringWithFormat:@"%d",(uid_t)getuid()],@"uid",                                               
-            CFRelease(cfDict);          
-        }
+  ProcessSerialNumber psn = { kNoProcess, kNoProcess };
+  while (GetNextProcess(&psn) == noErr) {
+    CFDictionaryRef cfDict = ProcessInformationCopyDictionary(&psn,  kProcessDictionaryIncludeAllInformationMask);
+    if (cfDict) {
+      NSDictionary *dict = (__bridge NSDictionary *)cfDict;
+      [ret addObject:dict.copy];
+      //				@{ @"pname": $(@"%@",[dict objectForKey:(id)kCFBundleNameKey],
+      //										@"pid":  $(@"%@",[dict objectForKey:@"pid"])@"pid",
+      //                            [NSString stringWithFormat:@"%d",(uid_t)getuid()],@"uid",
+      CFRelease(cfDict);
     }
-    return ret;
+  }
+  return ret;
 }
 
 typedef struct kinfo_proc kinfo_proc;
 
 static int GetBSDProcessList (struct kinfo_proc **procList, size_t *procCount)	{
 
-			__block int   err;
+  __block int   err;
   __block kinfo_proc * result;
-		  __block bool   done;
-    static const int   name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
-    			  size_t   length;  // Declaring name as const requires us to cast it when passing it to sysctl because the prototype doesn't include the const modifier.
-    assert ( procList != NULL);
-//	 assert (*procList == NULL);
-	 assert (procCount != NULL);
-    *procCount = 0;
+	__block bool   done;
+  static const int   name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
+  size_t   length;  // Declaring name as const requires us to cast it when passing it to sysctl because the prototype doesn't include the const modifier.
+  assert ( procList != NULL); //	 assert (*procList == NULL);
+  assert (procCount != NULL);
+  *procCount = 0;
 
-    //	 We start by calling sysctl with result == NULL and length == 0. That will succeed, and set length to the appropriate length. We then allocate a buffer of that size and 
-	 //	call sysctl again  with that buffer.  If that succeeds, we're done.  If that fails with ENOMEM, we have to throw away our buffer and loop.  Note that the loop causes use 
-	 //	to call sysctl with NULL again; this is necessary because the ENOMEM failure case sets length to the amount of data returned, not the amount of data that could have been returned.
-
-    result = NULL;    done = false;
-	 
-    do {	  assert (result == NULL);      // Call sysctl with a NULL buffer.
-      length = 0;
-      err = sysctl ((int *) name, (sizeof(name) / sizeof(*name)) - 1,NULL, &length, NULL, 0);
-      err == -1 ? err = errno :
+  //	 We start by calling sysctl with result == NULL and length == 0. That will succeed, and set length to the appropriate length. We then allocate a buffer of that size and
+	//	call sysctl again  with that buffer.  If that succeeds, we're done.  If that fails with ENOMEM, we have to throw away our buffer and loop.  Note that the loop causes use
+	//	to call sysctl with NULL again; this is necessary because the ENOMEM failure case sets length to the amount of data returned, not the amount of data that could have been returned.
+  result = NULL;    done = false;
+  do {
+    assert (result == NULL);      // Call sysctl with a NULL buffer.
+    length = 0;
+    err = sysctl ((int *) name, (sizeof(name) / sizeof(*name)) - 1,NULL, &length, NULL, 0);
+    err == -1 ? err = errno :
 		// Allocate an appropriately sized buffer based on the results from the previous call.
 		err == 0  ? ^{	result = malloc (length); if (result == NULL) err = ENOMEM;  }() : nil;
-      // Call sysctl again with the new buffer.  If we get an ENOMEM error, toss away our buffer and start again.
+    // Call sysctl again with the new buffer.  If we get an ENOMEM error, toss away our buffer and start again.
 		err == 0  ? ^{
-            err = sysctl ((__block int *) name, (sizeof(name) / sizeof(*name)) - 1, result,(size_t)&length, NULL, 0);
-            if (err == -1)  err = errno;
-            if (err == 0)   done = true;
-				else if (err == ENOMEM) { assert(result != NULL);   free (result); result = NULL; err = 0; }
+      err = sysctl ((int *) name, (sizeof(name) / sizeof(*name)) - 1, result,(size_t)&length, NULL, 0);
+      if (err == -1)  err = errno;
+      if (err == 0)   done = true;
+      else if (err == ENOMEM) { assert(result != NULL);   free (result); result = NULL; err = 0; }
 		}() : nil;
 	} while (err == 0 && ! done);
 	if (err != 0 && result != NULL) {  // Clean up and establish post conditions.
-        free (result);
-        result = NULL;
-    }
-    *procList = result;
-    if (err == 0) *procCount = length / sizeof(struct kinfo_proc);
-    assert ( (err == 0) == (*procList != NULL) );
-    return err;
+    free (result);
+    result = NULL;
+  }
+  *procList = result;
+  if (err == 0) *procCount = length / sizeof(struct kinfo_proc);
+  assert ( (err == 0) == (*procList != NULL) );
+  return err;
 }
 /**
-(
-    "/private/var/folders/dw/gkhfs0nd7md6_cgq7sbzz39m0000gn/T/CodeRunner/Untitled 107",
-    "/bin/bash",
-    "/System/Library/Services/AppleSpell.service/Contents/MacOS/findNames",
-    "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker", ... ) */
+ (
+ "/private/var/folders/dw/gkhfs0nd7md6_cgq7sbzz39m0000gn/T/CodeRunner/Untitled 107",
+ "/bin/bash",
+ "/System/Library/Services/AppleSpell.service/Contents/MacOS/findNames",
+ "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker", ... ) */
 + (NSArray*)processes	{ NSMA* procs = NSMA.new;
 
 	int numberOfProcesses = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0);
@@ -513,82 +643,82 @@ static int GetBSDProcessList (struct kinfo_proc **procList, size_t *procCount)	{
 	bzero(pids, 1024);
 	proc_listpids(PROC_ALL_PIDS, 0, pids, sizeof(pids));
 	for (int i = 0; i < numberOfProcesses; ++i) {
-		 if (pids[i] == 0) { continue; }
-		 char pathBuffer[PROC_PIDPATHINFO_MAXSIZE];
-		 bzero(pathBuffer, PROC_PIDPATHINFO_MAXSIZE);
-		 proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
-		 if (strlen(pathBuffer) > 0)
-				[procs addObject:$UTF8(pathBuffer)];
+    if (pids[i] == 0) { continue; }
+    char pathBuffer[PROC_PIDPATHINFO_MAXSIZE];
+    bzero(pathBuffer, PROC_PIDPATHINFO_MAXSIZE);
+    proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
+    if (strlen(pathBuffer) > 0)
+      [procs addObject:$UTF8(pathBuffer)];
 	}
 	return procs;
 }
 + (NSDictionary *)infoForPID:(pid_t)pid 	{    ProcessSerialNumber psn = { kNoProcess, kNoProcess };
 
-   if (GetProcessForPID(pid, &psn) != noErr) return nil;
-   CFDictionaryRef cfDict = ProcessInformationCopyDictionary(&psn,kProcessDictionaryIncludeAllInformationMask); 
+  if (GetProcessForPID(pid, &psn) != noErr) return nil;
+  CFDictionaryRef cfDict = ProcessInformationCopyDictionary(&psn,kProcessDictionaryIncludeAllInformationMask);
 	NSD *ret = (__bridge NSD*)cfDict;	return CFRelease(cfDict), ret;
 }
 
 /**  SAME LIST AS ACTIVITY MONITOR !
 
-	({      pid = 92463;
-			  pname = "Untitled 107";
-			  uid = 501;					},
-	{       pid = 92460;
-   	     pname = bash;
-      	  uid = 501;					})  */
+ ({      pid = 92463;
+ pname = "Untitled 107";
+ uid = 501;					},
+ {       pid = 92460;
+ pname = bash;
+ uid = 501;					})  */
 
 + (NSArray*)getBSDProcessList	{	 NSMutableArray *ret = NSMA.new;   size_t mycount = 0;
 
-   kinfo_proc *mylist = (kinfo_proc *)malloc(sizeof(struct kinfo_proc));	GetBSDProcessList(&mylist, &mycount);
+  kinfo_proc *mylist = (kinfo_proc *)malloc(sizeof(struct kinfo_proc));	GetBSDProcessList(&mylist, &mycount);
  	for( int k = 0; k < mycount; k++) {   struct kinfo_proc *proc = NULL; if ((proc = &mylist[k]) != NULL)
-	
-        [ret addObject:@{ @"pname": [self infoForPID:proc->kp_proc.p_pid][(id)kCFBundleNameKey] ?: $(@"%s",proc->kp_proc.p_comm), 
-								  @"pid": $(@"%d",proc->kp_proc.p_pid),
-								  @"uid":$(@"%d",proc->kp_eproc.e_ucred.cr_uid)}];	
+
+    [ret addObject:@{ @"pname": [self infoForPID:proc->kp_proc.p_pid][(id)kCFBundleNameKey] ?: $(@"%s",proc->kp_proc.p_comm),
+                      @"pid": $(@"%d",proc->kp_proc.p_pid),
+                      @"uid":$(@"%d",proc->kp_eproc.e_ucred.cr_uid)}];
 	}
-   return free(mylist), ret;
+  return free(mylist), ret;
 }
 
 /** ( { Attributes = 69632;
-        BundlePath = "/Applications/BetterTouchTool.app";
-        CFBundleExecutable = "/Applications/BetterTouchTool.app/Contents/MacOS/BetterTouchTool";
-        CFBundleIdentifier = "com.hegenberg.BetterTouchTool";
-        CFBundleName = BetterTouchTool;
-        CFBundleVersion = 0;
-        FileCreator = "????";
-        FileType = APPL;
-        Flavor = 3;
-        IsCheckedInAttr = 1;
-        LSBackgroundOnly = 0;
-        "LSCheckInTime*" = "2013-09-23 10:16:47 +0000";
-        LSLaunchTime = "2013-09-23 10:16:47 +0000";
-        LSSystemWillDisplayDeathNotification = 0;
-        LSUIElement = 1;
-        LSUIPresentationMode = 0;
-        PSN = 9406712;
-        ParentPSN = 9402615;
-        pid = 37298;					    },... ) */
+ BundlePath = "/Applications/BetterTouchTool.app";
+ CFBundleExecutable = "/Applications/BetterTouchTool.app/Contents/MacOS/BetterTouchTool";
+ CFBundleIdentifier = "com.hegenberg.BetterTouchTool";
+ CFBundleName = BetterTouchTool;
+ CFBundleVersion = 0;
+ FileCreator = "????";
+ FileType = APPL;
+ Flavor = 3;
+ IsCheckedInAttr = 1;
+ LSBackgroundOnly = 0;
+ "LSCheckInTime*" = "2013-09-23 10:16:47 +0000";
+ LSLaunchTime = "2013-09-23 10:16:47 +0000";
+ LSSystemWillDisplayDeathNotification = 0;
+ LSUIElement = 1;
+ LSUIPresentationMode = 0;
+ PSN = 9406712;
+ ParentPSN = 9402615;
+ pid = 37298;					    },... ) */
 
-		  
+
 + (NSA*) runningProcesses {				return [self.getBSDProcessList cw_mapArray:^id(id o) { return [self infoForPID:[[o vFK:@"pid"] iV]] ?: o; }]; }
 
 + (NSTN*) runningApps {	return [self.runningProcesses reduce:NSTN.new withBlock:^id(NSTN* sum, id obj) {
 
-		obj = obj[@"name"] ? obj : [obj dictionaryBySettingValue:[obj vFK:@"CFBundleExecutable"] forKey:@"name"];
-		
-		NSTN *n = [sum.childNodes objectWithValue:obj[@"name"] forKey:@"representedObject"];
-		if (!n) [sum.mutableChildNodes addObject:n = [NSTN treeNodeWithRepresentedObject:obj[@"name"]]];
-		[n.mutableChildNodes addObject:[NSTN treeNodeWithRepresentedObject:obj]];
-		return sum;
-	}];
-}	
-	
-	
+  obj = obj[@"name"] ? obj : [obj dictionaryBySettingValue:[obj vFK:@"CFBundleExecutable"] forKey:@"name"];
+
+  NSTN *n = [sum.childNodes objectWithValue:obj[@"name"] forKey:@"representedObject"];
+  if (!n) [sum.mutableChildNodes addObject:n = [NSTN treeNodeWithRepresentedObject:obj[@"name"]]];
+  [n.mutableChildNodes addObject:[NSTN treeNodeWithRepresentedObject:obj]];
+  return sum;
+}];
+}
+
+
 
 
 + (NSA*) runningApplications {	return [self.getBSDProcessList cw_mapArray:^id(id o) { return [NSRunningApplication runningApplicationWithProcessIdentifier:[[o vFK:@"pid"] iV]]; }]; }
-   
+
 
 static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ // Clean up.
 
@@ -631,21 +761,6 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	azva_iterate_list(varargs, theBlk);
 	id theShared = [klass sharedInstance];
 	[[klass class] performSelectorWithoutWarnings:method withObject:stuffToPass];
-}
-int  DDLEVEL2INT			  (DDLogMessage*m)	{
-	int dd = m->logFlag; return dd == LOG_FLAG_ERROR ? 0 : dd == LOG_FLAG_WARN ? 1 : dd == LOG_FLAG_INFO ? 2 : 3;
-}
-NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
-	int dd = m->logFlag; return dd == LOG_FLAG_ERROR ? @"ERR" : dd == LOG_FLAG_WARN ? @"WARN" : dd == LOG_FLAG_INFO ? @"INFO" : @"VERBOSE";
-}
-- (NSS*) formatLogMessage:(DDLogMessage*)lM	{
-
-	/*	lM->logMsg 		lM->file		lm->lineNumber	lM->function	lM.fileName	DDLEVEL2STRING(lm) DDLEVEL2INT(lM) */
-	NSS* file = $(@"[%@]", [$UTF8(lM->file).lastPathComponent stringByDeletingPathExtension]);
-	file = [[file truncateInMiddleToCharacters:12]paddedTo:12];
-	file = [AZLog colorizeString:file withColor:GREEN];
-	printf("%s", file.UTF8String);
-	return $(@"%@:%i%@", file , lM->lineNumber, lM->logMsg);
 }
 
 /*
@@ -695,8 +810,8 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
  }
  + (NSA*) appFolderSamplerWith:(NSUInteger)apps {	[AZStopwatch start:@"appFolderSampler"];	return (NSA*)[AZFolder appFolderSamplerWith:apps andMax:apps];	[AZStopwatch stop:@"appFolderSampler"];	}
  - (NSArray *)uncodableKeys	{	return [self.class.sharedInstance uncodableKeys]; //[NSArray arrayWithObject:@"uncodableProperty"]; }
- - (void)setWithCoder:(NSCoder *)coder { [super setWithCoder:coder];	self. = DECODE_VALUE([coder decodeObjectForKey: @"uncodableProperty"];}
- - (void)encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];	[coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];	}
+ - (void) setWithCoder:(NSCoder *)coder { [super setWithCoder:coder];	self. = DECODE_VALUE([coder decodeObjectForKey: @"uncodableProperty"];}
+ - (void) encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];	[coder encodeObject:@"uncodable" forKey:@"uncodableProperty"];	}
  + (NSA*) fengshui {	return [[self class] fengShui]; }
  + (NSA*) fengShui {	return [NSC.fengshui.reversed map:^id(id obj) {	AZFile *t = [AZFile instance]; t.color = obj; return t; }]; }
  NSArray *AllApplications(NSArray *searchPaths) { NSMA *applications = NSMA.new; NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;	while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);	return ([applications count]) ? applications : nil; }
@@ -733,7 +848,8 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 	// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
 	// 	NSUInteger randomIndex = arc4random() % [voices count];
 	// 	NSString *voice = [voices objectAtIndex:randomIndex];
-	AZTalker *u = AZTalker.new;  [u say:thing];
+//	AZTalker *u = .new;  
+  [AZTalker say:thing];
 	// 	[u setVoice: voice ];
 	// 	[u startSpeakingString: thing];
 	// 	printf("Speaking as %s\n", [voice UTF8String]);
@@ -746,7 +862,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 +  (void) printCGRect:	(CGR)cgRect 													{	[AtoZ printRect:cgRect];	}
 +  (void) printRect:		(NSR)toPrint													{
 	NSLog(@"Rect is x: %i y: %i width: %i height: %i ", (int)toPrint.origin.x, (int)toPrint.origin.y,
-			(int)toPrint.size.width, (int)toPrint.size.height);
+        (int)toPrint.size.width, (int)toPrint.size.height);
 }
 +  (void) printCGPoint:	(CGP)cgPoint 													{	[AtoZ printPoint:cgPoint];	}
 +  (void) printPoint:	(NSP)toPrint 													{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
@@ -766,8 +882,8 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 + 	 (CGR) centerSize:	(CGS)size inRect:(CGR)rect 								{
 	CGF scale = [[self class] scaleForSize:size inRect:rect];
 	return AZMakeRect(	CGPointMake ( rect.origin.x + 0.5 * (rect.size.width  - size.width),
-												 rect.origin.y + 0.5 * (rect.size.height - size.height) ),
-							CGSizeMake(size.width * scale, size.height * scale) );
+                                   rect.origin.y + 0.5 * (rect.size.height - size.height) ),
+                    CGSizeMake(size.width * scale, size.height * scale) );
 }
 +   (NSR) rectFromPointA:(NSP)pointA 			   andPointB:(NSP)pointB 		{
 
@@ -786,7 +902,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 	NSImage* cropImage = [NSImage.alloc initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
 	[cropImage lockFocus];
 	[sourceImage drawInRect:(NSRect){ 0, 0, sourceRect.size.width, sourceRect.size.height}
-						fromRect:sourceRect		operation:NSCompositeSourceOver fraction:1.0];
+                 fromRect:sourceRect		operation:NSCompositeSourceOver fraction:1.0];
 	[cropImage unlockFocus];
 	return cropImage;
 }
@@ -801,7 +917,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 }
 @end
 
-@implementation Box
+@implementation JustABox
 @synthesize color, save, selected, shapeLayer;
 -   (id) initWithFrame: (NSR)frame			{
 	self = [super initWithFrame:frame];
@@ -936,13 +1052,13 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
 
 
 //- (id)objectForKeyedSubscript:(NSString *)key { return [_children objectForKey:key];  }
-//- (void)setObject:(id)newValue forKeyedSubscription:(NSString *)key { [_children setObject:newValue forKey:key]; }
+//- (void) setObject:(id)newValue forKeyedSubscription:(NSString *)key { [_children setObject:newValue forKey:key]; }
 
 /**
  @implementation AGFoundation
  @synthesize speaker;
  + (AGFoundation *)sharedInstance	{	return [super sharedInstance]; }
- - (void)setUp {
+ - (void) setUp {
  appArray = NSMA.new;
  NSArray *ws =	 [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKeyPath:@"NSApplicationPath"];
  int k = 0;
@@ -953,7 +1069,7 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
  }
  }
  @end
- - (void)enumerateProtocolMethods:(Protocol*)p {
+ - (void) numerateProtocolMethods:(Protocol*)p {
  // Custom block, used only in this method
  void (^enumerate)(BOOL, BOOL) = ^(BOOL isRequired, BOOL isInstance) {
  unsigned int descriptionCount;
@@ -971,3 +1087,68 @@ NSS* DDLEVEL2STRING		  (DDLogMessage*m) 	{
  enumerate(NO, YES);
  enumerate(NO, NO);
  }*/
+
+
+@interface TestBlocker : NSO
+
+//+ (BOOL) freeTag:(NSUI)tag;
+//+ (void) blockTag:(NSUI)tag;
+@end
+
+//-(void)lift:(NSString*)key;
+
+@implementation TestBlocker
+static NSMutableDictionary* flags;
+
++(INST)sharedInstance {
+  static TestBlocker *sharedInstance = nil;
+  static dispatch_once_t once;
+
+  dispatch_once(&once, ^{ sharedInstance = TestBlocker.alloc; sharedInstance = sharedInstance.init; });
+  return sharedInstance;
+}
+
+-(id)init
+{
+  self = [super init];
+  if (self != nil) {
+    flags = [NSMutableDictionary new];
+  }
+  return self;
+}
+
+//-(BOOL)isLifted:(NSString*)key
+//{
+//    return [self.flags objectForKey:key]!=nil;
+//}
+//
+//-(void)lift:(NSString*)key
+//{
+//    [self.flags setObject:@"YES" forKey: key];
+//}
+//
+//-(void)waitForKey:(NSString*)key
+//{
+//    BOOL keepRunning = YES;
+//    while (keepRunning && [[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1.0]]) {
+//        keepRunning = ![[TestSemaphor sharedInstance] isLifted: key];
+//    }
+//
+//}
+
+@end
+
+
+
+//#import <CocoaLumberjack/DDLog.h>
+//#import "MASShortcutView.h"
+//#import "MASShortcutView+UserDefaults.h"
+//#import "MASShortcut+UserDefaults.h"
+//#import "MASShortcut+Monitoring.h"
+//#import "AtoZFunctions.h"
+//#import "AtoZUmbrella.h"
+//#import "AtoZModels.h"
+//#import "OperationsRunner.h"
+//  NSS* setter;	if ( [self canSetValueForKey:key]) {if (isEmpty(object)) [self setValue:@"" forKey:key]; else{
+//  else if () // [self respondsToString:setter = $(@"set%@",[(NSS*)k capitalizedString])])
+//performString:setter withObject:x];  else NSLog(@"setValue: %@ for layer's key: %@", object, key)

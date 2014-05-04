@@ -1,13 +1,10 @@
 
-#import "CAAnimation+AtoZ.h"
-#import <AtoZFunctions.h>
 #import "AtoZ.h"
-#import "AtoZUmbrella.h"
-#import <objc/runtime.h>
+#import "CAAnimation+AtoZ.h"
+
 
 
 @implementation CAAnimationGroup (oneLine)
-
 + (CAAG*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)toSet {
 
 	CAAnimationGroup *group = self.new;
@@ -24,10 +21,20 @@
 
 //- (void) dealloc	{	self.completion = nil;	self.start = nil;	}
 @implementation CATransaction (AtoZ)
+
 + (void) flushBlock:(VoidBlock)block	{	[self begin];	block();	[self flush]; [self commit];	}
+
++ (void) transactionWithLength:(NSTI)l actions:(VoidBlock)block completion:(VoidBlock)comp {
+
+  [self begin];
+  [self setAnimationDuration:l];
+  [self setAnimationTimingFunction:CAMEDIAEASY];
+  [self setCompletionBlock:comp];
+  block();
+  [self commit];
+}
+
 @end
-
-
 /*
 - (void)bounceView:(UIView *)view amplitude:(CGFloat)amplitude duration:(CGFloat)duration {    
     CGFloat m34 = 1 / 300.f * (view.layer.anchorPoint.x == 0 ? -1 : 1);
@@ -139,10 +146,9 @@
 */
 
 @implementation CATransition (AtoZ)
++ (INST) transitionOfType:(NSS*)type { CATransition *animation; [animation = self.new setType:type]; return animation; }
 
-
-+ (CATransition*) randomTransition
-{
++ (CATransition*) randomTransition {
 	static NSArray *AZTransitionTypes = nil;
 	static NSArray *AZTransitionSubtypes = nil;
 	AZTransitionTypes = AZTransitionTypes ?: @[ kCATransitionFade, kCATransitionMoveIn, kCATransitionPush, kCATransitionReveal];
@@ -152,9 +158,7 @@
 	t.subtype = [AZTransitionSubtypes randomElement];
 	return t;
 }
-
-+ (NSA*)transitionsFor:(id)targetView
-{
++ (NSA*)transitionsFor:(id)targetView {
 	
 	NSRect rect = [targetView bounds];
 	CIImage *inputMaskImage, *inputShadingImage;
@@ -211,7 +215,6 @@
 				}()];
 	
 }
-
 @end
 
 
@@ -220,11 +223,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 //void disableCA(){
 //	[CATransaction flush];	[CATransaction begin];	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 //}
-
-
 //@implementation CATransaction (AtoZ)   SEE CAANIMATION + ATOZ
 //+ (void) immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block;
-
 //+ (void)az_performWithDisabledActions:(void(^)(void))block
 //{
 //	if	([self disableActions])   		   block();
@@ -233,6 +233,22 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 
 @implementation CABA (AtoZ)
+
++ (CABA*) animationWithKeyPath:(NSS*)path from:(id)v1 to:(id)v2 duration:(NSTI)time repeat:(CGF)ct { CABA * new = [self animationWithKeyPath:path];
+
+  return ({ new.fromValue = v1; new.toValue= v2; new.duration = time; new.repeatCount = ct; new; });
+}
+
++ (CABA*) dashPhaseAnimation { AZSTATIC_OBJ(CABA,dashAnimation,[self dashPhaseAnimationForPerimeter:40]);   return dashAnimation; }
+
++ (CABA*) dashPhaseAnimationForPerimeter:(CGF)p{
+
+  return [[CABA animationWithKeyPath:@"lineDashPhase"]
+ objectBySettingValuesWithDictionary:@{ @"fromValue" : @0,
+                                          @"toValue" : @(p),
+                                         @"duration" : @10,
+                                      @"repeatCount" : @(HUGE_VAL)}];
+}
 + (CABA*) groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption:(id)from to:(id)to andSet:(CAL*)set {
 
 	CABA *a  = [self animationWithKeyPath:path];
@@ -289,7 +305,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return newA;
 }
 
-+ (CAAnimation*)backgroundColorAnimationTo:(NSC*)color duration:(NSTI) dur{
++ (CAA*)backgroundColorAnimationTo:(NSC*)color duration:(NSTI) dur{
 	CABA * animation = [CABA animationWithKeyPath:@"backgroundColor"];
 	NSDictionary *dic = @{ @"toValue":(id)[color CGColor],
 								  @"duration":@(dur),
@@ -300,7 +316,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 
 	return LogAndReturn(animation);
 }
-+ (CAAnimation*)backgroundColorAnimationFrom:(NSColor *)color1 to:(NSColor *)color2 duration:(NSTI) dur{
++ (CAA*)backgroundColorAnimationFrom:(NSColor *)color1 to:(NSColor *)color2 duration:(NSTI) dur{
 	
 	CABA * animation = [CABA animationWithKeyPath:@"backgroundColor"];
 	NSDictionary *dic = @{ @"fromValue":(id)[color1 CGColor],
@@ -312,7 +328,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return animation;
 }
 
-+ (CAAnimation*)colorAnimationForLayer:(CALayer *)theLayer WithStartingColor:(NSColor *)color1 endColor:(NSColor *)color2
++ (CAA*)colorAnimationForLayer:(CALayer*)theLayer WithStartingColor:(NSColor *)color1 endColor:(NSColor *)color2
 {
 	CABA * animation = [CABA animationWithKeyPath:@"backgroundColor"];
 	NSDictionary *dic = @{	 	@"fromValue":(id)[color1 CGColor],
@@ -324,6 +340,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	[theLayer addAnimation:animation forKey:@"color"];	
 	return animation;
 }
+
 
 //+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending {
 //	CABA *animation = [CABA animationWithKeyPath:@"transform.rotation.z"];
@@ -339,10 +356,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 //}
 //
 //}
-
-
-- (CAAnimation *)rotateAnimationTo:(CGF)endDegrees
-{
+- (CAA*)rotateAnimationTo:(CGF)endDegrees {
 	CABA * animation;
 	animation = [CABA 
 					 animationWithKeyPath:@"transform.rotation.z"];
@@ -358,25 +372,13 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return animation;
 }
 
-
-// ---------------------------------------------------------------------------
-// -randomPathAnimation
-// ---------------------------------------------------------------------------
 // create a CAAnimation object with result of -newRandomPath as the movement pat
-
-+ (CAAnimation*)randomPathAnimationInFrame:(NSRect) frame;
-{
++ (CAA*)randomPathAnimationInFrame:(NSR)frame {
 	return [self randomPathAnimationWithStartingPoint:AZRandomPointInRect(frame) inFrame:frame];
 }
 
-
-// ---------------------------------------------------------------------------
-// -randomPathAnimationWithStartingPoint:
-// ---------------------------------------------------------------------------
 // create a CAAnimation object with result of -newRandomPath as the movement path
-
-+ (CAAnimation*)randomPathAnimationWithStartingPoint:(CGPoint)firstPoint inFrame:(NSR)rect
-{
++ (CAA*)randomPathAnimationWithStartingPoint:(CGP)firstPoint inFrame:(NSR)rect  {
 	//	CGPathRef path = AZRandomPathWithStartingPointInRect(firstPoint, rect);//:firstPoint];
 	
 	
@@ -390,10 +392,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 }
 
 #pragma mark - Sphere Layer Generation
-
-
-
-+ (CAKA *)rotateAnimation{
++ (CAKA *)rotateAnimation {
 	
 	CAKA *rotateAnimation= [CAKA animationWithKeyPath:@"transform.rotation.z"];
 	rotateAnimation.values = @[@(0.0), @(M_PI * 2), @(0.0)];
@@ -419,8 +418,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 //	_flag --;
 //	}
 
-+ (CAAnimationGroup *)blowupAnimationAtPoint:(CGPoint)p
-{
++ (CAAG*) blowupAnimationAtPoint:(CGP)p  {
 	CAKA *positionAnimation = [CAKA animationWithKeyPath:@"position"];
 	positionAnimation.values = @[AZVpoint(p)];
 	positionAnimation.keyTimes = @[@.3f];
@@ -438,9 +436,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	
 	return animationgroup;
 }
-
-+ (CAAnimationGroup *)shrinkAnimationAtPoint:(CGPoint)p
-{
++ (CAAG*) shrinkAnimationAtPoint:(CGP)p  {
 	CAKA *positionAnimation = [CAKA animationWithKeyPath:@"position"];
 	positionAnimation.values = @[AZVpoint(p)];
 	positionAnimation.keyTimes = @[@.3f];
@@ -458,10 +454,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	
 	return animationgroup;
 }
-
-
-+ (CAAnimation*)animationOnPath:(CGPathRef)p duration:(CFTimeInterval)d timeOffset:(CFTimeInterval)o;
-{//- (CAAnimation*)animationForCurrentPath:(CFTimeInterval)timeOffset {
++  (CAA*) animationOnPath:(CGPR)p duration:(CFTI)d timeOffset:(CFTI)o {//- (CAAnimation*)animationForCurrentPath:(CFTimeInterval)timeOffset {
 	CAKA* animation = [CAKA animation];
 	animation.path = p;
 	animation.duration = d;
@@ -470,49 +463,60 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	animation.removedOnCompletion = NO;
 	return animation;
 }
-
-+ (CAAnimation *) animationForOpacity {
++  (CAA*) animationForOpacity {
 	CABA *fadeAnimation = [CABA animationWithKeyPath:@"opacity"];
+  [fadeAnimation setDuration:1];
 	[fadeAnimation setAutoreverses:YES];
 	[fadeAnimation setToValue:@0.0f];
-	
 	return fadeAnimation;
 }
 
-+ (CAAnimation *) animateionForScale {
++  (CAA*) fadeOutAnimation {
+	CABA *fadeAnimation = [CABA animationWithKeyPath:@"opacity"];
+  [fadeAnimation setDuration:2];
+	[fadeAnimation setAutoreverses:NO];
+	[fadeAnimation setToValue:@0];
+  [fadeAnimation setFromValue:@1];
+  return fadeAnimation;
+}
++  (CAA*) fadeInAnimation {
+	CABA *fadeAnimation = [CABA animationWithKeyPath:@"opacity"];
+  [fadeAnimation setDuration:2];
+	[fadeAnimation setAutoreverses:NO];
+	[fadeAnimation setToValue:@1];
+  [fadeAnimation setFromValue:@0];
+	return fadeAnimation;
+}
+
+
++  (CAA*) animateionForScale {
 	CABA *scaleAnimation = [CABA animationWithKeyPath:@"transform.scale"];
 	[scaleAnimation setAutoreverses:YES];
 	[scaleAnimation setToValue:@0.0f];
 	
 	return scaleAnimation;
 }
-
-+ (CAAnimation *) animationForRotation {
++  (CAA*) animationForRotation {
 	CABA *rotateAnimation = [CABA animationWithKeyPath:@"transform.rotation"];
 	[rotateAnimation setToValue:AZV3d( CATransform3DMakeRotation(M_PI, 0, 1, 0) )];
 	[rotateAnimation setRepeatCount:HUGE_VALF];
 	[rotateAnimation setDuration:2];
 	return rotateAnimation;
 }
-- (void)setAz_completionBlock:(AZCAAnimationCompletionBlock)block
-{
+-  (void) setAz_completionBlock:(AZCAAnimationCompletionBlock)block {
 	self.delegate = self;
 	objc_setAssociatedObject(self, &AZCAAnimationCompletionBlockAssociatedObjectKey, block, OBJC_ASSOCIATION_COPY);
 }
 
-- (AZCAAnimationCompletionBlock)az_completionBlock
-{
+- (AZCAAnimationCompletionBlock)az_completionBlock  {
 	return objc_getAssociatedObject(self, &AZCAAnimationCompletionBlockAssociatedObjectKey);
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
-{
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag  {
 	if (flag && self.az_completionBlock != nil)
 		self.az_completionBlock();
 }
-+ (CAAnimation*)shakeAnimation;
-
-{
++ (CAA*) shakeAnimation {
 	CAKA * animation;
 	animation = [CAKA
 					 animationWithKeyPath:@"transform.rotation.z"];
@@ -539,7 +543,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return animation;
 }
 
-+ (CAAnimation*)rotateAnimationForLayer:(CALayer *)theLayer start:(CGFloat)starting end:(CGFloat)ending {
++ (CAA*)rotateAnimationForLayer:(CAL*)theLayer start:(CGF)starting end:(CGF)ending {
 	CABA *animation = [CABA animationWithKeyPath:@"transform.rotation.z"];
 	[animation setFromValue:DegreesToNumber(starting)];
 	[animation setToValue:DegreesToNumber(ending)];
@@ -568,7 +572,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 //
 //	return animation;
 //}
-+ (CAKA*)popInAnimation {
++ (CAKA*) popInAnimation {
 	CAKA* animation = [CAKA animation];
 	
 	animation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9, 0.9, 1.0)],
@@ -578,8 +582,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	animation.duration = 0.3f;
 	return animation;
 }
-
-+(CAAnimation *)flipAnimationWithDuration:(NSTimeInterval)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGFloat)scaleFactor {
++  (CAA*) flipAnimationWithDuration:(NSTI)aDuration forLayerBeginningOnTop:(BOOL)beginsOnTop scaleFactor:(CGF)scaleFactor {
 	// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
 	CABA *flipAnimation = [CABA animationWithKeyPath:@"transform.rotation.y"];
 	CGFloat startValue = beginsOnTop ? 0.0f : M_PI;
@@ -607,9 +610,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	animationGroup.removedOnCompletion = NO;
 	return animationGroup;
 }
-
-
-+(CAAnimation *)flipDown:(NSTimeInterval)aDuration scaleFactor:(CGFloat)scaleFactor {
++  (CAA*) flipDown:(NSTI)aDuration scaleFactor:(CGF)scaleFactor {
 	
 	// Rotating halfway (pi radians) around the Y axis gives the appearance of flipping
 	CABA *flipAnimation = [CABA animationWithKeyPath:@"transform.rotation.y"];
@@ -645,7 +646,6 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	return animationGroup;
 	
 }
-
 
 //@implementation CAKA (JumpingAndShaking)
 
@@ -768,6 +768,20 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
 	}
 }
 
+
++ (CAKA*) colorAnimationWithPalette:(NSA*)p duration:(NSTI)t {
+
+
+	CAKA *animation               = [CAKA animationWithKeyPath:@"backgroundNSColor"];
+	animation.repeatCount         = HUGE_VALF;
+	animation.duration            = t;
+	animation.fillMode            = kCAFillModeForwards;
+	animation.values              = [NSC gradientPalletteLooping:p steps:p.count * 2];
+	animation.keyTimes            = [@0 to:@1 by:@(t / (CGF)animation.values.count)];
+	animation.removedOnCompletion = YES; // final stage is equal to starting stage
+	animation.autoreverses        = NO;
+	return animation;
+}
 
 @end
 
@@ -1089,3 +1103,12 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey = @"AZCAAnimationCompl
  [self.anotherImageView.layer addAnimation:anotherAnimation forKey:@"1"];
  
  */
+
+@implementation CAKA (AtoZ)
+
++ (CAKA*) animationWithKeyPath:(NSS*)path values:(NSA*)vals duration:(NSTI)time repeat:(CGF)ct {
+
+    CAKA * new = [self animationWithKeyPath:path];  new.values = [vals copy];  new.duration = time; new.repeatCount = ct; return new;
+}
+
+@end

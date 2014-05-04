@@ -10,42 +10,42 @@
 
 @implementation RedGreenTests
 
-- (void)testBooleanAssertions
+- (void) testBooleanAssertions
 {
     STAssertFalse(true, @"Expected true to be false.");
     STAssertTrue(false, @"Expected false to be true.");
 }
 
-- (void)testCanIProvideBetterOutput
+- (void) testCanIProvideBetterOutput
 {
 }
 
-- (void)testDidIProvideBetterOutput
+- (void) testDidIProvideBetterOutput
 {
 }
 
-- (void)testEqualityAssertions
+- (void) testEqualityAssertions
 {
     STAssertEqualObjects(@"a", @"a", @"Expected a to equal a");
     STAssertEqualObjects(@"(null)", @"Invalid user credentials.", @"Unexpected error messsage.");
 }
 
-- (void)testEstimatesAreEqual
+- (void) testEstimatesAreEqual
 {
     STAssertEquals(1, 1, @"");
 }
 
-- (void)testSenTestLogOutput
+- (void) testSenTestLogOutput
 {
     STAssertEquals(1, 1, @"");
 }
 
-- (void)testFails
+- (void) testFails
 {
     STFail(@"You deliberately called STFail().");
 }
 
-- (void)testSucceeds
+- (void) testSucceeds
 {
 }
 

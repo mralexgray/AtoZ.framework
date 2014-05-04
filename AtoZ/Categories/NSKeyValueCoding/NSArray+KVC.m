@@ -5,8 +5,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
-#import <Foundation/Foundation.h>
-#import "NSString+KVCAdditions.h"
+#import <AtoZ/AtoZ.h>#import "NSString+KVCAdditions.h"
 //#import <Foundation/NSRaiseException.h>
 
 @implementation NSArray (NSKeyValueCoding)
@@ -205,7 +204,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSArray (KVO)
 
-- (void)addObserver:(NSObject *)observer toObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSS*)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
+- (void) ddObserver:(NSObject *)observer toObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSS*)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
 {
 	NSUInteger idx=[indexes firstIndex];
 	while(idx!=NSNotFound)
@@ -218,7 +217,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 }
 
-- (void)removeObserver:(NSObject *)observer fromObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSS*)keyPath
+- (void) emoveObserver:(NSObject *)observer fromObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSS*)keyPath
 {
 	NSUInteger idx=[indexes firstIndex];
 	while(idx!=NSNotFound)

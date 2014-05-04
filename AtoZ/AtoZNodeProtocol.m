@@ -10,7 +10,7 @@
 #ifdef AtoZFramework
 #define VOMIT @"vageen"
 #else
-#import "CABlockDelegate.h"
+#import "BlockDelegate.h"
 #endif
 
 #ifdef JRENUM 
@@ -45,6 +45,7 @@ JREnumDefine(AZOutlineCellStyle);
 //-      	(id) azKey 					{  return [self vFK:(AZNODEPRO self).keyPaths.keyPath]; 			}
 //@end
 @concreteprotocol  (AtoZNodeProtocol) //NSObject (AtoZNodeProtocol)
+@dynamic keyPaths;
 
 + (instancetype) instanceInNode:(id)p {
 	id newone = [self.class new];
@@ -94,6 +95,7 @@ JREnumDefine(AZOutlineCellStyle);
 	enumerateAndAdd_recurse = enumerateAndAdd; // initialize the alias
    return enumerateAndAdd(self.children); // starts the block
 }
+/*
 -   (id) expanded 				{  AZMethod m = [self.class implementationOfSelector:NSSelectorFromString(@"expanded:")];
 
 	if 		(m == AZMethodAuthor  ||
@@ -107,6 +109,7 @@ JREnumDefine(AZOutlineCellStyle);
 	if 	  (m == AZMethodAuthor || m == AZMethodInherits) return objc_setAssociatedObject(self, (__bridge const void*)@"nodeExpanded", e, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	else if (m == AZMethodOverrider)  [self setValue:e forKey:@"expanded"];
 }
+*/
 - (NSI) siblingIndex 			{ return self.isaRoot ? -1 : [self.parent.children indexOfObject:self]; }
 - (NSI) siblingIndexMax			{ return self.isaRoot ? -1 : self.parent.numberOfChildren; 	}
 - (NSI) numberOfChildren 		{ return self.isaLeaf ? -1 : self.children.count; 				}
@@ -118,7 +121,7 @@ JREnumDefine(AZOutlineCellStyle);
 
 //@interface NSCoder (AZNodeProtocolKeyPaths)
 //- (struct AZNodeProtocolKeyPaths)decodeKeyPaths:(id)arg1;
-//- (void)encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
+//- (void) encodeKeyPaths:(struct AZNodeProtocolKeyPaths)kps;
 //@end
 
 @implementation NSObject (ProtocolConformance)
@@ -220,7 +223,7 @@ return  (self = super.init) ? [self setArranged:NSMA.new],
 - (NSMutableArray*) nodeChildren 		{ return self.children; }
 
 @implementation AZBundle
-- (void)forwardInvocation:(NSInvocation *)anInvocation	{
+- (void) orwardInvocation:(NSInvocation *)anInvocation	{
 	NSString* theString = NSStringFromSelector(anInvocation.selector);
 	SEL newSel = NSSelectorFromString([theString stringByAppendingString:@"azBundle_"]);
     if ([self respondsToSelector:newSel]){

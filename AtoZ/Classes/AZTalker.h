@@ -1,22 +1,26 @@
-//
-//  AZTalker.h
-//  AtoZ
-//
-//  Created by Alex Gray on 7/7/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-//#import "AtoZ.h"
+
+#import "AtoZUmbrella.h"
+
+#define SAY(X) ({ [AZTalker say:ISA(X,NSS) ? X : [X description]]; })
 
 @interface AZTalker : BaseModel <NSSpeechSynthesizerDelegate>
 
-@property (strong, nonatomic) NSSpeechSynthesizer *talker;
++ (void) sayUntilFinished:(NSS*)x;
++ (void)        sayFormat:(NSS*)fmt,...;
 
--(void) say:(NSString*)thing;
-+(void) say:(NSString*)thing;
-+(void) randomDicksonism;
-//+(NSData*) sayToData:(NSString*)thing;
-+ (void)say:(NSString*)thing toData:(void(^)(NSData*d))data;
-+ (void)say:(NSString*)thing toURL:(void(^)(NSURL*u))url;
++ (void) say:(NSS*)x       then:(VBlk)blk;
++ (void) say:(NSS*)x      toURL:(URLBlk)u;
++ (void) say:(NSS*)x     toData:(DTABlk)d;
++ (void) say:(NSS*)x withVolume:(CGF)volm;
++ (void) say:(NSS*)x;
+
++ (void) randomDicksonism;
+
+@prop_CP VBlk doneTalking;
 
 @end
+
+
+//+(NSData*) sayToData:(NSString*)thing;
+//- (void) say:(NSString*)thing;

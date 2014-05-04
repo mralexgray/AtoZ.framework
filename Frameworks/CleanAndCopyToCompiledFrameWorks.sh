@@ -8,6 +8,9 @@
 
 
 #echo `dirname $(readlink -f $0)`
+
+: '
+
 cd ${0%/*}
 pwd
 
@@ -26,4 +29,6 @@ cp -r  "${BUILT_PRODPATH}" "${COMPILED_FWRKS}/"
 
 cd ${0%/*}
 cd ..
+
+'
 #find . -name *.DS_Store -type f -exec rm {} \;

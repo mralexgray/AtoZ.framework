@@ -3,11 +3,11 @@
 @synthesize backgroundColor, selected, uniqueID, hovered, file;
 @synthesize cellIdentifier, dynamicStroke;//, index;
 @synthesize inset, radius, representedObject;
-- (void)setFile:(AZFile *)aFile {
+- (void) setFile:(AZFile *)aFile {
 	file = aFile;
 	[self setRepresentedObject:aFile];
 }
-//- (void)setRepresentedObject:(id)anObjectRep {
+//- (void) setRepresentedObject:(id)anObjectRep {
 //	representedObject = anObjectRep;
 //	if ( [representedObject isKindOfClass:[AZFile class]] ){
 //		AZFile *c = representedObject;
@@ -34,7 +34,7 @@
 	//	tv = self.tv;//	[self makeTv];
 	//	[self addSubview:tv];
 //}
-- (void)handleAntAnimationTimer:(NSTimer*)timer {
+- (void) andleAntAnimationTimer:(NSTimer*)timer {
 	mPhase = (mPhase < [self halfwayWithInset] ? mPhase + [self halfwayWithInset]/128 : 0);
 	[self setNeedsDisplayInRect:NSInsetRect([self bounds], self.inset, self.inset)];
 }
@@ -48,7 +48,7 @@
 //	return 5;
 //}
 
-- (void)setInset:(float)anInset {	self.inset = anInset; [self setNeedsDisplay:YES]; }
+- (void) setInset:(float)anInset {	self.inset = anInset; [self setNeedsDisplay:YES]; }
 
 - (float) halfwayWithInset { return AZPerimeterWithRoundRadius([self frame],self.radius);
 //	NSRect dim = NSInsetRect(self.bounds, self.inset, self.inset);
@@ -80,7 +80,7 @@
 	return atv;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 	standard = [NSBP bezierPathWithRect:self.bounds];
 	NSC *now = file.color.isExciting ? file.color : self.backgroundColor;
@@ -149,13 +149,14 @@
 	[[self nextResponder] mouseMoved :theEvent];
 }
 
-- (void) mouseDown:(NSEvent *)theEvent {
+- (void) mouseDown:(NSE*)e {
 	self.selected =! selected;
 	if (!selected) { [timer invalidate]; [self setNeedsDisplay:YES]; }
-	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
-	}
-	[[self nextResponder] mouseDown:theEvent];
-
+	else {
+    mPhase  = 0;
+    timer   = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:NSSelectorFromString(@"handleAntAnimationTimer:") userInfo:nil repeats:YES];
+  }
+	[[self nextResponder] mouseDown:e];
 }
 
 - (id)initWithFrame:(NSRect)frame
@@ -215,7 +216,7 @@
 //	return string;
 //}
 //- (BOOL)isOpaque { return YES; }
-//- (void)drawRect:(NSRect)rect {
+//- (void) drawRect:(NSRect)rect {
 //	[backgroundColor set];//÷
 //	NSGradient *rrr = [[NSGradient alloc]initWithStartingColor:backgroundColor.darker.darker e/ndingColor:backgroundColor.brighter.brighter ];
 //	initWithColorsAndLocations:
@@ -267,7 +268,7 @@
 
 //	[self performSelector:@selector(makeThatWindowGirl) afterDelay:1];
 //}
-//- (void)makeThatWindowGirl {
+//- (void) akeThatWindowGirl {
 
 //	if (!self.hovered) { self.selected = NO; return; }
 //	NSLog(@"makin windy for: %@", self.file.name);
@@ -306,7 +307,7 @@
  });
  }
 
- - (void)drawInBackground
+ - (void) drawInBackground
  {
  while (1) {
  //		[NSThread sleepForTimeInterval:0.0000000001];
@@ -371,7 +372,7 @@
  //		self.itunesApi = AJSiTunesAPI.new;
  //		self.itunesApi.delegate = self;	*/
 
-//- (void)updateTrackingAreas
+//- (void) updateTrackingAreas
 //{
 //	if(!NSIntersectsRect([self frame], [[self superview] visibleRect]))
 //	{

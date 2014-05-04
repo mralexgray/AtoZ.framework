@@ -3,6 +3,11 @@
 #import "AtoZTypes.h"
 //#import "KVOMap/KVOMap.h"
 
+
+@interface AZSparseArray :NSMutableArray
++ (instancetype) arrayWithObjectsAndIndexes:(id) first,... NS_REQUIRES_NIL_TERMINATION; 
+@end
+
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSArray (EnumExtensions)
@@ -22,8 +27,13 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 #define AZKP AZKeyPair
+#define AZKPMake(KEY_PAIR_KEY,KEY_PAIR_VALUE) [AZKP key:KEY_PAIR_KEY value:KEY_PAIR_VALUE]
+
 /** Abbreviated, AZKP, these re good for returning a Key pair to a dictionary from an array block.  
 	  Designated init. + (instancetype) key:(id)k value:(id)v; */
+
+//GENERICSABLE(AZKeyPair)
+
 @interface AZKeyPair : NSO + (instancetype) key:(id)k value:(id)v;
 @property (copy) id key, value;
 @end
@@ -34,7 +44,24 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSArray (AtoZ)
 
-@property (RONLY) NSS * joinedByNewlines;
+- (NSA*) arrayOfClass:(Class)oClass forKey:(NSS*)k;
+- (NSA*) arrayOfClass:(Class)oClass;
+-   (id)       reduce:(id)initial 
+                 with:(AZIndexedAccumulationBlock)block;
+
+@property (RONLY) NSA* jumbled, *splitByParity;
+
+/*! @param pairs the array to be "mixed in"
+    @code   [@[@1, @2, @3] pairedWith:@[@"a", @"b", @"c"]] -> @[@1,@"a",@2,@"b",@3,@"c"] 
+*/
+- (NSA*) pairedWith:(NSA*)pairs;
+
+//     azva_list_to_nsarray(firstVal, values);  [values eachWithVariadicPairs:^(id a, id b) { [x setValue:b forKey:a]; }]
+- (void) eachWithVariadicPairs:(void(^)(id a, id b))pairs;
+
++ (instancetype) arrayWithCopies:(NSUI)copies of:(id<NSCopying>)obj;
+
+@property (RONLY) NSS * joinedByNewlines, * joinedWithSpaces, * componentString;
 
 /** Iterates objects with Timer, executing a block on each step.
  @param time Speed of the timer interval
@@ -54,11 +81,12 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 + (NSA*) arrayWithRects:(NSR)firstRect,...NS_REQUIRES_NIL_TERMINATION;
 -  (int) createArgv:(char***)argv;
-+ (NSA*) from:(NSI)from to:(NSI)to;
--   (id) nextObject;
-- (NSA*) arrayByAddingAbsentObjectsFromArray:(NSArray *)otherArray;
-- (NSCountedSet*)countedSet ;
++ (NSA*) from:(NSI)from to:(NSI)to;       // shortcut for [@(from) to:@(to)], I think
 
+@property (RONLY) id nextObject,          // keeps tack, ad returns the "next" object from an array.  until it runs out, then trurns nil.
+                      nextNormalObject;   // same as "nextObject", but is a everlasting font of normalized, looping vals
+
+- (NSA*) arrayByAddingAbsentObjectsFromArray:(NSA*)otherArray;
 - (NSRNG) rangeOfSubarray:(NSA*)sub;
 /*!
  @brief	Returns an array of NSNumbers whose -integerValues
@@ -72,47 +100,56 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (NSA*) withMinItems:(NSUI)items;
 - (NSA*) withMinItems:(NSUI)items usingFiller:(id) fill;
 - (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
-- (NSN*) maxNumberInArray;
-- (NSN*) minNumberInArray;
-- (NSA*) URLsForPaths;
+
+@property (RONLY) CSET * countedSet;
+@property (RONLY)  NSN * maxNumberInArray, * minNumberInArray;
+@property (RONLY)  NSA * shifted, * popped, * reversed,
+                       * ascending, * descending,
+                       * URLsForPaths,
+                       * colorValues,
+                       * arrayWithEach,
+                       * allKeysInChildDictionaries,
+                       * allvaluesInChildDictionaries;
+@property (RONLY) NSMA * mutableCopies;  // Make each object mutable, if possible. Returns mutable itself.
+
+//- (NSA<NSN>*) ascending; - (NSA<NSN>*) descending;
+
+- (NSA*) sorted:(AZOrder)o;
+
 - (void) logEachPropertiesPlease;
 - (void) logEachProperties;
 - (void) logEach;
-+ (NSA*) arrayFromPlist:(NSString*)path;
-- (void) saveToPlistAtPath:(NSString*)path;
-- (NSS*) stringWithEnum: (NSUInteger) anEnum;
-- (NSUI) enumFromString: (NSString*) aString default: (NSUInteger) def;
-- (NSUI) enumFromString: (NSString*) aString;
 
-@property (RONLY) NSArray *colorValues;
++ (NSA*)    arrayFromPlist:(NSS*)path;
+- (void) saveToPlistAtPath:(NSS*)path;
+- (NSS*)    stringWithEnum:(NSUI)e;
+- (NSUI)    enumFromString:(NSS*)s default:(NSUI)def;
+- (NSUI)    enumFromString:(NSS*)s;
 
 + (NSMA*) mutableArrayWithArrays:(NSA*)arrays;
-+  (NSA*) arrayWithArrays:(NSA*)arrays;
--  (NSA*) arrayWithEach;
-- (NSA*) allKeysInChildDictionaries;
-- (NSA*) allvaluesInChildDictionaries;
++  (NSA*)        arrayWithArrays:(NSA*)arrays;
 
 #define vsForKeys dictionaryWithValuesForKeys
 
-- (NSA*)arrayUsingIndexedBlock:(id (^)(id obj, NSUInteger idx))block;
-- (NSA*)sortedWithKey:(NSS*)theKey ascending:(BOOL)ascending;
+- (NSA*) arrayUsingIndexedBlock:(id(^)(id o,NSUI idx))b;
+- (NSA*)          sortedWithKey:(NSS*)k ascending:(BOOL)ascending;
+
 //- (NSA*)sortedArrayUsingArray:(NSA*)otherArray;
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(...) macro */
-+ (NSA*)arrayWithInts:(NSInteger)i,...;
++ (NSA*) arrayWithInts:(NSI)i,...;
 
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with double values. As this method takes a variadic argument list you have to terminate the input with a FLOAT_MAX entry This is done automatically via the $doubles(...) macro */
-+ (NSA*)arrayWithDoubles:(double)d,...;
++ (NSA*) arrayWithDoubles:(double)d,...;
 
 /*** Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries) */
-@property (RONLY) NSSet *set;
-@property (RONLY) NSA *shifted, *popped, *reversed;
+@property (RONLY) NSSet * set;
 
 /*** Returns an array of the same size as the original one with the result of calling the keyPath on each object */
 - (NSA*)arrayWithKey:(NSS*)keyPath;
 
 /** will not brick if not all obects have the key etc */
 - (NSA*)arrayWithObjectsMatchingKeyOrKeyPath:(NSS*)keyPath;
-
+- (NSA*) arrayBySettingValue:(id)v forObjectsKey:(NSS*)k;
 
 /**	Calls performSelector on all objects that can receive the selector in the array.
  * Makes an iterable copy of the array, making it possible for the selector to modify
@@ -127,6 +164,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
  * parameter.	*/
 - (void)makeObjectsPerformSelector:(SEL)s withObject:(id)o1 withObject:(id)o2;
 - (void)makeObjectsPerformSelector:(SEL)s withObject:(id)o1	withObject:(id)o2 withObject:(id)o3;
+
+- (void)makeObjectsPerformSelector:(SEL)s withBool:(BOOL)b;
 
 /**	@return nil or an object that matches value with isEqual:	*/
 -   (id) objectWithValue: (id)value forKey:(id)key;
@@ -164,6 +203,9 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 /*** Returns a subArray that does not contain any value that the passed NSSet contains */
 - (NSA*)arrayWithoutSet:(NSSet *)values;
 
+//Will return only strings NOT containing string.
+- (NSA*) arrayWithoutStringContaining:(NSS*)str;
+
 /*** Returns a subArray in wich all object returned true for the block Reduced version of filteredArrayUsingBlock, without the dictionary */
 - (NSA*)filter:(BOOL (^)(id object))block;
 
@@ -195,71 +237,61 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @property (RONLY) NSArray *strings;
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
 @property (RONLY) NSArray *trimmedStrings;
-- (NSA*)subarrayFromIndex:(NSInteger)start;
-- (NSA*)subarrayToIndex:(NSInteger)end;
-- (NSA*)subarrayFromIndex:(NSInteger)start toIndex:(NSInteger)end;
+- (NSA*)subarrayFromIndex:(NSUI)start;
+- (NSA*)subarrayToIndex:(NSUI)end;
+- (NSA*)subarrayFromIndex:(NSUI)start toIndex:(NSUI)end;
 /*** Returns a random element from this array */
 @property (RONLY) id randomElement;
 /*** Returns a random subArray of this array with up to 'size' elements */
-- (NSA*)randomSubarrayWithSize:(NSUInteger)size;
+- (NSA*)randomSubarrayWithSize:(NSUI)size;
 /*** Returns a shuffeled version of this array */
 @property (RONLY) NSArray *shuffeled;
 /*** A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its first and last element connected to each other */
-- (id)objectAtNormalizedIndex:(NSInteger)index;
-- (id)normal:(NSInteger)index;
-/*** A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil */
-- (id)objectAtIndex:(NSUInteger)index fallback:(id)fallback;
-/*** Will at least return nil in case the index does not fit the array */
-- (id)objectOrNilAtIndex:(NSUInteger)index;
-@property (RONLY) id first;
-@property (RONLY) id second;
-@property (RONLY) id thrid;
-@property (RONLY) id fourth;
-@property (RONLY) id fifth;
-@property (RONLY) id sixth;
-@property (RONLY) id last;
-@property (RONLY) NSN* sum;
-- (NSInteger)sumIntWithKey:(NSS*)keyPath;
-- (CGFloat)sumFloatWithKey:(NSS*)keyPath;
-/*** Returns YES when this array contains any of the elements in enumerable */
-- (BOOL)containsAny:(id <NSFastEnumeration>)enumerable;
-/*** Returns YES when this array contains all of the elements in enumerable */
-- (BOOL)containsAll:(id <NSFastEnumeration>)enumerable;
--(BOOL)doesNotContainObjects:(id<NSFastEnumeration>)enumerable;
+- (id)objectAtNormalizedIndex:(NSI)index;
+- (NSUI) normalizedIndex:(NSI)index;  // Gives the normalized index for an out of range index.
+- (id)normal:(NSI)index;
 
--(BOOL)doesNotContainObject:(id)object;
-/*** dummy, just for the 'foreach' macro */
--(id)andExecuteEnumeratorBlock;
+/*** A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil */
+- (id)objectAtIndex:(NSUI)index fallback:(id)fallback;
+/*** Will at least return nil in case the index does not fit the array */
+- (id)objectOrNilAtIndex:(NSUI)index;
+
+@property (RONLY) NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings;
+@property (RONLY)  id   first, second, thrid, fourth, fifth, sixth, last, firstObject;
+
+- (NSI)              sumIntWithKey:(NSS*)keyPath;
+- (CGF)            sumFloatWithKey:(NSS*)keyPath;
+/*** Returns YES when this array contains any of the elements in enumerable */
+- (BOOL)               containsAny:(id<NSFastEnumeration>)enumerable;
+/*** Returns YES when this array contains all of the elements in enumerable */
+- (BOOL)               containsAll:(id<NSFastEnumeration>)enumerable;
+- (BOOL)     doesNotContainObjects:(id<NSFastEnumeration>)enumerable;
+- (BOOL)      doesNotContainObject:(id)object;
 
 /*** Just a case study at the moment. Just another way of writing enumerateUsingBlock, but as it's written kvc conform the foreach macro can be used to write code like foreach (id o, array) {   ... } */
--(void)setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUInteger idx, BOOL *stop))block;
+- (void)         setAndExecuteEnumeratorBlock:(void(^)(id o, NSUI idx, BOOL*s))b;
 
-/*** */
--(NSA*)objectsWithFormat:(NSS*)format, ...;
--(id)firstObjectWithFormat:(NSS*)format, ...;
--(id) firstObjectOfClass:(Class)k;
--(NSA*)filteredArrayUsingBlock: (BOOL (^)(id evaluatedObject, NSDictionary *bindings))block;
-
-@property (readonly) NSA* uniqueObjects, *uniqueStrings;
-
--(NSA*) uniqueObjectsSortedUsingSelector: (SEL)comparator;
--(id)firstObject;
--(void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
--(void) az_each:(void (^)(id obj, NSUInteger index, BOOL *stop))block;
--(void) az_eachConcurrentlyWithBlock:(void (^)(NSInteger index, id obj, BOOL * stop))block;
--(id)findWithBlock:(BOOL (^)(id obj))block;
--(BOOL)isObjectInArrayWithBlock:(BOOL (^)(id obj))block;
--(NSA*)findAllWithBlock:(BOOL (^)(id obj))block;
-
-
-
+- (NSA*)                    objectsWithFormat:(NSS*)format, ...;
+-   (id)                firstObjectWithFormat:(NSS*)format, ...;
+-   (id)                   firstObjectOfClass:(Class)k;
+- (NSA*)              filteredArrayUsingBlock:(BOOL(^)(id evaluatedObject, NSDictionary *bindings))block;
+- (NSA*)     uniqueObjectsSortedUsingSelector:(SEL)comparator;
+- (void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id k, id o))b;
+- (void)                              az_each:(void(^)(id o, NSUI idx, BOOL *s))b;
+- (void)         az_eachConcurrentlyWithBlock:(void (^)(NSI idx, id o, BOOL *s))b;
+-   (id)                        findWithBlock:(BOOL(^)(id o))b;
+- (BOOL)             isObjectInArrayWithBlock:(BOOL(^)(id o))b;
+- (NSA*)                     findAllWithBlock:(BOOL(^)(id o))b;
+- (void)                              doUntil:(BOOL(^)(id o))b;
 
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
--(NSHashTable *)findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block;
+-(NSHashTable*)findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block;
 #endif
 
--(NSA*)mapArray:(id (^)(id obj))block;
--(NSD*)mapToDictForgivingly:(AZKeyPair*(^)(id))block;
+- (NSA*)             mapArray:(id(^)(id o))b;
+- (NSD*) mapToDictForgivingly:(AZKeyPair*(^)(id))b;
+- (NSD*) mapToDictValuesForgivingly:(id(^)(id))b;
+- (NSD*)   mapToDictKeysForgivingly:(id(^)(id))b;
 @end
 
 @interface NSArray(ListComprehensions) 
@@ -283,24 +315,18 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @interface NSMutableArray (AG)
 
-- (NSMA*) alphabetize;
+@property (RONLY) NSMA * alphabetize;
+-  (void) addPoint:(NSP)p;
+-  (void)  addRect:(NSR)r;
 
-- (void) addPoint:(NSPoint)point;
-- (void) addRect:(NSRect)rect;
+@property (RONLY) id advance;  /* returns first object.. moves it to last. */
+-  (void) firstToLast;
+-  (void) lastToFirst;
 
-- (id) advance;  /* returns first object.. moves it to last. */
 
-- (void) firstToLast;
-
-- (void) lastToFirst;
-
-// alike removeLastObject
--(void)removeFirstObject;
-// shift & pop for stacklike operations
-// they will return the removed objects
-// removes and returns the first object in the array
-// if no elements are present, nil will be returned
--(id)shift;
+-(void)removeFirstObject; // alike removeLastObject
+// shift & pop for stacklike operations -  they will return the removed objects removes and returns the first object in the array  if no elements are present, nil will be returned
+@property (RONLY) id shift;
 
 // insert at index: 0
 - (void) shove: (id) object;
@@ -314,27 +340,21 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 	Internally the method sends the receiver `removeLastObject` and returns the removed object.
 	@return Returns the object removed from the receiver.
 	@exception if no elements are present, nil will be returned   FALSE: NSException Raised if the receiver is an empty array.	*/
-- (id)pop;
+@property (RONLY) id pop;
 
 /**	Helper method for looking at the last object in the receiver.
  	Internally, the method sends the receiver `lastObject` message and returns the result. If the receiver is an empty array, `nil` is returned.
  	@return Returns the last object in the receiver.	 */
-- (id)peek;
+@property (RONLY) id peek;
 
-
-// shortcut for the default sortUsingSelector:@selector(compare:)
--(NSMutableArray *)sort;
-
-// reverses the whole array
--(NSMutableArray *)az_reverse;
-
-// randomizes the order of the array
--(NSMutableArray *)shuffle;
+@property (RONLY) NSMA * sort,        // shortcut for the default sortUsingSelector:@selector(compare:)
+                       * az_reverse,  // reverses the whole array
+                       * shuffle;     // randomizes the order of the array
 
 - (void) moveObject:(id)obj toIndex:(NSUI)toIndex;
 
-- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
-- (void) moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block;
+- (void) moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx;
+- (void) moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx withBlock:(void(^)(id,NSUInteger))block;
 
 @end
 
@@ -401,7 +421,6 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 @end
 
-
 //	Category:
 // Methods to treat an NSArray with three/four elements as an RGB/RGBA color.
 //  Useful for storing colors in NSUserDefaults and other Property Lists.
@@ -416,60 +435,62 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 @interface NSArray (StringExtensions)
-- (NSA*) arrayBySortingStrings;
-@property (readonly, getter=arrayBySortingStrings) NSArray *sortedStrings;
-@property (readonly) NSString *stringValue;
-- (NSArray*) reversedArray;
-- (id) firstObject;
-@end
+@property (RONLY) NSA * reversedArray, *sortedStrings, * uniqueMembers;
+@property (RONLY) NSS * stringValue;
+@property (RONLY)  id   firstObject;
 
-@interface NSArray (UtilityExtensions)
-- (id) firstObject;
-- (NSA*) uniqueMembers;
-- (NSA*) unionWithArray: (NSA*) array;
-- (NSA*) intersectionWithArray: (NSA*) array;
+- (NSA*)        unionWithArray:(NSA*)a;
+- (NSA*) intersectionWithArray:(NSA*)a;
 
-
-// Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
-- (NSA*) map: (SEL) selector;
-- (NSA*) map: (SEL) selector withObject: (id)object;
-- (NSA*) map: (SEL) selector withObject: (id)object1 withObject: (id)object2;
-
-- (NSA*) collect: (SEL) selector withObject: (id) object1 withObject: (id) object2;
-- (NSA*) collect: (SEL) selector withObject: (id) object1;
-- (NSA*) collect: (SEL) selector;
-
-- (NSA*) reject: (SEL) selector withObject: (id) object1 withObject: (id) object2;
-- (NSA*) reject: (SEL) selector withObject: (id) object1;
-- (NSA*) reject: (SEL) selector;
+- (NSA*)     map:(SEL)sel; // Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
+- (NSA*) collect:(SEL)sel;
+- (NSA*)  reject:(SEL)sel;
+- (NSA*)     map:(SEL)sel withObject:(id)o;
+- (NSA*) collect:(SEL)sel withObject:(id)o;
+- (NSA*)  reject:(SEL)sel withObject:(id)o;
+- (NSA*)     map:(SEL)sel withObject:(id)o1 withObject:(id)o2;
+- (NSA*) collect:(SEL)sel withObject:(id)o1 withObject:(id)o2;
+- (NSA*)  reject:(SEL)sel withObject:(id)o1 withObject:(id)o2;
 @end
 
 @interface NSMutableArray (UtilityExtensions)
-- (void) moveObjectFromIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex;
-- (NSMutableArray *) removeFirstObject;
-- (NSMutableArray *) reverse;
-- (NSMutableArray *) scramble;
-@property (readonly, getter=reverse) NSMutableArray *reversed;
+-  (void) moveObjectFromIndex:(NSI)oldIndex toIndex:(NSI)newIndex;
+@property (RONLY)                 NSMA * removeFirstObject, * reverse, *scramble;
+@property (RONLY, getter=reverse) NSMA * reversed;
 @end
 
 @interface NSMutableArray (StackAndQueueExtensions) 
-- (NSMutableArray *)pushObject:(id)object;
-- (NSMutableArray *)pushObjects:(id)object,...;
-- (id) popObject;
-- (id) pullObject;
+- (NSMA*)  pushObject:(id)o;
+- (NSMA*)        push:(id)o; // aka pushObject
+- (NSMA*) pushObjects:(id)o,...;
 
-// Synonyms for traditional use
-- (NSMutableArray *)push:(id)object;
-- (id) pop;
-- (id) pull;
+@property (RONLY) id popObject, pop, pullObject, pull; // With Synonyms for traditional use
 @end
-
 
 @interface NSArray (FilterByProperty)
 
-- (NSA*) subArrayWithMembersOfKind:(Class)klass;
-- (NSUI) lengthOfLongestMemberString;
-- (NSArray*) filterByProperty:(NSS*) p;
+- (NSA*)    subArrayWithMembersOfKind:(Class)klass;
+- (NSUI)  lengthOfLongestMemberString;
+- (NSA*)             filterByProperty:(NSS*) p;
 - (NSA*) stringsPaddedToLongestMember;
 
+@end
+
+
+/** Adds recursive lookup to traditional Key-Value Coding  */
+@interface NSObject (RecursiveKVC)
+/** Returns the result of recursively invoking `valueForKey:` on each returned object until it reaches a `nil` value. 
+ @param key The name of one of the receiver's properties.
+ @return The objects returned by recursively calling the `valueForKey:` method on objects returned by `valueForKey:`
+*/
+- (NSA*)recursiveValueForKey:(NSS*)k;
+@end
+@interface NSArray (RecursiveKVC)
+/** Returns an array containing the results of invoking `recursiveValueForKey:` using `key` on each of the array's objects. 
+ Importantly, this method does not follow the `valueForKey:` approach of adding `NSNull` objects to the 
+ returned array when `nil` is returned. It merely does not add these objects to the array.
+ @param key The key to retrieve.
+ @return An array
+ */
+- (NSA*)recursiveValueForKey:(NSS*)k;
 @end

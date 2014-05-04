@@ -39,7 +39,7 @@
 //	[_webView evaluate:@"$('.gridly').gridly({    base: 60, gutter: 20,  columns: 12  });"];
 }
 //- (void) gridWasClicked:(
-//- (void)applicationDidFinishLaunching:(NSNOT*)n {
+//- (void) pplicationDidFinishLaunching:(NSNOT*)n {
 
 //	[_ov setOVSelectionDidChange:^(NSOV*outline) {	XX(outline);	id selectedNode = _gistController.selectedRepresentedObject;
 //

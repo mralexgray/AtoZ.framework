@@ -22,7 +22,7 @@
 
 @interface  MArray (Subscripts)
 - (id)objectAtIndexedSubscript:(NSUInteger)index;
-- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+- (void) setObject:(id)object atIndexedSubscript:(NSUInteger)index;
 @end
 
 @interface MArray (NSExtendedArray)
@@ -36,8 +36,8 @@
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale;
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level;
 - (id)firstObjectCommonWithArray:(MArray *)otherArray;
-- (void)getObjects:(id *)objects;
-- (void)getObjects:(id *)objects range:(NSRange)range;
+- (void) setObjects:(id *)objects;
+- (void) setObjects:(id *)objects range:(NSRange)range;
 - (unsigned)indexOfObject:(id)anObject;
 - (unsigned)indexOfObject:(id)anObject inRange:(NSRange)range;
 - (unsigned)indexOfObjectIdenticalTo:(id)anObject;
@@ -54,8 +54,8 @@
 - (BOOL)writeToFile:(NSString *)path atomically:(BOOL)useAuxiliaryFile;
 - (BOOL)writeToURL:(NSURL *)url atomically:(BOOL)atomically;
 
-- (void)makeObjectsPerformSelector:(SEL)aSelector;
-- (void)makeObjectsPerformSelector:(SEL)aSelector withObject:(id)argument;
+- (void) akeObjectsPerformSelector:(SEL)aSelector;
+- (void) akeObjectsPerformSelector:(SEL)aSelector withObject:(id)argument;
 
 @end
 
@@ -84,31 +84,31 @@
 
 @interface MArray (NSMutableArrayAdditions)
 
-//- (void)addObject:(id)anObject;
-//- (void)insertObject:(id)anObject atIndex:(unsigned)index;
-//- (void)removeLastObject;
-//- (void)removeObjectAtIndex:(unsigned)index;
-//- (void)replaceObjectAtIndex:(unsigned)index withObject:(id)anObject;
+//- (void) addObject:(id)anObject;
+//- (void) insertObject:(id)anObject atIndex:(unsigned)index;
+//- (void) removeLastObject;
+//- (void) removeObjectAtIndex:(unsigned)index;
+//- (void) replaceObjectAtIndex:(unsigned)index withObject:(id)anObject;
 
 @end
 
 @interface MArray (NSExtendedMutableArray)
 
-//- (void)addObjectsFromArray:(MArray *)otherArray;
-//- (void)exchangeObjectAtIndex:(unsigned)idx1 withObjectAtIndex:(unsigned)idx2;
-//- (void)removeAllObjects;
-//- (void)removeObject:(id)anObject inRange:(NSRange)range;
-//- (void)removeObject:(id)anObject;
-//- (void)removeObjectIdenticalTo:(id)anObject inRange:(NSRange)range;
-//- (void)removeObjectIdenticalTo:(id)anObject;
-//- (void)removeObjectsFromIndices:(unsigned *)indices numIndices:(unsigned)count;
-//- (void)removeObjectsInArray:(MArray *)otherArray;
-//- (void)removeObjectsInRange:(NSRange)range;
-//- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray range:(NSRange)otherRange;
-//- (void)replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray;
-//- (void)setArray:(MArray *)otherArray;
-//- (void)sortUsingFunction:(int (*)(id, id, void *))compare context:(void *)context;
-//- (void)sortUsingSelector:(SEL)comparator;
+//- (void) addObjectsFromArray:(MArray *)otherArray;
+//- (void) exchangeObjectAtIndex:(unsigned)idx1 withObjectAtIndex:(unsigned)idx2;
+//- (void) removeAllObjects;
+//- (void) removeObject:(id)anObject inRange:(NSRange)range;
+//- (void) removeObject:(id)anObject;
+//- (void) removeObjectIdenticalTo:(id)anObject inRange:(NSRange)range;
+//- (void) removeObjectIdenticalTo:(id)anObject;
+//- (void) removeObjectsFromIndices:(unsigned *)indices numIndices:(unsigned)count;
+//- (void) removeObjectsInArray:(MArray *)otherArray;
+//- (void) removeObjectsInRange:(NSRange)range;
+//- (void) replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray range:(NSRange)otherRange;
+//- (void) replaceObjectsInRange:(NSRange)range withObjectsFromArray:(MArray *)otherArray;
+//- (void) setArray:(MArray *)otherArray;
+//- (void) sortUsingFunction:(int (*)(id, id, void *))compare context:(void *)context;
+//- (void) sortUsingSelector:(SEL)comparator;
 
 @end
 

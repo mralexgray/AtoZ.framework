@@ -1,3 +1,4 @@
+
 @protocol AZScrollerContentController
 
 - (BOOL)isRepositioning;

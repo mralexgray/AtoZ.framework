@@ -1,7 +1,6 @@
 // Copyright © 2009-2011 Cédric Luthi <http://0xced.blogspot.com>
 
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
+#import <AtoZ/AtoZ.h>#import <objc/runtime.h>
 #import <mach-o/dyld.h>
 
 @interface NSObject ()

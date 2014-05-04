@@ -59,7 +59,7 @@
 @end
 @interface NSColor (BFColorPickerPopover)
 - (CGColorRef)copyCGColor;
-+ (NSColor*)randomColor;
+//+ (NSColor*)randomColor;
 @end
 @interface NSColorPanel (BFColorPickerPopover)
 - (void)	disablePanel;

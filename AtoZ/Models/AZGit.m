@@ -94,8 +94,8 @@ NSString *taskWithPathAndArgs(NSString*path,NSArray *args){
     NSPipe *filePipe						= NSPipe.pipe;
     task.standardOutput					= filePipe;
     task.standardError					= filePipe;
-    NSFileHandle *file					= filePipe.fileHandleForReading;  task.launch;				 task.waitUntilExit;
-    NSData *data								= file.readDataToEndOfFile;				task.waitUntilExit;  file.closeFile;
+    NSFileHandle *file					= filePipe.fileHandleForReading;  [task launch];				 [task waitUntilExit];
+    NSData *data								= [file readDataToEndOfFile];				[task waitUntilExit];  [file closeFile];
     return [[NSString stringWithData:data encoding:NSUTF8StringEncoding] stringByDeletingSuffix:@"\n"];
 }
 

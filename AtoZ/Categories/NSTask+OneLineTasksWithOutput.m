@@ -11,8 +11,9 @@
 //  this copyright and permission notice. Attribution in compiled projects is
 //  appreciated but not required.
 //
-
+#import <Cocoa/Cocoa.h>
 #import "NSTask+OneLineTasksWithOutput.h"
+#import <AtoZ/AtoZ.h>
 
 @interface TaskOutputReader :	NSObject
 @property (NATOM, STRNG) 	NSMutableData *standardOutput, *standardError;

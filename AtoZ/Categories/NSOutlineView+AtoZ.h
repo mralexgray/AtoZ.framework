@@ -1,7 +1,21 @@
 
 #define NSTN NSTreeNode
 
+#import "AtoZUmbrella.h"
 #import "AZObject.h"
+
+#pragma mark - NSOutlineView Hacks for Drag and Drop
+
+// fot other stuff dealing with NSTreeController see http://theocacao.com/document.page/130
+
+@protocol NSOutlineViewDraggable
+@concrete
+- (BOOL) outlineView:(NSOV*)ov          isItemExpandable:(id)x;
+-  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem:(id)x;
+-   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem:(id)x;
+-   (id) outlineView:(NSOV*)ov objectValueForTableColumn:(NSTC*)col
+                                                  byItem:(id)x;
+@end
 
 @interface NSOutlineView (AtoZ)
 
@@ -9,8 +23,8 @@
 
 extern NSString* const kAZTreeNodeChildNodesKey;
 
-@protocol  AZPlistRepresentation;
-@interface AZTreeNode : NSObject <NSCoding,NSCopying,NSMutableCopying,AZPlistRepresentation> {
+//@protocol  AZPlistRepresentation;
+@interface AZTreeNode : NSObject <NSCoding,NSCopying,NSMutableCopying> { //AZPlistRepresentation
 @private
 		  __weak id   _parentNode; // back pointer to our parent node; not retained
 	NSMutableArray * _childNodes;
@@ -53,7 +67,7 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 -  (NSTN*) 		         nodeAtIndexPath:(NSIndexPath*)indexPath;
 -  (NSTN*)     		 nextSiblingOfNode:(NSTN*)node;
 -  (NSTN*) nextSiblingOfNodeAtIndexPath:(NSIndexPath *)indexPath;
-+ (instancetype)        instanceWithRootNodes:(NSA*)nodes;
+//+ (instancetype)        instanceWithRootNodes:(NSA*)nodes;
 @end
 
 @interface NSTreeController (NSTreeController_WCExtensions)

@@ -48,7 +48,7 @@
 
 
 /** Populates the themes using those available to Xcode. */
-//- (void)populateThemes {
+//- (void) opulateThemes {
 //  NSFileManager *fm = [NSFileManager defaultManager];
 //  NSString *themesPath = [kXcodeThemesFolder stringByExpandingTildeInPath];
 //  NSArray *dirContents = [fm contentsOfDirectoryAtPath:themesPath error:nil];

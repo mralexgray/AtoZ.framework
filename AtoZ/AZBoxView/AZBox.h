@@ -22,7 +22,7 @@
 @property (nonatomic, strong) id 	representedObject;
 @property (nonatomic, readonly) NSString *cellIdentifier;
 /*** Invoked when the cell is dequeued from a collection view. This will reset all settings to default.  **/
-- (void)prepareForReuse;
+- (void) repareForReuse;
 /*** The designated initializer of the cell. Please don't use any other intializer!  **/
 - (id)initWithReuseIdentifier:(NSString *)identifer;
 - (id)initWithFrame:(NSRect)frame representing:(id)object atIndex:(NSUInteger)anIndex;

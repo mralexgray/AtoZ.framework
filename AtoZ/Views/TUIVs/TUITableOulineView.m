@@ -73,7 +73,7 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
     return self;
 }
 
-- (void)toggleSection:(NSInteger)section
+- (void) oggleSection:(NSInteger)section
 {
     CGRect currentSectionRect = [self rectForSection:section];
     __block CGRect visibleRect = [self visibleRect];
@@ -438,7 +438,7 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
     return scrollRect;
 }
 
-- (void)scrollToSection:(NSInteger)section;
+- (void) crollToSection:(NSInteger)section;
 {
     BOOL animated = [TUIView _currentAnimation] != nil;
     if (section == 0)
@@ -543,7 +543,7 @@ CG_INLINE CGFloat durationForOffset(CGFloat offset)
     return vr;
 }
 
-- (void)layoutSubviews
+- (void) layoutSubviews
 {
     [super layoutSubviews];
     if (!_openning && self.openedSectionBackgroundView)

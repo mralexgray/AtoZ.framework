@@ -2,18 +2,10 @@
 
 @class AZFolder;
 @implementation AZFile
-@synthesize name = _name,
-image = _image,
-colors = _colors,
-hasLabel = _hasLabel,
-labelColor = _labelColor,
-labelNumber = _labelNumber,
-calulatedBundleID = _calulatedBundleID;
-@synthesize hue = _hue;
 
+- (void) iesta {
 
-- (void)fiesta {
-	CGFloat f = AZPerimeter(  AZScreenFrame());
+	CGF f = AZPerimeter(AZScreenFrame());
 	int unit = floor([AtoZ dockSorted].count / f);
 //	[[AtoZ dockSorted]
 	 [(NSA*)[AZFolder appFolder] eachWithIndex:^(id obj, NSInteger i){
@@ -25,8 +17,7 @@ calulatedBundleID = _calulatedBundleID;
 	}];
 }
 
-
-- (void)didChangeValueForKey:(NSString *)key {
+- (void) idChangeValueForKey:(NSString *)key {
 //	NSLog(@"Object chaged:%@   val:%@",key, self[key]);
     [key isEqualToString:@"path"] ? ^{} ()
     : NSLog(@"no action taken.");
@@ -45,9 +36,7 @@ calulatedBundleID = _calulatedBundleID;
     return self;
 }
 
-- (NSString *)itemDisplayName {
-    return self.name;
-}
+- (NSString *)itemDisplayName { return self.name; }
 
 - (NSString *)itemKind {
     return _itemKind = _itemKind ? : [_path hasSuffix:@"app"] ? @"Application" : @"Folder";
@@ -62,7 +51,7 @@ calulatedBundleID = _calulatedBundleID;
 }
 
 - (NSIMG *)image {
-    NSSize theSize = AZSizeFromDimension(512);
+    NSSize theSize = AZSizeFromDim(512);
     return _image = _image ? _image
         : [AZWORKSPACE iconForFile:_path] ? [[AZWORKSPACE iconForFile:_path]imageScaledToFitSize:theSize]
         : _color ? [[NSImage imageNamed:@"missing.png"]tintedWithColor:_color]
@@ -81,7 +70,8 @@ calulatedBundleID = _calulatedBundleID;
             return [allBag occurrencesOf:aColor] > (.0005 * [raw count]) && [aColor isExciting] ? YES : NO;
         }];
                return [[filtered map:^id (id obj) {
-            return [AZColor instanceWithColor:obj count:[rawBag occurrencesOf:obj] total:filtered.count];
+//            return [AZColor instanceWithColor:obj count:[rawBag occurrencesOf:obj] total:filtered.count];
+            return [AZColor colorWithColor:obj];// count:[rawBag occurrencesOf:obj] total:filtered.count];
         }] sortedWithKey:@"count" ascending:NO];
 //		}
     } ();
@@ -227,14 +217,14 @@ calulatedBundleID = _calulatedBundleID;
 //	//	You can use both the NSURLLabelNumberKey to get the number of the Finder's assigned label or the NSURLLabelColorKey to get the actual color.
 //
 //}
-- (void)setActualLabelColor:(NSColor *)aLabelColor {
+- (void) setActualLabelColor:(NSColor *)aLabelColor {
     NSError *error = nil;
     NSURL *fileURL = [NSURL fileURLWithPath:self.path];
     [fileURL setResourceValue:(id)aLabelColor forKey:NSURLLabelColorKey error:&error];
     if (error) NSLog(@"Problem setting label for %@", self.name);
 }
 
-- (void)setActualLabelNumber:(NSNumber *)aLabelNumber {
+- (void) setActualLabelNumber:(NSNumber *)aLabelNumber {
     NSError *error = nil;
     NSURL *fileURL = [NSURL fileURLWithPath:self.path];
     [fileURL setResourceValue:aLabelNumber forKey:NSURLLabelNumberKey error:&error];
@@ -258,15 +248,15 @@ calulatedBundleID = _calulatedBundleID;
     //	d.color = [color isBoring] ? RANDOMCOLOR : color;
     //	d.colors = @[color];
     //	NSImage *ren = [[NSImage alloc]initWithContentsOfFile:d.path];
-    //	d.image = [[[NSImage az_imageNamed:@"missing.png"]imageByScalingProportionallyToSize:AZSizeFromDimension(512)] tintedWithColor:color];
+    //	d.image = [[[NSImage az_imageNamed:@"missing.png"]imageByScalingProportionallyToSize:AZSizeFromDim(512)] tintedWithColor:color];
     return d;
 }
 
-+ (instancetype)instanceWithImage:(NSImage *)image {
+//+ (instancetype)instanceWithImage:(NSImage *)image {
     //	AZFile*d = [AZFile dummy];
     //	NSLog($(@"colors is ** %@ ** boring", StringFromBOOL([d.color isBoring])));
     //	return d;
-}
+//}
 
 @end
 
@@ -291,31 +281,31 @@ calulatedBundleID = _calulatedBundleID;
     return self.backingstore[index];
 }
 
-- (void)addObject:(id)anObject {
+- (void) addObject:(id)anObject {
     [self.backingstore addObject:anObject];
 }
 
-- (void)insertObject:(id)anObject atIndex:(NSUI)index       {
+- (void) insertObject:(id)anObject atIndex:(NSUI)index       {
     [self.backingstore insertObject:anObject atIndex:index];
 }
 
-- (void)removeLastObject {
+- (void) removeLastObject {
     [self.backingstore removeLastObject];
 }
 
-- (void)removeObjectAtIndex:(NSUI)index      {
+- (void) removeObjectAtIndex:(NSUI)index      {
     [self.backingstore removeObjectAtIndex:index];
 }
 
-- (void)replaceObjectAtIndex:(NSUI)index withObject:(id)anObject    {
+- (void) replaceObjectAtIndex:(NSUI)index withObject:(id)anObject    {
     (self.backingstore)[index] = anObject;
 }
 
-- (void)firstToLast {
+- (void) irstToLast {
     [self.backingstore firstToLast];
 }
 
-- (void)lastToFirst {
+- (void) astToFirst {
     [self.backingstore lastToFirst];
 }
 
@@ -471,7 +461,7 @@ calulatedBundleID = _calulatedBundleID;
 //- (id)objectAtIndexedSubscript:(NSUInteger)index; { return [self.items normal:index]; }
 
 //@interface NSMutableArray (SubscriptsAdd)
-//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+//- (void) setObject:(id)object atIndexedSubscript:(NSUInteger)index;
 //{
 //	index < self.items.count   ?  object
 //		  ?  [self.items replaceObjectAtIndex:index withObject:object]
@@ -486,7 +476,7 @@ calulatedBundleID = _calulatedBundleID;
 //- (id)objectForKeyedSubscript:(id)k { return [self valueForKey:k]; }
 
 //@interface  NSMutableDictionary (SubscriptsAdd)
-//- (void)setObject:(id)o forKeyedSubscript:(id)k {[self setValue:o forKey:k]; }
+//- (void) setObject:(id)o forKeyedSubscript:(id)k {[self setValue:o forKey:k]; }
 @end
 
 @implementation  AZDock
@@ -530,7 +520,7 @@ calulatedBundleID = _calulatedBundleID;
 @implementation AZImage
 //
 //- (NSImage*)image {
-//	NSSize theSize = AZSizeFromDimension(512);
+//	NSSize theSize = AZSizeFromDim(512);
 //	if (_image) return _image;
 //	else {
 //		BOOL hasIcon = [AZWORKSPACE iconForFile:_path] ? YES : NO;
@@ -615,7 +605,7 @@ usleep(250000);
 //	return _thumbnailImage;
 //}
 //
-//- (void)loadImage {
+//- (void) oadImage {
 //	@synchronized (self) {
 //		if (self.image == nil && !self.imageLoading) {
 //			self.imageLoading = YES;
@@ -645,7 +635,7 @@ usleep(250000);
 
 //@implementation ATDesktopFolderEntity
 //
-//- (void)dealloc {
+//- (void) dealloc {
 //	[_children release];
 //	[super dealloc];
 //}
@@ -679,7 +669,7 @@ usleep(250000);
 //	return result;
 //}
 //
-//- (void)setChildren:(NSMutableArray *)value {
+//- (void) setChildren:(NSMutableArray *)value {
 //		// This property is declared as atomic. We use @synchronized to ensure that promise is kept
 //	@synchronized(self) {
 //		if (_children != value) {

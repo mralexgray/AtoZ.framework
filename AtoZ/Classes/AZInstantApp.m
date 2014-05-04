@@ -1,3 +1,4 @@
+#import <AtoZ/AtoZ.h>
 #import "AZInstantApp.h"
 
 static const NSString *start = @"echo '\

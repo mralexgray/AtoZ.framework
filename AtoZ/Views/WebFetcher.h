@@ -2,22 +2,24 @@
 // NSOperation-WebFetches-MadeEasy (TM)
 // Copyright (C) 2012 by David Hoerl
 // 
-
-#import "ConcurrentOperation.h"
+//#import "AtoZMacroDefines.h"
+//#import <CocoaAsyncSocket/ConcurrentOperation.h>
+#import "AtoZUmbrella.h"
+//#import "ConcurrentOperation.h"
 
 typedef NSRNG (*htmlProcessor)(NSData *arg, const char *classMatch);
 
 @interface WebFetcher : ConcurrentOperation
 @property (NATOM,CP) 			      NSS 	*urlStr;
-@property (NATOM,STRNG) 		    NSERR   *error;
+@property (NATOM) 		    NSERR   *error;
 @property (NATOM,CP) 			      NSS 	*errorMessage;
 @property (NATOM,CP)	 			      NSS 	*runMessage;	// debugging
-@property (NATOM,STRNG,RONLY)    NSURLC  	*connection;
-@property (NATOM,STRNG,RONLY)   NSMDATA 	*webData;
-@property (NATOM,STRNG) 		NSMURLREQ  	*request;	// superclass might want to fiddle with it
-@property (NATOM,ASS) 			     NSUI	 htmlStatus;
+@property (RONLY)    NSURLC  	*connection;
+@property (RONLY)   NSMDATA 	*webData;
+@property (NATOM) 		NSMURLREQ  	*request;	// superclass might want to fiddle with it
+@property (NATOM) 			     NSUI	 htmlStatus;
 #ifndef NDEBUG
-@property (NATOM,ASS) 			BOOL 		 forceFailure;	// testing
+@property (NATOM) 			BOOL 		 forceFailure;	// testing
 #endif
 @end
 

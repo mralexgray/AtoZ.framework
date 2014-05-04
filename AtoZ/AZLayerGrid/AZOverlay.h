@@ -60,7 +60,7 @@
  visible cells and draw the new values.
  
  This method forces redraw of all overlays in the receiver. 	*/
-- (void)reloadData;
+- (void) eloadData;
 
 /// ---------------------------------
 /// @name Managing State
@@ -137,7 +137,7 @@
  
  @param indexes The indexes to select.
  @param extend `YES` if the selection should be extended, `NO` if the current selection should be changed.	*/
-- (void)selectOverlayIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend;
+- (void) electOverlayIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend;
 
 /** Returns the index of the last overlay selected or added to the selection.
  
@@ -163,7 +163,7 @@
  This method doesn’t check with the delegate before changing the selection.
  
  @param overlayIndex The index of the overlay to deselect.	*/
-- (void)deselectOverlay:(NSInteger)overlayIndex;
+- (void) eselectOverlay:(NSInteger)overlayIndex;
 
 /** Returns the number of selected overlays.
  
@@ -301,11 +301,11 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
 /** Informs the delegate that the overlay view’s selection has changed.
  
  @param aNotification A notification named AZOverlayViewSelectionDidChangeNotification.	*/
-- (void)overlayDidMove:(NSNotification *)aNotification;
+- (void) verlayDidMove:(NSNotification *)aNotification;
 
-- (void)overlayDidResize:(NSNotification *)aNotification;
+- (void) verlayDidResize:(NSNotification *)aNotification;
 
-- (void)overlayDidDelete:(NSNotification *)aNotification;
+- (void) verlayDidDelete:(NSNotification *)aNotification;
 
 /// ---------------------------------
 /// @name Changing Overlays
@@ -317,7 +317,7 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
  
  @param anOverlayView The overlay view that sent the message.
  @param rect The frame for the new overlay, expressed in the coordinate system of the image.	*/
-- (void)overlayView:(AZOverlayView *)anOverlayView didCreateOverlay:(NSRect)rect;
+- (void) verlayView:(AZOverlayView *)anOverlayView didCreateOverlay:(NSRect)rect;
 
 /** Invoked by the overlay view when the user has modified an overlay.
  
@@ -328,7 +328,7 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
  @param rect The new frame for the overlay, expressed in the coordinate system of the image.
  
  @see overlayView:didDeleteOverlay:	*/
-- (void)overlayView:(AZOverlayView *)anOverlayView didModifyOverlay:(id)overlayObject newRect:(NSRect)rect;
+- (void) verlayView:(AZOverlayView *)anOverlayView didModifyOverlay:(id)overlayObject newRect:(NSRect)rect;
 
 /** Invoked by the overlay view when the user has deleted an overlay.
  
@@ -338,7 +338,7 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
  @param overlayObject The object that was deleted.
  
  @see overlayView:didModifyOverlay:newRect:	*/
-- (void)overlayView:(AZOverlayView *)anOverlayView didDeleteOverlay:(id)overlayObject;
+- (void) verlayView:(AZOverlayView *)anOverlayView didDeleteOverlay:(id)overlayObject;
 /// ---------------------------------
 /// @name Events
 /// ---------------------------------
@@ -346,6 +346,6 @@ extern NSString *AZOverlayViewOverlayDidDeleteNotification;
 /** Informs the delegate that the overlay view’s selection has changed.
  
  @param aNotification A notification named AZOverlayViewSelectionDidChangeNotification.	*/
-- (void)overlaySelectionDidChange:(NSNotification *)aNotification;
+- (void) verlaySelectionDidChange:(NSNotification *)aNotification;
 
 @end

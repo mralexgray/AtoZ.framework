@@ -52,7 +52,7 @@ const CGF framesPerSecond = 10.0;
 
 @end
 
-/*- (void)checkCollision	{	NSRect ballRect = [ball bounds];	NSRect viewRect = [self bounds];
+/*- (void) heckCollision	{	NSRect ballRect = [ball bounds];	NSRect viewRect = [self bounds];
 	if ( ballRect.origin.y < viewRect.origin.y ||
 	(ballRect.origin.y + ballRect.size.height) > viewRect.size.height ) {
 		dy = -dy;
@@ -70,7 +70,7 @@ const CGF framesPerSecond = 10.0;
 	}
 }
 
-- (void)setDx:(float)_dx
+- (void) setDx:(float)_dx
 {
 	if ( dx < 0 )
 		dx = -_dx;
@@ -82,7 +82,7 @@ const CGF framesPerSecond = 10.0;
 	[at translateXBy:dx yBy:dy];
 }
 
-- (void)setDy:(float)_dy
+- (void) setDy:(float)_dy
 {
 	if ( dy < 0 )
 		dy = -_dy;
@@ -120,7 +120,7 @@ const CGF framesPerSecond = 10.0;
 
 - (NSC*) primaryColor { return _primaryColor ?: [NSColor colorWithCalibratedWhite:0.0 alpha:onDark ? .5 :0.06]; }
 
-- (void)drawRect:(NSRect)dirtyRect
+- (void) drawRect:(NSRect)dirtyRect
 {
 //	[NSGraphicsContext state:^{
 
@@ -149,7 +149,7 @@ const CGF framesPerSecond = 10.0;
 }
 
 //FIXME: It would be more reliable to use an NSTimer here
-- (void)doAnimation
+- (void) oAnimation
 {
 	if (shouldStop)	return;
 	phase += pixelsPerSecond / framesPerSecond;

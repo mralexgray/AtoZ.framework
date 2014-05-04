@@ -12,7 +12,7 @@
 //  appreciated but not required.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "AtoZMacroDefines.h"
 #import <SecurityFoundation/SFAuthorization.h>
 
 @interface NSTask (OneLineTasksWithOutput)

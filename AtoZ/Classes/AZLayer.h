@@ -38,7 +38,7 @@
 //- (id) initWithLayer: (id) layer;
 
 //+ (AZLayer*)withFrame:(NSRect)frame forObject:(id)file atIndex:(NSUInteger)index;
-//- (void)orientWithX: (CGFloat)x andY: (CGFloat)y;
+//- (void) rientWithX: (CGFloat)x andY: (CGFloat)y;
 
 @property (NATOM, ASS) AZPOS 	orient;
 

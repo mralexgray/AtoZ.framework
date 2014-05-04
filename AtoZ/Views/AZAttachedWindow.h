@@ -41,14 +41,14 @@
 	NSRect _viewFrame;
 	BOOL _resizing;
 }
-@property (retain, nonatomic) NSColor *borderColor;
-@property (NATOM, ASS) float borderWidth;
-@property (NATOM, ASS) float viewMargin;
-@property (NATOM, ASS) float arrowBaseWidth;
-@property (NATOM, ASS) float arrowHeight;
-@property (NATOM, ASS) BOOL hasArrow;
-@property (NATOM, ASS) float cornerRadius;
-@property (NATOM, ASS) BOOL drawsRoundCornerBesideArrow;
+@property (NATOM) NSC * borderColor;
+@property (NATOM) CGF   borderWidth,
+                        viewMargin,
+                        arrowBaseWidth,
+                        arrowHeight,
+                        cornerRadius;
+@property (NATOM) BOOL  hasArrow,
+                        drawsRoundCornerBesideArrow;
 /*
  Initialization methods
 
@@ -100,25 +100,25 @@
 
 // Accessor methods
 //- (NSColor *)borderColor;
-//- (void)setBorderColor:(NSColor *)value;
+//- (void) setBorderColor:(NSColor *)value;
 //- (float)borderWidth;
-//- (void)setBorderWidth:(float)value;				   // See note 1 below.
+//- (void) setBorderWidth:(float)value;				   // See note 1 below.
 //- (float)viewMargin;
-//- (void)setViewMargin:(float)value;					// See note 2 below.
+//- (void) setViewMargin:(float)value;					// See note 2 below.
 //- (float)arrowBaseWidth;
-//- (void)setArrowBaseWidth:(float)value;				// See note 2 below.
+//- (void) setArrowBaseWidth:(float)value;				// See note 2 below.
 //- (float)arrowHeight;
-//- (void)setArrowHeight:(float)value;				   // See note 2 below.
+//- (void) setArrowHeight:(float)value;				   // See note 2 below.
 //- (float)hasArrow;
-//- (void)setHasArrow:(float)value;
+//- (void) setHasArrow:(float)value;
 
 //- (float)cornerRadius;
-//- (void)setCornerRadius:(float)value;				  // See note 2 below.
+//- (void) setCornerRadius:(float)value;				  // See note 2 below.
 //- (float)drawsRoundCornerBesideArrow;				  // See note 3 below.
-//- (void)setDrawsRoundCornerBesideArrow:(float)value;   // See note 2 below.
-//- (void)setBackgroundImage:(NSImage *)value;
+//- (void) setDrawsRoundCornerBesideArrow:(float)value;   // See note 2 below.
+//- (void) setBackgroundImage:(NSImage *)value;
 //- (NSColor *)windowBackgroundColor;					// See note 4 below.
-//- (void)setBackgroundColor:(NSColor *)value;
+//- (void) setBackgroundColor:(NSColor *)value;
 @property (retain, nonatomic) NSView *view;
 /* ot at one of the four primary compass directions. In this situation, 
 	if drawsRoundCornerBesideArrow is YES (the default), then that corner of the window 

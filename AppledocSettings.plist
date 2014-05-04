@@ -2,14 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>--project-version</key>
-	<string>${BUILD_VERSION} </string>
+	<key>--create-docset</key>
+	<true/>
+	<key>--create-html</key>
+	<true/>
 	<key>--docset-bundle-name</key>
 	<string>AtoZ</string>
 	<key>--docset-desc</key>
 	<string>Zhuzhiness in the form of a framework.</string>
+	<key>--docset-feed-url</key>
+	<string>http://mrgray.com/docs/atoz/%DOCSETATOMFILENAME</string>
+	<key>--docset-package-url</key>
+	<string>http://mrgray.com/docs/atoz/%DOCSETPACKAGEFILENAME</string>
 	<key>--exit-threshold</key>
 	<integer>2</integer>
+	<key>--ignore</key>
+	<array>
+		<string>Frameworks</string>
+		<string>JREnum.h</string>
+	</array>
 	<key>--input</key>
 	<array>
 		<string>AtoZ/Categories</string>
@@ -18,43 +29,35 @@
 		<string>AtoZ/Core</string>
 		<string>AtoZ/Classes</string>
 	</array>
-	<key>--no-create-docset</key>
-	<false/>
-	<key>--merge-categories</key>
-	<true/>
-	<key>--keep-undocumented-members</key>
-	<true/>
-	<key>--search-undocumented-doc</key>
+	<key>--install-docset</key>
 	<true/>
 	<key>--keep-intermediate-files</key>
 	<true/>
+	<key>--keep-undocumented-members</key>
+	<true/>
 	<key>--keep-undocumented-objects</key>
 	<true/>
-	<key>--create-html</key>
-	<true/>
-	<key>--publish-docset</key>
-	<true/>
-	<key>--install-docset</key>
-	<true/>
-	<key>--create-docset</key>
-	<true/>
-	<key>--project-company</key>
-	<string>mrgray.com</string>
-	<key>--output</key>
-	<string>/mg/docs/atoz</string>
-	<key>--docset-feed-url</key>
-	<string>http://mrgray.com/docs/atoz/%DOCSETATOMFILENAME</string>
-	<key>--docset-package-url</key>
-	<string>http://mrgray.com/docs/atoz/%DOCSETPACKAGEFILENAME</string>
-	<key>--project-name</key>
-	<string>AtoZ.Framework</string>
-	<key>--ignore</key>
-	<array>
-		<string>Frameworks</string>
-	</array>
-	<key>--verbose</key>
-	<integer>5</integer>
 	<key>--logformat</key>
 	<integer>1</integer>
+	<key>--merge-categories</key>
+	<true/>
+	<key>--no-create-docset</key>
+	<false/>
+	<key>--output</key>
+	<string>/mg/docs/atoz</string>
+	<key>--project-company</key>
+	<string>mrgray.com</string>
+	<key>--project-name</key>
+	<string>AtoZ.Framework</string>
+	<key>--project-version</key>
+	<string>${BUILD_VERSION} </string>
+	<key>--publish-docset</key>
+	<true/>
+	<key>--search-undocumented-doc</key>
+	<true/>
+	<key>--templates</key>
+	<string>~/.appledoc</string>
+	<key>--verbose</key>
+	<integer>5</integer>
 </dict>
 </plist>

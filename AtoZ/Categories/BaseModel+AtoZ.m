@@ -126,7 +126,7 @@ INSTANCE_CT++;	//	NSLog(@"classinstances: %lu", INSTANCE_CT);
 //	if (instance == nil) return  internalAndWeak;
 //	else
 ----
-- (void)addCustomMethodToObject:(id)object {
+- (void) addCustomMethodToObject:(id)object {
   Class objectClass = object_getClass(object);
   SEL selectorToOverride = ...; // this is the method name you want to override
 
@@ -335,7 +335,8 @@ id myCustomFunction(id self, SEL _cmd, [other params...]) {
 	//hasAssociatedValueForKey: $UTF8(&CNVRT_XML_KEY)]? [objc_getAssociatedObject(self, &CNVRT_XML_KEY) boolValue] : NO;
 }
 - (void) setConvertToXML:(BOOL)convertToXML	{
-	[self setAssociatedValue:@(convertToXML) forKey:@"convertToXML"];
+
+//	[self setAssociatedValue:@(convertToXML) forKey:@"convertToXML"];
 //	 orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
 //	objc_setAssociatedObject(self, &CNVRT_XML_KEY, @(convertToXML), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }

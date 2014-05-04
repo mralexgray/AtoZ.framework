@@ -1,15 +1,15 @@
 #include <Foundation/Foundation.h>
  
 // The methods need to be declared somewhere
-@interface Dummy : NSObject	- (void)grill;	- (void)ding:(NSString *)s;	@end
+@interface Dummy : NSObject	- (void) rill;	- (void) ing:(NSString *)s;	@end
  
-@interface Example : NSObject	- (void)foo;	- (void)bar;						@end
+@interface Example : NSObject	- (void) oo;	- (void) ar;						@end
  
 @implementation Example
-- (void)foo {  NSLog(@"this is foo");	}
-- (void)bar {  NSLog(@"this is bar");	}
+- (void) oo {  NSLog(@"this is foo");	}
+- (void) ar {  NSLog(@"this is bar");	}
 
-- (void)forwardInvocation:(NSInvocation*)inv {
+- (void) orwardInvocation:(NSInvocation*)inv {
 
   NSLog(@"tried to handle unknown method %@", NSStringFromSelector([inv selector]));
   NSUInteger n = inv.methodSignature.numberOfArguments;
@@ -34,7 +34,7 @@
 //id dict = [NSMutableDictionary dictionaryWithObjectsAndKeys: @"John", @"name",  [NSNumber numberWithInt:47], @"age",  nil]; 
 //... that you can get and set on with valueForKey: and setValue:forKey:. As it's a bit verbose, let's use forward invocation to masquerade accessors :
 
-// Call non existent getter - (id)age NSLog(@"age=%@", [dict age]); // Set a new age using a non existent setter - (void)setAge:(id)newAge [dict setAge:[NSNumber numberWithInt:48]]; 
+// Call non existent getter - (id)age NSLog(@"age=%@", [dict age]); // Set a new age using a non existent setter - (void) setAge:(id)newAge [dict setAge:[NSNumber numberWithInt:48]]; 
 //To accomplish this, we'll add forward invocation to NSDictionary to redirect zero parameter calls to call valueForKey: and one parameter calls (starting with set) to setValue:forKey:.
 
 @implementation NSDictionary (ForwardInvocation)
@@ -53,7 +53,7 @@
 	return nil;// Discard the call
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation {   // Call valueForKey: and setValue:forKey:
+- (void) orwardInvocation:(NSInvocation *)invocation {   // Call valueForKey: and setValue:forKey:
 
 	id	stringSelector = NSStringFromSelector([invocation selector]);
 	NSUInteger	parameterCount = [[stringSelector componentsSeparatedByString:@":"] count]-1;

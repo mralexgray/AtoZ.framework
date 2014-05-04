@@ -33,14 +33,14 @@
  @param  dividerIndexes		 divider indexes array (set of NSNumber)
  @return						YES if you can animate your transitions
 */
-- (BOOL) setPositions:(NSA*)newPositions ofDividersAtIndexes:(NSA*)dividerIndexes;
+- (BOOL) setPositions:(NSArray*)newPositions ofDividersAtIndexes:(NSArray*)dividerIndexes;
 
 /** Set the new position of a divider at index.
  @param  position			   the new divider position
  @param  dividerIndex		   target divider index in this splitview
  @return						target divider position
 */
-- (CGF) positionOfDividerAtIndex:(NSI)dividerIndex;
-- (CGF) positionOfSplitAtIndex:(NSI)dividerIndex;
+- (CGFloat) positionOfDividerAtIndex:(NSInteger)dividerIndex;
+- (CGFloat) positionOfSplitAtIndex:(NSInteger)dividerIndex;
 
 @end

@@ -1,32 +1,34 @@
-//
-//  AZDock.h
-//  AtoZ
-//
-//  Created by Alex Gray on 9/12/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-//#import "AtoZFunctions.h"
 #import "AtoZUmbrella.h"
-//#import "AZObject.h"
-//#import <Cocoa/Cocoa.h>
 
-JREnumDeclare (AZLexicon, AZLexiconUrbanD, AZLexiconWiki, AZLexiconGoogle, AZLexiconDuckDuckGo, AZLexiconAppleThesaurus, AZLexiconAppleDictionary);
+JREnumDeclare (AZLexicon, AZLexiconUrbanD = 0x10000001,
+                            AZLexiconWiki = 0x10000002,
+                          AZLexiconGoogle = 0x10000003,
+                      AZLexiconDuckDuckGo = 0x10000004,
+                  AZLexiconAppleThesaurus = 0x11000005,
+                 AZLexiconAppleDictionary = 0x11000006,
+                      AZLexiconFromTheWeb = 0x10000000,
+                           AZLexiconLocal = 0x11000000);
 
 @class AZDefinition;
-typedef void (^AZDefinitionCallback)(AZDefinition *def);
+typedef void (^DefinedBlock)(AZDefinition *def);
 
 @interface AZDefinition : BaseModel
-+ (INST) synonymsOf:(NSS*)word;
-+ (INST) define:(NSString*)term ofType:(AZLexicon)lexicon completion:(AZDefinitionCallback)block;
 
-@property (CP) AZDefinitionCallback completion;
-@property (NATOM) AZLexicon lexicon;
-@property (RONLY) NSURL* query;
-@property (NATOM) NSString *word, *definition;
-@property (NATOM) NSA* results;
-@property (NATOM) id rawResult;
-@property (CP) NSError *error;
+
++ (INST) synonymsOf:(NSS*)word;
++ (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon completion:(DefinedBlock)block;
+
+@prop_      AZLexicon   lexicon;
+@prop_NC DefinedBlock   completion;
+@prop_CP        NSERR * error;
+@prop_RO          NSS * formatted;
+@prop_RO          NSU * query;
+@prop_RO           id   rawResult;
+@prop_RO         BOOL   fromTheWeb;
+@prop_NA          NSA * results;
+@prop_NA          NSS * word,
+                      * definition;
 @end
 #define $DEFINE(A, B) [AZDefinition.alloc initWithProperties : @{ @"word" : A, @"definition" : B }]
 

@@ -1,9 +1,4 @@
-//
-//  AZAppDelegate.h
-//  DockBox
-//
-//  Created by Alex Gray on 3/15/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
+
 
 #import <AtoZ/AtoZ.h>
 
@@ -13,17 +8,20 @@ typedef void(^openURL)(NSS*url, WebView *w);
 
 @interface AtoZHelper : NSObject <NSApplicationDelegate, AtoZDelegate>
 
-//, WebSocketDelegate, AZWebSocketServerDelegate>
 @property (ASS) IBOutlet     NSTextView * text;
 
 @property (ASS) IBO     NSW * window;
-@property      AZHTTPRouter * httpServer;
-@property					     NSAC * sockets;
-@property            Gridly * gridly;
-@property (WK) IBO  WebView * webView,
+@property  (WK) IBO      WV * webView,
 														* webView2;
+@property					     NSAC * sockets;
+@property RoutingHTTPServer * httpServer; //AZHTTPRouter
+@property            Gridly * gridly;
 
 
+@end
+
+
+//, WebSocketDelegate, AZWebSocketServerDelegate>
 //@property AZWebSocketServer *socketServer;
 //@property (STRNG) AZAddressBook *ab;
 //
@@ -39,7 +37,4 @@ typedef void(^openURL)(NSS*url, WebView *w);
 //
 //@property (ASS) IBOutlet AZHTTPRouter 				*router;
 //@property (ASS) IBOutlet AZFacebookConnection 	*fb;
-
-@end
-
 

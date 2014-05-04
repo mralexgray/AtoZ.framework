@@ -11,7 +11,7 @@
 @implementation AZEntitlementDelegate
 //@synthesize log = _log;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+- (void) pplicationDidFinishLaunching:(NSNotification *)aNotification
 {
 //	self.log = @"hello, bitch.";  //works : log
 //	self.log = $(@"%@", [AtoZ appCategories]); //works  : array
@@ -65,7 +65,7 @@
 
 /*
 
-- (void)runAnimation:(id)unused
+- (void) unAnimation:(id)unused
 {
 		// Create a shaking animation that rotates a bit counter clockwisely and then rotates another
 		// bit clockwisely and repeats. Basically, add a new rotation animation in the opposite

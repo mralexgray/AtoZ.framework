@@ -6,7 +6,50 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
+#import "AtoZ.h"
 #import "IsometricView.h"
+
+#define MAX_GRID_SIZE 30
+#define MIN_GRID_SIZE 10
+
+//NSBP * BezierGridInRectWithScale
+void DrawBluePrintInRectWithScale(NSR rect, CGF _grid){
+
+ NSRectFillWithColor(rect, WHITE);
+
+  static NSC * a, *b, * c;
+  a = a ?: [NSC r:.39 g:.584 b:.93 a:.3];
+  b = b ?: [NSC r:.39 g:.584 b:.93 a:.2];
+  c = c ?: [NSC r:.39 g:.584 b:.93 a:.1];
+
+  for (int i = 1; i < rect.size.height / 10.; i++) {
+    NSC *setter = i % 10 == 0 ? a : i % 10 == 0 ? b : c; [setter set];
+    NSP pointFrom = (NSP){ 0,   (i * _grid - 0.5f)};
+    NSP pointTo   = (NSP){rect.size.width, (i * _grid - 0.5f)};
+    [NSBP strokeLineFromPoint:pointFrom toPoint:pointTo];
+  }
+	for (int i = 1; i < rect.size.width / 10.; i++) {
+    NSC *setter = i % 10 == 0 ? a : i % 10 == 0 ? b : c; [setter set];
+    NSP pointFrom = (NSP){(i * _grid - 0.5f),0},
+          pointTo = (NSP){(i * _grid - 0.5f),rect.size.height};
+
+    [NSBP strokeLineFromPoint:pointFrom toPoint:pointTo];
+  }
+}
+@implementation  BlueprintView
+
+- (void) setGridSize:(CGFloat)gridSize { if (gridSize == _gridSize) return;
+
+  gridSize = gridSize >= MIN_GRID_SIZE ? gridSize : MIN_GRID_SIZE;
+  gridSize = gridSize <= MAX_GRID_SIZE ? gridSize : MAX_GRID_SIZE;
+  _gridSize = gridSize;
+  [self setNeedsDisplay:YES];
+}
+- (void)drawRect:(NSRect)rect{ DrawBluePrintInRectWithScale(rect, _gridSize = _gridSize ?: 15); }
+
+@end
+
+
 @implementation IsometricView
 
 //

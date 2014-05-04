@@ -30,10 +30,10 @@
 @interface ConcurrentOperation (ForSubClassesInternalUse)
 
 - (BOOL)setup;		// get the app started, YES->continue, NO->failed so return
-- (void)completed;	// subclasses to override, call super
-- (void)finish;		// subclasses to override for cleanup, call super
+- (void) ompleted;	// subclasses to override, call super
+- (void) finish;		// subclasses to override for cleanup, call super
 
-- (void)failed;		// subclasses to override then finally call super
+- (void) ailed;		// subclasses to override then finally call super
 
 @end
 

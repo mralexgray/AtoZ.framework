@@ -172,7 +172,7 @@ static const NSString *didScroll = @"scrollOffset";
 	return  (NSView*)[AZQuadCell.alloc initInWindow:(AZTW*)carousel.window withObject:item atIndex:index];
 }
 
-- (void)carousel:(iC*)carousel  didSelectItemAtIndex:(NSI)index 
+- (void) arousel:(iC*)carousel  didSelectItemAtIndex:(NSI)index 
 {
 	AZQuadCell *v = (AZQuadCell *)[carousel itemViewAtIndex:index];
 	
@@ -325,7 +325,7 @@ static const NSString *didScroll = @"scrollOffset";
 	}
 	else return  transform;
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath
+- (void) observeValueForKeyPath:(NSString *)keyPath
 							 ofObject:(id)object
 								change:(NSDictionary *)change
 							  context:(void *)context {
@@ -339,7 +339,7 @@ static const NSString *didScroll = @"scrollOffset";
 	//		[openingBalanceInspectorField setObjectValue:	 [change objectForKey:NSKeyValueChangeNewKey]]; }
 }
 
-- (void)carousel:(iC *)carousel shouldHoverItemAtIndex:(NSInteger)index{		}
+- (void) arousel:(iC *)carousel shouldHoverItemAtIndex:(NSInteger)index{		}
 
 - (void) setTilt:(NSUI)tilt {	_tilt = tilt;	[_menus  each:^(id obj) {  [obj reloadData];	}]; }
 
@@ -698,7 +698,7 @@ static const NSString *didScroll = @"scrollOffset";
 //	if ([keyPath isEqual:@"desiredNumberOfColumns"]) {
 //	[[undoManager prepareWithInvocationTarget:self] setCenter:[[change objectForKey:NSKeyValueChangeOldKey] pointValue]];
 
-//- (void)setContent:(NSMutableArray *)content
+//- (void) setContent:(NSMutableArray *)content
 //{
 //	_content = content;
 //	NSLog(@"set content: %@", _content);
@@ -741,7 +741,7 @@ static const NSString *didScroll = @"scrollOffset";
  
  CALayer *root = [CALayer layer];
  view = [[AZSimpleView alloc]initWithFrame:(NSRect){0,0,100,100}];
- //AZMakeRectFromSize( AZSizeFromDimension(399))];//AZMinDim([carousel bounds].size)))];
+ //AZMakeRectFromSize( AZSizeFromDim(399))];//AZMinDim([carousel bounds].size)))];
  [view setValue: RANDOMCOLOR forKey:@"backgroundColor"]; // [[[_content objectAtIndex: index] valueForKey:@"color"]CGColor];
  //		root.contents 			= [[_content objectAtIndex: index] valueForKey:@"image"];
  //		root.frame 	  			= [view bounds];
@@ -787,7 +787,7 @@ static const NSString *didScroll = @"scrollOffset";
 //		//because the background image on the views makes them too large
 //}
 
-//- (void)carouselDidScroll:(iC *)carousel {
+//- (void) arouselDidScroll:(iC *)carousel {
 ////	if (carousel == carousel)
 ////	{
 //			//adjust perspective for inner carousels
@@ -822,8 +822,8 @@ static const NSString *didScroll = @"scrollOffset";
  if (!c) c = [[NSColor fengshui] objectAtIndex:index]; // { 		NSLog(@"no colore! reload! (idx:%ld)",index); [carousel reloadData]; }
  NSLog(@"view nil, making it (idx:%ld), again", index);
  NSImage *ico = 	f.image;
- if (!ico) ico = [[[NSImage systemImages]randomElement]imageScaledToFitSize:AZSizeFromDimension(214)];
- //			NSSize icosize = AZSizeFromDimension(self.size);
+ if (!ico) ico = [[[NSImage systemImages]randomElement]imageScaledToFitSize:AZSizeFromDim(214)];
+ //			NSSize icosize = AZSizeFromDim(self.size);
  //			NSRect icorect = AZSquareFromLength(self.size);
  NSString *desc = $(@"%@: %ld",[[[AtoZ fengShui]objectAtIndex:index]valueForKey:@"name"], index);
  NSImage *swatch = [NSImage swatchWithGradientColor:c size:ico.size];
@@ -836,7 +836,7 @@ static const NSString *didScroll = @"scrollOffset";
  
  //[self carouselItemWidth:_carousel], _carousel.frame.size.height)];
  [swatch lockFocus];
- [NSShadow setShadowWithOffset:AZSizeFromDimension(6) blurRadius:10 color:c.contrastingForegroundColor];
+ [NSShadow setShadowWithOffset:AZSizeFromDim(6) blurRadius:10 color:c.contrastingForegroundColor];
  [[ico filteredMonochromeEdge] drawCenteredinRect:AZMakeRectFromSize(ico.size) operation:NSCompositeSourceOver fraction:1];
  [NSShadow clearShadow];
  [desc drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: theStyle, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @55 } ];
@@ -865,7 +865,7 @@ static const NSString *didScroll = @"scrollOffset";
  //			[atv setBackgroundColor:CLEAR];
  //			[[atv textStorage] setForegroundColor:BLACK];
  //			[[atv textStorage] setAttributedString:string];
- [NSShadow setShadowWithOffset:AZSizeFromDimension(3) blurRadius:10 color:c.contrastingForegroundColor];
+ [NSShadow setShadowWithOffset:AZSizeFromDim(3) blurRadius:10 color:c.contrastingForegroundColor];
  [string drawAtPoint:NSMakePoint(10,8)];
  [NSShadow clearShadow];
  //			[string drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @200 } ];// withAttributes:att];
@@ -883,7 +883,7 @@ static const NSString *didScroll = @"scrollOffset";
  
  //[self carouselItemWidth:_carousel], _carousel.frame.size.height)];
  [swatch lockFocus];
- [NSShadow setShadowWithOffset:AZSizeFromDimension(6) blurRadius:10 color:BLACK];
+ [NSShadow setShadowWithOffset:AZSizeFromDim(6) blurRadius:10 color:BLACK];
  [[ico filteredMonochromeEdge] drawInRect:AZMakeRectFromSize(ico.size) fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1];
  //			[[ico coloredWithColor:c.contrastingForegroundColor] drawCenteredinRect:icorect operation:NSCompositeSourceOver fraction:1];
  [NSShadow clearShadow];

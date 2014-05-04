@@ -1,7 +1,6 @@
-#import "AtoZ.h"
 
-#import "AZExpandableView.h"
 #import "AtoZ.h"
+#import "AZExpandableView.h"
 
 @interface AZExpandableView ()
 @property NSI objectIndex;
@@ -11,7 +10,8 @@
 @end
 
 @implementation AZExpandableView
-@synthesize expanded, selected, textRenderer, originalSize;
+@synthesize //expanded, selected,
+            textRenderer, originalSize;
 
 - (id)initWithFrame: (CGR)frame 	{	if (self != [super initWithFrame:frame]) return nil;
 	self.opaque 		 	= YES;
@@ -75,7 +75,7 @@
 // only perform the action if the mouse up happened inside our bounds - ignores mouse down, drag-out, mouse up
 	if([self eventInside:e]) {
 		[TUIView animateWithDuration:0.5 animations:^{		// rather than a simple -setNeedsDisplay, let's fade it back out
-			self.selected = !selected;
+			[self toggleBoolForKey:@"selected"];
 			/* -redraw forces a .contents update immediately based on drawRect,
 			and it happens inside an animation block, so CoreAnimation gives us a cross-fade for free */
 			[self redraw];
@@ -88,10 +88,10 @@
 - (void) toggleExpanded 	{	__block CGSZ tSize; __block CGF w, h; 
 										BOOL isVRT = !self.parentLayout.typeOfLayout == AZOrientHorizontal;
 
-	!isVRT ? ^{ w	= expanded ? originalSize.width  :  self.parentLayout.width;	tSize = (CGS)   { w, self.height }; }()
-			 : ^{	h 	= expanded ? originalSize.height : self.parentLayout.height;	tSize = (CGS)   { self.width, h  }; }();
+	!isVRT ? ^{ w	= self.expanded ? originalSize.width  :  self.parentLayout.width;	tSize = (CGS)   { w, self.height }; }()
+			 : ^{	h 	= self.expanded ? originalSize.height : self.parentLayout.height;	tSize = (CGS)   { self.width, h  }; }();
 	[self.parentLayout beginUpdates];
-	[self.parentLayout resizeViewAtIndex:self.tag toSize:tSize aniBlock:nil  completion:^{ 	 expanded = !expanded;	 }];
+	[self.parentLayout resizeViewAtIndex:self.tag toSize:tSize aniBlock:nil  completion:^{ 	 self.expanded = !self.expanded;	 }];
 	[self.parentLayout endUpdates];
 }
 - (void) insertObject		{	/*[_objects addObject:NSMD.new];*/
@@ -110,7 +110,7 @@
 
 	[self.parentLayout removeViewsAtIndexes:[NSIS indexSetWithIndex:self.tag] aniBlock:nil completion:nil ];
 }
-- (void) reset					{ 	[self initWithFrame:self.bounds];  	}
+//- (void) reset					{ 	[self initWithFrame:self.bounds];  	}
 - (AHLayout*) parentLayout	{ 	return (AHLayout*) self.superview;	}
 - (NSM*) menuForEvent: (NSE*)e	{
 

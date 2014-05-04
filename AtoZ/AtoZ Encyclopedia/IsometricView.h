@@ -8,6 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+
+void DrawBluePrintInRectWithScale(NSR r,CGF gridSize);
+
+@interface BlueprintView : NSView
+@property  (NATOM) CGF gridSize;
+@end
+
 @interface IsometricView : NSView {
 	CGGradientRef backgroundGradient;
 	// Container layer for our text layers

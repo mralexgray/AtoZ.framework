@@ -6,7 +6,7 @@
 
 # pragma mark init/awakeFromNib/dealloc
 
-- (void)awakeFromNib
+- (void) wakeFromNib
 {
 	[self setup];
 }
@@ -65,7 +65,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(frameDidChange:) name:NSViewFrameDidChangeNotification object:self];
 }
 
-- (void)dealloc
+- (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewFrameDidChangeNotification object:self];
 }
@@ -73,7 +73,7 @@
 # pragma mark -
 # pragma mark Delegate methods
 
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)cgContext
+- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)cgContext
 {
 	// DEBUG
 	 NSLog(@"Drawing layer: %@", layer.name);
@@ -105,7 +105,7 @@
 
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	// DEBUG
 	// NSLog(@"value updated for keypath: %@ with change: %@", keyPath, [change description]);
@@ -127,14 +127,14 @@
 	}
 }
 
-- (void)frameDidChange:(NSNotification *)notification
+- (void) frameDidChange:(NSNotification *)notification
 {
 	[letterLayer layoutSublayers];
 }
 
 #pragma mark - CALayoutManager Protocol Methods
 
-- (void)layoutSublayersOfLayer:(CALayer *)layer
+- (void) layoutSublayersOfLayer:(CALayer *)layer
 {
 	// DEBUG
 	// NSLog(@"Laying out sublayers of %@...", layer.name);
@@ -144,7 +144,7 @@
 	// layout letterLayer
 	tempLayer	 		= layer.sublayers[0];
 	tempBounds 			= tempLayer.bounds;
-	tempLayer.fontSize 	= self.layer.boundsHeight / 1.5;
+	tempLayer.fontSize 	= self.layer.height / 1.5;
 	// set the width of the layer to the width of the window so that letters are never cut off by accident
 	tempBounds.size 	= CGSizeMake(self.bounds.size.width, [tempLayer preferredFrameSize].height);
 	tempLayer.bounds 	= tempBounds;

@@ -14,9 +14,9 @@
 //#if __has_feature(objc_arc)
 
 #define SYNTHESIZE_SINGLETON_FOR_CLASS(classname, accessorname) 		\
-+ (classname *)accessorname {														\
-	static classname *accessorname = nil;										\
-	static dispatch_once_t onceToken;											\
++ (classname *)accessorname {                                       \
+	static classname *accessorname = nil;                             \
+	static dispatch_once_t onceToken;                                 \
 	dispatch_once(&onceToken, ^{ accessorname = classname.new; });		\
 	return accessorname; 															\
 }
@@ -122,7 +122,7 @@ return temp; \
  return NSUIntegerMax;\
  }\
  \
- - (void)release {}\
+ - (void) release {}\
  \
  - (id)autorelease {\
  return self;\

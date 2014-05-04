@@ -148,7 +148,7 @@
 			if (!data) {
 				if ([(NSObject *)self.delegate respondsToSelector:@selector(dragDropView:didRefuseDroppedFile:)])
 					[self.delegate dragDropView:self didRefuseDroppedFile:path];
-				NSRunAlertPanel(@"File Reading Error", [NSString stringWithFormat:@"Failed to open the file at \"%@\"", path], nil, nil, nil);
+				NSRunAlertPanel(@"File Reading Error", [NSString stringWithFormat:@"Failed to open the file at \"%@\"", path], nil, nil, nil, nil);
 				_filePath = @"";
 				_isFileReady = NO;
 				return NO;

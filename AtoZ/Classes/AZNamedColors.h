@@ -6,7 +6,7 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "AtoZUmbrella.h"
 
 @interface  NSColorList (Dictionary)
 @property (readonly) NSDictionary *dictionary;

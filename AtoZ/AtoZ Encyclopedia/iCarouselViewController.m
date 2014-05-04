@@ -37,7 +37,7 @@
 	//	return self;
 	//}
 
-- (void)awakeFromNib
+- (void) wakeFromNib
 {
 
 		// Setup core animation
@@ -63,7 +63,7 @@
 //	}afterDelay:5];
 }
 
-- (void)orient:(CALayer*)layer WithX:(float)x andY:(float)y
+- (void) rient:(CALayer*)layer WithX:(float)x andY:(float)y
 {
 	CATransform3D transform = CATransform3DMakeRotation(x, 0, 1, 0);
 	transform = CATransform3DRotate(transform, y, 1, 0, 0);
@@ -84,7 +84,7 @@
 	[_carousel reloadData];
 }
 
-- (void)setDefs {
+- (void) setDefs {
 	_multi = 1;
 	_size = 200;
 	_space = 0;
@@ -149,7 +149,7 @@
 
 	[_carousel reloadData];
 }
-- (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
+- (void) arousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
 
 	NSView *v = [_carousel itemViewAtIndex:index];
 		//	[AtoZiTunes searchForFile:[[AtoZ currentScope]objectAtIndex:index]];
@@ -196,7 +196,7 @@
 
 }
 
-- (void)carousel:(iCarousel *)carousel shouldHoverItemAtIndex:(NSInteger)index{
+- (void) arousel:(iCarousel *)carousel shouldHoverItemAtIndex:(NSInteger)index{
 	NSView *v = [carousel itemViewAtIndex:index];
 	AZLassoView *lassie = [v.allSubviews filterOne:^BOOL(id object) {
 		return  ([object isKindOfClass:[AZLassoView class]] ? YES : NO);
@@ -213,7 +213,7 @@
 
 }
 
-- (void)dealloc
+- (void) dealloc
 {
 		//it's a good idea to set these to nil here to avoid
 		//sending messages to a deallocated window or view controller
@@ -303,7 +303,7 @@ if (!view) {
 		if (!c) { 		NSLog(@"no colore! reload! (idx:%ld)",index); [carousel reloadData]; }
 		NSLog(@"view nil, making it (idx:%ld), again", index);
 		NSImage *ico = 	f.image;
-		NSSize icosize = AZSizeFromDimension(self.size);
+		NSSize icosize = AZSizeFromDim(self.size);
 		NSRect icorect = AZSquareFromLength(self.size);
 		NSString *desc = $(@"%@: %ld",[[[AtoZ dockSorted]objectAtIndex:index]valueForKey:@"name"], index);
 		NSImage *swatch = [NSImage swatchWithGradientColor:c size:icosize];
@@ -317,7 +317,7 @@ if (!view) {
 
 					//[self carouselItemWidth:_carousel], _carousel.frame.size.height)];
 				[swatch lockFocus];
-				[NSShadow setShadowWithOffset:AZSizeFromDimension(6) blurRadius:10 color:c.contrastingForegroundColor];
+				[NSShadow setShadowWithOffset:AZSizeFromDim(6) blurRadius:10 color:c.contrastingForegroundColor];
 				[[ico filteredMonochromeEdge] drawCenteredinRect:icorect operation:NSCompositeSourceOver fraction:1];
 				[NSShadow clearShadow];
 				[desc drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: theStyle, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @55 } ];
@@ -344,7 +344,7 @@ if (!view) {
 					//			[atv setBackgroundColor:CLEAR];
 					//			[[atv textStorage] setForegroundColor:BLACK];
 					//			[[atv textStorage] setAttributedString:string];
-				[NSShadow setShadowWithOffset:AZSizeFromDimension(3) blurRadius:10 color:c.contrastingForegroundColor];
+				[NSShadow setShadowWithOffset:AZSizeFromDim(3) blurRadius:10 color:c.contrastingForegroundColor];
 				[string drawAtPoint:NSMakePoint(10,8)];
 				[NSShadow clearShadow];
 					//			[string drawAtPoint:NSZeroPoint withAttributes:@{ NSParagraphStyleAttributeName: style, NSForegroundColorAttributeName: WHITE, NSFontSizeAttribute: @200 } ];// withAttributes:att];
@@ -362,7 +362,7 @@ if (!view) {
 
 					//[self carouselItemWidth:_carousel], _carousel.frame.size.height)];
 				[swatch lockFocus];
-				[NSShadow setShadowWithOffset:AZSizeFromDimension(6) blurRadius:10 color:BLACK];
+				[NSShadow setShadowWithOffset:AZSizeFromDim(6) blurRadius:10 color:BLACK];
 				[[ico filteredMonochromeEdge] drawInRect:icorect fromRect:NSZeroRect operation:NSCompositeDestinationIn fraction:1];
 					//			[[ico coloredWithColor:c.contrastingForegroundColor] drawCenteredinRect:icorect operation:NSCompositeSourceOver fraction:1];
 				[NSShadow clearShadow];

@@ -23,6 +23,6 @@
 	BOOL _pretendKeyForDrawing;
 }
 
-- (void)popup;
+- (void) opup;
 
 @end

@@ -126,15 +126,22 @@ static NSArray *defaultValidColors = nil;
 
 static const CGF 	ONE_THIRD = 1.0f / 3.0, ONE_SIXTH = 1.0f / 6.0,	TWO_THIRD = 2.0f / 3.0;
 
-static NSMD *bestMatches = nil, 	*palettesD = nil, *colorListD = nil, *colorsFromStruct = nil;
-static NSCL 		 *safe = nil,  	 *named = nil;
+static NSMD *bestMatches,	*palettesD, *colorListD, *colorsFromStruct;
+static NSCL *safe, *named;
 
 @implementation NSColor (AtoZ)
 
+- (NSC*)colorWithSaturation:(CGF)sat { return [self colorWithSaturation:sat brightness:self.brightnessComponent]; }
+
+- (NSC*)colorWithSaturationMultiplier:(CGF)factor {   CGFloat h,s,b,a;
+
+  [self.calibratedRGBColor getHue:&h saturation:&s brightness:&b alpha:&a];
+  return [NSColor colorWithCalibratedHue:h saturation:fclamp(0, s * factor, 1) brightness:b alpha:a];
+
+}
 + (NSA*) randomPaletteAnimationBlock:(colorFadeBlock)target {	NSA* r = RANDOMPAL;
+
 	NSA* pal = [self gradientPalletteLooping:r steps:1000];	NSLog(@"number of colors in fade: %ld", pal.count);
-
-
   __block NSUI ct = 0;
 	return [NSTimer scheduledTimerWithTimeInterval:.2 block:^(NSTimer *timer) { //		NSLog(@"gotColor: %@", u.nameOfColor);
 		NSColor*u =[pal normal:ct]; ct++; target(u);
@@ -142,10 +149,9 @@ static NSCL 		 *safe = nil,  	 *named = nil;
 }
 
 //@dynamic name;
-
 //SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])
 //SYNTHESIZE_ASC_OBJ_LAZY_BLOCK(name,
-SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor; }, ^{});
+SYNTHESIZE_ASC_OBJ(name, setName);//, ^{ if (!value) value = self.nameOfColor; }, ^{});
 
 - (NSComparisonResult)compare:(NSC *)otherColor {
 	// comparing the same type of animal, so sort by name
@@ -155,8 +161,9 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 	return [@(self.hueComponent)compare : @(otherColor.hueComponent)];
 }
 
-- (NSG*) gradient {	return [self associatedValueForKey:@"_gradient" orSetTo:
+- (NSG*) gradient { id x = [self associatedValueForKey:@"_gradient" orSetTo:
 		[NSG.alloc initWithColorsAndLocations:self.brighter.brighter, 0.0,self.brighter, .13, self, 0.5,self.darker, .8,self.darker.darker.darker, 1.0, nil]];
+    return x;
 }
 
 + (NSD*) colorNamesDictionary		{ static NSD *colorNames = nil;  	return colorNames = colorNames ?:
@@ -378,7 +385,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 	NSRect rect = NSZeroRect;
 	rect.size = patternSize;
 	NSImage* pattern = [NSImage.alloc initWithSize: patternSize];
-	rect.size = AZSizeFromDimension(x);
+	rect.size = AZSizeFromDim(x);
 	[pattern lockFocus];
 	[one set];											NSRectFill(rect);
 	rect.origin.x = x;	rect.origin.y = x;	NSRectFill(rect);
@@ -390,8 +397,8 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 }
 //+ (NSD*) colorsAndNames {  return [NSD dictionaryWithObjects:self. forKeys:self.colorNames]; }
 //+ (NSA*) colorsWithNames {  return [self.colorNames map:^id(id obj) {  return [self colorNamed:obj]; }]; }
-+ (NSC*) colorNamed:(NSS*) name {
-	if (![name length])	return nil;
+//+ (NSC*) colorNamed:(NSS*) name {
+//	if (![name length])	return nil;
 	//	NSArray *allNames = [self colorNames];
 	//	NSUInteger count = [allNames count];
 	//	NSUInteger idx = [allNames indexOfObject:[name lowercaseString]];
@@ -405,9 +412,9 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 	//		return color;
 	//	}
 	//	return ColorWithUnsignedLong(sColorTable[idx].value, NO);
-}
+//}
 + (NSA*) boringColors{
-	return  $array( @"White",	@"Whitesmoke",	@"Whitesmoke",@"Gainsboro",	@"LightGrey",	@"Silver",	@"DarkGray",	@"Gray",	@"DimGray",	@"Black",	@"Translucent",	@"MistyRose",	@"Snow",	@"SeaShell",	@"Linen",	@"Cornsilk",	@"OldLace",	@"FloralWhite",	@"Ivory",	@"HoneyDew",	@"MintCream",	@"Azure",	@"AliceBlue",	@"GhostWhite",	@"LavenderBlush",	@"mercury",	@"Slver",	@"Magnesium",	@"Tin",	@"Aluminum");
+	return  @[ @"White",	@"Whitesmoke",	@"Whitesmoke",@"Gainsboro",	@"LightGrey",	@"Silver",	@"DarkGray",	@"Gray",	@"DimGray",	@"Black",	@"Translucent",	@"MistyRose",	@"Snow",	@"SeaShell",	@"Linen",	@"Cornsilk",	@"OldLace",	@"FloralWhite",	@"Ivory",	@"HoneyDew",	@"MintCream",	@"Azure",	@"AliceBlue",	@"GhostWhite",	@"LavenderBlush",	@"mercury",	@"Slver",	@"Magnesium",	@"Tin",	@"Aluminum"];
 }
 - (BOOL) isBoring {
 	//	CGFloat r,g,b,a;
@@ -609,8 +616,9 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 //	}];
 //	return palettesD[name] ? list.colors : nil;
 
-+  (NSA*) colorsInFrameworkListNamed:(NSS*)name			{ return [self colorsInListNamed:name]; }
-+  (NSA*) fengshui 												{ return [self colorsInListNamed:@"FengShui"]; }
++  (NSA*) colorsInFrameworkListNamed:(NSS*)name	{ return [self colorsInListNamed:name]; }
++  (NSA*) fengshui  { return [self colorsInListNamed:@"FengShui"].shuffeled; }
++  (NSA*) flatUI    { return [self colorsInListNamed:@"flatui"].shuffeled; }
 +  (NSA*) allSystemColorNames 								{ return [self.class systemColorNames]; } // BORING
 +  (NSA*) systemColorNames 									{
 
@@ -639,7 +647,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 	return testList;
 }
 
-- (void) setNameOfColor:(NSString *)nameOfColor{
+- (void) setNameOfColor:(NSS*)nameOfColor{
 	[self setAssociatedValue:nameOfColor forKey:@"associatedName" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 }
 
@@ -952,14 +960,15 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
  return [super resolveInstanceMethod:aSEL];
  }
  */
-- (NSS*) nameOfColor				{
+- (NSS*) nameOfColor				{ IF_RETURNIT(self.name);
+
 	if ([self hasAssociatedValueForKey:@"associatedName"]) return [self associatedValueForKey:@"associatedName"];
 
 	//	NSC*color = [self closestColorListColor];
 	NSC*thisColor = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	CGFloat bestDistance = FLT_MAX;
 	//	NSColorList *colors = [NSColorList colorListNamed:@"Web Safe Colors"];
-	NSColorList *crayons = [NSColorList colorListNamed:@"Crayons"];
+	AZSTATIC_OBJ(NSCL,crayons,[NSCL colorListNamed:@"Classic Crayons"]?:[NSCL colorListNamed:@"Web Safe Colors"]);
 	NSArray *avail = $array(crayons);
 	//	NSColorList *bestList = nil;
 	NSC*bestColor = nil;
@@ -987,6 +996,9 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 	return bestKey;//, @"color", bestKey, @"key", bestList, @"list");
 }
 // Convenienct Methods to mess a little with the color values
+
+
+
 -  (CGF) luminance 				{
 	CGFloat r, g, b, a;
 	[[self calibratedRGBColor] getRed:&r green:&g blue:&b alpha:&a];
@@ -1007,9 +1019,9 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 							  brightness:1.0
 									 alpha:self.alphaComponent];
 }
-- (NSC*) brighter 				{
-	CGFloat h,s,b,a;
-	[[self calibratedRGBColor] getHue:&h saturation:&s brightness:&b alpha:&a];
+- (NSC*) brighter 				{ CGFloat h,s,b,a;
+
+	[self.calibratedRGBColor getHue:&h saturation:&s brightness:&b alpha:&a];
 	return [NSC colorWithDeviceHue:h
 							  saturation:s
 							  brightness:MIN(1.0, MAX(b * 1.10, b + 0.05))
@@ -1017,7 +1029,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 }
 - (NSC*) darker 					{
 	CGFloat h,s,b,a;
-	[[self calibratedRGBColor] getHue:&h saturation:&s brightness:&b alpha:&a];
+	[self.calibratedRGBColor getHue:&h saturation:&s brightness:&b alpha:&a];
 	return [NSC colorWithDeviceHue:h
 							  saturation:s
 							  brightness:MAX(0.0, MIN(b * 0.9, b - 0.05))
@@ -1189,7 +1201,15 @@ SYNTHESIZE_ASC_OBJ_BLOCK(name, setName, ^{ if (!value) value = self.nameOfColor;
 }
 @end
 @implementation NSCoder (AGCoder)
-+(void)encodeColor:(CGColorRef)theColor  withCoder:(NSCoder*)encoder withKey:(NSS*)theKey {
+
+- (void) encode:(id)me withKeys:(NSA*)ks {  [self encode:me withKeysForProps:[NSD dictionaryWithObjects:ks forKeys:ks]]; }
+- (void) encode:(id)me withKeysForProps:(NSD*)ksAndDs { [ksAndDs each:^(id key, id prop) { id x = [me vFK:key]; !x ?: [self encodeObject:x forKey:prop]; }]; } 
+
+- (void) decode:(id)me withKeysForProps:(NSD*)ksAndDs { [ksAndDs each:^(id key, id prop) { id x = [self decodeObjectForKey:key]; !x ?: [me sV:x fK:prop]; }]; }
+
+- (void) decode:(id)me withKeys:(NSA*)ks { [self decode:me withKeysForProps:[NSD dictionaryWithObjects:ks forKeys:ks]]; }
+
++ (void) encodeColor:(CGColorRef)theColor  withCoder:(NSCoder*)encoder withKey:(NSS*)theKey {
 	if(theColor != nil)	{
 		const CGFloat* components = CGColorGetComponents(theColor);
 		[encoder encodeFloat:components[0] forKey:[NSString stringWithFormat:@"%@.red", theKey]];
@@ -1655,21 +1675,38 @@ scanFailed:
 }
 @end
 
-@interface NSColorList (AtoZDeclare)
-- (NSC*) swizzleColorWithKey:(NSS*)k;
-@end
-
 __attribute__((constructor)) static void do_the_swizzles()
 {
-	[$ swizzleMethod:@selector(colorWithKey:) with:@selector(swizzleColorWithKey:) in:NSColorList.class];
+	[$ swizzleMethod:@selector(colorWithKey:) with:NSSelectorFromString(@"swizzleColorWithKey:") in:NSColorList.class];
 }
 
 @implementation NSColorList (AtoZ)
 - (NSC*) swizzleColorWithKey:(NSS*)k  {
-	NSC* c = [self swizzleColorWithKey:k];
-	if (c) c.name = k;
-	return c;
+	NSC* x = [self swizzleColorWithKey:k];
+  if (x) [x setName: [k isHexString] ? [x nameOfColor] : [k copy]];
+	return x;
 }
+-  (NSA*) colors  					{
+
+  return (palettesD = palettesD ?: NSMD.new)[self.name] = palettesD[self.name]
+                                ?: [self.allKeys cw_mapArray:^id(id obj) {
+
+    return [self colorWithKey:obj].deviceRGBColor;    //	NSLog(@"named:%@...%@", c, c.name);
+  }];
+}
+
+- (NSC*) randomColor { return [self  colorWithKey:self.allKeys.randomElement]; }
+
++   (id) colorListWithFileName:(NSS*)f inBundle:(NSB*)b { IF_RETURN(!b); IF_RETURN(!f);
+
+  NSS  * listP = [b pathForResource:f ofType:nil];
+	return listP ? [NSCL.alloc initWithName:listP.lastPathComponent fromFile:listP]: (id)nil;
+}
++   (id) colorListWithFileName:(NSS*)f
+              inBundleForClass:(Class)c           { return [self colorListWithFileName:f inBundle:[NSB bundleForClass:c]];	}
++   (id) colorListInFrameworkWithFileName:(NSS*)f {	return [self colorListWithFileName:f inBundle:AtoZ.bundle];	}
+@end
+
 /**
  #define _COLOR(V, N) \
  [self setColor :[@"#" stringByAppendingString : @#V].colorValue \
@@ -1874,38 +1911,11 @@ __attribute__((constructor)) static void do_the_swizzles()
 //	return signature;
 //}
 //
-//- (void)forwardInvocation:(NSInvocation *)invocation
+//- (void) orwardInvocation:(NSInvocation *)invocation
 //{
 //	[invocation invokeWithTarget:nil];
 //}
 
--  (NSA*) colors  					{
-
-	if (palettesD == nil) palettesD = NSMD.new;
-	NSA* colors = [palettesD objectForKey:self.name];
-	if (!colors) {
-		palettesD[self.name] = [self.allKeys cw_mapArray:^id(id obj) {
-			NSC* c =  [self colorWithKey:obj].deviceRGBColor;
-			//				  c.name = obj;
-			//				NSLog(@"named:%@...%@", c, c.name);
-			return c;
-		}];
-	}
-	return palettesD[self.name];
-}
-
-- (NSC*) randomColor;																			{
-	return [self  colorWithKey:[[self allKeys] randomElement]];
-}
-+   (id) colorListWithFileName:				(NSS*)f inBundle:			  (NSB*)b 	{
-
-	NSColorList *list = nil;	NSS *listP;
-
-	return (b) ? (listP = [b pathForResource:f ofType:nil]) != nil ? [NSColorList.alloc initWithName:listP.lastPathComponent fromFile:listP]: nil : nil;
-}
-+   (id) colorListWithFileName:				(NSS*)f inBundleForClass:(Class)c 	{	return [self colorListWithFileName:f inBundle:[NSB bundleForClass:c]];	}
-+   (id) colorListInFrameworkWithFileName:(NSS*)f {	return [self colorListWithFileName:f inBundle:AtoZ.bundle];	}
-@end
 @implementation NSString (THColorConversion)
 -    (NSC*) colorValue 							{
 	return [NSC colorFromString:self];
@@ -2295,7 +2305,7 @@ __attribute__((constructor)) static void do_the_swizzles()
 //	^id(id bSelf, id o){ return o = o ? o : [bSelf nameOfColor]; },// [(NSC*)bSelf setName:z]; return z;}(); },
 //	^id(id x,id z){ return z; });
 //- (NSS*) name {	NSS* name = objc_getAssociatedObject(self,_cmd);	  if (name == nil) { [(NSC*)self setName:name = [self nameOfColor]]; }	return name;}
-//- (void)setName:(NSString *)name {	NSAssert([name ISKINDA:NSS.class], @"name must be string");	objc_setAssociatedObject(self,@selector(name), name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//- (void) setName:(NSString *)name {	NSAssert([name ISKINDA:NSS.class], @"name must be string");	objc_setAssociatedObject(self,@selector(name), name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 //}
 
 //+ (NSA*) colorNames {	if (!colorsFromStruct) {		colorsFromStruct = NSMD.new;	NSInteger count = 0;

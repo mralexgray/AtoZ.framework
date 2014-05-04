@@ -8,7 +8,7 @@
 @end
 
 @interface AtoZTestCase : XCTestCase
-- (void)runTests;
+- (void) unTests;
 @end
 
 @interface AtoZTest : XCTestCase
@@ -17,7 +17,7 @@
 
 @implementation AtoZTestCase
 
-- (void)runTests	{
+- (void) unTests	{
     unsigned int count;
     Method *methods 		= class_copyMethodList([self class], &count);
     for ( NSUI i = 0;  i < count; i++ )	{
@@ -30,7 +30,7 @@
     }
 }
 
-- (void)testStringFromClass	{
+- (void) testStringFromClass	{
 	XCTAssertEqualObjects([[NSObject.alloc init] stringFromClass], @"NSObject");
 
 	// NSString deploys a class clustering architecture. The actual class is an
@@ -45,7 +45,7 @@
 	// runs! You would expect the compiler to baulk, but no.
 	XCTAssertEqualObjects([NSObject stringFromClass], @"NSObject");
 }
-- (void)setUp						{
+- (void) setUp						{
 	[super setUp];
 	id a,b,c,d;
 	a = [AtoZ sharedInstance];
@@ -59,8 +59,8 @@
 	NSLog(@"%d != %d != %d != %d", a, b, c, d);
 	// Set-up code here.
 }
-//- (void)tearDown		{	[super tearDown]; 	}
-//- (void)testExample	{		XCTFail(@"Unit tests are not implemented yet in AtoZTests");	}
+//- (void) tearDown		{	[super tearDown]; 	}
+//- (void) testExample	{		XCTFail(@"Unit tests are not implemented yet in AtoZTests");	}
 @end
 
 @implementation NSAlpha
@@ -86,26 +86,26 @@
 
 
 /*
-- (void)setUp
+- (void) setUp
 {
     [super setUp];
     
     // Set-up code here.
 }
 
-- (void)tearDown
+- (void) tearDown
 {
     // Tear-down code here.
     
     [super tearDown];
 }
 
-- (void)testExample
+- (void) testExample
 {
 //    STFail(@"Unit tests are not implemented yet in AtoZUnitTests");
 }
 
-- (void)testTestFramework
+- (void) testTestFramework
 {
 	NSString *string1 = @"test";
 	NSString *string2 = @"test";

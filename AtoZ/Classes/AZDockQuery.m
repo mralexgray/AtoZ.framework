@@ -1,19 +1,10 @@
 
-	//  AZDockQuery.m
-	//  AtoZ
-
-	//  Created by Alex Gray on 7/5/12.
-	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+#import "AtoZ.h"
 #import "AZDockQuery.h"
 
 @implementation AZDockQuery
-	//@synthesize dock;
-	//+ (NSA*) dock:(AZDock*)dock {
-	//	return [[AZDockQuery sharedInstance] dock: dock];
-	//}
 
-	//- (NSArray *) dock:(AZDock*)dock {
-- (NSA*)dock{
+- (NSA*) dock{
 	if (!_dock)  {
 		__block AZDock *dockItems = [AZDock sharedInstance];
 
@@ -104,7 +95,7 @@
 				AXError result = AXUIElementCopyAttributeValue(axElement, kAXTitleAttribute, &name);
 				if (result == kAXErrorSuccess) {
 						// 	id titleValue; if (AXValueGetType(name) != kAXValueIllegalType) titleValue = [NSValue valueWithPointer:name]; } else  titleValue = (id)name;
-					CFTypeRef path;		id URLvalue; id convertedURL;
+					CFTypeRef path;		id URLvalue = nil; id convertedURL = nil;
 					AXError result2 = AXUIElementCopyAttributeValue(axElement, kAXURLAttribute, &path);
 					if (result2 == kAXErrorSuccess) {
 						if 		(AXValueGetType(path) != kAXValueIllegalType) URLvalue = [NSValue valueWithPointer:path];

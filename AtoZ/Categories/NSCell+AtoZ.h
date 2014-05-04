@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "AtoZMacroDefines.h"
 
 @interface NSButton (SNRAdditions)
 @property (nonatomic, retain) NSColor *textColor;
@@ -19,9 +19,9 @@
 
 @end
 @interface NSCell (TrackingAreaExtensions)
-- (void)addTrackingAreasForView:(NSView *)view inRect:(NSRect)cellFrame withUserInfo:(NSD*)userInfo mouseLocation:(NSPoint)currentPoint;
-- (void)mouseEntered:(NSEvent *)event;
-- (void)mouseExited:(NSEvent *)event;
+- (void) addTrackingAreasForView:(NSView *)view inRect:(NSRect)cellFrame withUserInfo:(NSD*)userInfo mouseLocation:(NSPoint)currentPoint;
+- (void) mouseEntered:(NSEvent *)event;
+- (void) mouseExited:(NSEvent *)event;
 @end
 
 

@@ -72,13 +72,13 @@
 	return 	@[@"Sort Alphabetically?", @"Sort By Color?" , @"Sort like Dock", @"Sort by \"Category\"?", @"Show extra app info?" ];
 
 }
-- (void)toggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name{
+- (void) oggleStateDidChangeTo:(BOOL)state InToggleViewArray:(AZToggleArrayView *) view WithName:(NSString *)name{
 
 	NSLog(@"Toggle notifies delegtae:  %@, %@", name, (state ? @"YES"  :@"NO"));
 
 }
 
-- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active{
+- (void) tatusView:(AZStatusItemView *)statusItem isActive:(BOOL)active{
 
 		//		[NSApp activateIgnoringOtherApps:YES];
 		//		if (active) {
@@ -109,7 +109,7 @@
 	//		 ];
 	//}
 
-- (void)awakeFromNib {
+- (void) wakeFromNib {
 
 	splitView = [[[_window contentView]allSubviews]filterOne:^BOOL(id object) {
 		return ([object isKindOfClass:[NSSplitView class]] ? YES : NO );
@@ -204,7 +204,7 @@
 	//	[attachedWindow setBackgroundColor:CLEAR];
 
 
-	//	- (void)statusView:(AZStatusItemView *)statusItem isActive:(BOOL)active{
+	//	- (void) tatusView:(AZStatusItemView *)statusItem isActive:(BOOL)active{
 	//
 	//		shroud = [[NSWindow alloc]initWithContentRect:[[NSScreen mainScreen]visibleFrame]  styleMask: NSBorderlessWindowMask backing: NSBackingStoreRetained defer: NO];
 	//
@@ -246,7 +246,7 @@
 	//		[statusItem.menu popUpMenuPositioningItem:[[statusItem menu] itemAtIndex:0] atLocation:[NSEvent mouseLocation] inView:nil];
 	//	}
 
-	//- (void)toggleAttachedWindowAtPoint:(NSPoint)pt {
+	//- (void) oggleAttachedWindowAtPoint:(NSPoint)pt {
 	//	[NSApp activateIgnoringOtherApps:YES];
 	//	if (!attachedWindow) {
 	//		attachedWindow = [AZAttachedWindow.alloc initWithView:rootView
@@ -305,7 +305,7 @@
 		//
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification {
+- (void) pplicationWillTerminate:(NSNotification *)notification {
 	[self saveNotes];
 }
 
@@ -910,7 +910,7 @@
 		//		return ( [object.uniqueID isEqualTo:[item identifier]] ? YES : NO);
 		//	}];
 }
-- (void)sourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
+- (void) ourceList:(AZSourceList*)aSourceList setObjectValue:(id)object forItem:(id)item
 {
 
 	[item setObjectValue:[[AtoZ dockSorted] filterOne:^BOOL(AZFile* object) {
@@ -982,7 +982,7 @@
 
 	return NO;
 }
-- (void)sourceListSelectionDidChange:(NSNotification *)notification
+- (void) ourceListSelectionDidChange:(NSNotification *)notification
 {
 	NSIndexSet *selectedIndexes = [sourceList selectedRowIndexes];
 
@@ -1022,7 +1022,7 @@
 		//		[selectedItemLabel setStringValue:@"(none)"];
 		//	}
 }
-- (void)sourceListDeleteKeyPressedOnRows:(NSNotification *)notification
+- (void) ourceListDeleteKeyPressedOnRows:(NSNotification *)notification
 {
 	NSIndexSet *rows = [notification userInfo][@"rows"];
 

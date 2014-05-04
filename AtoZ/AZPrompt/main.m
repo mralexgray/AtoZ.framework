@@ -1,48 +1,37 @@
-#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-//#import <AtoZ.h>
 #import <AtoZ/AtoZ.h>
-#import "AZBeetlejuice.h"
+//#import "AZBeetlejuice.h"
 
-
-#define CPROXY(x) 	[[@"a" valueForKey:@"classProxy"] valueForKey:@"x"]
-#define MASCOLORE(x) [x setValue:[CXPROXY(@"NSColor") valueForKey:@"randomColor"] forKey:@"logForeground"]
-#define NSPRINT(x) 	[[[@"a" valueForKey:@"classProxy"] valueForKey:@"NSTerminal"]performSelectorWithoutWarnings:NSSelectorFromString(@"printString:") withObject:[x valueForKey:@"colorLogString"]]
-//withObject:x]
-
-//#undef NSLog
-
-@interface Contacts: NSObject <NSCoding>
-@property (strong,nonatomic) NSString *firstName, *lastName, *streetAddress, *zipCode, *email, *phoneNumber, *notes;
--(void) print;
+@interface Contacts: BaseModel <NSCoding>
+@property NSS *firstName, *lastName, *streetAddress, *zipCode, *email, *phoneNumber, *notes;
 @end
 @implementation Contacts
-@synthesize  firstName, lastName, streetAddress, zipCode, email, phoneNumber, notes;
 -(void) print											{
-	NSLog (@"%@ %@", firstName, lastName);
-	NSLog (@"%@, %@", streetAddress, zipCode);
-	NSLog (@"%@, %@", email, phoneNumber);
-	NSLog (@"%@\n\n", notes);
+	NSLog (@"%@ %@", _firstName, _lastName);
+	NSLog (@"%@, %@", _streetAddress, _zipCode);
+	NSLog (@"%@, %@", _email, _phoneNumber);
+	NSLog (@"%@\n\n", _notes);
 }
--(void) encodeWithCoder: (NSCoder *) encoder	{
-	[encoder encodeObject:firstName forKey:@"ContactFirstName"];
-	[encoder encodeObject:lastName forKey:@"ContactLastName"];
-	[encoder encodeObject:streetAddress forKey:@"ContactStreetAddress"];
-	[encoder encodeObject:zipCode forKey:@"ContactZipCode"];
-	[encoder encodeObject:email forKey:@"ContactEmail"];
-	[encoder encodeObject:phoneNumber forKey:@"ContactPhoneNumber"];
-	[encoder encodeObject:notes forKey:@"ContactNotes"];
-}
--  (id) initWithCoder: (NSCoder *) decoder	{
-	firstName = [decoder decodeObjectForKey:@"ContactFirstName"];
-	lastName = [decoder decodeObjectForKey:@"ContactLastName"];
-	streetAddress = [decoder decodeObjectForKey:@"ContactStreetAddress"];
-	zipCode = [decoder decodeObjectForKey:@"ContactZipCode"];
-	email = [decoder decodeObjectForKey:@"ContactEmail"];
-	phoneNumber = [decoder decodeObjectForKey:@"ContactPhoneNumber"];
-	notes = [decoder decodeObjectForKey:@"ContactNotes"];
-	return self;
-}
+//-(void) encodeWithCoder:(NSCDR*)e	{
+//
+//	[e encodeObject:firstName forKey:@"ContactFirstName"];
+//	[encoder encodeObject:lastName forKey:@"ContactLastName"];
+//	[encoder encodeObject:streetAddress forKey:@"ContactStreetAddress"];
+//	[encoder encodeObject:zipCode forKey:@"ContactZipCode"];
+//	[encoder encodeObject:email forKey:@"ContactEmail"];
+//	[encoder encodeObject:phoneNumber forKey:@"ContactPhoneNumber"];
+//	[encoder encodeObject:notes forKey:@"ContactNotes"];
+//}
+//-  (id) initWithCoder: (NSCoder *) decoder	{
+//	firstName = [decoder decodeObjectForKey:@"ContactFirstName"];
+//	lastName = [decoder decodeObjectForKey:@"ContactLastName"];
+//	streetAddress = [decoder decodeObjectForKey:@"ContactStreetAddress"];
+//	zipCode = [decoder decodeObjectForKey:@"ContactZipCode"];
+//	email = [decoder decodeObjectForKey:@"ContactEmail"];
+//	phoneNumber = [decoder decodeObjectForKey:@"ContactPhoneNumber"];
+//	notes = [decoder decodeObjectForKey:@"ContactNotes"];
+//	return self;
+//}
 @end
 
 
@@ -63,37 +52,41 @@
 typedef void (^menuWithContacts)(ContactList*);
 menuWithContacts contactMenu = ^(ContactList *contacts)			{
 
-	AZBeetlejuiceLoadAtoZ();
-//	__block BOOL exit = NO; 
+//	AZBeetlejuiceLoadAtoZ();
+//	__block BOOL exit = NO;
 	__block NSString *temp;
 	
-	NSPRINT(@"\nWelcome to the Contact List App \nPlease choose from the following options: \n");
-	NSDictionary*o=@{ @" to Add a Contact"						: ^{ [contacts addContact]; },
-					@" to Print a Full List"				: ^{ 	[contacts printAll];  },
-					@" to Search for a Last Name"			: ^{
-						fprintf ( stderr, "%s","Enter Last Name: "); char cTemp[80];
-						scanf("%s",(char*) &cTemp);
-						temp = [NSString stringWithCString: cTemp encoding: NSASCIIStringEncoding];
-						[contacts printContact: @"last" type:temp];
-						temp = @"";																			},
-					@" to Search for an Email"				: ^{
-						fprintf ( stderr, "%s","Enter Email: ");char cTemp[80];
-						scanf("%s",(char*) &cTemp);
-						temp = [NSString stringWithCString: cTemp encoding: NSASCIIStringEncoding];
-						[contacts printContact: @"email"type:temp];
-						temp = @"";																			},
-					@" to Search for a Zip Code"			: ^{
-						fprintf ( stderr, "%s","Enter Zip Code: ");char cTemp[80];
-						scanf("%s", (char*)&cTemp);
-						temp = [NSString stringWithCString: cTemp encoding: NSASCIIStringEncoding];
-						[contacts printContact: @"zip" type: temp];
-						temp = @"";																			},
-					@" to Save & Exit"						: ^{	[contacts saveContacts]; 	},
-					@" to Load Frameworks"   			 	: ^{	[contacts loadBundles]; 	},
-					@" To Load AZ"								: ^{	AZBeetlejuiceLoadAtoZ();	},//[contacts loadAZ]; 			},
-					@" To print AtoZ Methods" 				: ^{  
-					[contacts performSelector:@selector(promptWithArray:)
-						withObject:[CPROXY(AtoZ) performSelectorWithoutWarnings:NSSelectorFromString(@"instanceMethods")]]; }};
+	XX(@"\nWelcome to the Contact List App \nPlease choose from the following options: \n");
+
+	NSD *o =
+   @{ @" to Add a Contact"						  : ^{ [contacts addContact]; },
+      @" to Print a Full List"				  : ^{ 	[contacts printAll];  },
+      @" to Search for a Last Name"			: ^{
+
+        printf ("%s","Enter Last Name: ");  char cTemp[80];
+        scanf("%s",(char*) &cTemp);
+        temp = [NSString stringWithCString: cTemp encoding: NSASCIIStringEncoding];
+        [contacts printContact: @"last" type:temp];
+      },
+      @" to Search for an Email"				: ^{
+
+        fprintf ( stderr, "%s","Enter Email: ");char cTemp[80];
+        scanf("%s",(char*) &cTemp);
+        temp = [NSString stringWithCString: cTemp encoding: NSASCIIStringEncoding];
+        [contacts printContact: @"email"type:temp];
+      },
+      @" to Search for a Zip Code"			: ^{
+        fprintf ( stderr, "%s","Enter Zip Code: ");char cTemp[80];
+        scanf("%s", (char*)&cTemp);
+        temp = [NSString stringWithCString: cTemp encoding: NSASCIIStringEncoding];
+        [contacts printContact: @"zip" type: temp];
+        temp = @"";																			},
+      @" to Save & Exit"						: ^{	[contacts saveContacts]; 	},
+      @" to Load Frameworks"   			 	: ^{	[contacts loadBundles]; 	},
+      @" To Load AZ"								: ^{	/*AZBeetlejuiceLoadAtoZ();*/	},//[contacts loadAZ]; 			},
+      @" To print AtoZ Methods" 				: ^{  
+      [contacts performSelector:@selector(promptWithArray:)
+        withObject:[CPROXY(AtoZ) performSelectorWithoutWarnings:NSSelectorFromString(@"instanceMethods")]]; }};
 
 	void (^mapBlock)(void) = [o valueForKey:[contacts performSelector:@selector(promptWithArray:) withObject:o.allKeys]];
 	if (mapBlock) mapBlock();
@@ -107,6 +100,9 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 		});
 //	}();
 };
+
+
+//#define PROMPT(X,VAR) NSS*VAR; NSLog(@#X,
 @implementation ContactList
 - (id)init																		{
 
@@ -221,28 +217,28 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 	//		id obj = [atoz sharedInstance];
 //	NSLog(@"%@ %@  %@  %@",[self clr:a], [self clr:b], [self clr:NSStringFromClass(c)], [self clr:[b bundleIdentifier]] );
 }
-- (id) promptWithArray:(NSArray*)a 		{
+- (id) promptWithArray:(NSA*)a 		{
 
-	NSPRINT(@"What would you like to do?");
-//	fprintf ( stderr, "%s","What would you like to do? \n"); 
-	int option = 0;
-	[a enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		[obj setValue:GRAY2 forKey:@"logBackground"];
+//	XX(@"What would you like to do?");
+//	fprintf ( stderr, "%s","What would you like to do? \n");
+//	int option = 0;/
+//	[a sV:GRAY2 fKP:@"logBackground"];
+//  /  each:^(id obj) {
+     // [obj setValue:GRAY2 forKey:];
 //		NSS* printer = [NSString stringWithFormat:@"%@ : %@",@(idx), obj];
 //		NSPRINT(printer);// withString:[[CPROXY(CPROXY(AZLog) valueForKey:@"sharedInstance" ] colorizeString:obj withColor:RANDOMCOLOR]]);
 //			NSString *Uugh = [NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj], nil];
 //		NSPRINT(Uugh);
 //		[CPROXY(AZLog) performSelector:NSSelectorFromString(@"colorizeString:withColor:") withObject:[NSString stringWithFormat:@"%i %@", (int)(idx + 1), [self clr:obj]] NSColor.orangeColor, nil)[0]clr]);
 //		fprintf ( stderr, "%d %s\n", (int)(idx + 1), [self clr:obj].UTF8String);
-	}];
-	do { 
-		option = (int)[CPROXY(NSTerminal) performSelectorWithoutWarnings:$SEL(@"readInt")]; 	
-		NSPRINT(@(option).stringValue);//[NSString stringWithFormat:@"%i", option, nil]);
-	} while ( ! NSRangeContainsIndex(NSMakeRange(0,a.count),option));//option = 0 && option < a.count + 1);
+//	}];
+//	do {
+//		option = (int)[CPROXY(NSTerminal) performSelectorWithoutWarnings:$SEL(@"readInt")];
+//		NSPRINT(@(option).stringValue);//[NSString stringWithFormat:@"%i", option, nil]);
+//	} while ( ! NSRangeContainsIndex(NSMakeRange(0,a.count),option));//option = 0 && option < a.count + 1);
 //		if (!inRange)  {  fprintf(stderr,"%s", "not valid, try again..\n"); fflush(stdin); }
 //	}	while(!inRange);
-
-	return a[option -1];			//char cTemp[80];NSString *temp;
+//	return a[option -1];			//char cTemp[80];NSString *temp;
 }
 @end
 

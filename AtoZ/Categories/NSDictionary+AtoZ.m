@@ -115,15 +115,14 @@
 	return curContainer	;
 }
 -(void)setObject:(id)inValue forKeyPath:(NSS*)inKeyPath	{
-	NSArray	*components = [inKeyPath componentsSeparatedByString:@"."]	;
-	int		i, j, n = [components count], m	;
-	id		containerContainer = nil	;
-	id		curContainer = self	;
-	NSString	*curPathItem = nil	;
-	NSArray		*indices	;
-	int			index	;
+
+	NSA	*components = [inKeyPath componentsSeparatedByString:@"."], *indices;
+	int		i, j, n = [components count], m, index;
+	id		containerContainer = nil, curContainer = self	;
+	NSS	*curPathItem = nil;
 	BOOL		needArray = NO	;
 	for (i=0; i<n ; i++)	{
+
 		curPathItem = [components objectAtIndex:i]	;
 		indices = [curPathItem componentsSeparatedByString:@"["]	;
 		m = [indices count]	;
@@ -175,8 +174,8 @@
 			index = [[indices objectAtIndex:m-1] intValue]	;
 			if (index >= [curContainer count])	{
 				int	k	;
-				for (k=[curContainer count]; k<=index; k++)
-					[curContainer addObject:[NSNull null]]	;
+				for (k = [curContainer count]; k<=index; k++)
+					[(NSMA*)curContainer addObject:[NSNull null]]	;
 			}
 			containerContainer = curContainer	;
 			curContainer = [curContainer objectAtIndex:index]	;
@@ -195,12 +194,12 @@
 }
 @end
 @implementation NSArray (FindDictionary)
-- (id)findDictionaryWithValue:(id)value	{
-	__block id match = nil;
-	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		match = [obj isKindOfClass:[NSArray class]] ? [self findDictionaryWithValue:value]
-		: [obj ISADICT]  ? [(NSD*)obj findDictionaryWithValue:value] : nil;
-		*stop = (match!=nil);
+- (id)findDictionaryWithValue:(id)value	{	__block id match = nil;
+
+	[self enumerateObjectsUsingBlock:^(NSO *obj, NSUI idx, BOOL *stop) {
+  
+		*stop = (!!(match = ISA(obj,NSA) ? [(NSA*)obj findDictionaryWithValue:value] : [obj ISADICT] && [obj[@"allValues"] containsObject:value] ? obj : nil));
+
 	}];
 	return match;
 }
@@ -255,15 +254,6 @@
 @end
 */
 
-@implementation  NSJSONSerialization (AtoZ)
--(NSS*)swizzleDescription {
-	[self swizzleDescription];
-	return [[[NSS stringWithData:[AZXMLWriter dataWithPropertyList:self] encoding:NSUTF8StringEncoding] stringByRemovingPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"]stringByRemovingSuffix:@"</plist>"];
-}
-+ (void) load  {
-	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
-}
-@end
 @implementation NSDictionary (Types)
 - (id)objectForKey:(id)key ofType:(Class)type default:(id)defaultValue;	{
   id value = [self objectForKey:key];
@@ -313,27 +303,33 @@
 @end
 
 @implementation  NSDictionary (AtoZ)
--(NSS*)swizzleDescription {
-	NSLog(@"swizzling!");
-	//	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
-	[self swizzleDescription];	//	NSLog(@"normal: %@", normal);
-	return [[[NSS stringWithData:[AZXMLWriter dataWithPropertyList:self] encoding:NSUTF8StringEncoding] stringByRemovingPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"]stringByRemovingSuffix:@"</plist>"];
-}
-+ (void) initialize  {
-	[$ swizzleMethod:@selector(description) with:@selector(swizzleDescription) in:self.class];
-}
 
-- (NSA*) mapToArray:(NSA*(^)(id k, id v))block {
++ (NSD*) withFile:(NSS*)p { return [self dictionaryWithContentsOfFile:p]; }
 
-//+ (NSD*) mapDict:(NSD*) dict withBlock:(MapDictBlock) block {
+- (NSS*) flattenedString {
+  return [self reduce:^id(id memo, id key, id value) { 
+    [memo appendFormat:@"%@ : %@.\n", key,  ISA(value,NSA) ? [value componentsJoinedByString:@", "] : 
+                                            ISA(value,NSD) ? [value flattenedString] : 
+                                            ISA(value,NSS) ? value : [value description]]; return memo;
+  } withInitialMemo:NSMS.new];
+}
+- (VAL*) newVal { return [self vFK:@"new"]; }
+- (VAL*) oldVal { return [self vFK:@"old"]; }
+- (NSN*) newNum { return [self numberForKey:@"new"]; }
+- (NSN*) oldNum { return [self numberForKey:@"old"]; }
+
+
+- (NSA*) mapToArray:(id(^)(id k,id v))blk {
+
 	__block NSMA *a = NSMA.new;
 	[self enumerateEachKeyAndObjectUsingBlock:^(id key, id obj) {
-		[a addObject:block(key, obj)];
+    id x = blk(key, obj); if (x); [a addObject:x];
 	}];
 	return a;
+}
+//+ (NSD*) mapDict:(NSD*) dict withBlock:(MapDictBlock) block {
 //	else {	for (id key in dict) {id obj = [dict objectForKey:key];[mutDict setValue:block(key, obj) forKey:key];	}}
 // [NSDictionary dictionaryWithDictionary:mutDict];
-}
 
 -(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;	{
 	[self.allKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -374,6 +370,7 @@
 //
 //}
 
+
 - (NSS*) keyForValueOfClass:(Class)klass {
 
 	return [self.allKeys filterOne:^BOOL(id object) {
@@ -381,7 +378,38 @@
 	}];
 }
 
+//- (id) key:(id)x {
+//
+//	if([self.allKeys containsObject:key]) {
+//		// this dictionary contains the key, return the value
+//		return [self objectForKey:key];
+//	}
+//	for(NSString *k in self.allKeys) {
+//		id obj = [self objectForKey:k];
+//		if([obj ISADICT]) {
+//			// we found a child dictionary, let's traverse it
+//			NSDictionary *d = (NSD*)obj;
+//			id child = [d recursiveObjectForKey:key];
+//			if(child) return child;
+//		} else if([obj isKindOfClass:[NSArray class]]) {
+//			// loop through the NSArray and traverse any dictionaries found
+//			NSArray *a = (NSA*)obj;
+//			for(id child in a) {
+//				if([child ISADICT]) {
+//					NSDictionary *d = (NSD*)child;
+//					id o = [d recursiveObjectForKey:key];
+//					if(o) return o;
+//				}
+//			}
+//		}
+//	}
+//	// the key was not found in this dictionary or any of it's children
+//	return nil;
+//
+//}
+/* fierce */
 - (id) recursiveObjectForKey:(NSS*)key {
+
 	if([self.allKeys containsObject:key]) {
 		// this dictionary contains the key, return the value
 		return [self objectForKey:key];
@@ -409,13 +437,42 @@
 	return nil;
 }
 
-- (id)findDictionaryWithValue:(id)value	{
-	__block id match = nil;
+//- (void) recursiveObjectForKey:(NSS*)key rootBlock:(void(^)(id root))block {                                  // IN PROGRESS
+//
+//  id x = nil;
+//	if((x = [self objectForKey:key])) {
+//		// this dictionary contains the key, return the value
+//		[results addObject:AZKPMake(key, x)];
+//	}
+//	for(NSString *k in self.allKeys) {
+//		id obj = [self objectForKey:k];
+//		if([obj ISADICT]) {
+//			// we found a child dictionary, let's traverse it
+//			NSDictionary *d = (NSD*)obj;
+//			id child = [d recursiveObjectForKey:key];
+//			if(child) return child;
+//		} else if([obj isKindOfClass:[NSArray class]]) {
+//			// loop through the NSArray and traverse any dictionaries found
+//			NSArray *a = (NSA*)obj;
+//			for(id child in a) {
+//				if([child ISADICT]) {
+//					NSDictionary *d = (NSD*)child;
+//					id o = [d recursiveObjectForKey:key];
+//					if(o) return o;
+//				}
+//			}
+//		}
+//	}
+//	// the key was not found in this dictionary or any of it's children
+//	return nil;
+//}
+//
+
+
+- (NSD*)findDictionaryWithValue:(id)value	{ __block id match = nil;
+
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-		match = [obj isEqual:value] ? self
-		:	[obj isKindOfClass:[NSArray class]] ? [obj findDictionaryWithValue:value]
-		: [obj isKindOfClass:[self class]]	? [obj findDictionaryWithValue:value] : nil;
-		*stop = (match!=nil);
+		*stop = (!!(match = [obj isEqual:value] ? self  :	ISA(obj,NSA) || ISA(obj,self.class)	? [obj findDictionaryWithValue:value] : nil));
 	}];
 	return match;
 }
@@ -512,13 +569,14 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 @implementation NSDictionary (DynamicAccessors)
 
-+ (BOOL)resolveInstanceMethod:(SEL)sel	{			NSString *selStr = NSStringFromSelector(sel);
++ (BOOL) resolveInstanceMethod:(SEL)sel	{	
 
 		// Only handle selectors with no colon.
-		return  [selStr rangeOfString:@":"].location == NSNotFound
-		?	fprintf(stdout,"... Generating dynamic NSDictionary accessor %p ...", sel),
+		return  [NSStringFromSelector(sel) rangeOfString:@":"].location == NSNotFound
+		?	fprintf(stdout,"Generating dynamic NSD object accessor for key %s.\n",NSStringFromSelector(sel).UTF8String),
 			class_addMethod(self, sel, (IMP)DynamicDictionaryGetter, @encode(id(*)(id, SEL)))
-		:	fprintf(stdout,"couldn't resove:%p Leaving this one to super!",sel), [super resolveInstanceMethod:sel];
+		:	fprintf(stdout,"Couldn't resove:%s Leaving this one to super!\n",NSStringFromSelector(sel).UTF8String), 
+      [super resolveInstanceMethod:sel];
 }
 @end
 /**
@@ -667,11 +725,10 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 //nochange_noalloc:
 //	return [NSDictionary dictionaryWithDictionary:self];
 //}
-- (NSS*)keyForObjectEqualTo:(id)anObject;	{
-	for (NSString *key in self)
-		if ([self[key] isEqual:anObject])
-			return key;
-	return nil;
+- (NSS*) keyForObjectEqualTo:(id)anObject;	{
+
+  NSD *x = [self findDictionaryWithValue:anObject]; return x ? [x keyForObjectIdenticalTo:anObject] : nil;
+//		if ( isEqual:anObject])//			return key;//	return nil;
 }
 - (NSS*)stringForKey:(NSS*)key defaultValue:(NSS*)defaultValue;	{
 	id object = self[key];

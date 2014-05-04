@@ -1,75 +1,51 @@
-//typedef void(^KVOChange)(id _self, id  oldVal);
-//@property (CP) KVOChange onMove;
-
-//  AZGeometricFunctions.h Lumumba
-//  Created by Benjamin Schüttler on 19.11.09.  Copyright 2011 Rogue Coding. All rights reserved.
 
 #import "AtoZUmbrella.h"
 #import "AtoZTypes.h"
 #import "AZGrid.h"
 #import "AZMatrix.h"
+#import "AZPoint.h"
+#import "AZSize.h"
+#import "AZRect.h"
 #import "AZSegmentedRect.h"
 
 
 
-#define AZP AZPoint     //@class AZSize, AZRect, AZGrid, AGMatrix; //  <NSCoding>
+typedef NSP AZAnchorPt;
 
-@protocol AZScalar <NSObject>
-@required 
-@property (RONLY) NSS *key1, *key2;
-@concrete
-@property (RONLY)   CGF   min, max;
-@end
+#define AZR AZRect
+#define AZP AZPoint
+#define AZAP AZAnchorPt 
 
-@interface AZPoint : NSObject <AZScalar>
+// Predifined Points, Sizes and Rects
+#define AZHalfPoint NSMakePoint ( .5, .5 )
+#define  AZMaxPoint NSMakePoint ( MAXFLOAT, MAXFLOAT )
+#define  AZHalfSize NSMakeSize 	( .5, .5 )
+#define   AZMaxSize NSMakeSize  ( MAXFLOAT, MAXFLOAT )
 
-@property (NATOM) NSP point;
-@property (NATOM) CGF x, y;
+#define AZRelationRect NSMakeRect ( 0, 0, 1, 1 )
 
-@end
+/*! AZEqualRects(...) - Compare MANY rects. AZAllAreEqualRects(r2, r44, NSZeroRect), etc. */
 
-@interface AZSize : NSObject  <AZScalar>
-@property (NATOM) CGF 	width, height;
-@property (NATOM) NSSZ  size;
-@end
-
-
-#import "AZPoint.h"
-#import "AZSize.h"
-#import "AZRect.h"
+#define AZEqualRects(...) _AZAllAreEqualRects(metamacro_argcount(__VA_ARGS__),metamacro_head(__VA_ARGS__), metamacro_tail(__VA_ARGS__))
+/* helper */ BOOL _AZAllAreEqualRects(int ct, NSR r1, ...);
 
 
 OBJC_EXPORT NSR AZRectOffsetLikePoints(NSR r, NSP p1, NSP p2);
 OBJC_EXPORT NSR AZRectResizedLikePointsInQuad(NSR frame, NSP point1, NSP point2, AZQuad quadrant);
 
-OBJC_EXPORT BOOL            AZIsZeroRect(NSR r);
-OBJC_EXPORT  NSR  AZRectCheckWithMinSize(NSR r,     NSSZ    sz);
-OBJC_EXPORT  NSR         AZTransformRect(NSR target, NSR model);
-OBJC_EXPORT  NSR            nanRectCheck(NSR   rect);
-OBJC_EXPORT  NSP           nanPointCheck(NSP  point);
-OBJC_EXPORT NSSZ            nanSizeCheck(NSSZ  size);
-OBJC_EXPORT   id    	          nanCheck(NSV* point);
+OBJC_EXPORT BOOL            AZIsZeroSize( NSSZ z);
+OBJC_EXPORT BOOL            AZIsZeroRect( NSR r);
+OBJC_EXPORT  NSR  AZRectCheckWithMinSize( NSR r,     NSSZ    sz);
+OBJC_EXPORT  NSR         AZTransformRect( NSR target, NSR model);
+OBJC_EXPORT  NSR            nanRectCheck( NSR  r);
+OBJC_EXPORT  NSP           nanPointCheck( NSP   p);
+OBJC_EXPORT NSSZ            nanSizeCheck( NSSZ  s);
+OBJC_EXPORT   id    	          nanCheck( NSV* point);
 
-// Predifined Points, Sizes and Rects
-#define AZHalfPoint NSMakePoint ( 0.5, 0.5 )
-#define  AZMaxPoint NSMakePoint ( MAXFLOAT, MAXFLOAT )
-#define  AZHalfSize NSMakeSize 	( 0.5, 0.5 )
-#define   AZMaxSize NSMakeSize  ( MAXFLOAT, MAXFLOAT )
+OBJC_EXPORT BOOL SameRect ( NSR r1, NSR r2 );
 
-#define AZRelationRect NSMakeRect ( 0, 0, 1, 1 )
-
-OBJC_EXPORT BOOL AZEqualRects ( NSR r1, NSR r2 );
-
-OBJC_EXPORT NSN *iNum (NSI	  i);
-OBJC_EXPORT NSN *uNum (NSUI  ui);
-OBJC_EXPORT NSN *fNum (CGF   	f);
-OBJC_EXPORT NSN *dNum (double d);
-
-typedef NSP AZAnchorPt;
-#define AZAP AZAnchorPt 
-
-OBJC_EXPORT AZAP AZAnchorPointOfActualRect(NSR rect, AZA pos);
-OBJC_EXPORT AZAP AZAnchorPtAligned(AZA pos);
+OBJC_EXPORT                   AZAP AZAnchorPointOfActualRect(NSR rect, AZA pos);
+OBJC_EXPORT                   AZAP         AZAnchorPtAligned(AZA pos);
 
 FOUNDATION_EXPORT const AZAnchorPt  AZAnchorTop,      AZAnchorBottom,     AZAnchorRight,    AZAnchorLeft, 
                                     AZAnchorTopLeft,  AZAnchorBottomLeft, AZAnchorTopRight, AZAnchorBottomRight,
@@ -83,20 +59,17 @@ OBJC_EXPORT NSP AZBotLeftPoint  ( NSR rect );
 OBJC_EXPORT NSP AZBotRightPoint ( NSR rect );
 
 /**	NSRange from a min and max values even though the names imply that min should be greater than max the order does not matter the range will always start at the lower value and have a size to reach the upper value **/
-
 //NSRange AZMakeRange ( NSUI min, NSUI max );
 
 #define AZDistanceBetween(A,B) AZPointDistance(A,B)
-OBJC_EXPORT CGF AZPointDistance ( CGP p1, CGP p2 );
-OBJC_EXPORT CGF AZPointAngle ( CGP p1, CGP p2 );
+OBJC_EXPORT CGF     AZPointDistance ( CGP p1, CGP p2 );
+OBJC_EXPORT CGF        AZPointAngle ( CGP p1, CGP p2 );
+OBJC_EXPORT CGF AZDistanceFromPoint ( NSP p1, NSP p2 );
 
-OBJC_EXPORT CGF distanceFromPoint   ( NSP p1,NSP p2 );
-OBJC_EXPORT CGF AZDistanceFromPoint ( NSP p1,NSP p2 );
-
-OBJC_EXPORT NSP	AZPointOffsetBy	(NSP p, CGF x,CGF y);
-OBJC_EXPORT NSP AZPointOffset  ( NSP p, NSP size );
-OBJC_EXPORT NSP AZPointOffsetY ( NSP p, CGF distance );
-OBJC_EXPORT NSP AZPointOffsetX ( NSP p, CGF distance );
+OBJC_EXPORT NSP	    AZPointOffsetBy	( NSP p, CGF x, CGF y);
+OBJC_EXPORT NSP       AZPointOffset ( NSP p, NSP size );
+OBJC_EXPORT NSP      AZPointOffsetY ( NSP p, CGF dist );
+OBJC_EXPORT NSP      AZPointOffsetX ( NSP p, CGF dist );
 
 OBJC_EXPORT int GCD ( int a, int b );
 OBJC_EXPORT BOOL isWhole ( CGF fl );
@@ -117,13 +90,8 @@ OBJC_EXPORT AZPOS AZPositionOfEdgeAtOffsetAlongPerimeterOfRect(CGF off, NSR r);
 OBJC_EXPORT   CGP          AZPointAtOffsetAlongPerimeterOfRect(CGF off, NSR r);  //from bottom left going counterclockwise
 OBJC_EXPORT AZPOS        AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  );
 OBJC_EXPORT   AZA                        AZAlignmentInsideRect(NSR inner, NSR outer);
+OBJC_EXPORT   AZA AZAlignNext(AZA a);
 
-
-NS_INLINE AZA AZAlignNext(AZA a){  
-
-  return (AZA)({  a == AZBtm    ? AZTopLft : a == AZTopLft ? AZBtmLft : a == AZBtmLft ? AZTopRgt : 
-                  a == AZTopRgt ? AZBtmRgt : a == AZBtmRgt ? AZCntr   : (a & AZUnset|AZTop|AZRgt|AZLft) ? a << 1 : AZUnset; });   //  a == AZCntr             ? AZOutside :  a == AZOutside          ? AZAAuto   :  a&AZAUnset|AZAAuto      ? AZLft       // Unset/Auto goes to back to 1AZAlignUnset); // return r;
-}  
 //NS_INLINE BOOL AZAlignIsCorner(AZA a){ AZA r; int ctr;
 //
 //  for(ctr = 0, r = AZAUnset; r; (AZA)(r<<=1)) if(r&a) ctr++;  return ctr == 1;
@@ -150,9 +118,9 @@ OBJC_EXPORT CGF AZMaxEdge ( NSR r );
 OBJC_EXPORT CGF AZMaxDim ( NSSZ sz );
 OBJC_EXPORT CGF AZMinDim ( NSSZ sz );
 
-OBJC_EXPORT CGF AZLengthOfPoint ( NSP pt );
-OBJC_EXPORT CGF AZAreaOfSize ( NSSZ size );
-OBJC_EXPORT CGF AZAreaOfRect ( NSR rect );
+//OBJC_EXPORT CGF AZLengthOfPoint ( NSP  p );
+OBJC_EXPORT CGF    AZAreaOfSize ( NSSZ s );
+OBJC_EXPORT CGF    AZAreaOfRect ( NSR  r );
 // Size -> Point conversion
 OBJC_EXPORT NSP AZPointFromSize ( NSSZ size );
 OBJC_EXPORT CGF AZMenuBarH (void) ;
@@ -628,3 +596,37 @@ extern "C" {
 #if __cplusplus
 } //Extern C
 #endif
+
+
+/*
+@protocol AZScalar <NSObject>
+@required 
+@property (RONLY) NSS *key1, *key2;
+@concrete
+@property (RONLY)   CGF   min, max;
+@end
+
+@interface AZPoint : NSObject <AZScalar>
+
+@property (NATOM) NSP point;
+@property (NATOM) CGF x, y;
+
+@end
+
+@interface AZSize : NSObject  <AZScalar>
+@property (NATOM) CGF 	width, height;
+@property (NATOM) NSSZ  size;
+@end
+*/
+
+//OBJC_EXPORT NSN *iNum (NSI	  i);
+//OBJC_EXPORT NSN *uNum (NSUI  ui);
+//OBJC_EXPORT NSN *fNum (CGF   	f);
+//OBJC_EXPORT NSN *dNum (double d);
+
+//@class AZSize, AZRect, AZGrid, AGMatrix; //  <NSCoding>
+//typedef void(^KVOChange)(id _self, id  oldVal);
+//@property (CP) KVOChange onMove;
+
+//  AZGeometricFunctions.h Lumumba
+//  Created by Benjamin Schüttler on 19.11.09.  Copyright 2011 Rogue Coding. All rights reserved.

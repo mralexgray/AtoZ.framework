@@ -1,12 +1,27 @@
-//
-//  ObservableProtocol.h
-//  AtoZ
-//
-//  Created by Alex Gray on 3/30/14.
-//  Copyright (c) 2014 mrgray.com, inc. All rights reserved.
-//
 
-#import <Cocoa/Cocoa.h>
+
+@interface Observers : NSObject {
+
+@private
+    NSMutableArray* observers;
+
+}
+
+- (void) addObserver: (id)observer;
+- (void) removeObserver: (id)observer;
+
+@end
+
+
+@protocol Observable <NSObject>
+
+- (void) addObserver:(id)observer;
+- (void) removeObserver:(id)observer;
+@property Observers * observers;
+
+
+
+
 
 @interface ObservableProtocol : NSObjec
 

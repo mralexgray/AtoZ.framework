@@ -7,6 +7,7 @@
 //
 //  Version: 1.5
 
+#import <AtoZ/AtoZ.h>
 #import "CTGradient.h"
 
 @interface CTGradient (Private)
@@ -1125,7 +1126,7 @@ void inverseChromaticEvaluation(void *info, const float *in, float *out)
 
 void transformRGB_HSV(float *components) //H,S,B -> R,G,B
 	{
-	float H, S, V;
+	float H = 0, S = 0, V = 0;
 	float R = components[0],
 		  G = components[1],
 		  B = components[2];

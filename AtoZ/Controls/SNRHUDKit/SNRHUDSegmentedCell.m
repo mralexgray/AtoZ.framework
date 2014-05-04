@@ -88,12 +88,12 @@
 // Returns the bezier path that the border was drawn in
 - (NSBezierPath*)snr_drawBackgroundWithFrame:(NSRect)cellFrame inView:(NSView*)controlView;
 - (NSRect)snr_widthForSegment:(NSInteger)segment;
-- (void)snr_drawInteriorOfSegment:(NSInteger)segment inFrame:(NSRect)frame inView:(NSView*)controlView;
+- (void) nr_drawInteriorOfSegment:(NSInteger)segment inFrame:(NSRect)frame inView:(NSView*)controlView;
 @end
 
 @implementation SNRHUDSegmentedCell
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
+- (void) rawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
 	CGContextRef ctx = [AZGRAPHICSCTX graphicsPort];
 	if (![self isEnabled]) {
@@ -169,7 +169,7 @@
 	return borderPath;
 }
 
-- (void)drawSegment:(NSInteger)segment inFrame:(NSRect)frame withView:(NSView *)controlView
+- (void) rawSegment:(NSInteger)segment inFrame:(NSRect)frame withView:(NSView *)controlView
 {
 	BOOL selected = [self isSelectedForSegment:segment];
 	// Only draw the divider if it's not selected and it isn't the last segment
@@ -204,7 +204,7 @@
 	}
 }
 
-- (void)snr_drawInteriorOfSegment:(NSInteger)segment inFrame:(NSRect)frame inView:(NSView*)controlView
+- (void) nr_drawInteriorOfSegment:(NSInteger)segment inFrame:(NSRect)frame inView:(NSView*)controlView
 {
 	BOOL selected = [self isSelectedForSegment:segment];
 	NSString *label = [self labelForSegment:segment];

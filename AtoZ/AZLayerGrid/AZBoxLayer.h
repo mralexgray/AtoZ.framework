@@ -22,10 +22,10 @@
 - (id)initWithImage:(NSImage*)image title:(NSString*)iconTitle;
 //- (id)initWithImagePath:(NSString*)path title:(NSString*)iconTitle;
 - (CAAnimation*)shakeAnimation;
-- (void)startShake;
-- (void)stopShake;
+- (void) startShake;
+- (void) topShake;
 - (BOOL)isRunning;
-- (void)toggleShake;
+- (void) oggleShake;
 -(CALayer*)closeBoxLayer;
 
 @end

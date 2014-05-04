@@ -39,9 +39,7 @@ extern CFStringRef kLSSharedFileListRecentServerItems;
 extern CFStringRef kLSSharedFileListSessionLoginItems;
 extern CFStringRef kLSSharedFileListGlobalLoginItems;
 
-#import <Cocoa/Cocoa.h>
-
-#import <Foundation/Foundation.h>
+#import "AtoZUmbrella.h"
 
 @interface AZLaunchServices : NSObject
 

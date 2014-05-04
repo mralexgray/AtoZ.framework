@@ -28,7 +28,7 @@
     return self;
 }
 
-- (void)drawRect:(NSRect)rect
+- (void) drawRect:(NSRect)rect
 {
     rect = [self bounds];
 	
@@ -198,7 +198,7 @@
 
 #pragma mark Redrawing when the window becomes Active/Inactive
 
-- (void)viewWillMoveToWindow:(NSWindow *)window
+- (void) iewWillMoveToWindow:(NSWindow *)window
 {
 	//NSLog(@"viewWillMoveToWindow: %d", [self isActive]);
 	
@@ -219,15 +219,15 @@
 	
 	[self setNeedsDisplay:YES];
 }
-- (void)viewDidMoveToWindow
+- (void) iewDidMoveToWindow
 {
 	[self setNeedsDisplay:YES];
 }
-- (void)windowDidBecomeMain:(NSNotification *)notif
+- (void) indowDidBecomeMain:(NSNotification *)notif
 {	
 	[self setNeedsDisplay:YES];
 }
-- (void)windowDidResignMain:(NSNotification *)notif
+- (void) indowDidResignMain:(NSNotification *)notif
 {	
 	[self setNeedsDisplay:YES];
 }

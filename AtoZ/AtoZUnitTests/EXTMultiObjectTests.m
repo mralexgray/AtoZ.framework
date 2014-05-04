@@ -1,40 +1,37 @@
 
-#import <Foundation/Foundation.h>
-#import <XCTest/XCTest.h>
+#import <SenTestingKit/SenTestingKit.h>
 #import <AtoZ/AtoZ.h>
 
-@interface MixinObject : NSArray
-@end
-EXTMixin(MixinObject, NSColor)
-@implementation MixinObject
-@end
-@interface MultiObject : EXTMultiObject { NSMutableString *string; NSColor *color; }
-@end
-@implementation MultiObject 
-//- (id) init {
-//	color = YELLOW;
-//	string = @"Applebottom";
-//	return [super multiObjectForObjectsInArray:@[color, string]];
-//}
-@end
+AZFULLIMP(ColorStringObject, EXTMultiObject,
 
-@interface EXTMultiObjectTests : XCTestCase
-@property MultiObject *mObj;
-@end
+- (id) init { return [EXTMultiObject multiObjectForObjects:@"Amber", YELLOW, nil]; } )
 
-@implementation EXTMultiObjectTests
+AZTESTCASE(EXTMultiObjectTests) { ColorStringObject *mObj; }
 
-- (void)setUp {
-	self.mObj = [MultiObject new];
-	[super setUp];
+- (void) setUp { [super setUp]; mObj = ColorStringObject.new; }
+
+- (void) testResonse {
+  
+  STAssertNotNil(mObj, @"Ugh, it doesnt even exiust!");
+    STAssertTrue([mObj respondsToString:@"length"], @"should respond to nsstring's sel:length");
+    STAssertTrue([mObj respondsToString:@"darker"], @"should respond to nsColor's sel:darker");
+}  
+- (void) testClassKindResponse {
+
+    STAssertTrue(ISA(mObj,NSS), @"should \"be\" a string");
+    STAssertTrue(ISA(mObj,NSC), @"should \"be\" a string");
+   STAssertFalse(ISA(mObj,NSA), @"should \"not be\" an array");
 }
-//- (void)testOK {  XCTassertNotNil (YES, nil); }
+- (void) testCodingAndCopying {
 
-- (void)testWhatever {
-  XCTAssertNotNil(self.mObj, @"Ugh, it doesnt even exiust!");
+//  id x = [mObj copy];
+//  STAssertEqualObjects(x, mObj, @"They should be same!");
+  
 }
-
 @end
+
+AZIFACE(MixinObject,NSA) EXTMixin(MixinObject, NSColor) @implementation MixinObject @end
+
 //
 //@interface AtoZTests : GHTestCase
 //- (GBApplicationSettingsProvider *)settingsByRunningWithArgs:(NSString *)first, ... NS_REQUIRES_NIL_TERMINATION;
@@ -46,7 +43,7 @@ EXTMixin(MixinObject, NSColor)
 //
 //#pragma mark Helper methods testing
 //
-//- (void)testStandardizeCurrentDirectoryForPath_shouldConvertDotToCurrentDir {
+//- (void) testStandardizeCurrentDirectoryForPath_shouldConvertDotToCurrentDir {
 //	// setup
 //	GBAppledocApplication *app = GBAppledocApplication.new;
 //	//execute & verify
@@ -59,7 +56,7 @@ EXTMixin(MixinObject, NSColor)
 //
 //#pragma mark Paths settings testing
 //
-//- (void)testOutput_shouldAssignValueToSettings {
+//- (void) testOutput_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--output", @"path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--output", @".", nil];
@@ -68,7 +65,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThat(settings2.outputPath, is(self.currentPath));
 //}
 //
-//- (void)testTemplates_shouldAssignValueToSettings {
+//- (void) testTemplates_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--templates", @"path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--templates", @".", nil];
@@ -77,7 +74,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThat(settings2.templatesPath, is(self.currentPath));
 //}
 //
-//- (void)testDocsetInstallPath_shouldAssignValueToSettings {
+//- (void) testDocsetInstallPath_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--docset-install-path", @"path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--docset-install-path", @".", nil];
@@ -86,7 +83,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThat(settings2.docsetInstallPath, is(self.currentPath));
 //}
 //
-//- (void)testXcrunPath_shouldAssignValueToSettings {
+//- (void) testXcrunPath_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--xcrun-path", @"path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--xcrun-path", @".", nil];
@@ -95,7 +92,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThat(settings2.xcrunPath, is(self.currentPath));
 //}
 //
-//- (void)testIndexDesc_shouldAssignValueToSettings {
+//- (void) testIndexDesc_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--index-desc", @"path/file.txt", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--index-desc", @".", nil];
@@ -104,7 +101,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThat(settings2.indexDescriptionPath, is(self.currentPath));
 //}
 //
-//- (void)testInclude_shouldAssignValueToSettings {
+//- (void) testInclude_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--include", @"path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--include", @".", nil];
@@ -114,7 +111,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool([settings2.includePaths containsObject:self.currentPath], equalToBool(YES));
 //}
 //
-//- (void)testInclude_shouldAssignMutlipleValuesToSettings {
+//- (void) testInclude_shouldAssignMutlipleValuesToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--include", @"path1", @"--include", @"path2", @"--include", @"path3", nil];
 //	// verify
@@ -124,7 +121,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool([settings.includePaths containsObject:@"path3"], equalToBool(YES));
 //}
 //
-//- (void)testIgnore_shouldAssignValueToSettings {
+//- (void) testIgnore_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--ignore", @"path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--ignore", @".", nil];
@@ -134,7 +131,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool([settings2.ignoredPaths containsObject:@"."], equalToBool(YES));
 //}
 //
-//- (void)testIgnore_shouldAssignMutlipleValuesToSettings {
+//- (void) testIgnore_shouldAssignMutlipleValuesToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--ignore", @"path1", @"--ignore", @"path2", @"--ignore", @"path3", nil];
 //	// verify
@@ -146,28 +143,28 @@ EXTMixin(MixinObject, NSColor)
 //
 //#pragma mark Project settings testing
 //
-//- (void)testProjectName_shouldAssignValueToSettings {
+//- (void) testProjectName_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--project-name", @"value", nil];
 //	// verify
 //	assertThat(settings.projectName, is(@"value"));
 //}
 //
-//- (void)testProjectVersion_shouldAssignValueToSettings {
+//- (void) testProjectVersion_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--project-version", @"value", nil];
 //	// verify
 //	assertThat(settings.projectVersion, is(@"value"));
 //}
 //
-//- (void)testProjectCompany_shouldAssignValueToSettings {
+//- (void) testProjectCompany_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--project-company", @"value", nil];
 //	// verify
 //	assertThat(settings.projectCompany, is(@"value"));
 //}
 //
-//- (void)testCompanyIdentifier_shouldAssignValueToSettings {
+//- (void) testCompanyIdentifier_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--company-id", @"value", nil];
 //	// verify
@@ -176,7 +173,7 @@ EXTMixin(MixinObject, NSColor)
 //
 //#pragma mark Behavior settings testing
 //
-//- (void)testCleanOutput_shouldAssignValueToSettings {
+//- (void) testCleanOutput_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--clean-output", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-clean-output", nil];
@@ -185,7 +182,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.cleanupOutputPathBeforeRunning, equalToBool(NO));
 //}
 //
-//- (void)testCreateHTML_shouldAssignValueToSettings {
+//- (void) testCreateHTML_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--create-html", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-create-html", nil];
@@ -197,7 +194,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.publishDocSet, equalToBool(NO));
 //}
 //
-//- (void)testCreateDocSet_shouldAssignValueToSettings {
+//- (void) testCreateDocSet_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--create-docset", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-create-docset", nil];
@@ -209,7 +206,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.publishDocSet, equalToBool(NO));
 //}
 //
-//- (void)testInstallDocSet_shouldAssignValueToSettings {
+//- (void) testInstallDocSet_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--install-docset", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-install-docset", nil];
@@ -221,7 +218,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.publishDocSet, equalToBool(NO));
 //}
 //
-//- (void)testPublishDocSet_shouldAssignValueToSettings {
+//- (void) testPublishDocSet_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--publish-docset", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-publish-docset", nil];
@@ -233,7 +230,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.publishDocSet, equalToBool(NO));
 //}
 //
-//- (void)testUseAppleAnchors_shouldAssignValueToSettings {
+//- (void) testUseAppleAnchors_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--html-anchors", @"appledoc", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--html-anchors", @"apple", nil];
@@ -244,7 +241,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings3.htmlAnchorFormat, equalToInt(GBHTMLAnchorFormatAppleDoc));
 //}
 //
-//- (void)testKeepIntermediateFiles_shouldAssignValueToSettings {
+//- (void) testKeepIntermediateFiles_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--keep-intermediate-files", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-keep-intermediate-files", nil];
@@ -253,7 +250,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.keepIntermediateFiles, equalToBool(NO));
 //}
 //
-//- (void)testKeepUndocumentedObjects_shouldAssignValueToSettings {
+//- (void) testKeepUndocumentedObjects_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--keep-undocumented-objects", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-keep-undocumented-objects", nil];
@@ -262,7 +259,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.keepUndocumentedObjects, equalToBool(NO));
 //}
 //
-//- (void)testKeepUndocumentedMembers_shouldAssignValueToSettings {
+//- (void) testKeepUndocumentedMembers_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--keep-undocumented-members", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-keep-undocumented-members", nil];
@@ -271,7 +268,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.keepUndocumentedMembers, equalToBool(NO));
 //}
 //
-//- (void)testFindUndocumentedMembersDocumentation_shouldAssignValueToSettings {
+//- (void) testFindUndocumentedMembersDocumentation_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--search-undocumented-doc", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-search-undocumented-doc", nil];
@@ -280,7 +277,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.findUndocumentedMembersDocumentation, equalToBool(NO));
 //}
 //
-//- (void)testRepeatFirstParagraph_shouldAssignValueToSettings {
+//- (void) testRepeatFirstParagraph_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--repeat-first-par", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-repeat-first-par", nil];
@@ -289,7 +286,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.repeatFirstParagraphForMemberDescription, equalToBool(NO));
 //}
 //
-//- (void)testPreprocessHeaderDoc_shouldAssignValueToSettings {
+//- (void) testPreprocessHeaderDoc_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--preprocess-headerdoc", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-preprocess-headerdoc", nil];
@@ -298,7 +295,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.preprocessHeaderDoc, equalToBool(NO));
 //}
 //
-//- (void)testUseSingleStarForBold_shouldAssignValueToSettings {
+//- (void) testUseSingleStarForBold_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--use-single-star", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-use-single-star", nil];
@@ -307,7 +304,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.useSingleStarForBold, equalToBool(NO));
 //}
 //
-//- (void)testMergeCategoriesToClasses_shouldAssignValueToSettings {
+//- (void) testMergeCategoriesToClasses_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--merge-categories", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-merge-categories", nil];
@@ -316,7 +313,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.mergeCategoriesToClasses, equalToBool(NO));
 //}
 //
-//- (void)testMergeCategoryCommentToClass_shouldAssignValueToSettings {
+//- (void) testMergeCategoryCommentToClass_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--merge-category-comment", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-merge-category-comment", nil];
@@ -325,7 +322,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.mergeCategoryCommentToClass, equalToBool(NO));
 //}
 //
-//- (void)testKeepMergedCategoriesSections_shouldAssignValueToSettings {
+//- (void) testKeepMergedCategoriesSections_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--keep-merged-sections", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-keep-merged-sections", nil];
@@ -334,7 +331,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.keepMergedCategoriesSections, equalToBool(NO));
 //}
 //
-//- (void)testPrefixMergedCategoriesSectionsWithCategoryName_shouldAssignValueToSettings {
+//- (void) testPrefixMergedCategoriesSectionsWithCategoryName_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--prefix-merged-sections", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-prefix-merged-sections", nil];
@@ -343,7 +340,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.prefixMergedCategoriesSectionsWithCategoryName, equalToBool(NO));
 //}
 //
-//- (void)testExplicitCrossRef_shouldAssignValueToSettings {
+//- (void) testExplicitCrossRef_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--explicit-crossref", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-explicit-crossref", nil];
@@ -352,14 +349,14 @@ EXTMixin(MixinObject, NSColor)
 //	assertThat(settings2.commentComponents.crossReferenceMarkersTemplate, is(@"<?%@>?"));
 //}
 //
-//- (void)testCrossRefFormat_shouldAssignValueToSettings {
+//- (void) testCrossRefFormat_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--crossref-format", @"FORMAT", nil];
 //	// verify
 //	assertThat(settings.commentComponents.crossReferenceMarkersTemplate, is(@"FORMAT"));
 //}
 //
-//- (void)testExitCodeThreshold_shouldAssignValueToSettings {
+//- (void) testExitCodeThreshold_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--exit-threshold", @"2", nil];
 //	// verify
@@ -368,7 +365,7 @@ EXTMixin(MixinObject, NSColor)
 //
 //#pragma mark Warnings settings testing
 //
-//- (void)testWarnOnMissingOutputPath_shouldAssignValueToSettings {
+//- (void) testWarnOnMissingOutputPath_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-missing-output-path", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-missing-output-path", nil];
@@ -377,7 +374,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnMissingOutputPathArgument, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnMissingCompanyIdentifier_shouldAssignValueToSettings {
+//- (void) testWarnOnMissingCompanyIdentifier_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-missing-company-id", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-missing-company-id", nil];
@@ -386,7 +383,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnMissingCompanyIdentifier, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnUndocumentedObject_shouldAssignValueToSettings {
+//- (void) testWarnOnUndocumentedObject_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-undocumented-object", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-undocumented-object", nil];
@@ -395,7 +392,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnUndocumentedObject, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnUndocumentedMember_shouldAssignValueToSettings {
+//- (void) testWarnOnUndocumentedMember_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-undocumented-member", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-undocumented-member", nil];
@@ -404,7 +401,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnUndocumentedMember, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnEmptyDescription_shouldAssignValueToSettings {
+//- (void) testWarnOnEmptyDescription_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-empty-description", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-empty-description", nil];
@@ -413,7 +410,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnEmptyDescription, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnUnknownDirective_shouldAssignValueToSettings {
+//- (void) testWarnOnUnknownDirective_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-unknown-directive", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-unknown-directive", nil];
@@ -422,7 +419,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnUnknownDirective, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnInvalidCrossReference_shouldAssignValueToSettings {
+//- (void) testWarnOnInvalidCrossReference_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-invalid-crossref", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-invalid-crossref", nil];
@@ -431,7 +428,7 @@ EXTMixin(MixinObject, NSColor)
 //	assertThatBool(settings2.warnOnInvalidCrossReference, equalToBool(NO));
 //}
 //
-//- (void)testWarnOnMissingMethodArgument_shouldAssignValueToSettings {
+//- (void) testWarnOnMissingMethodArgument_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--warn-missing-arg", nil];
 //	GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--no-warn-missing-arg", nil];
@@ -442,49 +439,49 @@ EXTMixin(MixinObject, NSColor)
 //
 //#pragma mark Documentation set settings testing
 //
-//- (void)testDocSetBudnleIdentifier_shouldAssignValueToSettings {
+//- (void) testDocSetBudnleIdentifier_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-bundle-id", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetBundleIdentifier, is(@"value"));
 //}
 //
-//- (void)testDocSetBundleName_shouldAssignValueToSettings {
+//- (void) testDocSetBundleName_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-bundle-name", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetBundleName, is(@"value"));
 //}
 //
-//- (void)testDocSetDescription_shouldAssignValueToSettings {
+//- (void) testDocSetDescription_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-desc", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetDescription, is(@"value"));
 //}
 //
-//- (void)testDocSetCopyright_shouldAssignValueToSettings {
+//- (void) testDocSetCopyright_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-copyright", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetCopyrightMessage, is(@"value"));
 //}
 //
-//- (void)testDocSetFeedName_shouldAssignValueToSettings {
+//- (void) testDocSetFeedName_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-feed-name", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetFeedName, is(@"value"));
 //}
 //
-//- (void)testDocSetFeedURL_shouldAssignValueToSettings {
+//- (void) testDocSetFeedURL_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-feed-url", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetFeedURL, is(@"value"));
 //}
 //
-//- (void)testDocSetFeedFormat_shouldAssignValueToSettings {
+//- (void) testDocSetFeedFormat_shouldAssignValueToSettings {
 //    // setup & execute
 //    GBApplicationSettingsProvider *settings1 = [self settingsByRunningWithArgs:@"--docset-feed-formats", @"value", nil];
 //    GBApplicationSettingsProvider *settings2 = [self settingsByRunningWithArgs:@"--docset-feed-formats", @"atom", nil];
@@ -499,84 +496,84 @@ EXTMixin(MixinObject, NSColor)
 //    assertThatInteger(settings5.docsetFeedFormats, equalToInteger(GBPublishedFeedFormatAtom | GBPublishedFeedFormatXML));
 //}
 //
-//- (void)testDocSetPackageURL_shouldAssignValueToSettings {
+//- (void) testDocSetPackageURL_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-package-url", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetPackageURL, is(@"value"));
 //}
 //
-//- (void)testDocSetFallbackURL_shouldAssignValueToSettings {
+//- (void) testDocSetFallbackURL_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-fallback-url", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetFallbackURL, is(@"value"));
 //}
 //
-//- (void)testDocSetPublisherIdentifier_shouldAssignValueToSettings {
+//- (void) testDocSetPublisherIdentifier_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-publisher-id", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetPublisherIdentifier, is(@"value"));
 //}
 //
-//- (void)testDocSetPublisherName_shouldAssignValueToSettings {
+//- (void) testDocSetPublisherName_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-publisher-name", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetPublisherName, is(@"value"));
 //}
 //
-//- (void)testDocSetMinXcodeVersion_shouldAssignValueToSettings {
+//- (void) testDocSetMinXcodeVersion_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-min-xcode-version", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetMinimumXcodeVersion, is(@"value"));
 //}
 //
-//- (void)testDocSetPlatformFamily_shouldAssignValueToSettings {
+//- (void) testDocSetPlatformFamily_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-platform-family", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetPlatformFamily, is(@"value"));
 //}
 //
-//- (void)testDocSetCertificateIssuer_shouldAssignValueToSettings {
+//- (void) testDocSetCertificateIssuer_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-cert-issuer", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetCertificateIssuer, is(@"value"));
 //}
 //
-//- (void)testDocSetCertificateSigner_shouldAssignValueToSettings {
+//- (void) testDocSetCertificateSigner_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-cert-signer", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetCertificateSigner, is(@"value"));
 //}
 //
-//- (void)testDocSetBundleFilename_shouldAssignValueToSettings {
+//- (void) testDocSetBundleFilename_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-bundle-filename", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetBundleFilename, is(@"value"));
 //}
 //
-//- (void)testDocSetAtomFilename_shouldAssignValueToSettings {
+//- (void) testDocSetAtomFilename_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-atom-filename", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetAtomFilename, is(@"value"));
 //}
 //
-//- (void)testDocSetXMLFilename_shouldAssignValueToSettings {
+//- (void) testDocSetXMLFilename_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-xml-filename", @"value", nil];
 //	// verify
 //	assertThat(settings.docsetXMLFilename, is(@"value"));
 //}
 //
-//- (void)testDocSetPackageFilename_shouldAssignValueToSettings {
+//- (void) testDocSetPackageFilename_shouldAssignValueToSettings {
 //	// setup & execute
 //	GBApplicationSettingsProvider *settings = [self settingsByRunningWithArgs:@"--docset-package-filename", @"value", nil];
 //	// verify

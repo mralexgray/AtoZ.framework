@@ -1,50 +1,43 @@
 
-//  AZBlockView.m
-//  AtoZ
-
-//  Created by Alex Gray on 6/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 #import "AZBlockView.h"
 #import "AtoZ.h"
 
-//@implementation BLKCELL
+@interface  BNRBlockView ()
+@prop_CP RectBlock   rBlock;
+@prop_CP BLKVIEWRBLK   drawBlock;
+@prop_CP BlkViewLayerBlock   layerDelBlock;
 
-//+ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*cell, NSR cF, NSV*cV))blk {
+@end
 
-//	BLKCELL *cell 	= [BLKCELL.alloc initWithCoder:<#(NSCoder *)#> .alloc initWithFrame:frame];
-//	[view setDBlock:theDrawBlock];
-//	[view setOpaque:opaque];
+@implementation BNRBlockView
+
++ (INST) drawInView:(NSV*)v block:(RectBlock)blk {
+
+  BLKV *x = [self viewWithFrame:v.bounds];  x.rBlock = blk; [v addSubview:x]; return x;
+}
+
++ (INST) viewWithFrame:(NSR)f drawBlock:(BLKVIEWRBLK)blk { return [self.class viewWithFrame:f opaque:YES drawnUsingBlock:blk]; }
+
++ (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BLKVIEWRBLK)blk {
+
+  BLKVIEW *v = [self viewWithFrame:f]; [v setDrawBlock:blk]; [v setOpaque:o]; return v;
+}
+
+//+ (INST) inView:(NSV*)n withBlock:(BlkViewLayerDelegate)blk { BLKV * v;
+//
+//  return v = [self.class :n.bounds opaque:YES drawnUsingBlock:bl:v.bounds] ? [n addSubview:v],
+//	[view setAutoresizingMask:NSSIZEABLE];
+//	CAL* l        = view.setupHostView;
+//	[view setLayer:l];
+//	l.delegate 		= view;
+//	l.arMASK 			= CASIZEABLE;
+//	l.bgC 				= [LINEN CGColor];
+//	[l setNeedsDisplay];
+//	[view setLBlock:ctxBlk];
 //	return view;
 //}
 
-//@end
-
-@implementation BNRBlockView
-//@synthesize drawBlock, opaque, layerBlock;
-+ (BLKVIEW*) viewWithFrame: (NSR)frame  opaque: (BOOL)opaque 
-			  drawnUsingBlock: (BNRBlockViewDrawer)theDrawBlock
-{	//	__typeof__(self)
-	BLKVIEW *view 	= [BLKVIEW.alloc initWithFrame:frame];
-	[view setDBlock:theDrawBlock];
-	[view setOpaque:opaque];
-	return view;
-}
-+ (BLKVIEW*) inView:(NSV*)v withBlock:(BNRBlockViewLayerDelegate)ctxBlock
-{
-	BLKVIEW *view 	= [BLKVIEW.alloc initWithFrame:v.bounds];
-	[v addSubview:view];
-	view.arMASK 	= NSSIZEABLE;
-	CAL* l 			= view.setupHostView;
-	view.layer 		= l;
-	l.delegate 		= view;
-	l.arMASK 			= CASIZEABLE;
-	l.bgC 				= [LINEN CGColor];
-	[l setNeedsDisplay];
-	[view setLBlock:ctxBlock];
-	return view;
-}
-
-+ (BLKVIEW*) inView:(NSV*)v withFrame:(NSR)f inContext:(BNRBlockViewLayerDelegate)ctxBlock{
++ (BLKVIEW*) inView:(NSV*)v withFrame:(NSR)f inContext:(BlkViewLayerBlock)ctxBlk{
 	
 	BLKVIEW *blkV 	= [self.alloc initWithFrame:v.bounds];
 	blkV.arMASK = NSSIZEABLE;
@@ -57,10 +50,10 @@
 	l.frame = f;
 	[blkV.layer addSublayer:l]; 
 	l.arMASK 			= CASIZEABLE;
-	CABlockDelegate *d = [CABlockDelegate delegateFor:l ofType:CABlockTypeDrawBlock withBlock: ^(CAL* layer,CGContextRef ref){
+	BlockDelegate *d = [BlockDelegate delegateFor:l ofType:CABlockTypeDrawBlock withBlock: ^(CAL* layer,CGContextRef ref){
 		[NSGraphicsContext drawInContext:ref flipped:NO actions:^{
 			NSLog(@"drawing in blockview block delegate context: %@", AZString(layer.frame));
-			ctxBlock(blkV, layer);
+			ctxBlk(blkV, layer);
 		}];
 	}];
 	[v addSubview:blkV];
@@ -68,21 +61,26 @@
 }
 
 
-- (void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx 
-{
+- (void) drawLayer:(CAL*)l inContext:(CGCREF)ctx  {
+
 	[NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
-		if (_lBlock) self.lBlock(self, layer);
-		if (_dBlock) self.dBlock(self, layer.bounds);
-	}];
+    if (_layerDelBlock) _layerDelBlock(self,l);
+    if(_drawBlock) _drawBlock(self,l.bounds);
+  }];
 }
 
-- (void)drawRect:(NSRect)dirtyRect { if (_dBlock) self.dBlock(self, dirtyRect); }
+- (void) drawRect:(NSR)dRect { IF_VOID(!_rBlock && !_drawBlock);  AZBlockSelf(_self);
+
+  [AZGRAPHICSCTX state:^{ _self.rBlock    ? _self.rBlock    (_self.bounds) :
+                          _self.drawBlock ? _self.drawBlock (_self, dRect) :  nil;
+  }];
+}
 @end
 
 @implementation AZBlockWindow
 @synthesize drawBlock;
 
-+ (AZBlockWindow*) windowWithFrame: (NSRect)frame drawnUsingBlock:(BNRBlockViewDrawer)theDrawBlock
++ (AZBlockWindow*) windowWithFrame: (NSRect)frame drawnUsingBlock:(ObjRectBlock)theDrawBlock
 {	//	__typeof__(self)
 	AZBlockWindow *view = [AZBlockWindow.alloc initWithContentRect:frame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	view.drawBlock = theDrawBlock;
@@ -108,33 +106,46 @@
 }
 
 
-- (void)drawRect:(NSRect)dirtyRect {	if (drawBlock)		drawBlock(self, dirtyRect); }
+- (void) drawRect:(NSRect)dirtyRect {	if (drawBlock)		drawBlock(self, dirtyRect); }
 
 - (BOOL)isOpaque {	return opaque; }
 
 @end
+
+@implementation AZBlockView
+@synthesize drawBlock, opaque;
++ (AZBlockView *)viewWithFrame:(NSRect)frame 
+						 opaque:(BOOL)opaque
+				drawnUsingBlock:(AZBlockViewDrawer)theDrawBlock
+{
+//	__block __typeof__(self)
+	AZBlockView *view = [AZBlockView.alloc initWithFrame:frame];
+	[view setDrawBlock:theDrawBlock];
+	[view setOpaque:opaque];
+	return view;// autorelease];
+}
+- (void) dealloc {
+	[self setDrawBlock:nil];
+	[super dealloc];
+}
+- (void) drawRect:(NSRect)dirtyRect {
+	if (drawBlock)
+		drawBlock(self, dirtyRect);
+}
+- (BOOL)isOpaque {
+	return opaque;
+}
+@implementation BLKCELL
+
++ (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*cell, NSR cF, NSV*cV))blk {
+
+	BLKCELL *cell 	= [BLKCELL.alloc initWithCoder:<#(NSCoder *)#> .alloc initWithFrame:frame];
+	[view setDBlock:theDrawBlock];
+	[view setOpaque:opaque];
+	return view;
+}
+@end
+//@synthesize drawBlock, opaque, layerBlock;
+
 */
 
-//@implementation AZBlockView
-//@synthesize drawBlock, opaque;
-//+ (AZBlockView *)viewWithFrame:(NSRect)frame 
-//						 opaque:(BOOL)opaque
-//				drawnUsingBlock:(AZBlockViewDrawer)theDrawBlock
-//{
-////	__block __typeof__(self)
-//	AZBlockView *view = [AZBlockView.alloc initWithFrame:frame];
-//	[view setDrawBlock:theDrawBlock];
-//	[view setOpaque:opaque];
-//	return view;// autorelease];
-//}
-//- (void)dealloc {
-//	[self setDrawBlock:nil];
-//	[super dealloc];
-//}
-//- (void)drawRect:(NSRect)dirtyRect {
-//	if (drawBlock)
-//		drawBlock(self, dirtyRect);
-//}
-//- (BOOL)isOpaque {
-//	return opaque;
-//}

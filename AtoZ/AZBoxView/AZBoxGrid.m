@@ -1,8 +1,8 @@
 
-#import <Foundation/Foundation.h>
+#import "AtoZ.h"
 #import "AZBoxGrid.h"
 #import "AZBox.h"
-#import "AtoZ.h"
+
 @class MyScrollView;
 @interface AZBoxGrid  ()
 {		
@@ -94,8 +94,9 @@
 	}
 	BOOL delegateSingleClick = [delegate respondsToSelector:@selector(collectionView:didSelectCellAtIndex:)];
 	BOOL delegateDoubleClick = [delegate respondsToSelector:@selector(collectionView:didDoubleClickedCellAtIndex:)];
+  AZBlockSelf(_self);
 	[selection enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-		AZBox *cell = visibleCells[@(index)];
+		AZBox *cell = _self->visibleCells[@(index)];
 		NSLog(@"about your selection: %@", cell.propertiesPlease);
 //		NSLog(@"parent: %@.  siblings:%@", cell.superview,[cell.superview subviews]);
 		[(NSObject*)[NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
@@ -104,14 +105,14 @@
 
 		[cell setSelected:YES];
 		if(delegateSingleClick && ![oldSelection containsIndex:index]) {
-			[delegate collectionView:self didSelectCellAtIndex:index];
+			[_self.delegate collectionView:self didSelectCellAtIndex:index];
 		}
 		else if(delegateDoubleClick && [oldSelection containsIndex:index]) {
-			if([NSDate timeIntervalSinceReferenceDate] - lastSelection <= [NSEvent doubleClickInterval]) {
-				if([NSDate timeIntervalSinceReferenceDate] - lastDoubleClick <= [NSEvent doubleClickInterval])
+			if([NSDate timeIntervalSinceReferenceDate] - _self->lastSelection <= [NSEvent doubleClickInterval]) {
+				if([NSDate timeIntervalSinceReferenceDate] - _self->lastDoubleClick <= [NSEvent doubleClickInterval])
 					return;
-				[delegate collectionView:self didDoubleClickedCellAtIndex:index];
-				lastDoubleClick = [NSDate timeIntervalSinceReferenceDate];
+				[_self.delegate collectionView:self didDoubleClickedCellAtIndex:index];
+				_self->lastDoubleClick = [NSDate timeIntervalSinceReferenceDate];
 			}
 		}
 	}];
@@ -122,14 +123,16 @@
 	[self deselectCellsAtIndexes:[NSIndexSet indexSetWithIndex:index]];
 }
 - (void)deselectCellsAtIndexes:(NSIndexSet *)indexSet {
+
+  AZBlockSelf(_self);
 	NSIndexSet *oldSelection = [selection copy];
 	[selection removeIndexes:indexSet];
 	BOOL implementsSelector = [delegate respondsToSelector:@selector(collectionView:didDeselectCellAtIndex:)];
 	[indexSet enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-		AZBox *cell = visibleCells[@(index)];
+		AZBox *cell = _self->visibleCells[@(index)];
 		[cell setSelected:NO];
 		if(implementsSelector && [oldSelection containsIndex:index])
-			[delegate collectionView:self didDeselectCellAtIndex:index];
+			[_self.delegate collectionView:self didDeselectCellAtIndex:index];
 	}];
 }
 - (void)deselectAllCells {
@@ -219,7 +222,7 @@
 	[cell setIndex:-1];
 	if(reusableCellQueues[cell.cellIdentifier]) {
 		
-		[reusableCellQueues[cell.cellIdentifier] addObject:cell];
+		[(NSMA*)reusableCellQueues[cell.cellIdentifier] addObject:cell];
 	}
 	else {
 		

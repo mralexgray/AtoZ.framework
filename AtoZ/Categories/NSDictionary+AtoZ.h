@@ -1,22 +1,18 @@
-//
-//  NSDictionary+AtoZ.h
-//  AtoZ
-//
-//  Created by Alex Gray on 9/19/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-
-#import "NSOrderedDictionary.h"
-
+#import "M13OrderedDictionary.h"
 
 @class NSBag;
-
 @interface NSOrderedDictionary (AtoZ)
 - (void) forwardInvocation:(NSINV*)invocation;
 - (SIG*) methodSignatureForSelector:(SEL)sel;
 - (BOOL) respondsToSelector:(SEL)selector;
 @end
+
+// Catchall, adds "accessor" methods to doctionaries!
+@interface NSDictionary (DynamicAccessors)
++ (BOOL) resolveInstanceMethod:(SEL)sel;
+@end
+
 @interface NSMutableDictionary (AtoZ)
 
 - (void)setColor:(NSColor *)aColor forKey:(NSS*)aKey;
@@ -51,7 +47,8 @@
                 "profile_picture": "..."
             }, {...subset of likers...}]
         }}]
-}
+} */
+
 @interface NSDictionary (objectForKeyList)
 - (id)objectForKeyList:(id)key, ...;
 
@@ -80,7 +77,7 @@
 - (NSA*)arrayForKey:(id)key default:(NSA*)defaultValue;
 - (NSA*)arrayForKey:(id)key;
 
-@end */
+@end 
 
 /**  FIERCE
 
@@ -102,27 +99,37 @@
 @end
 
 
+typedef void(^KeyValueIndexBlock)(id key, id obj, NSUI idx);
+typedef void(^KeyValueIndexAbortBlock)(id key, id value, NSUI idx, BOOL *stop);
+
+typedef id(^KeyValueToObjectBlock)(id k, id v);
+typedef void(^KeyValueIteratorBlock)(id key, id obj);
 @interface NSDictionary (AtoZ)
 
-- (NSA*) mapToArray:(NSA*(^)(id k, id v))block;
++ (NSD*) withFile:(NSS*)p;
+@property (RONLY) VAL* oldVal, *newVal;
+@property (RONLY) NSN* oldNum, *newNum;
+
+@property (RONLY) NSS* flattenedString;
+
+- (NSA*) mapToArray:(KeyValueToObjectBlock)block;
 
 - (NSS*) keyForValueOfClass:(Class)klass;
 
--(void)eachWithIndex:(void (^)(id key, id value, NSUI idx, BOOL *stop))block;
+- (void) eachWithIndex:(KeyValueIndexAbortBlock)block;
 
-//- (NSA*) recursiveObjectsForKey:(NSS*)key;
-- (id) recursiveObjectForKey:(NSS*)key;
+-  (id) recursiveObjectForKey:(NSS*)k; /* fierce */  //- (NSA*) recursiveObjectsForKey:(NSS*)key;
 
-- (id)findDictionaryWithValue:(id)value;
-+ (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
-- (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
-- (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key;
-- (NSDictionary*) dictionaryWithoutKey:(id)key;
-- (NSDictionary*) dictionaryWithKey:(id)newKey replacingKey:(id)oldKey;
+- (NSD*) findDictionaryWithValue:(id)value;
++ (NSD*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
+- (NSD*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
+- (NSD*) dictionaryWithValue:(id)value forKey:(id)key;
+- (NSD*) dictionaryWithoutKey:(id)key;
+- (NSD*) dictionaryWithKey:(id)newKey replacingKey:(id)oldKey;
 
-- (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block;
+- (void) enumerateEachKeyAndObjectUsingBlock:(KeyValueIteratorBlock)block;
 
-- (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block;
+- (void) enumerateEachSortedKeyAndObjectUsingBlock:(KeyValueIndexBlock)block;
 @end
 
 @interface  NSArray (FindDictionary)
@@ -317,18 +324,10 @@ extern const int jsonDoNotIndent;
 
 @end
 
-extern NSString *jsonObjectStartString;
-extern NSString *jsonObjectEndString;
-extern NSString *jsonArrayStartString;
-extern NSString *jsonArrayEndString;
-extern NSString *jsonKeyValueSeparatorString;
-extern NSString *jsonValueSeparatorString;
-extern NSString *jsonStringDelimiterString;
-extern NSString *jsonStringEscapedDoubleQuoteString;
-extern NSString *jsonStringEscapedSlashString;
-extern NSString *jsonTrueString;
-extern NSString *jsonFalseString;
-extern NSString *jsonNullString;
+extern NSString *jsonObjectStartString,*jsonObjectEndString,*jsonArrayStartString,*jsonArrayEndString;
+extern NSString *jsonKeyValueSeparatorString, *jsonValueSeparatorString, *jsonStringDelimiterString;
+extern NSString *jsonStringEscapedDoubleQuoteString, *jsonStringEscapedSlashString;
+extern NSString *jsonTrueString, *jsonFalseString, *jsonNullString;
 
 
 @interface NSScanner (PrivateBSJSONAdditions)

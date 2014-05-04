@@ -9,16 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface MetalImageCell : NSImageCell 
-@end
-@interface MetalImageView : NSImageView
-{
-	NSImage *dragImage;
-}
-@end
-@interface MetalPopUpButtonCell : NSPopUpButtonCell
-@end
-@interface MetalTextField : NSTextField
-@end
-@interface MetalTextFieldCell : NSTextFieldCell
-@end
+@interface       MetalImageCell : NSImageCell             @end
+@interface       MetalImageView : NSImageView
+{	NSImage *dragImage; }                                   @end
+@interface MetalPopUpButtonCell : NSPopUpButtonCell       @end
+@interface       MetalTextField : NSTextField             @end
+@interface   MetalTextFieldCell : NSTextFieldCell         @end

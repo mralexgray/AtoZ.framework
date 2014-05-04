@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <AtoZ/AtoZUmbrella.h>
 #import <KSHTMLWriter/KSHTMLWriter.h>
+#import "AtoZMacroDefines.h"
 
 @interface KSHTMLWriter (AtoZ)
 

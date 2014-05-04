@@ -5,7 +5,7 @@
 //  Created by Fabio Pelosin on 26/09/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 //
-#import <BlocksKit/BlocksKit.h>
+//#import <BlocksKit/BlocksKit.h>
 #import "AtoZ.h"
 #import "DSSyntaxDefinition.h"
 

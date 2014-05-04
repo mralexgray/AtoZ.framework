@@ -1,7 +1,7 @@
 
 #import <objc/runtime.h>
 #import "DefinitionController.h"
-#import "AtoZNodeProtocol.h"
+//#import "AtoZNodeProtocol.h"
 
 NSArray* RGBFlameArray(NSC*color, NSUI ct, CGF hueStepDeg, CGF satStepDeg, CGF briStepDeg, NSI align);
 CAGradientLayer* greyGradLayer();
@@ -9,15 +9,16 @@ CAGradientLayer* greyGradLayer();
 #define 	zCATEGORY_FONTSIZE 	20
 #define 	zKEYWORDS_FONTSIZE  	14
 #define 	zKEYWORDS_V_UNIT  	2 * zKEYWORDS_FONTSIZE
-#define  zCATEGORY_RECT			(NSRect){ 0, 0, [self.superlayers.first boundsWidth], zKEYWORDS_V_UNIT }
+#define   zCATEGORY_RECT			(NSRect){ 0, 0, [(CAL*)self.superlayers.first width], zKEYWORDS_V_UNIT }
 
 @interface 		   AZOutlineLayer : CALayer
 
-@property (NATOM,STR)		  NSA * nodeRects;
-@property (NATOM,WK)  NSTreeNode * rootNode,
-											* selectedNode;
+@property (NATOM,STR)       NSA * nodeRects;
+@property (NATOM,WK) NSTreeNode * rootNode,
+                                  * selectedNode;
 
-+ (INST)  layerWithNode:(NSTreeNode*)node inLayer:(CAL*)layer withFrame:(NSR)frame;			@end
+//+ (INST)  layerWithNode:(NSTreeNode*)node inLayer:(CAL*)layer withFrame:(NSR)frame;
+@end
 
 
 @interface 			AZOutlineLayerNode : CALayer
@@ -25,7 +26,8 @@ CAGradientLayer* greyGradLayer();
 @property (WK)				  NSTreeNode * representedNode;
 @property (NATOM) AZOutlineCellStyle   cellStyle;
 
-+ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style;					@end
+//+ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style;					
+@end
 
 @interface AZOutlineLayerScrollableList : AZOutlineLayerNode
 @end

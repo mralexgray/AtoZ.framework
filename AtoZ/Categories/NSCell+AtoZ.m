@@ -16,7 +16,7 @@
 	return [[self attributedTitle] color];
 }
 
-- (void)setTextColor:(NSColor *)textColor
+- (void) setTextColor:(NSColor *)textColor
 {
 	[self setAttributedTitle:[[self attributedTitle] attributedStringWithColor:textColor]];
 }
@@ -26,7 +26,7 @@
 	return [[self attributedAlternateTitle] color];
 }
 
-- (void)setAlternateTextColor:(NSColor *)alternateTextColor
+- (void) setAlternateTextColor:(NSColor *)alternateTextColor
 {
 	NSAttributedString *string = self.attributedAlternateTitle ?: self.attributedTitle;
 	[self setAttributedAlternateTitle:[string attributedStringWithColor:alternateTextColor]];

@@ -87,8 +87,15 @@ static id _sharedSingleton		= nil;
 
 @end
 
+const void* timerWatchConst;
+
 @implementation  NSObject (Stopwatch)
-- (void) startTiming { AZStopwatchItem *s; [s=AZStopwatchItem.new start];  [self setAssociatedValue:s forKey:@"watch"];	}
+
+- (void) startTiming {
+
+  AZStopwatchItem *s; [s=AZStopwatchItem.new start];
+//  [self setAssociatedValue:s forKey:timerWatchConst];
+}
 
 - (double) runningTimer { AZStopwatchItem *s = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
 
@@ -98,7 +105,8 @@ static id _sharedSingleton		= nil;
 - (void) stopTiming { AZStopwatchItem *s = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
 		if (!s) return;  [s stop];
 		double run = [[self associatedValueForKey:@"totalDuration" orSetTo:@0]doubleValue];
-		run = run == 0 ? s.runtime : run + s.runtime; 	[self setAssociatedValue:@(run) forKey:@"totalDuration"];
+		run = run == 0 ? s.runtime : run + s.runtime;
+//    [self setAssociatedValue:@(run) forKey:@"totalDuration"];
 }
 - (NSS*) elapsed { AZStopwatchItem *i = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
 	return i==nil ? nil : [AZStopwatchItem runtimePrettyForRuntime:self.runningTimer]; }

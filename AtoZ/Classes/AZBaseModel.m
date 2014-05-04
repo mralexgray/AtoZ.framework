@@ -1,4 +1,246 @@
 
+#import "AtoZ.h"
+#import "AZBaseModel.h"
+
+
+@concreteprotocol(AZDoc)
+
+- (BOOL) isDocumentEdited { BOOL isit = !FETCH ? NO : ((IsDocumentEdited)FETCH)(self);
+  
+  NSLog(@"lets sée... is it edited? %@", StringFromBOOL(isit));  
+  return isit;
+}
+- (void) setIsDocumentEdited:(IsDocumentEdited)x {  
+
+  SEL sel = @selector(isDocumentEdited); SAVE(sel, x);
+}
+  
+//  [self az_overrideSelector:sel withBlock:(__bridge void *)^BOOL(id _self){
+//      IsDocumentEdited block = _OPEN(sel); BOOL isit = block(_self);  
+
+//  }];
+//}
+
+// Override returning the nib file name of the document If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
+- (NSS*) windowNibName {    return self.className; }
+
+@end
+
+
+@concreteprotocol(AutoCopying)
+
+- (id) copyWithZone:(NSZone*)z {
+
+  return [self.codableProperties reduce:^id(id cpy, id k, id v){ return [cpy sV:v fK:k], cpy; } 
+                        withInitialMemo:self.class.new];
+}
+@end
+
+/*
+
+
+@concreteprotocol(AutoCoding)
+
+- (void)     encodeWithCoder:(NSCoder*)c  { 
+
+  [self  autoEncodeWithCoder:c]; }
+-   (id)       initWithCoder:(NSCoder*)d  { [self  autoDecodeWithCoder:d]; }
+
+- (void) autoEncodeWithCoder:(NSCoder*)coder	{
+
+	[self.autoEncodedProperties each:^(NSS* key, id type) {
+
+		NSString *className;
+		NSMethodSignature *signature 	= [self methodSignatureForSelector:NSSelectorFromString(key)];
+		NSInvocation *invocation	 	= [NSInvocation invocationWithMethodSignature:signature];
+		[invocation setSelector:NSSelectorFromString(key)];
+		[invocation setTarget:self];
+
+		switch ([type characterAtIndex:0]) {
+			case '@': {	// object
+				id value;
+				if ([[type componentsSeparatedByString:@"\""] count] > 1)
+				{
+					className = [[type componentsSeparatedByString:@"\""] objectAtIndex:1];
+					Class class = NSClassFromString(className);
+					value = [self performSelector:NSSelectorFromString(key)];
+
+					// only decode if the property conforms to NSCoding
+					if([class conformsToProtocol:@protocol(NSCoding)]){
+						[coder encodeObject:value forKey:key];
+					}
+				}
+				break;
+			}
+			case 'c': {	// bool
+				BOOL boolValue;
+				[invocation invoke];
+				[invocation getReturnValue:&boolValue];
+				[coder encodeObject:[NSNumber numberWithBool:boolValue] forKey:key];
+				break;
+			}
+			case 'f': {	// float
+				float floatValue;
+				[invocation invoke];
+				[invocation getReturnValue:&floatValue];
+				[coder encodeObject:[NSNumber numberWithFloat:floatValue] forKey:key];
+				break;
+			}
+			case 'd': {	// double
+				double doubleValue;
+				[invocation invoke];
+				[invocation getReturnValue:&doubleValue];
+				[coder encodeObject:[NSNumber numberWithDouble:doubleValue] forKey:key];
+				break;
+			}
+			case 'i': {	// int
+				NSInteger intValue;
+				[invocation invoke];
+				[invocation getReturnValue:&intValue];
+				[coder encodeObject:[NSNumber numberWithInt:intValue] forKey:key];
+				break;
+			}
+			case 'L': {	// unsigned long
+				unsigned long ulValue;
+				[invocation invoke];
+				[invocation getReturnValue:&ulValue];
+				[coder encodeObject:[NSNumber numberWithUnsignedLong:ulValue] forKey:key];
+				break;
+			}
+			case 'Q': {	// unsigned long long
+				unsigned long long ullValue;
+				[invocation invoke];
+				[invocation getReturnValue:&ullValue];
+				[coder encodeObject:[NSNumber numberWithUnsignedLongLong:ullValue] forKey:key];
+				break;
+			}
+			case 'l': {	// long
+				long longValue;
+				[invocation invoke];
+				[invocation getReturnValue:&longValue];
+				[coder encodeObject:[NSNumber numberWithLong:longValue] forKey:key];
+				break;
+			}
+			case 's': {	// short
+				short shortValue;
+				[invocation invoke];
+				[invocation getReturnValue:&shortValue];
+				[coder encodeObject:[NSNumber numberWithShort:shortValue] forKey:key];
+				break;
+			}
+			case 'I': {	// unsigned
+				unsigned unsignedValue;
+				[invocation invoke];
+				[invocation getReturnValue:&unsignedValue];
+				[coder encodeObject:[NSNumber numberWithUnsignedInt:unsignedValue] forKey:key];
+				break;
+			}
+			default:
+				break;
+		}		 
+	}];
+}
+
+- (void) autoDecodeWithCoder:(NSCoder*)d	{
+
+	[self.codableProperties each:^(NSS* key, NSS* type) {
+
+		switch ([type characterAtIndex:0])
+		{
+			case '@': {	// object
+				if ([[type componentsSeparatedByString:@"\""] count] > 1) {
+					NSString *className = [[type componentsSeparatedByString:@"\""] objectAtIndex:1];					   
+					Class class = NSClassFromString(className);
+					// only decode if the property conforms to NSCoding
+					if ([class conformsToProtocol:@protocol(NSCoding )]){
+						id value = [d decodeObjectForKey:key];
+						unsigned int addr = (NSInteger)&value;
+//						object_setInstanceVariable(self, [key UTF8String], *(id**)addr);
+    
+            // You need the Ivar value beforehand, which can be obtained via 
+            Ivar var = class_getInstanceVariable(self.class,key.UTF8String);
+            object_setIvar(self,var,value);
+					}
+				}
+				break;
+			}
+			case 'c': {	// bool
+				NSNumber *number = [coder decodeObjectForKey:key];				
+				BOOL b = [number boolValue];
+				unsigned int addr = (NSInteger)&b;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 'f': {	// float
+				NSNumber *number = [coder decodeObjectForKey:key];				
+				CGFloat f = [number floatValue];
+				unsigned int addr = (NSInteger)&f;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 'd': {	// double				 
+				NSNumber *number = [coder decodeObjectForKey:key];
+				double d = [number doubleValue];
+				Ivar ivar;
+				if ((ivar = class_getInstanceVariable([self class], [key UTF8String]))) {
+					double *varIndex = (double *)(void **)((char *)self + ivar_getOffset(ivar));
+					*varIndex = d;
+				}
+				break;
+			}
+			case 'i': {	// int
+				NSNumber *number = [coder decodeObjectForKey:key];
+				NSInteger i = [number intValue];
+				unsigned int addr = (NSInteger)&i;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 'L': {	// unsigned long
+				NSNumber *number = [coder decodeObjectForKey:key];
+				unsigned long ul = [number unsignedLongValue];
+				unsigned int addr = (NSInteger)&ul;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 'Q': {	// unsigned long long
+				NSNumber *number = [coder decodeObjectForKey:key];
+				unsigned long long ull = [number unsignedLongLongValue];
+				unsigned int addr = (NSInteger)&ull;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 'l': {	// long
+				NSNumber *number = [coder decodeObjectForKey:key];
+				long longValue = [number longValue];
+				unsigned int addr = (NSInteger)&longValue;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 'I': {	// unsigned
+				NSNumber *number = [coder decodeObjectForKey:key];
+				unsigned unsignedValue = [number unsignedIntValue];
+				unsigned int addr = (NSInteger)&unsignedValue;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+			case 's': {	// short
+				NSNumber *number = [coder decodeObjectForKey:key];
+				short shortValue = [number shortValue];
+				unsigned int addr = (NSInteger)&shortValue;
+				object_setInstanceVariable(self, [key UTF8String], *(NSInteger**)addr);
+				break;
+			}
+
+			default:
+				break;
+		}
+	}];
+}
+
+@end
+*/
+
+/*
 //  BaseModel.m
 //  Version 2.3.1
 //  Created by Nick Lockwood on 25/06/2011.
@@ -37,8 +279,8 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 @implementation AZBaseModel
 
 
-//- (void)makeObjectsPerformSelector
-//- (void)makeObjectsPerformSelector:(SEL)selector withObject:()
+//- (void) akeObjectsPerformSelector
+//- (void) akeObjectsPerformSelector:(SEL)selector withObject:()
 //enumerateObjectsUsingBlock:
 //or enumerateObjectsWithOptions:usingBlock:
 
@@ -53,7 +295,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
     return _backingstore[index < 0 ? _backingstore.count + index : index];
 }
 
-- (void)setObject:(id)object forKeyedSubscript:(NSString *)key {
+- (void) setObject:(id)object forKeyedSubscript:(NSString *)key {
     NSString *stringer = $(@"set%@", [key capitalizedString]);
     SEL stringed = NSSelectorFromString(stringer);
     if ([self respondsToSelector:stringed]) {
@@ -67,7 +309,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 //You can do the exact same calculation in setObject:atIndexedSubscript: and call it a day. But for fun, and to make the mutating method a little more interesting, the array will use a null-fill when setting a value far off the end of the collection (where “far” is more than one index). IN regular Cocoa, setting a value exactly one index past the end of an NSMutArr will extend it and anything farther throws an exception. BNRNegativeArray will fill in intervening indexes with [NSNull null].
 
-- (void)setObject:(id)thing atIndexedSubscript:(NSInteger)index {
+- (void) setObject:(id)thing atIndexedSubscript:(NSInteger)index {
     !_usesBackingStore ? ^{         AZLOG(@"warning.. no backing store. Makibng");
                                     _backingstore = self.backingstore; } () : ^{
         NSI fixedIndex; if (index < 0) fixedIndex = _backingstore.count + index;
@@ -97,7 +339,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 //		return self;  } else return nil; }
 
 
-- (void)eachWithIndex:(VoidIteratorArrayWithIndexBlock)block  {
+- (void) achWithIndex:(VoidIteratorArrayWithIndexBlock)block  {
     [F eachInArrayWithIndex:_backingstore withBlock:block];
 }
 
@@ -259,13 +501,13 @@ static NSMutableDictionary *sharedInstances = nil;
     return YES;
 }
 
-- (void)save {
+- (void) ave {
     if (sharedInstances[NSStringFromClass([self class])] == self) [self writeToFile:[[self class] saveFilePath] atomically:YES];  //shared (singleton) instance
     else [NSException raise:NSGenericException format:@"Unable to save object, save method not implemented"];                     //no save implementation
 }
 
 #pragma mark - Default constructors
-- (void)setUp {
+- (void) setUp {
     //override this
 }
 
@@ -434,7 +676,7 @@ static BOOL loadingFromResourceFile = NO;
     return ((self = nil));
 }
 
-- (void)writeToFile:(NSString *)path atomically:(BOOL)atomically {
+- (void) riteToFile:(NSString *)path atomically:(BOOL)atomically {
     NSData *data = nil;  Class coderClass = NSClassFromString(@"HRCoder");
     if (coderClass && [self useHRCoderIfAvailable]) {
         id plist = objc_msgSend(coderClass, @selector(archivedPlistWithRootObject:), self);
@@ -457,7 +699,7 @@ static BOOL loadingFromResourceFile = NO;
         : _uniqueID;
 }
 
-- (void)dealloc {
+- (void) dealloc {
     ah_release(_uniqueID);
     //	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
     //		if (ivar_getTypeEncoding(var)[0] == _C_ID) [self setValue:nil forKey:name];
@@ -470,9 +712,11 @@ static BOOL loadingFromResourceFile = NO;
 //#endif
 //@end
 //@implementation SMModelObject
-/**	Before this class is first accessed, we'll need to build up our associated metadata, basically just a list of all our property names so we can quickly enumerate through them for various methods. Also we maintain a separate list of property names that can be set to nil (type ID) for fast dealloc. Helper for easily enumerating through our instance variables.
- */
-- (void)enumerateIvarsUsingBlock:(void (^)(Ivar var, NSString *name, BOOL *cancel))block {
+
+// BEgin COmment
+	Before this class is first accessed, we'll need to build up our associated metadata, basically just a list of all our property names so we can quickly enumerate through them for various methods. Also we maintain a separate list of property names that can be set to nil (type ID) for fast dealloc. Helper for easily enumerating through our instance variables.
+
+- (void) numerateIvarsUsingBlock:(void (^)(Ivar var, NSString *name, BOOL *cancel))block {
     BOOL cancel = NO;
     for (Class cls = [self class]; !cancel && cls != [self class]; cls = [cls superclass]) {
         unsigned int varCount;
@@ -485,131 +729,131 @@ static BOOL loadingFromResourceFile = NO;
     }
 }
 
-// NSCoder implementation, for unarchiving
-//- (id) initWithCoder:(NSCoder *)aDecoder {
-//	if (self = [super init]) {
-//		[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
-//			[self setValue:[aDecoder decodeObjectForKey:name] forKey:name];
-//		}];
-//	}
-//	return self;
-//}
-// NSCoder implementation, for archiving
-//- (void) encodeWithCoder:(NSCoder *)aCoder {
-//	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
-//		[aCoder encodeObject:[self valueForKey:name] forKey:name];
-//	}];
-//}
-// Automatic dealloc.
+ NSCoder implementation, for unarchiving
+- (id) initWithCoder:(NSCoder *)aDecoder {
+	if (self = [super init]) {
+		[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
+			[self setValue:[aDecoder decodeObjectForKey:name] forKey:name];
+		}];
+	}
+	return self;
+}
+ NSCoder implementation, for archiving
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
+		[aCoder encodeObject:[self valueForKey:name] forKey:name];
+	}];
+}
+ Automatic dealloc.
 
-// NSCopying implementation
-//- (id) copyWithZone:(NSZone *)zone {
-//	id copied = [[[self class] alloc] init];
-//	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
-//		[copied setValue:[self valueForKey:name] forKey:name];
-//	}];
-//	return copied;
-//}
-// Override isEqual to compare model objects by value instead of just by pointer.
-//- (BOOL) isEqual:(id)other {
-//	__block BOOL equal = NO;
-//	if ([other isKindOfClass:[self class]]) {
-//		equal = YES;
-//		[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
-//			if (![[self valueForKey:name] isEqual:[other valueForKey:name]]) {
-//				equal = NO;
-//				*cancel = YES;
-//			}
-//		}];
-//	}
-//	return equal;
-//}
-// Must override hash as well, this is taken directly from RMModelObject, basically
-// classes with the same layout return the same number.
-//- (NSUInteger)hash
-//{
-//	__block NSUInteger hash = 0;
-//	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
-//		hash += (NSUInteger)var;
-//	}];
-//	return hash;
-//}
-//- (void)writeLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
-//	[string appendString:@"\n"];
-//	for (int i=0;i<tabCount;i++) [string appendString:@"\t"];
-//}
-//	// Prints description in a nicely-formatted and indented manner.
-//- (void) writeToDescription:(NSMutableString *)description withIndent:(NSUInteger)indent {
-//	[description appendFormat:@"<%@ %p", NSStringFromClass([self class]), self];
-//	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
-//		[self writeLineBreakToString:description withTabs:indent];
-//		id object = [self valueForKey:name];
-//		if ([object isKindOfClass:[SMModelObject class]]) {
-//			[object writeToDescription:description withIndent:indent+1];
-//		}
-//		else if ([object isKindOfClass:[NSArray class]]) {
-//			[description appendFormat:@"%@ =", name];
-//			for (id child in object) {
-//				[self writeLineBreakToString:description withTabs:indent+1];
-//				if ([child isKindOfClass:[SMModelObject class]])
-//					[child writeToDescription:description withIndent:indent+2];
-//				else
-//					[description appendString:[child description]];
-//			}
-//		}
-//		else {
-//			[description appendFormat:@"%@ = %@", name, object];
-//		}
-//	}];
-//	[description appendString:@">"];
-//}
-//	// Override description for helpful debugging.
-//- (NSString *) description {
-//	NSMutableString *description = [NSMutableString string];
-//	[self writeToDescription:description withIndent:1];
-//	return description;
-//}
-//+ (void) initialize {
+ NSCopying implementation
+- (id) copyWithZone:(NSZone *)zone {
+	id copied = [[[self class] alloc] init];
+	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
+		[copied setValue:[self valueForKey:name] forKey:name];
+	}];
+	return copied;
+}
+ Override isEqual to compare model objects by value instead of just by pointer.
+- (BOOL) isEqual:(id)other {
+	__block BOOL equal = NO;
+	if ([other isKindOfClass:[self class]]) {
+		equal = YES;
+		[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
+			if (![[self valueForKey:name] isEqual:[other valueForKey:name]]) {
+				equal = NO;
+				*cancel = YES;
+			}
+		}];
+	}
+	return equal;
+}
+ Must override hash as well, this is taken directly from RMModelObject, basically
+ classes with the same layout return the same number.
+- (NSUInteger)hash
+{
+	__block NSUInteger hash = 0;
+	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
+		hash += (NSUInteger)var;
+	}];
+	return hash;
+}
+- (void) riteLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
+	[string appendString:@"\n"];
+	for (int i=0;i<tabCount;i++) [string appendString:@"\t"];
+}
+	// Prints description in a nicely-formatted and indented manner.
+- (void) writeToDescription:(NSMutableString *)description withIndent:(NSUInteger)indent {
+	[description appendFormat:@"<%@ %p", NSStringFromClass([self class]), self];
+	[self enumerateIvarsUsingBlock:^(Ivar var, NSString *name, BOOL *cancel) {
+		[self writeLineBreakToString:description withTabs:indent];
+		id object = [self valueForKey:name];
+		if ([object isKindOfClass:[SMModelObject class]]) {
+			[object writeToDescription:description withIndent:indent+1];
+		}
+		else if ([object isKindOfClass:[NSArray class]]) {
+			[description appendFormat:@"%@ =", name];
+			for (id child in object) {
+				[self writeLineBreakToString:description withTabs:indent+1];
+				if ([child isKindOfClass:[SMModelObject class]])
+					[child writeToDescription:description withIndent:indent+2];
+				else
+					[description appendString:[child description]];
+			}
+		}
+		else {
+			[description appendFormat:@"%@ = %@", name, object];
+		}
+	}];
+	[description appendString:@">"];
+}
+	// Override description for helpful debugging.
+- (NSString *) description {
+	NSMutableString *description = [NSMutableString string];
+	[self writeToDescription:description withIndent:1];
+	return description;
+}
++ (void) initialize {
+
+	if (!keyNames) keyNames = [NSMutableDictionary new], nillableKeyNames = [NSMutableDictionary new];
+	NSMutableArray *names = [NSMutableArray new], *nillableNames = [NSMutableArray new];
+	for (Class cls = self; cls != [SMModelObject class]; cls = [cls superclass]) {
+		unsigned int varCount;
+		Ivar *vars = class_copyIvarList(cls, &varCount);
+		for (int i = 0; i < varCount; i++) {
+			Ivar var = vars[i];
+			NSString *name = [NSString.alloc initWithUTF8String:ivar_getName(var)];
+			[names addObject:name];
+			if (ivar_getTypeEncoding(var)[0] == _C_ID) [nillableNames addObject:name];
+			[name release];
+		}
+		free(vars);
+	}
+	[keyNames setObject:names forKey:(id)self];
+	[nillableKeyNames setObject:nillableNames forKey:(id)self];
+	[names release], [nillableNames release];
+}
+
+- (NSArray *)allKeys {
+	return [keyNames objectForKey:[self class]];
+}
+
+- (NSArray *)nillableKeys {
+	return [nillableKeyNames objectForKey:[self class]];
+}
+
+	// NSCoder implementation, for unarchiving
+- (id) initWithCoder:(NSCoder *)aDecoder {
+	self = [super init];
+	if (self) {
+		for (NSString *name in [self allKeys])
+			[self setValue:[aDecoder decodeObjectForKey:name] forKey:name];
+	}
+	return self;
+}
 //
-//	if (!keyNames) keyNames = [NSMutableDictionary new], nillableKeyNames = [NSMutableDictionary new];
-//	NSMutableArray *names = [NSMutableArray new], *nillableNames = [NSMutableArray new];
-//	for (Class cls = self; cls != [SMModelObject class]; cls = [cls superclass]) {
-//		unsigned int varCount;
-//		Ivar *vars = class_copyIvarList(cls, &varCount);
-//		for (int i = 0; i < varCount; i++) {
-//			Ivar var = vars[i];
-//			NSString *name = [NSString.alloc initWithUTF8String:ivar_getName(var)];
-//			[names addObject:name];
-//			if (ivar_getTypeEncoding(var)[0] == _C_ID) [nillableNames addObject:name];
-//			[name release];
-//		}
-//		free(vars);
-//	}
-//	[keyNames setObject:names forKey:(id)self];
-//	[nillableKeyNames setObject:nillableNames forKey:(id)self];
-//	[names release], [nillableNames release];
-//}
-//
-//- (NSArray *)allKeys {
-//	return [keyNames objectForKey:[self class]];
-//}
-//
-//- (NSArray *)nillableKeys {
-//	return [nillableKeyNames objectForKey:[self class]];
-//}
-//
-//	// NSCoder implementation, for unarchiving
-//- (id) initWithCoder:(NSCoder *)aDecoder {
-//	self = [super init];
-//	if (self) {
-//		for (NSString *name in [self allKeys])
-//			[self setValue:[aDecoder decodeObjectForKey:name] forKey:name];
-//	}
-//	return self;
-//}
-////
-////	// NSCoder implementation, for archiving
-- (void)encodeWithCoder:(NSCoder *)aCoder {
+//	// NSCoder implementation, for archiving
+- (void) encodeWithCoder:(NSCoder *)aCoder {
     ////
     for (NSString *name in [self allKeys]) {
         [aCoder encodeObject:[self valueForKey:name] forKey:name];
@@ -664,7 +908,7 @@ static BOOL loadingFromResourceFile = NO;
 }
 
 //
-//- (void)writeLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
+//- (void) riteLineBreakToString:(NSMutableString *)string withTabs:(NSUInteger)tabCount {
 //	[string appendString:@"\n"];
 //	for (int i=0;i<tabCount;i++) [string appendString:@"\t"];
 //}
@@ -733,3 +977,5 @@ static BOOL loadingFromResourceFile = NO;
 }
 
 @end
+
+*/

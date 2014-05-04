@@ -10,9 +10,7 @@
 BOOL selectionAnim;
 
 __unsafe_unretained id <AZScrollerContentController> _contentController;
-CGFloat contentWidth;
-CGFloat visibleWidth;
-CGFloat stepSize;
+CGFloat contentWidth, visibleWidth, stepSize;
 }
 
 @property(assign) id <AZScrollerContentController> contentController;

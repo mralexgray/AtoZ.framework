@@ -3,8 +3,7 @@
  iPhone Developer's Cookbook, 3.0 Edition
  BSD License, Use at your own risk	*/
 
-#import <Foundation/Foundation.h>
-
+#import "AtoZUmbrella.h"
 
 @interface NSInvocation (jr_block)
 
@@ -23,27 +22,27 @@
 
 - (id)getArgumentAtIndexAsObject:(int)argIndex;
 
-- (NSString *)invocationDescription;
+- (NSS*) invocationDescription;
 
-- (NSString *)argumentDescriptionAtIndex:(int)argIndex;
+- (NSS*) argumentDescriptionAtIndex:(int)argIndex;
 
-- (NSString *)objectDescriptionAtIndex:(int)anInt;
-- (NSString *)charDescriptionAtIndex:(int)anInt;
-- (NSString *)unsignedCharDescriptionAtIndex:(int)anInt;
-- (NSString *)intDescriptionAtIndex:(int)anInt;
-- (NSString *)unsignedIntDescriptionAtIndex:(int)anInt;
-- (NSString *)shortDescriptionAtIndex:(int)anInt;
-- (NSString *)unsignedShortDescriptionAtIndex:(int)anInt;
-- (NSString *)longDescriptionAtIndex:(int)anInt;
-- (NSString *)unsignedLongDescriptionAtIndex:(int)anInt;
-- (NSString *)longLongDescriptionAtIndex:(int)anInt;
-- (NSString *)unsignedLongLongDescriptionAtIndex:(int)anInt;
-- (NSString *)doubleDescriptionAtIndex:(int)anInt;
-- (NSString *)floatDescriptionAtIndex:(int)anInt;
-- (NSString *)structDescriptionAtIndex:(int)anInt;
-- (NSString *)pointerDescriptionAtIndex:(int)anInt;
-- (NSString *)cStringDescriptionAtIndex:(int)anInt;
-- (NSString *)selectorDescriptionAtIndex:(int)anInt;
+- (NSS*) objectDescriptionAtIndex:(int)anInt;
+- (NSS*) charDescriptionAtIndex:(int)anInt;
+- (NSS*) unsignedCharDescriptionAtIndex:(int)anInt;
+- (NSS*) intDescriptionAtIndex:(int)anInt;
+- (NSS*) unsignedIntDescriptionAtIndex:(int)anInt;
+- (NSS*) shortDescriptionAtIndex:(int)anInt;
+- (NSS*) unsignedShortDescriptionAtIndex:(int)anInt;
+- (NSS*) longDescriptionAtIndex:(int)anInt;
+- (NSS*) unsignedLongDescriptionAtIndex:(int)anInt;
+- (NSS*) longLongDescriptionAtIndex:(int)anInt;
+- (NSS*) unsignedLongLongDescriptionAtIndex:(int)anInt;
+- (NSS*) doubleDescriptionAtIndex:(int)anInt;
+- (NSS*) floatDescriptionAtIndex:(int)anInt;
+- (NSS*) structDescriptionAtIndex:(int)anInt;
+- (NSS*) pointerDescriptionAtIndex:(int)anInt;
+- (NSS*) cStringDescriptionAtIndex:(int)anInt;
+- (NSS*) selectorDescriptionAtIndex:(int)anInt;
 
 @end
 
@@ -52,17 +51,16 @@
 @property                   id   target;
 @end
 
-
- // thanks Landon Fuller
-#define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))
+#define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))  // thanks Landon Fuller
 
 @interface NSObject (Utilities)
 
 // Return all superclasses of object
 - (NSA*) superclasses;
+- (NSA*) superclassesAsStrings;
 
 // Selector Utilities
-- (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector,...;
+- (INV*) invocationWithSelectorAndArguments: (SEL) selector,...;
 - (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...;
 - (const char *) returnTypeForSelector:(SEL)selector;
 
@@ -86,16 +84,13 @@
 - (id) valueByPerformingSelector:(SEL)selector;
 
 // Access to object essentials for run-time checks. Stored by class in dictionary.
-@property (RONLY) NSDictionary *selectors;
-@property (RONLY) NSDictionary *properties;
-@property (RONLY) NSDictionary *ivars;
-@property (RONLY) NSDictionary *protocols;
+@property (RONLY) NSD *selectors, *properties, *ivars, *protocols;
 
 // Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
-- (BOOL) hasProperty: (NSS*) propertyName;
-- (BOOL) hasIvar: (NSS*) ivarName;
-+ (BOOL) classExists: (NSS*) className;
-+ (id) instanceOfClassNamed: (NSS*) className;
+- (BOOL)          hasProperty:(NSS*)propertyName;
+- (BOOL)              hasIvar:(NSS*)ivarName;
++ (BOOL)          classExists:(NSS*)className;
++   (id) instanceOfClassNamed:(NSS*)className;
 
 // Attempt selector if possible
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
@@ -106,40 +101,41 @@
 - (SEL) chooseSelector: (SEL) aSelector, ...;
 @end
 
+#define overrideSEL(X) az_overrideSelector:@selector(X)
+#define    superSEL(X) az_superForSelector:@selector(X)
 
-#define overrideSEL az_overrideSelector
 @interface NSProxy (AZOverride)
-- (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block;
-- (void *)az_superForSelector:(SEL)selector;
-+ (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS;
+-  (BOOL) az_overrideSelector:(SEL)selector withBlock:(void *)block;
+- (void*) az_superForSelector:(SEL)selector;
++  (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS;
 @end
 
+
 @interface NSObject (AZOverride)
- /*
- * Dynamically overrides the specified method on this particular instance.
- 
- * The block's parameters and return type must match those of the method you
- * are overriding. However, the first parameter is always "id _self", which
- * points to the object itself.
- 
- * You do have to cast the block's type to (__bridge void *), e.g.:
- *
- *	 [self mh_overrideSelector:@selector(viewDidAppear:)
- *					 withBlock:(__bridge void *)^(id _self, BOOL animated) { ... }];
- */
+
+- (void) setDescription:(NSS*)x;
+
+//- (BOOL) conformToProtocol:(id)nameOrProtocol;
+
+/*! Dynamically overrides the specified method on this particular instance.
+  @param selector the @selector to override   
+  @param block The block's parameters and return type must match those of the method you are overriding. 
+  @note the first parameter is always "id _self", which points to the object itself.
+  @warning You do have to cast the block's type to (__bridge void *), e.g.:
+
+  @code [self overrideSEL(viewDidAppear:)
+					      withBlock:(__bridge void*)^(id _self, BOOL animated) { ... }];
+*/
 - (BOOL)az_overrideSelector:(SEL)selector withBlock:(void *)block;
 
- /*
- * To call super from the overridden method, do the following:
- * 
- *	 SEL sel = @selector(viewDidAppear:);
- *	 void (*superIMP)(id, SEL, BOOL) = [_self mh_superForSelector:sel];
- *	 superIMP(_self, sel, animated);
- *
- * This first gets a function pointer to the super method and then you call it.
- */
-- (void *)az_superForSelector:(SEL)selector;
+/*! To call super from the overridden method, do the following: 
+  @return a function pointer to the super method (and then you call it.)  
 
+@code void (*superIMP)(id, SEL, BOOL) = [_self superSEL(viewDidAppear:)];
+           superIMP(_self, sel, animated);
+  
+*/
+- (void *)az_superForSelector:(SEL)selector;
 
 + (void) swizzleInstanceSelector:(SEL)oldS withNewSelector:(SEL)newS;
 

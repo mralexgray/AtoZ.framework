@@ -10,7 +10,7 @@
 
 @implementation AZHoverButton
 
-- (void)updateTrackingAreas
+- (void) updateTrackingAreas
 {
 	[super updateTrackingAreas];
 	if (trackingArea)
@@ -22,14 +22,14 @@
 	[self addTrackingArea:trackingArea];
 }
 
-- (void)mouseEntered:(NSEvent *)event
+- (void) mouseEntered:(NSEvent *)event
 {
 	//	[self setImage:[NSImage imageNamed:nil]];
 	NSBeep();
 	[self setImage:[NSImage imageNamed:@"2"]];
 }
 
-- (void)mouseExited:(NSEvent *)event
+- (void) mouseExited:(NSEvent *)event
 {
 	[self setImage:[NSImage imageNamed:@"1"]];
 }

@@ -1,15 +1,31 @@
+//#import <AtoZ/AtoZ.h>
 
-//#import <Python/Python.h>
-//#import <Foundation/Foundation.h>
-#import "NSString+AtoZ.h"
+#import <Python/Python.h>
 #import "AtoZ.h"
+#import "NSString+AtoZ.h"
+#import "AtoZTypes.h"
 #import "AtoZFunctions.h"
 
-JREnumDefine		(AZQuad	 );
-JREnumDefine		(azkColor );
-JREnumDefine		(AZCompass);
-JROptionsDefine	(AZAlign	 );	//JREnumDefine(AZPosition);
-JREnumDefine		(AZOrient );
+
+
+JREnumDefine(azkColor);
+JREnumDefine(AZEvent);
+JREnumDefine(AZParity);
+JREnumDefine(AZQuad);
+JREnumDefine(AZConstraintMask);
+JREnumDefine(AZAlign);
+JREnumDefine(AZOrient);
+JREnumDefine(AZCompass);
+JREnumDefine(AZState);
+
+JREnumDefine(AZOutlineCellStyle);
+
+
+
+
+AZOrient AZOrientOpposite(AZOrient o) { return o == AZOrientHorizontal ? AZOrientVertical : AZOrientHorizontal; }
+BOOL isVertical(AZOrient o) { return o == AZOrientVertical; }
+
 //JROptionsDefine	(AZ_arc);
 
 
@@ -68,6 +84,8 @@ NSString* AZTrace(void(^block)(void)) {
 	}] stringByAppendingFormat:@"\n Match Ct: %ld",matchCtr];
 }
 
+
+void playTrumpetDeclared(void){ runCommand(@"afplay \"/System/Library/Frameworks/GameKit.framework/Versions/A/Resources/GKInvite.aif\""); }
 
 NSS* runCommand	(NSS* c) {	NSS* outP;	FILE *read_fp;	char buffer[BUFSIZ + 1];	int chars_read;
 
@@ -210,6 +228,10 @@ CACONST * AZConst								  (CACONSTATTR att, NSS *rel) 												{
 CACONST * AZConstraint						  (CACONSTATTR att, NSS *rel) 												{
 	return AZConst(att, rel);
 }
+CACONST * AZConstRelAttr		  (CACONSTATTR att,NSS *rel,CACONSTATTR relAtt)	{
+	return [CACONST constraintWithAttribute:att relativeTo:rel attribute:relAtt scale:1 offset:0];
+}
+
 CACONST * AZConstRelSuperScaleOff		  (CACONSTATTR att, 									 	CGF scl, CGF off)	{
 	return [CACONST constraintWithAttribute:att relativeTo:@"superlayer" attribute:att scale:scl offset:off];
 }
@@ -218,6 +240,13 @@ CACONST * AZConstScaleOff					  (CACONSTATTR att, NSS *rel, 					 	CGF scl, CGF 
 }
 CACONST * AZConstAttrRelNameAttrScaleOff (CACONSTATTR att, NSS *rel, CACONSTATTR att2, CGF scl, CGF off)	{
 	return [CAConstraint constraintWithAttribute:att relativeTo:rel attribute:att2 scale:scl offset:off];
+}
+NSA* AZHorizontalConstraints() {  static NSA *horizontals;
+
+  return horizontals = horizontals ?: @[  AZConstRelSuper( kCAConstraintWidth ),
+                                          AZConstRelSuper( kCAConstraintMinX  ),
+                                          AZConstRelSuper( kCAConstraintMidX  ),
+                                          AZConstRelSuper( kCAConstraintMaxX  )];
 }
 
 CAT3D  	m34() { CAT3D t = CATransform3DIdentity; float z=500.0f;t.m34	= 1.0f/z; return t;}
@@ -350,7 +379,7 @@ char** cArrayFromNSArray ( NSArray* array ){
 }
 @end
 @implementation AZInstallStatusCell
-- (void)drawWithFrame:(NSR)cF inView:(NSV *)cV  	{
+- (void) drawWithFrame:(NSR)cF inView:(NSV *)cV  	{
 	NSRectFillWithColor(cF, GREEN);
 //	return st ==  (AZNeedsUpdate | AZInstalledNeedsUpdate)  ? [NSIMG systemIconNamed:@"Sync"] :
 //	st ==   AZNotInstalled						  ? [NSIMG systemIconNamed:@"unsupported"] :
@@ -359,18 +388,18 @@ char** cArrayFromNSArray ( NSArray* array ){
 }
 @end
 @implementation AZColorTableCell
-- (void)drawWithFrame:(NSRect)cF inView:(NSV *)cV 	{
+- (void) drawWithFrame:(NSRect)cF inView:(NSV *)cV 	{
 	NSRectFillWithColor(cF, (NSC *)self.objectValue);
 	if (self.isHighlighted) [[NSBP bezierPathWithRect:cF] strokeWithColor:RED andWidth:5 inside:cF];
 }
 @end
 @implementation NSTableView (CustomDataCell)
-- (void)setColumnWithIdentifier:(NSS*) identifier toClass:(Class)actionCellClass	{
+- (void) setColumnWithIdentifier:(NSS*) identifier toClass:(Class)actionCellClass	{
 	((NSTableColumn *)self.tableColumns[[self columnWithIdentifier:identifier]]).dataCell = actionCellClass.new;
 }
 @end
 @implementation NSObject (KVONotifyBlock)
-- (void)setValueForKey:(NSString *)key andNotifyInBlock:(updateKVCKeyBlock)block	{
+- (void) setValueForKey:(NSString *)key andNotifyInBlock:(updateKVCKeyBlock)block	{
 	[self willChangeValueForKey:key];
 	block();
 	[self didChangeValueForKey:key];
@@ -434,21 +463,21 @@ NSTSK *  launchMonitorAndReturnTask(NSTSK *t) {
 
 //static inline BOOL isEmpty(id thing);	return	thing == nil || ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)	|| NO;	}
 
-AZRange 	AZMakeRange			(NSI min,  NSI max) 		{
-	return (AZRange) {min, max };
-}
-NSUI		AZIndexInRange		(NSI fake, AZRange rng) {
-	return fake - rng.min;
-}
-NSI	 	AZNextSpotInRange	(NSI spot, AZRange rng) {
-	return spot + 1 > rng.max ? rng.min : spot + 1;
-}
-NSI	 	AZPrevSpotInRange	(NSI spot, AZRange rng) {
-	return spot - 1 < rng.min ? rng.max : spot - 1;
-}
-NSUI		AZSizeOfRange					 (AZRange rng) {
-	return rng.max - rng.min;
-}
+//AZRange 	AZMakeRange			(NSI min,  NSI max) 		{
+//	return (AZRange) {min, max };
+//}
+//NSUI		AZIndexInRange		(NSI fake, AZRange rng) {
+//	return fake - rng.min;
+//}
+//NSI	 	AZNextSpotInRange	(NSI spot, AZRange rng) {
+//	return spot + 1 > rng.max ? rng.min : spot + 1;
+//}
+//NSI	 	AZPrevSpotInRange	(NSI spot, AZRange rng) {
+//	return spot - 1 < rng.min ? rng.max : spot - 1;
+//}
+//NSUI		AZSizeOfRange					 (AZRange rng) {
+//	return rng.max - rng.min;
+//}
 
 //// SANDBOX
 NSS * realHomeDirectory() { return @"apple";
@@ -775,6 +804,7 @@ static NSString *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
   //else if (strcmp(ptr,@encode(Class))               == 0) return @"";
   //else if (*ptr == '^')                                   return @"";
   else if (strcmp(ptr,@encode(NSRange))             == 0) return @"NSValue rangeWithLocation:0 length:0";
+  else if (strcmp(ptr,@encode(RNG))                 == 0) return @"NSValue valueWithAZRange:(RNG){0,0}";
   else if (strcmp(ptr,@encode(NSPoint))             == 0) return @"0<>0";
   else if (strcmp(ptr,@encode(NSSize))              == 0) return @"NSValue sizeWithWidth:0 height:0";
   else if (strcmp(ptr,@encode(NSRect))              == 0) return @"0<>0 extent:0<>0";
@@ -789,26 +819,29 @@ static NSString *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
 //	const char* typecod
 //}
 NSS * AZStringForTypeOfValue(id *obj) {
-	return (NSS*)AZToStringFromTypeAndValue((const char *)@encode(typeof(obj)), (void*)obj);
+	return (NSS*)AZToStringFromTypeAndValue((const char *)@encode(__typeof__(obj)), (void*)obj);
 }
 #define AZWindowPositionToString AZAlignToString
 // Key to AZString
-NSString * AZToStringFromTypeAndValue(const char *typeCode, void *value) {
+
+
+NSString * AZToStringFromTypeAndValue(const char *typeCode, void *val) {
 				//  Compare
-	return  SameChar( typeCode, @encode(   NSP )) ? AZStringFromPoint(*(NSPoint *)value)
-		   : SameChar( typeCode, @encode( NSRNG )) ? NSStringFromRange(*(NSRNG *)value)
-		   : SameChar( typeCode, @encode(  NSSZ )) ? NSStringFromSize(*(NSSize *)value)
-		   : SameChar( typeCode, @encode(   NSR )) ? AZStringFromRect(*(NSRect *)value)
-		   : SameChar( typeCode, @encode(  BOOL )) ? StringFromBOOL(*(BOOL *)value)
-//		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
-		   : SameChar( typeCode, @encode(   CGF )) ? $(@"%f",					   *((CGF *)value))
-		   : SameChar( typeCode, @encode(  NSUI )) ? $(@"%lu",					  *((NSUI *)value))
-		   : SameChar( typeCode, @encode(   int )) ? $(@"%d",					   *((int *)value))
-		   : SameChar( typeCode, @encode(   NSI )) ? $(@"%ld",					  *((NSUI *)value))
-		   : SameChar( typeCode, @encode(  CGCR )) ? [@"cg" withString : [[NSC colorWithCGColor:*((CGCR *)value)]nameOfColor]]
-		   :			   SameChar(typeCode, @encode(id)) ? $(@"%@", (__bridge NSObject *)value)
-		   : nil;
+	return  SameChar(typeCode, @encode(  NSP)) ? AZStringFromPoint(*(NSP*)   val)
+		    : SameChar(typeCode, @encode(NSRNG)) ? NSStringFromRange(*(NSRNG*) val)
+// 		    : SameChar(typeCode, @encode(  RNG)) ?   AZRangeToString(*(RNG*)   val)
+		    : SameChar(typeCode, @encode( NSSZ)) ?  AZStringFromSize(*(NSSZ*)  val)
+		    : SameChar(typeCode, @encode(  NSR)) ?  AZStringFromRect(*(NSR*)   val)
+		    : SameChar(typeCode, @encode( BOOL)) ?    StringFromBOOL(*(BOOL*)  val)
+		    : SameChar(typeCode, @encode(  CGF)) ? $(@"%2.f",        *((CGF*)  val))
+		    : SameChar(typeCode, @encode( NSUI)) ? $(@"%lu",         *((NSUI*) val))
+		    : SameChar(typeCode, @encode(  int)) ? $(@"%d",          *((int*)  val))
+		    : SameChar(typeCode, @encode(  NSI)) ? $(@"%ld",         *((NSI*)  val))
+		    : SameChar(typeCode, @encode(   id)) ? $(@"%@", (__bridge NSO*)val)
+ 		    : SameChar(typeCode, @encode( CGCR)) ? $(@"cg%@", [NSC colorWithCGColor:*((CGCR*)val)].nameOfColor)
+        : nil;
 }
+//		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
 
 NSString * bitString(NSUInteger mask) {
 	NSString *str = @"";									 // Prepend "0" or "1", depending on the bit
@@ -818,9 +851,20 @@ NSString * bitString(NSUInteger mask) {
 	return str;
 }
 
-//int triple(int) = ^(int number) {
-//	return number * 3;
-//};
+/* NON FUNCTIONAL NOW
+BOOL AZISAAnyOfThese(Class x, ...) {  va_list args;   va_start(args, x);  //  BOOL isOneOf = NO;
+  if (ISA(x, [va_arg(args,id) class])) return YES; va_end(args); return NO;
+}
+*/
+//  azva_iterate_list(x,^{ ) azva_list_to_nsarray(x,comparedTo); 
+
+//int triple(int) = ^(int number) {	return number * 3; };
+BOOL AZEqualToAnyObject(id x, ...) {
+
+  azva_list_to_nsarray(x,comparedTo);
+  [comparedTo removeFirstObject];
+  return [comparedTo indexOfObject:x] != NSNotFound;
+}
 
 id LogStackAndReturn(id toLog) {
 	[NSThread stackTraceAtIndex:2];
@@ -857,8 +901,15 @@ id LogAndReturnWithCaller(id toLog, SEL caller) {
 NSString * AZStringFromPoint(NSP p) {
 	return $(@"[x.%0.f y.%0.f]", p.x, p.y);
 }
+NSString * AZStringFromSize(NSSZ sz) {
+	return $(@"[w.%1.f h.%1.f]", sz.width, sz.height);
+}
 
-NSString * AZStringFromRect(NSRect rect) { return $(@"[%3ld,%3ld [%3ld x %-3ld]]", (NSI)rect.origin.x,(NSI)rect.origin.y, (NSI)rect.size.width, (NSI)rect.size.height); }
+NSString * AZStringFromRect(NSR r) { return $($(@"{{%%%@ld x %%%@ld},{%%%@ld x %%%@ld}}", r.origin.x > 100 ? @"3" : @"2",
+                                                                                          r.origin.y   > 100 ? @"3" : @"2",
+                                                                                          r.size.width > 100 ? @"3" : @"2",
+                                                                                          r.size.width > 100 ? @"-3" : @"-2"),
+                                                (NSI)r.origin.x,(NSI)r.origin.y, (NSI)r.size.width, (NSI)r.size.height); }
 //	NSString *demo=[NSS.alloc initWithData:[NSData dataWithBytes:"✖" length:0] encoding:NSUnicodeStringEncoding];
 // good, but...	return $(@"[x.%0.f y.%0.f [%0.f x %0.f]]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 //	NSP o, tl, apex, br; o = rect.origin;  tl = AZTopLeftPoint(rect); apex = AZTopRightPoint(rect);  br = AZBotRightPoint(rect);
@@ -876,10 +927,20 @@ void perceptualCausticColorForColor(CGFloat *inputComponents, CGFloat *outputCom
 extern void DrawGlossGradient(CGContextRef context, NSColor *color, NSRect inRect);
 extern void DrawLabelAtCenterPoint(NSString *string, NSPoint center);
 
-void NSRectFillWithColor(NSRect rect, NSColor *color) {
+void NSFrameRectWithColor(NSR rect, NSC *color) {
+	[color set];
+	NSFrameRect(rect);
+}
+void NSFrameRectWithWidthWithColor(NSR rect, CGF frameWidth,NSC *color) {
+	[color set];
+	NSFrameRectWithWidth(rect, frameWidth);
+}
+void NSRectFillWithColor(NSR rect, NSC *color) {
 	[color set];
 	NSRectFill(rect);
 }
+void NSRectFillWithGradient(NSR rect, NSG *grad) { [grad drawInBezierPath:[NSBP bezierPathWithRect:rect] angle:90]; }
+
 
 NSPoint getCenter(NSView *view) {
 	return NSMakePoint(floorf(view.bounds.origin.x + (view.bounds.size.width / 2)),
@@ -1392,13 +1453,13 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect) {
 //@end
 
 //@interface NSMutableArray (SubscriptsAdd)
-//- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
+//- (void) setObject:(id)object atIndexedSubscript:(NSUInteger)index;
 //@end
 //@interface  NSDictionary (SubscriptsAdd)
 //- (id)objectForKeyedSubscript:(id)key;
 //@end
 //@interface  NSMutableDictionary (SubscriptsAdd)
-//- (void)setObject:(id)object forKeyedSubscript:(id)key;
+//- (void) setObject:(id)object forKeyedSubscript:(id)key;
 //@end
 
 #include <AvailabilityMacros.h>
@@ -2876,6 +2937,7 @@ if __name__ == \"__main__\": \
    NSString *py = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 //	NSLog(@"content: %@", py);
 	PyRun_SimpleString([py UTF8String]);
+  return @"";
 }
 /*
 @"#! /usr/bin/env python"
@@ -3222,7 +3284,9 @@ found_arch:
 					const char*         strings  = (const char*)header + curcmd->stroff;
 					for (uint32_t j = 0; j < curcmd->nsyms; ++j, ++symbols) {
 						if (strcmp(strings + symbols->n_un.n_strx, "__ZN4dyld15getIndexedImageEj") == 0) {
+CLANG_IGNORE(-Wint-to-pointer-cast)
 							dyld_getIndexedImage = (FPTR)symbols->n_value;
+CLANG_POP
 							set_struct_shift();
 							retval = 0;
 							goto cleanup;
@@ -3356,3 +3420,5 @@ found:
 	}
 	return 0;
 }
+
+

@@ -1,15 +1,15 @@
 
 
-NSString *NSDocumentsFolder(void);
-NSString *NSLibraryFolder(void);
-NSString *NSTmpFolder(void);
-NSString *NSBundleFolder(void);
+NSS *NSDocumentsFolder(void);
+NSS *NSLibraryFolder(void);
+NSS *NSTmpFolder(void);
+NSS *NSBundleFolder(void);
 
 @interface NSFileManager (AtoZ)
 
-- (NSA*) pathsOfContentsOfDirectory:(NSString*) directory;
+- (NSA*) pathsOfContentsOfDirectory:(NSS*) directory;
 
-- (NSA*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory;
+- (NSA*) arrayWithFilesMatchingPattern: (NSS*) pattern inDirectory: (NSS*) directory;
 
 + (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path;
 + (NSS*) pathForDocumentNamed: (NSS*) fname;
@@ -18,9 +18,9 @@ NSString *NSBundleFolder(void);
 //non-resursive
 + (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
 
-+ (NSA*) pathsOfFilesIn:(NSString*)path withExtension:  (NSString*)ext;
-+ (NSA*) pathsOfFilesIn:(NSString*)path matchingPattern:(NSString*)regex;
-+ (NSA*) pathsOfFilesIn:(NSString*)path passing:(BOOL(^)(NSString*))testBlock;
++ (NSA*) pathsOfFilesIn:(NSS*)path withExtension:  (NSS*)ext;
++ (NSA*) pathsOfFilesIn:(NSS*)path matchingPattern:(NSS*)regex;
++ (NSA*) pathsOfFilesIn:(NSS*)path passing:(BOOL(^)(NSS*))testBlock;
 //recursive
 + (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;
 + (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext;
@@ -53,24 +53,24 @@ NSString *NSBundleFolder(void);
 - (BOOL)touchItemAtURL:(NSURL *)url error:(NSError **)outError;
 
 #ifdef DEBUG
-- (void)logPropertiesOfTreeAtURL:(NSURL *)url;
+- (void) ogPropertiesOfTreeAtURL:(NSURL *)url;
 #endif
 
 @end
 
 @interface NSFileManager (Extensions)
-- (NSString*) mimeTypeFromFileExtension:(NSString*)extension;
-- (BOOL) getExtendedAttributeBytes:(void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path;
-- (NSData*) extendedAttributeDataWithName:(NSString*)name forFileAtPath:(NSString*)path;
-- (NSString*) extendedAttributeStringWithName:(NSString*)name forFileAtPath:(NSString*)path;  // Uses UTF8 encoding
-- (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path;
-- (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSString*)name forFileAtPath:(NSString*)path;
-- (BOOL) setExtendedAttributeString:(NSString*)string withName:(NSString*)name forFileAtPath:(NSString*)path;  // Uses UTF8 encoding
-- (BOOL) removeItemAtPathIfExists:(NSString*)path;
-- (NSA*) directoriesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible;
-- (NSA*) filesInDirectoryAtPath:(NSString*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
+- (NSS*) mimeTypeFromFileExtension:(NSS*)extension;
+- (BOOL) getExtendedAttributeBytes:(void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
+- (NSData*) extendedAttributeDataWithName:(NSS*)name forFileAtPath:(NSS*)path;
+- (NSS*) extendedAttributeStringWithName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
+- (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
+- (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSS*)name forFileAtPath:(NSS*)path;
+- (BOOL) setExtendedAttributeString:(NSS*)string withName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
+- (BOOL) removeItemAtPathIfExists:(NSS*)path;
+- (NSA*) directoriesInDirectoryAtPath:(NSS*)path includeInvisible:(BOOL)invisible;
+- (NSA*) filesInDirectoryAtPath:(NSS*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
 #if TARGET_OS_IPHONE
-- (void) setDoNotBackupAttributeAtPath:(NSString*)path;  // Has no effect prior to iOS 5.0.1
+- (void) setDoNotBackupAttributeAtPath:(NSS*)path;  // Has no effect prior to iOS 5.0.1
 #endif
 @end
 
@@ -79,18 +79,18 @@ NSString *NSBundleFolder(void);
 
 @interface NSFileManager (SGSAdditions)
 
-- (void) createPath: (NSString*) filePath;
-- (NSString*) uniqueFilePath: (NSString*) filePath;
+- (void) createPath: (NSS*) filePath;
+- (NSS*) uniqueFilePath: (NSS*) filePath;
 
 @end
 
 @interface NSString (CarbonUtilities)
-+(NSString*)    stringWithFSRef:(const FSRef *)aFSRef;
++(NSS*)    stringWithFSRef:(const FSRef *)aFSRef;
 -(BOOL)         getFSRef:(FSRef *)aFSRef;
--(NSString*)    resolveAliasFile;
+-(NSS*)    resolveAliasFile;
 @end
 
 @interface NSFileManager (UKVisibleDirectoryContents)
 // Same as directoryContentsAtPath, but filters out files whose names start with ".":
--(NSArray*)	visibleDirectoryContentsAtPath: (NSString*)path;
+-(NSA*)	visibleDirectoryContentsAtPath: (NSS*)path;
 @end

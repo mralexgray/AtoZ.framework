@@ -23,7 +23,7 @@
 	NSApplicationDelegate, 
 	NSTextFieldDelegate, 
 	NSTextViewDelegate, 
-	AtoZNodeProtocol,
+//	AtoZNodeProtocol,
 	NSPathControlDelegate
 >
 

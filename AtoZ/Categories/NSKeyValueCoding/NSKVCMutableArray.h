@@ -31,9 +31,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;
 
-- (void)addObject:(id)anObject;
-- (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
-- (void)removeLastObject;
-- (void)removeObjectAtIndex:(NSUInteger)index;
-- (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject;
+- (void) ddObject:(id)anObject;
+- (void) insertObject:(id)anObject atIndex:(NSUInteger)index;
+- (void) emoveLastObject;
+- (void) emoveObjectAtIndex:(NSUInteger)index;
+- (void) eplaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject;
 @end

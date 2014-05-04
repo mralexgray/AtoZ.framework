@@ -1,6 +1,5 @@
 
 
-#import "AtoZ.h"
 
 // key for dictionary in NSTrackingAreas's userInfo  NSString *kAZTrackerChanged = @"trackerState";
 @interface AZTrackingWindow : NSWindow

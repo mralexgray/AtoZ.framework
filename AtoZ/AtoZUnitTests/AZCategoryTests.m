@@ -1,15 +1,17 @@
 
 
-#import <XCTest/XCTest.h>
+#import <SenTestingKit/SenTestingKit.h>
+#import <AtoZ/AtoZ.h>
 
-@interface AZCategoryTests : XCTestCase
+
+@interface AZCategoryTests : SenTestCase
 
 @end
 
 @implementation AZCategoryTests
 
 
-- (void) someTest {
+- (void) someTests {
 
 	[NSS randomUrabanDBlock:^(AZDefinition *d) {
 

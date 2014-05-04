@@ -13,18 +13,19 @@ typedef enum _arithmeticOperator {
 } arithmeticOperator;
 
 @interface 	CalcModel : NSObject
-//{
-//	double accumulatorValue;
-//	double transientValue;
-//	BOOL restartText;
+
 @property (nonatomic, assign) arithmeticOperator currentOperation;
-//}
 
 - (void) numberInput:(NSString*)buttonNumber;
 - (void) doArithmetic;
 - (void) operatorAction:(arithmeticOperator)type;
-@property (nonatomic, assign) NSInteger accumulatorValue;
-@property (nonatomic, assign) NSInteger transientValue;
-@property (nonatomic, assign) BOOL restartText;
+@property (nonatomic) NSInteger accumulatorValue,transientValue;
+@property (nonatomic) BOOL restartText;
 
 @end
+
+//{
+//	double accumulatorValue;
+//	double transientValue;
+//	BOOL restartText;
+//}

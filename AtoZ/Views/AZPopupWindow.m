@@ -71,7 +71,7 @@
 }
 
 // Chain several animations together -- one starting at the end of the other
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+- (void) nimationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
 	if (!flag) {
 		_animationLayer.transform = [self _transformForScale:1.0];
 		[self _cleanupAndRestoreViews];
@@ -99,7 +99,7 @@
 	return [super isKeyWindow];
 }
 
-- (void)popup {
+- (void) opup {
 	// Stop any existing animations
 	if (_animationView != nil) {
 		[_animationLayer removeAllAnimations];

@@ -4,7 +4,7 @@
 #import "AtoZUmbrella.h"
 
 /**
- - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+ - (void) pplicationDidFinishLaunching:(NSNotification *)aNotification {
 
  // Make sure the shared color panel is available from the git go so that it will reflect the initial color in our text view
 
@@ -65,8 +65,8 @@
 @property    (CP)     		NSS *title;
 @property 			NSBorderType borderType; // suported borderType values: NSNoBorder / NSLineBorder / NSBezelBorder
 
-- (void)drawTitleInside:(NSRect)insideRect;
-- (void)drawWellInside:(NSRect)insideRect;
+- (void) drawTitleInside:(NSRect)insideRect;
+- (void) drawWellInside:(NSRect)insideRect;
 @end
 
 

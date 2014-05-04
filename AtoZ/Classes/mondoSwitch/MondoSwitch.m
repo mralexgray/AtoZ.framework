@@ -15,12 +15,12 @@
 	return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder {
+- (void) encodeWithCoder:(NSCoder *)coder {
 	[super encodeWithCoder:coder];
 	[coder encodeObject:[self gradient] forKey:@"bgGradient"];
 }
 
-- (void)awakeFromNib { [self setupLayers]; }
+- (void) wakeFromNib { [self setupLayers]; }
 
 -(NSGradient*)gradient {
 
@@ -71,7 +71,7 @@
 	[self bind:@"on" toObject:buttonLayer withKeyPath:@"on" options:nil];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void) drawRect:(NSRect)dirtyRect {
 	// The logic is pushed to another operation so that
 	// this logic can still be overridden in Interface Builder
 	// but still used in the Cocoa Simulator.
@@ -111,7 +111,7 @@
 -(void)setOn:(BOOL)newState animated:(BOOL)animated {
 	if (on == newState) { return; }
 	on = newState;
-	[target performSelector:action];
+	[target performSelectorWithoutWarnings:action];
 	[buttonLayer setOn:newState animated:animated];
 }
 
@@ -125,7 +125,7 @@
 	[buttonLayer mouseDown:location];
 }
 
-- (void)mouseUp:(NSEvent *)event {
+- (void) mouseUp:(NSEvent *)event {
 	// ignore double clicks
 	if ([event clickCount] > 1 ) { return; }
 
@@ -133,7 +133,7 @@
 	[buttonLayer mouseUp:location];
 }
 
-- (void)mouseDragged:(NSEvent *)event {
+- (void) mouseDragged:(NSEvent *)event {
 	CGPoint location = [self pointForEvent:event];
 	[buttonLayer mouseDragged:location];
 }

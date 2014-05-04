@@ -59,26 +59,26 @@
   [[NSBP roundRectPath:AZRectBy(self.width, self.height-1) radius:self.radius] fillWithColor:DEFAULT_barColor];
  // drawBezel];
   if (!value) return;
-  AZRect *bounds = [AZRect rectWithX:DEFAULT_inset andY:DEFAULT_inset width:self.width * value-2 * DEFAULT_inset height:(self.height-2*DEFAULT_inset)-1];
+  AZRect *bounds = [AZRect x:DEFAULT_inset y:DEFAULT_inset w:self.width * value-2 * DEFAULT_inset h:(self.height-2*DEFAULT_inset)-1];
 
-  [[NSBP roundRectPath:bounds.r radius:self.radius] // drawProgressWithBounds
+  [[NSBP roundRectPath:bounds.frame radius:self.radius] // drawProgressWithBounds
    fillGradientFrom:DEFAULT_lighterProgressColor to:DEFAULT_darkerProgressColor angle:90];
 
   // drawStripesInBounds:(NSRect)
   NSBezierPath* allStripes = [@(bounds.width/(2*self.stripeWidth)+(2*_stripeWidth)).toArray reduce:NSBP.bezierPath withBlock:^id(NSBP* sum, NSN* obj) {
-    [sum appendBezierPath:[self stripeWithOrigin:AZP(obj.fV*2*_stripeWidth+self.progressOffset, DEFAULT_inset) bounds:bounds.r]]; // stripe
+    [sum appendBezierPath:[self stripeWithOrigin:AZPt(obj.fV*2*_stripeWidth+self.progressOffset, DEFAULT_inset) bounds:bounds.frame]]; // stripe
     return sum;
   }];
   //clip
-  NSBezierPath* clipPath = [NSBP roundRectPath:bounds.r radius:self.radius];
+  NSBezierPath* clipPath = [NSBP roundRectPath:bounds.frame radius:self.radius];
   [clipPath addClip];
   [clipPath setClip];
   [allStripes fillGradientFrom:DEFAULT_lighterStripeColor to:DEFAULT_darkerStripeColor angle:90];
 
   // drawShadowInBounds:
   NSBezierPath* shadow = NSBP.bezierPath;
-  [shadow moveToPoint:AZP(0,2)];
-  [shadow lineToPoint:AZP(bounds.width, 2)];
+  [shadow moveToPoint:AZPt(0,2)];
+  [shadow lineToPoint:AZPt(bounds.width, 2)];
   [shadow strokeWithColor:DEFAULT_shadowColor];
 }
 

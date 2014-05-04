@@ -99,13 +99,13 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p) {
 	return self;
 }
 
-- (void)dealloc {
+- (void) ealloc {
 	[self.tableView removeObserver:self forKeyPath:@"contentOffset"];
 	[self.tableView removeObserver:self forKeyPath:@"dragging"];
 	self.tableView = nil;
 }
 
-- (void)willMoveToSuperview:(TUIView *)newSuperview {
+- (void) illMoveToSuperview:(TUIView *)newSuperview {
 	[super willMoveToSuperview:newSuperview];
 
 	if(!newSuperview) {
@@ -115,23 +115,23 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p) {
 	}
 }
 
-- (void)setEnabled:(BOOL)enabled {
+- (void) setEnabled:(BOOL)enabled {
 	super.enabled = enabled;
 	self.shapeLayer.hidden = !self.enabled;
 }
 
-- (void)setTintColor:(NSColor *)tintColor {
+- (void) setTintColor:(NSColor *)tintColor {
 	_tintColor = tintColor;
 	self.shapeLayer.fillColor = _tintColor.tui_CGColor;
 }
 
-- (void)setArrowColor:(NSColor *)arrowColor
+- (void) setArrowColor:(NSColor *)arrowColor
 {
     _arrowColor = arrowColor;
     self.arrowLayer.fillColor = _arrowColor.tui_CGColor;
 }
 
-- (void)beginRefreshing {
+- (void) eginRefreshing {
 	if(!self.refreshing) {
 		CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
 		alphaAnimation.duration = 0.1f;
@@ -156,7 +156,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p) {
 	}
 }
 
-- (void)endRefreshing {
+- (void) ndRefreshing {
 	if(self.refreshing) {
 		self.refreshing = NO;
 
@@ -182,7 +182,7 @@ static inline CGFloat lerp(CGFloat a, CGFloat b, CGFloat p) {
 	}
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void) bserveValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if([keyPath isEqualToString:@"dragging"] && !self.refreshing) {
 		_refreshControlFlags.intentionalRefresh = self.tableView.dragging;
 	} else if(![keyPath isEqualToString:@"contentOffset"])

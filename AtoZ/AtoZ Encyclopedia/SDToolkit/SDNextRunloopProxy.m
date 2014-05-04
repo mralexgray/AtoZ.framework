@@ -16,7 +16,7 @@
 	return self;
 }
 
-- (void)forwardInvocation:(NSInvocation *)anInvocation {
+- (void) orwardInvocation:(NSInvocation *)anInvocation {
 	invocation = [anInvocation retain];
 	[invocation retainArguments];
 	[self performSelector:@selector(performSelectorAtNextRunloop) withObject:nil afterDelay:0.0];

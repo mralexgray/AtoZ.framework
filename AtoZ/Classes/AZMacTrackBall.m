@@ -15,7 +15,7 @@ static const float kTol = 0.001;
 	[self setStartPointFromLocation:location];		return self;
 }
 
-- (void)setStartPointFromLocation:(CGPoint)location {
+- (void) setStartPointFromLocation:(CGPoint)location {
 	// start point is the location from the center and calculated z point
 	trackBallStartPoint[0] = location.x - trackBallCenter.x;
 	trackBallStartPoint[1] = location.y - trackBallCenter.y;
@@ -23,7 +23,7 @@ static const float kTol = 0.001;
 	trackBallStartPoint[2] = dist > trackBallRadius * trackBallRadius  ? 0.0f :  // outside the center of the sphere so make it zero
 									   sqrt(trackBallRadius * trackBallRadius - dist);	// in the sphere so the z is the other side of the triangle
 }
-- (void)finalizeTrackBallForLocation:(CGPoint)location {	self.baseTransform = [self rotationTransformForLocation:location];	}
+- (void) finalizeTrackBallForLocation:(CGPoint)location {	self.baseTransform = [self rotationTransformForLocation:location];	}
 - (CATransform3D)rotationTransformForLocation:(CGPoint)location {
 	CGFloat trackBallCurrentPoint[3] = {location.x - trackBallCenter.x, location.y - trackBallCenter.y, 0.0f};
 	if(fabs(trackBallCurrentPoint[0] - trackBallStartPoint[0]) < kTol &&	fabs(trackBallCurrentPoint[1] - trackBallStartPoint[1]) < kTol)

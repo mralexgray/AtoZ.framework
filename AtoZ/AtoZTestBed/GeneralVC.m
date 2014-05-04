@@ -5,28 +5,26 @@
 #import "TestBedDelegate.h"
 
 @implementation GeneralVC
-
--(void) awakeFromNib
-{
-//	_segments.font 			= AtoZ.controlFont;
 //	_targetView.wantsLayer  = YES;
+-(void) awakeFromNib {
+
+  [_segments setFont:AtoZ.controlFont];
 	[_segments setAction:@selector(changeViewFromDropdown:) withTarget:self];
 	[_segments fitTextNice];
 }
 
 - (void) changeViewFromDropdown:(NSPopUpButton*)sender
 {
-	NSS* label	= sender.segmentLabel;  			NSLog(@"looking for label cinderlla view: %@", label);
-	id newView	=	areSame(label, @"prism" ) 	  	? [AZPrismView.alloc initWithFrame:_targetView.frame]
+	NSS * label	= sender.segmentLabel;  			NSLog(@"looking for label cinderlla view: %@", label);
+	NSV * nView	=	areSame(label, @"prism" ) 	  	? [AZPrismView.alloc initWithFrame:_targetView.frame]
 					:	areSame(label, @"azGrid") 	  	? [AZGrid.alloc initWithCapacity:   23]
 					: 	[self respondsToString:label] ?  self[sender.segmentLabel]
 					:	nil;
-	!newView ?: ^{
-		!_targetView.subviews ?: [_targetView removeAllSubviews];
-		 _targetView.subviews = @[newView];
-		[newView 				  setFrame: _targetView.bounds];
-		[(NSV*)newView setAutoresizingMask:			NSSIZEABLE];
-	}();
+	IF_RETURN(!nView)
+  nView.arMASK         = NSSIZEABLE;
+  nView.frame          = _targetView.bounds;
+  [_targetView removeAllSubviews];
+  _targetView.subviews = @[nView];
 }
 -(NSIV*) baseImageView
 {
@@ -86,12 +84,12 @@
 
 - (AtoZGridViewAuto*) autoGrid
 {
-	return _autoGrid = _autoGrid ?: [AtoZGridViewAuto.alloc initWithFrame:_targetView.bounds andArray:NSIMG.systemIcons];// inView:_targetView];
+	return _autoGrid = _autoGrid ?: [AZGVA gridWithFrame:_targetView.bounds withObjects:NSIMG.systemIcons];// inView:_targetView];
 }
 
 - (AtoZGridViewAuto*) picol
 {
-	return _picol = _picol ?: [AtoZGridViewAuto.alloc initWithFrame:_targetView.bounds andArray:NSC.randomPalette];
+	return _picol = _picol ?: [AZGVA gridWithFrame:_targetView.bounds withObjects:NSC.randomPalette];
 }
 
 -(NSSCRLV*)contactSheet

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="13A598" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -34,7 +34,7 @@
                     <popUpButton id="558">
                         <rect key="frame" x="477" y="270" width="122" height="54"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="square" title="BPODialTest" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" sound="Feather Ruffle" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="910" id="561" customClass="BGHUDPopUpButtonCell">
+                        <popUpButtonCell key="cell" type="square" title="General" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" continuous="YES" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" sound="Feather Ruffle" inset="2" arrowPosition="noArrow" preferredEdge="maxY" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="574" id="561" customClass="BGHUDPopUpButtonCell">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" title="OtherViews" autoenablesItems="NO" id="562">
@@ -48,11 +48,11 @@
                                     </menuItem>
                                     <menuItem title="UI" keyEquivalent="4" id="584"/>
                                     <menuItem title="FileGridView" keyEquivalent="5" id="581"/>
-                                    <menuItem title="General" keyEquivalent="6" id="574"/>
+                                    <menuItem title="General" state="on" keyEquivalent="6" id="574"/>
                                     <menuItem title="BlockView" keyEquivalent="7" id="602"/>
-                                    <menuItem title="CAScrollLayer" state="on" keyEquivalent="8" id="875"/>
+                                    <menuItem title="CAScrollLayer" keyEquivalent="8" id="875"/>
                                     <menuItem title="TUIV" keyEquivalent="9" id="572"/>
-                                    <menuItem title="BPODialTest" state="on" keyEquivalent="9" id="910"/>
+                                    <menuItem title="BPODialTest" keyEquivalent="9" id="910"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>

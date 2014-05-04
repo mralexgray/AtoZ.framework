@@ -16,7 +16,7 @@
 	return self;
 }
 
-- (void)cancelOperation:(id)sender {
+- (void) cancelOperation:(id)sender {
 	[[[self window] windowController] cancel:self];
 }
 

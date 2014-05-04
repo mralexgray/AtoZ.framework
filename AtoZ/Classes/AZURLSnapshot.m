@@ -1,13 +1,8 @@
-//
-//  AZURLSnapshot.m
-//  AtoZ
-//
-//  Created by Alex Gray on 12/7/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-
-#import "AZURLSnapshot.h"
+//#import <WebKit/WebView.h>
+@import WebKit;
+#import "AtoZ.h"
+//#import "AZURLWebS"
 
 
 @interface AZURLSnapshot()
@@ -16,6 +11,11 @@
 @end
 
 @implementation AZURLSnapshot
+{
+	void (^completionBlock)(NSImage *image);
+	WebView *webView;
+}
+
 + (void)takeSnapshotOfWebPageAtURL:(NSURL *)url completionBlock:(void (^)(NSImage *))block;
 {
 	AZURLSnapshot *instance = [self.alloc _initWithCompletionBlock:block];
@@ -45,14 +45,11 @@
 }
 
 
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+- (void) webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-	if (frame != [webView mainFrame])
-	{
-		return;
-	}
+	IF_VOID(frame != [webView mainFrame]);
 
-	NSView *webFrameViewDocView = [[[webView mainFrame] frameView] documentView];
+	NSView *webFrameViewDocView = [[webView.mainFrame frameView] vFK:@"documentView"];
 	NSRect cacheRect = [webFrameViewDocView bounds];
 
 	NSBitmapImageRep *bitmapRep = [webFrameViewDocView bitmapImageRepForCachingDisplayInRect:cacheRect];
@@ -60,9 +57,7 @@
 
 	NSSize imgSize = cacheRect.size;
 	if (imgSize.height > imgSize.width)
-	{
 		imgSize.height = imgSize.width;
-	}
 
 	NSRect srcRect = NSZeroRect;
 	srcRect.size = imgSize;
@@ -87,7 +82,7 @@
 }
 
 
-- (void)dealloc
+- (void) dealloc
 {
 	[completionBlock release];
 	[webView release];

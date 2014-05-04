@@ -9,9 +9,21 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNumber (AtoZ)
+
++ (NSN*) randomFloatBetween:(CGF)min :(CGF)max;
+
+@property (RONLY) NSS* hexString;
+
++ (NSR) rectBy:(NSA*)sizes;
 + (NSNumber*) numberWithBytes:(const void *) bytes objCType:(const char *)type;
 - (NSN*)plus:(NSN*)toAdd;
+- (NSN*)minus:(NSN*)toSub;
+- (NSN*)plusF:(CGF)toAdd;
+- (NSN*)minusF:(CGF)toSub;
+- (NSN*)plusI:(NSI)toAdd;
+- (NSN*)minusI:(NSI)toSub;
 
+- (NSN*) dividedBy:(CGF)f;
 + (NSN*)integerWithHexString:(NSS*)hexString;
 
 /* CFNumberType {
@@ -47,7 +59,8 @@
 
 - (NSA*) times:(id (^)(void))block;
 
-@property (readonly) NSA* toArray;
+@property (RONLY) NSA* toArray;
+@property (RONLY) NSS* sVal;
 
 - (NSA*) to:(NSNumber*) to;
 - (NSA*) to:(NSNumber*) to by:(NSNumber*) by;

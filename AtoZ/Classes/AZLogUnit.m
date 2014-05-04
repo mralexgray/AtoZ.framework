@@ -21,16 +21,16 @@ static void __attribute__ ((destructor)) OCUnitToJUnitLoggerStop(void)	{  [insta
 	self.suitesElement = [_document rootElement];
 	return self;
 }
-- (void)dealloc;				{  [AZNOTCENTER removeObserver:self];	}
-- (void)writeResultFile		{ if (self.document)[_document.XMLData writeToFile:@"ocunit.xml" atomically:NO];	}
+- (void) dealloc;				{  [AZNOTCENTER removeObserver:self];	}
+- (void) riteResultFile		{ if (self.document)[_document.XMLData writeToFile:@"ocunit.xml" atomically:NO];	}
 #pragma mark Notification Callbacks
-- (void)testSuiteStarted:(NSNotification*)notification	{
+- (void) testSuiteStarted:(NSNotification*)notification	{
 
     XCTest *test = notification.userInfo[@"test"];
     self.currentSuiteElement = [GDataXMLElement elementWithName:@"testsuite"];
     [_currentSuiteElement addAttribute:[GDataXMLNode attributeWithName:@"name" stringValue:[test name]]];
 }
-- (void)testSuiteStopped:(NSNotification*)notification	{
+- (void) testSuiteStopped:(NSNotification*)notification	{
 	playTrumpet();
    XCTestSuiteRun *testSuiteRun = (XCTestSuiteRun *)[notification object];
 	if (!_currentSuiteElement) return
@@ -41,11 +41,11 @@ static void __attribute__ ((destructor)) OCUnitToJUnitLoggerStop(void)	{  [insta
 	}];
 	[_suitesElement addChild:_currentSuiteElement];		self.currentSuiteElement = nil;
 }
-- (void)testCaseStarted:(NSNotification*)notification;	{
+- (void) testCaseStarted:(NSNotification*)notification;	{
    self.currentCaseElement = [GDataXMLElement elementWithName:@"testcase"];
 //		[_currentCaseElement addAttribute:[GDataXMLNode attributeWithName:@"name" stringValue:notification.test.name]];
 }
-- (void)testCaseStopped:(NSNotification*)notification;	{
+- (void) testCaseStopped:(NSNotification*)notification;	{
 
     XCTestCaseRun *testCaseRun = (XCTestCaseRun *)[notification object];
 //	[_currentCaseElement addAttribute:[GDataXMLNode attributeWithName:@"name" stringValue:NSStringFromSelector(((XCTestCase*)notification.test).selector)]];
@@ -54,7 +54,7 @@ static void __attribute__ ((destructor)) OCUnitToJUnitLoggerStop(void)	{  [insta
 	[_currentSuiteElement addChild:self.currentCaseElement];
 	self.currentCaseElement = nil;
 }
-- (void)testCaseFailed:(NSNotification*)notification;	{
+- (void) testCaseFailed:(NSNotification*)notification;	{
     GDataXMLElement *failureElement = [GDataXMLElement elementWithName:@"failure"];
 //    [failureElement setStringValue:notification.exception.description];
     [_currentCaseElement addChild:failureElement];

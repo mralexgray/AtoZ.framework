@@ -1,18 +1,20 @@
 //#import <AIUtilities/AIUtilities.h>
 
 
-JROptionsDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggingModeNone);
+#import "StickyNoteView2.h"
+
+JREnumDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggingModeNone);
 
 @class StickyNote;
-@interface StickyNoteView : NSView
-@property (weak) StickyNote 	*proxy;
-@property NSEventMask 			draggingMode;
+
+@interface   StickyNoteView : NSView
+@property (weak) StickyNote * proxy;
+@property       NSEventMask 	draggingMode;
 @property NSTrackingRectTag 	trackingRectTag;
-@property (STRNG     ) CAL 	*glowBar;
-@property (ASS       ) NSP 	eventStartPoint, lastDragPoint;
-@property (NATOM, ASS) AZPOS 	align;
-@property (NATOM, ASS) NSSZ 	dragThreshold;
-@property (NATOM     ) NSSZ 	maxSize,minSize;
+@property               CAL * glowBar;
+@property               NSP 	eventStartPoint, lastDragPoint;
+@property (NATOM)     AZPOS 	align;
+@property (NATOM)      NSSZ 	dragThreshold, maxSize, minSize;
 @end
 
 @interface StickyNote : BaseModel 

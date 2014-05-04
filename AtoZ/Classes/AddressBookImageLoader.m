@@ -60,7 +60,7 @@ static NSString * const kImageDataKey = @"image";
 }
 
 
-//- (void)find:(id) sender {	/._imageArray = nil;//removeAllObjects];
+//- (void) ind:(id) sender {	/._imageArray = nil;//removeAllObjects];
 - (NSMA*) contacts {
 
 	return _contacts = _contacts ?:
@@ -171,7 +171,7 @@ static NSString * const kImageDataKey = @"image";
 
 //+ (NSSet*) keyPathsForValuesAffectingImage  { return  NSSET(@"uid"); }
 
-//- (void)consumeImageData:(NSData *)data forTag:(NSInteger)tag;
+//- (void) onsumeImageData:(NSData *)data forTag:(NSInteger)tag;
 //{
 //	NSImage *iii;
 ////	NSLog(@"consuming! fetcghtag: %ld  tag:%ld", self.fetchTag, tag);
@@ -205,7 +205,7 @@ static NSString * const kImageDataKey = @"image";
 //}
 
 
-//- (void)loadAddresses
+//- (void) oadAddresses
 //{
 	// - Load all Address Book addresses. This is neither efficient nor elegant. In the real world, one
 	//   would do this in a much lazier and nicer way.
@@ -361,7 +361,7 @@ static NSString * const kImageDataKey = @"image";
 //- (NSS*) emailaddresses	{	return [self.emailArray componentsJoinedByString:@" "];}
 //- (NSS*) urls			{	return [self.urlArray   componentsJoinedByString:@" "];}
 
-//- (void)consumeImageData:(NSData *)data forTag:(NSInteger)tag;
+//- (void) onsumeImageData:(NSData *)data forTag:(NSInteger)tag;
 //{
 //	NSLog(@"consumer callback");
 //	self.image = [NSImage imageWithData:data].copy;

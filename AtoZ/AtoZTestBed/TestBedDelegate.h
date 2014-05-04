@@ -5,6 +5,7 @@
 #import "ColorVC.h"
 #import "FBVC.h"
 #import "TUIVVC.h"
+#import "AtoZAppKitWC.h"
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate,NSWindowDelegate>
 
@@ -244,7 +245,7 @@
 
 #pragma mark - CALayoutManager protocol
 /*
- - (void)layoutSublayersOfLayer:(CALayer *)flowViewLayer
+ - (void) layoutSublayersOfLayer:(CALayer *)flowViewLayer
  {
  if ( ( flowViewLayer != self.scrollLayer ) ||
  ( self.selectedIndex == NSNotFound ) ) {
@@ -265,7 +266,7 @@
  [ self calculateVisibleItems ];
  [ self updateScrollKnob ];
  }
- - (void)layoutItemLayersInRange:(NSRange)layoutRange
+ - (void) ayoutItemLayersInRange:(NSRange)layoutRange
  {
  CGSize itemSize = [ self itemSizeForRect:self.scrollLayer.bounds ];
  NSIndexSet *updatedIndexes = [ NSIndexSet indexSetWithIndexesInRange:NSIntersectionRange( layoutRange, NSMakeRange( 0, self.numberOfItems ) ) ];
@@ -275,7 +276,7 @@
  withItemSize:itemSize ];
  } ];
  }
- - (void)calculateVisibleItems
+ - (void) alculateVisibleItems
  {
  NSInteger firstVisibleItem = NSNotFound;
  NSUInteger numberOfVisibleItems = 0;
@@ -293,7 +294,7 @@
  self.visibleItemIndexes = ( firstVisibleItem != NSNotFound ) ? [ NSIndexSet indexSetWithIndexesInRange:NSMakeRange( firstVisibleItem, numberOfVisibleItems ) ] : [ NSIndexSet indexSet ];
  }
 
- - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+ - (void) crollViewDidScroll:(UIScrollView *)scrollView {
 
  selectedCover = (int) roundf((self.contentOffset.y/SCROLL_PIXELS));
  if (selectedCover > [ _covers count ] -1) {
@@ -302,7 +303,7 @@
  [ self layoutLayer: trck ];
  }
 
- - (void)setSelectedCover:(int)index {
+ - (void) setSelectedCover:(int)index {
 
  if (index != selectedCover) {
  selectedCover  = index;
@@ -541,7 +542,7 @@
 //		id newV = self[[sender segmentLabel]]; newV[@"hidden"] = @(YES); if ([_targetView.subviews doesNotContainObject:newV]) [_targetView addSubview:newV]; [self.targetView setAnimations:@{@"subviews":self.transition}];
 //			   ? [NASpinSeque animateTo:self[[sender segmentLabel]] inSuperView:_targetView]
 //								[self.targetView  swapSubs:self[[sender segmentLabel]]] : nil;	}
-//- (void)setDebugLayers:(BNRBlockView*)debugLayers {
+//- (void) setDebugLayers:(BNRBlockView*)debugLayers {
 
 //			applyPerspective(new);
 //			NSUI ii = (NSUI)idx;
@@ -609,7 +610,7 @@
  //		} waitUntilDone:YES];
  return n;
  }
- - (void)perform{
+ - (void) erform{
  CABA *rotation = [CABA animationWithKeyPath:@"transform.rotation"];
  rotation.fromValue = @0.0;
  rotation.toValue   = @(M_PI * SPINS);
@@ -636,7 +637,7 @@
  [_l1 addAnimation:transitionOut forKey:TRANSITION_OUT_KEY];
  }
 
- - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+ - (void) nimationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
 
  NSString *type = [anim valueForKey:TRANSITION_IDENT];
 

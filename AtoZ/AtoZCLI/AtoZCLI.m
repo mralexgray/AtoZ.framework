@@ -1,6 +1,8 @@
 
 #import <AtoZ/AtoZ.h>
-#import <SansNib.h>
+#import <SansNib/SansNib.h>
+#import <unistd.h>
+#import <stdio.h>
 
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
@@ -11,51 +13,56 @@
 #define KCYN  "\x1B[36m"
 #define KWHT  "\x1B[37m"
 
-#define XCODE_COLORS	1
-#define PRINT_ENV     1
-#define FORCE_LOAD    1
+#define FORCE_XCOLORS 1
+#define FORCE_LOAD 1
+#define PRINT_ENV 0
 
-//#import <unistd.h>
-//#import <stdio.h>
+void CRWait (void) { while ( getchar() != '\n' ) { }; }
 
-
-// GAMEPLAN   
-// AZWINDOW Tabs surround screen,
-// MenuAPp Instance runs controller status item and dropdown window...
-// Menu app also weirdly enoguh seems to load atoz via a METHOD!
-
-/* reading from interactive prompt:
-
-	int inputOne;
-	NSLog (@"Enter number: ");
-	scanf("%i", &inputOne);
-	NSNumber *ddd = @(inputTwo);
+/*! GAMEPLAN
+`   AZWINDOW Tabs surround screen,
+    MenuAPp Instance runs controller status item and dropdown window...
+    Menu app also weirdly enoguh seems to load atoz via a METHOD!
+  
+  reading from interactive prompt:
+    int inputOne;
+    NSLog (@"Enter number: ");
+    scanf("%i", &inputOne);
+    NSNumber *ddd = @(inputTwo);
+  
+  @note This is the actual full declaration of main() on OS X. The "apple"  parameter is the path to the executable, i.e. _NSGetProgname().
 */
-
-// This is the actual full declaration of main() on OS X. The "apple"  parameter is the path to the executable, i.e. _NSGetProgname().
 int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	AZSHAREDAPP;
-//int main(int argc, char *argv[], char** envp)
 
-#ifdef XCODE_COLORS
-int res;	setenv("XCODE_COLORS", "YES", &res);
-
+#if FORCE_XCOLORS
+  int res;	setenv("XCODE_COLORS", "YES", &res);
 #endif
-#ifdef PRINT_ENV
+#if PRINT_ENV 
 	AZLogEnv(envp);
 #endif
 #ifdef FORCE_LOAD
 
-		NSString * path 	= @"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks";
-		NSString * bPath	= path.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
-		NSBundle * bundl	= [NSBundle bundleWithPath:bPath];
-		NSError  * e;		do {	 											    fprintf(stderr, "While Bundle Not loaded...: %s\n", bundl.debugDescription.UTF8String); 	
-				   [ bundl preflightAndReturnError:&e]  ? bundl.load : fprintf(stderr, "Preflight reported error.. %s\n",      e.debugDescription.UTF8String);
-		} while (! bundl.isLoaded );
+//  XX(AZPROCINFO.environment);
+//  [NSB loadAZFrameworks];
+//	NSString * path 	= [AZPROCINFO.environment[@"AZBUILD"] withString:@"/AtoZ.framework/Versions/A/Frameworks"];// @"/Library/Frameworks/AtoZ.framework/Versions/A/Frameworks";
 
+//  printf("%s",path.UTF8String);
+//NSString * bPath	= path.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent;
+//	NSBundle * bundl = [NSBundle bundleWithPath:path];// stringByAppendingPathComponent:@"AtoZ.Framework"]];
+//	NSError  * e;		do { fprintf(stderr, "While Bundle Not loaded...: %s\n", bundl.debugDescription.UTF8String);
+//				   [ bundl preflightAndReturnError:&e]  ? bundl.load : fprintf(stderr, "Preflight reported error.. %s\n",      e.debugDescription.UTF8String);
+//		} while (! bundl.isLoaded );
+//  LOGCOLORS([NSB allFrameworks], nil);
 #endif		
-
-		id cliApp = [NSClassFromString(@"AZCLI") new];  /* Start the "App" */	[NSApp run];  // Into the sunset
-		
+//    [AZCLIMenu addMenuFor:NSB.azFrameworkIds starting:100palette:RANDOMPAL];
+    
+    NSA *fws =NSB.azFrameworks[@"bundlePath"]; NSUI longest = [fws lengthOfLongestMemberString];
+    [fws do:^(id obj) {
+      [NSTerminal printString:[AZLog colorizeString:[obj paddedTo:longest] withColor:GPALNEXT].clr];
+    }];
+    [SansNib run];
+//		id cliApp = [NSClassFromString(@"AZCLI") new];  /* Start the "App" */	[NSApp run];  // Into the sunset
+//		
 }	return EXIT_SUCCESS;	}
 
 
@@ -190,7 +197,7 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
 	[[AZTalker sharedInstance]say:@"huge vgaenn"];
 
 
-	CGPoint a = AZAnchorPointForPosition( AZPositionLeft);
+	CGPoint a = AZAnchorPtAligned( AZPositionLeft);
 
 	NSLog(@"%@", NSStringFromPoint(a));
 
@@ -214,23 +221,23 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
         return NO;
    }
 
-   - (void)setUpClass {
+   - (void) setUpClass {
                 // Run at start of all tests in the class
    }
 
-   - (void)tearDownClass {
+   - (void) tearDownClass {
                 // Run at end of all tests in the class
    }
 
-   - (void)setUp {
+   - (void) setUp {
                 // Run before each test method
    }
 
-   - (void)tearDown {
+   - (void) tearDown {
                 // Run after each test method
    }
 
-   - (void)testFoo {
+   - (void) testFoo {
         NSString *a = @"foo";
         GHTestLog(@"I can log to the GHUnit test console: %@", a);
 
@@ -242,13 +249,12 @@ int res;	setenv("XCODE_COLORS", "YES", &res);
         GHAssertEqualObjects(a, b, @"A custom error message. a should be equal to: %@.", b);
    }
 
-   - (void)testBar {
+   - (void) testBar {
                 // Another test
    }
 
    @end
-   #import <Foundation/Foundation.h>
-
+   #import <AtoZ/AtoZ.h>
    #import <GHUnit/GHUnit.h>
    #import <GHUnit/GHTestApp.h>
 

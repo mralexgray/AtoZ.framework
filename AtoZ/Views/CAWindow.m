@@ -1,77 +1,78 @@
 /*	 Copyright (c) 2013, Jonathan Willing. All rights reserved. Licensed under the MIT license <http://opensource.org/licenses/MIT>	*/
 
-#import <AtoZ/AtoZ.h>
+#import "AtoZ.h"
 #import "CAWindow.h"
-#import <QuartzCore/QuartzCore.h>
-
 
 /* Since we're using completion blocks to determine when to kill the extra window, we need
  a way to keep track of the outstanding number of transactions, so we keep increment and
  decrement this to determine whether or not the completion block needs to be called. */
-static NSUI CAWindowOpenTransactions = 0;
+static NSUI       CAWindowOpenTransactions  = 0;
 /*	These are attempts at determining the default shadow settings on a normal window. These
  aren't perfect, but since NSWindow actually uses CGS functions to set the window I am not
  entirely sure there's a way to translate the actual shadow values to these values. */
-static const CGF CAWindowShadowOpacity 		= .6;
-static const CGF CAWindowShadowRadius 		= 19;
-static const CGF CAWindowShadowHorzOuts 	=  7;
-static const CGF CAWindowShadowTopOff 		= 14;
-static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
+static const CGF  CAWindowShadowOpacity     = .6,
+                  CAWindowShadowRadius      = 19,
+                  CAWindowShadowHorzOuts    =  7,
+                  CAWindowShadowTopOff      = 14;
+static const CGS  CAWindowShadowOffset      = (CGS){ 0, -30 };
 
+
+@interface CAWindowContentView : NSView @end
+
+@interface CAWindow()
+/*! When we want to move the window off-screen to take the screen shot, we want to make sure we aren't being constrained.
+  @discussion Although the documentation does not state that it constrains windows when moved using -setFrame:display:, such is the case. 
+*/
+@property (NATOM) BOOL 	 disableConstrainedWindow;
+@property (RONLY)  CGR   shadowRect;
+@property (NATOM)  NSW * fullScreenWindow;
+@property (NATOM)  CAL * windowRepresentationLayer;
+@end
 
 @implementation CAWindow
-
 
 #pragma mark Initialization
 
 - (void)initializeWindowRepresentationLayer {
-	self.windowRepresentationLayer = [CALayer layer];
-	self.windowRepresentationLayer.contentsScale = self.backingScaleFactor;
-
-
-	if (self.hasShadow) [self setShadow];
-
-	self.windowRepresentationLayer.contentsGravity = kCAGravityResize;
-	self.windowRepresentationLayer.opaque = YES;
+	_windowRepresentationLayer                  = CALayer.layer;
+	_windowRepresentationLayer.contentsScale    = self.backingScaleFactor;
+	self.hasShadow ? [self setShadow] : nil;
+	_windowRepresentationLayer.contentsGravity  = kCAGravityResize;
+	_windowRepresentationLayer.opaque           = YES;
 }
 
 - (void) setShadow
 {
-	CGColorRef shadowColor = CGColorCreateGenericRGB(0, 0, 0, CAWindowShadowOpacity);
-	self.windowRepresentationLayer.shadowColor = shadowColor;
-	self.windowRepresentationLayer.shadowOffset = CAWindowShadowOffset;
-	self.windowRepresentationLayer.shadowRadius = CAWindowShadowRadius;
-	self.windowRepresentationLayer.shadowOpacity = 1.f;
+	CGColorRef shadowColor                        = CGColorCreateGenericRGB(0, 0, 0, CAWindowShadowOpacity);
+	self.windowRepresentationLayer.shadowColor    = shadowColor;
+	self.windowRepresentationLayer.shadowOffset   = CAWindowShadowOffset;
+	self.windowRepresentationLayer.shadowRadius   = CAWindowShadowRadius;
+	self.windowRepresentationLayer.shadowOpacity  = 1.f;
 	CGColorRelease(shadowColor);
-
-	CGPathRef shadowPath = CGPathCreateWithRect(self.shadowRect, NULL);
-	self.windowRepresentationLayer.shadowPath = shadowPath;
+	CGPathRef shadowPath                          = CGPathCreateWithRect(self.shadowRect, NULL);
+	self.windowRepresentationLayer.shadowPath     = shadowPath;
 	CGPathRelease(shadowPath);
-
 }
 
 - (void)initializeFullScreenWindow {
-	self.fullScreenWindow = [NSWindow.alloc initWithContentRect:self.screen.frame
-														styleMask:NSBorderlessWindowMask
-														  backing:NSBackingStoreBuffered
-															defer:NO screen:self.screen];
-	self.fullScreenWindow.animationBehavior = NSWindowAnimationBehaviorNone;
-	self.fullScreenWindow.backgroundColor = [NSColor clearColor];
-	self.fullScreenWindow.movableByWindowBackground = NO;
-	self.fullScreenWindow.ignoresMouseEvents = YES;
-	self.fullScreenWindow.level = self.level;
-	self.fullScreenWindow.hasShadow = NO;
-	self.fullScreenWindow.opaque = NO;
-	self.fullScreenWindow.contentView = [CAWindowContentView.alloc initWithFrame:[self.fullScreenWindow.contentView bounds]];
+	self.fullScreenWindow = [NSWindow.alloc initWithContentRect:self.screen.frame  styleMask:NSBorderlessWindowMask
+                                                      backing:NSBackingStoreBuffered defer:NO screen:self.screen];
+	self.fullScreenWindow.animationBehavior           = NSWindowAnimationBehaviorNone;
+	self.fullScreenWindow.backgroundColor             = NSColor.clearColor;
+	self.fullScreenWindow.movableByWindowBackground   = NO;
+	self.fullScreenWindow.ignoresMouseEvents          = YES;
+	self.fullScreenWindow.level                       = self.level;
+	self.fullScreenWindow.hasShadow                   = NO;
+	self.fullScreenWindow.opaque                      = NO;
+	self.fullScreenWindow.contentView                 = [CAWindowContentView viewWithFrame:self.fullScreenWindow.contentRect];
 }
 
 
 #pragma mark Getters
 
 - (CALayer *)layer {
-	// If the layer does not exist at this point, we create it and set it up.
-	[self setupIfNeeded];
 
+	[self setupIfNeeded];	// If the layer does not exist at this point, we create it and set it up.
 	return self.windowRepresentationLayer;
 }
 
@@ -87,20 +88,17 @@ static const CGS CAWindowShadowOffset 		= (CGS){ 0, -30 };
 
 #pragma mark Setup and Drawing
 
-- (void)setupIfNeeded {
-	[self setupIfNeededWithSetupBlock:nil];
-}
+- (void) setupIfNeeded { [self setupIfNeededWithSetupBlock:nil]; }
 
 - (void)setupIfNeededWithSetupBlock:(void(^)(CALayer *))setupBlock {
-	if (self.windowRepresentationLayer != nil) {
-		return;
-	}
+
+	if ((_windowRepresentationLayer)) return;
 
 //	if (self.fullScreen)
-		[self initializeFullScreenWindow];
+	[self initializeFullScreenWindow];
 	[self initializeWindowRepresentationLayer];
 
-	[[self.fullScreenWindow.contentView layer] addSublayer:self.windowRepresentationLayer];
+	[self.fullScreenWindow.windowLayer addSublayer:self.windowRepresentationLayer];
 	self.windowRepresentationLayer.frame = self.frame;
 
 	NSImage *image = [self imageRepresentationOffscreen:NO];

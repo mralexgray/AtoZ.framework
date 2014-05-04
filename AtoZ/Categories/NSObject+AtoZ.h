@@ -20,17 +20,12 @@
 
 // Override some of NSProxy's implementations to forward them...
  
-
-
 #define AZBindWDefVs(binder,binding,objectToBindTo,keyPath)   											\
 	[binder bind:binding toObject:objectToBindTo withKeyPathUsingDefaults:keyPath]
-
 #define AZBindButNil(binder,binding,objectToBindTo,keyPath,nilValuecase) 							\
 	[binder bind:binding toObject:objectToBindTo withKeyPath:keyPath nilValue:nilValuecase]
-
 #define AZBindTransf(binder,binding,objectToBindTo,keyPath,transformer)								\
 	[binder bind:binding toObject:objectToBindTo withKeyPath:keyPath  transform:transformer]
-
 #define AZBindNegate(binder,binding,objectToBindTo,keyPath)												\
 	[binder bind:binding toObject:objectToBindTo withNegatedKeyPath:keyPath]
 
@@ -42,9 +37,9 @@
 @end
 
 @interface NSObject (GCD)
-- (void)performOnMainThread:(void(^)(void))block wait:(BOOL)wait;
-- (void)performAsynchronous:(void(^)(void))block;
-- (void)performAfter:(NSTimeInterval)seconds block:(void(^)(void))block;
+- (void)performOnMainThread:(VoidBlock)block wait:(BOOL)wait;
+- (void)performAsynchronous:(VoidBlock)block;
+- (void)performAfter:(NSTimeInterval)seconds block:(VoidBlock)block;
 @end
 
 @interface NSObject (ClassAssociatedReferences)
@@ -100,7 +95,7 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 							         policy : (PLCY)p;
 -   (id)       associatedValueForKey :	(NSS*)k
 							        orSetTo : (id)def; 	/* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
--   (id)       associatedValueForKey :	(NSS*)k; 	/* or nil! */
+//-   (id)       associatedValueForKey :	(NSS*)k; 	/* or nil! */
 - (void) removeAssociatedValueForKey :	(NSS*)k;
 - (BOOL)    hasAssociatedValueForKey :	(NSS*)k;
 - (void)   removeAllAssociatedValues ;
@@ -109,12 +104,31 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 //	-(void)observeKeyPath:(NSS*)keyPath;
 //	@interface NSObject (AMBlockObservation)
 
+
+typedef id(^TransformBlock)(id value);
 @interface AZValueTransformer : NSValueTransformer
-+ (instancetype)transformerWithBlock:(id (^)(id value))block;
+@property (NATOM,CP) TransformBlock transformBlock;
++ (instancetype) transformerWithBlock:(TransformBlock)block;
 @end
+
+typedef void(^bSelf)(id _self);
 
 @interface NSObject (AtoZ)
 
+- (void)  blockSelf:(bSelf)block;
+- (void) triggerKVO:(NSS*)k 
+              block:(bSelf)blk;
+
+@property (RONLY) NSAS *attributedDescription;
+@property (RONLY) const char *cDesc;
+
+- (NSString*) descriptionForKey:(NSS*)k;
+
+- (void)willChangeValueForKeysBlock:(VoidIteratorArrayBlock)blk keys:(NSString*)keys, ...;
+
+- (void)sVs:(NSA*)v fKs:(NSA*)k;
+-(void) setValues:(NSA*)x forKeys:(NSA*)ks;
+-(void) setValue:(id)x forKeys:(NSA*)ks;
 
 @property (readonly) NSS * uuid; // Associated with custom getter
 @property (strong) 	NSMA		* propertiesThatHaveBeenSet;
@@ -122,7 +136,8 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 - (BOOL) valueWasSetForKey:(NSS*)key;
 - (BOOL) ISA:(Class)k;
 
-@property NSMA* undefinedKeys; /* USAGE: 	
+//@property NSMA* undefinedKeys;
+/* USAGE:
 
 	id scoop = @"poop";
 	[scoop setValue:@2 forKey:@"farts"];
@@ -134,8 +149,12 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 
 - (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ...NS_REQUIRES_NIL_TERMINATION; /*	USAGE:  	
 
-	[NSS.randomBadWord performBlockWithVarargsInArray:^(NSO*_self,NSA*args){ 
-					LOG_EXPR([args map:^(id o){ return [o withString:_self]; }]); 			}, @"Fuck my ", @"What a huge ", nil];
+	[NSS.randomBadWord performBlockWithVarargsInArray: ^(NSO*_self, NSA*args){
+  
+      LOG_EXPR([args map:^(id o){ return [o withString:_self]; }]);
+  
+  }, @"Fuck my ", @"What a huge ", nil];
+
 	-> ( "Fuck my shagger", "What a huge shagger" )	
 */
 
@@ -146,7 +165,25 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 
 - (void) bind:(NSA*)paths toObject:(id)o withKeyPaths:(NSA*)objKps;
 - (void) bindToObject:(id)o withKeyPaths:(NSA*)objKps;
-- (void)    b:(NSS*)b 		 tO:(id)o 			wKP:(NSS*)kp 		  o:(NSD*)opt;
+- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp o:(NSD*)opt;
+- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp t:(TransformBlock)b;
+- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp s:(SEL)select;
+
+/*! @discussion let's try and make these binding types assignable with a single method. 
+    @param b First kepypath, aka the "binding"
+    @param kp What shall we bind to, eh?
+    @param wild a selector, or a transform, or  a default... depending on...
+    @param bType The binding type, an enum.
+    @code [self b:@"lineWidth" to:@"dynamicStroke" using:@1 type:BindTypeIfNil];
+*/
+- (void)    b:(NSS*)b to:(NSS*)kp using:(id)wild type:(BindType)bType;
+
+- (void)    b:(NSS*)b       tO:(id)o                      wKP:(NSS*)kp         n:(id)nilV;
+
+- (void)    b:(NSS*)b tO:(id)o;
+- (void)    bindKeys:(NSA*)b tO:(id)o;
+- (void) bindFrameToBoundsOf:(id)obj;
+- (void)    b:(NSS*)b toKP:(NSS*)selfkp;
 /*
 -(void)mouseDown:(NSEvent*)theEvent;	{
     NSColor* newColor = //mouse down changes the color somehow (view-driven change)
@@ -156,19 +193,24 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 -(void) propagateValue:(id)value forBinding:(NSString*)binding;
 
 // Calls -[NSObject bind:binding toObject:object withKeyPath:keyPath options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil]]
-- (void)bind:(NSString*)binding toObject:(id)object withKeyPathUsingDefaults:(NSS*)keyPath;
+- (void)bind:(NSS*)b toObject:(id)x withKeyPathUsingDefaults:(NSS*)kp;
+
 // Calls -[NSO bind:b toObject:o withKeyPath:kp options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
-- (void)bind:(NSString *)binding toObject:(id)object withKeyPath:(NSString *)keyPath nilValue:(id)nilValue;
+- (void)bind:(NSS*)b toObject:(id)x withKeyPath:(NSString *)kp nilValue:(id)nilValue;
+
 // Same as `-[NSObject bind:toObject:withKeyPath:] but also transforms values using the given transform block.
-- (void)bind:(NSS*)binding toObject:(id)o withKeyPath:(NSS*)kp transform:(id (^)(id value))transformBlock;
+- (void)bind:(NSS*)b toObject:(id)x withKeyPath:(NSS*)kp transform:(TransformBlock)transformBlock;
+
 // Same as `-[NSObject bind:toObject:withKeyPath:] but the value is transformed by negating it.
-- (void)bind:(NSS*)binding toObject:(id)o withNegatedKeyPath:(NSS*)keyPath;
+- (void)bind:(NSS*)b toObject:(id)x withNegatedKeyPath:(NSS*)kp;
+
+- (void)bind:(NSS*)b toObject:(id)x withKeyPath:(NSS*)kp selector:(SEL)select;
 
 
 
 -(id) filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil;
 
-- (void)performBlock:(void (^)())block;
+- (void)performBlock:(VoidBlock)block;
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
 - (NSS*) xmlRepresentation;
@@ -213,9 +255,10 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 			LOG_EXPR([oneA isKindOfBlock:two]); -> NO
 
 */
+@property (readonly) BOOL isaBlock;
+@property (readonly) NSS* blockDescription;
+@property (readonly) NSMethodSignature * blockSignature;
 - (BOOL) isKindOfBlock:(id)anotherBlock;
-- (NSS*) blockDescription;
-- (NSMethodSignature*) blockSignature;
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
@@ -246,8 +289,8 @@ typedef void (^caseBlock)();
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 
 	// To add dictionary style subscripting
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
-- (id)objectForKeyedSubscript:(id)key;						   // getter
+//- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
+//- (id)objectForKeyedSubscript:(id)key;						   // getter
 - (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
 - (void)fireBlockAfterDelay:(void (^)(void))block;
 
@@ -289,6 +332,16 @@ typedef void (^caseBlock)();
 - (NSMutableDictionary*) getDictionary;
 
 //- (BOOL) debug;
+
+- (NSS*) strKey:		(NSS*)def;
+- (NSA*) arrKey: 		(NSS*)def;
+- (NSD*) dicKey: 		(NSS*)def;
+- (DTA*) dataKey:   (NSS*)d;
+-  (NSI) iKey:			(NSS*)def;
+-  (CGF) fKey:			(NSS*)def;
+- (BOOL) boolKey:		(NSS*)def;
+//- (NSURL*)URLKey:	(NSS*)defaultName;
+
 @end
 
 @interface NSObject (SubclassEnumeration)
@@ -416,8 +469,7 @@ BOOL respondsToString(id obj,NSS* string);
 - (void) fire:	(NSString*) notificationName userInfo:	(NSDictionary*) userInfo;
 
 
-- (id) observeName:	(NSString*) notificationName 
-	  usingBlock:	(void (^) (NSNotification*) ) block;
+- (id) observeName:(NSString*)noteName usingBlock:(void(^)(NSNotification*n))blk;
 
 - (void) observeObject:	(NSObject*) object
 			 forName:	(NSString*) notificationName
@@ -443,6 +495,7 @@ _Pragma("clang diagnostic pop") \
 
 - (BOOL) canPerformSelector: (SEL)aSelector;
 - (id) performSelectorSafely:(SEL)aSelector;
+- (id) performSelectorIfResponds:(SEL)sel;
 - (id) performSelectorWithoutWarnings:(SEL)aSelector;
 
 - (id) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
@@ -527,8 +580,7 @@ _Pragma("clang diagnostic pop") \
 @interface NSObject (SadunUtilities)
 
 // Return all superclasses of object
-- (NSA*) superclasses;
-
+@property (RONLY) NSA* superclasses;
 // Selector Utilities
 - (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector,...;
 - (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...;
@@ -557,39 +609,20 @@ _Pragma("clang diagnostic pop") \
 - (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1;
 - (id) valueByPerformingSelector:(SEL)selector;
 
++ (NSA*) selectorList; // Return an array of all an object's selectors
++ (NSA*) propertyList; // Return an array of all an object's properties
++ (NSA*)     ivarList;     // Return an array of all an object's properties
++ (NSA*) protocolList; // Return an array of all an object's properties
 
-// Return an array of all an object's selectors
-+ (NSA*)getSelectorListForClass;
-// Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*)selectors;
-// Return an array of all an object's properties
-+ (NSA*)getPropertyListForClass;
-// Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*)properties;
-// Return an array of all an object's properties
-+ (NSA*)getIvarListForClass;
-// Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*)ivars;
-// Return an array of all an object's properties
-+ (NSA*)getProtocolListForClass;
-// Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*)protocols;
-// Runtime checks of properties, etc.
-- (BOOL)hasProperty:(NSS*)propertyName;
-- (BOOL)hasIvar:(NSS*)ivarName;
-+ (BOOL)classExists:(NSS*)className;
-+ (id)instanceOfClassNamed:(NSS*)className;
-
-
-
+- (BOOL)          hasProperty:(NSS*)pName; // Runtime checks of properties, etc.
+- (BOOL)              hasIvar:(NSS*)iName;
++ (BOOL)          classExists:(NSS*)cName;
++   (id) instanceOfClassNamed:(NSS*)cName;
 // Access to object essentials for run-time checks. Stored by class in dictionary.
-@property (readonly) NSDictionary *selectors, *properties, *ivars, *protocols;
-
-// Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
-//- (BOOL) hasProperty: (NSS*)propertyName;
-//- (BOOL) hasIvar: 	 (NSS*)ivarName;
-//+ (BOOL) classExists: (NSS*)className;
-//+ (id) instanceOfClassNamed:(NSS*)className;
+@property (RONLY) NSD * selectors, 
+                      * properties, // a dictionary with class/selectors entries, all the way up to NSObject
+                      * ivars, 
+                      * protocols;
 
 // Attempt selector if possible
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
@@ -597,7 +630,11 @@ _Pragma("clang diagnostic pop") \
 - (id) tryPerformSelector: (SEL) aSelector;
 @end
 
-
+// Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
+//- (BOOL) hasProperty: (NSS*)propertyName;
+//- (BOOL) hasIvar: 	 (NSS*)ivarName;
+//+ (BOOL) classExists: (NSS*)className;
+//+ (id) instanceOfClassNamed:(NSS*)className;
 //typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
 //@interface NSObject (NSObject_KVOBlock)
 //- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
@@ -610,23 +647,20 @@ _Pragma("clang diagnostic pop") \
 @interface AZBool : NSObject
 @end
 
-
 @interface 		     		 	  NSObject  (FOOCoding)
 
 - (void) sV:(id)v fK:(id)k;  // setValue:forKey:
 - (void) sV:(id)v fKP:(id)k; // setValue:forKeyPath:
 
--      (id)  		 initWithDictionary : (NSD*)dictionary;
+//-      (id)  		 initWithDictionary : (NSD*)dictionary;
 -    (NSA*)        	     arrayForKey : (NSS*)key;
--    (NSA*)    	 		 arrayOfClass : (Class)objectClass forKey:(NSS*)key;
--    (NSA*)              arrayOfClass : (Class)objectClass;
 -    (NSA*) arrayOfDictionariesForKey : (NSS*)key;
 -    (NSA*)      arrayOfStringsForKey : (NSS*)key;
 
--    (BOOL)						boolForKey : (NSS*)key;
-
-- (NSData*)			    		dataForKey : (NSS*)key;
-- (NSDate*)				   	dateForKey : (NSS*)key;
+-    (BOOL)						     boolForKey : (NSS*)key;
+-    (BOOL)          toggleBoolForKey : (id)k;
+- (DATA*)			    		   dataForKey : (NSS*)key;
+- (DATE*)				   	dateForKey : (NSS*)key;
 -    (NSD*)  			dictionaryForKey : (NSS*)key;
 -  (double)              doubleForKey : (NSS*)key;
 -     (CGF) 				  floatForKey : (NSS*)key;

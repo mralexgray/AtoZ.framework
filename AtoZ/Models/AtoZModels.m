@@ -1,62 +1,55 @@
-	//
-	//  AZDock.m
-	//  AtoZ
-//	//
-	//  Created by Alex Gray on 9/12/12.
-	//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-	//
-  
+
 #import "AtoZ.h"
-#import "AtoZModels.h"
-#import "AtoZFunctions.h"
 #import <CoreServices/CoreServices.h>
 
 JREnumDefine(AZLexicon);
-NSMD *dictionaryPrefs;
-NSString * const DefaultsIdentifier 	= @"com.apple.DictionaryServices",
-			* const ActiveDictionariesKey = @"DefaultsIdentifier",
-			* const AppleWords				= @"/Library/Dictionaries/Apple Dictionary.dictionary",
-			* const Thesaurus					= @"/Library/Dictionaries/New Oxford American Dictionary.dictionary",
-			* const OxfordDictionary		= @"/Library/Dictionaries/Oxford American Writer's Thesaurus.dictionary";
 
-void SetActiveDictionaries(NSArray *dictionaries) {
-	[dictionaryPrefs setObject:dictionaries forKey:ActiveDictionariesKey];
-	[AZUSERDEFS setPersistentDomain:dictionaryPrefs forName:DefaultsIdentifier];
+#define DREF DCSDictionaryRef
+
+NSA *     DCSGetActiveDictionaries();
+NSA * DCSCopyAvailableDictionaries();
+NSS *    DCSDictionaryGetShortName(DREF  dictID);
+NSS *         DCSDictionaryGetName(DREF  dictID);
+DREF           DCSDictionaryCreate(CFURLRef url);
+
+NSMD *       dPrefs;
+NSS  * const DefaultsID = @"com.apple.DictionaryServices",
+   	 * const ActiveDKey = @"DefaultsIdentifier",
+		 * const AppleWords = @"/Library/Dictionaries/Apple Dictionary.dictionary",
+		 * const Thesaurus  = @"/Library/Dictionaries/New Oxford American Dictionary.dictionary",
+		 * const OxfordD    = @"/Library/Dictionaries/Oxford American Writer's Thesaurus.dictionary";
+
+@interface      AZDefinition () @property ASIHTTPRequest *requester; @property BOOL ranCompletion; @end @implementation AZDefinition
+
+- (BOOL) fromTheWeb     { return _lexicon & AZLexiconFromTheWeb; }
+- (NSS*) formatted      { return $(@"According to %@, %@ is %@ %@", [AZLexiconToString(_lexicon) substringAfter:@"AZLexicon"], _word ?: @"warning: word not set!", _definition ?: @"undefined!", self.fromTheWeb ? @"(Results from the internet)" : @"" ); }
+- (NSS*) description    { return self.formatted; }
+- (NSS*) definition     { return _definition ?: _results ? _results[0] : nil; }
+- (NSU*) query          { if (!_word || _lexicon == (AZLexicon)NSNotFound) return  nil;
+
+	return  _lexicon == AZLexiconDuckDuckGo ? $URL($(@"http://api.duckduckgo.com/?q=%@&format=json", _word)) :
+          _lexicon == AZLexiconWiki 		 ? $URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",_word)) : nil;
 }
-NSArray* DCSGetActiveDictionaries();
-NSArray* DCSCopyAvailableDictionaries();
-NSString* DCSDictionaryGetName(DCSDictionaryRef dictID);
-NSString* DCSDictionaryGetShortName(DCSDictionaryRef dictID);
-DCSDictionaryRef DCSDictionaryCreate(CFURLRef url);
 
-@interface  AZDefinition ()
-@property (strong) ASIHTTPRequest *requester;
-@end
-@implementation AZDefinition
+//SetKPfVA(RawResult, @"word", @"lexicon", @"completion")
 
-//+ (instancetype) definitionOf:(NSS*)wordOrNilForRand lexicon:(AZLexicon)lex completion:(DefinitionBlock)orNullForSync {
-/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];	*/
-//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities		);
-+ (INST) synonymsOf:(NSS*)word  { return [self define:word ofType:AZLexiconAppleThesaurus completion:NULL];	}
-+ (INST) define:(NSS*)word   { return [self define:word ofType:AZLexiconAppleDictionary completion:NULL];	}
+
++ (INST)                     define:(NSS*)word  { return [self define:word ofType:AZLexiconAppleDictionary completion:NULL];	}
++ (INST)                 synonymsOf:(NSS*)word  { return [self define:word ofType:AZLexiconAppleThesaurus completion:NULL];	}
 + (INST) definitionFromDuckDuckGoOf:(NSS*)query { return [self define:query ofType:AZLexiconDuckDuckGo completion:NULL];	}
-
-+ (INST) define:(NSString*)term ofType:(AZLexicon)lexicon completion:(AZDefinitionCallback)block {
-	AZDefinition *n = AZDefinition.new;	n.lexicon = lexicon; n.word = term;	if (block != NULL) n.completion = [block copy];	[n rawResult];
++ (INST) define:(NSString*)term ofType:(AZLexicon)lex completion:(DefinedBlock)blk {
+	AZDefinition *n = self.class.new;	n.lexicon = lex; n.word = term;	if(blk) n.completion = [blk copy];
+  [n rawResult];
 	return n;
 }
 
-+ (NSSet*) keyPathsForValuesAffectingRawResult {  return NSSET(@"word", @"lexicon", @"completion"); }
++ (void)      setActiveDictionaries:(NSA*)ds {
 
-- (NSString*) definition { return _definition ?: _results ? _results[0] : nil; }
-
-- (NSURL*) query {  if (!_word || _lexicon == (AZLexicon)NSNotFound) return  nil;
-
-	return  _lexicon == AZLexiconDuckDuckGo ? $URL($(@"http://api.duckduckgo.com/?q=%@&format=json", _word)) :
-			  _lexicon == AZLexiconWiki 		 ? $URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",_word)) : nil;
+  dPrefs[ActiveDKey] = ds; [AZUSERDEFS setPersistentDomain:dPrefs forName:DefaultsID];
 }
+- (void)      setCompletion:(DefinedBlock)c { _completion = [c copy]; if (_definition && !_ranCompletion) _completion(self); }
 
-- (id) rawResult {
+-   (void) drawResult {
 
 	if (_lexicon == AZLexiconDuckDuckGo || _lexicon == AZLexiconWiki)  {
 
@@ -117,6 +110,12 @@ DCSDictionaryRef DCSDictionaryCreate(CFURLRef url);
 		SetActiveDictionaries(activeDictionaries);
 */
 }
+
+//- (NSS*) description { return  }
+
+//+ (instancetype) definitionOf:(NSS*)wordOrNilForRand lexicon:(AZLexicon)lex completion:(DefinitionBlock)orNullForSync {
+/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];	*/
+//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities		);
 //	if (err)	[sender showErrorOutput:@"Error searching" errorRange:NSMakeRange(0, [input length])];
 //				else {
 //					NSDictionary *results = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL];
@@ -188,22 +187,25 @@ NSString *TagsDefaultsKey = @"tags";
 	//@dynamic  appFolder;// = _appFolder,
 	//@dynamic  appFolderSorted;// = _appFolderSorted;
 
-@implementation SizeObj
-@synthesize width, height;
+@implementation SizeObj @synthesize width, height;
 
-+(id)forSize:(NSSize)sz{
++   (id)      forSize:(NSSZ)sz {
 
 	return [[self alloc]initWithSize:sz];
 }
-- (id)initWithSize:(NSSize)sz {
+-   (id) initWithSize:(NSSZ)sz {
 	if (self = [super init]) {
 		width  = sz.width;
 		height = sz.height;
 	}
 	return self;
 }
-
-- (NSSize)sizeValue {
+- (NSSZ)    sizeValue          {
 	return NSMakeSize(width, height);
 }
 @end
+//+ (instancetype) definitionOf:(NSS*)wordOrNilForRand lexicon:(AZLexicon)lex completion:(DefinitionBlock)orNullForSync {
+/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];	*/
+//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities		);
+//#import "AtoZModels.h"
+//#import "AtoZFunctions.h"

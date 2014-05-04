@@ -10,12 +10,14 @@
 	MyApp[4090:15203]  -> Stopwatch: [My Timer] runtime: [0.029]
 */
 
+#import "AtoZUmbrella.h"
+
 @interface  NSObject (Stopwatch)
 - (void) startTiming;
 - (void) stopTiming;
 @property (readonly) NSS* elapsed;
 @end
-#import "AtoZUmbrella.h"
+
 
 @interface AZStopwatch : NSObject 
 

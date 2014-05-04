@@ -6,27 +6,25 @@
 
 @interface AZFile : BaseModel //<AtoZNodeProtocol> // Base abstract class that wraps a file system URL
 
+@property (NATOM)   NSS * path,
+									    	* itemKind;
+@property (NATOM)   NSC * color,
+									 	    * customColor;
+@property (NATOM)   NSA * colors;
+@property (NATOM)  NSS * name,
+								 		    * calulatedBundleID;
+@property (RONLY)   NSC * labelColor;
+@property (NATOM) NSIMG * image;
+@property (NATOM)   AZA   position;
+@property (RONLY)  NSUI  	labelNumber;
+@property (RONLY)   CGF   hue;
+@property (RONLY)  BOOL   hasLabel;
 
-@property (NATOM, STRNG) 		NSS * path,
-											 * itemKind;
-@property (NATOM, STRNG) 		NSC * color,
-										 	 * customColor;
-@property (NATOM, RONLY) 		NSA * colors;
-@property (NATOM, ASS  ) 	 AZPOS   position;
-
-@property (RONLY) 				NSS * name,
-											 * calulatedBundleID;
-@property (RONLY) 				NSC * labelColor;
-@property (RONLY)           NSIMG * image;
-@property (RONLY)            NSUI	labelNumber;
-@property (RONLY) 				CGF   hue;
-@property (RONLY)            BOOL   hasLabel;
-
-+   (id) forAppNamed: 		   (NSS*) appName;
-+   (id) instanceWithPath:	   (NSS*) path;
-+   (id) instanceWithImage: (NSIMG*) image;
-+   (id) instanceWithColor:   (NSC*) color;
-- (void) setActualLabelColor: (NSC*) aColor;
++ (INST)         forAppNamed:(NSS*)appName;
++ (INST)    instanceWithPath:(NSS*)path;
+//+ (INST)   instanceWithImage:(NSIMG*)image;
++ (INST)   instanceWithColor:(NSC*)color;
+- (void) setActualLabelColor:(NSC*)aColor;
 
 @end
 
@@ -59,9 +57,9 @@
 @end
 
 @interface AZDock : BaseModel
-@property (RONLY) NSArray *dock;
-@property (RONLY) NSArray *dockSorted;
-@property (NATOM, assign) AZDockSort sortOrder;
+@property (RONLY) NSA *dock;
+@property (RONLY) NSA *dockSorted;
+@property (NATOM) AZDockSort sortOrder;
 @end
 
 
@@ -79,7 +77,7 @@
 //@property (readonly, retain) NSImage *thumbnailImage;
 //
 //	// Asynchronously loads the image (if not already loaded). A KVO notification is sent out when the image is loaded.
-//- (void)loadImage;
+//- (void) oadImage;
 //
 //	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
 //@property (RONLY) BOOL imageLoading;
@@ -110,7 +108,7 @@
 	//@property (readonly, retain) NSImage *thumbnailImage;
 	//
 	//	// Asynchronously loads the image (if not already loaded). A KVO notification is sent out when the image is loaded.
-	//- (void)loadImage;
+	//- (void) oadImage;
 	//
 	//	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
 	//@property (RONLY) BOOL imageLoading;

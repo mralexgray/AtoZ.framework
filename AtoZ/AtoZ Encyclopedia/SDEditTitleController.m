@@ -38,7 +38,7 @@
 	[NSApp endSheet:[self window] returnCode:NO];
 }
 
-- (void)windowDidResignKey:(NSNotification *)notification {
+- (void) indowDidResignKey:(NSNotification *)notification {
 	[self cancel:self];
 }
 

@@ -30,7 +30,7 @@ static PreferencesController *kController = nil;
 	return kController;
 }
 
-- (void)awakeFromNib {
+- (void) wakeFromNib {
 	NSUserDefaults *defaults = AZUSERDEFS;
 	
 	[filenameFormatField setStringValue:[defaults objectForKey:kAZWebSnapperFilenameFormatKey]];
@@ -60,7 +60,7 @@ static PreferencesController *kController = nil;
 	[AZUSERDEFS setObject:[sender stringValue] forKey:kAZWebSnapperThumbnailSuffixKey];
 }
 
-- (void)controlTextDidChange:(NSNotification *)note {
+- (void) ontrolTextDidChange:(NSNotification *)note {
 	NSControl *control = [note object];
 	NSFormatter *formatter = [control formatter];
 	NSText *editor = [[note userInfo] objectForKey:@"NSFieldEditor"];

@@ -5,15 +5,20 @@
 //  Created by Alex Gray on 9/14/12.
 //
 //
-
-#import <Foundation/Foundation.h>
+#import "MetalUI.h"
+//#import "AZURLSnapshot.h"
+#import "AZHTMLParser.h"
 //#import "GetURLCommand.h"
 //#import "NSStringAdditions.h"
-#import "MetalUI.h"
+
 #import "PreferencesController.h"
 //#import "md5.h"
 #import "AtoZWebSnapperWindowController.h"
 
+
+@interface AZURLSnapshot : NSO
++ (void)takeSnapshotOfWebPageAtURL:(NSU*)url completionBlock:(void(^)(NSIMG*))b;
+@end
 
 @interface GetURLCommand : NSScriptCommand
 @end

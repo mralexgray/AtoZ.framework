@@ -11,15 +11,15 @@
 // USAGE   APPWITHBLOCK( ^{ NSLog(@"Hige vageen"); }) 
 
 
-#define NEWSTICKYVIEW ^{\
-	NSW *win = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:0|1|2|8 backing:2 defer:NO];\
-	win.backgroundColor = CLEAR;\
-	win.contentView = [AZStickyNoteView.alloc initWithFrame:win.contentRect];\
-	[win setOpaque:NO];\
-	[win setMovableByWindowBackground:YES];\
-	[win makeKeyAndOrderFront:nil];\
-	return win; \
-}()\
+#define NEWSTICKYVIEW(_NAME_) NSW * _NAME_ = [NSW.alloc initWithContentRect:AZRandomRectInRect(AZScreenFrameUnderMenu()) styleMask:NSTexturedBackgroundWindowMask backing:2 defer:NO];  [_NAME_ makeKeyAndOrderFront:nil]
+
+
+//NSW * _NAME_; ({ _NAME_ = 
+/*	_NAME_.backgroundColor = CLEAR;\ */\
+//	_NAME_.contentView = [AZStickyNoteView.alloc initWithFrame:win.contentRect];\
+/*	[_NAME_ setOpaque:NO];\ */\
+//	[_NAME_ setMovableByWindowBackground:YES];\
+//	[_NAME_ makeKeyAndOrderFront:nil];  }); _NAME_
 
 
 #define APPWITHBLOCK(x) \
@@ -55,17 +55,17 @@ APPWITHBLOCKWINDOW(( ^(NSW*win){	win.contentView = [AZSimpleView withFrame:win.c
 
 */
 
-#define APPWITHBLOCKWINDOW(x)  																						\
-int main(int argc, char *argv[]) {																					\
-	@autoreleasepool {																									\
-		AZSHAREDAPP;																										\
-		NSM 	*menubar,	*appMenu; 																					\
-		NSMI 	*appMenuItem; 																								\
-		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];									\
-		[menubar = NSM.new addItem:appMenuItem = NSMI.new];													\
-		[NSApp setMainMenu: menubar];																					\
-		[appMenu = NSM.new addItem: 																					\
-			[NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];	\
+#define APPWITHBLOCKWINDOW(x)                                                                     \
+int main(int argc, char *argv[]) {                                                                \
+	@autoreleasepool {                                                                              \
+		AZSHAREDAPP;                                                                                  \
+		NSM 	*menubar,	*appMenu; 																					                          \
+		NSMI 	*appMenuItem; 																								                           \
+		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];									             \
+		[menubar = NSM.new addItem:appMenuItem = NSMI.new];													                   \
+		[NSApp setMainMenu: menubar];																					                         \
+		[appMenu = NSM.new addItem: 																				                           \
+			[NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];         \
 		[appMenuItem setSubmenu:appMenu];																			\
 		NSR 	 r = AZRectFromDim(200);																				\
 		NSW *win	= [NSW.alloc initWithContentRect:r styleMask:0|1|2|8 backing:2 defer:NO];			\
@@ -90,5 +90,33 @@ int main(int argc, char *argv[], char**argp ){\
   	NSW *win = [NSWindow.alloc initW4/+ (id) appWithBlock:(void(^)(void))blk;
 //+ (id) appWithMenuBlock:(void(^)(void))blk;
 //+ (id) appWithWindowBlock:(void(^)(void))blk;
-
 //@end
+
+/*! A full fledged Cocoa app in TWO lines!   @code    #import <AtoZ/AtoZ.h>
+                                                      AZINSTANTAPP(  win.bgC = YELLOW;  )           */
+
+#define AZINSTANTAPP_INTERNAL(...)  \
+int main(int argc, char *argv[]) { @autoreleasepool { AZSHAREDAPP;           \
+\
+    NSM	* menubar, * appMenu; NSMI * appMenuItem;           \
+		[menubar = NSM.new addItem:appMenuItem = NSMI.new];													                      \
+		[NSApp setMainMenu:menubar];	        																				                    \
+		[appMenu = NSM.new addItem: 																				                              \
+    [NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];              \
+		[appMenuItem setSubmenu:appMenu];                                                                 \
+		NSW *win = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:1|2|8 backing:2 defer:YES];\
+    win.alphaValue = 0; \
+/*		[win cascadeTopLeftFromPoint:(NSP){20,20}];                                                       */\
+		[win setTitle:AZPROCNAME];	win.backgroundColor = RED; [win setMovableByWindowBackground:YES];    \
+		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];									                \
+    /* [win makeKeyAndOrderFront:nil]; */\
+    [NSApp  activateIgnoringOtherApps:YES];\
+    [win fadeIn];\
+    ({ (__VA_ARGS__)(); }); [NSApp run];   \
+} }
+//#define ENCLOSEINVOIDBLOCK(...) ^{ __VA_ARGS__; }
+
+#define AZINSTANTAPP(x)  AZINSTANTAPP_INTERNAL(x)
+
+//ENCLOSEINVOIDBLOCK(x) AZScreenFrameUnderMenu()
+

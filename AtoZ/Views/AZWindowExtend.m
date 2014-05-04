@@ -92,8 +92,8 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 				}
 			}
 		}
-	return event;
 	}
+	return event;
 }
 
 - (void)dealloc

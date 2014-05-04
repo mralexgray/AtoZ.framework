@@ -24,7 +24,7 @@
 }
 - (void) setUp { [super setUp]; [self results]; }
 
-- (void)testDefaultResults	{ 		
+- (void) testDefaultResults	{ 		
 
 	NSUInteger ct;
 

@@ -7,6 +7,7 @@
 
 #import "CAAnimation+AtoZ.h"
 #import "CALayer+AtoZ.h"
+#import "CAShapeLayer+AtoZ.h"
 #import "CoreData+AtoZ.h"
 #import "KSHTMLWriter+AtoZ.h"
 #import "NSApplication+AtoZ.h"
