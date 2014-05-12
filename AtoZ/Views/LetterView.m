@@ -148,7 +148,7 @@
 	// set the width of the layer to the width of the window so that letters are never cut off by accident
 	tempBounds.size 	= CGSizeMake(self.bounds.size.width, [tempLayer preferredFrameSize].height);
 	tempLayer.bounds 	= tempBounds;
-	tempLayer.position 	= self.center;
+	tempLayer.position 	= self.centerPt;
 	
 	// layout extraLayer
 	tempLayer 			= layer.sublayers[1];

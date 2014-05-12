@@ -7,10 +7,10 @@
 FOUNDATION_EXPORT NSString * AZCurrentUser();
 FOUNDATION_EXPORT     NSUI   AZCurrentUserID();
 
-#define	    AZCLISI AZCLI.sharedInstance
-#define     AZSTDIN	NSFileHandle.fileHandleWithStandardInput
-#define    AZSTDOUT	NSFileHandle.fileHandleWithStandardOutput
-#define  AZQUITMENU [NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME] action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]
+#define	   AZCLISI  AZCLI.sharedInstance
+#define    AZFH_IN	NSFileHandle.fileHandleWithStandardInput
+#define   AZFH_OUT	NSFileHandle.fileHandleWithStandardOutput
+#define AZQUITMENU [NSMI.alloc initWithTitle:[@"Quit " withString:AZPROCNAME] action:NSSelectorFromString(@"terminate:") keyEquivalent:@"q"]
 
 
 @interface AZCLI : NSO <AZLogConsoleDelegate,NSWIND,NSAPPD>

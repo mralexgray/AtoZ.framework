@@ -39,7 +39,7 @@
 	return JATExpand(@"{0} #{1} of {2}! {3} {7} f:{4} b:{5}", AZCLSSTR,
                                           self.siblingIndex,
                                           self.siblingIndexMax,
-                                          self.name ? $(@"name:%@", self.name) : zNIL,
+                                          self.name ? $(@"name:%@", ((CAL*)self).name) : zNIL,
                                           AZStringFromRect(self.frame),
                                           AZStringFromRect(self.bounds),
                                           sclasses.count > 1 ? [zSPC withString:[sclasses componentsJoinedByString:@" -> "]] : zNIL,

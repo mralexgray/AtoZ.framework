@@ -13,7 +13,7 @@
 /*** YES if the cell should draw an selection ring. You can set this to NO if you don't want to show a selection ring or if you provide your own.  The default is YES.**/
 //@property (nonatomic, assign) BOOL drawSelection;
 /*** YES if the cell is selected, otherwise NO.  **/
-@property (nonatomic, assign) BOOL 	selected;
+//@property (nonatomic, assign) BOOL 	selected;
 /*** YES if the mouse is hovering over cell, otherwise NO.  **/
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL 	hovered;

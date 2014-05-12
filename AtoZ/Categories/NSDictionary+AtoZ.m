@@ -2,6 +2,156 @@
 #import "AtoZ.h"
 #import "NSDictionary+AtoZ.h"
 
+
+NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
+{
+return  ISA(object,NSS)
+    ?   (NSS*)object
+    :   [object respondsToSelector:@selector(descriptionWithLocale:indent:)]
+    ?   [(NSDictionary *)object descriptionWithLocale:locale indent:indent]
+    :   [object respondsToSelector:@selector(descriptionWithLocale:)]
+    ?   [(NSSet *)object descriptionWithLocale:locale]
+    :   [object description];
+}
+
+@implementation AZDict
+{
+    NSMutableDictionary *dictionary;
+    NSMutableOrderedSet*keyset;
+}
+
+@dynamic count, reverseKeyEnumerator, keyEnumerator;
+
+
+- (id) forwardingTargetForSelector:(SEL)s {
+
+  return  s == @selector(count)|| s== @selector(objectForKey:) ? dictionary :
+          s == @selector(reverseKeyEnumerator) || s == @selector(keyEnumerator) ? keyset :
+
+  [super forwardingTargetForSelector:s];
+}
+- (id)init
+{
+  if (!(self = super.init)) return nil;
+  dictionary = NSMutableDictionary.new;
+  keyset = NSMutableOrderedSet.new;
+  return self;
+}
+
+- (id)copy
+{
+    return [self mutableCopy];
+}
+
+- (void)setObject:(id)anObject forKey:(id)aKey
+{
+    if (![keyset containsObject:aKey])
+        [keyset addObject:aKey];
+    [dictionary setObject:anObject forKey:aKey];
+}
+
+- (void)removeObjectForKey:(id)aKey
+{
+    [dictionary removeObjectForKey:aKey];
+    [keyset removeObject:aKey];
+}
+
+//+ (instancetype) dictWithSortedDict:(NSD*)dict byValues:(BOOL)byV {
+//
+//  
+//}
+//- (NSUInteger)count
+//{
+//    return [dictionary count];
+//}
+//
+//- (id)objectForKey:(id)aKey
+//{
+//    return [dictionary objectForKey:aKey];
+//}
+
+//- (NSEnumerator *)keyEnumerator
+//{
+//    return [keyset objectEnumerator];
+//}
+//
+//- (NSEnumerator *)reverseKeyEnumerator
+//{
+//    return [keyset reverseObjectEnumerator];
+//}
+
+- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex
+{
+    if ([dictionary objectForKey:aKey])
+    {
+        [keyset removeObject:aKey];
+    }
+    [keyset insertObject:aKey atIndex:anIndex];
+    [dictionary setObject:anObject forKey:aKey];
+}
+
+- (id)keyAtIndex:(NSUInteger)anIndex
+{
+    return [keyset objectAtIndex:anIndex];
+}
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])stackbuf count:(NSUInteger)len
+{
+    return [keyset countByEnumeratingWithState: state
+                                       objects: stackbuf
+                                         count: len];
+}
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx
+{
+    id key = [keyset objectAtIndex:idx];
+
+    return [dictionary objectForKey:key];
+}
+
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx
+{
+    //NSAssert (idx <= keyset.count -1, @"index %ld is beyond max range %ld", idx, keyset.count - 1);
+
+    id key = [keyset objectAtIndex:idx];
+    [dictionary setObject:obj forKey:key];
+}
+
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key
+{
+    [self setObject:obj forKey:key];
+}
+
+- (id)objectForKeyedSubscript:(id)key
+{
+    return [dictionary objectForKey:key];
+}
+
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level
+{
+    NSMutableString *indentString = [NSMutableString string];
+    NSUInteger i, count = level;
+    for (i = 0; i < count; i++)
+    {
+        [indentString appendFormat:@"    "];
+    }
+
+    NSMutableString *description = [NSMutableString string];
+    [description appendFormat:@"%@{\n", indentString];
+    for (NSObject *key in self)
+    {
+        [description appendFormat:@"%@    %@ = %@;\n",
+         indentString,
+         DescriptionForObject(key, locale, level),
+         DescriptionForObject([self objectForKey:key], locale, level)];
+    }
+    [description appendFormat:@"%@}\n", indentString];
+    return description;
+}
+
+@end
+
+
 @implementation NSOrderedDictionary (AtoZ)
 
 - (void) forwardInvocation:(NSINV*)invocation 		{  // FIERCE
@@ -1045,103 +1195,6 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 @end
 
-NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)	{
-	NSString *objectString;
-	if ([object isKindOfClass:NSString.class])
-	{
-		objectString = (NSS*)object;//[[object retain] autorelease];
-	}
-	else if ([object respondsToSelector:@selector(descriptionWithLocale:indent:)])
-	{
-		objectString = [(NSD*)object descriptionWithLocale:locale indent:indent];
-	}
-	else if ([object respondsToSelector:@selector(descriptionWithLocale:)])
-	{
-		objectString = [(NSSet *)object descriptionWithLocale:locale];
-	}
-	else
-	{
-		objectString = [object description];
-	}
-	return objectString;
-}
-@implementation OrderedDictionary	{
-	NSMutableDictionary *dictionary;
-	NSMutableArray *array;
-}
-- (id)init	{
-	return [self initWithCapacity:0];
-}
-- (id)initWithCapacity:(NSUInteger)capacity	{
-	self = [super init];
-	if (self != nil)
-	{
-		dictionary = [NSMutableDictionary.alloc initWithCapacity:capacity];
-		array = [NSMutableArray.alloc initWithCapacity:capacity];
-	}
-	return self;
-}
-//- (void)dealloc	{
-//	[dictionary release];
-//	[array release];
-//}
-- (id)copy	{
-	return [self mutableCopy];
-}
-- (void)setObject:(id)anObject forKey:(id)aKey	{
-	if (![dictionary objectForKey:aKey])
-	{
-		[array addObject:aKey];
-	}
-	[dictionary setObject:anObject forKey:aKey];
-}
-- (void)removeObjectForKey:(id)aKey	{
-	[dictionary removeObjectForKey:aKey];
-	[array removeObject:aKey];
-}
-- (NSUInteger)count	{
-	return [dictionary count];
-}
-- (id)objectForKey:(id)aKey	{
-	return [dictionary objectForKey:aKey];
-}
-- (NSEnumerator *)keyEnumerator	{
-	return [array objectEnumerator];
-}
-- (NSEnumerator *)reverseKeyEnumerator	{
-	return [array reverseObjectEnumerator];
-}
-- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex	{
-	if ([dictionary objectForKey:aKey])
-	{
-		[self removeObjectForKey:aKey];
-	}
-	[array insertObject:aKey atIndex:anIndex];
-	[dictionary setObject:anObject forKey:aKey];
-}
-- (id)keyAtIndex:(NSUInteger)anIndex	{
-	return [array objectAtIndex:anIndex];
-}
-- (NSS*)descriptionWithLocale:(id)locale indent:(NSUInteger)level	{
-	NSMutableString *indentString = [NSMutableString string];
-	NSUInteger i, count = level;
-	for (i = 0; i < count; i++)
-	{
-		[indentString appendFormat:@"	"];
-	}
-	NSMutableString *description = [NSMutableString string];
-	[description appendFormat:@"%@{\n", indentString];
-	for (NSObject *key in self)
-	{
-		[description appendFormat:@"%@	%@ = %@;\n",
-		 indentString,
-		 DescriptionForObject(key, locale, level),
-		 DescriptionForObject([self objectForKey:key], locale, level)];
-	}
-	[description appendFormat:@"%@}\n", indentString];
-	return description;
-}
-@end
 
 NSString *jsonIndentString = @"\t"; // Modify this string to change how the output formats.
 const int jsonDoNotIndent = -1;

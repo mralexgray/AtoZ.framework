@@ -667,6 +667,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (id) fourth   { return [self objectOrNilAtIndex:3]; }
 - (id) fifth    { return [self objectOrNilAtIndex:4]; }
 - (id) sixth    { return [self objectOrNilAtIndex:5]; }
+- (NSA*)             after:(NSUI)from                     { return [self subarrayFromIndex:from]; }
 - (NSA*) subarrayFromIndex:(NSUI)start                    { return [self subarrayFromIndex:start toIndex:self.count - 1]; }
 - (NSA*)   subarrayToIndex:(NSUI)end                      { return [self subarrayFromIndex:0 toIndex:end];                }
 - (NSA*) subarrayFromIndex:(NSUI)start toIndex:(NSUI)end  {

@@ -49,6 +49,10 @@ extern void disableCA();
 @end
 @interface CAA (AtoZ)
 
+
++ (CABA*)rotationAnimation; //By:(CGF)deg;
++ (CABA*)rotationAt:(NSP)p center:(NSP)c by:(CGF)deg;
+
 + (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval andSet:(CAL*)set;
 + (CABA*) propertyAnimation: (NSD*) dict;
 

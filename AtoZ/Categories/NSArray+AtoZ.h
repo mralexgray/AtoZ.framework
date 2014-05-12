@@ -237,6 +237,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @property (RONLY) NSArray *strings;
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
 @property (RONLY) NSArray *trimmedStrings;
+
+- (NSA*)after:(NSUI)subarrayFromIndex; /* subarrayFromIndex alias; */
 - (NSA*)subarrayFromIndex:(NSUI)start;
 - (NSA*)subarrayToIndex:(NSUI)end;
 - (NSA*)subarrayFromIndex:(NSUI)start toIndex:(NSUI)end;

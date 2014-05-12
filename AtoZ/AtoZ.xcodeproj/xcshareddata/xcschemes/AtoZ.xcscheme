@@ -11,7 +11,7 @@
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D2AAC07D0554694100DB518D"
@@ -25,7 +25,7 @@
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DC2EF4F0486A6940098B216"
@@ -39,7 +39,7 @@
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "270B11B11628E676005A82FA"
@@ -53,7 +53,7 @@
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7B311950159B6D9E002134C4"
@@ -64,7 +64,7 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
+            buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
@@ -99,29 +99,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D0A8B2DB128A495D004AACE0"
-               BuildableName = "Logic Tests.xctest"
+               BuildableName = "Logic Tests.octest"
                BlueprintName = "libextobjc Tests (OSX)"
                ReferencedContainer = "container:../Frameworks/Zangetsu/External/extobjc/extobjc.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B34539C18A33CAD00D28DF5"
-               BuildableName = "AOPProxyTests.octest"
-               BlueprintName = "AOPProxyTests"
-               ReferencedContainer = "container:AtoZAutoBox/AOPProxy/AOPProxy.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B8B14C918922D1200EEDADC"
-               BuildableName = "AtoZSingletonTests.octest"
-               BlueprintName = "AtoZSingletonTests"
-               ReferencedContainer = "container:AtoZAutoBox/AtoZSingleton/AtoZSingleton.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference

@@ -63,6 +63,15 @@ NS_INLINE NSString* AZEnumToBinary(int num) {  char str[9] = {0};
 #define 	AZPositionCenter        AZAlignCenter
 #define 	AZPositionOutside       AZAlignOutside
 
+@class BLKVIEW;
+typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSRect r);
+typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
+
+typedef void(^RectBlock) (NSR rect);
+typedef void(^ObjRectBlock) (id _self, NSR rect);
+
+#define BLKVIEWRBLK BlkViewRectBlock
+
 
 typedef NS_ENUM(unsigned short, AZArrow){ AZArrowLeft = 123, AZArrowRight = 124, AZArrowDown =  125, AZArrowUp = 126 };
 typedef NS_ENUM(NSUI,    AZOrder){ AZAscending, AZDescending, AZAlphabetically };
@@ -150,8 +159,8 @@ JREnumDeclare( AZOrient,  AZOrientVertical, AZOrientHorizontal,
 
 #define AZO AZOrient
 
-BOOL           isVertical(AZOrient o);
-AZOrient AZOrientOpposite(AZOrient o);
+NS_INLINE AZOrient AZOrientOpposite(AZOrient o) { return o == AZOrientHorizontal ? AZOrientVertical : AZOrientHorizontal; }
+NS_INLINE     BOOL isVertical(AZOrient o) { return o == AZOrientVertical; }
 
 
 JREnumDeclare(AZCompass,

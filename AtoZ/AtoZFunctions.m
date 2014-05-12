@@ -23,8 +23,6 @@ JREnumDefine(AZOutlineCellStyle);
 
 
 
-AZOrient AZOrientOpposite(AZOrient o) { return o == AZOrientHorizontal ? AZOrientVertical : AZOrientHorizontal; }
-BOOL isVertical(AZOrient o) { return o == AZOrientVertical; }
 
 //JROptionsDefine	(AZ_arc);
 
@@ -299,8 +297,7 @@ void pyRunWithArgsInDirPythonPath(NSS *_spriptP,NSA *_optArgs, NSS *working, NSS
 }
 
 char** cArrayFromNSArray ( NSA* array )	{
-   int i;
-   int count = array.count + 1;
+   int i, count = array.count + 1;
    char *cargs = (char*) malloc( count * sizeof(char*));
 //   char *cargs = (char*) malloc(sizeof(char*) * (count + 1));
    for(i = 0; i < count - 1; i++) {		//cargs is a pointer to 4 pointers to char
@@ -717,6 +714,9 @@ BOOL SameChar		(const char *a, const char *b) {
 }
 BOOL SameString	(id a, id b) {
 	return [$(@"%@", a) isEqualToString:$(@"%@", b)];
+}
+BOOL 	SameStringI		(          NSS* a,          NSS* b ){
+  return [[$(@"%@", a)lowercaseString] isEqualToString:[$(@"%@", b) lowercaseString]];
 }
 BOOL SameClass	(id a, id b) {
 	return SameString(NSStringFromClass([a class]), NSStringFromClass([b class]));

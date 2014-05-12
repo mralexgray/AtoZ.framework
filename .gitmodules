@@ -1,5 +1,5 @@
 [submodule "AtoZ/AtoZAutoBox"]
-	path = AtoZ/AtoZAutoBox
+	path = Frameworks/AtoZAutoBox
 	url = https://github.com/mralexgray/AtoZAutoBox.git
 	ignore = dirty
 [submodule "AtoZWebkit"]

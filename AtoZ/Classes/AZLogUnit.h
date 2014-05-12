@@ -1,8 +1,8 @@
 
 #import "AtoZ.h"
 #import <XCTest/XCTest.h>
-#import "GDataXMLNode.h"
 
+@class GDataXMLDocument;
 @interface AZLogUnit : NSObject
 
 @property (strong) GDataXMLDocument *document;

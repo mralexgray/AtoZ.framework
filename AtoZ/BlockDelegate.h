@@ -17,9 +17,9 @@ JREnumDeclare( BlockDelegateType,
 typedef void(^KVOB)       (id o, NSS *kp, NSD *x);    // KVOChangeBlock         
 typedef void(^CABANIS)    (CAL *l, CAA *a);           // CABlockTypeAniStart
 typedef void(^CABANIC)    (CAL *l, BOOL f, CAA *ani); // CABlockTypeAniComplete
-typedef void(^CABDRAW)    (CAL *l);                   // CABlockTypeDrawBlock
-typedef void(^CABDRAWCTX) (CAL *l, CGCREF ctx);       // CABlockTypeDrawInContext
-typedef void(^CABLAYOUT)  (CAL *l);                   // CABlockTypeLayoutBlock
+typedef void(^LayerBlock)    (CAL *l);                   // CABlockTypeDrawBlock
+typedef void(^LayerCTXBlock) (CAL *l, CGCREF ctx);       // CABlockTypeDrawInContext
+//typedef void(^CABLAYOUT)  (CAL *l);                   // CABlockTypeLayoutBlock
 typedef  ACT(^CABACTION)  (CAL *l, NSS *k);           // CABlockTypeLayerAction
 
 #define BDEL BlockDelegate
@@ -35,18 +35,17 @@ typedef  ACT(^CABACTION)  (CAL *l, NSS *k);           // CABlockTypeLayerAction
 @interface       CAL (BlockDrawLayer)
 
 @property    CABANIS   aniStartBlock;
-@property    CABDRAW   drawBlock;
-@property CABDRAWCTX   drawInContextBlk;
-@property  CABLAYOUT   layoutBlock;
+@property    LayerBlock   drawBlock, layoutBlock;
+@property LayerCTXBlock   drawInContextBlk;
 @property  CABACTION   layerActionBlock;
 
 - (void)    setAniStartBlock:(CABANIS)blk;
-- (void)        setDrawBlock:(CABDRAW)blk;
-- (void) setDrawInContextBlk:(CABDRAWCTX)blk;
-- (void)      setLayoutBlock:(CABLAYOUT)blk;
+- (void)        setDrawBlock:(LayerBlock)blk;
+- (void) setDrawInContextBlk:(LayerCTXBlock)blk;
+- (void)      setLayoutBlock:(LayerBlock)blk;
 - (void) setLayerActionBlock:(CABACTION)blk;
 + (CAL*)      layerWithFrame:(NSR)f 
-             drawnUsingBlock:(CABDRAWCTX)drawBlock;
+             drawnUsingBlock:(LayerCTXBlock)drawBlock;
 @end
 
 //@property (RONLY) NSString * delegateDescription;
@@ -57,14 +56,13 @@ typedef  ACT(^CABACTION)  (CAL *l, NSS *k);           // CABlockTypeLayerAction
 + (INST) delegateFor:(id)l ofType:(BlockDelegateType)t withBlock:(id)k;
 @property            NSMD * pendingAnimations;
 @property (CP)       KVOB   KVOChangeBlock;
-@property (CP)  CABLAYOUT   CABlockTypeLayoutBlock;
 @property (CP)  CABACTION   CABlockTypeLayerAction;
-@property (CP)    CABDRAW   CABlockTypeDrawBlock;
-@property (CP) CABDRAWCTX   CABlockTypeDrawInContext;
+@property (CP)    LayerBlock   CABlockTypeDrawBlock,CABlockTypeLayoutBlock;
+@property (CP) LayerCTXBlock   CABlockTypeDrawInContext;
 @property (CP)    CABANIC   CABlockTypeAniComplete;
 @property (CP)    CABANIS   CABlockTypeAniStart;
 @property (WK)        CAL * layer;
-@property (WK)         id   owner;
+//@property (WK)         id   owner;
 @property BlockDelegateType blockTypes;
 @end
 
@@ -197,11 +195,11 @@ typedef NSTableRowView*(^RowViewForItem)(NSOutlineView *ov,id x);
 //typedef 			 void (^ drawBlock 		  ) ( CAL * l, CGCREF   x );
 //typedef         void (^ aniComplete 	  ) ( BOOL  f,    CAA * a );
 
-//#define CABDRAWCTX  void(^)(CAL*l)
+//#define LayerCTXBlock  void(^)(CAL*l)
 //#define CABKVO      void(^)(CAL*l,NSS*k,id val)   // kvoObserverBlock
 //#define CABLAYOUT   void(^)(CAL*l)                // layoutBlock
 //#define CABACTION    ACT(^)(CAL*l,NSS*k)          // layerActionBlock
-//#define CABDRAW     void(^)(CAL*l,CGCREF ctx)     // drawBlock
+//#define LayerBlock     void(^)(CAL*l,CGCREF ctx)     // drawBlock
 //#define CABANIC     void(^)(BOOL f,CAA *ani)      // aniComplete
 //#define CABANIS     void(^)(CAA *ani)             // aniStart
 

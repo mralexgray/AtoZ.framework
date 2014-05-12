@@ -95,7 +95,7 @@
 	}
 }
 
-- (void) nimate:(NSTimer *)aTimer
+- (void) animate:(NSTimer *)aTimer
 {
 	double value = fmod(([self doubleValue] + (5.0/60.0)), 1.0);
 

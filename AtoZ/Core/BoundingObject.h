@@ -29,7 +29,7 @@
 @property                  CGP    minXmaxY, midXmaxY, maxXmaxY,                 
                                   minXmidY, midXmidY, maxXmidY,
                                   minXminY, midXminY, maxXminY,
-                                  center, apex, origin;                 
+                                  centerPt, apex, origin;
                                   
 @property (RONLY)           CGF   perimeter, area;              // 2 * (width + height)
 
@@ -68,7 +68,12 @@ DECLARECONFORMANCE(NSScreen,RectLike)
 #endif
 //- (BOOL) isVertical;
 
-@interface NSO (AZAZA) @property BOOL expanded, selected, hovered; @property NSUI orientation; @end
+@interface NSO (AZAZA)
+
+@property NSO* owner;
+@property BOOL expanded, selected, hovered;
+@property NSUI orientation;
+@end
 
 @protocol Indexed <NSO> @concrete @prop_RO id<NSFastEnumeration> backingStore; @prop_RO NSUI index, indexMax; @end
 
@@ -87,7 +92,7 @@ DECLARECONFORMANCE(NSScreen,RectLike)
 @end
 
 @protocol Drawable   <RectLike>
-@property (CP) id <NSCopying> /*ObjRectBlock*/ drawObjectBlock;
+@property (CP) ObjRectBlock /*ObjRectBlock*/ drawObjectBlock;
 @concrete
 @property (RONLY)   CGF   span, expansionDelta;
 @property           CGF   spanExpanded, spanCollapsed;

@@ -487,7 +487,7 @@
 	_progress = progress;	[self setNeedsDisplay:YES];
 }
 
-- (void)setProgressPhase:(BarProgressPhase)progressPhase
+- (void)setProgressPhase:(KFProgPhase)progressPhase
 {
 	if (progressPhase != _progressPhase)
 	{

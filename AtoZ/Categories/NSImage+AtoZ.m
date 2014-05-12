@@ -1755,14 +1755,26 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                             initWithContentsOfFile:
                                 [AZFWORKBUNDLE pathForImageResource:name]],
          [i setName:name], i;
-  //	i.name 	= i.name ?: name;
-  //	return i;
+  //	i.name 	= i.name ?: name;	return i;
 }
 
 //+ (NSIMG*) az_imageNamed:(NSS*) fileName {
 //	NSBundle *aBundle = [NSBundle bundleForClass: [self class]];
-//	return [self imageWithFileName: fileName inBundle: aBundle];
-//}
+//	return [self imageWithFileName: fileName inBundle: aBundle]; }
+
++ (NSIMG *)swatchWithColors:(NSA*)cs size:(NSSZ)z oriented:(AZO)o {
+
+//  [NSC.randomColor
+  //[AZSizer forQuantity:cs.count ofSize:z withColumns:isVertical(o) ? 1 : cs.count];
+  return [self imageForSize:z withDrawingBlock:^{
+
+    AZSizer *szr = [AZSizer forQuantity:cs.count inRect:AZRectFromSize(z)];
+    [szr.rects eachWithIndex:^(NSVAL*v, NSI idx){
+      NSRectFillWithColor(v.rV, [cs normal:idx]);
+    }];
+  }]; //  [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
+}
+
 
 + (NSIMG *)swatchWithColor:(NSC *)color size:(NSSZ)size {
   NSIMG *image = [NSImage.alloc initWithSize:size];
@@ -1783,10 +1795,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return image;
 }
 
-- (NSIMG *)resizeWhenScaledImage {
-  [self setScalesWhenResized:YES];
-  return self;
-}
+- (NSIMG *)resizeWhenScaledImage { return [self setScalesWhenResized:YES], self; }
 
 + (NSIMG *)prettyGradientImage {
 
@@ -1993,6 +2002,24 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                    [AZWORKSPACE openFile:p withApplication:@"Preview"];
                }];
 }
+
+#ifdef RETARDO
+~ ❯❯❯ jp2a --colors -f file:///tmp/quantization.A3CB1F74-FD32-4A04-A785-B1117D27D6CB.jpg
+NNNNNNNNNOddddddddxXXXXXXXXXkoxxxOKXXXXXK00Okkdl:;;,,
+NNNNNNNNNOddddddddxXXXXXXXXXOxkkxk0KKXXXXK0koddc::;;,.
+NNNNNNNNNOddddddddxXXXXXXXXXOk00xxkO0KKXkl,..;clcc::;'.
+xxxxxxxxxdooooooood0KKKKKKKKOO0OxxOXXXKK'    ':ooollo;.
+         'cccccccclxxxxxxxxxxOOkxkKXXXKKc ..;.;dx0kk0;
+         'cccccccclxxxxxxxxxdxkl  ;lxOKX0 ,   ,kkkO0Kc.
+         ,llllllllldddddddddxkOk;. ...;o0o,..:O0OOkk0c.
+kkkkkkkkkkxxxxxxxxx.........:OOkOkl'   .cNXc..;0OOxdd.
+kkkkkkkkkkxxxxxxxxx.........;xkkkO0d  ;lkN0Kl.;OOkdol'
+kkkkkkkkkkxxxxxxxxx.........;oxkOO0O, ',',,;, .kkkdlo'.
+oooooooooONNNNNNNNNK00000000kodxxkkOx'klddld; .dddolc'.
+lllllllll0MMMMMMMMMMMMMMMMMMx.,..'..;,,.........,,,'.;,,;
+lllllllll0MMMMMMMMMMMMMMMMMMKxxxxdoxo;oddko;.,;.c,k:,Oddd
+lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
+#endif 
 
 + (void)openQuantizeChartFor:(NSA *)images {
   [AZStopwatch named:@"openQuantizedChart"

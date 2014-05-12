@@ -12,7 +12,7 @@
 //@property (nonatomic, weak) IBOutlet id<AZWebKitProgressDelegate> delegate;
 //@end
 
-typedef NS_ENUM(NSUI,BarProgressPhase) { AZProgressPhaseNone = 0, AZProgressPhasePending, AZProgressPhaseDownloading };
+typedef NS_ENUM(NSUI,KFProgPhase) { AZProgressPhaseNone = 0, AZProgressPhasePending, AZProgressPhaseDownloading };
 
 //@class AZURLBar;
 //@protocol AZURLBarDelegate <NSObject>
@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUI,BarProgressPhase) { AZProgressPhaseNone = 0, AZProgressPhas
 @interface AZURLBar : NSView
 @property (weak) AZWebView *webView;
 @property (nonatomic) double progress;
-@property (nonatomic) BarProgressPhase progressPhase;
+@property (nonatomic) KFProgPhase progressPhase;
 @property (nonatomic,weak) NSString *addressString;
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic,strong) NSColor *gradientColorTop, *gradientColorBottom, *borderColorTop, *borderColorBottom, *barColorPendingTop,  *barColorPendingBottom, *barColorDownloadingTop, *barColorDownloadingBottom;

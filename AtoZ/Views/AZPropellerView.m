@@ -43,7 +43,7 @@
 	self.badgeView = [NSImageView.alloc initWithFrame:frame];
 	
 	// set it on the center of the parent container
-	_badgeView.center = self.center;
+	_badgeView.centerPt = self.centerPt;
 	_badgeView.image  = self.badgeTemplate;
 
 	NSImage *spinner = [NSImage frameworkImageNamed:@"AZPropellerBar.png"];
@@ -55,7 +55,7 @@
 			
 	// set the center of the progress image
 	// to the center of the badge
-	[self.progressImage setCenter:_badgeView.center];
+	[self.progressImage setCenterPt:_badgeView.centerPt];
 	
 	// set the spinner image in the NSImage View
 	[self.progressImage setImage:spinner];

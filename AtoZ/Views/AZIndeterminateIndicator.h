@@ -31,5 +31,5 @@
 
 @property (assign, getter = isDisplayedWhenStopped)	BOOL displayedWhenStopped;
 @property (assign, getter = isSpinning) BOOL spinning;
-- (void) nimate:(NSTimer *)aTimer;
+- (void) animate:(NSTimer *)aTimer;
 @end

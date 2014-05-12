@@ -899,8 +899,12 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	}
 	return alpha > 0.15;
 }
-- (id)sublayerWithName:(NSS *)name {
-	return [self.sublayers filterOne:^BOOL(CAL*sub) { return SameString(sub.name, name); }];
+- (id)sublayerWithName:(NSS *)n {
+	return SameString(self.name,n) ? self : [self.sublayers filterOne:^BOOL(CAL*s) { return SameString(s.name,n); }];
+}
+- (id)sublayerWithNameContaining:(NSS*)n {
+	return [self.name caseInsensitiveContainsString:n] ? self :
+         [self.sublayers filterOne:^BOOL(CAL*s) { return [s.name caseInsensitiveContainsString:n]; }];
 }
 
 - (CAL *)magnifier:(NSView *)view {

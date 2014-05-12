@@ -1,18 +1,3 @@
-
-#import "AtoZ.h"
-#import "BoundingObject.h"
-#import "AZWindowTab.h"
-
-
-
-@interface AZWindowTabViewPrivate : NSView
-@property           CAL * contentLayer,
-                        * tabLayer;
-@property (RONLY) NSIMG * indicator;
-@property (RONLY) 	NSR	  tabRect;
-@property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
-@end
-
 //@interface AZWindowTab () { CGP	_drgStrt, _wOrig, _offset; NSView *_view, *_handle; }
 //
 //@property AZWindowTabViewPrivate *tab;
@@ -22,12 +7,11 @@
 //@property (RONLY) OSCornerType 	outsideCorners;
 //@end
 
+#import "AtoZ.h"
+#import "BoundingObject.h"
+#import "AZWindowTab.h"
 
-@implementation AZWindowTab  static NSMA *allTabs = nil;
-
-#pragma mark - Initialization 
-
-static NSPoint mDragOffset;
+@implementation AZWindowTab  static NSMA *allTabs = nil; static NSPoint mDragOffset;
 
 - (void) sendEvent:(NSEvent*)e {
 
@@ -36,6 +20,7 @@ static NSPoint mDragOffset;
   e.type == NSLeftMouseDown ? ({
 
     mDragOffset = AZSubtractPoints(b.origin,e.locationInWindow);
+
   }) : e.type == NSLeftMouseDragged ? ({
 
 //    b = AZRectOffsetByPt(b, AZAddPoints(e.locationInWindow, mDragOffset));
@@ -43,8 +28,11 @@ static NSPoint mDragOffset;
 //    b.origin.y = p.y + mDragOffset.y;
 
     b = [self convertRectToScreen:AZRectOffsetByPt(b, AZAddPoints(e.locationInWindow, mDragOffset))];
-
-    [self setFrame:AZRectInsideRectOnEdge(b, AZScreenFrameUnderMenu(),self.insideEdge)  display:YES animate:YES];
+    XX(b);
+    NSR newB = AZRectInsideRectOnEdge(b, self.superframe,self.insideEdge);
+    XX(newB);
+    XX(AZAlignToString(self.insideEdge));
+    [self setFrame:newB display:YES];
 
 //AZOutsideEdgeOfPointInRect ( NSE.mouseLocation, AZScreenFrameUnderMenu());
 //		_offset         = AZSubtractPoints ( NSE.mouseLocation, AZSubtractPoints ( _drgStrt, _wOrig));
@@ -56,17 +44,31 @@ static NSPoint mDragOffset;
     //  Nothing really needs be done here
     if (e.clickCount == 2) {
 //      if (self.expanded) self[@"savedOutset"] = _insidedge
+    CABA* a = [CAA rotationAt:self.maxXminY center:self.centerPt by:90];
+    a.delegate = self;
+    [self.layer addAnimation:a forKey:nil];
+//      [self animateInsetTo:30 anchored:self.insideEdge];
+//    }
+//    if (e.clickCount == 3) {
 
-      [self animateInsetTo:30 anchored:self.insideEdge];
+//      [self rotate:DEG2RAD(90) about:NSZeroPoint];//self.maxXminY];// AZAnchorPointOfActualRect(self.r, AZTopLft)];
     }
   }) : nil;
 }
-
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag   { NSBeep();
+//[self destroyTransformingWindow];
+}
 
 - (instancetype) init {
 
 	if (!(self = [super initWithContentRect:self.defaultFrame styleMask:NSBorderlessWindowMask|NSResizableWindowMask
 											 backing:NSBackingStoreBuffered defer:NO])) return nil;
+
+  self.acceptsMouseMovedEvents = YES;
+  [self overrideCanBecomeKeyWindow:YES];
+
+  [self overrideResponder:@selector(acceptsFirstResponder)   withBool:YES];
+  
   self.expanded = YES;
   self.superframe = AZScreenFrameUnderMenu();
 	self.contentView  = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(BNRBlockView *v, NSRect r) {
@@ -77,7 +79,7 @@ static NSPoint mDragOffset;
   }];
 
 	self.level        = NSScreenSaverWindowLevel; // NSFloatingWindowLevel;
-  self.acceptsMouseMovedEvents = YES;
+
   [self addKVOBlockForKeyPath:@"insideEdge" options:NSKeyValueObservingOptionNew handler:^(NSString *keyPath, id object, NSDictionary *change) {
     NSBeep();
      [[object contentView] setNeedsDisplay:YES];
@@ -154,11 +156,15 @@ static NSPoint mDragOffset;
 
 #pragma mark - NSResponder
 
-- (BOOL) canBecomeKeyWindow       { return YES; }
-- (BOOL) acceptsMouseMovedEvents  { return YES; }
-- (BOOL) acceptsFirstResponder		{ return YES; }
 @end
 
+@interface AZWindowTabViewPrivate : NSView
+@property           CAL * contentLayer,
+                        * tabLayer;
+@property (RONLY) NSIMG * indicator;
+@property (RONLY) 	NSR	  tabRect;
+@property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
+@end
 
 @implementation AZWindowTabViewPrivate
 

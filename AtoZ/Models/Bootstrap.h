@@ -21,24 +21,20 @@
 #define JQUERY_UI_CSS				@"http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
 #define LIVEQUERY						@"http://mrgray.com/js/jquery.livequery.js"
 
-@protocol AZJS
-@required
-- (NSS*) stringValue;
-@end
 
-@interface AZJS : NSString <AZJS>
-@property (readonly) NSS*description;
-@end
-@interface  AZJSVar : AZJS
-@property (copy) NSS* varName, *value;
-+ (instancetype) varNamed:(NSS*)name value:(NSS*)val;
-@end
+@protocol  AZJS                   @prop_RO NSS * stringValue; @end
+
+@interface AZJS : NSString <AZJS> @prop_RO NSS * description; @end
+
+@interface        AZJSVar : AZJS   @prop_CP NSS * varName, * value;
+
++ (instancetype) varNamed:(NSS*)nm value:(NSS*)val;           @end
+
 @interface  AZJQueryMethod : AZJS
+
 + (instancetype) withSelector:(NSS*)sel action:(NSS*)f args:(NSA*)a callback:(NSA*)c;
-@property     (copy) NSS * selector,
-												 * action;
-@property     (copy) NSA * callback;
-@end
+
+@prop_CP NSS * selector, * action; @prop_CP NSA * callback;   @end
 
 /**	$(selector).on(event,childSelector,data,function,map)
 	@param event	Required. Specifies one or more event(s) or namespaces to attach to the selected elements. Multiple event values are separated by space. Must be a valid event
@@ -48,34 +44,34 @@
 	@param map	Specifies an event map ({event:function, event:function, ...}) containing one or more event to attach to the selected elements, and functions to run when the events occur
 */
 @interface  AZJQueryOn : AZJQueryMethod
-+ (instancetype) select:(NSS*)selector on:(NSS*)method args:(NSA*)args callback:(NSA*)callback;
+
++ (instancetype) select:(NSS*)slctr on:(NSS*)mthd args:(NSA*)args callback:(NSA*)cback;
+
 @end
 
 @interface KSHTMLWriter (extras)
 
 - (void) writeDocReady:(id)a;
 
-@property		 NSMS * markup;
-- (void) preview;
+@prop_RO NSMS * markup; - (void) preview;
 @end
 
 @class ASOCK;
-@interface Gridly : KSHTMLWriter
-@property ASOCK *listenSocket;
-@property NSMutableArray *sockets;
+@interface          Gridly : KSHTMLWriter
+@property            ASOCK * listenSocket;
+@property             NSMA * sockets;
 @property dispatch_queue_t dQ;
 @end
 
 
+//+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
+
 @class Asset;
 @interface Bootstrap : BaseModel
 
-@property (NATOM,STR) NSArrayController *availJS, *availCSS, *headers, *footers, *body;
+@prop_NA NSAC *availJS, *availCSS, *headers, *footers, *body;
 
-
-//+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
 - (NSS*) htmlWithBody:(NSS*)bod;
-
 
 #pragma mark - OUTPUT
 @property (readonly)					NSS *demo, *xml, *markup;
@@ -94,9 +90,9 @@
 //# define STR_CONST(name, value) extern NSString* const name
 //#endif
 
-extern NSString * const custCSS;
-extern NSString * const custHTMLRECORDER;
-extern NSString * const custHTMLFOOT;
+extern NSString * const custCSS,
+                * const custHTMLRECORDER,
+                * const custHTMLFOOT;
 //STR_CONST(custCSS, "html,	body{height:100%; } #wrap{min-height:100%;height:auto !important;height:100%;/* Negative indent footer by it's height */	margin:0 auto -60px;}	#push,	#footer{height:60px;}	#footer{background-color:#f5f5f5;}	@media (max-width:767px){#footer{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;}	}	#wrap > .container{padding-top:60px;}	.container .credit{margin:20px 0;}	code{font-size:80%;}");
 extern NSString * const custHTML;
 //STR_CONST(custHTML,

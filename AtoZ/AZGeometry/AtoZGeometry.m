@@ -818,15 +818,15 @@ NSR	AZRectInsideRectOnEdge	(NSR inner, NSR outer, AZPOS p)	{ NSR newR =
     p == AZTop    ? (NSR){ inner.origin.x, outer.size.height - inner.size.height, inner.size}
   :	p == AZRgt    ?	(NSR){ outer.size.width - inner.size.width, inner.origin.y, inner.size}
   :	p == AZBtm    ?	(NSR){ inner.origin.x, outer.origin.y, inner.size}
-  :	p == AZLft    ?	(NSR){ outer.origin.x, inner.origin.y, inner.size}
-  :	p == AZBtmLft ?	AZRectExceptOrigin(inner,outer.origin)
-  : p == AZTopLft ?	AZRectExceptOrigin(inner,(NSP){ outer.origin.x,outer.origin.y + outer.size.height - inner.size.height})
-  :	p == AZTopRgt ?	AZRectExceptOrigin(inner,(NSP){ outer.size.width - inner.size.width, outer.origin.y + outer.size.height - inner.size.height})
-    /*AZBtmRgt */ : AZRectExceptOrigin(inner,outer.origin);
-  newR.origin.x = MAX(newR.origin.x, outer.origin.x);
-  newR.origin.y = MIN(newR.origin.y, outer.size.height - inner.size.height);
-  newR.origin.y = MAX(newR.origin.y, outer.origin.y);
-  newR.origin.x = MIN(newR.origin.x, outer.size.width - inner.size.width);
+/*  :	p == AZLft    ? */:	(NSR){ outer.origin.x, inner.origin.y, inner.size};
+//  :	p == AZBtmLft ?	AZRectExceptOrigin(inner,outer.origin)
+//  : p == AZTopLft ?	AZRectExceptOrigin(inner,(NSP){ outer.origin.x,outer.origin.y + outer.size.height - inner.size.height})
+//  :	p == AZTopRgt ?	AZRectExceptOrigin(inner,(NSP){ outer.size.width - inner.size.width, outer.origin.y + outer.size.height - inner.size.height})
+//    /*AZBtmRgt */ : AZRectExceptOrigin(inner,outer.origin);
+  if (p == AZLft) newR.origin.x = MAX(newR.origin.x, outer.origin.x);
+  if (p == AZTop) newR.origin.y = MIN(newR.origin.y, outer.size.height - inner.size.height);
+  if (p == AZBtm) newR.origin.y = MAX(newR.origin.y, outer.origin.y);
+  if (p == AZRgt) newR.origin.x = MIN(newR.origin.x, outer.size.width - inner.size.width);
   return newR;
 
 
@@ -1123,12 +1123,18 @@ AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  )	{
 	   : box.origin.y == iS.height	  	? AZBtm
 	   : box.origin.x == iS.width		? AZLft
 	   : box.origin.y == 0	  		? AZTop : 97;
-	// + bS.width == innerBox.origin.x	 	? AZLft
+	return winner;// AZTop : winner;
+}
+AZA AZAlignNext(AZA a) {
+
+  return (AZA)({  a == AZBtm    ? AZTopLft : a == AZTopLft ? AZBtmLft : a == AZBtmLft ? AZTopRgt : 
+                  a == AZTopRgt ? AZBtmRgt : a == AZBtmRgt ? AZCntr   : a & (AZUnset|AZTop|AZRgt|AZLft) ? a << 1 : AZUnset; });   //  a == AZCntr             ? AZOutside :  a == AZOutside          ? AZAAuto   :  a&AZAUnset|AZAAuto      ? AZLft       // Unset/Auto goes to back to 1AZAlignUnset); // return r;
+}  
+
+// + bS.width == innerBox.origin.x	 	? AZLft
 //		   : box.origin.y  == innerBox.origin.y + iS.height	  	? AZBtm
 //		   : box.origin.x  == innerBox.origin.y + iS.width		? AZRgt
 //		   : box.origin.y + bS.height == innerBox.origin.y		? AZTop : 97;
-	return winner;// AZTop : winner;
-}
 //	  , outer.origin) 			? AZPositionBottomLeft 	:
 //	NSEqualPoints( AZTopLeft(rect), AZTopLeft(outer)) ||
 //	(rect.origin.x == outer.origin.x && (rect.origin.y +NSHeight(rect) ) == NSHeight(outer))
@@ -1136,11 +1142,6 @@ AZPOS AZPositionOfRectPinnedToOutisdeOfRect(NSR box, NSR innerBox  )	{
 //	NSEqualPoints( AZTopRightPoint(rect), AZTopRightPoint(outer))	? AZPositionTopRight	:
 //	NSEqualPoints( AZBotRightPoint(rect), AZBotRightPoint(outer))	? AZPositionBottomRight :
 //	^{ return AZOutsideEdgeOfRectInRect(rect, outer); }();
-AZA AZAlignNext(AZA a) {
-
-  return (AZA)({  a == AZBtm    ? AZTopLft : a == AZTopLft ? AZBtmLft : a == AZBtmLft ? AZTopRgt : 
-                  a == AZTopRgt ? AZBtmRgt : a == AZBtmRgt ? AZCntr   : a & (AZUnset|AZTop|AZRgt|AZLft) ? a << 1 : AZUnset; });   //  a == AZCntr             ? AZOutside :  a == AZOutside          ? AZAAuto   :  a&AZAUnset|AZAAuto      ? AZLft       // Unset/Auto goes to back to 1AZAlignUnset); // return r;
-}  
 
 AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
 
@@ -1149,7 +1150,7 @@ AZA AZAlignmentInsideRect(NSR edgeBox, NSR outerBox) {
 	e |= 	edge.maxY == outer.maxY ? AZAlignTop 	: 	edge.y == outer.y ? AZAlignBottom	:
 			edge.x == outer.x ? AZAlignLeft	:	edge.maxX == outer.maxX ? AZAlignRight 	: e;
 	if (e != 0) return e;
-	NSP myCenter = edge.center;
+	NSP myCenter = edge.centerPt;
 	CGF test = HUGE_VALF;
 	CGF minDist = AZMaxDim(outer.size);
 	test = AZDistanceFromPoint( myCenter, (NSP) { outer.x, myCenter.y }); //testleft
@@ -1200,10 +1201,10 @@ AZPOS AZOutsideEdgeOfPointInRect (NSP inside, NSR outer ) {   	NSN* u, *d, *l, *
 
 AZPOS AZOutsideEdgeOfRectInRect (NSR rect, NSR outer ) {   			 CGF min = HUGE_VALF, t = HUGE_VALF;
 			
-AZPOS	win 	= NSEqualPoints(rect.origin, 				  			 outer.origin) ? AZPositionBottomLeft
-				: NSEqualPoints(AZTopLeftPoint (rect),  AZTopLeftPoint(outer)) ? AZPositionTopLeft
-				: NSEqualPoints(AZTopRightPoint(rect), AZTopRightPoint(outer)) ? AZPositionTopRight
-			 	: NSEqualPoints(AZBotRightPoint(rect), AZBotRightPoint(outer)) ? AZPositionBottomRight 
+AZPOS	win 	= NSEqualPoints(rect.origin, 				  			 outer.origin) ? AZBtmLft
+				: NSEqualPoints(AZTopLeftPoint (rect),  AZTopLeftPoint(outer)) ? AZTopLft
+				: NSEqualPoints(AZTopRightPoint(rect), AZTopRightPoint(outer)) ? AZTopRgt
+			 	: NSEqualPoints(AZBotRightPoint(rect), AZBotRightPoint(outer)) ? AZBtmRgt
 																									: AZPositionAutomatic;
 	if (win != AZPositionAutomatic) goto finishline;
 	t = NSMinX (rect) - NSMinX(outer); if (min > t) { win =   AZLft; min = t; }

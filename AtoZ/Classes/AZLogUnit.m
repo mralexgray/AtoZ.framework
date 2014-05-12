@@ -1,6 +1,6 @@
 
 
-
+#import "GDataXMLNode.h"
 #import "AZLogUnit.h"
 static AZLogUnit *instance = nil;
 static void __attribute__ ((constructor)) OCUnitToJUnitLoggerStart(void){ instance = [AZLogUnit new];	}

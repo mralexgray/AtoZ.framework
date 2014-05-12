@@ -14,8 +14,6 @@
 @end
 
 @interface NSCharacterSet (EmojisAddition)
-
-+ (NSCharacterSet*) emojiCharacterSet;
 - (void) log;
 
 + (void) logCharacterSet:(NSCharacterSet*)characterSet;
@@ -43,10 +41,6 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 
 @interface NSString (NSStringAdditions)
 + (NSS*) locallyUniqueString;
-+ (NSD*) emojiDictionary;
-+ (NSA*) emoji;
-+ (NSArray *) knownEmoticons;
-+ (NSSet *) knownEmojiWithEmoticons;
 - (id) initWithChatData:(NSData *) data encoding:(NSStringEncoding) encoding;
 - (BOOL) isCaseInsensitiveEqualToString:(NSS*) string;
 - (BOOL) hasCaseInsensitivePrefix:(NSS*) prefix;
@@ -69,12 +63,6 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 - (NSS*) IRCUsername;
 - (NSS*) IRCHostname;
 - (NSS*) IRCRealname;
-- (BOOL) containsEmojiCharacters;
-- (BOOL) containsEmojiCharactersInRange:(NSRange) range;
-- (NSRange) rangeOfEmojiCharactersInRange:(NSRange) range;
-- (BOOL) containsTypicalEmoticonCharacters;
-- (NSS*) stringBySubstitutingEmojiForEmoticons;
-- (NSS*) stringBySubstitutingEmoticonsForEmoji;
 - (BOOL) isMatchedByRegex:(NSS*) regex;
 - (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(NSError **) error;
 - (NSRange) rangeOfRegex:(NSS*) regex inRange:(NSRange) range;
@@ -96,12 +84,6 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 - (void) decodeIllegalURLCharacters;
 - (void) stripIllegalXMLCharacters;
 - (void) stripXMLTags;
-- (void) substituteEmoticonsForEmoji;
-- (void) substituteEmoticonsForEmojiInRange:(NSRangePointer) range;
-- (void) substituteEmoticonsForEmojiInRange:(NSRangePointer) range withXMLSpecialCharactersEncodedAsEntities:(BOOL) encoded;
-- (void) substituteEmojiForEmoticons;
-- (void) substituteEmojiForEmoticonsInRange:(NSRangePointer) range;
-- (void) substituteEmojiForEmoticonsInRange:(NSRangePointer) range encodeXMLSpecialCharactersAsEntities:(BOOL) encode;
 @end
 
 
@@ -110,36 +92,3 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 @end
 
 
-/**
- Offers programmatic access to emojis as organized in the 
- emoji-cheat-sheet.com website.
- */
-@interface Emoji : NSObject
-
-/**
- Returns the list of the emoji groups found on the emoji-cheat-sheet.com
- website in the same order.
- */
-+ (NSArray*)groups;
-
-/**
- Returns a dictionary where the keys are the names of the groups and the values
- are the lists of the emoji aliases associated with that group.
- */
-+ (NSDictionary*)byGroups;
-
-/**
- Returns a dictionary which maps the aliases to the emoji characters.
- */
-+ (NSDictionary*)byAlias;
-
-/**
- Replaces the aliases surrounded by colons with the emoji characters.
- */
-+ (NSString*)stringByReplacingEmojiAliasesInString:(NSString*)string;
-
-+ (NSA*) all;
-+ (NSS*) random;
-
-
-@end

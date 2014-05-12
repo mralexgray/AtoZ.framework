@@ -165,6 +165,7 @@
 
 //-  (CAL*) labelLayer; -  (CAL*) setLabelString:			(NSS*)label;
 -    (id) sublayerWithName:		(NSS*)name;
+- (CAL*)sublayerWithNameContaining:(NSS*)n;
 
 - (CAT3D)rectToQuad:(NSRect)rect quadTLX:(double)x1a quadTLY:(double)y1a quadTRX:(double)x2a quadTRY:(double)y2a quadBLX:(double)x3a quadBLY:(double)y3a quadBRX:(double)x4a quadBRY:(double)y4a;
 

@@ -5,13 +5,16 @@
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 	#import <AtoZ/AtoZ.h>
-	#import <XCTest/XCTest.h>
-	#import <SenTestingKit/SenTestingKit.h>
-	#import <OCMock/OCMock.h>	
+	#import <QuartzCore/QuartzCore.h>
+  #import <SenTestingKit/SenTestingKit.h>
+  #import <OCMock/OCMock.h>	
 	#import <OCHamcrest/OCHamcrest.h>	
 	#import <GHUnit/GHUnit.h>
+//	#import <XCTest/XCTest.h>
+
+
 //	#define XCTestCase SenTestCase
-	#import <Foundation/Foundation.h>
-	#import <QuartzCore/QuartzCore.h>
+//	#import <Foundation/Foundation.h>
+
 	
 #endif

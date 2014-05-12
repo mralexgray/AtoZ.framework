@@ -4,7 +4,7 @@
 #import "NSString+SymlinksAndAliases.h"
 
 @interface NSData (AtoZ)
-@property (RONLY) NSS* UTF8String;
+@property (RONLY) NSS* UTF8String, *UTF16String;
 @end
 
 @interface NSParagraphStyle (AtoZ)
@@ -730,6 +730,10 @@ typedef int HFSplitRule;
 /** Method alias for method `capitalizedString`.
  */
 - (NSS*)capitalize;
+
+/** Method decapitalies FIRST letter. useful for getting the getter from a setter!
+ */
+- (NSS*)decapitalized;
 
 /** Method alias for method `length`.
  */

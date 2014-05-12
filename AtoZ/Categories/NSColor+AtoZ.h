@@ -19,6 +19,7 @@ int  hexToInt (char hex);
                          * lessOpaque,      * opaque,             * moreOpaque,
                          * darker,          * dark,               * muchDarker,
                          * deviceRGBColor,  * calibratedRGBColor,
+                         * deviceWhiteColor,
                          * brighter,        * bright,
                          * redshift,        * blueshift,
                          * whitened,        * blackened,

@@ -8,7 +8,47 @@
 //
 
 #import "AZCLICategories.h"
+#import "Terminal.h"
 #import "AtoZ.h"
+
+@implementation NSWorkspace (OPEN)
+
+// Terminal
+// Code from John Daniel - ShellHere
+
+- (IBAction) openInTerminal:(id)x{
+
+
+  TerminalApplication * terminal = [SBApplication applicationWithBundleIdentifier: @"com.apple.Terminal"];
+	BOOL terminalWasRunning = [terminal isRunning];
+
+  // Get the Terminal windows.
+  SBElementArray * terminalWindows = [terminal windows];
+
+  TerminalTab * currentTab = nil;
+
+  // If there is only a single window with a single tab, Terminal may
+  // have been just launched. If so, I want to use the new window.
+	// (This prevents two windows from being created.)
+  if(!terminalWasRunning) {
+    for(TerminalWindow * terminalWindow in terminalWindows) {
+      SBElementArray * windowTabs = [terminalWindow tabs];
+      for(TerminalTab * tab in windowTabs) {
+        currentTab = tab;
+      }
+    }
+  }
+
+  // Create a "cd" command.
+  NSString * command = @"";// [NSString stringWithFormat: @"curl :%d/", kServerPort];
+  [terminal doScript: command in: currentTab];
+
+  // Activate the Terminal. Hopefully, the new window is already open and is will be brought to the front.
+  [terminal activate];
+
+}
+
+@end
 
 //+ (instancetype) instanceWithListNamed:(NSS*)listName {
 //
@@ -51,44 +91,44 @@
 //
 //SynthesizeMutableAccessors(@"colors",cls[name],NSC);
 /*
-@implementation  AZCLIMenu
+ @implementation  AZCLIMenu
 
-- (void) provideStdin:						(NSFH*)std	{
-	// send a simple program to clang using a GCD task
-   dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-   dispatch_async(aQueue, ^{
-      [std writeData:[ @"int main(int argc, char **argv)\n"	dataUsingEncoding:NSUTF8StringEncoding]];
-      [std writeData:[ @"{\n" 										dataUsingEncoding:NSUTF8StringEncoding]];
-      [std writeData:[ @"   write(1, \"hello\\n\", 6);\n" 	dataUsingEncoding:NSUTF8StringEncoding]];
-      [std writeData:[ @"}\n" 										dataUsingEncoding:NSUTF8StringEncoding]];
-      [std closeFile];	// sent the code, close the file (pipe in this case)
-   });
-}
-- (void) getData:								(NSNOT*)n 	{
-	// read the output from clang and dump to console
-   NSS *textRead = [NSS stringWithData:[n.userInfo objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
-   NSLog(@"read %3ld: %@", (long)textRead.length, textRead);
-}
-- (void) applicationDidFinishLaunching:(NSNOT*)n	{
+ - (void) provideStdin:						(NSFH*)std	{
+ // send a simple program to clang using a GCD task
+ dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+ dispatch_async(aQueue, ^{
+ [std writeData:[ @"int main(int argc, char **argv)\n"	dataUsingEncoding:NSUTF8StringEncoding]];
+ [std writeData:[ @"{\n" 										dataUsingEncoding:NSUTF8StringEncoding]];
+ [std writeData:[ @"   write(1, \"hello\\n\", 6);\n" 	dataUsingEncoding:NSUTF8StringEncoding]];
+ [std writeData:[ @"}\n" 										dataUsingEncoding:NSUTF8StringEncoding]];
+ [std closeFile];	// sent the code, close the file (pipe in this case)
+ });
+ }
+ - (void) getData:								(NSNOT*)n 	{
+ // read the output from clang and dump to console
+ NSS *textRead = [NSS stringWithData:[n.userInfo objectForKey:NSFileHandleNotificationDataItem] encoding:NSUTF8StringEncoding];
+ NSLog(@"read %3ld: %@", (long)textRead.length, textRead);
+ }
+ - (void) applicationDidFinishLaunching:(NSNOT*)n	{
 
-// invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
-   NSTask *task 			= NSTask.new;
-   NSPipe *outputPipe 	= NSPipe.new;
-   NSPipe *inPipe 		= NSPipe.pipe;
-	task.standardOutput 	= outputPipe;
-   task.standardError 	= outputPipe;
-   NSFH *outputHandle 	= outputPipe.fileHandleForReading;
-	task.standardInput	= inPipe;
-   task.launchPath		= @"/usr/bin/clang";
-   task.arguments			= @[@"-o", @"/tmp/clang.out", @"-xc",@"-"];
-   [AZNOTCENTER addObserver:self selector:@selector(getData:) name:NSFileHandleReadCompletionNotification object:outputHandle];
-   [outputHandle readInBackgroundAndNotify];
-   [task launch];
-   [self provideStdin:inPipe.fileHandleForWriting];
-}
+ // invoke clang using an NSTask, reading output via notifications and providing input via an async GCD task
+ NSTask *task 			= NSTask.new;
+ NSPipe *outputPipe 	= NSPipe.new;
+ NSPipe *inPipe 		= NSPipe.pipe;
+ task.standardOutput 	= outputPipe;
+ task.standardError 	= outputPipe;
+ NSFH *outputHandle 	= outputPipe.fileHandleForReading;
+ task.standardInput	= inPipe;
+ task.launchPath		= @"/usr/bin/clang";
+ task.arguments			= @[@"-o", @"/tmp/clang.out", @"-xc",@"-"];
+ [AZNOTCENTER addObserver:self selector:@selector(getData:) name:NSFileHandleReadCompletionNotification object:outputHandle];
+ [outputHandle readInBackgroundAndNotify];
+ [task launch];
+ [self provideStdin:inPipe.fileHandleForWriting];
+ }
 
-@end
-*/
+ @end
+ */
 //#import "NSTerminal.h"
 
 //@implementation NSArray (AZCLI)

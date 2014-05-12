@@ -13,6 +13,7 @@
 
 
 @implementation NSData (AtoZ)
+- (NSS*) UTF16String { return [NSS.alloc initWithData:self encoding:NSUTF16StringEncoding]; }
 - (NSS*) UTF8String { return [NSS stringWithUTF8Data:self]; }
 @end
 
@@ -97,7 +98,13 @@ NSString *stringForBrightness( CGF brightness )	{	return
 
 - (NSA*) letters { //    return [@(self.length-1).toArray map:^id(id obj) { return [[self substringWithRange:NSMakeRange([obj iV], 1)]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]; }];
 
-  return [@(self.length) mapTimes:^id(NSN *n) { return [self substringWithRange:NSMakeRange(n.iV,1)] ?: nil; }]; //       if (tmp_str) [arr addObject:tmp_str]; ///tmp_str = [tmp_str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+  AZNew(NSMA,array);
+  [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences
+                        usingBlock:^(NSS *substring, NSRNG substringRange, NSRNG enclosingRange, BOOL *s) {
+    [array addObject:substring];
+  }];
+  return array;
+//  return [@(self.length) mapTimes:^id(NSN *n) { return [self substringWithRange:NSMakeRange(n.iV,1)] ?: nil; }]; //       if (tmp_str) [arr addObject:tmp_str]; ///tmp_str = [tmp_str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 -  (NSS*) MD5String 										{	const char *cStr = self.UTF8String;	unsigned char result[16];	CC_MD5(cStr, strlen(cStr), result);       // This is the md5 call
@@ -2638,6 +2645,10 @@ static void _ScanSentence(NSScanner *scanner) {
 - (NSS*)downCase 		{
 	return [self lowercaseString];
 }
+- (NSS*)decapitalized 	{
+	return $(@"%@%@",[self firstLetter].lowercaseString, [self substringFromIndex:1]);
+}
+
 - (NSS*)capitalize 	{
 	return [self capitalizedString];
 }

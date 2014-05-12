@@ -8,6 +8,11 @@
 
 #import "AtoZ.h"
 
+@interface NSWorkspace (OPEN)
+
+- (IBAction) openInTerminal:(id)x;
+@end
+
 
 typedef 	void (^runBlock)();
 #define	CurrentIMP 	__CurrentIMP 					(__PRETTY_FUNCTION__,      _cmd)

@@ -1,14 +1,6 @@
 
 #import "AtoZMacroDefines.h"
-
-@class BLKVIEW;
-typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSRect r);
-typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
-
-typedef void(^RectBlock) (NSR rect);
-typedef void(^ObjRectBlock) (id _self, NSR rect);
-
-#define BLKVIEWRBLK BlkViewRectBlock
+#import "AtoZTypes.h"
 
 /** AZBlockView.h - USAGE
 

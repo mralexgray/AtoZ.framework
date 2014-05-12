@@ -46,7 +46,7 @@ typedef id(^eval)(id blockArgs, ...);
 
 //	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
 //	 dCTL	= DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
-//	_stdinHandle = AZSTDIN;		 										// read stdin
+//	_stdinHandle = AZFH_IN;		 										// read stdin
 //	[@[	@"AZBackground", @"IsometricView"	]each:^(id o) {	 [NSClassFromString(o) preview]; }];  // load up some text views... 	*/
 //			@"AZGrid", 		@"AZPrismView", @"AZBackground2", @"AZBackgroundProgressBar",
 
@@ -288,7 +288,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 		[mds kill:9];
 	} repeats:YES];
 	
-	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object: AZSTDIN];
+	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object: AZFH_IN];
 		sticky = [StickyNote instanceWithFrame:AZRectFromDim(200)];
 		[sticky.window makeKeyAndOrderFront:self];
 
@@ -414,7 +414,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 	AIDockingWindow *attached;	
 + (instancetype) sharedInstance 	{
 	if (![AZCLI hasSharedInstance]) [AZCLI setSharedInstance:AZCLI.instance];
-	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object:_stdinFileHandle = AZSTDIN];
+	[AZNOTCENTER addObserver:self selector:@selector(didReadStdin:) name:NSFileHandleReadCompletionNotification object:_stdinFileHandle = AZFH_IN];
 	NSArray *allPaths 		= NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
  	NSString *documentsDIR 	= [allPaths objectAtIndex:0];
 	AZLogConsole.sharedConsole.delegate = term;	

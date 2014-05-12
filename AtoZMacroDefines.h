@@ -506,19 +506,26 @@ q&AZ_arc__WEAK 					? weak    : assign
 		- (BOOL) something { id x = FETCH; return x ? [x boolValue] : NO; }
 */
 
+FOUNDATION_STATIC_INLINE BOOL SameSEL(SEL a, SEL b) {
+	return sel_isEqual(a, b);
+}
+
 #define ASSIGN_WEAK(__self,sel,WK) ({ objc_setAssociatedObject(__self,@selector(sel),WK,OBJC_ASSOCIATION_ASSIGN); })
 #define ASSIGNBOOL(sel,VAL) objc_setAssociatedObject(self,sel, @(VAL),OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-#define REFERENCE(sel,obj) objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_ASSIGN)
+#define REFERENCE(sel,obj) objc_setAssociatedObject(self,sel, obj, 0)
 #define _REFERENCE(sel,obj) objc_setAssociatedObject(_self,sel, obj, OBJC_ASSOCIATION_ASSIGN)
 #define COPY(sel,obj) 		objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_COPY)
 #define _COPY(sel,obj) 		objc_setAssociatedObject(_self,sel, obj, OBJC_ASSOCIATION_COPY)
 #define SAVE(sel,obj) 		objc_setAssociatedObject(self,sel, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+#define GETTER (SEL)NSSelectorFromString([[AZSELSTR substringAfter:@"set"].decapitalized substringBefore:@":"])
 #define _SAVE(sel,obj) 		objc_setAssociatedObject(_self,sel, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+#define SAVEREFERENCE(obj) 		({ objc_setAssociatedObject(self,GETTER,obj,OBJC_ASSOCIATION_ASSIGN); })
 #define OPEN(sel) 			objc_getAssociatedObject(self, sel)
 #define _OPEN(sel) 			objc_getAssociatedObject(_self, sel)
 #define FETCH       			objc_getAssociatedObject(self, _cmd)
 #define _FETCH       			objc_getAssociatedObject(_self, _cmd)
 #define FETCH_OR(X)        FETCH ?: X
+
 
 #define NSKA    NSKeyedArchiver
 #define NSKUA   NSKeyedUnarchiver
@@ -557,6 +564,8 @@ q&AZ_arc__WEAK 					? weak    : assign
 #define 				  pBCN 	postsBoundsChangedNotifications
 #define 				  pFCN 	postsFrameChangedNotifications
 
+#define INRANGE(x,MINVAL,MAXVAL) (BOOL)({ MINVAL <= x && x <= MAXVAL; })
+
 
 #define CFAA        CFAAction
 #define UDEFSCTL	 	[NSUserDefaultsController sharedUserDefaultsController]
@@ -569,6 +578,8 @@ q&AZ_arc__WEAK 					? weak    : assign
 
 #define SAFE_CAST(OBJECT, TYPE) ({ \
   id obj=OBJECT;[obj isKindOfClass:[TYPE class]] ? (TYPE *) obj: nil; })
+
+//#define AZNewInfer(_name_, _val_) __typeof((_val_)) _name_ = __
 
 #define AZNew(_class_,_name_) _class_ *_name_ = [_class_ new]
 //#define AZNewObj(_class_,_name_) _class_ *_name_ = [_class_ new]
@@ -742,8 +753,10 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define    	    AZAPPVIEW ((NSView*)[AZAPPWINDOW contentView])
 #define     AZCONTENTVIEW(V) ((NSView*)[V contentView])
 #define     	AZWEBPREFS 	WebPreferences.standardPreferences
-#define     	AZPROCINFO 	NSProcessInfo.processInfo
+//#define     	AZPROCINFO 	NSProcessInfo.processInfo
 #define     	AZPROCNAME 	[NSProcessInfo.processInfo processName]
+#define     	AZPROCARGS NSProcessInfo.processInfo.arguments
+#define     	AZARGS      [AZPROCARGS after:0]
 #define 		 	 AZNEWPIPE 	NSPipe.pipe
 #define 			AZNEWMUTEA 	NSMutableArray.array
 #define 			AZNEWMUTED 	NSMutableDictionary.new
@@ -1074,8 +1087,8 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define $(...)				((NSString*)[NSString stringWithFormat:__VA_ARGS__,nil])
 #define $$(...)				((NSString*)[NSString stringWithFormat:@__VA_ARGS__,nil])
 #define $JOIN(...)				((NSString*)[@[__VA_ARGS__] componentsJoinedByString:@" "])
-#define $UTF8(A)			((NSString*)[NSS stringWithUTF8String:A])
-#define $UTF8orNIL(A)	(A) ? ((NSString *)[NSS stringWithUTF8String:A]) : nil
+#define $UTF8(A)			[NSS stringWithUTF8String:A]
+#define $UTF8orNIL(A)	A ? [NSS stringWithUTF8String:A] : nil
 //#define $array(...)  	((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])
 #define $set(...)		 	((NSSet *)[NSSet setWithObjects:__VA_ARGS__,nil])
 #define $map(...)	 		((NSDictionary *)[NSDictionary dictionaryWithObjectsAndKeys:__VA_ARGS__,nil])

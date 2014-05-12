@@ -234,6 +234,7 @@ NS_INLINE NSIMG* NSIMGNAMED(NSS*x){ return [NSIMG imageNamed:x]; }
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
 
++ (NSIMG *)swatchWithColors:(NSA*)cs size:(NSSZ)z oriented:(AZO)o;
 + (NSIMG*) swatchWithColor:			(NSC*)color size:(NSSize)size;
 + (NSIMG*) swatchWithGradientColor: (NSC*)color size:(NSSize)size;
 
@@ -244,7 +245,21 @@ NS_INLINE NSIMG* NSIMGNAMED(NSS*x){ return [NSIMG imageNamed:x]; }
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
 
-@prop_RO NSS * asTempFile, *htmlEncodedImg, *dataURL;
+@prop_RO NSS * asTempFile,
+
+/*! htmlEncodedImg  a full, HTML tagged,base 64 image..  ready to be appended.
+
+@code   [script eval:$(@"var img = $(\"%@\").appendTo($(\"body\"));",
+        [NSIMG.randomMonoIcon scaledToMax:30].htmlEncodedImg)];
+
+@return <img style="width:30 px; height:30 px;" src="data:image/png;base64,iVBORw0\...CYII=">
+*/
+  * htmlEncodedImg,
+
+/*! dataURL  the literal url, i you just want that...
+@return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
+*/
+  * dataURL;
 
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
 - (void) 	  openQuantizedSwatch;

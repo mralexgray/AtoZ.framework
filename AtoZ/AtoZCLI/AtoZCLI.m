@@ -115,7 +115,7 @@ int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	
   NSLog (@"%i + %i = %d", inputOne, inputTwo, inputOne + inputTwo);
 
 
-	NSFileHandle *inHandle = AZSTDIN; // Read from stdin
+	NSFileHandle *inHandle = AZFH_IN; // Read from stdin
 	[AZNOTCENTER addObserver:self selector:@selector(stdinDataAvailable) name:NSFileHandleDataAvailableNotification object:inHandle];
 	[inHandle waitForDataInBackgroundAndNotify];
    return self;	}
@@ -126,7 +126,7 @@ int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	
 	NSLog(@"Got data: %@", theData);
 	_finished        = !theData.length;
 	if (_finished)  return;
-	[AZSTDIN waitForDataInBackgroundAndNotify];	// Listen for more
+	[AZFH_IN waitForDataInBackgroundAndNotify];	// Listen for more
 
 }
                 NSApplication *app			= [NSApplication sharedApplication];

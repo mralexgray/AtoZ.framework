@@ -1,25 +1,16 @@
-//
-//  main.m
-//  Router
-//
-//  Created by Alex Gray on 5/2/14.
-//  Copyright (c) 2014 mrgray.com, inc. All rights reserved.
-//
 
 @import Cocoa;
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 static RoutingHTTPServer  *http;
 
-int main(int argc, const char * argv[]) {
-
-  @autoreleasepool {
+int main(int argc, const char * argv[]) { @autoreleasepool {
 
 
-   http = [RoutingHTTPServer new];
-//    [http get:@"/dir" handler:^(RouteRequest *q, RouteResponse *n) {
-//      [n respondWithString:[NetworkHelpers createindexForDir:@"/"]];
-//    }];
+   http = RoutingHTTPServer.new;
+   [http get:@"/dir" handler:^(RouteRequest *q, RouteResponse *n) {
+    [n respondWithString:[NetworkHelpers createindexForDir:@"/"]];
+      }];
     [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
 
 

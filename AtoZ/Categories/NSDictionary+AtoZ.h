@@ -1,6 +1,30 @@
 
 #import "M13OrderedDictionary.h"
 
+
+@interface AZDict : NSMutableDictionary
+
+- (void)setObject:(id)anObject forKey:(id)aKey;
+
+@prop_NA BOOL sortByValues;
+@prop_RO NSUInteger count;
+@prop_RO NSEnumerator* reverseKeyEnumerator, *keyEnumerator;
+
+//+ (instancetype) dictWithSortedDict:(NSD*)dict byValues:(BOOL)byV;
+
+//- (id)objectForKey:(id)aKey;
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx;
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
+- (id)objectForKeyedSubscript:(id)key;
+
+- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex;
+- (id)keyAtIndex:(NSUInteger)anIndex;
+
+@end
+
+
 @class NSBag;
 @interface NSOrderedDictionary (AtoZ)
 - (void) forwardInvocation:(NSINV*)invocation;
@@ -108,7 +132,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 
 @interface NSDictionary (AtoZ)
 
-@prop_RO M13OrderedDictionary * sortedByValue;
+//@prop_RO M13OrderedDictionary * sortedByValue;
 
 
 + (NSD*) withFile:(NSS*)p;
@@ -301,11 +325,11 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (NSDictionary*)subdictionaryWithKeys:(NSArray*)keys ;
 @end
 
-@interface OrderedDictionary : NSMutableDictionary
-- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex;
-- (id)keyAtIndex:(NSUInteger)anIndex;
-- (NSEnumerator *)reverseKeyEnumerator;
-@end
+//@interface OrderedDictionary : NSMutableDictionary
+//- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex;
+//- (id)keyAtIndex:(NSUInteger)anIndex;
+//- (NSEnumerator *)reverseKeyEnumerator;
+//@end
 
 
 extern NSString *jsonIndentString;

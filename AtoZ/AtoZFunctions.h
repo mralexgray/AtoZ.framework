@@ -72,6 +72,8 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define ISNOTA(OBJ,KLASS) (BOOL)(!ISA(((id)OBJ),KLASS))       /*! @code  ISA(@"apple",NSString)          -> YES    */
 #define AM_I_A(KLASS) ISA(self,KLASS)                         /*! @code  AM_I_A(NSString)                -> YES    */
 
+#define ANYSUPERLAYERISA 
+
 
 //OBJC_EXPORT  BOOL AZISAAnyOfThese(Class x, ...); // under construction
 
@@ -219,6 +221,7 @@ NSS*	googleSearchFor( NSS* string );   // broken!
 
 BOOL 	SameChar			( const char *a, const char *b );
 BOOL 	SameString		(          id a,          id b );
+BOOL 	SameStringI		(          NSS* a,          NSS* b );
 BOOL 	SameClass		(          id a, 			  id b );
 NSS* 	bitString		( NSUI  bMask );
 BOOL 	areSame 			( id a,  id b );

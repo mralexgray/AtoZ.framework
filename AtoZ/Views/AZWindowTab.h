@@ -8,7 +8,7 @@
 @prop_RO NSAS *string;
 @end
 
-@interface AZWindowTab : NSW
+@interface AZWindowTab : CAWindow
 
 @prop_RO AZTabView * handle;
 @prop_NA       AZR * inFrame, * outFrame, * grabRect, * outerRect;

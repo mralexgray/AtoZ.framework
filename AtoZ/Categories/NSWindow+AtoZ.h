@@ -17,7 +17,10 @@
            animationBlock:(VBlk)aniBlk;
 @end
 
-@interface NSResponder (AtoZ) @property BOOL acceptsFirstResponder, performKeyEquivalent; @end
+@interface NSResponder (AtoZ)
+- (void) overrideResponder:(SEL)sel withBool:(BOOL)accepts;
+@property BOOL acceptsFirstResponder, performKeyEquivalent;
+@end
 
 JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTopRightCorner = 2, NSWindowResizeBottomRightCorner = 3, NSWindowResizeBottomLeftCorner = 4);
 

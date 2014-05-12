@@ -18,7 +18,7 @@
 @synthesize inset = inset_,
 			radius = radius_,
 			hovered = hovered_,
-			selected = selected_,
+//			selected = selected_,
 			representedObject = representedObject_;
 
 - (id)initWithFrame:(NSRect)frame representing:(id)object atIndex:(NSUInteger)anIndex {
@@ -208,7 +208,7 @@
 		}
 //		[standard fillGradientFrom: RANDOMCOLOR to:RANDOMCOLOR angle:270];
 //		NSRectFillUsingOperation([self bounds], NSCompositeSourceOver);
-	else if(selected_) // && drawSelection)
+	else if(self.selected) // && drawSelection)
 	{
 		[standard setLineWidth:self.dynamicStroke/2];
 //		[standard setLineJoinStyle:NSBevelLineJoinStyle];
@@ -238,7 +238,7 @@
 	if (!state) [timer invalidate];
 //	else { mPhase = 0; timer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(handleAntAnimationTimer:) userInfo:nil repeats:YES];
 //	}
-	selected_ = state;
+	[super setSelected:state];
 	[self setNeedsDisplay:YES];
 }
 - (void) setInset:(float)inset {

@@ -915,6 +915,9 @@ SYNTHESIZE_ASC_OBJ(name, setName);//, ^{ if (!value) value = self.nameOfColor; }
 	//					localizedStringForKey:bestColorKey	value:bestColorKey 	table:@"Crayons"];
 	return bestColorKey;
 }
+- (NSC*)  deviceWhiteColor		{
+	return [self colorUsingColorSpaceName:NSDeviceWhiteColorSpace];
+}
 - (NSC*)  deviceRGBColor 		{
 	return [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
 }

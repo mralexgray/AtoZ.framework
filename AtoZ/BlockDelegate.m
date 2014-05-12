@@ -124,8 +124,8 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
 @dynamic layoutBlock, drawBlock, drawInContextBlk, layerActionBlock, aniStartBlock;
 
 - (void) setLayerActionBlock:(CABACTION)blk   { [BlockDelegate delegateFor:self ofType:CABlockTypeLayerAction withBlock:blk]; }
-- (void) setDrawInContextBlk:(CABDRAWCTX)blk  { [BlockDelegate delegateFor:self ofType:CABlockTypeDrawInContext withBlock:blk]; }
-- (void)      setLayoutBlock:(CABLAYOUT)blk   {	[BlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
+- (void) setDrawInContextBlk:(LayerCTXBlock)blk  { [BlockDelegate delegateFor:self ofType:CABlockTypeDrawInContext withBlock:blk]; }
+- (void)      setLayoutBlock:(LayerBlock)blk   {	[BlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
 - (void)    setAniStartBlock:(CABANIS)blk     { [self addDelegate:CABlockTypeAniStart block:blk]; }
 
 //- (NSString*) delegateDescription {  return CABlockTypeToString(self.blockDelegate.blockType); }
@@ -220,7 +220,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
 @end
 
 
-@interface  GenericDelegate : NSObject @property (weak) id owner;  @end @implementation GenericDelegate @end
+@interface  GenericDelegate : NSObject
+//@property (weak) id owner;
+@end @implementation GenericDelegate @end
 
 @implementation NSObject (AddMethodToDelegate)
 - (void) addToOrCreateDelegateMethod:(SEL)sel imp:(IMP)imp {

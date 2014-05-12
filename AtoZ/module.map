@@ -1,5 +1,5 @@
 
-framework module AtoZ {
+framework module AtoZ [system] {
 
   umbrella "Headers"
   export *
