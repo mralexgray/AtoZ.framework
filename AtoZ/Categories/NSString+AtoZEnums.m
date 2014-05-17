@@ -30,7 +30,7 @@
 
 - (id) initWithName: (NSString *) aname ordinal: (int) anordinal properties: (NSDictionary *) aproperties
 {
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	_name = [aname copy];// retain];
 	_ordinal = anordinal;
 	_eProperties = [aproperties copy];// retain];
@@ -325,7 +325,7 @@ static BOOL getPropertyInfo(Class cls, NSString *propertyName, Class *propertyCl
     [aCoder encodeInt:_ordinal forKey:@"ordinal"];
 }
 - (id)initWithCoder: (NSCoder*)aDecoder		{
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	// see if the enum name exists - it should
 	NSS *ename 	= [aDecoder decodeObjectForKey:@"name"];
 	SEL sel 		= NSSelectorFromString(ename);

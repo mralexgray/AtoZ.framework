@@ -1675,38 +1675,38 @@ CGPathRef AZRandomPathWithStartingPointInRect(CGPoint firstPoint, NSR inRect) {
  */
 // To simplify support for 64bit (and Leopard in general), we provide the type
 // defines for non Leopard SDKs
-#if !(MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-// NSInteger/NSUInteger and Max/Mins
-#ifndef NSINTEGER_DEFINED
-#if __LP64__ || NS_BUILD_32_LIKE_64
-typedef long			NSInteger;
-typedef unsigned long   NSUInteger;
-#else
-typedef int			 NSInteger;
-typedef unsigned int	NSUInteger;
-#endif
-#define NSIntegerMax	  LONG_MAX
-#define NSIntegerMin	  LONG_MIN
-#define NSUIntegerMax	 ULONG_MAX
-#define NSINTEGER_DEFINED 1
-#endif  // NSINTEGER_DEFINED
-// CGFloat
-#ifndef CGFLOAT_DEFINED
-#if defined(__LP64__) && __LP64__
-// This really is an untested path (64bit on Tiger?)
-typedef double   CGFloat;
-#define CGFLOAT_MIN	   DBL_MIN
-#define CGFLOAT_MAX	   DBL_MAX
-#define CGFLOAT_IS_DOUBLE 1
-#else /* !defined(__LP64__) || !__LP64__ */
-typedef float	CGFloat;
-#define CGFLOAT_MIN	   FLT_MIN
-#define CGFLOAT_MAX	   FLT_MAX
-#define CGFLOAT_IS_DOUBLE 0
-#endif /* !defined(__LP64__) || !__LP64__ */
-#define CGFLOAT_DEFINED   1
-#endif // CGFLOAT_DEFINED
-#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
+//#if !(MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+//// NSInteger/NSUInteger and Max/Mins
+//#ifndef NSINTEGER_DEFINED
+//  #if __LP64__ || NS_BUILD_32_LIKE_64
+//    typedef long			NSInteger;
+//    typedef unsigned long   NSUInteger;
+//    #else
+//    typedef int			 NSInteger;
+//    typedef unsigned int	NSUInteger;
+//    #endif
+//    #define NSIntegerMax	  LONG_MAX
+//    #define NSIntegerMin	  LONG_MIN
+//    #define NSUIntegerMax	 ULONG_MAX
+//    #define NSINTEGER_DEFINED 1
+//  #endif  // NSINTEGER_DEFINED
+//// CGFloat
+//#ifndef CGFLOAT_DEFINED
+//#if defined(__LP64__) && __LP64__
+//// This really is an untested path (64bit on Tiger?)
+//typedef double   CGFloat;
+//#define CGFLOAT_MIN	   DBL_MIN
+//#define CGFLOAT_MAX	   DBL_MAX
+//#define CGFLOAT_IS_DOUBLE 1
+////#else  !defined(__LP64__) || !__LP64__ 
+//typedef float	CGFloat;
+//#define CGFLOAT_MIN	   FLT_MIN
+//#define CGFLOAT_MAX	   FLT_MAX
+//#define CGFLOAT_IS_DOUBLE 0
+//#endif // !defined(__LP64__) || !__LP64__
+//#define CGFLOAT_DEFINED   1
+//#endif // CGFLOAT_DEFINED
+//#endif  // MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_5
 
 
 /*

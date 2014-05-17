@@ -266,7 +266,7 @@ return  (self = super.init) ? [self setArranged:NSMA.new],
 
 -        (id) init										{
 
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	[self bind:@"numberOfChildren" toObject:self withKeyPath:@"children" transform:^id(id value) {
 		 NSLog(@"value: %@", value);
 		 return @([value count]);

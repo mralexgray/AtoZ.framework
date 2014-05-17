@@ -33,12 +33,12 @@
 }
 
 
-- (void)blockSelf:(bSelf)block {	declareBlockSafeAs(self, bSelf); block(bSelf); }
+//- (void)blockSelf:(bSelf)block {	declareBlockSafeAs(self, bSelf); block(bSelf); }
 
-- (void)triggerKVO:(NSS*)k block:(bSelf)blk {
-
-	[self wCVfK:k]; [self blockSelf:^(__typeof(self)_self){	blk(_self); }];	[self dCVfK:k];
-}
+//- (void)triggerKVO:(NSS*)k block:(bSelf)blk {
+//
+//	[self wCVfK:k]; [self blockSelf:^(__typeof(self)_self){	blk(_self); }];	[self dCVfK:k];
+//}
 
 /*
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(orientation, setOrientation, AZ0, ^{}, ^{ objswitch(self.class)
@@ -102,8 +102,7 @@ SYNTHESIZE_ASC_OBJ(representedObject, setRepresentedObject);
 
 /*! NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1 */
 
-@implementation NSObject (AZClassProxy)
-
+@implementation NSObject (AZClassProxy) // Notice the PLUS.
 + (id)performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
 
 //	NSObject* anInstance = self.new;
@@ -138,7 +137,7 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedStack,[NSOperationStack.new  objectBySettingVa
 SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedQ,    [NSOQ.new              objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]);
 SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingValue:@(1)       forKey:@"maxConcurrentOperationCount"]);
 @end
-//- (id)init							{	 if (self != super.init ) return nil;
+//- (id)init
 //   _sharedStack = NSOperationStack.new;
 //	_sharedQ = NSOQ.new;
 //	_sharedSQ = NSOQ.new;
@@ -374,11 +373,11 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 	NSLog(@"processName: %@", [pi processName]);
 	[pi setProcessName:@"MyProcessNewName"];
 	NSLog(@"processName: %@", [pi processName]);
-	NSLog(@"operatingSystem: %d", [pi operatingSystem]);
+	NSLog(@"operatingSystem: %lu", (unsigned long)[pi operatingSystem]);
 	NSLog(@"operatingSystemName: %@", [pi operatingSystemName]);
 	NSLog(@"operatingSystemVersionString: %@", [pi operatingSystemVersionString]);
-	NSLog(@"processorCount: %d", [pi processorCount]);
-	NSLog(@"activeProcessorCount: %d", [pi activeProcessorCount]);
+	NSLog(@"processorCount: %lu", (unsigned long)[pi processorCount]);
+	NSLog(@"activeProcessorCount: %lu", (unsigned long)[pi activeProcessorCount]);
 	NSLog(@"physicalMemory: %qu", [pi physicalMemory]);
 	NSLog(@"args: %@", [pi arguments]);
 
@@ -418,9 +417,9 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 + (NSS*) resources 					{ return self.bundle.resourcePath; }
 + (NSUserDefaults*) defs			{	return [NSUserDefaults standardUserDefaults];	}
 - (NSS*) description 				{	return [[self.propertiesPlease valueForKey:@"description"] componentsJoinedByString:@""];	}
-+ (void) logError:(NSS*)log 	{ DDLogError(@"%@",log); }
-+ (void) logInfo: (NSS*)log 	{ DDLogError(@"%@",log); }
-+ (void) logWarn: (NSS*)log 	{ DDLogWarn (@"%@",log); }
+//+ (void) logError:(NSS*)log 	{ DDLogError(@"%@",log); }
+//+ (void) logInfo: (NSS*)log 	{ DDLogError(@"%@",log); }
+//+ (void) logWarn: (NSS*)log 	{ DDLogWarn (@"%@",log); }
 - (NSC*) logColor 		{  return _logColor = _logColor ?: RANDOMCOLOR; }
 - (NSA*) basicFunctions	{
 

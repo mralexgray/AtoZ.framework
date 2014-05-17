@@ -638,32 +638,23 @@
 	return dict;
 }
 // Return an array of all an object's properties
-+ (NSA*) getPropertyListForClass  {
-	NSMutableArray *propertyNames = [NSMutableArray array];
-	unsigned int num;
++ (NSA*) getPropertyListForClass  { AZNew(NSMA,propertyNames); unsigned int num;
+
 	objc_property_t *properties = class_copyPropertyList(self, &num);
-	for (int i = 0; i < num; i++)
-		[propertyNames addObject:@(property_getName(properties[i]))];
-	free(properties);
-	return propertyNames;
+	for (int i = 0; i < num; i++) [propertyNames addObject:@(property_getName(properties[i]))];
+	free(properties); return propertyNames;
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
-- (NSD*) properties {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	dict[NSStringFromClass([self class])] = [[self class] getPropertyListForClass];
-	for (Class cl in [self superclasses])
-		dict[NSStringFromClass(cl)] = [cl getPropertyListForClass];
-	return dict;
+- (NSD*) properties {	NSMD *d = @{}.mC; AZSAY(@"Do you like my body?");
+                                             d[self.className] = self.class.getPropertyListForClass;
+  [self.superclasses do:^(Class cl) { d[NSStringFromClass(cl)] = [cl getPropertyListForClass]; }];
+  return d;
 }
 // Return an array of all an object's properties
-+ (NSA*) getIvarListForClass  {
-	NSMutableArray *ivarNames = [NSMutableArray array];
-	unsigned int num;
-	Ivar *ivars = class_copyIvarList(self, &num);
-	for (int i = 0; i < num; i++)
-		[ivarNames addObject:@(ivar_getName(ivars[i]))];
-	free(ivars);
-	return ivarNames;
++ (NSA*) getIvarListForClass  {	AZNew(NSMA,ivarNames); unsigned int num;
+
+  Ivar *ivars = class_copyIvarList(self, &num);	for (int i = 0; i < num; i++)
+		[ivarNames addObject:@(ivar_getName(ivars[i]))]; free(ivars); return ivarNames;
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*) ivars  {

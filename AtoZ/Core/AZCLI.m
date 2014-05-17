@@ -42,7 +42,8 @@ typedef id(^eval)(id blockArgs, ...);
 
 -     (void) applicationDidFinishLaunching:(NSNOT*)n {  [NSApp activateIgnoringOtherApps:YES]; playTrumpet(); }
 
--    	   (id) init 						{	if (self != super.init ) return nil;
+-    	   (id) init 						{	if (!(self = super.init)) return nil;
+
 
 //	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
 //	 dCTL	= DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist

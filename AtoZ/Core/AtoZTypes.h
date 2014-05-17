@@ -1,6 +1,8 @@
 
 #import "AtoZMacroDefines.h"
 #import "JREnum.h"
+#import "F.h"
+
 
 /*! The Bitwise operators supported by Objective-C language are listed in the following table.
 @code
@@ -62,6 +64,7 @@ NS_INLINE NSString* AZEnumToBinary(int num) {  char str[9] = {0};
 #define 	AZPositionAutomatic     AZAlignAutomatic   //	 	= 8 );// AZWindowPosition;
 #define 	AZPositionCenter        AZAlignCenter
 #define 	AZPositionOutside       AZAlignOutside
+
 
 @class BLKVIEW;
 typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSRect r);

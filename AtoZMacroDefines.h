@@ -8,57 +8,58 @@
 //@import SystemConfiguration;
 //@import Dispatch;
 //#import <Darwin/Darwin.h>
-#import <Foundation/NSObjCRuntime.h>
-#import <Cocoa/Cocoa.h>
-#import <Dispatch/Dispatch.h>
-#import <SystemConfiguration/SystemConfiguration.h>
+@import ObjectiveC;
+@import Cocoa;
+@import Dispatch;
+@import SystemConfiguration;
+
+//#import "NSColor+AtoZ.h"
 
 //#import <WebKit/WebView.h>
 //#import <Zangetsu/Zangetsu.h>
 
 #pragma mark - COLORS
-
-#define          WHITE [NSC     whiteColor]
-#define         PURPLE [NSC   r:0.617 g:0.125 b:0.628 a:1.]
-#define           BLUE [NSC   r:0.267 g:0.683 b:0.979 a:1.]
-#define     RANDOMGRAY [NSC  white:RAND_FLOAT_VAL(0,1) a:1]
-#define          GRAY9 [NSC  white:.9 a: 1]
-#define     PERIWINKLE [NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1]
-#define   cgRANDOMGRAY RANDOMGRAY.CGColor // CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
-#define          GREEN [NSC   r:0.367 g:0.583 b:0.179 a:1.]
-#define          GRAY7 [NSC  white:.7 a: 1]
-#define    kWhiteColor cgWHITE
-#define          BLACK [NSC blackColor]
-#define          GRAY5 [NSC  white:.5 a: 1]
-#define  cgRANDOMCOLOR RANDOMCOLOR.CGColor
-#define        cgGREEN GREEN.CGColor
-#define          cgRED RED.CGColor
+#define          WHITE ((NSC*)[NSC     whiteColor])
+#define         PURPLE ((NSC*)[NSC   r:0.617 g:0.125 b:0.628 a:1.])
+#define           BLUE ((NSC*)[NSC   r:0.267 g:0.683 b:0.979 a:1.])
+#define     RANDOMGRAY ((NSC*)[NSC  white:RAND_FLOAT_VAL(0,1) a:1])
+#define          GRAY9 ((NSC*)[NSC  white:.9 a: 1])
+#define     PERIWINKLE ((NSC*)[NSColor colorWithDeviceRed:.79 green:.78 blue:.9 alpha:1])
+#define   cgRANDOMGRAY ((CGColorRef)RANDOMGRAY.CGColor) // CGColorCreateGenericGray( RAND_FLOAT_VAL(0,1), 1)
+#define          GREEN ((NSC*)[NSC   r:0.367 g:0.583 b:0.179 a:1.])
+#define          GRAY7 ((NSC*)[NSC  white:.7 a: 1])
+#define    kWhiteColor ((CGColorRef)cgWHITE)
+#define          BLACK ((NSC*)[NSC blackColor])
+#define          GRAY5 ((NSC*)[NSC  white:.5 a: 1])
+#define  cgRANDOMCOLOR ((CGColorRef)RANDOMCOLOR.CGColor)
+#define        cgGREEN ((CGColorRef)GREEN.CGColor)
+#define          cgRED ((CGColorRef)RED.CGColor)
 #define      RANDOMPAL [NSC  randomPalette]
-#define         cgGREY GREY.CGColor
-#define          GRAY3 [NSC  white:.3 a: 1]
-#define         YELLOw [NSC   r:0.830 g:0.801 b:0.277 a:1.]
-#define        cgWHITE WHITE.CGColor
-#define         cgBLUE BLUE.CGColor
-#define          GRAY1 [NSC  white:.1 a: 1]
-#define           GREY [NSC      grayColor]
-#define           PINK [NSC   r:1.000 g:0.228 b:0.623 a:1.]
-#define       cgYELLOW YELLOW.CGColor
-#define    kBlackColor cgBLACK
-#define          GRAY8 [NSC  white:.8 a: 1]
-#define       cgPURPLE PURPLE.CGColor
-#define          CLEAR [NSC     clearColor]
-#define          GRAY6 [NSC  white:.6 a: 1]
-#define    RANDOMCOLOR [NSC    randomColor]
-#define         ORANGE [NSC   r:0.888 g:0.492 b:0.000 a:1.]
-#define       cgORANGE ORANGE.CGColor
-#define        cgBLACK BLACK.CGColor
-#define          GRAY4 [NSC  white:.4 a: 1]
-#define   cgCLEARCOLOR CLEAR.CGColor
-#define          GRAY2 [NSC  white:.2 a: 1]
+#define         cgGREY ((CGColorRef)GREY.CGColor)
+#define          GRAY3 ((NSC*)[NSC  white:.3 a: 1])
+#define         YELLOw ((NSC*)[NSC   r:0.830 g:0.801 b:0.277 a:1.])
+#define        cgWHITE ((CGColorRef)WHITE.CGColor)
+#define         cgBLUE ((CGColorRef)BLUE.CGColor)
+#define          GRAY1 ((NSC*)[NSC  white:.1 a: 1])
+#define           GREY ((NSC*)[NSC      grayColor])
+#define           PINK ((NSC*)[NSC   r:1.000 g:0.228 b:0.623 a:1.])
+#define       cgYELLOW ((CGColorRef)YELLOW.CGColor)
+#define    kBlackColor ((CGColorRef)cgBLACK)
+#define          GRAY8 ((NSC*)[NSC  white:.8 a: 1])
+#define       cgPURPLE ((CGColorRef)PURPLE.CGColor)
+#define          CLEAR ((NSC*)[NSC     clearColor])
+#define          GRAY6 ((NSC*)[NSC  white:.6 a: 1])
+#define    RANDOMCOLOR ((NSC*)[NSC    randomColor])
+#define         ORANGE ((NSC*)[NSC   r:0.888 g:0.492 b:0.000 a:1.])
+#define       cgORANGE ((CGColorRef)ORANGE.CGColor)
+#define        cgBLACK ((CGColorRef)BLACK.CGColor)
+#define          GRAY4 ((NSC*)[NSC  white:.4 a: 1])
+#define   cgCLEARCOLOR ((CGColorRef)CLEAR.CGColor)
+#define          GRAY2 ((NSC*)[NSC  white:.2 a: 1])
 #define STANDARDCOLORS  = @[RED,ORANGE,YELLOW,GREEN,BLUE,PURPLE,GRAY]
-#define            RED [NSC   r:0.797 g:0.000 b:0.043 a:1.]
-#define         YELLOW [NSC   r:0.830 g:0.801 b:0.277 a:1.]
-#define          LGRAY [NSC  white:.5 a:.6]
+#define            RED ((NSC*)[NSC   r:0.797 g:0.000 b:0.043 a:1.])
+#define         YELLOW ((NSC*)[NSC   r:0.830 g:0.801 b:0.277 a:1.])
+#define          LGRAY ((NSC*)[NSC  white:.5 a:.6])
 
 #pragma mark - Foundation
 

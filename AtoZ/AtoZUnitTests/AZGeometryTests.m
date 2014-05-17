@@ -146,7 +146,7 @@ JREnumDefine(AZTestCase);
 - (AZCLITest) forQuantityQofSizeWithColumnsTest {
 
 	return ^{  id s = [AZSizer forQuantity:number.unsignedIntegerValue ofSize:hardCodeItemSize withColumns:hardCodeColumns]; 
-					NSLog(@"%s: %@", _cmd, s);
+					NSLog(@"%p: %@", _cmd, s);
 	};
 }
 //+ (AZSizer*)   forObjects: (NSA*)objects  withFrame:(NSR)aFrame arranged:(AZOrient)arr;

@@ -4,18 +4,18 @@
 						 d88b           88                              ,88																				\
             d8'`8b        MM88MMM                         ,88^ 																				\
            d8'  `8b         88        ,adPPYba,         ,88^   																				\
-          d8YaaaaY8b        88       a8'     '8a      ,88^      																			\
+          d8YaaaaY8b        88       a8'     '8a      ,88^      																  			\
          d8""""""""8b       88       8b       d8    ,88^       																				\
         d8'        `8b      88       '8a,   ,a8'   88^         																				\
        d8'          `8b     'Y888     `^YbbdP^'    888888888888																				\
 																																																		  \
 			     _    _     _           _            _    _																									\
-          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/																						\
-					|    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\																						\
+          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/																				  		\
+					|    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\																					   	\
 																																																			"
-                                                                                  #define AZWELCOME @"\
-Bienvenidos! いらっしゃいませ！добро пожаловать! Willkommen! 接 待! Bonjour!                          \
-  Welcome to 𝗔𝗍𝗈𝗭•𝖿𝗋𝖺𝗆𝖾𝗐𝗈𝗋𝗄! © ⅯⅯⅯⅩⅠⅤ ! 𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆                                         "
+                                                                                  #define AZWELCOME @"\n\
+Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать! Willkommen! 接 待! Bonjour!"                 @"\n\
+𝗔𝗍𝗈𝗭•𝖿𝗋𝖺𝗆𝖾𝗐𝗈𝗋𝗄! © ⅯⅯⅯⅩⅠⅤ ! 𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆"
 
 /*! @discussion 
   
@@ -70,239 +70,6 @@ AZWORKSPACE:
 
 Current probs...
 
-objc[81330]: REPLACED: -[NSObject description]  by category NSObject  (IMP was 0x7fff8e09f294 (/usr/lib/libobjc.A.dylib), now 0x7fff90136b30 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: -[NSObject methodSignatureForSelector:]  by category NSObject  (IMP was 0x7fff8e09f203 (/usr/lib/libobjc.A.dylib), now 0x7fff90103af0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: -[NSObject doesNotRecognizeSelector:]  by category NSObject  (IMP was 0x7fff8e09f02a (/usr/lib/libobjc.A.dylib), now 0x7fff901d1220 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject init]  by category NSObject  (IMP was 0x7fff8e09f4b8 (/usr/lib/libobjc.A.dylib), now 0x7fff901d15a0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject dealloc]  by category NSObject  (IMP was 0x7fff8e09f4c0 (/usr/lib/libobjc.A.dylib), now 0x7fff901d1650 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject description]  by category NSObject  (IMP was 0x7fff8e09f291 (/usr/lib/libobjc.A.dylib), now 0x7fff90129330 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject finalize]  by category NSObject  (IMP was 0x7fff8e09f4cd (/usr/lib/libobjc.A.dylib), now 0x7fff901d16f0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject methodSignatureForSelector:]  by category NSObject  (IMP was 0x7fff8e09f1f1 (/usr/lib/libobjc.A.dylib), now 0x7fff9008b2f0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject doesNotRecognizeSelector:]  by category NSObject  (IMP was 0x7fff8e09eff3 (/usr/lib/libobjc.A.dylib), now 0x7fff901d1120 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject instanceMethodSignatureForSelector:]  by category NSObject  (IMP was 0x7fff8e09f1df (/usr/lib/libobjc.A.dylib), now 0x7fff901d12f0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation))
-objc[81330]: REPLACED: +[NSObject performSelector:]  by category AZClassProxy  (IMP was 0x7fff8e09f061 (/usr/lib/libobjc.A.dylib), now 0x10006748a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject properties]  by category AQProperties  (IMP was 0x100028b30 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100166f56 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject properties]  by category Utilities  (IMP was 0x100166f56 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1001b0a61 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject associatedValueForKey:]  by category AssociatedValues  (IMP was 0x100972c20 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10023bce2 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject valueForUndefinedKey:]  by category AtoZ  (IMP was 0x7fff9294df83 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation), now 0x10023e373 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject setValue:forUndefinedKey:]  by category AtoZ  (IMP was 0x7fff9294e07f (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation), now 0x10023e527 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performBlock:afterDelay:]  by category AtoZ  (IMP was 0x100972df0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x100241bae (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:afterDelay:]  by category AG  (IMP was 0x1001b03be (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002460b7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject classPropsFor:]  by category AG  (IMP was 0x100166193 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100244b33 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withObject:afterSystemIdleTime:withinTimeLimit:startTime:]  by category NoodlePerformWhenIdle  (IMP was 0x100af7280 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x1002476df (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withObject:afterSystemIdleTime:]  by category NoodlePerformWhenIdle  (IMP was 0x100af7610 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x1002478fe (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withObject:afterSystemIdleTime:withinTimeLimit:]  by category NoodlePerformWhenIdle  (IMP was 0x100af7670 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x100247918 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject superclasses]  by category SadunUtilities  (IMP was 0x1001af538 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002479ca (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject invocationWithSelector:andArguments:]  by category SadunUtilities  (IMP was 0x1001af615 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100247a74 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject invocationWithSelectorAndArguments:]  by category SadunUtilities  (IMP was 0x1001afce5 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248149 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withReturnValue:andArguments:]  by category SadunUtilities  (IMP was 0x1001afd8b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002481ef (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withReturnValueAndArguments:]  by category SadunUtilities  (IMP was 0x1001afdfe (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248262 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject objectByPerformingSelectorWithArguments:]  by category SadunUtilities  (IMP was 0x1001afefa (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10024835e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject objectByPerformingSelector:withObject:withObject:]  by category SadunUtilities  (IMP was 0x1001affbe (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248422 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject objectByPerformingSelector:withObject:]  by category SadunUtilities  (IMP was 0x1001b0254 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002486c7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject objectByPerformingSelector:]  by category SadunUtilities  (IMP was 0x1001b0269 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002486dc (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withCPointer:afterDelay:]  by category SadunUtilities  (IMP was 0x1001b0280 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002486f3 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withBool:afterDelay:]  by category SadunUtilities  (IMP was 0x1001b0353 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002487c6 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withInt:afterDelay:]  by category SadunUtilities  (IMP was 0x1001b0375 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002487e8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withFloat:afterDelay:]  by category SadunUtilities  (IMP was 0x1001b0397 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10024880a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:afterDelay:]  by category SadunUtilities  (IMP was 0x1002460b7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248831 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject getReturnValue:]  by category SadunUtilities  (IMP was 0x1001b03d2 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248845 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withDelayAndArguments:]  by category SadunUtilities  (IMP was 0x1001b041a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10024888d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject valueByPerformingSelector:withObject:withObject:]  by category SadunUtilities  (IMP was 0x1001b04fd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248970 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject valueByPerformingSelector:withObject:]  by category SadunUtilities  (IMP was 0x1001b06a9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248b1c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject valueByPerformingSelector:]  by category SadunUtilities  (IMP was 0x1001b06be (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248b31 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject selectors]  by category SadunUtilities  (IMP was 0x1001b077d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248bf0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject properties]  by category SadunUtilities  (IMP was 0x1001b0a61 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248ed9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject ivars]  by category SadunUtilities  (IMP was 0x1001b0d45 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002491c2 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject protocols]  by category SadunUtilities  (IMP was 0x1001b1040 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002494ab (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject hasProperty:]  by category SadunUtilities  (IMP was 0x1001b148d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002496d4 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject hasIvar:]  by category SadunUtilities  (IMP was 0x1001b162d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249874 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject returnTypeForSelector:]  by category SadunUtilities  (IMP was 0x1001b1838 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249abd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject chooseSelector:]  by category SadunUtilities  (IMP was 0x1001b1884 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249b09 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject tryPerformSelector:withObject:withObject:]  by category SadunUtilities  (IMP was 0x1001b19c4 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249c49 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject tryPerformSelector:withObject:]  by category SadunUtilities  (IMP was 0x1001b1a58 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249cdd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject tryPerformSelector:]  by category SadunUtilities  (IMP was 0x1001b1a6d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249cf2 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject getSelectorListForClass]  by category SadunUtilities  (IMP was 0x1001b06d5 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248b48 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject getPropertyListForClass]  by category SadunUtilities  (IMP was 0x1001b09a6 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100248e19 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject getIvarListForClass]  by category SadunUtilities  (IMP was 0x1001b0c8a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249102 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject getProtocolListForClass]  by category SadunUtilities  (IMP was 0x1001b0f6e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1002493eb (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject classExists:]  by category SadunUtilities  (IMP was 0x1001b17cd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249a14 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSObject instanceOfClassNamed:]  by category SadunUtilities  (IMP was 0x1001b17e4 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100249a2b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject boolForKey:]  by category FOOCoding  (IMP was 0x1010c11a0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x10024a78b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject doubleForKey:]  by category FOOCoding  (IMP was 0x1010c1070 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x10024aaac (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject floatForKey:]  by category FOOCoding  (IMP was 0x1010c0f40 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x10024ab03 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject integerForKey:]  by category FOOCoding  (IMP was 0x1010c1800 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x10024ab5a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject unsignedIntegerForKey:]  by category FOOCoding  (IMP was 0x1010c1d20 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x10024ac14 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject sVs:fKs:]  by category FOOCoding  (IMP was 0x10023d70f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10024c19e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject performSelector:withValue:]  by category Primitives  (IMP was 0x100242fb2 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10026383e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSObject associatedValueForKey:]  by category REUtil  (IMP was 0x10023bce2 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100283d80 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSNull initWithCoder:]  by category NSNull  (IMP was 0x7fff901d0ef0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff929698cd (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSNull encodeWithCoder:]  by category NSNull  (IMP was 0x7fff901d0f00 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928d7639 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: +[NSSet supportsSecureCoding]  by category NSSet  (IMP was 0x7fff901d4640 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928dc7b7 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSSet initWithCoder:]  by category NSSet  (IMP was 0x7fff901d4650 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9284e49c (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSSet encodeWithCoder:]  by category NSSet  (IMP was 0x7fff901d4660 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928dc7c2 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSSet all:]  by category FunSize  (IMP was 0x100976490 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x1010c4100 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSSet any:]  by category FunSize  (IMP was 0x1009763b0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x1010c4380 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSSet map:]  by category FunSize  (IMP was 0x100975db0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x1010c4900 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: +[NSDictionary supportsSecureCoding]  by category NSDictionary  (IMP was 0x7fff901cbb20 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928d0f26 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSDictionary initWithCoder:]  by category NSDictionary  (IMP was 0x7fff901cbb30 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9286f5ad (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSDictionary encodeWithCoder:]  by category NSDictionary  (IMP was 0x7fff901cbb40 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928b1739 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSDictionary each:]  by category F  (IMP was 0x10096eea0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10011a436 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary map:]  by category F  (IMP was 0x10096f950 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10011a45b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary reject:]  by category F  (IMP was 0x10096f7e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10011a504 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary stringForKey:]  by category Types  (IMP was 0x100e78419 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100131e34 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary arrayForKey:]  by category Types  (IMP was 0x100e7848a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100131f8f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary stringForKey:]  by category OFExtensions  (IMP was 0x100e78419 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x1001342e9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary floatForKey:]  by category OFExtensions  (IMP was 0x100c45390 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x10013456d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary pointForKey:]  by category OFExtensions  (IMP was 0x100c45260 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1001346cd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary boolForKey:defaultValue:]  by category OFExtensions  (IMP was 0x100e78679 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x10013497f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary boolForKey:]  by category OFExtensions  (IMP was 0x100e78705 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100134a1c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary intForKey:defaultValue:]  by category OFExtensions  (IMP was 0x100e7871d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100134a34 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary intForKey:]  by category OFExtensions  (IMP was 0x100e78756 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100134a7f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary objectForKey:defaultObject:]  by category OFExtensions  (IMP was 0x100e78466 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100134bb0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary deepMutableCopy]  by category OFExtensions  (IMP was 0x100e78542 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100134c49 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDictionary dictionaryByAddingEntriesFromDictionary:]  by category SimpleMutations  (IMP was 0x1010d5970 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1001352f1 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSArray arrayWithInts:]  by category AtoZ  (IMP was 0x100fe46d0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10007e7a8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSArray arrayWithDoubles:]  by category AtoZ  (IMP was 0x100fe4380 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10007e931 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray initWithCoder:]  by category NSArray  (IMP was 0x7fff901c1050 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9284f061 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSArray encodeWithCoder:]  by category NSArray  (IMP was 0x7fff901c1060 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928af54d (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSArray containsObjectIdenticalTo:]  by category FezAdditions  (IMP was 0x7fff901bf130 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff88949b82 (/System/Library/PrivateFrameworks/IMFoundation.framework/Versions/A/IMFoundation))
-objc[81330]: REPLACED: -[NSArray firstObject]  by category NUExtensions  (IMP was 0x7fff901258c0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x100fe4220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs))
-objc[81330]: REPLACED: -[NSArray map:]  by category BlocksKit  (IMP was 0x100fe5050 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10096e220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit))
-objc[81330]: REPLACED: -[NSArray firstObject]  by category Utilities  (IMP was 0x100fe4220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10085e5c0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/UAGithubEngine.framework/UAGithubEngine))
-objc[81330]: REPLACED: -[NSArray all:]  by category FunSize  (IMP was 0x10096e900 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x1010bc500 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSArray any:]  by category FunSize  (IMP was 0x10096e820 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x1010bc780 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSArray map:]  by category FunSize  (IMP was 0x100fe5050 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x1010bca00 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSArray filter:]  by category FunSize  (IMP was 0x100fe5ce0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x1010bd910 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSArray reversedArray]  by category FunSize  (IMP was 0x7fff901c0030 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x1010beb60 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSArray arrayByRemovingObject:]  by category FunSize  (IMP was 0x100fe4b10 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x1010bedf0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSArray arrayByRemovingObject:]  by category NTExtensions  (IMP was 0x100fe4b10 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x100e87596 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore))
-objc[81330]: REPLACED: -[NSArray reversedArray]  by category NTExtensions  (IMP was 0x1010beb60 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x100e879ae (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore))
-objc[81330]: REPLACED: -[NSArray stringWithEnum:]  by category AtoZ  (IMP was 0x10007ba40 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10007df99 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray enumFromString:default:]  by category AtoZ  (IMP was 0x10007ba52 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10007dfab (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray enumFromString:]  by category AtoZ  (IMP was 0x10007ba80 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10007e00f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray sortedWithKey:ascending:]  by category AtoZ  (IMP was 0x10085e640 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/UAGithubEngine.framework/UAGithubEngine), now 0x10007e6c7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray map:]  by category AtoZ  (IMP was 0x100fe5050 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10007fbcf (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray filter:]  by category AtoZ  (IMP was 0x100fe5ce0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x100080a77 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray firstObject]  by category AtoZ  (IMP was 0x100fe4220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x100082802 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray firstObject]  by category Extensions  (IMP was 0x100fe4220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x100083b59 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray stringValue]  by category StringExtensions  (IMP was 0x100c90ec0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x10008520d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray reversedArray]  by category StringExtensions  (IMP was 0x1010beb60 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x100085226 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray firstObject]  by category StringExtensions  (IMP was 0x100fe4220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x100085276 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray firstObject]  by category UtilityExtensions  (IMP was 0x100fe4220 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x1000853c9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray map:]  by category UtilityExtensions  (IMP was 0x100fe5050 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x100085a1d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray reject:]  by category UtilityExtensions  (IMP was 0x10096e0e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x100085eaa (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray select:]  by category CollectionsAdditions  (IMP was 0x10096ded0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10010f12d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray map:]  by category CollectionsAdditions  (IMP was 0x100fe5050 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10010f29d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray each:]  by category F  (IMP was 0x10096d930 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10011a089 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray map:]  by category F  (IMP was 0x100fe5050 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10011a0d3 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray filter:]  by category F  (IMP was 0x100fe5ce0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaPuffs.framework/CocoaPuffs), now 0x10011a157 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray reject:]  by category F  (IMP was 0x10096e0e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x10011a17c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSArray first]  by category F  (IMP was 0x1000811b4 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10011a2be (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSMutableArray removeFirstObject]  by category FezAdditions  (IMP was 0x7fff901c2d00 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff8895257d (/System/Library/PrivateFrameworks/IMFoundation.framework/Versions/A/IMFoundation))
-objc[81330]: REPLACED: -[NSMutableArray insertObjectsFromArray:atIndex:]  by category NTExtensions  (IMP was 0x7fff901c1d30 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x100e8f9bf (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore))
-objc[81330]: REPLACED: -[NSMutableArray removeFirstObject]  by category Extensions  (IMP was 0x7fff8895257d (/System/Library/PrivateFrameworks/IMFoundation.framework/Versions/A/IMFoundation), now 0x100083ba0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSMutableArray removeFirstObject]  by category AG  (IMP was 0x7fff8895257d (/System/Library/PrivateFrameworks/IMFoundation.framework/Versions/A/IMFoundation), now 0x1000840ee (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSMutableArray removeFirstObject]  by category UtilityExtensions  (IMP was 0x7fff8895257d (/System/Library/PrivateFrameworks/IMFoundation.framework/Versions/A/IMFoundation), now 0x1000860c7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSMutableArray push:]  by category StackAndQueueExtensions  (IMP was 0x1000841fd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100086319 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSMutableArray pop]  by category StackAndQueueExtensions  (IMP was 0x100084175 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10008632b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSTimer scheduledTimerWithTimeInterval:repeats:block:]  by category FunSize  (IMP was 0x100af8260 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x1010c5d10 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: +[NSTimer timerWithTimeInterval:repeats:block:]  by category FunSize  (IMP was 0x100af83d0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x1010c5e00 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSLocale initWithCoder:]  by category NSLocale  (IMP was 0x7fff901f1180 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9295b4b7 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSLocale encodeWithCoder:]  by category NSLocale  (IMP was 0x7fff901f1190 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9295b433 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSCalendar initWithCoder:]  by category NSCalendar  (IMP was 0x7fff901d8400 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff92906b59 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSCalendar encodeWithCoder:]  by category NSCalendar  (IMP was 0x7fff901d8410 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff92906a0f (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: +[NSString stringWithBytes:length:encoding:]  by category Utilities  (IMP was 0x7fff928dc67a (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation), now 0x100e65ef3 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore))
-objc[81330]: REPLACED: +[NSString stringWithData:encoding:]  by category AtoZ  (IMP was 0x100e66967 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x10008f08b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSString stringWithData:encoding:]  by category Creations  (IMP was 0x100e66967 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100094121 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSString colorFromData:]  by category THColorConversion  (IMP was 0x10008cc78 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1000a74e6 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString stringValue]  by category DKAdditions  (IMP was 0x100c91440 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x100cbff80 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit))
-objc[81330]: REPLACED: -[NSString containsString:]  by category Extensions  (IMP was 0x7fff8e88882d (/System/Library/PrivateFrameworks/ISSupport.framework/Versions/A/ISSupport), now 0x1000937b1 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString stringByDeletingPrefix:]  by category Extensions  (IMP was 0x100e6625f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100093b39 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString stringByDeletingSuffix:]  by category Extensions  (IMP was 0x100e66248 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100093bb4 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString range]  by category Shortcuts  (IMP was 0x10008926c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10009482f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString URLEncodedString]  by category SNRAdditions  (IMP was 0x100e666a9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x100095219 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString startsWith:]  by category IngredientsUtilities  (IMP was 0x10008dbf0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10009594d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString containsString:]  by category IngredientsUtilities  (IMP was 0x7fff8e88882d (/System/Library/PrivateFrameworks/ISSupport.framework/Versions/A/ISSupport), now 0x100095acf (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString range]  by category DSCategory  (IMP was 0x10008926c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100098458 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString contains:]  by category DSCategory  (IMP was 0x10008d846 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100098615 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString containsString:]  by category DSCategory  (IMP was 0x7fff8e88882d (/System/Library/PrivateFrameworks/ISSupport.framework/Versions/A/ISSupport), now 0x100098cbd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString colorData]  by category THColorConversion  (IMP was 0x10008cc59 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1000a74c7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString hasCaseInsensitivePrefix:]  by category NSStringAdditions  (IMP was 0x100092c0f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1001ecf75 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSString stringByReplacingCharactersInSet:withString:]  by category NSStringAdditions  (IMP was 0x100cbf7c0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1001ed342 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSMutableAttributedString setFont:]  by category Additions  (IMP was 0x1010fea70 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x10009203f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSNumber zero]  by category AtoZ  (IMP was 0x1010d58b0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1000c4ee4 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSNumber one]  by category AtoZ  (IMP was 0x1010d58e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1000c4eff (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSNumber times:]  by category F  (IMP was 0x1000c502d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10011a7af (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSTimeZone initWithCoder:]  by category NSTimeZone  (IMP was 0x7fff901f0780 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928db3ae (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSTimeZone encodeWithCoder:]  by category NSTimeZone  (IMP was 0x7fff901f0790 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff929c949d (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: +[NSAffineTransform transformRotatingAroundPoint:byDegrees:]  by category UKShearing  (IMP was 0x1009e6ee0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x1000b5d7a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSAffineTransform mapFrom:to:]  by category RectMapping  (IMP was 0x100c99c80 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1000b5660 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSAffineTransform scaleBounds:toHeight:centeredDistance:abovePoint:]  by category RectMapping  (IMP was 0x100c99eb0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1000b570c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSAffineTransform scaleBounds:toHeight:centeredAboveOrigin:]  by category RectMapping  (IMP was 0x100c99fe0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1000b57b8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSAffineTransform flipVertical:]  by category RectMapping  (IMP was 0x100c9a0a0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1000b57d0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSView isSubviewOfView:]  by category AtoZ  (IMP was 0x1010c6900 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1000ac887 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSView removeAllSubviews]  by category AtoZ  (IMP was 0x100e7b7df (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x1000ae594 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSImage ikImageNamed:]  by category IKScan  (IMP was 0x7fff87542aca (/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/ImageKit.framework/Versions/A/ImageKit), now 0x7fff875837a5 (/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/ImageKit.framework/Versions/A/ImageKit))
-objc[81330]: REPLACED: +[NSImage imageFromCGImageRef:]  by category AtoZ  (IMP was 0x100e72ee9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x1000d7f2f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSImage imageWithPreviewOfFileAtPath:ofSize:asIcon:]  by category QuickLook  (IMP was 0x1000d7fd3 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1000df162 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSImage imageByTilingImages:spacingX:spacingY:vertically:]  by category ImageMerge  (IMP was 0x1000cab3d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100157d32 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSImage drawInRect:]  by category FunSize  (IMP was 0x7fff91e08dc7 (/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit), now 0x1010bf920 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize))
-objc[81330]: REPLACED: -[NSImage bitmap]  by category CGImageConversion  (IMP was 0x1000d4b37 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1000d8d83 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSImage cgImage]  by category CGImageConversion  (IMP was 0x1000d4f57 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1000d8f2e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSImage imageRotatedByDegrees:]  by category Transform  (IMP was 0x1000d5076 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100157a1e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSImage imageBorderedWithInset:]  by category ImageMerge  (IMP was 0x1000cafbd (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x100158193 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSImage imageBorderedWithOutset:]  by category ImageMerge  (IMP was 0x1000cb1b8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x10015838e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDate initWithCoder:]  by category NSDate  (IMP was 0x7fff901c75a0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff92876cce (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSDate encodeWithCoder:]  by category NSDate  (IMP was 0x7fff901c75b0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff928b1d1c (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSNotificationCenter postNotificationOnMainThread:]  by category MainThread  (IMP was 0x1010c04c0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1000f6603 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor randomColor]  by category AtoZ  (IMP was 0x100a37ff0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x10009f9cb (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor colorWithHex:]  by category AtoZ  (IMP was 0x1010bef90 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x10009fe13 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor r:g:b:a:]  by category AtoZ  (IMP was 0x100a0d310 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x1000a15ea (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor randomColor]  by category AIColorAdditions_RandomColor  (IMP was 0x100a37ff0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x1000a533c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor tui_colorWithR:G:B:]  by category RGBHex  (IMP was 0x1010fe4f0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x10010e68b (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor tui_colorWithR:G:B:A:]  by category RGBHex  (IMP was 0x1010fe540 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x10010e6a5 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor tui_colorWithHex:alpha:]  by category RGBHex  (IMP was 0x1010fe5c0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x10010e6e7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSColor tui_colorWithHex:]  by category RGBHex  (IMP was 0x1010fe640 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x10010e70d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSColor contrastingColor]  by category AIColorAdditions_DarknessAndContrast  (IMP was 0x100c43c90 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1000a4981 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSColor hexString]  by category AIColorAdditions_RepresentingColors  (IMP was 0x100c44030 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/DrawKit.framework/DrawKit), now 0x1000a4b7d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSColor lighterColor]  by category AMAdditions  (IMP was 0x100e8b6e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x1000a7727 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[CALayer debugDescription]  by category AtoZ  (IMP was 0x7fff8c1bb7c9 (/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore), now 0x1000f1cee (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSException initWithCoder:]  by category NSException  (IMP was 0x7fff901ce2d0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9292e9f0 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSException encodeWithCoder:]  by category NSException  (IMP was 0x7fff901ce2e0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff9292e8d4 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: +[NSInvocation invocationWithTarget:block:]  by category jr_block  (IMP was 0x1009711c0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/BlocksKit.framework/BlocksKit), now 0x1001af3eb (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSDateComponents initWithCoder:]  by category _  (IMP was 0x7fff901e62c0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff929071a0 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSDateComponents encodeWithCoder:]  by category _  (IMP was 0x7fff901e62d0 (/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation), now 0x7fff92906d99 (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation))
-objc[81330]: REPLACED: -[NSHTTPCookie isEqual:]  by category IGPropertyTesting  (IMP was 0x7fff9294101f (/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation), now 0x10004865f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSIndexPath section]  by category JAListViewExtensions  (IMP was 0x101131c70 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x10019c4a1 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[CAAnimation flipAnimationWithDuration:forLayerBeginningOnTop:scaleFactor:]  by category AtoZ  (IMP was 0x10006dc99 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x1000e5644 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[CAAnimation animationDidStop:finished:]  by category AtoZ  (IMP was 0x1011859d0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x1000e515e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSBezierPath bezierPathWithPlateInRect:]  by category AtoZ  (IMP was 0x100e76c9d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x1000b70b7 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSBezierPath bezierPathWithRoundedRect:radius:]  by category AtoZ  (IMP was 0x1010d4820 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1000b9c6d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSBezierPath bezierPathWithRoundedRect:radius:]  by category RoundedRectangle  (IMP was 0x1010d4820 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/FunSize.framework/FunSize), now 0x1000baebe (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSBezierPath quartzPath]  by category AtoZ  (IMP was 0x100953bf0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CFAAction.framework/CFAAction), now 0x1000b8660 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSBezierPath fillWithInnerShadow:]  by category AtoZ  (IMP was 0x100a215d0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x1000b9476 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSButton isSwitchButton]  by category NTExtensions  (IMP was 0x10157cfc8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaTechStrings.framework/CocoaTechStrings), now 0x100e8f12a (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore))
-objc[81330]: REPLACED: -[NSButton textColor]  by category SNRAdditions  (IMP was 0x100a37b00 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x100176c3d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSButton setTextColor:]  by category SNRAdditions  (IMP was 0x100a37cf0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit), now 0x100176c8d (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSButtonCell isSwitchButtonCell]  by category NTExtensions  (IMP was 0x10157d01c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoaTechStrings.framework/CocoaTechStrings), now 0x100e8f17e (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore))
-objc[81330]: REPLACED: -[NSWindow animateToFrame:duration:]  by category NoodleEffects  (IMP was 0x100af9550 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x10024d35f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSWindow _createZoomWindowWithRect:]  by category NoodleEffects  (IMP was 0x100af97e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x10024d4e8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSWindow zoomOnFromRect:]  by category NoodleEffects  (IMP was 0x100af9ef0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x10024d98f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSWindow zoomOffToRect:]  by category NoodleEffects  (IMP was 0x100afa0e0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/NoodleKit.framework/NoodleKit), now 0x10024daed (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSWindow copyWithZone:]  by category AtoZ  (IMP was 0x100e7d3d6 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/CocoatechCore.framework/CocoatechCore), now 0x1002502b3 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[NSColorWell _performActivationClickWithShiftDown:]  by category BFColorPickerPopover  (IMP was 0x7fff91d057ed (/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit), now 0x100a38570 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZAppKit.framework/AtoZAppKit))
-objc[81330]: REPLACED: +[NSMenuItem initialize]  by category Q  (IMP was 0x7fff918b2e77 (/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit), now 0x10021b4e3 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: +[NSShadow shadow]  by category ADBShadowExtensions  (IMP was 0x7fff91f19e13 (/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit), now 0x1000c2936 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-objc[81330]: REPLACED: -[DOMHTMLInputElement _setAutofilled:]  by category WebDOMHTMLInputElementOperationsPrivate  (IMP was 0x7fff854b7a50 (/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore), now 0x7fff87bdd130 (/System/Library/Frameworks/WebKit.framework/Versions/A/WebKit))
-objc[81330]: REPLACED: -[TUIView setSubviews:]  by category Subviews  (IMP was 0x10115f8f0 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/TwUI.framework/TwUI), now 0x1001dd4c8 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ))
-LOGENV:LogEnvError
--[AZGoogleQuery loadMoreURLs]AZGoogleQuery
-0.7984 seconds
-objc[81330]: REPLACED: -[NSDictionary boolForKey:defaultValue:]  by category DictionaryExtensions  (IMP was 0x10013497f (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x7fff87300193 (/System/Library/PrivateFrameworks/DiskImages.framework/Versions/A/DiskImages))
-objc[81330]: REPLACED: -[NSDictionary boolForKey:]  by category DictionaryExtensions  (IMP was 0x100134a1c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x7fff8737086d (/System/Library/PrivateFrameworks/DiskImages.framework/Versions/A/DiskImages))
-objc[81330]: REPLACED: -[NSDictionary integerForKey:]  by category DictionaryExtensions  (IMP was 0x100134b9c (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x7fff87370885 (/System/Library/PrivateFrameworks/DiskImages.framework/Versions/A/DiskImages))
-objc[81330]: REPLACED: -[NSDictionary stringForKey:]  by category BetterAccessors  (IMP was 0x1001342e9 (/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/AtoZ), now 0x7fff87370a5e (/System/Library/PrivateFrameworks/DiskImages.framework/Versions/A/DiskImages))
 
 
 */
@@ -586,32 +353,34 @@ Metaprogramming is normally something that people associate with more dynamic la
 
 
 
-  #import "AOPProxy/AOPProxy.h"
-  #import "AtoZAutoBox/AtoZAutoBox.h"
-  #import "AtoZSingleton/AtoZSingleton.h"
-  #import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
-  #import "JATemplate/JATemplate.h"
-  #import "KVOMap/KVOMap.h"
-  #import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
-  #import <AtoZAppKit/AtoZAppKit.h>
-  #import <AtoZBezierPath/AtoZBezierPath.h>
-  #import <BlocksKit/A2DynamicDelegate.h>
-  #import <BlocksKit/BlocksKit.h>
-  #import <BWTK/BWToolkitFramework.h>
-  #import <CFAAction/CFAAction.h>
-  #import <CocoaPuffs/CocoaPuffs.h>
-  #import <CocoatechCore/CocoatechCore.h>
-  #import <DrawKit/DKDrawKit.h>
-  #import <FunSize/FunSize.h>
-  #import <KSHTMLWriter/KSHTMLWriter.h>
-  #import <MenuApp/MenuApp.h>
-  #import <NMSSH/NMSSH.h>
-  #import <NoodleKit/NoodleKit.h>
-  #import <PhFacebook/PhFacebook.h>
-  #import <Rebel/Rebel.h>
-  #import <TwUI/TUIKit.h>
-  #import <UAGithubEngine/UAGithubEngine.h>
-  #import <UIKit/UIKit.h>
+#import "AOPProxy/AOPProxy.h"
+#import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
+#import "JATemplate/JATemplate.h"
+#import "KVOMap/KVOMap.h"
+#import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
+#import <AtoZAppKit/AtoZAppKit.h>
+#import <AtoZAutoBox/AtoZAutoBox.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <BlocksKit/A2DynamicDelegate.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BWTK/BWToolkitFramework.h>
+#import <CFAAction/CFAAction.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <CocoatechCore/CocoatechCore.h>
+#import <DrawKit/DKDrawKit.h>
+#import <FunSize/FunSize.h>
+#import <KSHTMLWriter/KSHTMLWriter.h>
+#import <MenuApp/MenuApp.h>
+#import <NMSSH/NMSSH.h>
+#import <NoodleKit/NoodleKit.h>
+#import <PhFacebook/PhFacebook.h>
+#import <Rebel/Rebel.h>
+#import <TwUI/TUIKit.h>
+#import <UAGithubEngine/UAGithubEngine.h>
+#import <UIKit/UIKit.h>
+//  #import "AtoZSingleton/AtoZSingleton.h"
+
+
   //#import <MapKit/MapKit.h>
   //#import <RoutingHTTPServer/AZRouteResponse.h>
 
@@ -622,7 +391,7 @@ Metaprogramming is normally something that people associate with more dynamic la
   #import "HRCoder.h"
   #import "F.h"
 
-  #import "AtoZAutoBox/AtoZAutoBox.h"
+//  #import "AtoZAutoBox/AtoZAutoBox.h"
 
 
   #import "AtoZTypes.h"
@@ -810,14 +579,14 @@ Metaprogramming is normally something that people associate with more dynamic la
   #import "LetterView.h"
   #import <AtoZ/AtoZEmoji.h>
 
-  #import <RoutingHTTPServer/RoutingHTTPServer.h>
+//  #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 
-  #ifdef DEBUG
-    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-  #else
-    static const int ddLogLevel = LOG_LEVEL_WARN;
-  #endif
+//  #ifdef DEBUG
+//    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+//  #else
+//    static const int ddLogLevel = LOG_LEVEL_WARN;
+//  #endif
 #endif
 
 /*	INACTIVE

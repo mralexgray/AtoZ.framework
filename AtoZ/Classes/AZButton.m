@@ -96,7 +96,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 					[NSBezierPath bezierPathWithRoundedRect:frame xRadius:AZButtonCornerRadius yRadius:AZButtonCornerRadius ] :
 					[NSBezierPath bezierPathWithRoundedRect:frame cornerRadius:AZButtonCornerRadius inCorners:OSBottomLeftCorner|OSBottomRightCorner]);
 	
-	NSGradient *gradientFill = [[NSGradient alloc]initWithColors:$array(color.darker.darker, color.brighter.brighter)];
+	NSGradient *gradientFill = [[NSGradient alloc]initWithColors:@[color.darker.darker, color.brighter.brighter]];
 	[gradientFill drawInBezierPath:__bezelPath angle:270.f];
 	// Draw the border and drop shadow
 	[NSGraphicsContext saveGraphicsState];

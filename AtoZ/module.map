@@ -1,7 +1,18 @@
 
-framework module AtoZ [system] {
-
-  umbrella "Headers"
+framework module AtoZ {
+  umbrella header "AtoZ.h"
   export *
   module * { export * }
 }
+
+
+//  umbrella header "AtoZ.h"
+//  framework module AtoZAutoBox {
+//    umbrella header "/Volumes/4X4/DerivedData/AtoZ/Products/Debug/include/AtoZAutoBox/AtoZAutoBox.h"
+//    export *
+//    module * { export * }
+//  }
+ //[system] {
+//  umbrella "Headers"
+//  exclude header "ffi/ffi_x86_64.h"
+//  exclude header "ffi/ffi.h"

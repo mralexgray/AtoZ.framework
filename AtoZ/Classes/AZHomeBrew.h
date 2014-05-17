@@ -40,7 +40,7 @@ typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
 + (instancetype) instanceWithName: (NSS*)name;
 @end
 
-#import "AtoZSingleton/AtoZSingleton.h"
+//#import "AtoZSingleton/AtoZSingleton.h"
 
 @interface 			 AZHomeBrew : NSTreeController 
 

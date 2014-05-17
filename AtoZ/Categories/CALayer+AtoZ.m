@@ -10,8 +10,17 @@
       ((x = [z respondsToStringThenDo:@"keyPath"])) ? [_self addAnimation:z forKey:x] : [_self addAnimation:z]; 
   }];
 }
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,      setEventMask,            NSEventMask,
+                                        ^{},^{
+     id x; if((x = self[@"oldHandler"])) [NSEvent removeMonitor:x];
+      __block EventBlock ev = self.eventBlock;
+     if (value && ev) {
+      self[@"oldHandler"] = [NSEVENTLOCALMASK:value handler:^NSE*(NSE*e){ ev(e); return e; }];
+    }}
+);
 
          SYNTHESIZE_ASC_CAST(eventBlock, setEventBlock, EventBlock);
+//         , ^{}, ^{ NSEventMask x = self.eventMask; if (X)});
          SYNTHESIZE_ASC_CAST(wasHit,     setWasHit,     LayerBlock);
          SYNTHESIZE_ASC_CAST(mouseOver,  setMouseOver,  LayerBlock);
 SYNTHESIZE_ASC_PRIMITIVE_KVO(noHit,      setNoHit,            BOOL);

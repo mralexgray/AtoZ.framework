@@ -210,6 +210,18 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 
 @implementation NSObject (AtoZ)
 
+- (void)  sV:(id)v   fKP:(id)k    {  [self setValue:v forKeyPath:k]; }
+- (void)  sV:(id)v    fK:(id)k    {  [self setValue:v forKey:k]; }
+- (void) sVs:(NSA*)v fKs:(NSA*)k  {  [self setValues:v forKeys:k]; }
+- (void) setValues:(NSA*)vs forKeys:(NSA*)ks {
+
+  NSParameterAssert (vs       &&     ks      &&
+                 ISA(vs,NSA)  && ISA(ks,NSA) &&
+                     vs.count == ks.count);
+
+  [[ks pairedWith:vs] eachWithVariadicPairs:^(id a, id b) { [self sV:b fK:a]; }];
+}
+- (void)  setValue:(id)x forKeys:(NSA*)ks { for(id z in ks) [self sV:x fK:z]; }
 
 
 -  (void) triggerKVO:(NSS*)k block:(bSelf)blk {           
@@ -229,7 +241,7 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 
 - (const char*) cDesc { return self.description.cchar; }
 
-- (NSS*) descriptionForKey:(NSS*)k {
+- (NSS*) descriptionForKey:(NSS*)k { if (!self || k == nil) return nil;
 
   id x = [self vFK:k]; if (!x) return nil;
   return [x respondsToSelector:@selector(boolValue)] && ISA(x,objc_getClass("__NSCFNumber")) && ([x integerValue] == 0 || [x integerValue] == 1) ? StringFromBOOL([self boolForKey:k]) : $(@"%@",x);
@@ -242,12 +254,7 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
   blk(_myself);
   for (NSString *k in allKeys.reversed) [self didChangeValueForKey:k];
 }
-- (void)       sVs:(NSA*)vs     fKs:(NSA*)ks { [self setValues:vs forKeys:ks]; }
-- (void) setValues:(NSA*)vs forKeys:(NSA*)ks {  NSParameterAssert (vs && ks && ISA(vs,NSA) && ISA(ks, NSA) && vs.count == ks.count);
 
-  [[ks pairedWith:vs] eachWithVariadicPairs:^(id a, id b) { [self sV:b fK:a]; }];
-}
-- (void)  setValue:(id)x forKeys:(NSA*)ks { for(id z in ks) [self sV:x fK:z]; }
 
 - (BOOL) ISA:(Class)k {  return [self ISKINDA:ISACLASS(k) ? k : [k class]]; }
 
@@ -424,18 +431,18 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 }
 
 
-- (void)DDLogError   {
-	DDLogError(@"%@", self);
-}                                                               // Red
-- (void)DDLogWarn       {
-	DDLogWarn(@"%@", self);
-}                                                               // Orange
-- (void)DDLogInfo               {
-	DDLogInfo(@"%@", self);
-}                                                               // Default (black)
-- (void)DDLogVerbose {
-	DDLogVerbose(@"%@", self);
-}                                                               // Default (black)
+//- (void)DDLogError   {
+//	DDLogError(@"%@", self);
+//}                                                               // Red
+//- (void)DDLogWarn       {
+//	DDLogWarn(@"%@", self);
+//}                                                               // Orange
+//- (void)DDLogInfo               {
+//	DDLogInfo(@"%@", self);
+//}                                                               // Default (black)
+//- (void)DDLogVerbose {
+//	DDLogVerbose(@"%@", self);
+//}                                                               // Default (black)
 
 - (void)bindArrayKeyPath:(NSS*) array toController:(NSAC*)controller {
 	[self bind:array toObject:controller withKeyPath:@"arrangedObjects" options:nil];
@@ -753,10 +760,11 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 }
 */
 
-- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
-	//	block = [[block copy] autorelease];
-	[self performSelector:@selector(fireBlockAfterDelay:) withObject:block afterDelay:delay];
-}
+//- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay {
+//	//	block = [[block copy] autorelease];
+//	[self performSelector:@selector(fireBlockAfterDelay:) withObject:block afterDelay:delay];
+//}
+
 - (void)fireBlockAfterDelay:(void (^)(void))block {
 	block();
 }
@@ -1001,7 +1009,7 @@ static char windowPosition;
 			const char *expected = [invocation.methodSignature getArgumentTypeAtIndex:i+2];
 			BOOL matchesSignature = SameChar(type, expected);
 			if (!matchesSignature) 
-				return NSLog(@"Mismatched signature at method argument %i.  Expected %@  got %@", i, [NSO stringFromType:expected], [NSO stringFromType:type]), nil;
+				return NSLog(@"Mismatched signature at method argument %lu.  Expected %@  got %@", (unsigned long)i, [NSO stringFromType:expected], [NSO stringFromType:type]), nil;
 			NSUI arg_size;		NSGetSizeAndAlignment(type , &arg_size, NULL);
 			void * arg_buffer = malloc(arg_size);
 			[arg getValue:arg_buffer];
@@ -1399,7 +1407,7 @@ static const char * getPropertyType(objc_property_t property) {
 	}
   return "";
 }
-
+/*  conflict with AQProperties version
 + (NSD *)classPropsFor:(Class)klass {
 	if (klass == NULL) return nil;
 	NSMD *results = [NSMD dictionary];
@@ -1417,6 +1425,8 @@ static const char * getPropertyType(objc_property_t property) {
 	}
 	free(properties);       return results;                 // returning a copy here to make sure the dictionary is immutable
 }
+*/
+
 - (NSS*) methods {
 	return [[[self class] classMethods]formatAsListWithPadding:30];
 }
@@ -1611,9 +1621,9 @@ CLANG_POP
 	return [self performSelector:aSelector withObject:obj withObject:obj2];
 #pragma clang diagnostic pop
 }
-- (void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds {
-	[self performSelector:aSelector withObject:nil afterDelay:seconds];
-}
+//- (void)performSelector:(SEL)aSelector afterDelay:(NSTimeInterval)seconds {
+//	[self performSelector:aSelector withObject:nil afterDelay:seconds];
+//}
 - (void)observeKeyPath:(NSS*) keyPath {
 	[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
@@ -1796,6 +1806,7 @@ CLANG_POP
 }
 @end
 
+/*
 #import <ApplicationServices/ApplicationServices.h>
 
 @implementation NSObject (NoodlePerformWhenIdle)
@@ -1865,12 +1876,13 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 @end
+*/
 
 // thanks Landon Fuller
 #define VERIFIED_CLASS(className) ((className *) NSClassFromString(@"" # className))
 
 @implementation NSObject (SadunUtilities)
-
+/*
 // Return an array of an object's superclasses
 - (NSA*)superclasses {
 	Class cl = [self class];
@@ -2017,7 +2029,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	return result;
 }
 
-/*
+
  - (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
  {
  return [self objectByPerformingSelectorWithArguments:selector, object1, object2];
@@ -2031,7 +2043,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
  - (id) objectByPerformingSelector:(SEL)selector
  {
  return [self objectByPerformingSelectorWithArguments:selector];
- } */
+ } 
 
 - (id) objectByPerformingSelector:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
 	if (![self respondsToSelector:selector]) return nil;
@@ -2157,7 +2169,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 - (id)valueByPerformingSelector:(SEL)selector {
 	return [self valueByPerformingSelector:selector withObject:nil withObject:nil];
 }
-
+*/
 // Return an array of all an object's selectors
 + (NSA*)selectorList {
 	NSMutableArray *selectors = [NSMutableArray array];
@@ -2191,6 +2203,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*)properties {
+
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	[dict setObject:[[self class] propertyList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
@@ -2198,6 +2211,8 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	}
 	return dict;
 }
+
+
 // Return an array of all an object's properties
 + (NSA*) ivarList {
 	NSMutableArray *ivarNames = [NSMutableArray array];
@@ -2266,6 +2281,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 + (BOOL) classExists:(NSS*)className {
 	return (NSClassFromString(className) != nil);
 }
+/*
 
 +   (id) instanceOfClassNamed:(NSS*)className {
 	if (NSClassFromString(className) != nil) return [[[NSClassFromString(className) alloc] init] autorelease];
@@ -2307,7 +2323,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 - (id)tryPerformSelector:(SEL)aSelector {
 	return [self tryPerformSelector:aSelector withObject:nil withObject:nil];
 }
-
+*/
 @end
 /*
 //JREnumDefine(AZBOOLEAN);
@@ -2579,7 +2595,5 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	for (id theObject in theCollection) if (![theObject isKindOfClass:theClass]) return NO;
 	return YES;
 }
-- (void)  sV:(id)v   fKP:(id)k    {  [self setValue:v forKeyPath:k]; }
-- (void)  sV:(id)v    fK:(id)k    {  [self setValue:v forKey:k]; }
-- (void) sVs:(NSA*)v fKs:(NSA*)k  {  [self setValues:v forKeys:k]; }
+
 @end

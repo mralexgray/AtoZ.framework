@@ -107,7 +107,7 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 - (id)initWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector keyEquivalent:(NSS*)keyEquivalent representedObject:(id)representedObject;
 
 {
-	if (self != super.init) return self;
+	if (!(self = super.init)) return self;
 	[self setTitle:aString];
 	[self setTarget:target];
 	[self setAction:aSelector];

@@ -892,9 +892,9 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		return defaultValue;
 	return object;
 }
-- (NSS*)stringForKey:(NSS*)key;	{
-	return [self stringForKey:key defaultValue:nil];
-}
+//- (NSS*)stringForKey:(NSS*)key;	{
+//	return [self stringForKey:key defaultValue:nil];
+//}
 - (NSA*)stringArrayForKey:(NSS*)key defaultValue:(NSA*)defaultValue;	{
 #ifdef OMNI_ASSERTIONS_ON
 	for (id value in defaultValue)
@@ -918,9 +918,9 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		return [value floatValue];
 	return defaultValue;
 }
-- (float)floatForKey:(NSS*)key;	{
-	return [self floatForKey:key defaultValue:0.0f];
-}
+//- (float)floatForKey:(NSS*)key;	{
+//	return [self floatForKey:key defaultValue:0.0f];
+//}
 - (double)doubleForKey:(NSS*)key defaultValue:(double)defaultValue;	{
 	id value = self[key];
 	if (value)
@@ -939,9 +939,9 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	else
 		return defaultValue;
 }
-- (CGPoint)pointForKey:(NSS*)key;	{
-	return [self pointForKey:key defaultValue:NSZeroPoint];
-}
+//- (CGPoint)pointForKey:(NSS*)key;	{
+//	return [self pointForKey:key defaultValue:NSZeroPoint];
+//}
 - (CGSize)sizeForKey:(NSS*)key defaultValue:(CGSize)defaultValue;	{
 	id value = self[key];
 	if ([value isKindOfClass:NSString.class] && ![(NSS*)value isEqualToString:@""])
@@ -966,6 +966,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 - (CGRect)rectForKey:(NSS*)key;	{
 	return [self rectForKey:key defaultValue:NSZeroRect];
 }
+/* Conflict COcoatechcore
 - (BOOL)boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;	{
 	id value = self[key];
 	if ([value isKindOfClass:NSString.class] || [value isKindOfClass:[NSNumber class]])
@@ -975,15 +976,15 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 - (BOOL)boolForKey:(NSS*)key;	{
 	return [self boolForKey:key defaultValue:NO];
 }
+
 - (int)intForKey:(NSS*)key defaultValue:(int)defaultValue;	{
 	id value = self[key];
 	if (!value)
 		return defaultValue;
 	return [value intValue];
 }
-- (int)intForKey:(NSS*)key;	{
-	return [self intForKey:key defaultValue:0];
-}
+- (int)intForKey:(NSS*)key;	{	return [self intForKey:key defaultValue:0];} */
+
 - (unsigned int)unsignedIntForKey:(NSS*)key defaultValue:(unsigned int)defaultValue;	{
 	id value = self[key];
 	if (value == nil)
@@ -1011,13 +1012,14 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 - (NSInteger)integerForKey:(NSS*)key;	{
 	return [self integerForKey:key defaultValue:0];
 }
-
+/* COnflicts cocoatechcore
 - (id)objectForKey:(NSS*)key defaultObject:(id)defaultObject;	{
 	id value = self[key];
 	if (value)
 		return value;
 	return defaultObject;
 }
+
 - (NSMD*)deepMutableCopy;	{
 	NSMutableDictionary *newDictionary = [self mutableCopy];
 	// Run through the new dictionary and replace any objects that respond to -deepMutableCopy or -mutableCopy with copies.
@@ -1036,6 +1038,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	}
 	return newDictionary;
 }
+*/
 @end
 @implementation NSDictionary (OFDeprecatedExtensions)
 - (id)valueForKey:(NSS*)key defaultValue:(id)defaultValue;	{

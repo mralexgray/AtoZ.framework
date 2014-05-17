@@ -316,9 +316,8 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	}];
 }
 
-- (NSS*) properties									 	{
-	return [[self propertyNames]formatAsListWithPadding:30];
-}
+- (NSS*) properties_disabled	{ return [self.propertyNames formatAsListWithPadding:30]; }
+
 - (NSA*) propertyNames									{
 	return self.class.propertyNames;
 }

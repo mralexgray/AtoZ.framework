@@ -529,13 +529,9 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSA*) arrayUsingBlock:(id (^)(id obj))block {
   return [self map:block];
 }
-- (NSA*) map:(id (^)(id obj))block {
-  NSMA*re = [NSMA arrayWithCapacity:self.count];
-  for (id o in self) {
-    id v = block(o);
-    if (v) [re addObject:v];
-  }
-  return re;
+- (NSA*) az_map:(id (^)(id obj))block { NSMA*re = [NSMA arrayWithCapacity:self.count];
+
+  for (id o in self) { id v = block(o); if (v) [re addObject:v]; } return re;
 }
 - (NSA*) nmap:(id (^)(id obj, NSUI index))block {
   NSMA*re = [NSMA arrayWithCapacity:self.count];
