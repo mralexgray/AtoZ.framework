@@ -1,4 +1,4 @@
-#import "AtoZ.h"
+//#import "AtoZ.h"
 //
 //  JsonElement.m
 //  VisualJSON
@@ -9,70 +9,72 @@
 
 #import "JsonElement.h"
 
-@interface JsonElement ()
+//@interface JsonElement ()
 
 // internal data form
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-- (id)initWithArray:(NSArray *)array;
-- (id)initWithTerminal:(id)object;
+//- (id)initWithDictionary:(NSDictionary *)dictionary;
+//- (id)initWithArray:(NSArray *)array;
+//- (id)initWithTerminal:(id)object;
 
 //! @breif  'Text' view string representation
-- (NSString *)descriptionWithDepth:(NSInteger)depth;
+///- (NSString *)descriptionWithDepth:(NSInteger)depth;
 
-@end
+//@end
 
 //! @brief  'Tree' view internal representation
-@interface JsonElement (OutlineDescription)
+//@interface JsonElement (OutlineDescription)
 
-- (NSString *)outlineItemDescription:(id)item;
-- (NSString *)outlineArrayItems;
-- (NSString *)outlineDictionaryItems;
+//- (NSString *)outlineItemDescription:(id)item;
+//- (NSString *)outlineArrayItems;
+//- (NSString *)outlineDictionaryItems;
 
-@end
+//@end
 
 
-@interface NSNumber (JsonElement)
+//@interface NSNumber (JsonElement)
 
-- (NSString *)jsonRepresentation;
-
-@end
+//- (NSString *)jsonRepresentation;
+//
+//@end
 
 @implementation NSNumber (JsonElement)
 
 - (NSString *)jsonRepresentation {
-	if ([self.className isEqualToString:@"__NSCFBoolean"]) {
-		return [self boolValue] ? @"true" : @"false";
-	}
-	return [self typeFormedDescription];
-}
 
+  return  [self.className isEqualToString:@"__NSCFBoolean"] ? ({ self.boolValue ? @"true" : @"false"; }) :
+
+  ^{ if ([self.className isEqualToString:@"__NSCFNumber"]) {
+		NSString *defaultDescription = [self description];
+		if (strcmp(self.objCType, @encode(float)) == 0 || strcmp(self.objCType, @encode(double)) == 0)
+      if ([defaultDescription rangeOfString:@"."].location != NSNotFound)
+        return [defaultDescription stringByAppendingString:@".0"];
+    return defaultDescription;
+	} else if ([self.className isEqualToString:@"__NSCFBoolean"]) {
+		return [self boolValue] ? @"YES" : @"NO";
+	}
+	return [self description];
+  }();
+}
 @end
 
-@implementation JsonElement
+@implementation JSONEntity
 
 NSDictionary *JsonElementInitializers = nil;
 
 - (id)initWithObject:(id)object {
-	if ([object ISADICT]) {
-		return [self initWithDictionary:object];
-	}
-	if ([object isKindOfClass:[NSArray class]]) {
-		return [self initWithArray:object];
-	}
-	return [self initWithTerminal:object];
+
+	return  [object isKindOfClass:NSDictionary.class] ?   [self initWithDictionary:object] :
+          [object isKindOfClass:NSArray.class]      ?   [self      initWithArray:object] :
+                                                        [self   initWithTerminal:object];
 }
 
-+ (id)elementWithObject:(id)object {
-	return [self.alloc initWithObject:object];
-}
++ (id)elementWithObject:(id)object { return [self.alloc initWithObject:object]; }
 
-- (id)initWithDictionary:(NSDictionary *)object {
-	self = [super init];
-	if (self != nil) {
-		self.object = object;
-		self.keys = [object.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-	}
-	return self;
+- (id)initWithDictionary:(NSDictionary *)object { return self = super.init ?
+
+  self.object = object,
+  self.keys   = [object.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)],
+  self        : nil;
 }
 
 - (id)initWithArray:(NSArray *)object {
@@ -121,7 +123,7 @@ NSDictionary *JsonElementInitializers = nil;
 	}
 	if ([self.object isKindOfClass:[NSArray class]]) {
 		return [NSString stringWithFormat:@"Array(%lu): [%@]", [self.keys count], [self outlineArrayItems]];
-	} else if ([self.object ISADICT]) {
+	} else if ([self.object isKindOfClass:NSDictionary.class]) {
 		return [NSString stringWithFormat:@"Dict(%lu): {%@}", [self.keys count], [self outlineDictionaryItems]];
 	}
 	return [self.object description];
@@ -152,7 +154,7 @@ NSDictionary *JsonElementInitializers = nil;
 		[desc appendString:@"\n"];
 		[desc appendString:indent];
 		[desc appendString:@"]"];
-	} else if ([self.object ISADICT]) {
+	} else if ([self.object isKindOfClass:NSDictionary.class]) {
 		[desc appendString:@"{\n"];
 		for (NSInteger i = 0; i < self.keys.count; i++) {
 			[desc appendString:indent2];
@@ -176,14 +178,14 @@ NSDictionary *JsonElementInitializers = nil;
 	return desc;
 }
 
-@end
-
-@implementation JsonElement (OutlineDescription)
+//@end
+//
+//@implementation JsonElement (OutlineDescription)
 
 - (NSString *)outlineItemDescription:(id)item {
 	if ([item isKindOfClass:[NSArray class]]) {
 		return [NSString stringWithFormat:@"Array(%lu)", [item count]];
-	} else if ([item ISADICT]) {
+	} else if ([item isKindOfClass:NSDictionary.class]) {
 		return [NSString stringWithFormat:@"Dict(%lu)", [[item allKeys] count]];
 	} else if ([item isKindOfClass:NSString.class]) {
 		return [NSString stringWithFormat:@"\"%@\"", [item stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""]];

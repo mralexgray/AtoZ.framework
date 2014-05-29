@@ -24,21 +24,21 @@
 	JsonElement get parsed NSArray or NSDictionary data as JSON data.
 	JsonElement provides representation for data for each view type.
  */
-#import "AtoZUmbrella.h"
+//#import "AtoZUmbrella.h"
 
-@interface JsonElement : NSObject
+@interface JSONEntity : NSObject
 
 @property (weak)  id parent;
-@property (STRNG) id object;
-@property (STRNG) NSString *key;
-@property (STRNG) NSArray *keys;
-@property (STRNG) NSMutableDictionary *children;
+@property id object;
+@property NSString  * key;
+@property NSArray   * keys;
+@property NSMutableDictionary *children;
 
-- (id)initWithObject:(id)object;
-+ (id)elementWithObject:(id)object;
+- (NSString*) outlineDescription;
+- (id)      childAtIndex:(NSInteger)index;
+- (id)    initWithObject:(id)object;
++ (id) elementWithObject:(id)object;
 
-- (id)childAtIndex:(NSInteger)index;
-- (NSString *)outlineDescription;
 
 
 @end
