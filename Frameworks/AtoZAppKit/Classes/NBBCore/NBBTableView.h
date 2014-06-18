@@ -4,7 +4,7 @@
 
  */
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "NBBThemable.h"
 
 @interface NBBTableView : NSTableView <NBBThemable>

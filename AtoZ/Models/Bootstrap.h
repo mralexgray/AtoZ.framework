@@ -1,14 +1,25 @@
-//
-//  Bootstrap.h
-//  KSHTMLWriter
-//
-//  Created by Alex Gray on 5/6/12.
-//  Copyright (c) 2012 Karelia Software. All rights reserved.
-//
-
 
 #import "AtoZUmbrella.h"
-//#import "GCDAsyncSocket.h"
+
+@class Asset;
+@interface Bootstrap : BaseModel
+
+@prop_NA NSAC *availJS, *availCSS, *headers, *footers, *body;
+
+- (NSS*) htmlWithBody:(NSS*)bod;
+
+#pragma mark - OUTPUT
+@property (readonly)					NSS *demo, *xml, *markup;
+
+@property (nonatomic)		NSS *userHTML, *html;
+@property (nonatomic) 	NSB	 		*bundle;
+
+@end
+
+extern NSString * const custCSS,
+                * const custHTMLRECORDER,
+                * const custHTMLFOOT,
+                * const custHTML;
 
 #define JQUERY							@"http://code.jquery.com/jquery-2.0.0b2.js" // @"http://code.jquery.com/jquery-1.9.1.js"
 #define JQUERY_UI						@"http://code.jquery.com/ui/1.10.3/jquery-ui.js"
@@ -66,35 +77,18 @@
 
 //+ (void) initWithUserStyle:(Asset*)css script:(Asset*)script andInnerHTML:(NSS*) html  calling:(void(^)(id sender))block;
 
-@class Asset;
-@interface Bootstrap : BaseModel
 
-@prop_NA NSAC *availJS, *availCSS, *headers, *footers, *body;
-
-- (NSS*) htmlWithBody:(NSS*)bod;
-
-#pragma mark - OUTPUT
-@property (readonly)					NSS *demo, *xml, *markup;
-
-
-
+//#import "GCDAsyncSocket.h"
 //@property (nonatomic, strong)		NSA *js, *css;
-@property (nonatomic, strong)		NSS *userHTML, *html;
-@property (nonatomic, strong) 	NSB	 		*bundle;
-
-@end
-
 //#ifdef SYNTHESIZE_CONSTS
 //# define STR_CONST(name, value) NSString* const name = @ value
 //#else
 //# define STR_CONST(name, value) extern NSString* const name
 //#endif
 
-extern NSString * const custCSS,
-                * const custHTMLRECORDER,
-                * const custHTMLFOOT;
 //STR_CONST(custCSS, "html,	body{height:100%; } #wrap{min-height:100%;height:auto !important;height:100%;/* Negative indent footer by it's height */	margin:0 auto -60px;}	#push,	#footer{height:60px;}	#footer{background-color:#f5f5f5;}	@media (max-width:767px){#footer{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;}	}	#wrap > .container{padding-top:60px;}	.container .credit{margin:20px 0;}	code{font-size:80%;}");
-extern NSString * const custHTML;
+
+
 //STR_CONST(custHTML,
 //NSString * const custHTML = @""
 //"<!-- Part 1: Wrap all page content here -->"

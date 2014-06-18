@@ -6,7 +6,6 @@
 //  Copyright 2009 8th Light. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "SDToolkit.h"
 #import <QuartzCore/QuartzCore.h>
 #import <AtoZ/AtoZ.h>

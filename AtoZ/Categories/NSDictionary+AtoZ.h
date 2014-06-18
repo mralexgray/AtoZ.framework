@@ -134,6 +134,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 
 //@prop_RO M13OrderedDictionary * sortedByValue;
 
+@prop_RO id randomValue, randomKey;
 
 + (NSD*) withFile:(NSS*)p;
 @property (RONLY) VAL* oldVal, *newVal;
@@ -176,31 +177,31 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (NSS*)keyForObjectEqualTo:(id)anObj;
 
 - (NSS*)stringForKey:(NSS*)key defaultValue:(NSS*)defaultValue;
-- (NSS*)stringForKey:(NSS*)key;
+//- (NSS*)stringForKey:(NSS*)key;
 
 - (NSA*)stringArrayForKey:(NSS*)key defaultValue:(NSA*)defaultValue;
-- (NSA*)stringArrayForKey:(NSS*)key;
+//- (NSA*)stringArrayForKey:(NSS*)key;
 
 	// ObjC methods to nil have undefined results for non-id values (though ints happen to currently work)
 - (float)floatForKey:(NSS*)key defaultValue:(float)defaultValue;
-- (float)floatForKey:(NSS*)key;
+//- (float)floatForKey:(NSS*)key;
 - (double)doubleForKey:(NSS*)key defaultValue:(double)defaultValue;
 - (double)doubleForKey:(NSS*)key;
 
 - (CGPoint)pointForKey:(NSS*)key defaultValue:(CGPoint)defaultValue;
-- (CGPoint)pointForKey:(NSS*)key;
+//- (CGPoint)pointForKey:(NSS*)key;
 - (CGSize)sizeForKey:(NSS*)key defaultValue:(CGSize)defaultValue;
 - (CGSize)sizeForKey:(NSS*)key;
 - (CGRect)rectForKey:(NSS*)key defaultValue:(CGRect)defaultValue;
 - (CGRect)rectForKey:(NSS*)key;
 
 	// Returns YES iff the value is YES, Y, yes, y, or 1.
-- (BOOL)boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;
-- (BOOL)boolForKey:(NSS*)key;
+//- (BOOL)boolForKey:(NSS*)key defaultValue:(BOOL)defaultValue;
+//- (BOOL)boolForKey:(NSS*)key;
 
 	// Just to make life easier
-- (int)intForKey:(NSS*)key defaultValue:(int)defaultValue;
-- (int)intForKey:(NSS*)key;
+//- (int)intForKey:(NSS*)key defaultValue:(int)defaultValue;
+//- (int)intForKey:(NSS*)key;
 - (unsigned int)unsignedIntForKey:(NSS*)key defaultValue:(unsigned int)defaultValue;
 - (unsigned int)unsignedIntForKey:(NSS*)key;
 
@@ -210,9 +211,9 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (unsigned long long int)unsignedLongLongForKey:(NSS*)key defaultValue:(unsigned long long int)defaultValue;
 - (unsigned long long int)unsignedLongLongForKey:(NSS*)key;
 	// This seems more convenient than having to write your own if statement a zillion times
-- (id)objectForKey:(NSS*)key defaultObject:(id)defaultObject;
+//- (id)objectForKey:(NSS*)key defaultObject:(id)defaultObject;
 
-- (NSMutableDictionary *)deepMutableCopy;// NS_RETURNS_RETAINED;
+//- (NSMutableDictionary *)deepMutableCopy;// NS_RETURNS_RETAINED;
 
 //- (NSA*)copyKeys;
 //- (NSMutableArray *)mutableCopyKeys;

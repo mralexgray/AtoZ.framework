@@ -555,7 +555,7 @@
 //  Copyright 2008 Ben Britten Smith ben@benbritten.com .
 //
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import <QuartzCore/QuartzCore.h>
 #import "BBMeshView.h"
 

@@ -4,9 +4,8 @@
 
 //  Created by Alex Gray on 6/14/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Cocoa/Cocoa.h>
 
-#import <Foundation/Foundation.h>
+@import AppKit;
 
 @interface NSScreen (PointConversion)
 

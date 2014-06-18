@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 StuFF mc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @interface COAppDelegate : NSObject <NSApplicationDelegate>
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 int main(int argc, const char * argv[])
 {

@@ -454,6 +454,9 @@ return  ISA(object,NSS)
 
 @implementation  NSDictionary (AtoZ)
 
+- (id) randomValue { return self.allValues.randomElement; }
+- (id) randomKey { return self.allKeys.randomElement; }
+ 
 - (M13OrderedDictionary *)sortedByValue {
 
   M13OrderedDictionary  *s = [M13OrderedDictionary orderedDictionaryWithDictionary:self.copy];
@@ -1192,7 +1195,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 		[mutant setValue:[self objectForKey:key]
 				  forKey:key] ;
 	}
-	NSDictionary* answer = [[mutant copy] autorelease] ;
+	NSDictionary* answer = [mutant copy];
 //	[mutant release] ;
 	return answer ;
 }
@@ -1241,7 +1244,7 @@ const int jsonDoNotIndent = -1;
 	//[jsonString appendString:@"\n"];
 	[jsonString appendString:jsonObjectEndString];
 	
-	return [jsonString autorelease];
+	return jsonString;// autorelease];
 }
 - (NSS*)jsonStringForValue:(id)value withIndentLevel:(int)level	{	
 	NSString *jsonString;
@@ -1283,7 +1286,7 @@ const int jsonDoNotIndent = -1;
 	}
 	
 	[jsonString appendString:jsonArrayEndString];
-	return [jsonString autorelease];
+	return jsonString;
 }
 - (NSS*)jsonStringForString:(NSS*)string	{
 	NSMutableString *jsonString = NSMutableString.new;
@@ -1331,7 +1334,7 @@ const int jsonDoNotIndent = -1;
 		}
 	}
 	[jsonString appendString:jsonStringDelimiterString];
-	return [jsonString autorelease];
+	return jsonString;
 }
 - (NSS*)jsonIndentStringForLevel:(int)level	{
 	NSMutableString *indentString = NSMutableString.new;
@@ -1343,7 +1346,7 @@ const int jsonDoNotIndent = -1;
 		}
 	}
 	
-	return [indentString autorelease];
+	return indentString;
 }
 @end
 
@@ -1372,7 +1375,7 @@ NSString *jsonNullString = @"null";
 	if (![self scanJSONObjectStartString]) {
 		// TODO: Error condition. For now, return false result, do nothing with the dictionary handle
 	} else {
-		NSMutableDictionary *jsonKeyValues = [[NSMutableDictionary.alloc init] autorelease];
+		NSMutableDictionary *jsonKeyValues = NSMutableDictionary.new;
 		NSString *key = nil;
 		id value;
 		[self scanJSONWhiteSpace];
@@ -1394,7 +1397,7 @@ NSString *jsonNullString = @"null";
 }
 - (BOOL)scanJSONArray:(NSArray **)array	{
 	BOOL result = NO;
-	NSMutableArray *values = [NSMutableArray.new autorelease];
+	NSMutableArray *values = NSMutableArray.new;
 	[self scanJSONArrayStartString];
 	id value = nil;
 	
@@ -1415,7 +1418,7 @@ NSString *jsonNullString = @"null";
 - (BOOL)scanJSONString:(NSString **)string	{
 	BOOL result = NO;
 	if ([self scanJSONStringDelimiterString]) {
-		NSMutableString *chars = [[NSMutableString.alloc init] autorelease];
+		NSMutableString *chars = NSMutableString.new;
 		NSString *characterFormat = @"%C";
 		
 		// process character by character until we finish the string or reach another double-quote

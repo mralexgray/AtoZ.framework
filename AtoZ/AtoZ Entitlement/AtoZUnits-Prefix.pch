@@ -3,18 +3,18 @@
 //
 
 #ifdef __OBJC__
-	#import <Cocoa/Cocoa.h>
-	#import <AtoZ/AtoZ.h>
-	#import <QuartzCore/QuartzCore.h>
-  #import <SenTestingKit/SenTestingKit.h>
-  #import <OCMock/OCMock.h>	
-	#import <OCHamcrest/OCHamcrest.h>	
-	#import <GHUnit/GHUnit.h>
-//	#import <XCTest/XCTest.h>
-
-
-//	#define XCTestCase SenTestCase
-//	#import <Foundation/Foundation.h>
-
-	
+//	@import AppKit;
+//	#import <AtoZ/AtoZ.h>
+//	#import <QuartzCore/QuartzCore.h>
+//  #import <SenTestingKit/SenTestingKit.h>
+//  #import <OCMock/OCMock.h>	
+//	#import <OCHamcrest/OCHamcrest.h>	
+//	#import <GHUnit/GHUnit.h>
+////	#import <XCTest/XCTest.h>
+//
+//
+////	#define XCTestCase SenTestCase
+////	#import <Foundation/Foundation.h>
+//
+//	
 #endif

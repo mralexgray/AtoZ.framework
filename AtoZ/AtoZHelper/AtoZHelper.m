@@ -5,7 +5,6 @@
   //	[_webView.mainFrame loadHTMLString: baseURL:nil]
 
 #import "AtoZHelper.h"
-#import <AtoZ/AtoZ.h>
 
 //#import RoutingHTTPServer;
 
@@ -15,8 +14,8 @@ AZAPPMAIN
 
 - (void) awakeFromNib {
 
-	[self setupRoutes]; [_httpServer = [RoutingHTTPServer.new withValuesForKeys:@(3334),@"port",nil]  start:nil];
-
+  [_httpServer = [RoutingHTTPServer.new wVsfKs:@(3334),@"port",nil]  start:nil];
+	[self setupRoutes];
   _webView.mainFrameURL = $(@"http://%s:3334/colorlist", getenv("HOSTNAME"));
 	_webView2.mainFrameURL = @"http://mrgray.com:22080/testsocket.html";
 
@@ -32,14 +31,13 @@ AZAPPMAIN
 }
 
 
-//- (void) colorlist:(RREQ*)req withResponse:(RRES*)resp {
-//
-//}
-/*
+- (void) colorlist:(RouteRequest*)req withResponse:(RouteResponse*)resp {
+
   //	[resp respondWithJQueried:
-	[resp respondWithJQueried:[[NSColor.randomPalette / * colorNames * / reduce:@"<html><head><title>TEST</title>\
+  [resp respondWithString:
+  [[NSColor.randomPalette /* colorNames */ reduce:@"<html><head><title>TEST</title>\
                               <style> div { float:left; margin: 20px; padding: 20px; width:100px; height:100px; } </style>\
-                              <script></script></head><body><ul style='list-style:none;'>".mC withBlock:^id(id sum, NSC* color) {
+                              <script src='http://mrgray.com/atoz.js'></script></head><body><ul style='list-style:none;'>".mC withBlock:^id(id sum, NSC* color) {
                                 NSS *values = $(@"bright: %f, hue: %f,  sat: %f",	color.brightnessComponent,
                                                 color.hueComponent,
                                                 color.saturationComponent);
@@ -55,22 +53,22 @@ AZAPPMAIN
                                  values,[[NSIMG.randomMonoIcon scaledToMax:200] base64EncodingWithFileType:NSPNGFileType]]; return sum;
                               }] withString:@"</ul></body></html>"]];
 
-}*/
+}
 
 - (void) setupRoutes {
 
-//	[@[	@[ @"/colorlist", 	@"colorlist:withResponse:"], 	//	SELECTORS AS STRINGS
-//      @[ @"/selector",	@"handleSelectorRequest:withResponse:"]] each:^(id obj){
-//
-//        [_httpServer get:obj[0] :self selector:$SEL(obj[1])];
-//      }];
-//	[_httpServer get:@"/randomicon" withBlock:^(RouteRequest *request, RouteResponse *response) {
-//		[response respondWithData:[[NSIMG.randomMonoIcon scaledToMax:300]PNGRepresentation]];
-//	}];
-//
-//	[_httpServer get:@"/hello" withBlock:^(RouteRequest *request, RouteResponse *response) {
-//		[response respondWithString:@"Hello!"];
-//	}];
+	[@[	@[ @"/colorlist", 	@"colorlist:withResponse:"], 	//	SELECTORS AS STRINGS
+      @[ @"/selector",	@"handleSelectorRequest:withResponse:"]] each:^(id obj){
+
+        [_httpServer handle:HTTPGET path:obj[0] target:self action:NSSelectorFromString(obj[1])];
+  }];
+	[_httpServer get:@"/randomicon" handler:^(RouteRequest *request, RouteResponse *response) {
+		[response respondWithData:[[NSIMG.randomMonoIcon scaledToMax:300]PNGRepresentation]];
+	}];
+
+	[_httpServer get:@"/hello" handler:^(RouteRequest *request, RouteResponse *response) {
+		[response respondWithString:@"Hello!"];
+	}];
 //	[_httpServer get:@"/hello/:name" withBlock:^(RouteRequest *request, RouteResponse *response) {
 //		[response respondWithString:[NSString stringWithFormat:@"Hello %@!", request[@"name"]]];
 //	}];

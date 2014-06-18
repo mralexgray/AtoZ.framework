@@ -174,7 +174,7 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
 		  // Добавляем перспективу
 	 CATransform3D transform = CATransform3DIdentity;
 	 transform.m34 = -1.0 / zDistance;
-	 [mAnimationWindow.contentView layer].sublayerTransform = transform;
+	 [(NSV*)mAnimationWindow.contentView layer].sublayerTransform = transform;
 
 		  // Перемещение target window к active window
 	 CGRect targetFrame = CGRectMake(NSMidX(activeWindow.frame) - (NSWidth(targetWindow.frame) / 2 ),
@@ -192,17 +192,17 @@ NSRect RectFromViewToView(NSRect aRect, NSView *fromView, NSView *toView) {
 	 CALayer *targetWindowLayer = [self layerFromView:targetView];
 	 [CATransaction commit];
 
-	 activeWindowLayer.frame = NSRectToCGRect(RectFromViewToView(activeView.frame, activeView, [mAnimationWindow contentView]));
-	 targetWindowLayer.frame = NSRectToCGRect(RectFromViewToView(targetView.frame, targetView, [mAnimationWindow contentView]));
+	 activeWindowLayer.frame = NSRectToCGRect(RectFromViewToView(activeView.frame, activeView, mAnimationWindow.contentView));
+	 targetWindowLayer.frame = NSRectToCGRect(RectFromViewToView(targetView.frame, targetView, mAnimationWindow.contentView));
 
 	 [CATransaction begin];
-	 [[mAnimationWindow.contentView layer] addSublayer:activeWindowLayer];
+	 [[(NSV*)mAnimationWindow.contentView layer] addSublayer:activeWindowLayer];
 	 [CATransaction commit];
 
 	 [mAnimationWindow orderFront:nil];
 
 	 [CATransaction begin];
-	 [[mAnimationWindow.contentView layer] addSublayer:targetWindowLayer];
+	 [[(NSV*)mAnimationWindow.contentView layer] addSublayer:targetWindowLayer];
 	 [CATransaction commit];
 
 		  // Animate our new layers

@@ -290,7 +290,7 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 	
 }
 @interface 						  AtoZColorPicker ()
-@property (nonatomic) NSMA * trackingAreas;
+//@property (nonatomic) NSMA * trackingAreas;
 @property (nonatomic) NSIS * originalSelection;
 
 -   (NSR) frameForAreaAtRow:			 (NSI)rowIndex column:(NSI)columnIndex;
@@ -307,7 +307,7 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 	// ideal frame width is factor of 12 + 12...  ideal frame height is this factor + 10
 	// eg 228x190 factor 18 						  see proposedFrameSizeForAreaDimension
 	if (!(self = [super initWithFrame:frame])) return nil;
-	_trackingAreas 		= [NSMA array];
+//	_trackingAreas 		= [NSMA array];
 	selectionIndex = [NSIndexSet indexSetWithIndex:22];
 	//	canRemoveColor = NO;
 	colors = [SPColorPickerDefaultColorsInCSSRGB() cw_mapArray:^id(NSString *cssColor) {
@@ -333,7 +333,7 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 -     (void) dealloc	{
 	
 	_originalSelection = nil;
-	_trackingAreas = nil;
+//	_trackingAreas = nil;
 }
 -     (BOOL) isFlipped { return YES;	}
 -     (void) drawRect:(NSRect)dirtyRect	{
@@ -426,11 +426,11 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 // See sample code CustomMenus. One tracking area for every subsection in the view. It seems that mouseEntered and -Exited events don't register with NSTrackingEnabledDuringMouseDrag when NSTrackingMouseMoved is also specified, but mouseMoved events don't register with just NSTrackingEnabledDuringMouseDrag, at least in a popup menu.
 - (void) updateTrackingAreas {
 	
-	for ( NSTrackingArea *anArea in _trackingAreas ) [self removeTrackingArea:anArea];
-	[_trackingAreas removeAllObjects];
+	for ( NSTrackingArea *anArea in self.trackingAreas ) [self removeTrackingArea:anArea];
+	[[self mutableArrayValueForKey:@"trackingAreas"] removeAllObjects];
 	for (NSInteger index = 0; index < self.colors.count; index++) {
 		NSTrackingArea *trackingArea = [self trackingAreaForIndex:index];
-		[_trackingAreas addObject:trackingArea];
+		[[self mutableArrayValueForKey:@"trackingAreas"] addObject:trackingArea];
 		[self addTrackingArea: trackingArea];
 	}
 	

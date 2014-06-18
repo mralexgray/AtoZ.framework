@@ -1,79 +1,55 @@
-//
+
 //  YRKSpinningProgressIndicatorLayer.m
 //  SPILDemo
-//
 //  Copyright 2009 Kelan Champagne. All rights reserved.
-//
 
+#import "AtoZ.h"
 #import "AZSpinnerLayer.h"
-@interface AZSpinnerLayer ()
 
-// Animation
-- (void)advancePosition;
-
-// Helper Methods
-- (void)removeFinLayers;
-- (void)createFinLayers;
-
-- (CGRect)finBoundsForCurrentBounds;
-- (CGPoint)finAnchorPointForCurrentBounds;
-
-- (void)setupAnimTimer;
-- (void)disposeAnimTimer;
-
-@end
 @implementation AZSpinnerLayer
+ {
+	BOOL _isRunning;
+	NSUInteger _position, _numFins;
+	CGColorRef _foreColor;
+	CGF _fadeDownOpacity;
+	NSTimer *_animationTimer;///	NSMutableArray *_finLayers;
+}
+@synthesize  running = _isRunning; @dynamic color;
 
-//------------------------------------------------------------------------------
-#pragma mark - Init, Dealloc, etc
-//------------------------------------------------------------------------------
+- (id)init { SUPERINIT;
 
-- (id)init
-{
-	self = [super init];
-	if (self) {
-		_position = 0;
-		_numFins = 12;
-		_fadeDownOpacity = 0.0f;
-		_isRunning = NO;
-		self.color = [NSColor blackColor];
-		[self setBounds:CGRectMake(0.0f, 0.0f, 10.0f, 10.0f)];
-		[self createFinLayers];
-	}
+  _numFins = 12;
+  _fadeDownOpacity = _position = _isRunning = NO;
+  _foreColor = cgBLACK;
+  self.bounds = AZRectFromDim(10);
+  [self createFinLayers];
+  [NSEVENTLOCALMASK:NSLeftMouseUpMask handler:^NSE*(NSE*E){
+    E.clickCount > 1 ? [self toggle] :nil; return E;
+  }];
 	return self;
 }
 
-- (void)dealloc
-{
-	self.color = nil;
-	[self removeFinLayers];
-
-//	[super dealloc];
-}
-//------------------------------------------------------------------------------
 #pragma mark - Overrides
-//------------------------------------------------------------------------------
 
 - (void)setBounds:(CGRect)newBounds
 {
 	[super setBounds:newBounds];
 
 	// Resize the fins
-	CGRect finBounds = [self finBoundsForCurrentBounds];
-	CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];
-	CGPoint finPosition = CGPointMake([self bounds].size.width/2, [self bounds].size.height/2);
-	CGFloat finCornerRadius = finBounds.size.width/2;
+	CGR finBounds = self.finBoundsForCurrentBounds;
+	CGP finAnchorPoint = self.finAnchorPointForCurrentBounds;
+	CGP finPosition = AZCenterOfRect(self.bounds);//self.centerPt;
+	CGF finCornerRadius = finBounds.size.width/2;
 
 	// do the resizing all at once, immediately
-	[CATransaction begin];
-	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-	for (CALayer *fin in _finLayers) {
-		fin.bounds = finBounds;
-		fin.anchorPoint = finAnchorPoint;
-		fin.position = finPosition;
-		fin.cornerRadius = finCornerRadius;
-	}
-	[CATransaction commit];
+	[CATRANNY immediately:^{
+    [self.sublayers do:^(CALayer *fin){
+      fin.bounds        = finBounds;
+      fin.anchorPoint   = finAnchorPoint;
+      fin.position      = finPosition;
+      fin.cornerRadius  = finCornerRadius;
+    }];
+  }];
 }
 //------------------------------------------------------------------------------
 #pragma mark - Animation
@@ -82,21 +58,16 @@
 - (void)advancePosition
 {
 	_position++;
-	if (_position >= _numFins) {
-		_position = 0;
-	}
+	_position = _position >= _numFins ? 0 : _position;
 
-	CALayer *fin = (CALayer *)_finLayers[_position];
+	CALayer *fin = self.sublayers[_position];
 
 	// Set the next fin to full opacity, but do it immediately, without any animation
-	[CATransaction begin];
-	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-	fin.opacity = 1.0;
-	[CATransaction commit];
-
+	[CATRANNY immediately:^{
+    fin.opacity = 1.0;
+  }];
 	// Tell that fin to animate its opacity to transparent.
 	fin.opacity = _fadeDownOpacity;
-
 	[self setNeedsDisplay];
 }
 
@@ -112,10 +83,10 @@
 											 userInfo:nil
 											  repeats:YES];
 
-	[_animationTimer setFireDate:[NSDate date]];
-	[[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSRunLoopCommonModes];
-	[[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSDefaultRunLoopMode];
-	[[NSRunLoop currentRunLoop] addTimer:_animationTimer forMode:NSEventTrackingRunLoopMode];
+	_animationTimer.fireDate = NSDate.date;
+  [@[NSRunLoopCommonModes, NSDefaultRunLoopMode,NSEventTrackingRunLoopMode]do:^(id obj) {
+    [AZRUNLOOP addTimer:_animationTimer forMode:obj];
+  }];
 }
 
 - (void)disposeAnimTimer
@@ -132,108 +103,89 @@
 	_position = _numFins - 1;
 	
 	[self setNeedsDisplay];
-
 	[self setupAnimTimer];
 }
 
 - (void)stopProgressAnimation
 {
 	_isRunning = NO;
-
 	[self disposeAnimTimer];
-
 	[self setNeedsDisplay];
+}
+
+- (void) setRunning:(BOOL)running
+{
+  objc_msgSend(self, running ? @selector(startProgressAnimation) : @selector(stopProgressAnimation));
 }
 //------------------------------------------------------------------------------
 #pragma mark - Properties and Accessors
 //------------------------------------------------------------------------------
 
-@synthesize isRunning = _isRunning;
+//@synthesize isRunning = _isRunning;
 
 // Can't use @synthesize because we need to convert NSColor <-> CGColor
 - (NSColor *)color
 {
 	// Need to convert from CGColor to NSColor
-	return  NSColorFromCGColorRef(_foreColor);
+	return  [NSC colorWithCGColor:_foreColor];
 }
 - (void)setColor:(NSColor *)newColor
 {
 	// Need to convert from NSColor to CGColor
-	CGColorRef cgColor = CGColorCreateFromNSColor(newColor);
+//	CGColorRef cgColor = CGColorCreateFromNSColor(newColor);
 
-	if (nil != _foreColor) {
-		CGColorRelease(_foreColor);
-	}
-	_foreColor = cgColor;
+//	if (nil != _foreColor) {
+//		CGColorRelease(_foreColor);
+//	}
+	_foreColor = [newColor CGColor];
 
 	// Update do all of the fins to this new color, at once, immediately
-	[CATransaction begin];
-	[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-	for (CALayer *fin in _finLayers) {
-		fin.backgroundColor = cgColor;
-	}
-	[CATransaction commit];
+	[CATransaction immediately:^{
+    [self.sublayers setValue:(__bridge id)_foreColor forKey:@"backgroundColor"];
+    ////fin.backgroundColor = _foreColor;
+  }];
 }
 
-- (void)toggleProgressAnimation
-{
-	if (_isRunning) {
-		[self stopProgressAnimation];
-	}
-	else {
-		[self startProgressAnimation];
-	}
-}
-//------------------------------------------------------------------------------
+- (void)toggle{ [self toggleProgressAnimation]; }
+- (void)toggleProgressAnimation {	self.running = !_isRunning; }
+
 #pragma mark - Helper Methods
-//------------------------------------------------------------------------------
 
-- (void)createFinLayers
-{
-	[self removeFinLayers];
+- (void)createFinLayers {
 
-	// Create new fin layers
-	_finLayers = [NSMutableArray.alloc initWithCapacity:_numFins];
+	[self removeSublayers];
 
-	CGRect finBounds = [self finBoundsForCurrentBounds];
-	CGPoint finAnchorPoint = [self finAnchorPointForCurrentBounds];
-	CGPoint finPosition = CGPointMake([self bounds].size.width/2, [self bounds].size.height/2);
-	CGFloat finCornerRadius = finBounds.size.width/2;
+	CGR finBounds       = self.finBoundsForCurrentBounds;
+	CGP finAnchorPoint  = self.finAnchorPointForCurrentBounds;
+	CGP finPosition     = AZCenterOfRect(self.bounds);
+	CGF finCornerRadius = finBounds.size.width/2;
 
-	for (NSUInteger i=0; i<_numFins; i++) {
-		CALayer *newFin = [CALayer layer];
+	self.sublayers = [@(_numFins) mapTimes:^id(NSNumber *num) { 	// Create new fin layers
 
-		newFin.bounds = finBounds;
-		newFin.anchorPoint = finAnchorPoint;
-		newFin.position = finPosition;
-		newFin.transform = CATransform3DMakeRotation(i*(-6.282185/_numFins), 0.0, 0.0, 1.0);
-		newFin.cornerRadius = finCornerRadius;
-		newFin.backgroundColor = _foreColor;
+		AZNewVal(newFin, CAL.new);
+		newFin.bounds           = finBounds;
+		newFin.anchorPoint      = finAnchorPoint;
+		newFin.position         = finPosition;
+		newFin.transform        = CATransform3DMakeRotation(num.iV * (-6.282185/_numFins), 0, 0, 1);
+		newFin.cornerRadius     = finCornerRadius;
+		newFin.backgroundColor  = _foreColor;
 
 		// Set the fin's initial opacity
-		[CATransaction begin];
-		[CATransaction setValue:@YES forKey:kCATransactionDisableActions];
-		newFin.opacity = _fadeDownOpacity;
-		[CATransaction commit];
-
+    [newFin setValueImmediately:@(_fadeDownOpacity) forKey:@"opacity"];
 		// set the fin's fade-out time (for when it's animating)
-		CABasicAnimation *anim = [CABasicAnimation animation];
-		anim.duration = 0.7f;
-		NSDictionary* actions = @{@"opacity": anim};
-		[newFin setActions:actions];
+		[newFin setActions:@{@"opacity": [CABasicAnimation.animation wVsfKs:@.7,@"duration",nil]}];
 
 		[self addSublayer: newFin];
-		[_finLayers addObject:newFin];
-	}
+		return newFin;
+	}];
 }
-
-- (void)removeFinLayers
-{
-	for (CALayer *finLayer in _finLayers) {
-		[finLayer removeFromSuperlayer];
-	}
-//	[_finLayers release];
-}
+//
+//- (void)removeFinLayers {
+//	for (CALayer *finLayer in _finLayers) {
+//		[finLayer removeFromSuperlayer];
+//	}
+////	[_finLayers release];
+//}
 
 - (CGRect)finBoundsForCurrentBounds
 {
@@ -253,6 +205,7 @@
 }
 
 @end
+/*
 //------------------------------------------------------------------------------
 #pragma mark - Helper Functions
 //------------------------------------------------------------------------------
@@ -286,3 +239,20 @@ NSColor *NSColorFromCGColorRef(CGColorRef cgcolor)
 							 components:CGColorGetComponents(cgcolor)
 								  count:CGColorGetNumberOfComponents(cgcolor)];
 }
+*/
+//@interface AZSpinnerLayer ()
+
+// Animation
+//- (void)advancePosition;
+//
+//// Helper Methods
+//- (void)removeFinLayers;
+//- (void)createFinLayers;
+//
+//- (CGRect)finBoundsForCurrentBounds;
+//- (CGPoint)finAnchorPointForCurrentBounds;
+//
+//- (void)setupAnimTimer;
+//- (void)disposeAnimTimer;
+
+//@end

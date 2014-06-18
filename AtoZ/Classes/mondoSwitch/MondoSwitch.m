@@ -117,31 +117,17 @@
 
 #pragma mark - mouse methods
 
-- (void) mouseDown: (NSEvent *) event {
+- (void) mouseDown: (NSE*)e {	// ignore double clicks
 
-	// ignore double clicks
-	if ([event clickCount] > 1 ) { return; }
-	CGPoint location = [self pointForEvent:event];
-	[buttonLayer mouseDown:location];
+	if (e.clickCount > 1 ) return;	[buttonLayer mouseDownAt:[self convertPoint:e.locationInWindow fromView:nil]];
 }
 
-- (void) mouseUp:(NSEvent *)event {
-	// ignore double clicks
-	if ([event clickCount] > 1 ) { return; }
+- (void) mouseUp:(NSE*)e {	if (e.clickCount > 1) return; // ignore double clicks
 
-	CGPoint location = [self pointForEvent:event];
-	[buttonLayer mouseUp:location];
+	[buttonLayer mouseUpAt:[self convertPoint:e.locationInWindow fromView:nil]];
 }
 
-- (void) mouseDragged:(NSEvent *)event {
-	CGPoint location = [self pointForEvent:event];
-	[buttonLayer mouseDragged:location];
-}
-
-- (CGPoint) pointForEvent:(NSEvent *) event {
-	NSPoint location = [self convertPoint:[event locationInWindow] fromView:nil];
-	return NSPointToCGPoint(location);
-}
+- (void) mouseDragged:(NSE*)e {	[buttonLayer mouseDraggedAt:[self convertPoint:e.locationInWindow fromView:nil]]; }
 
 @end
 //- (void) dealloc {

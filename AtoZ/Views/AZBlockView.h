@@ -1,6 +1,7 @@
 
-#import "AtoZMacroDefines.h"
-#import "AtoZTypes.h"
+#import "AtoZUmbrella.h"
+//#import "AtoZMacroDefines.h"
+//#import "AtoZTypes.h"
 
 /** AZBlockView.h - USAGE
 
@@ -23,15 +24,25 @@
 }
 
 */
+//typedef void(^ObjRectBlock) (id _self, NSR rect);
 
 @interface BNRBlockView : NSView
 
-+ (INST) drawInView:(NSV*)v                            block:(RectBlock)blk;
-+ (INST) viewWithFrame:(NSR)f                      drawBlock:(BLKVIEWRBLK)blk;
-+ (INST) inView:(NSV*)v withFrame:(NSR)f           inContext:(BlkViewLayerBlock)blk;
-+ (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BLKVIEWRBLK)dBlk;
+@prop_CP RectBlock   rBlock;          //typedef void(^RectBlock) (NSR rect);
 
-@property BOOL   opaque;
+    // typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSRect r);
+
+@prop_CP BlkViewRectBlock   drawBlock;               // typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
+@prop_CP BlkViewLayerBlock   layerDelBlock;
+@prop_CP ViewBlock   vBlock;
+
++ (INST) drawInView:(NSV*)v                            block:(RectBlock)blk;
++ (INST) vWF:(NSR)f b:(void(^)(id))blk; // alias for vwf:db
++ (INST) viewWithFrame:(NSR)f                      drawBlock:(BlkViewRectBlock)blk;
++ (INST) inView:(NSV*)v withFrame:(NSR)f           inContext:(BlkViewLayerBlock)blk;
++ (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BlkViewRectBlock)dBlk;
+
+//@property BOOL   opaque;
 @end
 
 //+ (INST) inView:(NSV*)v                            withBlock:(BlkViewLayerDelegate)ctxBlk;

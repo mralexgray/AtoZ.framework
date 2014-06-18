@@ -117,8 +117,8 @@
 
 @end
 
-#define ONE_THIRD                  (1.0f / 3.0f)
-#define TWO_THIRDS                 (2.0f / 3.0f)
+//#define ONE_THIRD                  (1.0f / 3.0f)
+//#define TWO_THIRDS                 (2.0f / 3.0f)
 #define ONE_HALF                   0.5f
 
 #define DEFAULT_SHAFT_WIDTH        ONE_THIRD
@@ -469,6 +469,8 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
   // NSAssert(NSEqualRects(self.bounds, rect) , @"new bounds:%@ should equal rect:%@", AZStringFromRect(self.bounds), AZStringFromRect(rect));
   return self;
 }
+
++ (CGPathRef) cgPR:(NSR)r {  return [self withR:r].quartzPath; }
 + (NSBP*) withR:(NSR)r { return [self.class bezierPathWithRect:r]; }
 
 + (NSBP *)bezierPathWithSpringWithCoils:(NSUI)numCoils inFrame:(NSR)bounds;
@@ -500,10 +502,10 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 + (NSBezierPath *)bezierPathWithPlateInRect:(NSRect)rect {
   NSBezierPath *result = NSBezierPath.new;
   [result appendBezierPathWithPlateInRect:rect];
-  return [result autorelease];
+  return [result self];//autorelease];
 }
 
-- (void)appendBezierPathWithPlateInRect:(NSRect)rect {
+- (void) appendBezierPathWithPlateInRect:(NSRect)rect {
   if (rect.size.height > 0) {
     CGF xoff = rect.origin.x;
     CGF yoff = rect.origin.y;
@@ -518,6 +520,11 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
   }
 }
 
+- (void) appendLineFrom:(NSP)a to:(NSP)b {
+
+  [self moveToPoint:a];
+  [self lineToPoint:b];
+}
 //+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect cornerRadius:(float)radius
 //{
 //	NSBezierPath *result = [[NSBezierPath.alloc init] autorelease];
@@ -1406,15 +1413,15 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
 //these three return an autoreleased copy.
 - (NSBezierPath *)bezierPathByFlippingHorizontally {
-  return [(NSBezierPath *)[[self copy] autorelease] flipHorizontally];
+  return [(NSBezierPath *)[self copy] flipHorizontally];
 }
 
 - (NSBezierPath *)bezierPathByFlippingVertically {
-  return [(NSBezierPath *)[[self copy] autorelease] flipVertically];
+  return [(NSBezierPath *)[self copy] flipVertically];
 }
 
 - (NSBezierPath *)bezierPathByScalingToSize:(NSSize)newSize {
-  return [[[self copy] autorelease] scaleToSize:newSize];
+  return [[self copy]scaleToSize:newSize];
 }
 
 @end

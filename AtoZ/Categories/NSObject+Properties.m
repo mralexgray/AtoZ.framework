@@ -4,21 +4,7 @@
 #import "NSObject+AtoZ.h"
 #import "NSObject+Properties.h"
 
-const char * property_getTypeString		  ( objc_property_t property ) {
-	const char *attrs = property_getAttributes( property );
-	if ( attrs == NULL ) return ( NULL );
-
-	static char buffer[256];
-	const char *e = strchr( attrs, ',' );
-	if ( e == NULL ) return ( NULL );
-
-	int len = (int)(e - attrs);
-	memcpy( buffer, attrs, len );
-	buffer[len] = '\0';
-
-	return ( buffer );
-}
-       SEL	 property_getGetter			  ( objc_property_t property ) {
+       SEL	          property_getGetter (objc_property_t property) {
 	const char *attrs = property_getAttributes( property );
 	if ( attrs == NULL ) return ( NULL );
 
@@ -39,7 +25,7 @@ const char * property_getTypeString		  ( objc_property_t property ) {
 
 	return ( result );
 }
-		 SEL	 property_getSetter			  ( objc_property_t property ) {
+		   SEL	          property_getSetter (objc_property_t property) {
 	const char *attrs = property_getAttributes( property );
 	if ( attrs == NULL ) return ( NULL );
 
@@ -60,7 +46,19 @@ const char * property_getTypeString		  ( objc_property_t property ) {
 
 	return ( result );
 }
-const char * property_getRetentionMethod ( objc_property_t property ) {
+const char *      property_getTypeString (objc_property_t property) {
+
+	const char *attrs = property_getAttributes(property);
+	if (attrs == NULL) return NULL;
+	static char buffer[256];
+	const char *e = strchr(attrs, ',');
+	if (e == NULL) return NULL;
+	int len = (int)(e - attrs);
+	memcpy( buffer, attrs, len );
+	buffer[len] = '\0';
+	return ( buffer );
+}
+const char * property_getRetentionMethod (objc_property_t property) {
 	const char *attrs = property_getAttributes( property );
 	if ( attrs == NULL ) return ( NULL );
 
@@ -84,17 +82,24 @@ const char * property_getRetentionMethod ( objc_property_t property ) {
 
 @implementation NSObject (AQProperties)
 
-
-- (INST) objectBySettingValuesWithDictionary:(NSD*)d      { [self sVs:d.allValues fKs:d.allKeys]; return self; }
+- (INST)    objectBySettingValuesWithDictionary:(NSD*)d   { [self sVs:d.allValues fKs:d.allKeys]; return self; }
 - (INST) objectBySettingValues:(NSA*)vs forKeys:(NSA*)ks  { [self sVs:vs fKs:ks];                 return self; }
+- (INST)  objectBySettingValue:(id)v     forKey:(NSS*)k   { if ([self canSetValueForKey:k]) [self sV:v fK:k]; else self[k] = v; return self; }
 
-- (INST) objectBySettingValue:   (id)v   forKey:(NSS*)k   { if ([self canSetValueForKey:k]) [self sV:v fK:k]; else self[k] = v; return self; }
+- (void)         incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
+- (INST) objectByIncrementing:(NSS*)k by:(NSN*)v { [self incrementKey:k by:v]; return self; }
 
-- (void) incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
-- (INST) objectByIncrementing:(NSS*)k by:(NSN*)v   { [self incrementKey:k by:v]; return self; }
+- (void)  setKVs:(id)firstKey,... { id item = nil, key = firstKey; va_list list; va_start(list, firstKey);
 
-- (INST) withValuesForKeys:(id)v,...                { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
-- (INST) wVsfKs:(id)v,...                           { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
+  while (!!key && (item = va_arg(list, id))) { [self sV:item fK:key]; key = va_arg(list, id); } va_end(list);
+}
+- (void)  setValuesForKeys:(AZKP*)kp,... { azva_list_to_nsarray(kp,keyVals);
+
+  [keyVals do:^(AZKP* obj) { [self sV:obj.value fK:obj.key]; }];
+}
+- (INST) withValuesForKeys:(id)v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
+- (INST)            wVsfKs:(id)v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
+
 - (INST) objectBySettingVariadicPairs:(NSA*)vsForKs { AZBlockSelf(x); [vsForKs eachWithVariadicPairs:^(id a,id b){ [x setValue:a forKey:b]; }]; return x; }
 
 static const char* getPropertyType    (objc_property_t property) 	{
@@ -144,7 +149,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	if (klass == NULL) {
 		return nil;
 	}
-	NSMutableDictionary *results = [[NSMutableDictionary.alloc init] autorelease];
+	NSMutableDictionary *results = NSMutableDictionary.new;
 
 	unsigned int outCount, i;
 	objc_property_t *properties = class_copyPropertyList(klass, &outCount);

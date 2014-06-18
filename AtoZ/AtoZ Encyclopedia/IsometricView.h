@@ -6,7 +6,6 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
 void DrawBluePrintInRectWithScale(NSR r,CGF gridSize);

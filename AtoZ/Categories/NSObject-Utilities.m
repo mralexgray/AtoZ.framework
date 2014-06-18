@@ -743,23 +743,34 @@ static Class OverrideClass(id bSelf, SEL aCmd)	{
 }
 
 @implementation NSObject (AZOverride)
+
 + (void) az_overrideClassMethods:(BOOL)should { OVERRIDE_CLASS_METHOD = should; }
+
+
+-  (BOOL) az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB {
+
+  return [self az_overrideSelector:selector withBlock:(__bridge void *)^BOOL(id _s, SEL sel){ return newB; }];
+}
+
 -  (BOOL) az_overrideSelector:(SEL)selector withBlock:(void*)block	{
 
 	Method        m = NULL;
 	BOOL	  success = NO;
 	Class selfClass = self.class,
 			   subclass = NULL;
-	NSS 	 * prefix = $(@"AZOverride_%p_", self),
-		  * className = OVERRIDE_CLASS_METHOD ? [NSS stringWithUTF8String:object_getClassName(self)] : NSStringFromClass(selfClass),
+	NSS 	 * prefix = $(@"AZ_OVER_%p_", self),
+		  * className = OVERRIDE_CLASS_METHOD ? $UTF8(object_getClassName(self)) : self.className,
 		  	    *name = [prefix withString:className];
 
-	if ([className hasPrefix:prefix])	subclass = OVERRIDE_CLASS_METHOD ? objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
+	if ([className hasPrefix:prefix])
+    subclass = OVERRIDE_CLASS_METHOD ? objc_getClass(className.UTF8String) : selfClass; // object already has an override subclass
+
 	else {
 
     subclass = objc_allocateClassPair(selfClass, name.UTF8String, 0);
 		
-		if (OVERRIDE_CLASS_METHOD && subclass == NULL) return NSLog(@"Couldn't create subclass"), NO;
+		if (OVERRIDE_CLASS_METHOD && subclass == NULL)
+      return NSLog(@"Couldn't create subclass"), NO;
 		if (!class_addMethod(subclass, @selector(class), (IMP)OverrideClass, "#@:"))
       return NSLog(@"Couldn't add 'class' method to class %@",AZOBJCLSSTR(subclass)), NO;
 		

@@ -1,6 +1,6 @@
   
 #import <objc/runtime.h>
-#import "AtoZAutoBox/AtoZAutoBox.h"
+//#import "AtoZAutoBox/AtoZAutoBox.h"
 #import "AtoZ.h"
 //#import "AtoZUmbrella.h"
 //#import "AtoZFunctions.h"
@@ -210,8 +210,15 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
 
 @implementation NSObject (AtoZ)
 
+- (void)  setYesForKey:(id)k {  [self setValue:@YES forKey:k]; }
+- (void)  setYesForKeys:(NSA*)ks {  for (id x in ks) [self setYesForKey:x]; }
+
+- (void)  setNoForKey:(id)k {  [self setValue:@NO forKey:k]; }
+- (void)  setNoForKeys:(NSA*)ks {  for (id x in ks) [self setNoForKey:x]; }
+
 - (void)  sV:(id)v   fKP:(id)k    {  [self setValue:v forKeyPath:k]; }
 - (void)  sV:(id)v    fK:(id)k    {  [self setValue:v forKey:k]; }
+
 - (void) sVs:(NSA*)v fKs:(NSA*)k  {  [self setValues:v forKeys:k]; }
 - (void) setValues:(NSA*)vs forKeys:(NSA*)ks {
 
@@ -219,24 +226,28 @@ static id addMethodTrampoline(id self, SEL _cmd) 			{
                  ISA(vs,NSA)  && ISA(ks,NSA) &&
                      vs.count == ks.count);
 
-  [[ks pairedWith:vs] eachWithVariadicPairs:^(id a, id b) { [self sV:b fK:a]; }];
+  [[ks combinedWith:vs] eachWithVariadicPairs:^(id a, id b) { [self sV:b fK:a]; }];
 }
 - (void)  setValue:(id)x forKeys:(NSA*)ks { for(id z in ks) [self sV:x fK:z]; }
 
 
--  (void) triggerKVO:(NSS*)k block:(bSelf)blk {           
+- (void) triggerKVO:(NSS*)k block:(bSelf)blk {
                                                             [self willChangeValueForKey:k]; 
   [self blockSelf:^(__typeof(self)_self){ blk(_self); }];   [self  didChangeValueForKey:k];
 }
 -  (void) blockSelf:(VoidObjBlock)block { AZBlockSelf(_self); block(_self); }
-- (NSAS*) attributedDescription {  NSMAS *as = [NSMAS.alloc initWithString:self.description attributes:[NSAS.defaults dictionaryWithValue:BLACK forKey:NSForegroundColorAttributeName]];
 
-  [as.string enumerateSubstringsInRange:(NSRange){0, as.length} options:NSStringEnumerationByWords
-                             usingBlock:^(NSS *substring, NSRNG subRng, NSRNG enclRng, BOOL *stop) {
-    SameString(@"YES", substring) ? [as setColor:GREEN inRange:subRng] :
-    SameString(@"NO", substring)  ? [as setColor:RED inRange:subRng] : nil;
-  }];
-  return as;
+- (NSAS*) attributedDescription { NSMAS *as; return as =
+
+  [self.description attributedWith:[NSAS.defaults dictionaryWithValue:BLACK forKey:NSForegroundColorAttributeName]].mC,
+    [as.string enumerateSubstringsInRange:as.range options:NSStringEnumerationByWords
+                              usingBlock:^(NSS *substring, NSRNG subRng, NSRNG enclRng, BOOL *s) {
+    SameString(substring,@"1") ? ({
+      [as replaceCharactersInRange:subRng withString:@"YES"];
+      [as setColor:GREEN inRange:(NSRange){subRng.location, 3}]; }) :
+    SameString(substring,@"0") ? ({
+      [as replaceCharactersInRange:subRng withString:@"NO"];
+      [as setColor:RED inRange:(NSRange){subRng.location, 2}]; }) : nil; }], as;
 }
 
 - (const char*) cDesc { return self.description.cchar; }
@@ -471,24 +482,22 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
  }
  */
 
-- (NSA*) instanceMethodNames {
-	Class clazz             = [self class];         u_int count;
-	Method *methods         = class_copyMethodList(clazz, &count);
+//static NSString * uninsteresting = @"cxx_destruct|init|dealloc";
 
-	NSA*ns = [[@0 to : @(count - 1)] nmap:^id (id obj, NSUI index) {
-		return $UTF8(sel_getName(method_getName(methods [(u_int)index]) ));
+- (NSA*) instanceMethodNames { u_int count; Method *mthds = class_copyMethodList(self.class, &count);
+
+  return [@(count - 1) mapTimes:^id(NSNumber *num) { id m = $UTF8(sel_getName(method_getName(mthds[num.unsignedIntValue])));
+   return IS_IN_STATIC_SPLIT(m,cxx_destruct|init|dealloc) ? nil: m;
 	}];
-	return [ns cw_mapArray:^id(id object) {return [object containsAnyOf:@[@"cxx_destruct", @"init", @"dealloc"]] ? nil : object;}];
-	//	free(	methods );
-	//	return  methodArray;
+
+//	return [ns cw_mapArray:^id(id object) {return [object containsAnyOf:] ? nil : object;}];	free(	methods );	return  methodArray;
 }
-- (NSS*) instanceMethodsInColumns {
-	return [[self instanceMethodNames]formatAsListWithPadding:30];
-}
--    (BOOL) isaBlock                        { return [self.className containsAnyOf:@[@"NSGlobalBlock", @"NSBlock"]]; }
--    (BOOL) isKindOfBlock:(id)anotherBlock  {  return [self.blockSignature isEqual:[anotherBlock blockSignature]]; }
--    (NSS*) blockDescription                {	return self.blockSignature.debugDescription;	}
-- (NSMSIG*) blockSignature                  { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
+- (NSS*) instanceMethodsInColumns        { return [self.instanceMethodNames formatAsListWithPadding:30]; }
+
+- (BOOL) isaBlock                        { return [self.className containsAnyOf:@[@"NSGlobalBlock", @"NSBlock"]]; }
+- (BOOL) isKindOfBlock:(id)anotherBlock  { return [self.blockSignature isEqual:[anotherBlock blockSignature]]; }
+- (NSS*) blockDescription                { return  self.blockSignature.debugDescription;	}
+- (SIG*) blockSignature                  { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
 
 
 
@@ -704,10 +713,11 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 
 - (BOOL)isKindOfAnyClass:(NSA*) classes;
 {
-	return [classes filterOne:^BOOL (Class object) {
-		return [self isKindOfClass:object];
-	}];
+	return [classes any:^BOOL(Class obj) { return [self isKindOfClass:obj];	}];
 }
+
+/** ALEX DISABLED THIS JUNE 4th 2014.  too risky.  use Index Keysub protocols! */
+/*
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
 
 	NSMD* x = objc_getAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray");
@@ -723,6 +733,7 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 //	if (!x || idx > x.count) return nil;
 //	return [x normal:idx];
 }
+*/
 
 /*
 - (id)objectForKeyedSubscript:(id)key {
@@ -1335,12 +1346,14 @@ BOOL respondsTo(id obj, SEL selector) {
 }
 - (id)respondsToStringThenDo:(NSS*) string withObject:(id)obj withObject:(id)objtwo {
 
-	SEL  select = NSSelectorFromString(string);
-	return
-		! [self respondsToSelector:select] ? nil
-		: obj && objtwo   ? [self performSelectorARC:select withObject:obj withObject:objtwo]
-		: obj             ?	[self performSelectorARC:select withObject:obj]
-		:                   [self cw_ARCPerformSelector:select];
+	SEL select = NSSelectorFromString(string);
+//  const char * type = [self typeOfPropertyNamed:string];
+  return
+
+		! [self respondsToSelector:select] ? nil                    // NOTHING.. NORESPONDA!
+		: obj && objtwo   ? [self performSelectorWithoutWarnings:select withObject:obj withObject:objtwo] // objc_msgSend(self, select,obj,objtwo)  [self performSelectorARC:select withObject:obj withObject:objtwo]
+		: obj             ?	[self performSelectorWithoutWarnings:select withObject:obj] // objc_msgSend(self, select,obj) //[self performSelectorARC:select withObject:obj]
+		:                   [self performSelectorWithoutWarnings:select];  // objc_msgSend(self, select); //[self cw_ARCPerformSelector:select];
 }
 - (IBAction)performActionFromLabel:(id)sender;
 {
@@ -1561,7 +1574,7 @@ static const char * getPropertyType(objc_property_t property) {
 	NSA* justBlocks 	= [namesAndBlocks arrayByRemovingObjectsFromArray:names];
   
 //  NSAssert(justBlocks.count == names.count, @"need equal number of notifications as blocks");
-  [[names pairedWith:justBlocks] eachWithVariadicPairs:^(id a,id b){
+  [[names combinedWith:justBlocks] eachWithVariadicPairs:^(id a,id b){
       [self observeName:a usingBlock:b];
   }];
 

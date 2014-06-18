@@ -92,7 +92,7 @@ JREnumDeclare( AZAlign, AZAlignUnset     		= 0x00000000,
 
   STAssertEquals( unset, AZUnset,                  @"uninitialized Alignments should be Unset!");
   STAssertEquals( unset,  (AZA)NO,                  @"aka NO");
-  STAssertEquals( AZAlignByValue().count, (NSUI)13, @"Should be 12 positions");
+  STAssertEquals( AZAlignByValue().count, (NSUI)15, @"Should be 12 positions");
   STAssertTrue  ( AZAlignTop | AZAlignLeft                                == AZAlignTopLeft,    @"Combining Bitmasks works");
   STAssertTrue  ( AZAlignTop | AZAlignLeft | AZAlignRight | AZAlignBottom == AZAlignCenter,     @"Allsides totals center");
   
@@ -100,7 +100,11 @@ JREnumDeclare( AZAlign, AZAlignUnset     		= 0x00000000,
   STAssertFalse ( AZAlignOutside & (AZAlignTop|AZAlignLeft|AZAlignRight|AZAlignBottom),  @"No sides is outside  ");
   STAssertTrue  ( AZAlignTop&AZAlignCenter,   @"Align Cneter includes top");
 
-
-
 }
+//- (void) testDecoding { AZA zTop = AZTop;
+//
+//  STAssertTrue( AZAIsVertical ), <#description, ...#>
+//
+//}
+
 @end

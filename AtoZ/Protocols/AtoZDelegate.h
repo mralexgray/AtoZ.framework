@@ -1,11 +1,11 @@
 
 
-#import <AtoZ/AtoZ.h>
 
+@class AtoZ;
 @protocol AtoZDelegate <NSObject,NSApplicationDelegate>
 
 
-/*!
+/*!ººº
  * @method hasNetworkClientEntitlement
  * @abstract Used only in sandboxed situations since we don't know whether the app has com.apple.security.network.client entitlement
  * @discussion GrowlDelegate calls to find out if we have the com.apple.security.network.client entitlement,

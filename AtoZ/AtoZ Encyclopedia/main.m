@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-//#import <Cocoa/Cocoa.h>
+//@import AppKit;
 //#import <AtoZ/AtoZ.h>//#import <AtoZ/AtoZ.h>
 @interface AtoZCLI : NSObject
 @end

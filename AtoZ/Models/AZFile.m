@@ -46,7 +46,7 @@
     return _name = _name ? _name :
         _path ? [AZFILEMANAGER displayNameAtPath:_path] :
         _path ? [[_path lastPathComponent] stringByDeletingPathExtension] :
-        _color ? [_color nameOfColor] :
+        _color ? [_color name] :
         _image ? [_image name] : @"N/A";
 }
 

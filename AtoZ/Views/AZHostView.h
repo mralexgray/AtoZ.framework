@@ -6,7 +6,6 @@
 //  Copyright 2010 The Cosmic Machine. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 #import <QuartzCore/QuartzCore.h>
 

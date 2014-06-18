@@ -2,113 +2,124 @@
 #import "AtoZ.h"
 #import "AZBorderlessResizeWindow.h"
 
-@interface EdgeIndicatorLayer : CALayer
-@property AZPOS pos;
-@end
-@implementation EdgeIndicatorLayer 
-- (void) drawInContext:(CGContextRef)ctx {
-  [NSGC drawInContext:ctx flipped:NO actions:^{
-    [[NSBP bezierPathWithTriangleInRect:self.bounds orientation:self.pos] fillWithColor:PURPLE];
-  }];
-}
-@end
 @implementation  AZHandlebarWindow
 
--   (id) init              {
+-   (id) init {  if (!(self = [super initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO])) return nil;
 
-	if ( self != [super initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO]) return nil;
-  self.acceptsFirstResponder = NO;
-  [self    overrideCanBecomeKeyWindow:NO];
-  [self   overrideCanBecomeMainWindow:NO];
-  _color = [RED alpha:.5];
+  self.acceptsFirstResponder = NO; [self overrideCanBecomeKeyWindow:NO];  [self overrideCanBecomeMainWindow:NO];
 
-  self.view = [BLKV viewWithFrame:self.contentRect drawBlock:^(NSV*v,NSR r) {
+  _color = [RED alpha:.5];  self.view = [BLKV viewWithFrame:self.contentRect drawBlock:^(NSV*v,NSR r) {
 
     AZHandlebarWindow        * handle = (id)v.window;
     AZBorderlessResizeWindow * parent = (id)handle.parentWindow;
     [AZGRAPHICSCTX setCompositingOperation:NSCompositePlusDarker];
-    AZPOS edge  = parent.mouseEdge;
-    NSBP * pth  = [NSBP bezierPathWithRoundedRect:r cornerRadius:parent.cornerRadius aligned:edge];
-    if      (edge == AZPositionCenter)                                      [pth fillWithColor:[BLACK alpha:.3]];
-    else if (edge == AZPositionOutside && ISA(parent,AZMagneticEdgeWindow)) [pth fillWithColor:PINK];// NSFrameRectWithWidthWithColor(mag.inFrame.r, 4, BLACK);
-    else                                                                    [pth fillGradientFrom:handle.color to:CLEAR startAlign:edge];
-  }];
-  self.movable                    =
-  self.acceptsMouseMovedEvents    =
-  self.movableByWindowBackground  = NO;
-  self.ignoresMouseEvents         = YES;
-//  self.animationBehavior          = NSWindowAnimationBehaviorNone;
-	return self;
+
+    NSBP * pth  = [NSBP bezierPathWithRoundedRect:r cornerRadius:parent.cornerRadius aligned:parent.mouseEdge];
+
+    if      (parent.mouseEdge == AZPositionCenter)    [pth fillWithColor:[BLACK alpha:.3]];
+
+    else if (parent.mouseEdge == AZPositionOutside
+                && ISA(parent,AZMagneticEdgeWindow))  [pth fillWithColor:PINK];// NSFrameRectWithWidthWithColor(mag.inFrame.r, 4, BLACK);
+
+    else [pth fillGradientFrom:handle.color to:CLEAR startAlign:parent.mouseEdge];
+
+  }]; self.ignoresMouseEvents = YES;   // self.animationBehavior = NSWindowAnimationBehaviorNone;
+
+  self.movable = self.acceptsMouseMovedEvents = self.movableByWindowBackground = NO; return self;
 }
 //- (void) sendEvent:(NSE*)e { [self.parentWindow sendEvent:e]; }
 @end
 
-@interface AZBorderlessResizeWindow () <NSWindowDelegate> //@property (NATOM)  NSP   mouseLocation, dragStart;  @property (NATOM) BOOL   dragging, resizing, mouseDown; @property (NATOM)  NSR   dragFrame;
+//@interface      EdgeIndicatorLayer   : CAL @property AZPOS pos; @end
+//@implementation EdgeIndicatorLayer
+//+ (BOOL) needsDisplayForKey:(NSString *)key { XX(key); return SameString(key, @"pos"); }
+//- (void) drawInContext:(CGContextRef)ctx {
+//  [NSGC drawInContext:ctx flipped:NO actions:^{
+//    [[NSBP bezierPathWithTriangleInRect:self.bounds orientation:self.pos] fillWithColor:PURPLE];
+//  }];
+//}
+//@end
+
+
+@implementation ClearWin /* ROOT CLASS */
+
++ (INST) withFrame:(NSR)r { return [self.class.alloc initWithFrame:r];  }
+- initWithFrame:(NSR)r    { return self = [super initWithContentRect:r styleMask:0|2|4|8 backing:NSBackingStoreBuffered defer:NO] ? self.title = @"poop", self : nil; }
+- (NSC*) backgroundColor  { return CLEAR; } /* CLEAR  */
+- (BOOL) isOpaque         { return NO;    } /* NO     */
 @end
-@implementation AZBorderlessResizeWindow
+
+
+@implementation AZBorderlessResizeWindow //@property (NATOM)  NSP   mouseLocation, dragStart;  @property (NATOM) BOOL   dragging, resizing, mouseDown; @property (NATOM)  NSR   dragFrame;
+
 + (NSD*) codableProperties {
 
-  return [[NSD dictionaryWithValue:@"NSNumber" forKeys:@[@"handleInset", @"cornerRadius",  @"mouseEdge",     @"screenEdge", @"isOnEdge", @"isDragging", @"isHovered", @"isResizing", @"isClicked"]]
-               dictionaryWithValue:@"NSValue"  forKeys:@[@"snappedRect", @"contentRect", @"mouseLocation", @"mouseEdgeRect", @"bounds"]];
+  return [[NSD dictionaryWithValue:@"NSNumber"
+                           forKeys:SPLIT(handleInset|cornerRadius|mouseEdge|screenEdge|isOnEdge|isDragging|isHovered|isResizing|isClicked)]
+               dictionaryWithValue:@"NSValue"
+                           forKeys:SPLIT(snappedRect|contentRect|mouseLocation|mouseEdgeRect|bounds)];
 }
-+ (INST) windowWithContentRect:(NSR)r {  return [self.class.alloc initWithContentRect:r styleMask:NSNotFound backing:NSNotFound defer:NO]; }
+- initWithFrame:(NSR)r {
 
--   (id) initWithContentRect:  (NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+  if (!(self = [super initWithFrame:r])) return nil;  //   styleMask:0|NSResizableWindowMask backing:b > 2 ? 2 : b defer:d] ))
 
-	if (!( self = [super initWithContentRect:r styleMask:NSBorderlessWindowMask backing:b > 2 ? 2 : b defer:d] )) return nil;
-  [self  overrideCanBecomeKeyWindow:YES];
-  [self overrideCanBecomeMainWindow:YES];
-  self.level                      = NSNormalWindowLevel;
-  self.movableByWindowBackground  = NO;
-  self.isVisible                  =
-  self.acceptsMouseMovedEvents    = YES;
-  self.delegate                   = self;
-  _cornerRadius                   = 5;
-  _handleInset                    = 30;
-  self.childWindows               = @[_handle = AZHandlebarWindow.new];
-  self.view                       = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(NSV*v,NSR rect) { [self.windowPath fillWithColor:LINEN]; [self.windowPath bezel]; }];
-  EdgeIndicatorLayer *indi = [EdgeIndicatorLayer layerWithFrame:AZCornerRectPositionedWithSize(self.contentRect, AZPositionTopRight, AZSizeFromDim(60))];
+  [self  overrideCanBecomeKeyWindow:YES]; [self overrideCanBecomeMainWindow:YES];
 
-  [indi b:@"pos" tO:self wKP:@"screenEdge" o:nil];
-  [self.view.layer addSublayer:indi];
-  [indi setNeedsDisplay];
-//  [_handle b:@"frame" tO:self wKP:@"edgeRect"    o:nil]; /* update _handle's frame when our active edge rect changes */
-  [_handle b:@"faded" tO:self wKP:@"mouseEdge" t:^id(id mE) { return  @([mE uIV] == AZPositionOutside); }];
-  [self b:@"frame" tO:self wKP:@"snappedRect" o:nil];
+  self.level = NSNormalWindowLevel;      self.delegate = (id)self;
+  self.movableByWindowBackground  = YES; self.isVisible = self.acceptsMouseMovedEvents = YES;
+
+  _cornerRadius       = 5;
+  _handleInset        = 30;  // Size of handlebar
+  self.childWindows   = @[_handle = AZHandlebarWindow.new];
+  self.view = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(NSV*v,NSR rect) {
+
+    NSBP *winPth = [NSBP bezierPathWithRoundedRect:rect cornerRadius:_cornerRadius];
+    [winPth fillWithColor:LINEN];
+    [GREEN set];
+    NSRectFillUsingOperation(self.mouseEdgeRect, NSCompositePlusDarker);
+    NSR r = AZCornerRectPositionedWithSize(rect, self.screenEdge, AZSizeFromDim(60));
+    [[NSBP bezierPathWithTriangleInRect:r orientation:self.screenEdge] fillWithColor:PURPLE];
+    [winPth bezel];
+//    [self.codableProperties .attributedWithDefaults drawInRect:rect];
+  }];
+//  EdgeIndicatorLayer *indi;
+//  [self.view.layer addSublayer:indi = [EdgeIndicatorLayer layerWithFrame:AZCornerRectPositionedWithSize(self.contentRect, AZPositionTopRight, AZSizeFromDim(60))]];
+
+//  [indi    b:@"pos"   tO:self wKP:@"screenEdge"  o:nil]; [indi setNeedsDisplay];
+
+//  [_handle b:@"faded" tO:self wKP:@"mouseEdge"    t:^id(id mE) { return  @([mE uIV] == AZPositionOutside); }];
+//  [self    b:@"frame" tO:self wKP:@"snappedRect"  o:nil];
+
+//  [_handle b:@"frame" tO:self wKP:@"mouseEdgeRect"    o:nil]; /* update _handle's frame when our active edge rect changes */
 //  [self observeNotificationsUsingBlocks:
-//      NSWindowWillStartLiveResizeNotification,  ^(NSNOT*n) { self.mouseDown = self.dragging = YES; }, nil];
-//    NSWindowDidMoveNotification,              ^(NSNOT*n) {
-
+//  NSWindowWillStartLiveResizeNotification,  ^(NSNOT*n) { self.mouseDown = self.dragging = YES; }, nil];
+//  NSWindowDidMoveNotification,              ^(NSNOT*n) {
 //      [n.object triggerChangeForKeys:@[@"frame"]]; }, nil];  //screenEdge"]]; }, nil];//self.dragFrame = [n.object frame]; XX(@"didMoveNote"); }, nil];
-
 //  [self b:@"dragStart" tO:self wKP:@"dragging" t:^id(id value) { return AZVpoint([value bV] ? NSE.mouseLocation : NSZeroPoint); /* save initial mouse Location point */ }];
   return self;
 }
+//+ (NSSet*) kPfVAVfK:(NSS*)k {  objswitch(k)
+//
+//    objcase     (@"isHovered") RET_SPLIT_SET(mouseLocation);          // can change anytime mouse moves
+//    objcase      (@"isOnEdge") RET_SPLIT_SET(mouseLocation);          // can change anytime mouse moves
+//    objcase     (@"mouseEdge") RET_SPLIT_SET(mouseLocation);//|isOnEdge);
+//    objcase (@"mouseEdgeRect") RET_SPLIT_SET(mouseEdge|frame);
+//    objcase    (@"screenEdge") RET_SPLIT_SET(dragFrame|frame);
+//    objcase      (@"dragging") RET_SPLIT_SET(mouseDown);
+//
+//    defaultcase return  [super kPfVAVfK:k]; endswitch
+//}
+-  (void) setNeedsDisplay:(BOOL)x { [self.view setNeedsDisplay:x]; }
 
-- (NSBP*) windowPath { return [NSBP bezierPathWithRoundedRect:self.bounds cornerRadius:_cornerRadius]; }
-
-+ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
-
-  objswitch(k)
-    objcase(@"isHovered")   return NSSET(@"mouseLocation");
-    objcase(@"isOnEdge")    return NSSET(@"mouseLocation");
-    objcase(@"mouseEdge")     return NSSET(@"mouseLocation", @"isOnEdge");
-    objcase(@"mouseEdgeRect") return NSSET(@"mouseEdge", @"frame");
-    objcase(@"screenEdge")  return NSSET(@"dragFrame",@"frame");
-//    objcase(@"dragging")    return NSSET(@"mouseDown");
-    defaultcase             return [super keyPathsForValuesAffectingValueForKey:k];
-  endswitch
-}
-
--  (BOOL) isHovered   { return NSPointInRect(NSE.mouseLocation,self.frame);                              }
--  (BOOL) isOnEdge    { return AZPointIsInInsetRects(_mouseLocation, self.contentRect, AZSizeFromDim(_handleInset)); }
-- (AZPOS) mouseEdge   { /* update mouseOnEdgeBool whenever mouse moves. */
+-  (BOOL) isHovered         { return NSPointInRect(NSE.mouseLocation,self.frame);                              }
+-  (BOOL) isOnEdge          { return AZPointIsInInsetRects(_mouseLocation, self.contentRect, AZSizeFromDim(_handleInset)); }
+- (AZPOS) mouseEdge         { /* update mouseOnEdgeBool whenever mouse moves. */
 
   return !self.isOnEdge ? NSPointInRect(_mouseLocation,self.contentRect) ? AZCntr : AZOtsd
                            : AZPosOfPointInInsetRects(_mouseLocation, self.contentRect, AZSizeFromDim(_handleInset));
 }
-- (AZPOS) screenEdge     { return AZOutsideEdgeOfRectInRect ( /*self.isDragging ? self.dragFrame :*/ self.frame, AZScreenFrameUnderMenu()); }
--   (NSR) mouseEdgeRect  {
+- (AZPOS) screenEdge        { return [self.view setNeedsDisplay:YES], AZOutsideEdgeOfRectInRect ( /*self.isDragging ? self.dragFrame :*/ self.frame, AZScreenFrameUnderMenu()); }
+-   (NSR) mouseEdgeRect     {
 
  //self.activeEdge == AZPositionOutside && [self respondsToString:@"inFrame"] ? [[self vFK:@"inFrame"]r] :
 
@@ -117,7 +128,7 @@
   return r;
 //  [_handle bwResizeToSize:AZSizeFromRect(eRect) animate:YES];
 }
-- (NSR) snappedRect { AZR *r = $AZR(self.frame);
+-   (NSR) snappedRect       { AZR *r = $AZR(self.frame);
 
   switch (self.screenEdge) {
     case AZAlignLeft:   r.x = 0;                 break;
@@ -127,10 +138,9 @@
   }
   return r.frame;
 }
-
 -  (void) sendEvent:(NSE*)e {
 
-  AZLOG([NSThread  callStackSymbols]);
+//  AZLOG([NSThread  callStackSymbols]);
 
   XX(AZEventToString(e.type));
 
@@ -159,90 +169,71 @@
   }
 
 }
+
 //- (void) setFrame:(NSR)r display:(BOOL)f {
 //  NSR rct = AZInsetRectInPosition(AZScreenFrameUnderMenu(), AZSizeFromRect(r), self.insideEdge);
 //  [super setFrame:rct display:f];
-//}
-@end
-@implementation FadeVisibilityWindow
-- (NSS*) description      {
+//}//descriptionForKey:k]); //}].joinedByNewlines;
 
-  return [self.codableProperties.allKeys.alphabetized map:^id(id k){
-    return $(@"%@: %@",k,[@[@"screenEdge", @"mouseEdge"] containsObject:k] ? AZAlignToString([self unsignedIntegerForKey:k]) : [self descriptionForKey:k]);
-  }].joinedByNewlines;
-}
-- (NSC*) backgroundColor  { return CLEAR; }
-- (BOOL) isOpaque         { return NO;    }
 @end
+
 
 @implementation AZMagneticEdgeWindow
 
-//+ (NSD*) codableProperties { NSMD *d = super.codableProperties.mutableCopy;
-//
-//  [d setValue:@"AZRect" forKeys:@[@"outFrame", @"inFrame"]];
-//  return d;
-//}
-//
-//+ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
-//
-//  objswitch(k)
-//    objcase(@"inFrame")   return NSSET(@"edgeInset",@"outFrame");
-//    objcase(@"outFrame")  return NSSET(@"fullSize", @"dragFrame");
-//    defaultcase           return [super keyPathsForValuesAffectingValueForKey:k];
-//  endswitch
-//}
-//- (AZRect*) inFrame { return
-//
-//  self.insideEdge == AZTop ? $AZR(AZLowerEdge(self.bounds, self.edgeInset))
-//: self.insideEdge == AZLft ? $AZR(AZRightEdge(self.bounds, self.edgeInset))
-//:	self.insideEdge == AZBtm ? $AZR(AZUpperEdge(self.bounds, self.edgeInset))
-//: self.insideEdge == AZRgt ? $AZR(AZLeftEdge (self.bounds, self.edgeInset))
-//: $AZR( AZCornerRectPositionedWithSize(	self.bounds,	AZPositionOpposite(self.insideEdge), AZSizeFromDim(self.edgeInset*2)));//self.grabInset * 2)));
-//
-////AZRect *theStart = self.outFrame; NSR startR = theStart.r;
-//
-////    return $AZR(NSZeroRect);
-////    self.insideEdge == AZLft ? [self.outFrame   AZRectExceptOriginX(startR,   		  	     - self.width  + AZMinDim(_fullSize) * 2) //self.grabInset * 2))
-////  : self.insideEdge == AZTop ? AZRectExceptOriginY(startR, theStart.minY + theStart.height - AZMinDim(_fullSize))//self.grabInset))
-////  : self.insideEdge == AZRgt ? AZRectExceptOriginX(startR, theStart.minX + theStart.width  - AZMinDim(_fullSize))//self.grabInset))
-////  : self.insideEdge == AZBtm ? AZRectExceptOriginY(startR, theStart.minY - theStart.height + AZMinDim(_fullSize)) : startR);
-//}
-//- (AZRect*) outFrame { return $AZR(AZRectInsideRectOnEdge(AZRectFromSize(self.fullSize), AZScreenFrameUnderMenu(), self.insideEdge)); }
-//-      (id) initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
-//
-//  if (!(self = [super initWithContentRect:r styleMask:m backing:b defer:d])) return nil;
-//  [self b:@"fullSize" tO:self wKP:@"frame" t:^id(id value) { return AZVsize( AZSizeFromRect([value rV])); }];
-//  BLKVIEW *corners;
-//  [self.view addSubview:corners = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(BLKV *bv, NSR rr) {
-//
-//  }]];
-//  return self;
-//}
-//- (CRNR)outsideCorners           {	 AZPOS o = AZPositionOpposite(self.insideEdge);
-//	return 	o == AZTop ? (OSBottomLeftCorner|OSBottomRightCorner)
-//			: 	o == AZLft ? (  OSTopRightCorner|OSBottomRightCorner)
-//			: 	o == AZBtm ? (   OSTopLeftCorner|OSTopRightCorner   )
-//			:   /*AZRght*/   (   OSTopLeftCorner|OSBottomLeftCorner );
-//}
-@end
+#pragma FIX - this looks clean, what happened?
 
++ (NSD*) codableProperties { return [super.codableProperties dictionaryWithValue:@"AZRect" forKeys:@[@"outFrame", @"inFrame"]]; }
++ (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
+
+  objswitch(k)
+    objcase(@"inFrame")   return NSSET(@"edgeInset",@"outFrame");
+    objcase(@"outFrame")  return NSSET(@"fullSize", @"dragFrame");
+    defaultcase           return [super keyPathsForValuesAffectingValueForKey:k];
+  endswitch
+}
+- (AZRect*) inFrame { return
+
+  self.screenEdge == AZTop ? $AZR(AZLowerEdge(self.bounds, self.handleInset))
+: self.screenEdge == AZLft ? $AZR(AZRightEdge(self.bounds, self.handleInset))
+:	self.screenEdge == AZBtm ? $AZR(AZUpperEdge(self.bounds, self.handleInset))
+: self.screenEdge == AZRgt ? $AZR(AZLeftEdge (self.bounds, self.handleInset))
+: $AZR( AZCornerRectPositionedWithSize(	self.bounds,	AZPositionOpposite(self.screenEdge), AZSizeFromDim(self.handleInset*2)));
+
+}
+//self.grabInset * 2))); //AZRect *theStart = self.outFrame; NSR startR = theStart.r;
+
+//    return $AZR(NSZeroRect);
+//    self.insideEdge == AZLft ? [self.outFrame   AZRectExceptOriginX(startR,   		  	     - self.width  + AZMinDim(_fullSize) * 2) //self.grabInset * 2))
+//  : self.insideEdge == AZTop ? AZRectExceptOriginY(startR, theStart.minY + theStart.height - AZMinDim(_fullSize))//self.grabInset))
+//  : self.insideEdge == AZRgt ? AZRectExceptOriginX(startR, theStart.minX + theStart.width  - AZMinDim(_fullSize))//self.grabInset))
+//  : self.insideEdge == AZBtm ? AZRectExceptOriginY(startR, theStart.minY - theStart.height + AZMinDim(_fullSize)) : startR);
+
+- (AZRect*) outFrame { return $AZR(AZRectInsideRectOnEdge(AZRectFromSize(self.fullSize), AZScreenFrameUnderMenu(), self.insideEdge)); }
+
+-      (id) initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+
+  if (!(self = [super initWithContentRect:r styleMask:m backing:b defer:d])) return nil;
+  [self b:@"fullSize" tO:self wKP:@"frame" t:^id(id value) { return AZVsize( AZSizeFromRect([value rV])); }];
+  BLKVIEW *corners;
+  [self.view addSubview:corners = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(BLKV *bv, NSR rr) {
+
+  }]];
+  return self;
+}
+- (CRNR)outsideCorners           {	 AZPOS o = AZPositionOpposite(self.insideEdge);
+	return 	o == AZTop ? (OSBottomLeftCorner|OSBottomRightCorner)
+			: 	o == AZLft ? (  OSTopRightCorner|OSBottomRightCorner)
+			: 	o == AZBtm ? (   OSTopLeftCorner|OSTopRightCorner   )
+			:      (   OSTopLeftCorner|OSBottomLeftCorner ); // AZRght
+}
+
+@end
 
 /**********/
 
-
-
 @implementation AZEdgeAwareWindow
 
--  (void) resizeBy:    (NSSZ)sz { if (NSEqualSizes(NSZeroSize, sz)) return;
-
-  [self setSize:AZAddSizes(self.size, sz)];
-//	[self setFrame: AZCenterRectOnPoint(AZRectResizedBySize(self.frame,sz), self.center)];
-}
--  (void) scrollWheel: (NSE*)e  { [self resizeBy:e.deltaSizeAZ];  }
-
-- (id) initWithContentRect:(NSRect)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
-
-	if (self != [super initWithContentRect:r styleMask:m == NSNotFound ? 1|2|8 : m backing:b > 2 ? 2 : b defer:NO] ) return nil;
+- initWithFrame:(NSR)r { if (!(self = [super initWithFrame:r]))return nil;
 	self.opaque                     = NO;
 	self.bgC                        = CHECKERS;
 	self.minSize                    = self.frame.size;
@@ -253,9 +244,17 @@
   self.collectionBehavior         = NSWindowCollectionBehaviorDefault;
 	return self;
 }
+
+- (void)        resizeBy:(NSSZ)sz { if (NSEqualSizes(NSZeroSize, sz)) return;
+
+  [self setSize:AZAddSizes(self.size, sz)];
+//	[self setFrame: AZCenterRectOnPoint(AZRectResizedBySize(self.frame,sz), self.center)];
+}
+- (void)     scrollWheel:(NSE*)e  { [self resizeBy:e.deltaSizeAZ];  }
 - (void) setFrameChanged:(WindowFrameChange)blk { [self.contentView observeFrameChange:^(NSV*v){ (_frameChanged = [blk copy])(_owner,self); }]; }
 @end
 
+#pragma mark -  THIS STUFF BELOWLOOKS GOOD TOO
 
 /*
 	if (!_dragging) {

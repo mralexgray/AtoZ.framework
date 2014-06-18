@@ -66,13 +66,6 @@
 			remoteGlobalIDString = 56DEC255152631040031E8DC;
 			remoteInfo = "GRMustache6-MacOSTests";
 		};
-		7BE13C3B17E7EE6F0087ACB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7BE13BE617E7EC2E0087ACB9 /* GRMustache.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ABAF86A516A0A65A001ADE96;
-			remoteInfo = "GRMustache6-MacOSTests-GC";
-		};
 		7BE13C3D17E7EE6F0087ACB9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7BE13BE617E7EC2E0087ACB9 /* GRMustache.xcodeproj */;
@@ -348,7 +341,6 @@
 			children = (
 				7BE13C3817E7EE6F0087ACB9 /* libGRMustache6-MacOS.a */,
 				7BE13C3A17E7EE6F0087ACB9 /* GRMustache6-MacOSTests.octest */,
-				7BE13C3C17E7EE6F0087ACB9 /* GRMustache6-MacOSTests-GC.octest */,
 				7BE13C3E17E7EE6F0087ACB9 /* libGRMustache6-iOS.a */,
 				7BE13C4017E7EE6F0087ACB9 /* GRMustache6-iOSTests.octest */,
 			);
@@ -468,7 +460,7 @@
 		7BDDD78517D0ECEB00B0BC56 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Alex Gray";
 				TargetAttributes = {
 					7BDDD7B017D0ECEB00B0BC56 = {
@@ -530,13 +522,6 @@
 			fileType = wrapper.cfbundle;
 			path = "GRMustache6-MacOSTests.octest";
 			remoteRef = 7BE13C3917E7EE6F0087ACB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7BE13C3C17E7EE6F0087ACB9 /* GRMustache6-MacOSTests-GC.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "GRMustache6-MacOSTests-GC.octest";
-			remoteRef = 7BE13C3B17E7EE6F0087ACB9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BE13C3E17E7EE6F0087ACB9 /* libGRMustache6-iOS.a */ = {
@@ -782,7 +767,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -821,7 +805,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -939,7 +922,6 @@
 		7BE13C2617E7ED580087ACB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				CLANG_WARN_OBJC_ROOT_CLASS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -989,7 +971,6 @@
 		7BE13C2717E7ED580087ACB9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = NO;
 				CLANG_WARN_OBJC_ROOT_CLASS = NO;
 				COMBINE_HIDPI_IMAGES = YES;

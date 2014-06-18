@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
+@import AppKit;
+
 #import "CalcModel.h"
 
 @interface AZCalculatorController : NSWindowController
@@ -31,7 +31,7 @@
 
 @property (nonatomic, strong) CalcModel *calc;
 
-@property (assign) IBOutlet NSWindow *window;
+//INHERITED @property (assign) IBOutlet NSWindow *window;
 @property (nonatomic, retain) NSString *labelValue;
 
 @end

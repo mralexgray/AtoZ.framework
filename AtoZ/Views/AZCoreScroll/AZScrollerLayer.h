@@ -1,5 +1,4 @@
-//#import <Cocoa/Cocoa.h>
-//#import <Quartz/Quartz.h>
+////#import <Quartz/Quartz.h>
 
 #import "AtoZUmbrella.h"
 #import "AZScrollerProtocols.h"

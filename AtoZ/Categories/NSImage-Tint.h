@@ -6,7 +6,6 @@
 //  Copyright 2009 Mikael Hallendal. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 @interface NSImage (Transform)
 
 /*!

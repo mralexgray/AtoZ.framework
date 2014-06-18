@@ -579,7 +579,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 										}
 									}
 								} else argumentCount--;
-							} else NSLog(@"AZProcess: doProcArgs: couldn't convert 0x%08x (0x%08x) [%d of %d] = '%s' (%d) to NSString", currentItem, buffer, currentItem - buffer, length, currentItem, currentItem);
+							} else NSLog(@"AZProcess: doProcArgs: couldn't convert 0x%8s (0x%8s) [%ld of %zu] = '%s' (%s) to NSString", currentItem, buffer, currentItem - buffer, length, currentItem, currentItem);
 						}
 
 						currentItem = cp + 1;

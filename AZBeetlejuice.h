@@ -5,6 +5,8 @@
 //  Created by Alex Gray on 5/2/13.
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
+@import Foundation;
+
 #ifndef AtoZ_AZBeetljuice_h
 #define AtoZ_AZBeetljuice_h
 NS_INLINE void AZBeetlejuiceLoadAtoZ (void) {
@@ -14,10 +16,10 @@ NS_INLINE void AZBeetlejuiceLoadAtoZ (void) {
 									 .stringByDeletingLastPathComponent;
 //	fprintf ( stderr, "Beetlejuice. path: %s\n", path.UTF8String);
 	NSBundle *b = [NSBundle bundleWithPath:  path];
-	NSLog(@"Beetlejuice. bundle:%@",b);
+	NSLogC(@"Beetlejuice. bundle:%@",b);
 	NSError *e;
 	BOOL okdok = [b preflightAndReturnError:&e];
-	if (okdok) {	[b load];	NSLog(@"BEETLEJUICE OK! : %@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
+	if (okdok) {	[b load];	NSLogC(@"BEETLEJUICE OK! : %@ %@  %@  %@",path, b, e, [b bundleIdentifier] ); 	}
 	else fprintf(stderr, "AtoZ BJ ERROR: %s\n", e.debugDescription.UTF8String);
 }
 #endif

@@ -4,7 +4,6 @@
 // Some rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @interface SDOpenAtLoginController : NSObject {
 	LSSharedFileListRef sharedFileList;

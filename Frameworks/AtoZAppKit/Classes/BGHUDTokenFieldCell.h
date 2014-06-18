@@ -6,7 +6,7 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "BGHUDTokenAttachmentCell.h"
 #import "NSTokenAttachmentCell.h"
 #import "BGThemeManager.h"

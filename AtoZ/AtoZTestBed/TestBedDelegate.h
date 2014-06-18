@@ -602,7 +602,7 @@
  NASpinSeque *n = [NASpinSeque new];// = [super init];
  //	if (self) {
 
- n.sV = sV ?: [[[NSApplication sharedApplication]mainWindow]contentView];
+ n.strV = sV ?: [[[NSApplication sharedApplication]mainWindow]contentView];
  n.v1 = [sV subviews][0] ?: [NSObject viewInView:sV];
  n.v2 = v;
  //		[[NSThread mainThread]performBlock:^{
@@ -652,7 +652,7 @@
  self.l2 =[_v2 getLayer];
 
  _l2.frame = [_sV bounds];
- //		_l2.frame = [self.sV bounds];//NSMakePoint(.5,.5);
+ //		_l2.frame = [self.strV bounds];//NSMakePoint(.5,.5);
  _l2.anchorPoint = (CGPoint){.5,.5};
  CABA *rotation = [CABA animationWithKeyPath:@"transform.rotation"];
  rotation.fromValue = @0.0;

@@ -1,5 +1,5 @@
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 extern NSString * const AZThemeDidUpdateNotification;
 @protocol BGThemeProtocol <NSObject>

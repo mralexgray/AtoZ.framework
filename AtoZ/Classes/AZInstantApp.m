@@ -3,7 +3,7 @@
 
 static const NSString *start = @"echo '\
 \
-#import <Cocoa/Cocoa.h> int main ()\
+@import AppKit; int main ()\
 {\
 	[NSAutoreleasePool new]; [NSApplication sharedApplication];\
 	[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular]; \

@@ -78,7 +78,7 @@ void initPython() {
 
 -(id) init
 {
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	if (!Py_IsInitialized()) {
 		static dispatch_once_t once;
 		dispatch_once(&once, ^{
@@ -112,7 +112,7 @@ static dispatch_once_t once;
 - (id)	 initInDir:(NSS*)d withPath:(NSS*)p pythonPATH:(NSS*)py optArgs:(NSA*)a;
 {
 //	assert(p) != nil);
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 
 	_spriptP 	= p;
 	_pyPATH		= py;

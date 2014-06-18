@@ -4,7 +4,7 @@
 
  */
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "NBBSwappableControl.h"
 
 // maybe ununsed?  moved here to eliminate a set of files....

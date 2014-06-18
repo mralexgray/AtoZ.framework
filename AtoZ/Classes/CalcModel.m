@@ -7,6 +7,7 @@
 	//
 
 #import "CalcModel.h"
+#import "AtoZ.h"
 
 @implementation CalcModel
 

@@ -6,7 +6,6 @@
 //  Written in 2010 by Fileability.
 //
 
-#import <Cocoa/Cocoa.h>
 
 
 @interface AZMattePopUpButtonView : NSPopUpButton {

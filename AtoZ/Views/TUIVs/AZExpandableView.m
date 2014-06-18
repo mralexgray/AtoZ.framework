@@ -13,7 +13,7 @@
 @synthesize //expanded, selected,
             textRenderer, originalSize;
 
-- (id)initWithFrame: (CGR)frame 	{	if (self != [super initWithFrame:frame]) return nil;
+- (id)initWithFrame: (CGR)frame 	{	if (!(self = [super initWithFrame:frame])) return nil;
 	self.opaque 		 	= YES;
 	self.textRenderers 	= @[textRenderer = TUITextRenderer.new];
 	self.clipsToBounds 	= YES;

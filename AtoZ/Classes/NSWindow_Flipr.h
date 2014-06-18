@@ -6,7 +6,6 @@
 //  Copyright 2006,2007 Rainer Brockerhoff. Some rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 // Read the "ReadMe.rtf" file for general discussion.
 

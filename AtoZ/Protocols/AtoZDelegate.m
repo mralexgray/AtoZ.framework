@@ -1,5 +1,6 @@
 
 //#import <extobjc_OSX/extobjc.h>
+#import "AtoZ.h"
 #import "AtoZDelegate.h"
 
 //@interface AtoZApplicationBridge (PRIVATE)

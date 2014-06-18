@@ -4,7 +4,7 @@
 
  */
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 #ifdef PARTOF_AtoZ
 #import "NBBModule.h"

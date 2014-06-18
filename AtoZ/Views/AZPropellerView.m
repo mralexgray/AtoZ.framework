@@ -24,7 +24,7 @@
 
 - (id)initWithFrame:(NSRect)frame andColor:(NSColor*)color;
 {
-	if (self != [super initWithFrame:frame]) return nil;
+	if (!(self = [super initWithFrame:frame])) return nil;
 	_badge =	_badgeView.image = [_badge tintedWithColor: color];
 	_color = color;
 	return self;

@@ -4,8 +4,11 @@
 //#import "KVOMap/KVOMap.h"
 
 
-@interface AZSparseArray :NSMutableArray
-+ (instancetype) arrayWithObjectsAndIndexes:(id) first,... NS_REQUIRES_NIL_TERMINATION; 
+@interface AZSparseArray : NSO <FakeArray>
+
++ (instancetype) arrayWithObjectsAndIndexes:(id) first,... NS_REQUIRES_NIL_TERMINATION;
++ (void) test;
+
 @end
 
 extern NSString * const NSMutableArrayDidInsertObjectNotification;
@@ -28,21 +31,28 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 
 #define AZKP AZKeyPair
 #define AZKPMake(KEY_PAIR_KEY,KEY_PAIR_VALUE) [AZKP key:KEY_PAIR_KEY value:KEY_PAIR_VALUE]
+#define $AZKP(K,V) AZKPMake(K,V)
 
 /** Abbreviated, AZKP, these re good for returning a Key pair to a dictionary from an array block.  
 	  Designated init. + (instancetype) key:(id)k value:(id)v; */
 
 //GENERICSABLE(AZKeyPair)
 
-@interface AZKeyPair : NSO + (instancetype) key:(id)k value:(id)v;
+@interface AZKeyPair : NSO + (INST) key:(id)k value:(id)v; +(INST) withDuo:(NSA*)a;
 @property (copy) id key, value;
 @end
 
 @interface NSSet (AtoZ)
 - (id)filterOne:(BOOL (^)(id object))block;
+- (NSET*)  setByRemovingObject:(id)x;
 @end
-
+@interface NSMutableArray (AtoZ)
+VOID(addObjectIfMissing:(id)x);
+VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
+@end
 @interface NSArray (AtoZ)
+
+- (NSMA*) mapM:(BKTransformBlock)block;
 
 - (NSA*) arrayOfClass:(Class)oClass forKey:(NSS*)k;
 - (NSA*) arrayOfClass:(Class)oClass;
@@ -52,9 +62,15 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @property (RONLY) NSA* jumbled, *splitByParity;
 
 /*! @param pairs the array to be "mixed in"
+    @code   [@[@1, @2, @3] pairedWith:@[@"a", @"b", @"c"]] -> @[@[@1,@"a"],@[@2,@"b"],@[@3,@"c"]]
+*/
+- (NSA*) pairedWith:(NSA*)secondVal;
+
+/*! @param combines the array to be "mixed in"
     @code   [@[@1, @2, @3] pairedWith:@[@"a", @"b", @"c"]] -> @[@1,@"a",@2,@"b",@3,@"c"] 
 */
-- (NSA*) pairedWith:(NSA*)pairs;
+- (NSA*) combinedWith:(NSA*)another;
+
 
 //     azva_list_to_nsarray(firstVal, values);  [values eachWithVariadicPairs:^(id a, id b) { [x setValue:b forKey:a]; }]
 - (void) eachWithVariadicPairs:(void(^)(id a, id b))pairs;
@@ -115,6 +131,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 //- (NSA<NSN>*) ascending; - (NSA<NSN>*) descending;
 
 - (NSA*) sorted:(AZOrder)o;
+@prop_RO NSA * sorted;
 
 - (void) logEachPropertiesPlease;
 - (void) logEachProperties;
@@ -134,6 +151,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (NSA*) arrayUsingIndexedBlock:(id(^)(id o,NSUI idx))b;
 - (NSA*)          sortedWithKey:(NSS*)k ascending:(BOOL)ascending;
 
+@prop_RO NSA* sortedColors;
 //- (NSA*)sortedArrayUsingArray:(NSA*)otherArray;
 /*** Returns an NSArray containing a number of NSNumber elements that have been initialized with NSInteger values. As this method takes a variadic argument list you have to terminate the input with a NSNotFound entry This is done automatically via the $ints(...) macro */
 + (NSA*) arrayWithInts:(NSI)i,...;
@@ -142,7 +160,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 + (NSA*) arrayWithDoubles:(double)d,...;
 
 /*** Returns an NSSet containing the same elements as the array (unique of course, as the set does not keep doubled entries) */
-@property (RONLY) NSSet * set;
+@prop_RO NSET *asSet;
 
 /*** Returns an array of the same size as the original one with the result of calling the keyPath on each object */
 - (NSA*)arrayWithKey:(NSS*)keyPath;
@@ -155,10 +173,10 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
  * Makes an iterable copy of the array, making it possible for the selector to modify
  * the array. Contrast this with makeObjectsPerformSelector which does not allow side effects of
  * modifying the array.	*/
-- (void)perform:(SEL)selector;
-- (void)perform:(SEL)selector withObject:(id)p1;
-- (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2;
-- (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
+- (void)perform:(SEL)sel;
+- (void)perform:(SEL)sel withObject:(id)p1;
+- (void)perform:(SEL)sel withObject:(id)p1 withObject:(id)p2;
+- (void)perform:(SEL)sel withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
 
 /**	Extensions to makeObjectsPerformSelector to provide support for more than one object
  * parameter.	*/
@@ -168,25 +186,25 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (void)makeObjectsPerformSelector:(SEL)s withBool:(BOOL)b;
 
 /**	@return nil or an object that matches value with isEqual:	*/
--   (id) objectWithValue: (id)value forKey:(id)key;
--   (id) objectsWithValue:(id)value forKey:(id)key;
+-   (id)  objectWithValue:(id)v forKey:(id)k;
+-   (id) objectsWithValue:(id)v forKey:(id)k;
 /**	@return the first object with the given class.	*/
 -   (id) objectWithClass:(Class)cls;
 /**	@param selector Required format: - (NSNumber*)method:(id)object;	*/
-- (BOOL) containsObject:(id)object withSelector:(SEL)selector;
+- (BOOL) containsObject:(id)obj withSelector:(SEL)sel;
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-- (NSA*) arrayPerformingSelector:(SEL)selector;
+- (NSA*) arrayPerformingSelector:(SEL)sel;
 
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-- (NSA*)arrayPerformingSelector:(SEL)selector withObject:(id)object;
+- (NSA*)arrayPerformingSelector:(SEL)sel withObject:(id)obj;
 
 /*** Returns an array of the same size as the original one with the results of performing the block on each object */
-- (NSA*)arrayUsingBlock:(id (^)(id obj))block;
+- (NSA*)arrayUsingBlock:(id(^)(id obj))blk;
 
 /*** Shortcut for the arrayUsingBlock method map is better known in more functional oriented languages */
-- (NSA*)map:(id (^)(id obj))block;
+- (NSA*)az_map:(id (^)(id obj))blk;
 
-- (NSA*)nmap:(id (^)(id obj, NSUInteger index))block;
+- (NSA*)nmap:(id(^)(id obj,NSUI index))blk;
 
 /*** performs consecutive calls of block for every pair of elements in this array */
 - (id)reduce:(id (^)(id a, id b))block;
@@ -228,6 +246,12 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 /*** Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match */
 - (id)filterOne:(BOOL (^)(id object))block;
 /*** Returns YES when all members of the current array pass the isKindOfClass test with the given Class */
+
+/** [@[@2,@3,@4] testThatAllReturn:YES block:^BOOL(NSN*o){ return o.uIV < 4; }] -> NO.  but with 5, returns YES! */
+//- (BOOL) testThatAllReturn:(BOOL)response block:(BOOL(^)(id o))b; // Iterates until gets a NO, and returns NO.  YES, if all pass!
+
+- (BOOL) hasMemberEqualToString:(NSS*)s;
+
 - (BOOL)allKindOfClass:(Class)aClass;
 /*** Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class */
 - (NSA*)elementsOfClass:(Class)aClass;
@@ -259,6 +283,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (id)objectOrNilAtIndex:(NSUI)index;
 
 @property (RONLY) NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings;
+@prop_RO IndexedKeyMap * alphaMap;
 @property (RONLY)  id   first, second, thrid, fourth, fifth, sixth, last, firstObject;
 
 - (NSI)              sumIntWithKey:(NSS*)keyPath;
@@ -294,6 +319,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 - (NSD*) mapToDictForgivingly:(AZKeyPair*(^)(id))b;
 - (NSD*) mapToDictValuesForgivingly:(id(^)(id))b;
 - (NSD*)   mapToDictKeysForgivingly:(id(^)(id))b;
+- (NSD*)      mapToDictionaryForKey:(NSS*)k;
 @end
 
 @interface NSArray(ListComprehensions) 
@@ -437,7 +463,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 @interface NSArray (StringExtensions)
-@property (RONLY) NSA * reversedArray, *sortedStrings, * uniqueMembers;
+@property (RONLY) NSA * reversedArray, *sortedStrings, * uniqueMembers,
+                      * unionOfObjects; //  valueForKeyPath:@"@unionOfObjects"]
 @property (RONLY) NSS * stringValue;
 @property (RONLY)  id   firstObject;
 
@@ -496,3 +523,8 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
  */
 - (NSA*)recursiveValueForKey:(NSS*)k;
 @end
+
+
+
+
+

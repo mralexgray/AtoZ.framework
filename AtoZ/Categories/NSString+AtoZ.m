@@ -1,5 +1,9 @@
+
+
+#import "NSString+SymlinksAndAliases.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "AtoZ.h"
+#import "NSString+AtoZ.h"
 
 #define kMaxFontSize 10000
 //#import "HTMLNode.h"
@@ -11,6 +15,22 @@
 //#import "NSString+AtoZ.h"
 //#import "AtoZModels.h"
 
+
+//@interface NSCharacterSet (Chars)
+//@prop_RO NSS * stringValue;
+//@end@implementation  NSCharacterSet (Chars)
+//- (NSS*)stringValue {
+//	NSInteger i;
+//	NSMutableString* string = NSMS.new;
+//	for (i=0; i<0x10000; i++) {
+//		if ([NSCharacterSet.filenameLegalMacUnixCharacterSet characterIsMember:(unichar)i]) {
+//			[string appendFormat:@"%c", (unichar)i] ;
+//		}
+//	}
+//
+//	return string;
+//}
+//@end
 
 @implementation NSData (AtoZ)
 - (NSS*) UTF16String { return [NSS.alloc initWithData:self encoding:NSUTF16StringEncoding]; }
@@ -67,7 +87,11 @@ NSString *stringForBrightness( CGF brightness )	{	return
 }
 @end
 
+
 @implementation NSString (AtoZ)
+
+- (Class) classified { return NSClassFromString(self); }
+
 - (NSS*) humanReadableEncoding {  BOOL objectEncoding = [self containsString:@"@"];
 
   id x = [self stringByReplacingAnyOf:@[@"\"",@"T",@"@",@"\\"] withString:@""];
@@ -87,6 +111,9 @@ NSString *stringForBrightness( CGF brightness )	{	return
           SameString(x,$UTF8(@encode( CGCR))) ? @"CGCR" : self;
 }
 +  (NSA*) alphabet { return @"abcdefghijklmnopqrstuvwxyz".letters; }
++  (NSA*) digits { return @"0123456789".letters; }
++  (NSA*) lettersAndNumbers { return [self.alphabet arrayByAddingObjectsFromArray:self.digits]; }
+
 - (NSAS*) attributedWith:(NSD*)attrs { return [NSAS stringWithString:self attributes:attrs]; }
 
 - (NSAS*) attributedWithDefaults { return [NSAS.alloc initWithString:self attributes:NSAS.defaults]; }
@@ -218,6 +245,11 @@ NSString *stringForBrightness( CGF brightness )	{	return
 	// done
 	return encodedString;
 }
+-  (NSS*) withFormat:(NSS*)format,... 					{	return !format ? self : [self withString:({
+
+    va_list va; NSString* string; va_start(va, format);
+    string = [NSS.alloc initWithFormat:format arguments:va]; va_end(va); string; })];
+}
 -  (NSS*) withString:(NSS*)string 					{	return !string ? self : [self stringByAppendingString:string];	}
 -  (NSS*) JSONRepresentation 							{
 	__block NSMutableString *jsonString = @"\"".mutableCopy;
@@ -285,7 +317,7 @@ NSString *stringForBrightness( CGF brightness )	{	return
 + (NSS*) dicksonParagraphWith:(NSUI)sentences 	{
 	return [self stringFromArray:[self.dicksonPhrases.shuffeled withMaxItems:sentences]];
 }
-+ (NSA*) dicksonPhrases 							{
++ (NSA*) dicksonPhrases {
 	return [self.dicksonBible extractAllSentences];
 }
 + (NSA*) dicksonisms 									{	static NSA *dicks = nil;                return dicks = dicks ?: self.dicksonBible.sentences;
@@ -339,14 +371,22 @@ NSString *stringForBrightness( CGF brightness )	{	return
 + (NSS*) spaces:(NSUI)ct 							{
 	return [[@(0)to : @(ct)] reduce:^id (id memo, id l) { return [memo withString:@" "]; } withInitialMemo:@""];
 }
-+ (NSS*) randomBadWord 								{
-	return [self badWords].randomElement;
++ (NSS*) randomBadWord  {
+	return self.badWords.randomElement;
 }
-+ (NSA*) badWords                     {
++ (NSA*)       badWords {
 	static NSA *swearwords = nil;
 	swearwords = swearwords ? : [NSA arrayFromPlist:[AZFWRESOURCES withPath:@"BadWords.plist"]];
 	return swearwords;
 }
++ (NSA*)       gaySlang {
+
+  AZSTATIC_OBJ(NSA,gaySlang, [NSA arrayFromPlist:[AZFWRESOURCES withPath:@"GaySlang.plist"]]);
+	return gaySlang;
+
+}
++ (NSS*) randomGaySlang { return self.gaySlang.randomElement; }
+
 + (NSS*) randomAppPath 								{
 
 	return [[AZWORKSPACE.runningApplications valueForKeyPath:@"executableURL.path"] randomElement];
@@ -383,19 +423,28 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 
 + (void) randomUrabanDBlock:(void(^)(AZDefinition*d))block {
 
-	__block AZDefinition *urbanD;
-	ASIHTTPRequest *requester 	= [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
+
+	ASIHTTPRequest *requester 	= [ASIHTTPRequest.alloc initWithURL:@"http://www.urbandictionary.com/random.php".urlified];
+  [requester startTiming];
 	requester.completionBlock 	= ^(ASIHTTPRequest *request) {
-		NSS *responsePage      	= request.responseString.copy;
-		NSError *requestError  	= [request error];
-		if (requestError) { block($DEFINE(@"undefined", @"no response from urban")); return; }
-		AZHTMLParser *p 	= [AZHTMLParser.alloc initWithString:responsePage error:&requestError];
-		HTMLNode *title 	= [p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES];
-		NSS *content	 	= [title getAttributeNamed:@"content"];
-		HTMLNode *descN   = [p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES];
-		NSS *desc  			= [descN getAttributeNamed:@"content"];
-		urbanD = $DEFINE([title getAttributeNamed:@"content"] , desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
-		block(urbanD);
+		NSS   * responsePage  = request.responseString.copy;
+		NSError *error = request.error;
+
+    if (error) { block($AZDEFINE(@"undefined", @"no response from urban")); return; }
+
+		AZHTMLParser * p = [AZHTMLParser.alloc initWithString:responsePage error:&error];
+		HTMLNode * title = [p.head findChildWithAttribute:@"property"
+                                         matchingName:@"og:title" allowPartial:YES];
+		NSS    * content = [title       getAttributeNamed:@"content"];
+		HTMLNode * descN = [p.head findChildWithAttribute:@"property"
+                                         matchingName:@"og:description" allowPartial:YES];
+		NSS       * desc = [descN       getAttributeNamed:@"content"];
+    [request stopTiming];
+
+               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+		block($AZDEFINELEX([title getAttributeNamed:@"content"],
+                     ({ [desc withFormat:@" (%@)", request.elapsed]; }),
+                     AZLexiconUrbanD)); // AZDefinition
 	};
 	[requester startAsynchronous];
 }
@@ -413,8 +462,8 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 			NSS *title      =       [[p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES] getAttributeNamed:@"content"];
 			NSS *desc       =       [[p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES] getAttributeNamed:@"content"];
 			//			NSLog(@"title: %@  desc: %@", title, desc );
-			urbanD = $DEFINE(title, desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
-		} else urbanD = $DEFINE(@"undefined", @"no response from urban");
+			urbanD = $AZDEFINE(title, desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+		} else urbanD = $AZDEFINE(@"undefined", @"no response from urban");
 	}];
 	[requester startSynchronous];
 	return urbanD;
@@ -424,19 +473,19 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 }
 - (NSS*) stringByStrippingHTML 						{
 	NSRange r;
-	NSString *s = [[self copy] autorelease];
+	NSString *s = [self copy];
 	while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
 		s = [s stringByReplacingCharactersInRange:r withString:@""];
 	return s;
 }
 
-- (NSData*) UTF8Data { return [self dataUsingEncoding:NSUTF8StringEncoding]; }
+- (DTA*) UTF8Data { return [self dataUsingEncoding:NSUTF8StringEncoding]; }
 
-- (NSS*) parseXMLTag:(NSS*)tag						{       return [self substringBetweenPrefix:$(@"<%@>", tag) andSuffix:$(@"</%@>", tag)]; }
-- (NSS*) unescapeQuotes								 	{
+- (NSS*) parseXMLTag:(NSS*)tag { return [self substringBetweenPrefix:$(@"<%@>", tag) andSuffix:$(@"</%@>", tag)]; }
+- (NSS*) unescapeQuotes	{
 	return [self stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 }
-- (NSS*) stringByCleaningJSONUnicode 				{
+- (NSS*) stringByCleaningJSONUnicode {
 	// Remove unsafe JSON characters
 	//
 	// http://www.jslint.com/lint.html#unsafe
@@ -469,7 +518,7 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 	}
 	return self;
 }
-- (NSS*) stringByDecodingXMLEntities 				{
+- (NSS*) stringByDecodingXMLEntities {
 	NSUInteger myLength = [self length];
 	NSUInteger ampIndex = [self rangeOfString:@"&" options:NSLiteralSearch].location;
 	// Short-circuit if there are no ampersands.
@@ -536,12 +585,15 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 finish:
 	return result;
 }
-- (NSS*) withPath:(NSS*)path 							{
-	return [self stringByAppendingPathComponent:path];
-}
-- (NSS*) withExt:	(NSS*)ext							{ return [self stringByAppendingPathExtension:ext];  }
+- (NSS*) withPath:(NSS*)p {	return [self stringByAppendingPathComponent:p]; }
+- (NSS*) withExtIfMissing:(NSS*)ext { NSS*e = [ext containsString:@"."] ? ext.pathExtension : ext;
 
-- (NSS*) stripHtml 										{
+  return [self.pathExtension isEqualToString:e] ? self : [self withExt:e];
+
+}
+- (NSS*) withExt:	(NSS*)ext { return [self stringByAppendingPathExtension:ext];  }
+
+- (NSS*) stripHtml {
 	// take this string obj and wrap it in a root element to ensure only a single root element exists
 	NSString *string = $(@"<root>%@</root>", self);
 	// add the string to the xml parser
@@ -562,25 +614,21 @@ finish:
 	// get the raw text out of the parsee after parsing, and return it
 	return strippedString;
 }
-+ (NSS*) clipboard 										{
++ (NSS*) clipboard {
 	NSPasteboard *pasteboard 	= NSPasteboard.generalPasteboard;
 	NSArray *supportedTypes 	= @[NSStringPboardType];
 	NSString *type 				= [pasteboard availableTypeFromArray:supportedTypes];
 	return 							  [pasteboard stringForType:type];
 
 }
-- (void) copyToClipboard 								{
-	NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-	[pasteboard declareTypes:[NSArray arrayWithObjects:NSStringPboardType, nil]
-                     owner:nil];
+- (void) copyToClipboard {
+
+	[NSPBGENERAL declareTypes:@[NSStringPboardType] owner:nil];
 	// Above, we can say owner:nil since we are going to provide data immediately
-	[pasteboard setString:self
-                forType:NSStringPboardType];
+	[NSPBGENERAL setString:self  forType:NSStringPboardType];
 }
-- (unichar)lastCharacter 								{
-	return [self characterAtIndex:([self length] - 1)];
-}
-- (NSS*)substringToLastCharacter	 					{
+- (unichar)lastCharacter {  return [self characterAtIndex:self.length - 1]; }
+- (NSS*) substringToLastCharacter {
 	return [self substringToIndex:([self length] - 1)];
 }
 /*
@@ -602,24 +650,25 @@ finish:
 - (void)copyFileAtPathTo:(NSS*)path 	{
 	if ([[NSFileManager defaultManager] isReadableFileAtPath:self]) [[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
 }
-- (CGF)pointSizeForFrame:(NSR)frame withFont:(NSS*)fontName											{
-	return [[self class] pointSizeForFrame:frame withFont:fontName forString:self];
+- (CGF)pointSizeForFrame:(NSR)frame withFont:(id)font											{
+	return [[self class] pointSizeForFrame:frame withFont:font forString:self];
 }
-+ (CGF)pointSizeForFrame:(NSR)frame withFont:(NSS*)fontName forString:(NSS*)string			{
-	NSFont *displayFont = nil;
-	NSSize stringSize = NSZeroSize;
-	NSUInteger fontLoop = 0;
-	NSMutableDictionary *fontAttributes = NSMutableDictionary.new;
-	if (frame.size.width == 0.0 && frame.size.height == 0.0) return 0.0;
++ (CGF)pointSizeForFrame:(NSR)frame withFont:(id)font forString:(NSS*)string			{
+
+	if (AZIsZeroSize(frame.size)) return 0;
+	NSFont *displayFont = nil;	NSSZ stringSize = NSZeroSize;	NSUI fontLoop = 0;	NSMD *fontAttributes = NSMD.new;
+
 	for (fontLoop = 1; fontLoop <= kMaxFontSize; fontLoop++) {
-		displayFont = [[NSFontManager sharedFontManager] convertWeight:YES ofFont:[NSFont fontWithName:fontName size:fontLoop]];
+		displayFont = [AZFONTMANAGER convertWeight:YES
+                                        ofFont:ISA(font,NSFont) ? [font fontWithSize:fontLoop]
+                                                                : [NSFont fontWithName:font size:fontLoop]];
 		fontAttributes[NSFontAttributeName] = displayFont;
 		stringSize = [string sizeWithAttributes:fontAttributes];
 		if ( (stringSize.width > frame.size.width) || (stringSize.height > frame.size.height) ) break;
 	}
   //	[fontAttributes release],
   fontAttributes = nil;
-	return (CGFloat)fontLoop - 1.0;
+	return (CGFloat) fontLoop - 1.0;
 }
 - (NSS*)stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix {
 
@@ -639,10 +688,10 @@ finish:
 	return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)self, NULL,
                                                                                (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
 }
-- (NSS*)urlDecoded 							{
-	NSMutableString *resultString = [NSMutableString stringWithString:self];
-	[resultString replaceOccurrencesOfString:@"+" withString:@" " options:NSLiteralSearch range:(NSRange) {0, [resultString length] }];
-	return [resultString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+- (NSS*)urlDecoded	{
+
+	return [[self stringByReplacingOccurrencesOfString:@"+" withString:@" " options:NSLiteralSearch range:self.range]
+                           stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSString*)language {  CFRange r = CFRangeMake(0,MIN(self.length, 100));
@@ -1115,6 +1164,10 @@ finish:
 	return currString;
 }
 
+- (NSS*) times:(int)count {
+
+  return [@(count).toArray reduce:@"".mC withBlock:^id(id sum, id obj) { return [sum appendString:self], sum; }];
+}
 - (NSS*) tidyHTML  {
 
 	NSXMLDocument *doc = [NSXMLDocument.alloc initWithXMLString:self options:NSXMLDocumentTidyHTML error:nil];
@@ -1451,6 +1504,17 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 
 @implementation NSAttributedString (AtoZ)
 
+- (NSRNG) range { return NSMakeRange(0, self.length); }
+
+- (CGF) pointSizeForSize:(NSSZ)z {
+
+    return [self.string pointSizeForFrame:AZRectFromSize(z)
+                          withFont:[self attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL]];
+}
+//        NSFontAttributeName  [NSFont fontWithName:font.fontName size:[font.fontDescriptor[NSFontSizeAttribute] floatValue] - 0.5]
+//                                                   range:[(NSS*)maString range]];
+
+
 - (void) drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c {
 
   NSR rr = AZCornerRectPositionedWithSize(r, a, self.size);
@@ -1467,8 +1531,11 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
     drawInRect:r withBackground:c];
 }
 
-- (void) draw { [self drawAtPoint:NSZeroPoint]; }
-
+- (void) draw {
+  [NSGC drawInContext:AZGRAPHICSCTX.graphicsPort flipped:YES actions:^{
+    [self drawAtPoint:NSZeroPoint];
+  }];
+}
 - (NSMD*) attributes {
 
   __block NSMD* attr = NSMD.new;
@@ -1484,10 +1551,12 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
   return s;
 }
 
-+ (NSD*) defaults { static NSD *ds = nil;
++ (NSD*) defaults {
 
-	return ds = ds ?: @{NSForegroundColorAttributeName:WHITE, NSFontAttributeName:[AtoZ.controlFont fontWithSize:16]};
-  //											NSFontSizeAttribute:@22};
+  AZSTATIC_OBJ(NSD, ds,({ @{ NSForegroundColorAttributeName:WHITE,
+                          NSFontAttributeName:[AtoZ.controlFont fontWithSize:16],
+                          NSParagraphStyleAttributeName:[NSParagraphStyle defaultParagraphStyleWithDictionary:@{@"alignment":@(NSCenterTextAlignment)}]}; }));
+                          return ds;
 }
 
 - (NSFont*) font { return [self.attributes objectForKey:NSFontAttributeName]; }
@@ -1647,7 +1716,7 @@ static NSString * SillyStringImplementation(id self, SEL _cmd, ...) {
 			[string appendString:[obj description]];
 		}
 		va_end(args);
-		result = [[string copy] autorelease];
+		result = [string copy];
 	}
 	@finally { ;; }
   //   [string release]; }
@@ -1691,13 +1760,13 @@ static NSString * SillyStringImplementation(id self, SEL _cmd, ...) {
 }
 
 - (NSS*)urlEscapedString {
-	return [(__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR(":@/?&=+"),
-                                                                       kCFStringEncodingUTF8) autorelease];
+	return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR(":@/?&=+"),
+                                                                       kCFStringEncodingUTF8);
 }
 
 - (NSS*)unescapeURLString {
-	return [(__bridge NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""),
-                                                                                       kCFStringEncodingUTF8) autorelease];
+	return (__bridge NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""),
+                                                                                       kCFStringEncodingUTF8);
 }
 
 static NSArray * _SpecialAbreviations() {
@@ -2011,7 +2080,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 @end
 @implementation NSString (Creations)
-- (id)initWithInteger:(NSInteger)value {
+- (id)initWithInteger:(NSI)value {
 #ifdef __LP64__
 #define __NSINTEGER_FORMAT @"%ld"
 #else
@@ -2021,8 +2090,13 @@ static void _ScanSentence(NSScanner *scanner) {
 #undef __NSINTEGER_FORMAT
 }
 
-+ (id)stringWithInteger:(NSInteger)value {
-	return [[self.alloc initWithInteger:value] autorelease];
++ (id)stringWithInteger:(NSInteger)value {	return [self.alloc initWithInteger:value]; }
+
++ (id)stringWithFormat:(NSS*)format array:(NSA*)arguments {
+
+    NSMutableData* data = [NSMutableData dataWithLength:sizeof(id) *arguments.count];
+    [arguments getObjects:(__unsafe_unretained id *)data.mutableBytes range:NSMakeRange(0,arguments.count)];
+    return [NSString.alloc initWithFormat:format arguments:data.mutableBytes];
 }
 
 + (NSS*)stringWithFormat:(NSS*)format arguments:(va_list)argList {
@@ -2065,33 +2139,25 @@ static void _ScanSentence(NSScanner *scanner) {
 
 // slow! proof of concept
 - (NSS*)format:(id)first, ...{
-	NSUInteger len = self.length;
-	NSUInteger index = 0;
+
+	NSUI len = self.length,index = 0;
 	BOOL passed = NO;
 	do {
 		unichar chr = [self characterAtIndex:index];
 		if (chr == '%') {
 			if (passed) {
-				if ([self characterAtIndex:index - 1] == '%') {
-					passed = NO;
-				} else {
-					break;
-				}
-			} else {
-				passed = YES;
-			}
+				if ([self characterAtIndex:index - 1] == '%') passed = NO; else break;
+			} else passed = YES;
 		}
 		index += 1;
 	} while (index < len);
-	if (index == len) {
-		return [NSString stringWithFormat:self, first];
-	} else {
+	return index == len ? $(self, first) : ({
 		va_list args;
 		va_start(args, first);
 		NSString *result = [[NSString stringWithFormat:[self substringToIndex:index], first] stringByAppendingString:[NSString stringWithFormat:[self substringFromIndex:index] arguments:args]];
 		va_end(args);
-		return result;
-	}
+		result;
+	});
 }
 - (NSS*)format0:(id)dummy, ...{
 	va_list args;
@@ -2116,7 +2182,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 @implementation NSString (NSUTF8StringEncoding)
 + (NSS*)stringWithUTF8Data:(NSData *)data {
-	return [[self.alloc initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	return [self.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 - (NSS*)stringByAddingPercentEscapesUsingUTF8Encoding {
@@ -2693,6 +2759,37 @@ static void _ScanSentence(NSScanner *scanner) {
 		return [baseName substringToIndex:([baseName length] - [ext length] - 1)];
 	}
 }
+
+- (NSS *) stringByDeletingPathComponentsWithoutExtensions {
+
+  NSString *ext; if ((ext = self.pathExtension).length) return ext;
+  NSString *pth = self.copy;
+
+    for (int i = 0; i < 10 && pth.length > 1 && !ext.length; i++) {
+      pth = pth.stringByDeletingLastPathComponent;
+      ext = pth.pathExtension;
+      if (ext.length) break;
+    }
+  return pth;
+}
+- (NSIMG*) iconForFile {   return nil;
+
+// id img = nil, x, y, z;
+//
+////#if !TARGET_OS_IPHONE
+//  img = self.extension ? [NSWorkspace.sharedWorkspace iconForFileType:extension]
+//                       : [NSImage imageNamed:NSImageNameCaution];
+////#endif
+//  return img = [self.extension isEqualToString:@"framework"] ? [NSImage imageNamed:@"framework"] : img ?:
+//       (( z = [NSBundle bundleWithPath:self.path])
+//    &&  ( x = [z objectForInfoDictionaryKey:@"CFBundleIconFile"])
+//    &&  ( y = [z pathForResource:x ofType:nil]))
+//    ?         [NSImage.alloc initWithContentsOfFile:y] : (id)nil;
+// }();
+//}
+
+}
+
 - (NSS*)dirName {
 	NSMutableArray *components = [[self pathComponents] mutableCopy];
 	[components removeLastObject];
@@ -3409,5 +3506,136 @@ catch_error:
  #valid_encoding?
  */
 
+
+@end
+
+@import Foundation.NSCharacterSet;
+
+@implementation NSCharacterSet (GetCharacters)
+
+#pragma mark - interal printing method
+
+static NSMD* cache;
+
+- (NSA*) arrayify { return (cache=cache?:NSMD.new)[self.name] =
+                               [cache objectForKey:self.name] ?:
+
+    [@65535 mapTimes:^id(NSN *num) { unichar utf8c;
+
+    return [self characterIsMember:utf8c = num.unsignedShortValue]
+         ? [NSS stringWithCharacters:(unichar[]){utf8c}  length:1] : nil;
+  }];
+}
+
+- (NSA*) characters { return self.arrayify; }
+
+- (NSS*) name { return
+
+  [self isEqualTo:self.class.controlCharacterSet]               ? @"controlCharacterSet" :
+  [self isEqualTo:self.class.whitespaceCharacterSet]            ? @"whitespaceCharacterSet" :
+  [self isEqualTo:self.class.whitespaceAndNewlineCharacterSet]  ? @"whitespaceAndNewlineCharacterSet" :
+  [self isEqualTo:self.class.decimalDigitCharacterSet]          ? @"decimalDigitCharacterSet" :
+  [self isEqualTo:self.class.letterCharacterSet]                ? @"letterCharacterSet" :
+  [self isEqualTo:self.class.lowercaseLetterCharacterSet]       ? @"lowercaseLetterCharacterSet" :
+  [self isEqualTo:self.class.uppercaseLetterCharacterSet]       ? @"uppercaseLetterCharacterSet" :
+  [self isEqualTo:self.class.nonBaseCharacterSet]               ? @"nonBaseCharacterSet" :
+  [self isEqualTo:self.class.alphanumericCharacterSet]          ? @"alphanumericCharacterSet" :
+  [self isEqualTo:self.class.decomposableCharacterSet]          ? @"decomposableCharacterSet" :
+  [self isEqualTo:self.class.illegalCharacterSet]               ? @"illegalCharacterSet" :
+  [self isEqualTo:self.class.punctuationCharacterSet]           ? @"punctuationCharacterSet" :
+  [self isEqualTo:self.class.capitalizedLetterCharacterSet]     ? @"capitalizedLetterCharacterSet" :
+  [self isEqualTo:self.class.symbolCharacterSet]                ? @"symbolCharacterSet" :
+  [self isEqualTo:self.class.newlineCharacterSet]               ? @"newlineCharacterSet" : nil;
+}
+
++ (NSA*) alphanumericCharacters         { return [self.alphanumericCharacterSet arrayify]; }
++ (NSA*) capitalizedLetterCharacters    { return [self.capitalizedLetterCharacterSet arrayify]; }
++ (NSA*) controlCharacters              { return [self.controlCharacterSet arrayify]; }
++ (NSA*) decimalDigitCharacters         { return [self.decimalDigitCharacterSet arrayify]; }
++ (NSA*) decomposableCharacters         { return [self.decomposableCharacterSet arrayify]; }
++ (NSA*) illegalCharacters              { return [self.illegalCharacterSet arrayify]; }
++ (NSA*) letterCharacters               { return [self.letterCharacterSet arrayify]; }
++ (NSA*) lowercaseLetterCharacters      { return [self.lowercaseLetterCharacterSet arrayify]; }
++ (NSA*) newlineCharacters              { return [self.newlineCharacterSet arrayify]; }
++ (NSA*) nonBaseCharacters              { return [self.nonBaseCharacterSet arrayify]; }
++ (NSA*) punctuationCharacters          { return [self.punctuationCharacterSet arrayify]; }
++ (NSA*) symbolCharacters               { return [self.symbolCharacterSet arrayify]; }
++ (NSA*) uppercaseLetterCharacters      { return [self.uppercaseLetterCharacterSet arrayify]; }
++ (NSA*) whitespaceAndNewlineCharacters { return [self.whitespaceAndNewlineCharacterSet arrayify]; }
++ (NSA*) whitespaceCharacters           { return [self.whitespaceCharacterSet arrayify]; }
+//
+//+ (void)printAlphanumericCharacterSet {
+//	NSCharacterSet *charSet = [];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printCapitalizedLetterCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet capitalizedLetterCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printControlCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet controlCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printDecimalDigitCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet decimalDigitCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printDecomposableCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet decomposableCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printIllegalCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet illegalCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printLetterCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet letterCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printLowercaseLetterCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet lowercaseLetterCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printNewlineCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet newlineCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printNonBaseCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet nonBaseCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printPunctuationCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet punctuationCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printSymbolCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet symbolCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printUppercaseLetterCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet uppercaseLetterCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//
+//+ (void)printWhitespaceAndNewlineCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
+//+ (void)printWhitespaceCharacterSet {
+//	NSCharacterSet *charSet = [NSCharacterSet symbolCharacterSet];
+//	[NSCharacterSet printCharacterSetToConsole:charSet];
+//}
 
 @end

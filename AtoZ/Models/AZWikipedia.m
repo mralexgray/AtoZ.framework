@@ -4,8 +4,9 @@
 //
 //  Created by Alex Gray on 3/31/13.
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
+
+#import "AtoZ.h"
 #import "AZWikipedia.h"
 
 @implementation AZWikipedia

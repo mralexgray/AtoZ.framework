@@ -4,6 +4,7 @@
 #import "AZLogConsole.h"
 #import "AZURLBar.h"
 
+//#import <AceView/AceView.h>
 
 #define kAZURLBarGradientColorTop [NSColor colorWithCalibratedRed:0.9f green:0.9f blue:0.9f alpha:1.0f]
 #define kAZURLBarGradientColorBottom [NSColor colorWithCalibratedRed:0.700f green:0.700f blue:0.700f alpha:1.0f]
@@ -17,10 +18,8 @@
 //@implementation AZWebView { NSInteger resourceCount, resourceFailedCount, resourceCompletedCount;}
 @implementation AZWebView { NSInteger resourceCount, resourceFailedCount, resourceCompletedCount;}
 
-- (void)reloadURL:(id)sender	{    [self.mainFrame reload];}
-
-- (void)showAlert:(id)sender
-{
+- (void)reloadURL:(id)s	{    [self.mainFrame reload];}
+- (void)showAlert:(id)x {
 	NSBeginAlertSheet (@"WebKit Objective-C Programming Guide",
 							 @"OK",
 							 nil,
@@ -32,20 +31,16 @@
 							 nil,
 							 @"As the user navigates from page to page in your embedded browser, you may want to display the current URL, load status, and error messages. For example, in a web browser application, you might want to display the current URL in a text field that the user can edit.", nil);
 }
-
-
-- (void)updateProgress
-{
+- (void)updateProgress  {
 	static float progress;
-	self.urlBar.progressPhase = AZProgressPhaseDownloading;
+	self.urlBar.progressPhase = KFProgPending;
 	progress += .005;
 	self.urlBar.progress = progress;
 	progress < 1 ?
 	[self performSelector:@selector(updateProgress) withObject:nil afterDelay:.02f] :
-	[self.urlBar setProgressPhase:AZProgressPhaseNone];
+	[self.urlBar setProgressPhase:KFProgNone];
 }
 //- (AZURLBar *) urlBar { return [self associatedValueForKey:_cmd]; }
-
 - (void) awakeFromNib {
 
 
@@ -109,7 +104,7 @@
 - (void)urlBar:(AZURLBar *)urlBar didRequestURL:(NSURL *)url
 {
 	[[self mainFrame] loadRequest:[NSURLRequest.alloc initWithURL:url]];
-	self.urlBar.progressPhase = AZProgressPhasePending;
+	self.urlBar.progressPhase = KFProgPending;
 }
 
 
@@ -136,7 +131,7 @@
 
 - (void)webKitProgressDidChangeFinishedCount:(NSInteger)finishedCount ofTotalCount:(NSInteger)totalCount
 {
-	self.urlBar.progressPhase = AZProgressPhaseDownloading;
+	self.urlBar.progressPhase = KFProgDownloading;
 	self.urlBar.progress = (float)finishedCount / (float)totalCount;
 	if (totalCount == finishedCount)
 	{
@@ -145,7 +140,7 @@
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
 							{
-								weakSelf.urlBar.progressPhase = AZProgressPhaseNone;
+								weakSelf.urlBar.progressPhase = KFProgNone;
 							});
 	}
 }
@@ -193,6 +188,7 @@
 
 
 @interface AZURLBar ()
+//@property (nonatomic) KFProgPhase progressPhase;
 @property (nonatomic) BOOL drawBackground;
 @property (nonatomic) NSColor *currentBarColorTop, *currentBarColorBottom;
 @property (nonatomic) NSTextField *urlTextField;
@@ -223,7 +219,7 @@
 
 		_progress						= .0f;
 		_cornerRadius 					= 2.5f;
-		_progressPhase 				= AZProgressPhaseNone;
+		_progressPhase 				= KFProgNone;
 		self.gradientColorTop 		= kAZURLBarGradientColorTop;
 		self.gradientColorBottom 	= kAZURLBarGradientColorBottom;
 		self.borderColorTop 			= kAZURLBarBorderColorTop;
@@ -347,11 +343,11 @@
 
 	switch (self.progressPhase)
 	{
-		case AZProgressPhasePending:
+		case KFProgPending:
 			color4 = [NSColor colorWithCalibratedWhite:.8f alpha:.8f];
 			color5 = [NSColor colorWithCalibratedWhite:.8f alpha:.4f];
 			break;
-		case AZProgressPhaseDownloading:
+		case KFProgDownloading:
 			color4 = [NSColor colorForControlTint:[NSColor currentControlTint]];
 			color5 = [[NSColor colorForControlTint:[NSColor currentControlTint]] colorWithAlphaComponent:.6f];
 			color = [NSColor colorWithCalibratedRed: 0.45 green: 0.45 blue: 0.45 alpha: 1];
@@ -418,10 +414,10 @@
 	CGFloat barWidth = 0;
 	switch (self.progressPhase)
 	{
-		case AZProgressPhaseNone:
+		case KFProgNone:
 			barWidth = 0;
 			break;
-		case AZProgressPhasePending:
+		case KFProgPending:
 			barWidth = [self barWidthForProtocol];
 			break;
 		default:
@@ -491,7 +487,7 @@
 {
 	if (progressPhase != _progressPhase)
 	{
-		if (_progressPhase == AZProgressPhaseDownloading && progressPhase == AZProgressPhaseNone)
+		if (_progressPhase == KFProgDownloading && progressPhase == KFProgNone)
 		{
 			_progress = 1.0f;
 			[self setNeedsDisplay:YES];

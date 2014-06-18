@@ -3,6 +3,10 @@
 #import "BoundingObject.h"
 #import "CALayer+AtoZ.h"
 
+@interface EventCoordinator : BaseModel
+@end
+@implementation EventCoordinator
+@end
 @implementation CALayer (AtoZ)
 
 - (void) setAnimations:(NSA*)a { AZBlockSelf(_self); [a do:^(CAPropertyAnimation* z){  id x; 
@@ -10,20 +14,66 @@
       ((x = [z respondsToStringThenDo:@"keyPath"])) ? [_self addAnimation:z forKey:x] : [_self addAnimation:z]; 
   }];
 }
-SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,      setEventMask,            NSEventMask,
-                                        ^{},^{
-     id x; if((x = self[@"oldHandler"])) [NSEvent removeMonitor:x];
-      __block EventBlock ev = self.eventBlock;
-     if (value && ev) {
-      self[@"oldHandler"] = [NSEVENTLOCALMASK:value handler:^NSE*(NSE*e){ ev(e); return e; }];
-    }}
-);
 
-         SYNTHESIZE_ASC_CAST(eventBlock, setEventBlock, EventBlock);
-//         , ^{}, ^{ NSEventMask x = self.eventMask; if (X)});
-         SYNTHESIZE_ASC_CAST(wasHit,     setWasHit,     LayerBlock);
-         SYNTHESIZE_ASC_CAST(mouseOver,  setMouseOver,  LayerBlock);
+- (CAL*) hostLayer { return self.hostView.layer?: self; }
+
+SYNTHESIZE_ASC_OBJ(eventMonitor,setEventMonitor);
+SYNTHESIZE_ASC_OBJ_LAZY(eventBlocks,IndexedKeyMap.class);
+
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
+
+  if(self.eventMonitor) [NSEvent removeMonitor:self.eventMonitor]; // remove old mointor
+  if (value) {
+    self.eventMonitor = [NSEVENTLOCALMASK:value handler:^NSEvent *(NSEvent *e) {
+      [self.eventBlocks enumerate:^(id key, SenderEvent obj, BOOL *stop, int idx) {
+        if (e.type == idx) obj(self,e);
+      }];
+      return e;
+    }];
+  }
+});
+@dynamic onHover, onHit;
+/** TODO : FIX
+- (SenderEvent) onHit { return [self.eventBlocks] setOnHit, SenderEvent, ^{ });
+- (void) on:(NSEventMask)mask do:(SenderEvent)b {
+
+  self.eventBlocks[mask] = b;
+  self.eventMask = self.eventMask | mask;
+}
+*/
+
+// AtoZFIX  this layer touch stuff is a mess!
+
+//         SYNTHESIZE_ASC_CAST(wasHit,     setWasHit,     LayerBlock);
+//         SYNTHESIZE_ASC_CAST(mouseOver,  setMouseOver,  LayerBlock);
+
 SYNTHESIZE_ASC_PRIMITIVE_KVO(noHit,      setNoHit,            BOOL);
+
+//@dynamic sublayerMouseOverBlock;
+- (void) setSublayerMouseOverBlock:(void(^)(CAL*layer))block {  id monitor;
+
+	[self.hostView.window setAcceptsMouseMovedEvents:YES];
+  __block CAL* hitLayer;
+	if ((!block && (monitor = [self vFK:@"mouseOverBlock"])) || monitor ) [NSE removeMonitor:monitor];
+	[self sV:monitor = [NSEVENTLOCALMASK:NSMouseMovedMask handler:^NSEvent *(NSEvent *e){
+		CAL* l = [self hitTestSubs:[self convertPoint:e.locationInWindow fromLayer:nil]];
+		if (l && l != hitLayer) {  hitLayer = l;  block(hitLayer); }
+		return e;
+	}] fK:@"mouseOverBlock"];
+
+  
+}
+//@prop_RO NSA* eventBlocks;//  EventBlock eventBlock;
+//@prop_CP  SenderEvent onHit, onHover;
+
+
+//SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,      setEventMask,            NSEventMask,
+//                                        ^{},^{
+
+//);
+
+//         SYNTHESIZE_ASC_CAST(eventBlock, setEventBlock, EventBlock);
+//         , ^{}, ^{ NSEventMask x = self.eventMask; if (X)});
 
 - (void)    addActionsForKeys:(NSD*)ks { self.actions = [self.actions ?: @{} dictionaryByAppendingEntriesFromDictionary:ks]; }
 - (void)    setActionsForKeys:(NSD*)ks { self.actions = [self.actions ?: @{} dictionaryByAddingEntriesFromDictionary:ks]; }
@@ -85,7 +135,8 @@ SYNTHESIZE_ASC_OBJ_BLOCK(needsDisplayForKeys,setNeedsDisplayForKeys,^{},^{ value
 }
 - (NSA*) sublayersAscending            { return [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
 
-SYNTHESIZE_ASC_OBJ_BLOCK(hostView, setHostView, ^{ value = value ?: [self.superlayers filterOneBlockObject:^id(CAL *l) { return l.hostView; }]; }, ^{});
+//SYNTHESIZE_ASC_OBJ_BLOCK
+SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self.superlayers filterOneBlockObject:^id(CAL *l) { return l.hostView; }]; }, ^{});
 
 -  (NSR) actuallyVisibleRect;                    {
 	return [self actuallyVisibleRectInView:nil];
@@ -269,18 +320,6 @@ SYNTHESIZE_ASC_OBJ_BLOCK(hostView, setHostView, ^{ value = value ?: [self.superl
 	}];
 }
 
-@dynamic sublayerMouseOverBlock;
-- (void) setSublayerMouseOverBlock:(void(^)(CAL*layer))block {  id monitor;
-
-	[self.hostView.window setAcceptsMouseMovedEvents:YES];
-  __block CAL* hitLayer;
-	if ((!block && (monitor = [self vFK:@"mouseOverBlock"])) || monitor ) [NSE removeMonitor:monitor];
-	[self sV:monitor = [NSEVENTLOCALMASK:NSMouseMovedMask handler:^NSEvent *(NSEvent *e){
-		CAL* l = [self hitTestSubs:[self convertPoint:e.locationInWindow fromLayer:nil]];
-		if (l && l != hitLayer) {  hitLayer = l;  block(hitLayer); }
-		return e;
-	}] fK:@"mouseOverBlock"];
-}
 /*
 // @dynamic root, text, orient;
 
@@ -2112,7 +2151,7 @@ CAT3D CA3DxyZRotation       (CAT3D xYR, CAT3D zR) { return CATransform3DConcat(x
 
 @implementation CALayer (ShouldBeInProtocol)
 SYNTHESIZE_ASC_PRIMITIVE_KVO(isListItem,setIsListItem,BOOL);
-- (NSS*)sisterName {   return SameString(@"0", self.name) ? AZSL : @(self.name.iV - 1).sV; }
+- (NSS*)sisterName {   return SameString(@"0", self.name) ? AZSL : @(self.name.iV - 1).strV; }
 @end
 
 /*
@@ -2214,7 +2253,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(debug,setDebug, BOOL, ^{}, ^{
         objcase(@"position")
             positn.position = change.newVal.pointValue;
             [positn blinkLayerWithColor:RANDOMCOLOR];
-//        objcase(@"siblingIndex") [({@[pT,aT];}) do:^(id o) { [o setString:change.newNum.sV]; }];
+//        objcase(@"siblingIndex") [({@[pT,aT];}) do:^(id o) { [o setString:change.newNum.strV]; }];
         endswitch
     }];
   }

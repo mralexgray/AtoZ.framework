@@ -4,7 +4,6 @@
 
 //  Created by Alex Gray on 8/26/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Cocoa/Cocoa.h>
 #import "AtoZ.h"
 
 @interface AZFileGridView : NSView

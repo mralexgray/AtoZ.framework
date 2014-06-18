@@ -2,8 +2,9 @@
 //  DSSyntaxTextView.m  DSSyntaxKit
 //  Created by Fabio Pelosin on 25/09/12.  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 
-#import "DSSyntaxTextView.h"
 #import "AtoZ.h"
+#import "DSSyntaxTextView.h"
+#import "DSObjectiveCSyntaxDefinition.h"
 
 @implementation DSSyntaxTextView
 
@@ -15,27 +16,21 @@
 
 - (void)commonInitialization {
 	
-	[self setGrammarCheckingEnabled:					NO];
-	[self setContinuousSpellCheckingEnabled:		NO];
-	[self setRichText:									NO];
-	[self setImportsGraphics:							NO];
-	[self setAutomaticDashSubstitutionEnabled:	NO];
-	[self setAutomaticTextReplacementEnabled:		NO];
-	[self setAutomaticSpellingCorrectionEnabled:	NO];
-	[self setAutomaticQuoteSubstitutionEnabled:	NO];
-	[self setUsesFindBar:								YES];
-	[self setAutomaticLinkDetectionEnabled:		YES];
+	[self setNoForKeys:@[
+    @"grammarCheckingEnabled",@"continuousSpellCheckingEnabled", @"richText",@"importsGraphics",
+    @"automaticDashSubstitutionEnabled", @"automaticTextReplacementEnabled",
+    @"automaticSpellingCorrectionEnabled", @"automaticQuoteSubstitutionEnabled"]];
+  [self setYesForKeys:@[@"usesFindBar", @"automaticLinkDetectionEnabled"]];
 	[self setTabWidth:2];
 	
-	
-	_lineNumberView = [NoodleLineNumberView.alloc initWithScrollView:self.enclosingScrollView];
-	
-	[self.enclosingScrollView setVerticalRulerView:	_lineNumberView];
-	[self.enclosingScrollView setHasHorizontalRuler:		 NO];
-	[self.enclosingScrollView setHasVerticalRuler:			YES];
-	[self setHorizontallyResizable:								YES];
-	[self.enclosingScrollView setHasHorizontalScroller:   NO];
+	self.enclosingScrollView.verticalRulerView      = _lineNumberView
+                                                  = [NoodleLineNumberView.alloc initWithScrollView:self.enclosingScrollView];
+	self.enclosingScrollView.hasHorizontalRuler     = NO;
+	self.enclosingScrollView.hasVerticalRuler       = YES;
+	self.horizontallyResizable                      = YES;
+	self.enclosingScrollView.hasHorizontalScroller  = NO;
 	_syntaxHighlighter = [DSSyntaxHighlighter.alloc initWithTextStorage:self.textStorage];
+  _syntaxHighlighter.syntaxDefinition = DSObjectiveCSyntaxDefinition.new;
 	[self setFont:AtoZ.controlFont];
 	[self setNeedsDisplay:YES];
 }
@@ -68,6 +63,7 @@
 - (void)setString:(NSString *)string { [super setString:string]; }
 
 - (void)configureContainer {
+
 	[self.textContainer setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
 	[self.textContainer setWidthTracksTextView:NO];
 }
@@ -79,25 +75,26 @@
 
 // TODO: this shold not be here.
 - (void)insertNewline:(id)sender {
-	NSString* string = self.textStorage.string;
-	NSRange insertionRange = [[[self selectedRanges] objectAtIndex:0] rangeValue];
-	NSRange lineRange = [string lineRangeForRange:insertionRange];
-	NSString *previousLine = [string substringWithRange:lineRange];
+
+	NSS * string            = self.textStorage.string;
+	NSRNG insertionRange    = [self.selectedRanges[0] rangeValue];
+	NSRNG lineRange         = [string lineRangeForRange:insertionRange];
+	NSS * previousLine      = [string substringWithRange:lineRange];
 	
-	NSRange nextCharRange = NSMakeRange(insertionRange.location, 1);
-	NSString *nextChar = [string substringWithRange:nextCharRange];
+	NSRNG nextCharRange     = NSMakeRange(insertionRange.location, 1);
+	NSS * nextChar          = [string substringWithRange:nextCharRange];
 	BOOL isRangeAtEndOfLine = [nextChar isEqualToString:@"\n"];
 	
 	[super insertNewline:sender];
-	[self insertText:[previousLine indentation]];
+	[self insertText:previousLine.indentation];
 	
-	NSRange newCursorRange = [[[self selectedRanges] objectAtIndex:0] rangeValue];
+	NSRange newCursorRange = [self.selectedRanges[0] rangeValue];
+
 	if (isRangeAtEndOfLine) {
+
 		NSString *completion = [self.syntaxDefinition completionForNewLineAfterLine:previousLine
 																							 indentation:[previousLine indentation]];
-		if (completion) {
-			[self insertText:completion];
-		}
+		if (completion) [self insertText:completion];
 	}
 	[self setSelectedRange:newCursorRange];
 }
@@ -124,7 +121,4 @@
 - (void)insertTab:(id)sender { _tabWidth? [self insertText:[NSS spaces:_tabWidth]]: [super insertTab:sender];	}
 	
 @end
-
-
-
 

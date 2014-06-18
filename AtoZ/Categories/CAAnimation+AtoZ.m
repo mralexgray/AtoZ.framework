@@ -384,6 +384,12 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 @end
 @implementation CAAnimation (AtoZ)
 
+
++ (CABA*) rotationWithDuration:(NSTI)dur repeats:(int)times {
+
+  return [[CABA animationWithKeyPath:@"transform.rotation" from: @0 to: @(TWOPI) duration:dur repeat:times]
+                              objectBySettingValue:@NO forKey:@"autoreverses"];
+}
 + (CABA *)rotationAnimation { // By:(CGF)deg {
   // create a CABasic animation
   CABA *a = [CABA animationWithKeyPath:@"transform.rotation.z"];
@@ -422,6 +428,13 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
   // set the repeat count
   a.repeatCount = 0;
   return a;
+}
+
++ (CABA *)wKP:(NSS*)kp duration:(NSTI)d andProps:(NSS*)firstKey, ... { NSS* property = firstKey; id val;
+
+  CABA *a = [CABA animationWithKeyPath:kp]; a.duration = d;  va_list list; va_start(list, firstKey);
+  while (!!property && (val = va_arg(list, id))) {
+      [a sV:val fK:property]; property = va_arg(list, NSS*); }  va_end(list); return a;
 }
 
 + (CABA *)animationWithKeyPath:(NSS *)path

@@ -6,16 +6,19 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <AtoZ/AtoZ.h>
+//#import "AtoZUmbrella.h"
+@import AppKit;
+#import "BaseModel.h"
+
 
 #define ALWAYS_SHOW_UI 0
 
 typedef void(^FBTextBlock)(NSString *text);
 
-@interface AZFacebookConnection : BaseModel
+@class PhFacebook; @interface AZFacebookConnection : BaseModel
 
-@property (strong, nonatomic) PhFacebook 	*fb;
-@property (strong, nonatomic) NSImage 		*pic;
+@property (nonatomic) PhFacebook 	*fb;
+@property (nonatomic) NSImage 		*pic;
 @property (unsafe_unretained) NSView 			*outview;
 
 //- (void) getToken;

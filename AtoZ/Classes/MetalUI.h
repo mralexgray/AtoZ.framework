@@ -6,8 +6,8 @@
 //  Copyright 2005 Derailer. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
+@import AppKit;
 
 @interface       MetalImageCell : NSImageCell             @end
 @interface       MetalImageView : NSImageView

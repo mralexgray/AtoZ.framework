@@ -20,9 +20,9 @@ typedef enum {
 
 @property(nonatomic) BOOL on;
 
--(void)mouseDown:(CGPoint)point;
--(void)mouseUp:(CGPoint)point;
--(void)mouseDragged:(CGPoint)point;
+-(void)mouseDownAt:(CGPoint)point;
+-(void)mouseUpAt:(CGPoint)point;
+-(void)mouseDraggedAt:(CGPoint)point;
 -(void)setOn:(BOOL)on animated:(BOOL)animated;
 @end
 

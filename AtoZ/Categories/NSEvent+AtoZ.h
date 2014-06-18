@@ -13,7 +13,7 @@
 @property (CP) VBlk voidActionBlock;
 @end
 
-@interface NSControl (AtoZ)
+@interface NSControl (AtoZEvent)
 - (void) setAction:(SEL)method withTarget:(id)object;
 - (void) setActionString:(NSS*)methodasString withTarget:(id)object;
 @property (copy) void(^eventActionBlock)(AZEvent e,id sender);

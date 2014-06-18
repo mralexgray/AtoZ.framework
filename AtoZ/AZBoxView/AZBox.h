@@ -1,9 +1,9 @@
 //
 //  AZBox.h
 //  AtoZ
-#import <Cocoa/Cocoa.h>
 //#import <AppKit/AppKit.h>
-//#import "AtoZ.h"
+#import "AtoZUmbrella.h"
+
 @interface AZBox : NSView
 
 /*** The image that should be drawn at the center of the cell, or nil if you don't want a image to be drawn.  **/ 
@@ -15,12 +15,11 @@
 /*** YES if the cell is selected, otherwise NO.  **/
 //@property (nonatomic, assign) BOOL 	selected;
 /*** YES if the mouse is hovering over cell, otherwise NO.  **/
-@property (nonatomic, assign) NSInteger index;
-@property (nonatomic, assign) BOOL 	hovered;
-@property (nonatomic, assign) float radius;
-@property (nonatomic, assign) float inset;
-@property (nonatomic, strong) id 	representedObject;
-@property (nonatomic, readonly) NSString *cellIdentifier;
+@property (nonatomic) NSInteger index;
+@property (nonatomic) BOOL 	hovered;
+@property (nonatomic) CGFloat radius, inset;
+@property (nonatomic) id 	representedObject;
+@property (readonly) NSString *cellIdentifier;
 /*** Invoked when the cell is dequeued from a collection view. This will reset all settings to default.  **/
 - (void) repareForReuse;
 /*** The designated initializer of the cell. Please don't use any other intializer!  **/

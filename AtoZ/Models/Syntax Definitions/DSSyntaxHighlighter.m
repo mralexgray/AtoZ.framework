@@ -10,7 +10,7 @@
 
 - (id)initWithTextStorage:(NSTextStorage *)storage {
 
-	if (self != [super init]) return nil;
+	if (!(self = super.init)) return nil;
 	_storage = storage;
 	[_storage setDelegate:self];
  	_theme = [AZSyntaxTheme defaultTheme];

@@ -1,46 +1,48 @@
 
-#define  SELFTYPE(_x_) typeof(self) _x_
-
 #import "AtoZUmbrella.h"
 
-@interface     FadeVisibilityWindow : NSW @end
-
-@interface        AZHandlebarWindow : FadeVisibilityWindow
-@property                       NSC * color;
-@property                     AZPOS   anchorPoint;
+@interface          ClearWin : NSW + withFrame:(NSR)r; // Designated!
+@prop_NA BOOL debug, needsDisplay;
 @end
 
-@interface AZBorderlessResizeWindow : FadeVisibilityWindow
-
-+ (INST) windowWithContentRect:(NSR)r;
-
-@property (NATOM)   CGF cornerRadius,   // Round corners by this amount.  Defaults to 5.
-                        handleInset;    // How big are the "hot" edges?   Defaults to 30.
-@property (RONLY) AZPOS screenEdge,
-                        mouseEdge;
-@property (RONLY)   NSP mouseLocation;  // Updates whenever mouse moves in window.
-@property (RONLY)   NSR mouseEdgeRect,
-                        snappedRect;
-@property (RONLY)  BOOL isOnEdge,
-                        isDragging,
-                        isResizing,
-                        isClicked,
-                        isHovered;
-
-@property AZHandlebarWindow *handle;
+@interface        AZHandlebarWindow : ClearWin
+@prop_                          NSC * color;
+@prop_                        AZPOS   anchorPoint;
 @end
 
+@interface AZBorderlessResizeWindow : ClearWin
+
+
+@prop_NA    CGF cornerRadius,   // Rounded corners by this amount.  Defaults to 5.
+                handleInset;    // How big are the "hot" edges?   Defaults to 30.
+
+@prop_RO  AZPOS screenEdge,
+                mouseEdge;
+
+@prop_RO    NSP mouseLocation; /* AOK ... Updates coordinates, in win's bounds whenever mouse moves inside.  */
+
+@prop_RO    NSR mouseEdgeRect,
+                snappedRect;
+
+@prop_RO   BOOL isOnEdge,
+                isDragging,
+                isResizing,
+                isClicked,
+                isHovered; /* AOK ... 1 onHover, 0 outside bounds */
+
+@prop_ AZHandlebarWindow *handle; @end
+
+
+#pragma mark - SUBCLASSES
 
 @interface AZMagneticEdgeWindow : AZBorderlessResizeWindow
-//@property (NATOM)   NSSZ   fullSize;
-//@property (RONLY) AZRect * inFrame,
-//                         * outFrame;
-//@property (RONLY) CRNR outsideCorners;
+@prop_NA   NSSZ   fullSize;
+@prop_RO AZRect * inFrame,
+                * outFrame;
+@prop_RO   CRNR   outsideCorners;
 @end
 
-
-
-typedef void (^WindowFrameChange)(id owner,AZBorderlessResizeWindow * w);
+typedef void (^WindowFrameChange)(id owner, AZBorderlessResizeWindow * w);
 
 @interface AZEdgeAwareWindow : AZBorderlessResizeWindow
 
@@ -50,3 +52,5 @@ typedef void (^WindowFrameChange)(id owner,AZBorderlessResizeWindow * w);
 @property (WK) id owner;
 
 @end
+
+

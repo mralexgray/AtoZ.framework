@@ -17,8 +17,9 @@
 @property (RONLY) OSCornerType 	outsideCorners;
 
 @property CGP offset;
-
+- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r;
 @end
+
 
 @interface AZWindowTabController : NSArrayController <NSWindowDelegate>
 @end
@@ -26,7 +27,7 @@
 
 //@prop_NA NSV * view;
 //+ (id) tabWithViewClass:(Class)k;
-//- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r;
+
 //@property (STR) 			AZWindowTabController	*vc;
 //+   (id) tabWithViewClass:				  (Class)k;
 //-   (id) initWithView:(NSV*)c	orClass:(Class)k	frame:(NSR)r;

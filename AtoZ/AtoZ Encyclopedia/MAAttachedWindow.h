@@ -5,7 +5,6 @@
 //  Copyright 2007 Magic Aubergine.
 //
 
-#import <Cocoa/Cocoa.h>
 
 /*
  Below are the positions the attached window can be displayed at.
@@ -31,6 +30,8 @@
  (c) The algorithm isn't perfect. :) If in doubt, do your own calculations and then 
      explicitly request that the window attach itself to a particular side.
  */
+
+@import AppKit;
 
 typedef enum _MAWindowPosition {
     // The four primary sides are compatible with the preferredEdge of NSDrawer.

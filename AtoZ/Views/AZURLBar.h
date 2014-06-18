@@ -12,7 +12,6 @@
 //@property (nonatomic, weak) IBOutlet id<AZWebKitProgressDelegate> delegate;
 //@end
 
-typedef NS_ENUM(NSUI,KFProgPhase) { AZProgressPhaseNone = 0, AZProgressPhasePending, AZProgressPhaseDownloading };
 
 //@class AZURLBar;
 //@protocol AZURLBarDelegate <NSObject>
@@ -22,6 +21,7 @@ typedef NS_ENUM(NSUI,KFProgPhase) { AZProgressPhaseNone = 0, AZProgressPhasePend
 //@end
 //@property (nonatomic, weak) id<AZURLBarDelegate> delegate;
 
+typedef NS_ENUM(int, KFProgPhase) { KFProgNone,  KFProgPending,  KFProgDownloading};
 
 @class AZWebView;
 @interface AZURLBar : NSView

@@ -1,6 +1,7 @@
 
-#import "AZProgressIndicator.h"
+#import "AtoZ.h"
 #import <objc/runtime.h>
+#import "AZProgressIndicator.h"
 
 
 #define DEFAULT_radius [self radius]
@@ -19,6 +20,10 @@
 
 #define DEFAULT_darkerStripeColor     [self.color colorWithBrightnessMultiplier:.3]
 #define DEFAULT_shadowColor           BLACK //[NSC r:223.0/255.0 g:238.0/255.0 b:181.0/255.0 a:1.0]
+
+@interface AZProgressBar ()
+@property NSTimer * animator;
+@end
 
 @implementation AZProgressBar // LBProgressBar
 

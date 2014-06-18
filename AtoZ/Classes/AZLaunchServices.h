@@ -1,3 +1,58 @@
+
+/*! @abstract This class allows you to deal with some LaunchServices functions (such a Shared Lists, files types and extension information) via ligth-weight API. You can find the list of all availabe Shared Lists below:
+*/
+
+#import "AtoZUmbrella.h"
+
+extern CFStringRef  kLSSharedFileListFavoriteVolumes,         kLSSharedFileListFavoriteItems,
+                    kLSSharedFileListRecentApplicationItems,  kLSSharedFileListRecentDocumentItems,
+                    kLSSharedFileListRecentServerItems,       kLSSharedFileListSessionLoginItems,
+                    kLSSharedFileListGlobalLoginItems;
+
+JREnumDeclare(AZItemsViewFormat, AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames);
+
+AZNSIFACEDECL(AZLaunchServices)
+
+/* Convenience */
++ (NSA*) allApplications; // formatted as AZItemsAsNames
+
+/* Shared lists */
++ (NSA*)    allItemsFromList:(CFStringRef)list_name;
++ (BOOL)      addItemWithURL:(NSURL*)url
+                      toList:(CFStringRef)list_name;
++ (BOOL) removeItemWithIndex:(NSInteger)index
+                    fromList:(CFStringRef)list_name;
++ (BOOL)   removeItemWithURL:(NSURL*)url
+                    fromList:(CFStringRef)list_name;
++ (BOOL)           clearList:(CFStringRef)list_name;
+
+/* Application abilities */
++ (NSA*)            allApplicationsFormattedAs:(AZItemsViewFormat)response_format;
++ (NSA*)allApplicationsAbleToOpenFileExtension:(NSS*)ext
+                                responseFormat:(AZItemsViewFormat)response_format;
+
++ (NSA*)      allAvailableFileTypesForApplication:(NSS*)full_path;
++ (NSA*)      allAvailableMIMETypesForApplication:(NSS*)full_path;
++ (NSA*) allAvailableFileExtensionsForApplication:(NSS*)full_path;
+
+/* General file info - MIME type, preferred extension and human-readable type*/
++ (NSS*)          humanReadableTypeForFile:(NSS*)full_path;
++ (NSS*)                   mimeTypeForFile:(NSS*)full_path;
++ (NSS*) preferredFileExtensionForMIMEType:(NSS*)mime_type;
+
++ (NSA*)           allAvailableFileExtensionsForUTI:(NSS*)file_type;
++ (NSA*)      allAvailableFileExtensionsForMIMEType:(NSS*)mime_type;
++ (NSA*)    allAvailableFileExtensionsForPboardType:(NSS*)pboard_type;
++ (NSA*) allAvailableFileExtensionsForFileExtension:(NSS*)extension;
+
+@end	
+
+@interface AZLaunchServicesListItem : NSObject
+@prop_NA NSString *name;
+@prop_NA NSURL *url;
+@prop_NA NSImage *icon;
+@end
+
 //
 //  AZLaunchServices.h
 //  AtoZ
@@ -31,47 +86,3 @@
 	//  kLSSharedFileListRecentServerItems
 	//  kLSSharedFileListSessionLoginItems
 	//  kLSSharedFileListGlobalLoginItems
-extern CFStringRef kLSSharedFileListFavoriteVolumes;
-extern CFStringRef kLSSharedFileListFavoriteItems;
-extern CFStringRef kLSSharedFileListRecentApplicationItems;
-extern CFStringRef kLSSharedFileListRecentDocumentItems;
-extern CFStringRef kLSSharedFileListRecentServerItems;
-extern CFStringRef kLSSharedFileListSessionLoginItems;
-extern CFStringRef kLSSharedFileListGlobalLoginItems;
-
-#import "AtoZUmbrella.h"
-
-@interface AZLaunchServices : NSObject
-
-/* Shared lists */
-+ (NSArray *)allItemsFromList:(CFStringRef)list_name;
-+ (BOOL)addItemWithURL:(NSURL *)url toList:(CFStringRef)list_name;
-+ (BOOL)removeItemWithIndex:(NSInteger)index fromList:(CFStringRef)list_name;
-+ (BOOL)removeItemWithURL:(NSURL *)url fromList:(CFStringRef)list_name;
-+ (BOOL)clearList:(CFStringRef)list_name;
-
-/* Application abilities */
-+ (NSArray *)allApplicationsFormattedAs:(AZItemsViewFormat)response_format;
-+ (NSArray *)allApplicationsAbleToOpenFileExtension:(NSString *)extension responseFormat:(AZItemsViewFormat)response_format;
-
-+ (NSArray *)allAvailableFileTypesForApplication:(NSString *)full_path;
-+ (NSArray *)allAvailableMIMETypesForApplication:(NSString *)full_path;
-+ (NSArray *)allAvailableFileExtensionsForApplication:(NSString *)full_path;
-
-/* General file info - MIME type, preferred extension and human-readable type*/
-+ (NSString *)humanReadableTypeForFile:(NSString *)full_path;
-+ (NSString *)mimeTypeForFile:(NSString *)full_path;
-+ (NSString *)preferredFileExtensionForMIMEType:(NSString *)mime_type;
-
-+ (NSArray *)allAvailableFileExtensionsForUTI:(NSString *)file_type;
-+ (NSArray *)allAvailableFileExtensionsForMIMEType:(NSString *)mime_type;
-+ (NSArray *)allAvailableFileExtensionsForPboardType:(NSString *)pboard_type;
-+ (NSArray *)allAvailableFileExtensionsForFileExtension:(NSString *)extension;
-
-@end	
-
-@interface AZLaunchServicesListItem : NSObject
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSURL *url;
-@property (nonatomic, retain) NSImage *icon;
-@end

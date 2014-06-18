@@ -5,15 +5,35 @@
 #import <mach-o/getsect.h>
 
 
+@implementation NSBundle (AtoZBundles)
+
++ (NSA*) bundlesFromStdin { return BundlesFromStdin(); }
+- (NSA*) plugins { return BundlePlugins(self); }
+- (NSA*) pluginsConformingTo:(Protocol*)p { return BundlePluginsConformingTo(self, p); }
++ (NSA*) bundlesConformingTo:(Protocol*)p atPath:(NSS*)path { return BundlesAtPathConformingTo(path,p); }
+@end
+
 @implementation NSBundle (AtoZ)
 
-+ (id) infoPlist {    const struct section_64 *__info_plist; if (!(__info_plist = getsectbyname("__TEXT", "__info_plist")))  return nil;
+- (NSS*) infoPlistPath {
+
+  return [AZFILEMANAGER pathsForItemsNamed:@"Info.plist" inFolder:self.bundlePath].firstObject;
+
+}
++ (id) infoPlist {
+
+  const struct section_64 *__info_plist;
+  if (!(__info_plist = getsectbyname("__TEXT", "__info_plist")))  return nil;
   
-	DTA * plist				 = [DTA dataWithBytesNoCopy:(void*)__info_plist->addr length:__info_plist->size freeWhenDone:NO],
+	DTA    * plist = [DTA dataWithBytesNoCopy:(void*)__info_plist->addr length:__info_plist->size freeWhenDone:NO],
   * xmlSignature = [DTA dataWithBytesNoCopy:"<?xml"                   length:5                  freeWhenDone:NO];
   
-  return [[plist subdataWithRange:NSMakeRange(0, xmlSignature.length)] isEqualToData:xmlSignature] ? plist.UTF8String     
-  : [NSPropertyListSerialization propertyListFromData:plist mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+  return [[plist subdataWithRange:NSMakeRange(0, xmlSignature.length)] isEqualToData:xmlSignature]
+
+  ? plist.UTF8String
+
+  : [NSPropertyListSerialization propertyListFromData:plist mutabilityOption:NSPropertyListImmutable
+                                               format:NULL  errorDescription:NULL];
   
   // printf("binary __info_plist section:\n----------------------------\n%s\n", .UTF8String);printf("\nmainBundle infoDictionary:\n--------------------------\n%s\n",  [NSBundle.mainBundle.infoDictionary description].UTF8String);//prinf("raw __info_plist section:\n-------------------------\n%s\n",
 }
@@ -48,26 +68,22 @@
 	return [NSBundle bundleWithPath:str];
   //	AZLOG(fw);
 }
+
 /**	Returns the support folder for the application, used to store the Core Data	store file.  This code uses a folder named "ArtGallery" for
  the content, either in the NSApplicationSupportDirectory location or (if the former cannot be found), the system's temporary directory. */
 
-+ (NSString*) appSuppSubPathNamed:(NSString*)name;
-{
++ (NSString*) appSuppSubPathNamed:(NSString*)name {
 	return [[[self class] applicationSupportFolder]stringByAppendingPathComponent:name];
 }
-
-+ (NSS*)appSuppDir {
++ (NSS*) appSuppDir     {
   
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-	NSString *basePath = ([paths count] > 0) ? paths[0] : NSTemporaryDirectory();
-	return [basePath stringByAppendingPathComponent:[[NSBundle bundleForClass:[AtoZ class]] bundleIdentifier]];
+	NSA *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSS *basePath = paths.count ? paths.first : NSTemporaryDirectory();
+	return [basePath withPath:[NSBundle bundleForClass:AtoZ.class].bundleIdentifier];
 }
-+ (NSS*) appSuppFolder
-{
-	return [self applicationSupportFolder];
-}
-+ (NSS*) applicationSupportFolder
-{
++ (NSS*) appSuppFolder  {	return [self applicationSupportFolder]; }
++ (NSS*) applicationSupportFolder {
+
 	static NSS* appsupport = nil;
 	if (!appsupport) {
     
@@ -87,39 +103,35 @@
   
 	return  appsupport;
 }
-//	//build path
-//	NSArray *supports = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-//	NSString *dir = supports[0];
-//	[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:NO attributes:nil error:nil];
-//	NSString *file = [dir stringByAppendingPathComponent:identifier];
-//
-//		//open plist
-//	NSMutableDictionary *plist = [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:file]
-//
-//
-//
-//	NSString *basePath = ([paths count] > 0 ? paths[0] : NSTemporaryDirectory() );
-//	return [basePath stringByAppendingPathComponent:[[NSBundle mainBundle]bundleIdentifier]];
+
+//+ (instancetype) calulatedBundleIDForExecutable:(NSString*)path { 
+//	
+//	NSBundle *b = [self bundleWithPath:path]; 	if (b) return b;
+//	NSString *pp = path.copy;
+//	for (NSS*sss in path.pathComponents) { 
+//		if ((b = [self bundleWithPath:pp = [pp stringByDeletingLastPathComponent]])) break;
+//	}
+//	return b;
 //}
 
-+ (instancetype) calulatedBundleIDForExecutable:(NSString*)path { 
-	
-	NSBundle *b = [self bundleWithPath:path]; 	if (b) return b;
-	NSString *pp = path.copy;
-	for (NSS*sss in path.pathComponents) { 
-		if ((b = [self bundleWithPath:pp = [pp stringByDeletingLastPathComponent]])) break;
-	}
-	return b;
++ (INST) bundleForExecutable:(NSS*)path {
+
+  __block NSBundle *b = [self bundleWithPath:path];  if(b) return b;
+
+  [path.pathComponents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    NSString *next = [NSString pathWithComponents:
+                     [path.pathComponents subarrayToIndex:path.pathComponents.count-idx]];
+    *stop = ((b = [self bundleWithPath:next]));
+  }];
+  return b;
 }
 
-+ (NSString*) calulatedBundleIDForPath:(NSString*)path
-{
-	return [[self class] bundleWithPath:path] ? [[[self class] bundleWithPath:path] bundleIdentifier]
-  : @"unknown";
-}
++ (NSString*) calulatedBundleIDForPath:(NSString*)path {
 
-- (NSA*)definedClasses
-{
+	id x = [self bundleWithPath:path];
+  return x ? [x bundleIdentifier] : @"unknown";
+}
+- (NSA*) definedClasses {
   NSMA *array = NSMA.new;		int numClasses;		Class *classes = NULL;	
 	
 	numClasses = objc_getClassList(NULL, 0);
@@ -147,25 +159,8 @@
 }
 
 
-//- (NSA*)frameworkClasses;
-//{
-//
-//	NSMutableArray *array = [NSMutableArray array];
-//	int numberOfClasses = objc_getClassList(NULL, 0);
-//	Class *classes = calloc(sizeof(Class), numberOfClasses);
-//	numberOfClasses = objc_getClassList(classes, numberOfClasses);
-////	for (int i = 0; i < numberOfClasses; ++i) {
-////		Class c = classes[i];
-////		if ([NSBundle bundleForClass:c] == self) {
-////			[array addObject:c];
-////		}
-////	}
-////	free(classes);
-//	return array;
-//}
 
-- (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
-{
+- (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name {
 	NSFileManager *fm = NSFileManager.new; // +defaultManager is not thread safe
 	NSDirectoryEnumerator *enumerator = [fm enumeratorAtPath: [self resourcePath]];
   
@@ -182,19 +177,19 @@
 	return file ? [[self resourcePath] stringByAppendingPathComponent:file] : nil;
   
 }
-
-- (NSA*)recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath{
+- (NSA*) recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath{
   
 	NSMutableArray *filePaths = [NSMutableArray new];  // Enumerators are recursive
-	NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:directoryPath];
+	NSDirectoryEnumerator *enumerator = [AZFILEMANAGER enumeratorAtPath:directoryPath];
 	NSString *filePath;
-	while ((filePath = [enumerator nextObject]) != nil){
+	while ((filePath = enumerator.nextObject) != nil){
 		// If we have the right type of file, add it to the list Make sure to prepend the directory path
-		if([[filePath pathExtension] isEqualToString:type])
+		if(SameString(filePath.pathExtension,type))
 			[filePaths addObject:[directoryPath stringByAppendingString:filePath]];
 	}
 	return filePaths;
 }
+
 
 - (NSA*) cacheImages	{	 
 
@@ -221,18 +216,25 @@
   
   return cachedImages;
 }
+- (NSA*) imageResources {
 
-- (NSA*) imageResources { return [self resourcesWithExtensions:NSIMG.imageFileTypes]; }
+  return [[self resourcesWithExtensions:NSIMG.imageFileTypes] map:^id(id obj) {
+    return [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:obj]];
+  }];
+}
 - (NSA*) resourcesWithExtensions:(NSA*)exts {
 
-  AZNewVal(rsrcs, NSMA.new);
-  for (NSS* ext in exts) {
-    id x = [self pathsForResourcesOfType:ext inDirectory:nil];
-    for (NSS *filePath in x) {
-      id img; if ((img = [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:filePath]])) [rsrcs addObject:img];
-    }
-  }
-  return rsrcs;
+  return [exts reduce:@[].mC with:^id(id sum, id obj, NSUInteger idx) {
+    [sum addObjectsFromArray:[self pathsForResourcesOfType:obj inDirectory:nil] ?: @[]]; return sum;
+  }];
+///  AZNewVal(rsrcs, NSMA.new);
+//  for (NSS* ext in exts) {
+//    id x = [self pathsForResourcesOfType:ext inDirectory:nil];
+//    for (NSS *filePath in x) {
+//      id img; if ((img = [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:filePath]])) [rsrcs addObject:img];
+//    }
+//  }
+//  return rsrcs;
 //  return [exts reduce:NSMA.new withBlock:^id(NSMA* sum, id obj) {
 //    [sum addObjectsFromArray:({ id x = [self pathsForResourcesOfType:obj inDirectory:nil];
 //    
@@ -243,8 +245,7 @@
 //  }];
 }
 
-- (void) cacheNamedImages;
-{
+- (void) cacheNamedImages {
 	AZNew(NSCS,typesCounter);
 	AZNewVal(types,NSIMG.imageFileTypes);
 
@@ -264,10 +265,59 @@
   }	LOG_EXPR(typesCounter);
 }
 
-NSString *appSupportSubpath = @"/System/Library/Frameworks";
-NSString *ext = @"framework";
 
+- (NSString*)appIconPath {
+	// Oddly, I can't find a constant for the bundle icon file.
+	// Compare to kCFBundleNameKey, which is apparently "CFBundleName".
+	NSString* iconFilename = AZAPPINFO[@"CFBundleIconFile"] ;
+	// I do not use -pathForImageResource, in case the Resources also contains
+	// an image file, for example a png, with the same name.  I want the .icns.
+	NSString* iconBasename = [iconFilename stringByDeletingPathExtension] ;
+	NSString* iconExtension = [iconFilename pathExtension] ;  // Should be "icns", but for some reason it's in Info.plist
+	return [[NSBundle mainBundle] pathForResource:iconBasename
+                                         ofType:iconExtension] ;
+}
 
+- (NSImage*)appIcon {
+
+  return [NSIMG imageNamed:AZAPPINFO[@"CFBundleIconFile"]];
+
+//	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
+//	return appIcon ;
+}
+
++ (NSA*) allFrameworkPaths { return self.allFrameworks[@"bundlePath"]; }
+@end
+//NSString *appSupportSubpath = @"/System/Library/Frameworks";
+//NSString *ext = @"framework";
+
+//- (NSA*)frameworkClasses;
+//{
+//	NSMutableArray *array = [NSMutableArray array];
+//	int numberOfClasses = objc_getClassList(NULL, 0);
+//	Class *classes = calloc(sizeof(Class), numberOfClasses);
+//	numberOfClasses = objc_getClassList(classes, numberOfClasses);
+////	for (int i = 0; i < numberOfClasses; ++i) {
+////		Class c = classes[i];
+////		if ([NSBundle bundleForClass:c] == self) {
+////			[array addObject:c];
+////		}
+////	}
+////	free(classes);
+//	return array;
+//}
+
+//	//build path
+//	NSArray *supports = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+//	NSString *dir = supports[0];
+//	[[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:NO attributes:nil error:nil];
+//	NSString *file = [dir stringByAppendingPathComponent:identifier];
+//
+//		//open plist
+//	NSMutableDictionary *plist = [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:file]
+//	NSString *basePath = ([paths count] > 0 ? paths[0] : NSTemporaryDirectory() );
+//	return [basePath stringByAppendingPathComponent:[[NSBundle mainBundle]bundleIdentifier]];
+//}
 //+ (NSMutableArray *)systemFrameworks;
 //{
 //	NSArray *librarySearchPaths;
@@ -316,28 +366,3 @@ NSString *ext = @"framework";
 //	return allBundles;
 //}
 //
-
-
-- (NSString*)appIconPath {
-	// Oddly, I can't find a constant for the bundle icon file.
-	// Compare to kCFBundleNameKey, which is apparently "CFBundleName".
-	NSString* iconFilename = AZAPPINFO[@"CFBundleIconFile"] ;
-	// I do not use -pathForImageResource, in case the Resources also contains
-	// an image file, for example a png, with the same name.  I want the .icns.
-	NSString* iconBasename = [iconFilename stringByDeletingPathExtension] ;
-	NSString* iconExtension = [iconFilename pathExtension] ;  // Should be "icns", but for some reason it's in Info.plist
-	return [[NSBundle mainBundle] pathForResource:iconBasename
-                                         ofType:iconExtension] ;
-}
-
-- (NSImage*)appIcon {
-
-  return [NSIMG imageNamed:AZAPPINFO[@"CFBundleIconFile"]];
-
-//	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
-//	return appIcon ;
-}
-
-+ (NSA*) allFrameworkPaths { return self.allFrameworks[@"bundlePath"]; }
-
-@end

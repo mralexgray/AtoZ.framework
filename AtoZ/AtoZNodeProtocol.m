@@ -1,5 +1,5 @@
 
-//#import <Cocoa/Cocoa.h>
+//@import AppKit;
 //#import <objc/runtime.h>
 //#import <Zangetsu/Zangetsu.h>
 

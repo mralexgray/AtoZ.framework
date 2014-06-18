@@ -7,6 +7,7 @@
 //
 
 #import "AZXMLWriter.h"
+@import ObjectiveC;
 
 @implementation AZXMLWriter
 

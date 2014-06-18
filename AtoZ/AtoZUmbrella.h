@@ -1,20 +1,52 @@
 
-//#import "extobjc_OSX/extobjc.h"
-//@import Cocoa; 
-//@import QuartzCore;
-//@import WebKit;
-#import <WebKit/WebKit.h>
+#ifndef AtoZ_Umbrella
+#define AtoZ_Umbrella
+
+@import ObjectiveC;
+@import QuartzCore;
+@import AppKit;
+@import Dispatch;
+@import SystemConfiguration;
+#import <ExtObjC/ExtObjC.h>
 #import <Zangetsu/Zangetsu.h>
-//#import <RoutingHTTPServer/RoutingHTTPServer.h>
 #import "KVOMap/KVOMap.h"
 #import "AtoZAutoBox/AtoZAutoBox.h"
-#import <AtoZ/F.h>
-#import <AtoZ/BaseModel.h>
-#import <AtoZ/JREnum.h>
+
+//#import <RoutingHTTPServer/RoutingHTTPServer.h>
+//#import <CocoaHTTPServer/CocoaHTTPServer.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
+
+#pragma mark - ACTIVE NSLOG
+
+#define NSLog(fmt...)  ((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
+#define NSLogC(fmt...)  ((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
+
+//(((void)DDLogInfo(__VA_ARGS__)))
+//#define NSLogC(...) (((void)DDLogCInfo(__VA_ARGS__)))
+
+
+#pragma mark - ATOZFRAMEWORK
+
+#import "JREnum.h"
+#import "objswitch.h"
+#import "BaseModel.h"
+#import "AutoCoding.h"
+#import "HRCoder.h"
+#import "F.h"
+
 #import "AtoZMacroDefines.h"
 #import "AtoZTypes.h"
 #import "BoundingObject.h"
+#import "MutableGeometry.h"
+
+/*! id x = CAL.new; [x setGeos:@"bounds", @"x",@100, @"width", @5000, nil];   NEAT! */
 #import "AtoZGeometry.h"
+
+//#import <Zangetsu/Zangetsu.h>
+//#import <RoutingHTTPServer/RoutingHTTPServer.h>
+//#import "BaseModel.h"
 //#import "AtoZCategories.h"
 
 
@@ -27,37 +59,7 @@
 - (id) initWithFrame:(NSR)f       { return self = [super initWithFrame:f] ? [self methodName], self : nil; }\
 - (id) initWithCoder:(NSCoder*)d  { return self = [super initWithCoder:d] ? [self methodName], self : nil; }
 
-
-//@protocol AtoZNodeProtocol;
-//#define AZNODEPRO (NSObject<AtoZNodeProtocol>*)
-
-
-//#define 	AZLAYOUTMGR 		[CAConstraintLayoutManager layoutManager]
-//#define  AZTALK	 (log) 	[AZTalker.new say:log]
-//#define  AZBezPath (r) 		[NSBezierPath bezierPathWithRect: r]
-//#define  NSBezPath (r) 		AZBezPath(r)
-//#define  AZQtzPath (r) 		[(AZBezPath(r)) quartzPath]
-
-//#define AZContentBounds [[[ self window ] contentView] bounds]
-
-
 #pragma mark - General Functions
-
-//#define SDDefaults [NSUserDefaults standardUserDefaults]
-//
-//#if defined(DEBUG)
-//	#define SDLog(format, ...) NSLog(format, ##__VA_ARGS__)
-//#else
-//	#define SDLog(format, ...)
-//#endif
-//
-//#define NSSTRINGF(x, args...) [NSString stringWithFormat:x , ## args]
-//#define NSINT(x) [NSNumber numberWithInt:x]
-//#define NSFLOAT(x) [NSNumber numberWithFloat:x]
-//#define NSDOUBLE(x) [NSNumber numberWithDouble:x]
-//#define NSBOOL(x) [NSNumber numberWithBool:x]
-//
-//#define SDInfoPlistValueForKey(key) [[NSBundle mainBundle] objectForInfoDictionaryKey:key]
 
 //#define NSDICT (...) [NSDictionary dictionaryWithObjectsAndKeys: __VA_ARGS__, nil]
 //#define NSARRAY(...) [NSArray arrayWithObjects: __VA_ARGS__, nil]
@@ -70,7 +72,6 @@
 #define NSCW(_grey_,_alpha_)  [NSColor colorWithCalibratedWhite:_grey_ alpha:_alpha_]
 
 //^NSC*(grey,alpa){ return (NSC*)[NSColor colorWithCalibratedWhite:grey alpha:alpha]; }
-
 
 #pragma mark - FUNCTION defines
 
@@ -140,28 +141,18 @@
 
 #define nAZColorWellChanged @"AtoZColorWellChangedColors"
 
-#define AZBONK @throw \
-[NSException \
-exceptionWithName:@"WriteThisMethod" \
-reason:@"You did not write this method, yet!" \
-userInfo:nil]
+#define AZBONK @throw [NSException exceptionWithName:@"WriteThisMethod" reason:@"You did not write this method, yet!" userInfo:nil]
 
-#define GENERATE_SINGLETON(SC) \
-static SC * SC##_sharedInstance = nil; \
-+(SC *)sharedInstance { \
-if (! SC##_sharedInstance) { \
-SC##_sharedInstance = SC.new; \
-} \
-return SC##_sharedInstance; \
-}
+#define GENERATE_SINGLETON(SC) static SC * SC##_sharedInstance = nil;\
++(SC *)sharedInstance { if (! SC##_sharedInstance) { SC##_sharedInstance = SC.new; } \
+return SC##_sharedInstance; }
 
 
 //#define foreach(B,A) A.andExecuteEnumeratorBlock = \
 //^(B, NSUInteger A##Index, BOOL *A##StopBlock)
 
 //#define foreach(A,B,C) \
-//A.andExecuteEnumeratorBlock = \
-//  ^(B, NSUInteger C, BOOL *A##StopBlock)
+//A.andExecuteEnumeratorBlock =  ^(B, NSUInteger C, BOOL *A##StopBlock)
 
 
 /* 	KSVarArgs is a set of macros designed to make dealing with variable arguments	easier in Objective-C. All macros assume that the varargs list contains only objective-c objects or object-like structures (assignable to type id). The base macro ksva_iterate_list() iterates over the variable arguments, invoking a block for each argument, until it encounters a terminating nil. The other macros are for convenience when converting to common collections.
@@ -219,11 +210,11 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 
 
 static inline void _AZUnimplementedMethod(SEL selector,id object,const char *file,int line) {
-   NSLog(@"-[%@ %s] unimplemented in %s at %d",[object class],sel_getName(selector),file,line);
+   NSLogC(@"-[%@ %s] unimplemented in %s at %d",[object class],sel_getName(selector),file,line);
 }
 
 static inline void _AZUnimplementedFunction(const char *function,const char *file,int line) {
-   NSLog(@"%s() unimplemented in %s at %d",function,file,line);
+   NSLogC(@"%s() unimplemented in %s at %d",function,file,line);
 }
 
 #define AZUnimplementedMethod() \
@@ -241,6 +232,16 @@ _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 	- (void)insertObject: (id)obj in ## capsname ## AtIndex: (NSUInteger)index { [lowername insertObject: obj atIndex: index]; } \
 	- (void)removeObjectFrom ## capsname ## AtIndex: (NSUInteger)index { [lowername removeObjectAtIndex: index]; }
 
+
+#ifdef XCODECODEFORPASTING
+
+- (NSUInteger) countOf<#Collection#> { return [<#collectuion#> count]; }
+- objectIn<#Collection#>AtIndex:(NSUInteger)idx { return [<#collectuion#> objectAtIndex:idx]; }
+- (void) insertObject:(id)o in<#Collection#>AtIndex:(NSUInteger)idx { [<#collectuion#> insertObject:o atIndex:idx]; }
+- (void) removeObjectFrom<#Collection#>AtIndex:(NSUInteger)idx { [<#collectuion#> removeObjectAtIndex:idx]; }
+
+#endif
+
 //#define objc_dynamic_cast(obj,cls) \
 //    ([obj isKindOfClass:(Class)objc_getClass(#cls)] ? (cls *)obj : NULL)
 
@@ -251,304 +252,12 @@ _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 //	whatever *s = @"aa;";
 //	NSLog(@"%@", s.class);
 //}
-
-
-//NS_INLINE void AZNewItems (Class aClass,...) {
-//
-//		objc_getClass
-//}
+//NS_INLINE void AZNewItems (Class aClass,...) {		objc_getClass}
 
 #define NEWS(A,...) AZNewItems(A,...)
 
 
-// 64-bit float macros
+//#import "AtoZGeometry.h"
+//#import "BoundingObject.h"
 
-//#ifdef __LP64__
-//	#define _CGFloatFabs( n )	fabs( n )
-//	#define _CGFloatTrunc( n )	trunc( n )
-//	#define _CGFloatLround( n )	roundtol( n )
-//	#define _CGFloatFloor( n )	floor( n )
-//	#define _CGFloatCeil( n )	ceil( n )
-//	#define _CGFloatExp( n )	exp( n )
-//	#define _CGFloatSqrt( n )	sqrt( n )
-//	#define _CGFloatLog( n )	log( n )
-//#else
-//	#define _CGFloatFabs( n )	fabsf( n )
-//	#define _CGFloatTrunc( n )	truncf( n )
-//	#define _CGFloatLround( n )	roundtol((double) n )
-//	#define _CGFloatFloor( n )	floorf( n )
-//	#define _CGFloatCeil( n )	ceilf( n )
-//	#define _CGFloatExp( n )	expf( n )
-//	#define _CGFloatSqrt( n )	sqrtf( n )
-//	#define _CGFloatLog( n )	logf( n )
-//#endif
-
-
-/*
-#define 				 IDDRAG 	id<NSDraggingInfo>
-#define 					NSPB 	NSPasteboard
-
-#define 				AZIDCAA 	(id<CAAction>)
-#define 				  IDCAA		(id<CAAction>)
-#define 					IDCP 	id<NSCopying>
-#define 				  	 IBO 	IBOutlet
-#define 					 IBA 	IBAction
-#define 				  RONLY 	readonly
-#define 				  RDWRT	readwrite
-#define 				  ASSGN 	assign
-#define 				  NATOM 	nonatomic
-#define 				  STRNG 	strong
-#define 				    STR 	strong
-
-#define 					 ASS 	assign
-#define 					  CP 	copy
-#define 					 CPY 	copy
-
-#define 					 SET 	setter
-#define 					 GET 	getter
-#define	 				  WK 	weak
-#define 					UNSF 	unsafe_unretained
-
-#define					prop 	property
-#define 					 IBO 	IBOutlet
-#pragma mark 														- CoreGraphics / CoreFoundation
-#define 				  CFTI	CFTimeInterval
-#define 				  CGCR	CGColorRef
-#define 					CGF 	CGFloat
-#define 				   CGP	CGPoint
-#define 				  CGPR 	CGPathRef
-#define	 				CGR 	CGRect
-#define 					CGS 	CGSize
-#define 				  CGSZ 	CGSize
-#define 					CIF 	CIFilter
-#define 				 CGRGB 	CGColorCreateGenericRGB
-#define 				CGCREF 	CGContextRef
-#define 				JSCREF 	JSContextRef
-#define 				  CGWL 	CGWindowLevel
-
-#define 			CGPATH(A)	CGPathCreateWithRect(R)
-
-#define 			AZRUNLOOP	NSRunLoop.currentRunLoop
-#define 	   AZRUNFOREVER 	[AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
-#define 	AZRUN while(0)	[NSRunLoop.currentRunLoop run]
-#define 					NSA 	NSArray
-#define 			 NSACLASS 	NSArray.class
-#define 	    NSAorDCLASS 	@[NSArray.class, NSDictionary.class]
-#define 			  ISADICT 	isKindOfClass:NSDictionary.class
-#define 			ISANARRAY	isKindOfClass:NSArray.class
-#define 	 ISADICTorARRAY	isKindOfAnyClass:NSAorDCLASS
-#define 			 NSSCLASS 	NSString.class
-#define				 NSAPP 	NSApplication
-#define				  NSAC 	NSArrayController
-#define				  NSAS 	NSAttributedString
-#define				  NSAT 	NSAffineTransform
-#define			    	NSB 	NSBundle
-#define				NSBUTT 	NSButton
-#define				  NSBP 	NSBezierPath
-#define			  NSBRWSR 	NSBrowser
-#define				 NSBIR 	NSBitmapImageRep
-#define				 NSBLO 	NSBlockOperation
-#define				 NSBSB	NSBackingStoreBuffered
-
-#define				 NSBWM 	NSBorderlessWindowMask
-#define			  NSCOMPR 	NSComparisonResult
-#define				  NSDE 	NSDirectoryEnumerator
-#define				  NSGC 	NSGraphicsContext
-#define				   NSC 	NSColor
-#define			     NSCL 	NSColorList
-#define				  NSCS 	NSCountedSet
-#define				   NSD 	NSDictionary
-#define			 NSDCLASS 	NSDictionary.class
-#define			   	NSE 	NSEvent
-#define			     NSEM	NSEventMask
-#define				 NSERR 	NSError
-#define			    	NSF 	NSFont
-#define 				  NSFH	NSFileHandle
-#define			    	NSG	NSGradient
-#define				  NSJS	NSJSONSerialization
-#define				   NSI 	NSInteger
-#define				  NSIP 	NSIndexPath
-#define				 NSIMG 	NSImage
-#define				  NSIS 	NSIndexSet
-#define				  NSIV 	NSImageView
-
-#define					SIG	NSMethodSignature
-#define				  NSMA 	NSMutableArray
-#define				 NSMAS 	NSMutableAttributedString
-#define				  NSMD 	NSMutableDictionary
-#define			  NSMDATA 	NSMutableData
-#define				   NSM 	NSMenu
-#define				  NSMI 	NSMenuItem
-#define			  NSMenuI	NSMenuItem
-#define				  NSMS 	NSMutableString
-#define				NSMSet 	NSMutableSet
-#define				 NSMIS 	NSMutableIndexSet
-#define				 NSMPS 	NSMutableParagraphStyle
-#define				   NSN 	NSNumber
-#define				 NSNOT 	NSNotification
-#define				   NSO 	NSObject
-//#define ID \(NSObject*\)
-#define				  NSOQ 	NSOperationQueue
-#define				  NSOP 	NSOperation
-#define 			 NSPUBUTT   NSPopUpButton
-#define 			 	  NSPO   NSPopover
-
-#define				 NSCSV 	NSCellStateValue
-#define			  AZOQMAX 	NSOperationQueueDefaultMaxConcurrentOperationCount
-#define			  	  NSOV 	NSOutlineView
-
-#define					NSP 	NSPoint
-#define			NSPInRect 	NSPointInRect
-#define			     NSPI 	NSProgressIndicator
-#define			 NSPUBUTT 	NSPopUpButton
-#define					NSR 	NSRect
-#define				  NSRE 	NSRectEdge
-#define				 NSRNG 	NSRange
-#define			  NSRFill 	NSRectFill
-#define					NSS 	NSString
-#define				  NSSI 	NSStatusItem
-#define				NSSHDW 	NSShadow
-#define				  NSSZ 	NSSize
-#define				  NSST 	NSSet
-#define					NST 	NSTimer
-#define				 NSTSK 	NSTask
-#define 			   NSSEGC	NSSegmentedControl
-#define			  NSSCRLV 	NSScrollView
-#define			  NSSPLTV	NSSplitView
-#define			     NSTA 	NSTrackingArea
-#define			 	  NSTI 	NSTimeInterval
-#define				  NSTV 	NSTableView
-#define				  NSTC 	NSTableColumn
-#define				NSTXTF 	NSTextField
-#define				NSTXTV 	NSTextView
-#define				  NSUI 	NSUInteger
-#define				NSURLC 	NSURLConnection
-#define		   NSMURLREQ	NSMutableURLRequest
-#define			 NSURLREQ 	NSURLRequest
-#define			 NSURLRES 	NSURLResponse
-#define			   	NSV 	NSView
-#define				  NSVC 	NSViewController
-#define				  NSWC 	NSWindowController
-#define				 NSVAL 	NSValue
-#define				  NSVT 	NSValueTransformer
-#define				NSTABV 	NSTabView
-
-#define 				 NSPSC 	NSPersistentStoreCoordinator
-#define 				  NSED 	NSEntityDescription
-#define 				  NSMO	NSManagedObject
-#define 				 NSMOM	NSManagedObjectModel
-#define 			    NSMOC	NSManagedObjectContext
-
-#define				NSTVDO	NSTableViewDropOperation
-#define 				  NSDO	NSDragOperation
-
-#define				NSTBAR 	NSToolbar
-#define				   NSW 	NSWindow
-
-#define				TUINSV 	TUINSView
-#define				TUINSW 	TUINSWindow
-#define				  TUIV 	TUIView
-#define				 TUIVC	TUIViewController
-#define				  VBLK 	VoidBlock
-#define					 WV	WebView
-#define				IDWPDL	id<WebPolicyDecisionListener>
-#define 				  AHLO 	AHLayoutObject
-#define 				  AHLT 	AHLayoutTransaction
-#define  		  BLKVIEW 	BNRBlockView
-#define  		     BLKV 	BLKVIEW
-
-#pragma mark -  CoreAnimation
-#import <QuartzCore/QuartzCore.h>
-
-typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset;	}	AZCAConstraint;
-
-#pragma mark - AZSHORTCUTS
-
-#define 			AZCACMinX	AZConstRelSuper ( kCAConstraintMinX   )
-#define 			AZCACMinY	AZConstRelSuper ( kCAConstraintMinY   )
-#define 			AZCACMaxX	AZConstRelSuper ( kCAConstraintMaxX   )
-#define 			AZCACMaxY	AZConstRelSuper ( kCAConstraintMaxY   )
-#define 			AZCACWide 	AZConstRelSuper ( kCAConstraintWidth  )
-#define 			AZCACHigh 	AZConstRelSuper ( kCAConstraintHeight )
-
-#define 		 			CAA 	CAAnimation
-#define     		  CAAG	CAAnimationGroup
-#define 	   		  CABA	CABasicAnimation
-#define 		 CACONSTATTR   CAConstraintAttribute
-#define			  CACONST	CAConstraint
-#define     		  CAGA	CAGroupAnimation
-#define     		  CAGL	CAGradientLayer
-#define     		  CAKA	CAKeyframeAnimation
-#define      			CAL	CALayer
-#define    			 CALNA 	CALayerNonAnimating
-#define    			 CALNH 	CALayerNoHit
-#define    			 CAMTF	CAMediaTimingFunction
-#define   			CASLNH 	CAShapeLayerNoHit
-#define    			 CASHL 	CAShapeLayer
-#define  		  CASCRLL 	CAScrollLayer
-#define 				 CASHL 	CAShapeLayer
-#define     		  CASL 	CAShapeLayer
-#define   			CATLNH 	CATextLayerNoHit
-#define      			CAT 	CATransaction
-#define     		  CAT3 	CATransform3D
-#define            CAT3D 	CATransform3D
-#define   		   CAT3DR 	CATransform3DRotate
-#define  		  CAT3DTR 	CATransform3DTranslate
-#define     		  CATL 	CATransformLayer
-#define   			CATXTL 	CATextLayer
-
-#define 			 CATRANNY	CATransaction
-#define 			 CATRANST 	CATransition
-#define 				  ID3D 	CATransform3DIdentity
-#define 		   CATIMENOW 	CACurrentMediaTime()
-
-#define AZNOCACHE NSURLRequestReloadIgnoringLocalCacheData
-
-#define 				  lMGR 	layoutManager
-#define				   bgC	backgroundColor
-#define 					fgC 	foregroundColor
-#define 				arMASK 	autoresizingMask
-#define 					mTB 	masksToBounds
-#define 			  cRadius 	cornerRadius
-#define 				aPoint 	anchorPoint
-#define 				 NDOBC 	needsDisplayOnBoundsChange
-#define 				 nDoBC 	needsDisplayOnBoundsChange
-#define 		  CASIZEABLE 	kCALayerWidthSizable | kCALayerHeightSizable
-#define 					loM 	layoutManager
-#define 				 sblrs 	sublayers
-#define 				  zPos 	zPosition
-#define			  constWa   constraintWithAttribute
-#define 		  removedOnC 	removedOnCompletion
-
-#define 				  kIMG 	@"image"
-#define 				  kCLR 	@"color"
-#define 				  kIDX 	@"index"
-#define 				  kLAY 	@"layer"
-#define 				  kPOS 	@"position"
-#define 			 kPSTRING 	@"pString"
-#define 			     kSTR 	@"string"
-#define 				  kFRM 	@"frame"
-#define 				 kHIDE	@"hide"
-#define AZSuperLayerSuper (@"superlayer")
-
-#define 		CATransform3DPerspective	( t, x, y ) (CATransform3DConcat(t, CATransform3DMake(1,0,0,x,0,1,0,y,0,0,1,0,0,0,0,1)))
-#define CATransform3DMakePerspective  	(  x, y ) (CATransform3DPerspective( CATransform3DIdentity, x, y ))
-// exception safe save/restore of the current graphics context
-#define 			SAVE_GRAPHICS_CONTEXT	@try { [NSGraphicsContext saveGraphicsState];
-#define 		RESTORE_GRAPHICS_CONTEXT	} @finally { [NSGraphicsContext restoreGraphicsState]; }
-
-
-//#define CACcWA CAConstraint constraintWithAttribute
-#define AZConst(attrb,rel)		[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
-#define AZConst(attrb,rel)				[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb]
-#define AZConstScaleOff(attrb,rel,scl,off)	[CAConstraint constraintWithAttribute:attrb relativeTo:rel attribute:attrb scale:scl offset:off]
-#define AZConstRelSuper(attrb)		[CAConstraint constraintWithAttribute:attrb relativeTo:AZSuperLayerSuper attribute:attrb]
-#define AZConstRelSuperScaleOff (att,scl,off) [CAConstraint constraintWithAttribute:att relativeTo:AZSuperLayerSuper attribute:att scale:scl offset:off]
-#define AZConstAttrRelNameAttrScaleOff ( attr1, relName, attr2, scl, off) [CAConstraint constraintWithAttribute:attr1 relativeTo:relName attribute:attr2 scale:scl offset:off]
-*/
-
-
-
-#import "AtoZGeometry.h"
-#import "BoundingObject.h"
-
+#endif /* END #ifndef AtoZ_Umbrella */

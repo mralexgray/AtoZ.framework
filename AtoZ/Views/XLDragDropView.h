@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Xinranmsn Labs. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 @protocol DragDropViewDelegate;
 
@@ -19,10 +19,10 @@
 }
 
 @property (nonatomic, unsafe_unretained) IBOutlet id <DragDropViewDelegate> delegate;
-@property (nonatomic, strong) NSString *normalBackgroundImageName, *highlightedBackgroundImageName, *acceptedBackgroundImageName;
-@property (nonatomic, readonly) NSString *filePath;
-@property (nonatomic, strong) NSArray *desiredSuffixes;
-@property (nonatomic, readonly) BOOL isFileReady;
+@property (nonatomic) NSString *normalBackgroundImageName, *highlightedBackgroundImageName, *acceptedBackgroundImageName;
+@property (readonly) NSString *filePath;
+@property (nonatomic) NSArray *desiredSuffixes;
+@property (readonly) BOOL isFileReady;
 
 - (id)initWithFrame:(NSRect)frameRect normalBackgroundImageName:(NSString *)imageName;
 

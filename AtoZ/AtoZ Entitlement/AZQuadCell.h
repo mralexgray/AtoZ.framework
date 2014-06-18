@@ -4,7 +4,6 @@
 
 //  Created by Alex Gray on 8/29/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Cocoa/Cocoa.h>
 
 typedef NS_ENUM(NSUI, AZQuadCellModel) {
 								AZQuadCellSingleLetter 	= 0x01, // 00000001

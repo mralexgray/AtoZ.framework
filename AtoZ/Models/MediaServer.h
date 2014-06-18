@@ -13,12 +13,12 @@
 #import <Foundation/Foundation.h>
 
 
-typedef void (^FetchBlock)(NSArray *items, NSError *error);
-
-@interface MediaServer : NSObject
-@property (strong, nonatomic) NSOperationQueue *operationQueue;
-
-+ (id)sharedMediaServer;
-- (void) setchTweetsForSearch:(NSString *)searchString block:(FetchBlock)block;
-
-@end
+//typedef void (^FetchBlock)(NSArray *items, NSError *error);
+//
+//@interface MediaServer : NSObject
+//@property (strong, nonatomic) NSOperationQueue *operationQueue;
+//
+//+ (id)sharedMediaServer;
+//- (void) setchTweetsForSearch:(NSString *)searchString block:(FetchBlock)block;
+//
+//@end

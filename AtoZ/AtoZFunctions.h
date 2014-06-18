@@ -67,13 +67,35 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define VA_NUM_ARGS(...) VA_NUM_ARGS_IMPL(__VA_ARGS__, 9,8,7,6,5,4,3,2,1) 	 	// USAGE int i = VA_NUM_ARGS("sssss",5,3);  -> i = 3
 #define VA_NUM_ARGS_IMPL(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...) N
 
+//@interface NSIMG (SizeLike) <SizeLike> @end
+
+//#define    FORBIDDEN_CLASSES( ([NSA arrayWithObjects:__VA_ARGS__]contains           [NSException raise:@"We should never get here!" format:@"%@ should have implemented this:%@", self.className, AZSELSTR]
+#define  ASSERTSAME(A,B)      NSAssert(A == B, @"These values should be same, but they are %@ and %@", @(A), @(B))
+#define    CONFORMS(PROTO)    [self conformsToProtocol:@protocol(PROTO)]
+#define IF_CONFORMS(PROTO,X)  if(CONFORMS(PROTO)){ ({ X; }) }
+
+#define    GETALIASF(X)        return [self floatForKey:@#X]  // [self vFK:NSStringify(X)];    [value getValue: ptr];    (const char * typeCode, void * value); [self  X]
+#define    SETALIAS(X,V)      [self sV:V fK:@#X]
+
+//#define REFUSE_CLASSES(SPLIT)
+//	[NSException raise:@"NonConformantProtocolMethodFallThrough" format:@"This concrete protocol NEEDS YOU (%@) to
+
+#define YOU_DONT_BELONG return [NSException raise:@"ProtocolIsOverridingYourMethod" format:@"You already implement %@. why are you (%@) here?", AZSELSTR, self]
+
+#define DEMAND_CONFORMANCE	[NSException raise:@"NonConformantProtocolMethodFallThrough" format:@"This concrete protocol NEEDS YOU (%@) to implement this method,.. %@ elsewhere... for internal peace and traquility.",self.className, AZSELSTR]
+
+#ifndef AZO
+#define AZO AZOrient
+#endif
+//- (BOOL) isVertical;
+
+
 #define ISKINDA isKindOfClass                                 /*! @code  [@"d" ISKINDA:NSNumber.class]   -> NO     */
 #define ISA(OBJ,KLS) (BOOL)([((id)OBJ) ISKINDA:[KLS class]])	/*! @code  ISA(@"apple",NSString)          -> YES    */
 #define ISNOTA(OBJ,KLASS) (BOOL)(!ISA(((id)OBJ),KLASS))       /*! @code  ISA(@"apple",NSString)          -> YES    */
 #define AM_I_A(KLASS) ISA(self,KLASS)                         /*! @code  AM_I_A(NSString)                -> YES    */
 
-#define ANYSUPERLAYERISA 
-
+///#define ANYSUPERLAYERISA
 
 //OBJC_EXPORT  BOOL AZISAAnyOfThese(Class x, ...); // under construction
 
@@ -83,6 +105,11 @@ OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...);
 
 #define EQUAL2ANYOF(OBJ,...) (BOOL)AZEqualToAnyObject(OBJ,__VA_ARGS__)
 
+#define ISIN(X,ARRAY) [ARRAY containsObject:X]
+
+#define IS_IN_STATIC_SPLIT(NEEDLE,...) ISIN(NEEDLE,SPLIT(__VA_ARGS__))
+
+// ({ AZSTATIC_OBJ(NSA,HAYSTACK,SPLIT(HAYSTACK)); [HAYSTACK containsObject:NEEDLE]; })
 
 #define ISACLASS(OBJ) class_isMetaClass(object_getClass(OBJ))
 
@@ -131,12 +158,27 @@ FOUNDATION_STATIC_INLINE void logger(NSS*toLog){ runCommand($(@"logger %@", toLo
 FOUNDATION_STATIC_INLINE NSS* AZRunAppleScipt(NSS*scriptText){   // multi line string literal
 
   return ((NSAppleEventDescriptor*)[[NSAppleScript.alloc initWithSource:scriptText]
-                                                  executeAndReturnError:nil]).sV;
+                                                  executeAndReturnError:nil]).strV;
 }
 
 //NS_INLINE void playChirp  (void){ runCommand(@"afplay \"/System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/PlugIns/Twitter.sharingservice/Contents/Resources/tweet_sent.caf\""); }
 //NS_INLINE void playSound  (void){ runCommand(@"afplay \"/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/accessibility/Sticky Keys ON.aif\"");}
 
+
+NS_INLINE int  hexToInt ( char  hex ) { return  hex >= '0' && hex <= '9' ? hex - '0'
+                          : hex >= 'a' && hex <= 'f' ? hex - 'a' + 10
+                        :   hex >= 'A' && hex <= 'F'  ? hex - 'A' + 10 : -1;
+} // Convert hex to an int
+
+NS_INLINE  char intToHex ( NSI dig ) { return dig > 9 ? ( dig <= 0xf ? ('a' + dig - 10) : '\0') : dig >= 0 ? '0' + dig : '\0' ; /*NUL*/ } // Convert int to a hex
+
+#define ONE_THIRD (1.0f / 3.0)
+#define ONE_SIXTH (1.0f / 6.0)
+#define TWO_THIRD (2.0f / 3.0)
+
+#define AZNormalFloat(x) x = x < 0 ? 0 : x > 1 ? 1 : x
+
+FOUNDATION_STATIC_INLINE CGFloat rF (){ return (CGFloat)((arc4random()%255)/255.); }
 
 NSG* GradForClr(azkColor c);
 NSC* Clr(azkColor c);
@@ -278,16 +320,16 @@ static inline BOOL NSRangeContainsRange( NSRNG range1, NSRNG range2) {
 
 //NS_INLINE void AZShowWindow(NSW*w){  [w setHidden]
 
-NS_INLINE	NSW* NSWINDOWINIT(NSR frame, NSUI mask){
+NS_INLINE	NSW* NSWINDOWINIT(NSR frame, NSUI mask){ AZSHAREDAPP; AZSHAREDAPP.activationPolicy = NSApplicationActivationPolicyRegular;
 
 //  print(@"NSWINDOWINIT frame:", AZString(frame), @" mask:", AZString(mask), nil);
-	return	[NSW.alloc initWithContentRect:frame styleMask:mask == NSNotFound ? 1|2|4|8 : /* 1 << 3*/ mask backing:2 defer:NO];
+	NSW* w =	[NSW.alloc initWithContentRect:frame styleMask:mask == NSNotFound ? 1|2|4|8 : /* 1 << 3*/ mask backing:2 defer:NO]; [NSApp activateIgnoringOtherApps:YES]; [w makeKeyAndOrderFront:nil]; return w;
 }
 NS_INLINE	NSW* AZBORDLESSWINDOWINIT	(NSR frame) {
 
 	return 	[NSW.alloc initWithContentRect:frame styleMask:(1|8) backing:2 defer:NO];
 }
-#define AZWINDOWINIT NSWINDOWINIT(AZRectFromDim(100),1)
+#define AZWINDOWINIT NSWINDOWINIT(AZRectFromDim(100),1|2|4|8)
 
 #define AZBORDERLESSWIN AZBORDLESSWINDOWINIT(AZRectFromDim(100))
 
@@ -495,7 +537,7 @@ CGPathRef AZRandomPathInRect(NSR rect);
 
 /*
  extern NSArray* iconic = [iconicStrings array]
- static NSArray* iconicStrings = @[ @"ampersand.pdf", @"aperture_alt.pdf", @"aperture.pdf", @"arrow_down_alt1.pdf", @"arrow_down_alt2.pdf", @"arrow_down.pdf", @"arrow_left_alt1.pdf", @"arrow_left_alt2.pdf", @"arrow_left.pdf", @"arrow_right_alt1.pdf", @"arrow_right_alt2.pdf", @"arrow_right.pdf", @"arrow_up_alt1.pdf", @"arrow_up_alt2.pdf", @"arrow_up.pdf", @"article.pdf", @"at.pdf", @"award_fill.pdf", @"award_stroke.pdf", @"bars_alt.pdf", @"bars.pdf", @"battery_charging.pdf", @"battery_empty.pdf", @"battery_full.pdf", @"battery_half.pdf", @"beaker_alt.pdf", @"beaker.pdf", @"bolt.pdf", @"book_alt.pdf", @"book_alt2.pdf", @"book.pdf", @"box.pdf", @"brush_alt.pdf", @"brush.pdf", @"calendar_alt_fill.pdf", @"calendar_alt_stroke.pdf", @"calendar.pdf", @"camera.pdf", @"cd.pdf", @"chart_alt.pdf", @"chart.pdf", @"chat_alt_fill.pdf", @"chat_alt_stroke.pdf", @"chat.pdf", @"check_alt.pdf", @"check.pdf", @"clock.pdf", @"cloud_download.pdf", @"cloud_upload.pdf", @"cloud.pdf", @"cog_alt.pdf", @"cog.pdf", @"comment_alt1_fill.pdf", @"comment_alt1_stroke.pdf", @"comment_alt2_fill.pdf", @"comment_alt2_stroke.pdf", @"comment_alt3_fill.pdf", @"comment_alt3_stroke.pdf", @"comment_fill.svg.pdf", @"comment_stroke.svg.pdf", @"compass.svg.pdf", @"cursor.svg.pdf", @"curved_arrow.svg.pdf", @"denied_alt.svg.pdf", @"denied.svg.pdf", @"dial.svg.pdf", @"document_alt_fill.svg.pdf", @"document_alt_stroke.svg.pdf", @"document_fill.svg.pdf", @"document_stroke.svg.pdf", @"download.svg.pdf", @"eject.svg.pdf", @"equalizer.svg.pdf", @"eye.svg.pdf", @"eyedropper.svg.pdf", @"first.svg.pdf", @"folder_fill.svg.pdf", @"folder_stroke.svg.pdf", @"fork.svg.pdf", @"fullscreen_alt.svg.pdf", @"fullscreen_exit_alt.svg.pdf", @"fullscreen_exit.svg.pdf", @"fullscreen.svg.pdf", @"hash.svg.pdf", @"headphones.svg.pdf", @"heart_fill.svg.pdf", @"heart_stroke.svg.pdf", @"home.svg.pdf", @"image.svg.pdf", @"info.svg.pdf", @"iphone.svg.pdf", @"key_fill.svg.pdf", @"key_stroke.svg.pdf", @"last.svg.pdf", @"layers_alt.svg.pdf", @"layers.svg.pdf", @"left_quote_alt.svg.pdf", @"left_quote.sv
+ static NSArray* iconicStrings = @[ @"ampersand.pdf", @"aperture_alt.pdf", @"aperture.pdf", @"arrow_down_alt1.pdf", @"arrow_down_alt2.pdf", @"arrow_down.pdf", @"arrow_left_alt1.pdf", @"arrow_left_alt2.pdf", @"arrow_left.pdf", @"arrow_right_alt1.pdf", @"arrow_right_alt2.pdf", @"arrow_right.pdf", @"arrow_up_alt1.pdf", @"arrow_up_alt2.pdf", @"arrow_up.pdf", @"article.pdf", @"at.pdf", @"award_fill.pdf", @"award_stroke.pdf", @"bars_alt.pdf", @"bars.pdf", @"battery_charging.pdf", @"battery_empty.pdf", @"battery_full.pdf", @"battery_half.pdf", @"beaker_alt.pdf", @"beaker.pdf", @"bolt.pdf", @"book_alt.pdf", @"book_alt2.pdf", @"book.pdf", @"box.pdf", @"brush_alt.pdf", @"brush.pdf", @"calendar_alt_fill.pdf", @"calendar_alt_stroke.pdf", @"calendar.pdf", @"camera.pdf", @"cd.pdf", @"chart_alt.pdf", @"chart.pdf", @"chat_alt_fill.pdf", @"chat_alt_stroke.pdf", @"chat.pdf", @"check_alt.pdf", @"check.pdf", @"clock.pdf", @"cloud_download.pdf", @"cloud_upload.pdf", @"cloud.pdf", @"cog_alt.pdf", @"cog.pdf", @"comment_alt1_fill.pdf", @"comment_alt1_stroke.pdf", @"comment_alt2_fill.pdf", @"comment_alt2_stroke.pdf", @"comment_alt3_fill.pdf", @"comment_alt3_stroke.pdf", @"comment_fill.svg.pdf", @"comment_stroke.svg.pdf", @"compass.svg.pdf", @"cursor.svg.pdf", @"curved_arrow.svg.pdf", @"denied_alt.svg.pdf", @"denied.svg.pdf", @"dial.svg.pdf", @"document_alt_fill.svg.pdf", @"document_alt_stroke.svg.pdf", @"document_fill.svg.pdf", @"document_stroke.svg.pdf", @"download.svg.pdf", @"eject.svg.pdf", @"equalizer.svg.pdf", @"eye.svg.pdf", @"eyedropper.svg.pdf", @"first.svg.pdf", @"folder_fill.svg.pdf", @"folder_stroke.svg.pdf", @"fork.svg.pdf", @"fullscreen_alt.svg.pdf", @"fullscreen_exit_alt.svg.pdf", @"fullscreen_exit.svg.pdf", @"fullscreen.svg.pdf", @"hash.svg.pdf", @"headphones.svg.pdf", @"heart_fill.svg.pdf", @"heart_stroke.svg.pdf", @"home.svg.pdf", @"image.svg.pdf", @"info.svg.pdf", @"iphone.svg.pdf", @"key_fill.svg.pdf", @"key_stroke.svg.pdf", @"last.svg.pdf", @"layers_alt.svg.pdf", @"layers.svg.pdf", @"left_quote_alt.svg.pdf", @"left_quote.strV
  g.pdf", @"lightbulb.svg.pdf", @"link.svg.pdf", @"list.svg.pdf", @"lock_fill.svg.pdf", @"lock_stroke.svg.pdf", @"loop_alt1.svg.pdf", @"loop_alt2.svg.pdf", @"loop_alt3.svg.pdf", @"loop_alt4.svg.pdf", @"loop.svg.pdf", @"magnifying_glass_alt.svg.pdf", @"magnifying_glass.svg.pdf", @"mail_alt.svg.pdf", @"mail.svg.pdf", @"map_pin_alt.svg.pdf", @"map_pin_fill.svg.pdf", @"map_pin_stroke.svg.pdf", @"mic.svg.pdf", @"minus_alt.svg.pdf", @"minus.svg.pdf", @"moon_fill.svg.pdf", @"moon_stroke.svg.pdf", @"move_alt1.svg.pdf", @"move_alt2.svg.pdf", @"move_horizontal_alt1.svg.pdf", @"move_horizontal_alt2.svg.pdf", @"move_horizontal.svg.pdf", @"move_vertical_alt1.svg.pdf", @"move_vertical_alt2.svg.pdf", @"move_vertical.svg.pdf", @"move.svg.pdf", @"movie.svg.pdf", @"new_window.svg.pdf", @"pause.svg.pdf", @"pen_alt_fill.svg.pdf", @"pen_alt_stroke.svg.pdf", @"pen_alt2.svg.pdf", @"pen.svg.pdf", @"pilcrow.svg.pdf", @"pin.svg.pdf", @"play_alt.svg.pdf", @"play.svg.pdf", @"plus_alt.svg.pdf", @"plus.svg.pdf", @"question_mark.svg.pdf", @"rain.svg.pdf", @"read_more.svg.pdf", @"reload_alt.svg.pdf", @"reload.svg.pdf", @"right_quote_alt.svg.pdf", @"right_quote.svg.pdf", @"rss_alt.svg.pdf", @"rss.svg.pdf", @"share.svg.pdf", @"spin_alt.svg.pdf", @"spin.svg.pdf", @"star.svg.pdf", @"steering_wheel.svg.pdf", @"stop.svg.pdf", @"sun_alt_fill.svg.pdf", @"sun_alt_stroke.svg.pdf", @"sun.svg.pdf", @"tag_fill.svg.pdf", @"tag_stroke.svg.pdf", @"target.pdf", @"transfer.pdf", @"trash_fill.pdf", @"trash_stroke.pdf", @"umbrella.pdf", @"undo.pdf", @"unlock_fill.pdf", @"unlock_stroke.pdf", @"upload.pdf", @"user.pdf", @"volume_mute.pdf", @"volume.pdf", @"wrench.pdf", @"x_alt.pdf", @"x.pdf"];	*/
 
 

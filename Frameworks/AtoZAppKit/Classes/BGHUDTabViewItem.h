@@ -7,7 +7,7 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "BGThemeManager.h"
 
 @interface BGHUDTabViewItem : NSTabViewItem {

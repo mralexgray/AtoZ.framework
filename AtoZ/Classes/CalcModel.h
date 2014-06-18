@@ -2,6 +2,7 @@
 	//  Calc
 	//  Created by Tom Gallacher on 15/11/2010.
 
+#import <Foundation/Foundation.h>
 
 typedef enum _arithmeticOperator {
 	noFish = 0,

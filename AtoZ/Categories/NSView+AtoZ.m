@@ -231,20 +231,6 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 */
 - (CAL*) guaranteedLayer {  return self.layer ?: self.setupHostView; }
 
-- (NSSplitView*) split {
-
-	NSSPLTV *newSplt = nil;
-  @synchronized(self) {
-    newSplt = [NSSPLTV viewWithFrame:self.bounds mask:self.autoresizingMask];
-    newSplt.vertical              = ISA(self,NSSPLTV) ? !((NSSPLTV*)self).isVertical : YES;
-    newSplt.dividerStyle          = NSSplitViewDividerStyleThick;
-    __strong __typeof__(self) selfish = ISA(self,NSClipView) ? self.enclosingScrollView : self;
-    [self isEqual:self.window.contentView] ? [self.window setContentView:newSplt]
-                                           : [self.superview addSubview:newSplt];
-    newSplt.subviews = @[selfish, [AZSimpleView withFrame:self.bounds color:AtoZ.globalPalette.nextNormalObject]];
-  }
-	return newSplt;
-}
 - (void) debug                      { [self debuginQuadrant:AZQuadBotLeft]; }
 - (void) debuginQuadrant:(AZQuad)q  {
 	
@@ -615,11 +601,21 @@ static char const * const ISANIMATED_KEY  = "ObjectRep";
 //Remove all the subviews from a view
 - (void)removeAllSubviews;
 {
-	NSEnumerator* enumerator = [[self subviews] reverseObjectEnumerator];
-	NSV* view;
-	
-	while (view = [enumerator nextObject])
-		[view removeFromSuperviewWithoutNeedingDisplay];
+  while (self.subviews.count) {
+    id x = self.lastSubview;
+    NSLog(@"%@: trying to remove subview (%@) %lu of %lu", self, [x className],
+    [self.subviews indexOfObject:x], self.subviews.count);
+
+    [x performSelectorOnMainThread:@selector(removeFromSuperview)];
+
+  }
+//  for (id v in self.subviews.reversed)
+//	NSEnumerator* enumerator = [[self subviews] reverseObjectEnumerator];
+//	NSV* view;
+
+//	while (view = [enumerator nextObject])
+//		[v removeFromSuperview];
+
 }
 
 //NSArray 	*subviews;  int		loop;

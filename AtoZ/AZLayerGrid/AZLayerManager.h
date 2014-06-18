@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 @interface AZLayerManager : NSObject
 @end
 /* Abstract: Abstract superclass of regular geometric grids of GridCells that Bits can be placed on.

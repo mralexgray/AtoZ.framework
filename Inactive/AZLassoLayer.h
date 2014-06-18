@@ -9,9 +9,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 //#import "AtoZAutoBox/AtoZAutoBox.h"
-#import "AtoZSingleton/AtoZSingleton.h"
+//#import "AtoZSingleton/AtoZSingleton.h"
 
-@interface AZLassoLayer : AtoZSingleton
+@interface AZLassoLayer : NSObject// AtoZSingleton
 
 @property (ASS)		CGF strokeMultiplier;
 @property (NATOM,WK) CAL *layer;

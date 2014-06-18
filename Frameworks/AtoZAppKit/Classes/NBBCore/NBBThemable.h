@@ -3,7 +3,7 @@
  * Copyright (C) 2012 Brad Allred
  */
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 @class NBBTheme;
 @protocol NBBThemable <NSObject>

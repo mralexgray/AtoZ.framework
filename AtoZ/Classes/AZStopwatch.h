@@ -12,31 +12,28 @@
 
 #import "AtoZUmbrella.h"
 
-@interface  NSObject (Stopwatch)
-- (void) startTiming;
-- (void) stopTiming;
-@property (readonly) NSS* elapsed;
-@end
-
 
 @interface AZStopwatch : NSObject 
 
 //+ (void) timerBlock:((^)(char *file))block;
+#define AZSTOPWATCH(...) [AZStopwatch named:$UTF8(__PRETTY_FUNCTION__) block:^{ ({ __VA_ARGS__; }); }]
+
 + (void) named:	(NSS*)name block: (VoidBlock)block;
 + (void) stopwatch:(NSS*)name timing:(VoidBlock)block;
 + (void) start:	 (NSS*)name;
 + (void) stop:		 (NSS*)name;
 + (void) print:	 (NSS*)name;
 
-+ (NSString*) runtime:	 (NSString*)name;
++ (NSString*) runtime:(NSString*)name;
 @end
+
 @interface AZStopwatchItem : NSObject
-@property (nonatomic, strong) NSS *name;
-@property (nonatomic, strong) NSDate *started, *stopped;
+@property (nonatomic) NSS *name;
+@property (nonatomic) NSDate *started, *stopped;
 
 //+ (void) timeBlocks:(id)blocks,...;
 
-+ (AZStopwatchItem*) named:(NSS*)name;
++ (INST) named:(NSS*)name;
 - (void) start;
 - (void) stop;
 - (NSS*) runtimePretty;
@@ -44,3 +41,9 @@
 - (double) runtimeMills;
 @end
 
+@interface  NSObject (Stopwatch)
+- (void) startTiming;
+- (void) stopTiming;
+@prop_RO AZStopwatchItem* stopWatch;
+@prop_RO NSS* elapsed;
+@end

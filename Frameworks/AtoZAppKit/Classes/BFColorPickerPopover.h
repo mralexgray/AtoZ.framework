@@ -26,7 +26,7 @@
 	}
 }
 */
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 #define kBFColorPickerPopoverMinimumDragDistance 50.0f
 @class BFIconTabBar, BFIconTabBarItem;

@@ -2,7 +2,9 @@
 
 #import "AtoZUmbrella.h"
 
-#define SAY(X) ({ [AZTalker say:ISA(X,NSS) ? X : [X description]]; })
+#define BRENDA    [AZTalker randomDicksonism]
+#define   SAY(X) ({ [AZTalker sayUntilFinished:ISA(X,NSS) ? X : [X description]]; })
+#define AZSAY(X) SAY(X)
 
 @interface AZTalker : BaseModel <NSSpeechSynthesizerDelegate>
 

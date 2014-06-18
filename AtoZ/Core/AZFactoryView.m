@@ -151,7 +151,7 @@
 										c.duration 	= 2; 
 									 	c.fromValue = @0; 
 										c.toValue 	= @1; return c; 				
-		objcase(@"_selected")   NSC* colore = RANDOMCOLOR; NSString *name = colore.nameOfColor; [name log];
+		objcase(@"_selected")   NSC* colore = RANDOMCOLOR; NSString *name = colore.name; [name log];
 										CAA *coloreA = [CAA backgroundColorAnimationFrom:[self.presentationLayer backgroundNSColor] to:colore duration:2];
 //										[coloreA setCompletion:^(CAA*a, BOOL finished) {
 //											[CATRANNY immediately:^{

@@ -73,11 +73,13 @@
 - (void) drawBlurWithColor:     (NSC*)color   radius:(CGF)radius;
 - (void) strokeWithColor:       (NSC*)color andWidth:(CGF)width inside:(NSR)frame;
 
++ (CGPathRef) cgPR:(NSR)r;
 + (NSBP*) withR:(NSR)r;
 + (NSBP*) bezierPathWithSpringWithCoils:      (NSUI)numCoils inFrame:(NSR)bounds;
 + (NSBP*) bezierPathWithPlateInRect:          (NSR)rect;
 + (NSBP*) bezierPathWithTriangleInRect:       (NSR)aRect orientation: (AZCompass)orientation;
 + (NSBP*) bezierPathWithCappedBoxInRect:      (NSR)rect;
+- (void) appendLineFrom:(NSP)a to:(NSP)b;
 -  (void) appendBezierPathWithTriangleInRect: (NSR)aRect orientation: (AZCompass)orientation;
 -  (void) appendBezierPathWithPlateInRect:    (NSR)rect;
 -  (void) appendBezierPathWithRoundedRect:    (NSR)rect cornerRadius:(float)radius;

@@ -11,46 +11,41 @@
 @import Darwin;
 //#include <glob.h>
 #import <sys/xattr.h>
+#include <sys/types.h>
+#include <dirent.h>
 //#import <sys/sysctl.h>
 //#import <unistd.h>
 //#import <dirent.h>
 //#import <sys/stat.h>
 //#include <assert.h>
 
-NSString *NSDocumentsFolder()
-{
+NSS * NSDocumentsFolder() {
 	return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 }
-
-NSString *NSLibraryFolder()
-{
+NSS * NSLibraryFolder()   {
 	return [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
 }
-
-NSString *NSTmpFolder()
-{
+NSS * NSTmpFolder()       {
 	return [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"];
 }
-
-NSString *NSBundleFolder()
-{
+NSS * NSBundleFolder()    {
 	return [[NSBundle mainBundle] bundlePath];
 }
-
-NSString *NSDCIMFolder()
-{
+NSS * NSDCIMFolder()      {
 	return @"/var/mobile/Media/DCIM";
 }
+
 @implementation NSFileManager (AtoZ)
 
-- (NSA*) pathsOfContentsOfDirectory:(NSString*) directory;
-{
-	NSArray*files = [AZFILEMANAGER contentsOfDirectoryAtPath:[[directory stringByExpandingTildeInPath] stringByResolvingSymlinksInPath] error:nil];
-	return [files map:^id(id obj) {		return [[[directory stringByAppendingPathComponent:obj]stringByExpandingTildeInPath]stringByResolvingSymlinksInPath];}];
+- (NSA*) pathsOfContentsOfDirectory:(NSS*) dir {
+
+	return [[AZFILEMANAGER contentsOfDirectoryAtPath:dir.stringByStandardizingPath error:nil] map:^id(id obj) { return [dir stringByAppendingPathComponent:obj].stringByStandardizingPath;
+  }];
 }
+
 #pragma mark - Globbing
 
-- (NSA*) arrayWithFilesMatchingPattern: (NSString*) pattern inDirectory: (NSString*) directory {
+- (NSA*) arrayWithFilesMatchingPattern:(NSS*)pattern inDirectory:(NSS*) directory {
 
 	NSMutableArray* files = [NSMutableArray array];
 	glob_t gt;
@@ -74,51 +69,56 @@ NSString *NSDCIMFolder()
  iPhone Developer's Cookbook, 3.0 Edition
  BSD License, Use at your own risk	*/
 
-+ (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path
-{
+- (NSS*) pathForItemNamed:(NSS*)fname inFolder:(NSS*)path {
+
 	NSString *file;
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
+	NSDirectoryEnumerator *dirEnum = [self enumeratorAtPath:path];
 	while (file = [dirEnum nextObject])
 		if ([[file lastPathComponent] isEqualToString:fname])
 			return [path stringByAppendingPathComponent:file];
 	return nil;
 }
 
-+ (NSS*) pathForDocumentNamed: (NSS*) fname
-{
-	return [NSFileManager pathForItemNamed:fname inFolder:NSDocumentsFolder()];
+- (NSS*) pathForDocumentNamed:(NSS*)fname {
+	return [self pathForItemNamed:fname inFolder:NSDocumentsFolder()];
 }
 
-+ (NSS*) pathForBundleDocumentNamed: (NSS*) fname
-{
-	return [NSFileManager pathForItemNamed:fname inFolder:NSBundleFolder()];
+- (NSS*) pathForBundleDocumentNamed:(NSS*)fname {
+	return [self pathForItemNamed:fname inFolder:NSBundleFolder()];
 }
 
-+ (NSA*) filesInFolder: (NSS*) path
-{
+- (NSA*) filesInFolder:(NSS*)path {
 	NSString *file;
 	NSMutableArray *results = [NSMutableArray array];
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
+	NSDirectoryEnumerator *dirEnum = [self enumeratorAtPath:path];
 	while (file = [dirEnum nextObject])
 	{
 		BOOL isDir;
-		[[NSFileManager defaultManager] fileExistsAtPath:[path stringByAppendingPathComponent:file] isDirectory: &isDir];
+		[self fileExistsAtPath:[path stringByAppendingPathComponent:file] isDirectory: &isDir];
 		if (!isDir) [results addObject:file];
 	}
 	return results;
 }
 
-+ (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext
-{
+- (NSA*) pathsForItemsInFolder:(NSS*)path withExtension:(NSS*)ext {
 	NSError *error = nil;
-	return [[AZFILEMANAGER contentsOfDirectoryAtPath:path error:&error] filter:^BOOL(NSS* object) {
+	return [[self contentsOfDirectoryAtPath:path error:&error] filter:^BOOL(NSS* object) {
 		return [path.pathExtension isEqual:ext];
 	}];
 }
 
 	// Case insensitive compare, with deep enumeration
-+ (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path
-{
+- (NSA*) pathsForItemsNamed:(NSS*)name inFolder:(NSS*)path {
+
+	NSString *file;	 AZNewVal(results,NSMA.new); AZNewVal(dirEnum, [self enumeratorAtPath:path]);
+
+  while (file = dirEnum.nextObject)
+    if ([file.lastPathComponent isCaseInsensitiveEqualToString:name])
+			[results addObject:[path withPath:file]];
+	return results;
+
+}
+- (NSA*) pathsForItemsMatchingExtension:(NSS*)ext inFolder:(NSS*)path {
 //	NSString *file;
 //	NSMutableArray *results = [NSMutableArray array];
 //	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
@@ -129,7 +129,7 @@ NSString *NSDCIMFolder()
 
 	NSString *file;
 	NSMA *results = NSMA.new;
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:path];
+	NSDirectoryEnumerator *dirEnum = [self enumeratorAtPath:path];
 
 	while (file = [dirEnum nextObject]) {
 	
@@ -140,41 +140,35 @@ NSString *NSDCIMFolder()
 
 }
 
-+ (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext
-{
-	return [NSFileManager pathsForItemsMatchingExtension:ext inFolder:NSDocumentsFolder()];
+- (NSA*) pathsForDocumentsMatchingExtension:(NSS*)ext {
+	return [self pathsForItemsMatchingExtension:ext inFolder:NSDocumentsFolder()];
 }
 
 	// Case insensitive compare
-+ (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext
-{
-	return [NSFileManager pathsForItemsMatchingExtension:ext inFolder:NSBundleFolder()];
+- (NSA*)  pathsForBundleDocumentsMatchingExtension:(NSS*)ext                {
+	return [self pathsForItemsMatchingExtension:ext inFolder:NSBundleFolder()];
 }
-
-
-+ (NSA*) pathsOfFilesIn:(NSString*)path matchingPattern:(NSString*)regex {
+- (NSA*) pathsOfFilesIn:(NSS*)path matchingPattern:(NSS*)regex              {
 
 	glob_t gt;
 	NSMutableArray* globber = NSMutableArray.new;
 	int exit = glob($(@"%@/%@",path.stringByStandardizingPath,regex).UTF8String, 0, NULL, &gt);
 	if (exit != 0) return nil;
 	for (int i = 0; i < gt.gl_matchc; i++)
-		[globber addObject:[self.defaultManager stringWithFileSystemRepresentation:gt.gl_pathv[i] length:strlen(gt.gl_pathv[i])].copy];
+		[globber addObject:[self stringWithFileSystemRepresentation:gt.gl_pathv[i] length:strlen(gt.gl_pathv[i])].copy];
 	globfree(&gt);
 	return globber;
 }
-
-+ (NSA*) pathsOfFilesIn:(NSString*)path withExtension:(NSString*)ext {
+- (NSA*) pathsOfFilesIn:(NSS*)path   withExtension:(NSS*)ext                {
 
 	return [self pathsOfFilesIn:path passing:^BOOL(NSString*testP){
 		return [testP.pathExtension isEqualToString:ext]; 
 	}];
 }
-
-+ (NSA*) pathsOfFilesIn:(NSString*)path passing:(BOOL(^)(NSString*))testBlock {
+- (NSA*) pathsOfFilesIn:(NSS*)path         passing:(BOOL(^)(NSS*))testBlock {
 	
 	NSMutableArray *globber = NSMutableArray.new;
-	for (NSString* file in [self.defaultManager contentsOfDirectoryAtPath:path.stringByStandardizingPath error:nil])
+	for (NSString* file in [self contentsOfDirectoryAtPath:path.stringByStandardizingPath error:nil])
 		if (testBlock(file)) [globber addObject:[path stringByAppendingPathComponent:file]];
 	return globber.copy;
 }
@@ -474,8 +468,6 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	}
 	return YES;
 }
-#include <sys/types.h>
-#include <dirent.h>
 
 - (NSA*) _itemsInDirectoryAtPath:(NSString*)path invisible:(BOOL)invisible type1:(mode_t)type1 type2:(mode_t)type2 {
 	NSMutableArray* array = nil;
@@ -605,16 +597,18 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 #import <Carbon/Carbon.h>
 
 @implementation NSString (CarbonUtilities)
-
-+ (NSS*)stringWithFSRef:(const FSRef *)aFSRef	{
+- (NSS*) humanReadableFileTypeForFileExtension {
+  return humanReadableFileTypeForFileExtension([self containsString:@"."] ? self.pathExtension : self);
+}
++ (NSS*) stringWithFSRef:(const FSRef *)aFSRef	{
 	if( !aFSRef )		return nil;
 	UInt8			thePath[PATH_MAX + 1];		// plus 1 for \0 terminator
 	return (FSRefMakePath ( aFSRef, thePath, PATH_MAX ) == noErr) ? [NSString stringWithUTF8String: (char*) thePath] : nil;
 }
-- (BOOL)getFSRef:(FSRef *)aFSRef								{
+- (BOOL) getFSRef:(FSRef *)aFSRef								{
 	return FSPathMakeRef( (UInt8*) [self UTF8String], aFSRef, NULL ) == noErr;
 }
-- (NSS*)resolveAliasFile								{
+- (NSS*) resolveAliasFile								{
 	FSRef			theRef;		Boolean		theIsTargetFolder,
 	theWasAliased;				NSString		* theResolvedAlias = nil;;
 	[self getFSRef:&theRef];

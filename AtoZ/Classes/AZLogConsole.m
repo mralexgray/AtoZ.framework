@@ -16,7 +16,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 	if ([_delegate respondsToSelector:@selector(textWasEntered:)]) [_delegate textWasEntered:term.string];
 }
 
-- 	 (id) init								{	if (self != [super init]) return nil;
+- 	 (id) init								{	if (!(self = super.init)) return nil;
 
 	_autoOpens	= YES;		_logPath		= NULL;
 	inited		= YES;		_tokensForCompletion = NSMA.new;
@@ -161,7 +161,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 }
 - (void) action:(id)sender{	NSLog(@"You selected Menu Item: %@",sender);	}
 - (NSMenu*) tokenField:(MTTokenField*)tokenField menuForToken:(NSS*)string atIndex:(NSUI) index	{
-	NSMenu * test = [[NSMenu.alloc init] autorelease];
+	NSMenu * test = NSMenu.new;
 	NSArray * itemNames = [NSArray arrayWithObjects:@"Cut",@"Copy",@"Paste",@"-", [NSString stringWithFormat:@"Add %@ to preferences",string], nil];
 	for (NSString *aName in itemNames){
 		if ([aName isEqualToString:@"-"]){

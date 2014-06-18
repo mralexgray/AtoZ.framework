@@ -1,30 +1,41 @@
 
+@import QuartzCore;
+
 #import "AtoZ.h"
 #import "CAShapeLayer+AtoZ.h"
 #define SHAREDLASSO self.class.sharedLasso
 #define ROOTL SHAREDLASSO.root
 
 @interface       Lasso   ()
-@property          CAL * root;
-@property (weak)   CAL * hit;
-@property       CASHLA * lasso,
-                       * highlight;
+@property (weak)   CAL * hit;                     // victim, weakling (public via class getter)
+@property          CAL * root;                    // host
+@property       CASHLA * lasso, * highlight;      // two pieces o'twine
 @end
-@implementation  Lasso  SYNTHESIZE_SINGLETON_FOR_CLASS(Lasso,sharedLasso); static BOOL enabled = NO;
+@implementation                Lasso
+SYNTHESIZE_SINGLETON_FOR_CLASS(Lasso,sharedLasso); static BOOL enabled = NO;
 
 -   (id) init             { SUPERINIT;
 
-  (_root = CAL.noHitLayer).sublayers = @[_highlight = CASHLA.noHitLayer, _lasso = CASHLA.noHitLayer];
-  _root.zPosition         = 120000;
-  _highlight.strokeColor  = cgWHITE;
-  [_root disableResizeActions];
-  [_lasso b:@"lineDashPattern" tO:_lasso wKP:@"dynamicDash" o:nil]; return self;
+  (_root = CAL.noHitLayer).sublayers = @[_highlight = CASHLA.noHitLayer,    _lasso = CASHLA.noHitLayer];
+   /*_root.zPosition = 120000;*/        _highlight.strokeColor = cgWHITE;  [_lasso   b:@"lineDashPattern"
+                                                                         tO:_lasso wKP:@"dynamicDash" o:nil];
+  [_root disableResizeActions]; return self;
 }
-+ (void) setEnabled:(BOOL)e { if (!(enabled = e)) [self setFree]; }
+
++ (void) setEnabled:(BOOL)e { if (!(enabled = e)) [self setFree]; } // liberate if we just disabled.
 + (BOOL) enabled            { return enabled; }
-+ (BOOL) toggle             { [self.class setEnabled:!enabled]; return enabled; }
++ (BOOL) toggle             { self.enabled =! self.enabled; return self.enabled; }
 + (void) setFree            { IF_VOID(!SHAREDLASSO.hit); [ROOTL removeFromSuperlayer]; SHAREDLASSO.hit = nil; }
-+ (void) rope:(CAL*)lyr     { IF_VOID(!lyr || ISNOTA(lyr,CAL) || !enabled || EQUAL2ANYOF(lyr, ROOTL.superlayer, ROOTL, nil));
++ (void) rope:(CAL*)lyr     {
+
+IF_VOID(          !lyr          // require thatthe layer exist
+||          ISNOTA(lyr,CAL)     // that it be and ACTUAL layer
+||        !enabled              // weareglobally enabled
+|| EQUAL2ANYOF(    lyr,         // and the layer AINT any o these!
+                 ROOTL.         // can't lasso yourself!
+            superlayer,         //
+                 ROOTL,
+                        nil));
 
   [ROOTL removeFromSuperlayer];
   [ROOTL bindFrameToBoundsOf:lyr];
@@ -41,37 +52,53 @@
   self.strokeColor  = cgBLACK;
   self.lineJoin     = kCALineJoinRound;
   self.zPosition    = 10000;
-  self.pathForRect  = ^NSBP*(CASHL *l){ return [NSBP withR:AZInsetRect(l.bounds, l.dynamicStroke/2.)]; };
+  self.pathForRect  = ^NSBP*(CASHL *l){
+
+    return [NSBP withR:AZInsetRect(l.bounds, l.dynamicStroke/2.)];
+  };
   [self b:@"lineWidth"   to:@"dynamicStroke" using:@1 type:BindTypeIfNil];
   [self b:@"path"      toKP:@"calculatedPath"];
   return self;
 }
-- (void) didMoveToSuperlayer { AZLOGCMD;
+- (void) didMoveToSuperlayer { AZLOGCMD; [self bindFrameToBoundsOf:self.superlayer]; }
 
+- (ACT) actionForKey:(NSS*)k { return [@[ kCAOnOrderIn, kCAOnOrderOut] containsObject:k] ? ({
+
+  CABA *a = [CABA animationWithKeyPath:@"strokeStart"];
+  a.toValue = SameString(k,@"onOrderIn") ? @1 : @0;// ? @(self.perimeter) : @0;
+  CABA *b = [CABA animationWithKeyPath:@"lineDashPhase"];
+  b.toValue = SameString(k,@"onOrderIn") ? @(self.perimeter) : @0;
+  CABA *c = [CABA animationWithKeyPath:@"strokeEnd"];
+  b.toValue = SameString(k,@"onOrderIn") ? @(self.perimeter) : @0;
+
+  a.duration = b.duration = .6;
+  CAAnimationGroup*g = CAAnimationGroup.new; g.animations = @[a,b]; g;  }) : nil;
+}
+
+//  return SameString(k,@"onOrderIn") ? CAA.fadeInAnimation :
+//         SameString(k,@"onOrderOut") ? CAA.fadeOutAnimation:
 //  self.superlayer.loM = AZLAYOUTMGR;
 //  [self addConstraintsSuperSize];
 //  [self.superlayer setNeedsLayout];
-
 //[self b:@"bounds" tO:self.superlayer wKP:@"bounds" o:nil];
-//[self b:@"position" tO:self.superlayer wKP:@"position" o:nil];
-//}
-  [self bindFrameToBoundsOf:self.superlayer];
-}
+//[self b:@"position" tO:self.superlayer wKP:@"position" o:nil]; }
 
-- (ACT) actionForKey:(NSS*)k { return SameString(k,@"onOrderIn") ? CAA.fadeInAnimation :
-                                      SameString(k,@"onOrderOut") ? CAA.fadeOutAnimation: nil;
-}
 
 @end
 
-@implementation CAShapeLayer (Lassos) SYNTHESIZE_ASC_CAST(pathForRect, setPathForRect,PathBlock);
+@implementation CAShapeLayer (Lassos)
 
-+ (NSST*) keyPathsForValuesAffectingCalculatedPath   { return NSSET(@"bounds", @"position"); }
-+ (NSST*) keyPathsForValuesAffectingDynamicStroke    { return NSSET(@"bounds");              }
-+ (NSST*) keyPathsForValuesAffectingDynamicDash      { return NSSET(@"dynamicStroke", @"superlayer");       }
--  (CGPR) calculatedPath                             { NSBP *p;
+
+SetKPfVA( DynamicDash,    @"dynamicStroke", @"superlayer");
+SetKPfVA( CalculatedPath, @"bounds",          @"position");
+SetKPfVA( DynamicStroke,  @"bounds");
+
+SYNTHESIZE_ASC_CAST(pathForRect, setPathForRect,PathBlock);
+
+-  (CGPR) calculatedPath { NSBP *p;
 
   NSLog(@"calculating path for rect:%@%@", AZStringFromRect(self.bounds), self.name ? [@" for layer named:" withString:self.name] : @"");
+
   return ((p = self.pathForRect ?  self.pathForRect(self)
                                 : [NSBP bezierPathWithRoundedRect:self.frame cornerRadius:self.cornerRadius]))
                                 ? p.quartzPath : self.path;
@@ -98,9 +125,46 @@
 @end
 @implementation AZTextLayer
 @end
-@implementation CATextLayer (AtoZ)
+@implementation CATextLayer (AtoZ) @dynamic sizeToFit;
 
+- (NSAS*) attributedString {
+
+ return [NSAS.alloc initWithString:self.string attributes:self.fontAttributes];
+}
 +     (NSST*) keyPathsForValuesAffectingStringBounds  { return NSSET(@"string", @"font", @"fontSize"); }
+
+- (void) setSizeToFit:(BOOL)sizeToFit {
+
+  self.arMASK = CASIZEABLE;
+  [self addObserverForKeyPath:@"bounds" task:^(CATXTL* sender) {
+
+
+      CGF x = [sender.attributedString pointSizeForSize:sender.size];
+      XX(x);  [sender setFontSize:x];
+//       [sender.string pointSizeForFrame:sender.bounds withFont:sender.font]];
+
+    }];
+}
+
+//    NSMAS *maString = [sender attributedString].mC;
+//    NSR cellFrame   = [sender bounds];
+//    NSSZ stringSize = maString.size;
+
+//    if (stringSize.width > cellFrame.size.width) {
+//      while (stringSize.width > cellFrame.size.width) {
+//        NSFont *font = [maString attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
+//        [maString addAttribute:NSFontAttributeName value:
+//                 [NSFont fontWithName:font.fontName size:[font.fontDescriptor[NSFontSizeAttribute] floatValue] - 0.5]
+//                                                   range:[(NSS*)maString range]];
+//          stringSize = maString.size;
+//      }
+//    }
+//    [(CATXTL*)sender setFontSize:stringSize];
+//    NSR dRect            = cellFrame;
+//    dRect.size.height    = stringSize.height;
+//    dRect.origin.y      += (cellFrame.size.height - stringSize.height) / 2;
+//    [maString drawInRect:dRect];
+
 -       (NSR) stringBounds                            { if (!self.string) return NSZeroRect;
 
 	NSAttributedString *as=  [self.string isKindOfClass:NSAttributedString.class] ? self.string : ^{
@@ -130,6 +194,7 @@
 		
   return AZCenteredRect([as size], self.frame);
 }
+
 -      (void) adjustBoundsToFit                       { self.frame = self.stringBounds; }
 
 -      (NSS*) name        {  return [super name] ?: [self string] ?: nil; }

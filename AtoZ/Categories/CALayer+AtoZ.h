@@ -33,8 +33,20 @@
 
 @interface CAL (AtoZ)
 
-@property (CP) EventBlock eventBlock;
-@property (CP) LayerBlock wasHit, mouseOver, sublayerMouseOverBlock;
+//- (void) on:(NSEventMask)mask do:(SenderEvent)b; // FIX
+
+@prop_NA id eventMonitor;
+@prop_NA NSEventMask eventMask;
+@prop_RO IndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
+
+/*! @see swizzleHitTest for swizled implementation enablig this! */
+@prop_CP  IDBlk onHit, onHover; // SenderEvent
+
+//- (CAL*) hoverTest:(NSP)pt; // FIX
+
+- (void) setOnHit:(IDBlk)wasHit;
+- (void) setOnHover:(IDBlk)wasHit;
+
 //- (void) setWasHit:(LayerBlock)b; - (void) setMouseOverBlock:(LayerBlock)b;
 //@property (CP) void(^sublayerMouseOverBlock)(CAL*);
 
@@ -53,7 +65,8 @@
                          siblingIndexMax;     // SUPER -> @[A,B,C]  B.siblingIndexMax     = 2 (C)
 @property (RONLY) BOOL   siblingIndexIsEven;  // SUPER -> @[A,B,C]  B.siblingIndexIsEven  = NO
 @property (RONLY)  CAL * siblingNext,
-                       * siblingPrev;
+                       * siblingPrev,
+                       * hostLayer; // View's layer. Handles all events.
 @property (WK)     NSV * hostView;
 
 @property (RONLY)  NSA * sublayersRecursive,
@@ -75,7 +88,6 @@
 - (void)  removeActionsForKeys:(NSA*)ks;
 - (void)  setNeedsLayoutForKey:(NSS*)k;        // triggers layout on KVO change;
 - (void) setNeedsDisplayForKey:(NSS*)k;        // triggers layout on KVO change;
-
 
 - (void) setFilterName:(NSS*)n;
 - (void) disableResizeActions;
@@ -112,11 +124,10 @@
 @property AZStatus spinning;
 
 - (void) moveToFront;
-
 - (void) setValue:(id)v forKeyPath:(NSS*)kp duration:(CFTimeInterval)t delay:(CFTI)d;
 
 - (void) animateXThenYToFrame:(NSR)toR duration:(NSUI)t;
-- (void) blinkLayerWithColor:(NSC*)c;
+- (void) blinkLayerWithColor:(NSC*)c;  /* AOK! */
 
 - (void) addPerspectiveForVerticalOffset:(CGF)pixels;
 - (CAL*) hitTestEvent:(NSE*)e inView:(NSV*)v;

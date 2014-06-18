@@ -1,17 +1,20 @@
 
+
 #import   "AtoZUmbrella.h"
 
-#pragma mark - ACTIVE NSLOG
-#define	       NSLog(fmt...) [AtoZLumberLog logFile:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
+#ifndef AtoZFramework
+#define AtoZFramework
+#endif
 
-@interface AtoZLumberLog : NSO
-
-+ (void) logFile:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...;
-
+@interface NSO (AtoZObjectLog)
+@prop_RO void * log;
 @end
 
-#define 	AZLOGSHARED 	[AZLog sharedInstance]
-#define           clr   colorLogString
+#define XXX(x) [AtoZLumberLog logObject:x file:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__]
+
+//((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
+//// __FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
+//[AtoZLumberLog logFile:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
 
 JREnumDeclare( LogEnv, LogEnvUnknown      = 0x00000000,
                        LogEnvXcode        = 0x00000001,
@@ -20,6 +23,21 @@ JREnumDeclare( LogEnv, LogEnvUnknown      = 0x00000000,
                        LogEnvTTYColor     = 0x00001100,
                        LogEnvTTY256       = 0x00011100,
                        LogEnvError        = 0x11111111, );
+
+
+@interface AtoZLumberLog : NSO  <DDLogFormatter>
+
+@property (RONLY)			LogEnv   logEnv;
+
++ (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l;
++ (INST) logger;
+//+ (void) logFile:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...;
+
+@end
+
+#define 	AZLOGSHARED 	[AZLog sharedInstance]
+#define           clr   colorLogString
+
 
 @interface  NSLogMessage : NSObject
 
@@ -344,6 +362,7 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
  }
  #endif
  */
+
 
 
 

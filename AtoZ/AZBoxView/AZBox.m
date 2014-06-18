@@ -241,7 +241,7 @@
 	[super setSelected:state];
 	[self setNeedsDisplay:YES];
 }
-- (void) setInset:(float)inset {
+- (void) setInset:(CGFloat)inset {
 	inset_ = inset;
 	[self setNeedsDisplay:YES];
 }

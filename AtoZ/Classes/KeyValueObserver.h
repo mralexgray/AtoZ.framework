@@ -4,6 +4,7 @@
 
 //- (void) observe:(id)o key:(NSS*)k task:
 
+#import <Foundation/Foundation.h>
 
 @interface KeyValueObserver : NSObject
 

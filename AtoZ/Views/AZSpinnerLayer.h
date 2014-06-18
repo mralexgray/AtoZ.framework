@@ -7,28 +7,18 @@
 
 #import "AtoZUmbrella.h"
 
-@interface AZSpinnerLayer : CALayer {
-	BOOL _isRunning;
-	NSTimer *_animationTimer;
-	NSUInteger _position;
-
-	CGColorRef _foreColor;
-	CGFloat _fadeDownOpacity;
-
-	NSUInteger _numFins;
-	NSMutableArray *_finLayers;
-}
-
+@interface AZSpinnerLayer : CALayer
 - (void)toggleProgressAnimation;
 - (void)startProgressAnimation;
 - (void)stopProgressAnimation;
+- (void)toggle;
 
 // Properties and Accessors
-@property (RONLY) BOOL isRunning;
-@property (readwrite, copy) NSColor *color;  // "copy" because we don't retain it -- we create a CGColor from it
+@prop_NA BOOL running;
+@property NSColor *color;  // "copy" because we don't retain it -- we create a CGColor from it
 
 @end
 
 // Helper Functions
-CGColorRef CGColorCreateFromNSColor(NSColor *nscolor);
-NSColor *NSColorFromCGColorRef(CGColorRef cgcolor);
+//CGColorRef CGColorCreateFromNSColor(NSColor *nscolor);
+//NSColor *NSColorFromCGColorRef(CGColorRef cgcolor);

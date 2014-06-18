@@ -1,5 +1,6 @@
 
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 @interface AZEnum : NSObject<NSCopying, NSCoding> {  //    NSString *name;     int ordinal;
     // cached to speed up prev/next - these are all "assign", not that it matters because they are all singletons 
@@ -18,10 +19,7 @@
 // note the use of id make these no longer type safe
 + (id) firstEnum;
 + (id) lastEnum;
-@property (readonly) id previousEnum;
-@property (readonly) id nextEnum;
-@property (readonly) id previousWrappingEnum;
-@property (readonly) id nextWrappingEnum;
+@property (readonly) id previousEnum, nextEnum, previousWrappingEnum, nextWrappingEnum;
 - (id) deltaEnum: (NSInteger) delta wrapping: (BOOL) wrapping;
 // this should only be called from with the enum declaration methods
 - (id) initWithName: (NSString *) name ordinal: (int) ordinal properties: (NSDictionary *) properties;

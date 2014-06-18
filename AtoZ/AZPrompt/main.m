@@ -1,4 +1,4 @@
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import <AtoZ/AtoZ.h>
 //#import "AZBeetlejuice.h"
 
@@ -106,7 +106,7 @@ menuWithContacts contactMenu = ^(ContactList *contacts)			{
 @implementation ContactList
 - (id)init																		{
 
-	if (self != super.init ) return nil;	_list = NSMutableArray.new;	return self;
+	if (!(self = super.init)) return nil;	_list = NSMutableArray.new;	return self;
 }
 -(void) addContact															{
 

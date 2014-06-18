@@ -1,16 +1,20 @@
 
 
 
-#include <Foundation/Foundation.h>
-#import <AtoZ/AtoZ.h>
+@import AtoZ;
 
 int main(int argc, char *argv[], char**argp ){	@autoreleasepool {
 
-	AZSHAREDAPP;
+
+  XX(NSC.allNamedColors);
+//  [[NSC random:12] do:^(id x){ XXX([x closestColorListColor]); }]; BRENDA;
+//	AZSHAREDAPP;
+//	[NSApp run];
+
+  NSLog(@"%@", [@"∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i"
+      stringWithoutSpaces]);
 
 
-	[NSApp run];
-	
 }	return EXIT_SUCCESS;	}
 
 

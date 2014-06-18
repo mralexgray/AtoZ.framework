@@ -3,7 +3,7 @@
 #import <sys/proc_info.h>
 #import <objc/runtime.h>
 #import <libproc.h>
-#import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
+//#import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
 #import "AtoZ.h"
 
 @implementation NSObject (AtoZEssential)
@@ -24,7 +24,7 @@
           return reducer; 
           }() : self.kvc[k];
 }
-- (void)               setObject:(id)x 
+- (void)               setObject:(id)x
                forKeyedSubscript:(id<NSCopying>)k	{
                
   ISA((id)k,NSS) && (ISA(self,CAL)  || 
@@ -1141,7 +1141,7 @@ static NSMutableDictionary* flags;
 
 //#import <CocoaLumberjack/DDLog.h>
 //#import "MASShortcutView.h"
-//#import "MASShortcutView+UserDefaults.h"
+
 //#import "MASShortcut+UserDefaults.h"
 //#import "MASShortcut+Monitoring.h"
 //#import "AtoZFunctions.h"

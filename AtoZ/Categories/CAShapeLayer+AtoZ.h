@@ -3,12 +3,15 @@
 
 
 @interface            Lasso : NSObject
-+   (id) hit;
-+ (void) rope:(id)layer;
-+ (void) setFree;
-+ (BOOL) toggle;
-+ (void) setEnabled:(BOOL)e;
-+ (BOOL) enabled;
+
++ (void) rope:(id)layer; // Howdy cowboy.  Rope yur layer, pardner. AUtoEnables!
++ (void) setFree; // aka UNrope. willhappen regardless if it needs to go elsewhere.
+
++   (id) hit; //hit test the location, and rope!
+
++ (BOOL) toggle;   // switch and return status.. so ya know.
++ (void) setEnabled:(BOOL)e; // setter
++ (BOOL) enabled;  // getter
 @end
 
 @interface CAShapeLayerAuto :  CAShapeLayer @end
@@ -34,7 +37,9 @@ typedef NSBP*(^PathBlock)(id shp);
 
 @interface  CATextLayer (AtoZ)
 
-@property (readonly) NSR stringBounds;
+@prop_RO NSAS * attributedString;
+@prop_RO  NSR   stringBounds;
+@property BOOL  sizeToFit;
 
 - (void) adjustBoundsToFit;
 

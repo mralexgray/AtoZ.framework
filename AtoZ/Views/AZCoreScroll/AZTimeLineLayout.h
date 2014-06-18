@@ -1,5 +1,4 @@
 
-#import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 /* Layer attributes:
 selectedSnapShot		NSNumber<int>

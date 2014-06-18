@@ -54,7 +54,6 @@ typedef BOOL(^IsDocumentEdited)(id _self);
 //  3. This notice may not be removed or altered from any source distribution.
 
 #import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
 //#import "AtoZ.h"

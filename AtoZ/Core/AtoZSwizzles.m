@@ -1,17 +1,215 @@
+
+
+
+#import "AtoZ.h"
+
+#define AZSWIZ printf("[SWIZ|%s]",NSStringFromSelector(_cmd).UTF8String);
+#define $$$$ self
+#define AZLogDictsASXML 0
+
+@interface AZBlockSwizzle : NSObject // was MBBlockSwizzle
+
+typedef void(^AZSwizzleWithOrig)(IMP orig);
+
+/*! @abstract A block type definition for blocks that contain logic to revert a swizzled method's implementation to it's original implementation.
+ */ typedef void(^AZSwizzleRevertBlock)();
+/*! @abstract A function to swizzle a method of a class or instance with given implementation block.
+    @note Due to an observation, this function uses the classes name, to pick up the current class in the runtime via NSClassFromString. Otherwise, another class reference would be used, which leads to unpredictable behavior.
+    @param className Name of the class of the method to be swizzled.
+    @param selector Method selector definition to identify method on the class definitions.
+    @param isClassMethod Boolean flag to indicate the method is a class or instance method.
+    @param block Block to contain the implementation to be executed by the method.
+    @return TMMethodSwizzleRevertBlock Block to contain logic to revert the swizzle.
+*/
+AZSwizzleRevertBlock AZSwizzleWithBlock(NSS *className, SEL selector, BOOL isClassMethod, id block );
+/**
+ * A function to swizzle a method of a class or instance with given implementation block
+ * and run a given block. After the block execution the swizzle is reverted.
+ * Note: Due to an observation, this function uses the classes name, to pick up the current 
+ * class in the runtime via NSClassFromString. Otherwise, another class reference would be 
+ * used, which leads to unpredictable behavior.
+ * @param className Name of the class of the method to be swizzled.
+ * @param selector Method selector definition to identify method on the class definitions.
+ * @param isClassMethod Boolean flag to indicate the method is a class or instance method.
+ * @param imp Block to contain the implementation to be executed by the method.
+ * @param run Block to contain logic to be executed when the swizzle was executed.
+ */
+void AZSwizzleWithBlockAndRun( NSS *className, SEL selector, BOOL isClassMethod, id imp, VBlk run);
+void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMethod, id imp);
+
+
+@end
+
+@implementation AZBlockSwizzle
+
+AZSwizzleRevertBlock AZSwizzleWithBlock(NSS *className, SEL selector, BOOL isClassMethod, id block) {
+
+    Class class = NSClassFromString(className);
+    Method method = isClassMethod ? class_getClassMethod(class, selector) : class_getInstanceMethod(class, selector) ?: nil;
+    IMP origImp = method_getImplementation(method), testImp = imp_implementationWithBlock(block);
+    method_setImplementation(method, testImp);
+    return ^{ method_setImplementation(method, origImp); };
+};
+
+void AZSwizzleWithBlockAndRun(NSS *className, SEL selector, BOOL isClassMethod, id imp, void(^run)()) {
+    AZSwizzleRevertBlock revert = nil;
+    revert = AZSwizzleWithBlock(className, selector, isClassMethod, imp);
+    run();
+    revert();
+};
+
+void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMethod, id imp){
+/*
+  Class class = NSClassFromString(className);
+  Method method = isClassMethod ? class_getClassMethod(class, selector) : class_getInstanceMethod(class, selector) ?: nil;
+  IMP origImp = method_getImplementation(method),
+      testImp = imp_implementationWithBlock(imp);
+
+  method_setImplementation(method,testImp);
+  //class_addMethod([self class],
+//   SEL viewWillAppearSelector = @selector(viewWillAppear:);
+//   SEL tourGuideWillAppearSelector =  @selector(tourGuideWillAppear:);
+   Method originalMethod = class_getInstanceMethod(self, viewWillAppearSelector);
+   Method newMethod = class_getInstanceMethod(self, tourGuideWillAppearSelector);
+
+   BOOL methodAdded = class_addMethod([self class],
+  viewWillAppearSelector,
+  method_getImplementation(newMethod),
+  method_getTypeEncoding(newMethod));
+
+   if (methodAdded) {
+      class_replaceMethod([self class], 
+      tourGuideWillAppearSelector, 
+      method_getImplementation(originalMethod),
+      method_getTypeEncoding(originalMethod));
+   } else {
+      method_exchangeImplementations(originalMethod, newMethod);
+   }
+*/
+}
+@end
+
+@implementation NSO (ConciseKitSwizzle)
+
++ (BOOL)      swizzleMethod:(SEL)sel1 with:(SEL)sel2 in:(Class)k1 {
+  return [self swizzleMethod:sel1 in:k1 with:sel2 in:k1];
+}
++ (BOOL)      swizzleMethod:(SEL)sel1   in:(Class)k1 with:(SEL)sel2 in:(Class)k2 {
+  Method originalMethod = class_getInstanceMethod(k1, sel1);
+  Method anotherMethod  = class_getInstanceMethod(k2, sel2);
+  if(!originalMethod || !anotherMethod) {
+    return NO;
+  }
+  IMP originalMethodImplementation = class_getMethodImplementation(k1, sel1);
+  IMP anotherMethodImplementation  = class_getMethodImplementation(k2, sel2);
+  if(class_addMethod(k1, sel1, originalMethodImplementation, method_getTypeEncoding(originalMethod))) {
+    originalMethod = class_getInstanceMethod(k1, sel1);
+  }
+  if(class_addMethod(k2, sel2,  anotherMethodImplementation,  method_getTypeEncoding(anotherMethod))) {
+    anotherMethod = class_getInstanceMethod(k2, sel2);
+  }
+  method_exchangeImplementations(originalMethod, anotherMethod);
+  return YES;
+}
++ (BOOL) swizzleClassMethod:(SEL)sel1 with:(SEL)sel2 in:(Class)k1 {
+  return [self swizzleClassMethod:sel1 in:k1 with:sel2 in:k1];
+}
++ (BOOL) swizzleClassMethod:(SEL)sel1   in:(Class)k1 with:(SEL)sel2 in:(Class)k2 {
+  Method originalMethod = class_getClassMethod(k1, sel1);
+  Method anotherMethod  = class_getClassMethod(k2, sel2);
+  if(!originalMethod || !anotherMethod) {
+    return NO;
+  }
+  Class metaClass = objc_getMetaClass(class_getName(k1));
+  Class anotherMetaClass = objc_getMetaClass(class_getName(k2));
+  IMP originalMethodImplementation = class_getMethodImplementation(metaClass, sel1);
+  IMP anotherMethodImplementation  = class_getMethodImplementation(anotherMetaClass, sel2);
+  if(class_addMethod(metaClass, sel1, originalMethodImplementation, method_getTypeEncoding(originalMethod))) {
+    originalMethod = class_getClassMethod(k1, sel1);
+  }
+  if(class_addMethod(anotherMetaClass, sel2,  anotherMethodImplementation,  method_getTypeEncoding(anotherMethod))) {
+    anotherMethod = class_getClassMethod(k2, sel2);
+  }
+  method_exchangeImplementations(originalMethod, anotherMethod);
+  return YES;
+}
+
++ (void)waitUntil:(BOOL (^)(void))cond {  [self waitUntil:cond timeOut:10.0 interval:0.1];}
++ (void)waitUntil:(BOOL (^)(void))cond timeOut:(NSTimeInterval)to { [self waitUntil:cond timeOut:to interval:0.1]; }
++ (void)waitUntil:(BOOL (^)(void))cond timeOut:(NSTimeInterval)to interval:(NSTimeInterval)interval {
+  NSTimeInterval sleptSoFar=0;
+  while(1) {
+    if(cond() || (sleptSoFar >= to)) return;
+    [AZRUNLOOP runUntilDate:[NSDate dateWithTimeIntervalSinceNow:interval]];
+    sleptSoFar += interval;
+  }
+}
+
+- (NSS*)swizzleNSValueDescription {
+  NSValue *_ = (id)self;
+
+  if (strcmp([_ objCType],@encode(AZPOS)) == 0 ) {
+    NSUInteger pos = NSNotFound;
+    [_ getValue:&pos];
+    return AZPositionToString(pos);
+  }
+  NSA *raw = _.swizzleNSValueDescription.words;
+  NSA*left = [NSA arrayWithArrays:[raw map:^id(id obj) {
+    return [obj rangeOfString:@"{"].location != NSNotFound ? [obj split:@"{"] : @[obj]; }]];
+  NSA*right = [NSA arrayWithArrays:[left map:^id(id obj) {
+    return [obj rangeOfString:@"}"].location != NSNotFound ? [obj split:@"}"] : @[obj]; }]];
+  NSA*comma = [NSA arrayWithArrays:[right map:^id(id obj) {
+    return [obj rangeOfString:@","].location != NSNotFound ? [obj split:@","] : @[obj]; }]];
+
+  return //[@"SWIZ " withString:[
+    [[comma map:^id(id obj) {
+    return [obj isFloatNumber] ? $(@"%.2f",[obj floatValue]) : obj;
+  }]componentsJoinedByString:@" "];//];
+}
+
+// TEMPORARY SWIZ
++ (void)swizzle:(SEL)oMeth toMethod:(SEL)newMeth forBlock:(void(^)(void))swizzledBlock
+{
+    if (!swizzledBlock)
+        return;
+    
+    @try
+    {
+        [self swizzleMethod:oMeth with:newMeth in:self.class];
+        swizzledBlock();
+    }
+    @finally
+    {
+        [self swizzleMethod:newMeth with:oMeth in:self.class];
+    }
+}
+
+@end
+
+__attribute__((constructor)) static void do_the_swizzles() {
+
+  [NSO swizzleMethod:@selector(colorWithKey:)
+                with:NSSelectorFromString(@"swizzleColorWithKey:")
+                  in:NSCL.class];
+
+
+  [NSO swizzleMethod:@selector(description)
+                  in:objc_getClass("NSConcreteValue")
+                with:@selector(swizzleNSValueDescription)
+                  in:NSO.class];
+//  [NSWC swizzleMethod:@selector(init)             { return [super initWithWindowNibName:NSStringFromClass([self class])]; }
+//  [$ swizzleMethod:d with:@selector(swizzleDescription) in:self.class];
+
 //	[$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
 //	[$ swizzleMethod:@selector(hitTest:) with:@selector(swizzleHitTest:) in:CAL.class];
 //	[$ swizzleMethod:@selector(needsDisplayForKey:) with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
 //	[$ swizzleClassMethod:@selector(defaultActionForKey:) with:@selector(swizzleDefaultActionForKey:) in:CAL.class];
 //	[$ swizzleClassMethod:@selector(initWithLayer:) with:@selector(swizzleInitWithLayer:) in:CAL.class];
 
-
-#import "AtoZ.h"
-
-#define AZLogDictsASXML 0
-
+}
 
 @implementation NSD (AtoZSwizzles)
-- (NSS*) swizzleDescription                 {	//	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
+- (NSS*) swizzleDescription                 {	AZSWIZ //	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
 	return !AZLogDictsASXML ? self.swizzleDescription 
                           : [[NSS stringWithData:[AZXMLWriter dataWithPropertyList:(NSD*)self] 
                                         encoding:NSUTF8StringEncoding] 
@@ -20,48 +218,61 @@
 }
 @end
 @implementation NSView (AtoZSwizzles)
-- (void) swizzleDidMoveToWindow             {	[self swizzleDidMoveToWindow];
+- (void) swizzleDidMoveToWindow             { AZSWIZ	[self swizzleDidMoveToWindow];
 	[AZNOTCENTER postNotificationName:NSViewDidMoveToWindowNotification object:self userInfo:@{@"window":self.window}];
 }
-- (void) swizzleSetWantsLayer:(BOOL)b       { // IF_RETURN(b && self.layer != nil);
+- (void) swizzleSetWantsLayer:(BOOL)b       { // AZSWIZ // IF_RETURN(b && self.layer != nil);
 
+  if (self.wantsLayer == b && self.layer) { self.layer.hostView =self; return; }
   [self swizzleSetWantsLayer:b];
-  if (b) {
+  if (b){
+
+    if (!self.layer || !({ self.layer.hostView = self; self.layer.hostView; }))
+    NSLog(@"whoa! cant or didnt set host view:%@ on layer:%@", self, self.layer);
 //    if (!self.layer.name) self.layer.name = @"hostLayer";
-    self.layer.hostView = self;
   }
 }
 @end
 
 @implementation CAL (AtoZSwizzles)
-- (NSS*)        swizzleDescription          { NSA*sclasses = self.superclassesAsStrings;
+- (NSS*)        swizzleDescription          { AZSWIZ NSA*sclasses = self.superclassesAsStrings;
 
-	return JATExpand(@"{0} #{1} of {2}! {3} {7} f:{4} b:{5}", AZCLSSTR,
+	return JATExpand(@"{0} #{1} of {2}! {3} f:{4} b:{5}", AZCLSSTR,
                                           self.siblingIndex,
                                           self.siblingIndexMax,
                                           self.name ? $(@"name:%@", ((CAL*)self).name) : zNIL,
                                           AZStringFromRect(self.frame),
                                           AZStringFromRect(self.bounds),
-                                          sclasses.count > 1 ? [zSPC withString:[sclasses componentsJoinedByString:@" -> "]] : zNIL,
-                                          AZAlignToString(self.alignment));
+                                          sclasses.count > 1 ? [zSPC withString:[sclasses componentsJoinedByString:@" -> "]] : zNIL);//, nil);
+//                                          AZAlignToString(self.alignment));
 }
 - (BOOL)      swizzleContainsPoint:(NSP)p   { return self.noHit ? NO : [self swizzleContainsPoint:p]; }
-+ (BOOL) swizzleNeedsDisplayForKey:(NSS*)k  {
 
-  return [@[@"hovered", @"backgroundNSColor", @"expanded", @"siblingIndex", @"selected"] containsObject:k] ?: [self swizzleNeedsDisplayForKey:k];
+/* NOTE TO SELF Wednesday, June 4, 2014 at 7:15:38 AM  This is toobroad. */
+/*+ (BOOL) swizzleNeedsDisplayForKey:(NSS*)k  { AZSWIZ
+  return [@[@"hovered", @"backgroundNSColor", @"expanded",
+          @"siblingIndex", @"selected"] containsObject:k] ?: [self swizzleNeedsDisplayForKey:k];
 }
-- (void)        swizzleAddSublayer:(CAL*)c  {  if (!c) return;
+*/
+- (void)        swizzleAddSublayer:(CAL*)c  {   if (!c) return; AZBlockSelf(newSuper);
 
-  [c willChangeValueForKey:@"superlayer"];
-  [self swizzleAddSublayer:c];
-  [c didChangeValueForKey:@"superlayer"];
+  [c triggerKVO:@"superlayer" block:^(id _self) { [newSuper swizzleAddSublayer:_self]; }];
+
+//  [c didChangeValueForKey:@"superlayer"];
+
+  if (![c respondsToSelector:@selector(didMoveToSuperlayer)]) return;
+
+  AZSWIZ  // REMOVE ME IF THIS SHIT NEVER GETS CALLED / IMPLEMETED!
 
   NSAssert(c.superlayer && [self isEqual:c.superlayer], @"%@ should be REALLY be %@'s superlayer, which is:%@!",self, c,c.superlayer);
 
-  [c performSelectorIfResponds:@selector(didMoveToSuperlayer)];
+  objc_msgSend(c, @selector(didMoveToSuperlayer));//  [c performSelectorIfResponds:];
 
 }
-- (id)              swizzleHitTest:(NSP)p   { CAL*x = [self swizzleHitTest:p] ?: nil;  if(x && x.wasHit) x.wasHit(x); return x; }
+- (id) swizzleHitTest:(NSP)p { CAL*x = [self swizzleHitTest:p] ?: nil;
+
+  return !x ? nil :x.onHit ? x.onHit(x) : nil, x;
+}
 
 @end
 
@@ -69,7 +280,7 @@
 
 + (void) load {
  
-  [$ swizzleClassMethod:@selector(imageNamed:)                in:NSIMG.class
+  [NSO swizzleClassMethod:@selector(imageNamed:)                in:NSIMG.class
                    with:@selector(swizzledImageNamed:)        in:NSIMG.class];
 }
 
@@ -107,42 +318,84 @@
 }
 @end
 
-@implementation AtoZ (AtoZSwizzles)
-+ (void) load                               { //AZLOGCMD;
 
-	[$ swizzleMethod:@selector(description)  in:NSJSONSerialization.class
+#pragma mark - NSMENUITEM IS SWIZZED OUT IN NSMENU>DARK
+
+
+@implementation AtoZ (AtoZSwizzles) + (void) load { //AZLOGCMD;
+
+	[self swizzleMethod:@selector(description)                   in:NSC.class
+              with:@selector(swizzleColorDescription)          in:self];
+
+	[self swizzleMethod:@selector(description)  in:NSJSONSerialization.class
               with:@selector(swizzleJSONDescription)          in:self];
 
-	[$ swizzleMethod:@selector(description)                     
+	[self swizzleMethod:@selector(description)
               with:@selector(swizzleDescription) in:NSD.class];
   
-	[$ swizzleMethod:@selector(setWantsLayer:)                  in:NSView.class
+	[self swizzleMethod:@selector(setWantsLayer:)                  in:NSView.class
               with:@selector(swizzleSetWantsLayer:)           in:NSView.class];
-	[$ swizzleMethod:@selector(didMoveToWindow)                 in:NSView.class
+	[self swizzleMethod:@selector(didMoveToWindow)                 in:NSView.class
               with:@selector(swizzleDidMoveToWindow)          in:NSView.class];
 
-	[$ swizzleMethod:@selector(description)                     in:CAL.class
+	[self swizzleMethod:@selector(description)                     in:CAL.class
               with:@selector(swizzleDescription)              in:CAL.class];
-	[$ swizzleMethod:@selector(hitTest:)                        in:CAL.class
+	[self swizzleMethod:@selector(hitTest:)                        in:CAL.class
               with:@selector(swizzleHitTest:)                 in:CAL.class];
-	[$ swizzleMethod:@selector(containsPoint:)                  in:CAL.class
+	[self swizzleMethod:@selector(containsPoint:)                  in:CAL.class
               with:@selector(swizzleContainsPoint:)           in:CAL.class];
-  [$ swizzleMethod:@selector(addSublayer:)
+  [self swizzleMethod:@selector(addSublayer:)
               with:@selector(swizzleAddSublayer:)             in:CAL.class];
-	[$ swizzleClassMethod:@selector(needsDisplayForKey:)        in:CAL.class
-                   with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
+//	[NSO swizzleClassMethod:@selector(needsDisplayForKey:)        in:CAL.class
+//                   with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
 
 }
+- (NSS*) swizzleColorDescription {
 
+//  [AZSHAREDLOG setForegroundColor:self backgroundColor:nil forFlag:0];
+  return [@"\e[38;5;${value}m for foreground colors" withString:@"not done"];
+
+}
 -(NSS*)swizzleJSONDescription { //	[self swizzleDescription];
 
-	return [[[NSS stringWithData:[AZXMLWriter dataWithPropertyList:(NSJSONSerialization*)self] 
-                                                        encoding:NSUTF8StringEncoding]
-                                          stringByRemovingPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"]
-                                          stringByRemovingSuffix:@"</plist>"];
+	return [[AZXMLWriter dataWithPropertyList:(NSJSONSerialization*)self].UTF8String
+                     substringBetweenPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"
+                                  andSuffix:@"</plist>"];
 }
 
 @end
+
+@implementation NSNumber (AtoZSwizzles) + (void)load {
+
+//  NSClassFromString(@"__NSCFNumber")
+//  [$ swizzleMethod:d in:NSN.class with:swizzleD in:NSN.class];
+
+
+}
+
+- (NSS*) swizzleDescription {
+
+  return // NSStringFromClass(self.class);
+          [self isEqualToNumber:@YES] || [self isEqualToNumber:@NO] ? StringFromBOOL(self.boolValue) : [self swizzleDescription];
+}
+
+- (NSS*)typeFormedDescription {
+	if ([self.className isEqualToString:@"__NSCFNumber"]) {
+		NSString *defaultDescription = [self description];
+		if (strcmp(self.objCType, @encode(float)) == 0 || strcmp(self.objCType, @encode(double)) == 0) {
+			if (![defaultDescription hasSubstring:@"."]) {
+				return [defaultDescription stringByAppendingString:@".0"];
+			}
+		}
+		return defaultDescription;
+	} else if ([self.className isEqualToString:@"__NSCFBoolean"]) {
+		return [self boolValue] ? @"YES" : @"NO";
+	}
+	return [self description];
+}
+
+@end
+
 
 /* NSARRAY
 
@@ -281,5 +534,32 @@ static NSMD* nDfKRef;
 	}];
 	return self;
 }
+
++ (NSString *)homePath {
+  return NSHomeDirectory();
+}
+
++ (NSString *)desktopPath {
+  return [NSSearchPathForDirectoriesInDomains(NSDesktopDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
+
++ (NSString *)documentPath {
+  return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+}
+
++ (NSString *)appPath {
+  return [[NSBundle mainBundle] bundlePath];
+}
+
++ (NSString *)resourcePath {
+  return [[NSBundle mainBundle] resourcePath];
+}
+	[$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
+	[$ swizzleMethod:@selector(hitTest:) with:@selector(swizzleHitTest:) in:CAL.class];
+	[$ swizzleMethod:@selector(needsDisplayForKey:) with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
+	[$ swizzleClassMethod:@selector(defaultActionForKey:) with:@selector(swizzleDefaultActionForKey:) in:CAL.class];
+	[$ swizzleClassMethod:@selector(initWithLayer:) with:@selector(swizzleInitWithLayer:) in:CAL.class];
+
+
 */
 

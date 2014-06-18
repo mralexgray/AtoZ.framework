@@ -3,16 +3,16 @@
 
 // key for dictionary in NSTrackingAreas's userInfo  NSString *kAZTrackerChanged = @"trackerState";
 @interface AZTrackingWindow : NSWindow
-@property (nonatomic, assign) AZWindowPosition 	position;
-@property (nonatomic, assign) AZSlideState 		slideState;
-@property (nonatomic, assign) CGFloat 			triggerWidth, 	intrusion;
-@property (nonatomic, assign) NSRect 			triggerFrame, 	workingFrame, 	visibleFrame;
+@property (nonatomic) AZState 		slideState;
+@property (nonatomic) AZA     position;
+@property (nonatomic) CGF 		triggerWidth, 	intrusion;
+@property (nonatomic) NSR 		triggerFrame, 	workingFrame, 	visibleFrame;
 
-@property (nonatomic, strong) AZSimpleView 		*view;
+@property (nonatomic) AZSimpleView 		*view;
 
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance inRect:(NSRect)frame;
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance;
-+ (AZTrackingWindow*) oriented:(AZWindowPosition)orient intruding:(CGFloat)distance withDelegate:(id)del;
++ oriented:(AZA)o intruding:(CGF)d inRect:(NSRect)frame;
++ oriented:(AZA)o intruding:(CGF)d;
++ oriented:(AZA)o intruding:(CGF)d withDelegate:(id)del;
 
 @property (RONLY) NSRect	 	outFrame;
 @property (RONLY) AZOrient 	orientation;

@@ -35,14 +35,6 @@
 
 @implementation NSValue (AtoZAutoBox)
 
-+ (void)load	    				{
-  SEL d = @selector(description), swizzleD = @selector(swizzleDescription);
-  [$ swizzleMethod:d in:objc_getClass("NSConcreteValue") with:swizzleD in:self.class];
-//  [$ swizzleMethod:d with:@selector(swizzleDescription) in:self.class];
-
-}
-
-- (NSS*)swizzleDescription {
 //  void* buffer = malloc(bufferSize);
 //  [self getValue:buffer];
 //  id x = AZString(buffer) ?: [self swizzleDescription];//(__bridge id)buffer;
@@ -52,24 +44,6 @@
 //  NSGetSizeAndAlignment([self objCType], &size, NULL);
 
 //  NSData *rep = [NSData dataWithBytes:self->_data length:size];
-  if (strcmp([self objCType],@encode(AZPOS)) == 0 ) {
-    NSUInteger pos = NSNotFound;
-    [self getValue:&pos];
-    return AZPositionToString(pos);
-  }
-  NSA *raw = ((NSValue*)self).swizzleDescription.words;
-  NSA*left = [NSA arrayWithArrays:[raw map:^id(id obj) {
-    return [obj rangeOfString:@"{"].location != NSNotFound ? [obj split:@"{"] : @[obj]; }]];
-  NSA*right = [NSA arrayWithArrays:[left map:^id(id obj) {
-    return [obj rangeOfString:@"}"].location != NSNotFound ? [obj split:@"}"] : @[obj]; }]];
-  NSA*comma = [NSA arrayWithArrays:[right map:^id(id obj) {
-    return [obj rangeOfString:@","].location != NSNotFound ? [obj split:@","] : @[obj]; }]];
-
-  return //[@"SWIZ " withString:[
-    [[comma map:^id(id obj) {
-    return [obj isFloatNumber] ? $(@"%.2f",[obj floatValue]) : obj;
-
-  }]componentsJoinedByString:@" "];//];
 
 //  }]
 //  NSUInteger ct = [desc occurrencesOfCharacter:"."];
@@ -108,7 +82,7 @@
 //}
 //
 //  return [@"swizzled:" withString:desc]; // [(NSValue*)self swizzleDescription];//AZString([self pointerValue]);//[NSString stringWithFormat: @"(%@) %@", objctype, [rep description]];
-}
+
 
 + (id)valueWithColor: (NSColor*) color 
 {

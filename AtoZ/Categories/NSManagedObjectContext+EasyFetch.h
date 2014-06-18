@@ -1,4 +1,3 @@
-#import <Cocoa/Cocoa.h>
 
 
 @interface NSManagedObjectContext (EasyFetch)

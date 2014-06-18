@@ -8,11 +8,10 @@ typedef void(^openURL)(NSS*url, WebView *w);
 
 @interface AtoZHelper : NSObject <NSApplicationDelegate, AtoZDelegate>
 
-@property (ASS) IBOutlet     NSTextView * text;
-
 @property (ASS) IBO     NSW * window;
 @property  (WK) IBO      WV * webView,
 														* webView2;
+@property (ASS) IBO NSTextView * text;
 @property					     NSAC * sockets;
 @property RoutingHTTPServer * httpServer; //AZHTTPRouter
 @property            Gridly * gridly;

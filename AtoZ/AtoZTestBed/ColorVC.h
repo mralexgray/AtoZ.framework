@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @interface ColorVC : NSViewController
 @property (nonatomic, retain) NSA *palette;

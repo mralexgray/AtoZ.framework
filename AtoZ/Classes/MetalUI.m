@@ -123,7 +123,7 @@ static const float kMaxDragImageDimension = 256.0;
 	}
 }
 
-- (NSUInteger)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
+- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
 		return isLocal ?NSDragOperationNone : NSDragOperationCopy;
 }
 

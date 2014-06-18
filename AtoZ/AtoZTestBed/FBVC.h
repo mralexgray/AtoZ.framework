@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @interface FBVC : NSViewController <	PhFacebookDelegate,
 										NSOutlineViewDataSource,

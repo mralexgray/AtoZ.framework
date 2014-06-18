@@ -11,7 +11,7 @@
 #import "AZVeil.h"
 #import "AtoZ.h"
 @interface AZSplitView : NSSplitView
-@property (nonatomic, retain) NSColor* dividerColor;
+//INHERITED @property (nonatomic, retain) NSColor* dividerColor;
 @end
 
 @implementation AZSplitView
@@ -155,7 +155,7 @@
 	_shroud.upFrame 	= AZMenulessScreenRect();
 	[ [[_window contentView] allSubviews] az_each:^(id obj, NSUInteger index, BOOL *stop) {
 		if ( [obj isKindOfClass:[NSSplitView class]] ) {
-			[obj setDelegate:self];
+			[obj setDelegate:(id)self];
 			[obj setDividerStyle:NSSplitViewDividerStyleThick];
 				//			[obj setTag:index];
 				//				[self observeObject:obj forName:NSSplitViewWillResizeSubviewsNotification

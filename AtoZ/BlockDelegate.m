@@ -43,46 +43,40 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
 
 @implementation BlockDelegate //+ (void) load { if (!delegations) delegations = NSMD.new; }
 
-+ (instancetype) delegateFor:(id)x ofType:(BlockDelegateType)t withBlock:(id)blk {	
++ (instancetype) delegateFor:(id)x ofType:(BlockDelegateType)t withBlock:(id)blk {	return
 
-  if (!blk) return NSLog(@"delegate not set!  block is zilch!"), nil;
+  !blk ? NSLog(@"%@",@"delegate not set!  block is zilch!"), (BlockDelegate*)nil : ^{
 
-  BlockDelegate * n = ((NSO*)x).blockDelegate ?: (((NSO*)x).blockDelegate = self.new);
+    BlockDelegate * bdel = ((NSO*)x).blockDelegate ?: (((NSO*)x).blockDelegate = self.new);
 
-  if (!x || !n) return NSLog(@"delegate not set!    owner or bDelegaye was zilch!"), nil;
+    if (!x || !bdel) { NSLog(@"%@",@"delegate not set!    owner or bDelegaye was zilch!"); return (id)nil; }
 
+    if (t & (CABlockTypeDrawBlock|CABlockTypeAniComplete|CABlockTypeLayerAction) && !![x delegate])
+      NSLog(@"WARNING*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", x, [x delegate]);
 
-	if (t==CABlockTypeDrawBlock||t==CABlockTypeAniComplete||t==CABlockTypeLayerAction && [(id)x delegate])
-    NSLog(@"WARNING*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", x, [(id)x delegate]);
+    if (ISA(x,CAL)) bdel.layer = x; bdel.owner = x;  [bdel sV:blk fK:BlockDelegateTypeToString(t)];
+    t & (CABlockTypeDrawBlock|CABlockTypeDrawInContext|CABlockTypeAniComplete|CABlockTypeLayerAction) ? ({
 
-  if (ISA(x,CAL)) n.layer = x; n.owner = x;  [n sV:blk fK:BlockDelegateTypeToString(t)];
-  switch (t) {
-    case CABlockTypeDrawBlock:
-    case CABlockTypeDrawInContext:
-    case CABlockTypeAniComplete:
-    case CABlockTypeLayerAction: 
-      [x setDelegate:n]; [x setNeedsDisplay];   NSAssert([x delegate] != nil, @"nil"); break;
-    case CABlockTypeLayoutBlock:
-      [x setLayoutManager:(id)n]; [x setNeedsLayout]; break;
-    case KVOChangeBlock:
+      [x setDelegate:(id)bdel]; [x setNeedsDisplay]; NSAssert(!![x delegate], @"nil");
 
-      [x az_overrideSelector:dCVfKSEL withBlock:(__bridge void*)^(id _self, NSS*k){
-        void (*superIMP)(id, SEL, NSS*) = [_self az_superForSelector:dCVfKSEL];
-        if (superIMP != NULL) superIMP(_self,dCVfKSEL,k);
-        id val = [_self vFK:k];
-        n.KVOChangeBlock(_self,k, val ? @{@"value":val} : @{});
-      }];
-    break;
-  }
-	return n;//NSLog(@"setdlegate:%@.. delegate: %@, lom: %@",n,  layer.delegate, layer.layoutManager),
+    }) : t == CABlockTypeLayoutBlock ? ({ [x setLayoutManager:(id)bdel]; [x  setNeedsLayout];
+    }) : t ==  KVOChangeBlock ?
+
+    [x az_overrideSelector:dCVfKSEL withBlock:(__bridge void*)^(id _self, NSS*k){
+      void (*superIMP)(id, SEL, NSS*);
+        if ((superIMP = [_self az_superForSelector:dCVfKSEL]))                       superIMP(_self,dCVfKSEL,k);
+
+               id val = [_self vFK:k]; id valD = val ? @{@"value":val} : @{};  bdel.KVOChangeBlock(_self,k,valD);
+    }] : (void)nil;
+
+    return (id)bdel;//NSLog(@"setdlegate:%@.. delegate: %@, lom: %@",n,  layer.delegate, layer.layoutManager),
+  }();
 }
 
 - (void) drawLayer:(CALayer*)l inContext:(CGContextRef)x 	{ //AZLOGCMD;
 
-	if (_CABlockTypeDrawInContext) [NSGC drawInContext:x flipped:[l isGeometryFlipped] actions:^{
-      _CABlockTypeDrawInContext(l,x);
-  }];
-	else if (_CABlockTypeDrawBlock) _CABlockTypeDrawBlock(l);
+	_CABlockTypeDrawInContext ? _CABlockTypeDrawInContext(l,x) :
+  _CABlockTypeDrawBlock     ? [NSGC drawInContext:x flipped:l.isGeometryFlipped actions:^{  _CABlockTypeDrawBlock(l); }] : nil;
 }
 
 //    NSGraphicsContext* newContext = [NSGraphicsContext graphicsContextWithGraphicsPort:x flipped:NO];
@@ -121,12 +115,13 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
 
 @implementation CALayer (BlockDrawLayer) // @dynamic blockDelegate, drawInContextBlk;
 
-@dynamic layoutBlock, drawBlock, drawInContextBlk, layerActionBlock, aniStartBlock;
+@dynamic layoutBlock, drawInContextBlk, layerActionBlock, aniStartBlock, drawBlock;
 
-- (void) setLayerActionBlock:(CABACTION)blk   { [BlockDelegate delegateFor:self ofType:CABlockTypeLayerAction withBlock:blk]; }
-- (void) setDrawInContextBlk:(LayerCTXBlock)blk  { [BlockDelegate delegateFor:self ofType:CABlockTypeDrawInContext withBlock:blk]; }
-- (void)      setLayoutBlock:(LayerBlock)blk   {	[BlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
-- (void)    setAniStartBlock:(CABANIS)blk     { [self addDelegate:CABlockTypeAniStart block:blk]; }
+- (void) setDrawBlock:(LayerBlock)blk     { [BlockDelegate delegateFor:self ofType:CABlockTypeDrawBlock withBlock:blk]; }
+- (void) setLayerActionBlock:(CABACTION)blk     { [BlockDelegate delegateFor:self ofType:CABlockTypeLayerAction withBlock:blk]; }
+- (void) setDrawInContextBlk:(LayerCTXBlock)blk { [BlockDelegate delegateFor:self ofType:CABlockTypeDrawInContext withBlock:blk]; }
+- (void)      setLayoutBlock:(LayerBlock)blk    {	[BlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
+- (void)    setAniStartBlock:(CABANIS)blk       { [self addDelegate:CABlockTypeAniStart block:blk]; }
 
 //- (NSString*) delegateDescription {  return CABlockTypeToString(self.blockDelegate.blockType); }
 //- (BlockDelegate*) blockDelegate {   return [self vFK:@"blockDelegate"]; }
@@ -301,7 +296,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
 @end
 
 static NSTableRowView* DynamicRowViewForItem(id self, SEL _cmd, NSOutlineView*ov,id item)	{
-	return ((NSOV*)self).rowViewForItem(ov,item);
+
+  XX(@"inside DynamicRowViewForItem");
+	return ov.rowViewForItem(ov,item);
 }
 //static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{ 	NSString *key = PropertyNameFromSetter(NSStringFromSelector(_cmd)); if (value == nil)		[self removeObjectForKey:key]; else self[key] = value; }
 
@@ -314,7 +311,10 @@ static NSTableRowView* DynamicRowViewForItem(id self, SEL _cmd, NSOutlineView*ov
 }
 - (RowViewForItem) rowViewForItem{ return objc_getAssociatedObject(self,@selector(outlineView:rowViewForItem:)); }
 - (void) setRowViewForItem:(RowViewForItem)rowViewForItem {
-	[self setDelegateForSelector:@selector(outlineView:rowViewForItem:) imp:(IMP)DynamicRowViewForItem enc:@encode(NSTableRowView*(*)(id, SEL, NSOV*, id)) withBlock:rowViewForItem];
+	[self setDelegateForSelector:@selector(outlineView:rowViewForItem:)
+                           imp:(IMP)DynamicRowViewForItem
+                           enc:@encode(NSTableRowView*(*)(id, SEL, NSOV*, id))
+                     withBlock:rowViewForItem];
 }
 @end
 

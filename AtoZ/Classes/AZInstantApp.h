@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AtoZUmbrella.h"
+
 
 // USAGE   APPWITHBLOCK( ^{ NSLog(@"Hige vageen"); }) 
 
@@ -92,6 +94,13 @@ int main(int argc, char *argv[], char**argp ){\
 //+ (id) appWithWindowBlock:(void(^)(void))blk;
 //@end
 
+
+
+NS_INLINE int fakeMain(int argc, char *argv[]) {
+
+  return 1;
+}
+
 /*! A full fledged Cocoa app in TWO lines!   @code    #import <AtoZ/AtoZ.h>
                                                       AZINSTANTAPP(  win.bgC = YELLOW;  )           */
 
@@ -101,22 +110,26 @@ int main(int argc, char *argv[]) { @autoreleasepool { AZSHAREDAPP;           \
     NSM	* menubar, * appMenu; NSMI * appMenuItem;           \
 		[menubar = NSM.new addItem:appMenuItem = NSMI.new];													                      \
 		[NSApp setMainMenu:menubar];	        																				                    \
-		[appMenu = NSM.new addItem: 																				                              \
-    [NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];              \
-		[appMenuItem setSubmenu:appMenu];                                                                 \
+		[appMenu = NSM.new addItem:\
+    [NSMI.alloc initWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"]];\
+		[appMenuItem setSubmenu:appMenu];\
 		NSW *win = [NSW.alloc initWithContentRect:AZRectFromDim(200) styleMask:1|2|8 backing:2 defer:YES];\
     win.alphaValue = 0; \
 /*		[win cascadeTopLeftFromPoint:(NSP){20,20}];                                                       */\
-		[win setTitle:AZPROCNAME];	win.backgroundColor = RED; [win setMovableByWindowBackground:YES];    \
-		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];									                \
+		[win setTitle:AZPROCNAME];	win.backgroundColor = RED; [win setMovableByWindowBackground:YES];\
+		[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];\
     /* [win makeKeyAndOrderFront:nil]; */\
     [NSApp  activateIgnoringOtherApps:YES];\
     [win fadeIn];\
-    ({ (__VA_ARGS__)(); }); [NSApp run];   \
-} }
+    /* ({ */\
+    (__VA_ARGS__)(); \
+    /* });*/\
+    [NSApp run];\
+  }\
+}
 //#define ENCLOSEINVOIDBLOCK(...) ^{ __VA_ARGS__; }
 
-#define AZINSTANTAPP(x)  AZINSTANTAPP_INTERNAL(x)
+#define AZINSTANTAPP(...)  AZINSTANTAPP_INTERNAL(__VA_ARGS__)
 
 //ENCLOSEINVOIDBLOCK(x) AZScreenFrameUnderMenu()
 

@@ -5,7 +5,8 @@
 //  Created by Matt Gemmell on Thu Jan 08 2004.
 //  <http://iratescotsman.com/>
 //
-#import <Cocoa/Cocoa.h>
+
+@import AppKit.NSWindow;
 
 @interface TransparentWindow : NSWindow
 {
@@ -21,7 +22,6 @@
 @property BOOL flipRight; // YES -поворот вправо
 @property double duration; // время анимации, по умолчанию 2.0
 
-@property (assign) NSRect upFrame;
-@property (assign) NSRect downFrame;
-@property (assign) BOOL draggable;
+@property  NSRect upFrame, downFrame;
+@property BOOL draggable;
 @end

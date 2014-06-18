@@ -8,8 +8,8 @@
 //+ (INST) rect;
 
 #import <Zangetsu/Zangetsu.h>
-#import <AtoZ/AtoZUmbrella.h>
-#import <AtoZ/BoundingObject.h>
+#import "AtoZUmbrella.h"
+#import "BoundingObject.h"
 
 
 @interface AZRect : NSO <RectLike>

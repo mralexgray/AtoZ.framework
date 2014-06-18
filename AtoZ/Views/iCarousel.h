@@ -52,8 +52,8 @@ __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
 #ifdef ICAROUSEL_IOS
 #import <UIKit/UIKit.h>
 #else
-#import <Cocoa/Cocoa.h>
-#define UIView NSView 
+@import AppKit;
+#define UIView NSView
 //typedef NSView UIView;
 #endif
 

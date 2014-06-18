@@ -9,7 +9,8 @@
 //  Based off of AMIndeterminateProgressIndicatorCell created by Andreas, version date 2007-04-03.
 //  http://www.harmless.de
 //  Copyright 2007 Andreas Mayer. All rights reserved.
-#import <Cocoa/Cocoa.h>
+
+@import AppKit;
 
 @interface AZIndeterminateIndicator : NSCell {
 //	double doubleValue;

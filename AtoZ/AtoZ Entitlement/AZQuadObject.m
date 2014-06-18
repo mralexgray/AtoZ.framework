@@ -22,7 +22,7 @@ static const NSString *didScroll = @"scrollOffset";
 - (NSMA*)items 	{ return _items = _items ?: [AZFolder samplerWithCount:RAND_INT_VAL(34, 55)]; /* self.southWest = _items; self.northEast = _items.reversed; */ }
 - (CGF)intrusion 	{ return AZPerimeter(AZScreenFrameUnderMenu()) / (self.items.count); /*	if (_tracks)	[_tracks  do:^(AZTW* obj) { [obj setIntrusion:_intrusion]; }]; */ }
 
-- (id) init {	if (self != super.init ) return nil;		_intrusion = self.intrusion;	self.refToSelf = self;
+- (id) init {	if (!(self = super.init)) return nil;		_intrusion = self.intrusion;	self.refToSelf = self;
 	
 	_quads  = [NSD dictionaryWithObjects:[NSArray arrayWithArrays:@[
 	_tracks = @[self.track_N = [AZTW oriented: AZTop 	intruding:_intrusion], 	 // withDelegate:self],

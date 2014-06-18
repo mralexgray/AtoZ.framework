@@ -5,8 +5,7 @@
 //  Created by Adam Kirk on 6/1/13.
 //
 //
-
-#import <Cocoa/Cocoa.h>
+@import AppKit.NSColor;
 
 @interface NSColor (RGBHex)
 

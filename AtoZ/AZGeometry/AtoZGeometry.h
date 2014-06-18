@@ -44,6 +44,7 @@ OBJC_EXPORT   id    	          nanCheck( NSV* point);
 
 OBJC_EXPORT BOOL SameRect ( NSR r1, NSR r2 );
 
+OBJC_EXPORT NSP AZAnchorPointInRect(CGP anch, NSR rect);
 OBJC_EXPORT                   AZAP AZAnchorPointOfActualRect(NSR rect, AZA pos);
 OBJC_EXPORT                   AZAP         AZAnchorPtAligned(AZA pos);
 
@@ -190,6 +191,10 @@ OBJC_EXPORT NSP AZCenterDistanceOfRects ( NSR from, NSR to );
 // will return the shortest possible distance in x and y
 OBJC_EXPORT NSP AZBorderDistanceOfRects ( NSR from, NSR to );
 
+
+
+OBJC_EXPORT NSP AZPointClosestOnRect ( NSP point, NSR rect );
+
 // will return the shortes possible distance from point to rect
 OBJC_EXPORT NSP AZPointDistanceToBorderOfRect ( NSP point, NSR rect );
 
@@ -302,6 +307,8 @@ OBJC_EXPORT NSR AZAbsoluteToRelativeRect ( NSR absolute, NSR bounds );
 OBJC_EXPORT NSR AZPositionRectOnRect ( NSR inner, NSR outer, NSP position );
 
 enum CAAutoresizingMask AZPositionToAutoresizingMask (AZPOS p);
+
+OBJC_EXPORT NSR AZRectWithDimsCenteredOnPoints(CGF width, CGF heigt, CGF cx, CGF cy);  /** NICE **/
 
 // moves the origin of the rect
 OBJC_EXPORT NSR AZCenterRectOnPoint ( NSR rect, NSP center );
@@ -422,6 +429,7 @@ OBJC_EXPORT NSR 	AZRectFromSize      (NSSZ size );
 OBJC_EXPORT NSR	AZRectFromSizeOfRect  (NSR rect);
 //NSR rectWithProportion ( NSR innerRect,float proportion,bool expand );
 
+OBJC_EXPORT NSR AZRectInsideRectOnEdgeInset (NSR rect, AZA side, CGF inset );
 OBJC_EXPORT NSR AZCornerRectPositionedWithSize(NSR outerRect, AZPOS pos, NSSZ sz);
 //NSR 	sectionPositioned ( NSR r, AZPOS p );
 OBJC_EXPORT int 	oppositeQuadrant ( int quadrant );
@@ -439,7 +447,7 @@ OBJC_EXPORT AZPOS AZPosAtCGRectEdge ( CGRectEdge edge );
 OBJC_EXPORT CGRectEdge CGRectEdgeAtPosition ( AZPOS pos );
 
 OBJC_EXPORT CGRectEdge AZEdgeTouchingEdgeForRectInRect ( NSR innerRect, NSR outerRect );
-//AZPOS AZClosestCorner ( NSR innerRect,NSR outerRect );
+AZPOS AZClosestCorner (NSR r,NSP pt);
 OBJC_EXPORT QUAD 	AZOppositeQuadrant ( int quadrant );
 OBJC_EXPORT NSR 	AZBlendRects ( NSR start, NSR end, CGF b );
 OBJC_EXPORT void 	logRect ( NSR rect );

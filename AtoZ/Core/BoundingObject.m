@@ -3,20 +3,38 @@
 #import <AtoZ/AtoZGeometry.h>
 #import "BoundingObject.h"
 
+
+@concreteprotocol(TypedArray)
+- (Class)objectClass { return objc_getAssociatedObject(self, _cmd); }
+- (void) setObjectClass:(Class)objectClass { objc_setAssociatedObject(self, _cmd, objectClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+@end
+
+@concreteprotocol(Random)
++ (INST) random { return [NSException raise:@"YOU need to implement this yo damned self!" format:@"%@",nil], (id)nil; }
++ (NSA*) random:(NSUInteger)ct { return [@(ct) mapTimes:^id(NSNumber *num) { return [self random]; }]; }
+@end
+
 #define SHOULDBERECTLIKEALREADY if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 #define SHOULDBESIZEABLE if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 
-@implementation NSW   (RectLike) // @dynamic /*! @todo */ anchorPoint;
-
-- (void) setFrame:(NSR)f { [self setFrame:f display:YES]; } //self.isVisible animate:NO]; }
+@implementation NSIMG   (RectLike) @dynamic bounds; // /*! @todo */ anchorPoint;
+- (NSR)      frame              { return AZRectFromSize(self.size); }
+- (void)  setFrame:(NSR)f       { [self isSmallerThanRect:f] ? [self scaleToFillSize:f.size] : nil; }
+- (void) setOrigin:(CGP)origin  {}
 @end
 
+@implementation NSWindow   (RectLike) // @dynamic /*! @todo */ anchorPoint;
+//- (NSRect)frame; Provided by NWINdow
+- (void) setFrame:(NSR)f    { [self setContentSize:f.size]; } // display:YES]; } //self.isVisible animate:NO]; }
+
+//- (void)   setBounds:(NSR)b { NSR r = self.frame; }
+
+// [ setFramesize = AZSizeFromRect(b); }
+
 //-  (NSR)      bounds            { return AZRectFromSizeOfRect(self.frame); }
+@end
 //-  (NSP)    position            { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
 //- (void) setPosition:(NSP)p     { /*! @todo */ NSAssertFail(@"neeed to fix");  }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));
-//- (void)   setBounds:(NSRect)b  { self.size = AZSizeFromRect(b); }
-
-
 @implementation CALayer   (RectLike) //@dynamic alignment;
 
 //-  (NSP)     origin {return self.frame.origin; }
@@ -36,7 +54,8 @@
 -  (NSR)    bounds        { return AZRectFromSize(self.size); }
 @end
 
-@concreteprotocol(RectLike) /*! required */ 
+@concreteprotocol(RectLike) /*! required */ //@dynamic bounds;
+
 
 //+ (void) initialize {
 //
@@ -59,32 +78,16 @@
 //
 //  printf("requested %s's undefined key:%s", self.cDesc,key.UTF8String); return nil;
 //}
-
-SetKPfVA(InsideEdge, @"frame", @"superframe");
-
-
-- (AZA) insideEdge {
-
-  AZA oldEdge = ({ id x = FETCH; x ? [x uIV] : AZUnset; }),
-      newEdge = AZOutsideEdgeOfRectInRect(self.frame, self.superframe);
-
-  if (oldEdge == newEdge) return oldEdge;
-  SAVE(_cmd, @(newEdge)); [self triggerChangeForKeys:@[AZSELSTR]]; return newEdge;
-}
-
-- (NSS*) insideEdgeHex { return AZEnumToBinary(self.insideEdge); }
-
-
 //SetKPfVA(Origin, @"x", @"y") SetKPfVA(X,@"origin") SetKPfVA(Y,@"origin")
 //SetKPfVA(Size, @"bounds", @"width", @"height") SetKPfVA(Width, @"size") SetKPfVA(Height, @"size")
 
 -  (CGR)         r          { return self.frame; }
 - (void)      setR:(NSR)r   { self.frame = r; }
 
--  (CGF)         w          { GETALIAS(width);        }  // ALIASES
--  (CGF)         h          { GETALIAS(height);       }
-- (void)      setW:(CGF)w   { SETALIAS(width, @(w));  }
-- (void)      setH:(CGF)h   { SETALIAS(height,@(h));  }
+-  (CGF)         w          { GETALIASF(width);           }  // ALIASES
+-  (CGF)         h          { GETALIASF(height);          }
+- (void)      setW:(CGF)w   { SETALIAS(width, @(ABS(w))); }
+- (void)      setH:(CGF)h   { SETALIAS(height,@(ABS(h))); }
 
 -  (CGF)         x          { return self.r.origin.x; }
 -  (CGF)         y          { return self.r.origin.y; }
@@ -99,14 +102,14 @@ SetKPfVA(InsideEdge, @"frame", @"superframe");
 - (void)  setWidth:(CGF)w   { self.frame = AZRectExceptWide(self.frame, w);   }
 - (void) setHeight:(CGF)h   { self.frame = AZRectExceptHigh(self.frame, h);   }
 
--  (CGF)      midX        { return self.x + (self.h/2.);    }
--  (CGF)      maxX        { return self.x +  self.w;        }
--  (CGF)      midY        { return self.y + (self.h/2.);    }
--  (CGF)      maxY        { return self.y +  self.h;         }
-- (void)   setMidX:(CGF)x { self.centerPt = (NSP){x, self.midY};  }
-- (void)   setMidY:(CGF)y { self.centerPt = (NSP){self.midX, y};  }
-- (void)   setMaxX:(CGF)w { self.x      = w - self.width;       }
-- (void)   setMaxY:(CGF)h { self.y      = h - self.height;      }
+-  (CGF)      midX        { return self.x + (self.h/2.);            }
+-  (CGF)      maxX        { return self.x +  self.w;                }
+-  (CGF)      midY        { return self.y + (self.h/2.);            }
+-  (CGF)      maxY        { return self.y +  self.h;                }
+- (void)   setMidX:(CGF)x { self.centerPt = (NSP){x, self.midY};    }
+- (void)   setMidY:(CGF)y { self.centerPt = (NSP){self.midX, y};    }
+- (void)   setMaxX:(CGF)w { self.x = w - self.width;                }
+- (void)   setMaxY:(CGF)h { self.y = h - self.height;               }
 
 -  (CGP)      minXmaxY        { return AZPt(self.x,    self.maxY); }
 -  (CGP)      midXmaxY        { return AZPt(self.midX, self.maxY); }
@@ -120,23 +123,52 @@ SetKPfVA(InsideEdge, @"frame", @"superframe");
 -  (CGP)      midXminY        { return AZPt(self.midX, self.y);     }
 -  (CGP)      maxXminY        { return AZPt(self.maxX, self.y);     }
 
+-  (CGP)     bOrigin          { return self.bounds.origin; }
 -  (CGP)      origin          { return self.minXminY; }
+- (void)  setBOrigin:(NSP)o   { self.bounds = AZRectExceptOrigin(self.bounds,o); }
 - (void)   setOrigin:(NSP)o   { self.r = AZRectExceptOrigin(self.r,o); }
 
 -  (CGP)      apex            { return self.maxXmaxY; }
 -  (CGP)      centerPt        { return self.midXmidY; }
-- (void)   setCenterPt:(NSP)c   { self.r = AZCenterRectOnPoint(self.r, c);  }
+- (void)   setCenterPt:(NSP)c { self.r = AZCenterRectOnPoint(self.r, c);  }
 
       SYNTHESIZE_ASC_PRIMITIVE_KVO(  position,  setPosition,  NSP)
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( alignment, setAlignment, NSAlignmentOptions, ^{}, ^{ })      
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( supersize, setSupersize, NSSZ, ^{ if (!AZIsZeroSize(value)) return; 
 
   value = ISA(self,NSW) ?  ((NSW*)self).screen.frame.size : ISA(self,CAL) ? ((CAL*)self).superlayer.size : 
-          ISA(self,NSV) ?  ({ NSV* x = ((NSV*)self).superview; x ? x.size : value; }) : value;
+          ISA(self,NSV) ?  ({NSV* x = ((NSV*)self).superview; x ? x.size : value; }) : value;
 
 },^{})
 
+//- (void) setBounds:(NSRect)bounds   { if ([self isKindOfAnyClass:@[CALayer.class, NSView.class]]) YOU_DONT_BELONG;
+//
+//  self.frame = AZCenterRectOnPoint(AZRectFromSizeOfRect(bounds), self.centerPt); }
+//
+//-  (NSR)    bounds                  { if ([self isKindOfAnyClass:@[CALayer.class, NSView.class]]) YOU_DONT_BELONG,NSZeroRect;
 
+//  return AZCenterRectOnPoint(self.frame, self.centerPt); }
+
+- (BOOL)  isLargerThan:(id<RectLike>)r { return self.area  >   r.area; }
+- (BOOL) isSmallerThan:(id<RectLike>)r { return self.area   <  r.area; }
+- (BOOL)     isRectLke:(id<RectLike>)r { return self.area  ==  r.area; }
+- (BOOL)  isLargerThanRect:(NSR)r      { return self.area  >   $AZR(r).area; }
+- (BOOL) isSmallerThanRect:(NSR)r      { return self.area   <  $AZR(r).area; }
+- (BOOL)        isSameRect:(NSR)r      { return self.area  ==  $AZR(r).area; }
+
+
+SetKPfVA(InsideEdge, @"frame", @"superframe");
+
+- (AZA) insideEdge {
+
+  AZA oldEdge = ({ id x = FETCH; x ? [x uIV] : AZUnset; }),
+      newEdge = AZOutsideEdgeOfRectInRect(self.frame, self.superframe);
+
+  if (oldEdge == newEdge) return oldEdge;
+  SAVE(_cmd, @(newEdge)); [self triggerChangeForKeys:@[AZSELSTR]]; return newEdge;
+}
+
+- (NSS*) insideEdgeHex { return AZEnumToBinary(self.insideEdge); }
 
 //  if (value != AZAlignUnset) return; if (ISA(self,CAL)) value = AZAlignmentInsideRect(((CAL*)self).frame, self.superframe);
 //objswitch(self.class)
@@ -235,10 +267,50 @@ void IterateGridWithBlockStep(RNG *r1, RNG *r2, GridIterator block, GridIterator
 }
 void IterateGridWithBlock(RNG *r1, RNG *r2, GridIterator block) { IterateGridWithBlockStep(r1, r2, block,nil); }
 
+
+#pragma mark - GRIDLIKE
+
 @concreteprotocol(GridLike)
 
-SYNTHESIZE_ASC_PRIMITIVE_KVO( rows, setRows, NSUI);
-SYNTHESIZE_ASC_PRIMITIVE_KVO( cols, setCols, NSUI);
+SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(dimensions,setDimensions,NSSZ, ^{},^{
+
+  if (!NSEqualSizes(value, self.dimensions) && self.sizeChanged)
+    self.sizeChanged(self.dimensions, value);
+})
+
+SYNTHESIZE_ASC_CAST_BLOCK(sizeChanged, setSizeChanged, SizeChange, ^{},^{})
+
+//^{ ({
+//  NSSZ truesize; if(!NSEqualSizes(value,truesize=(NSSZ){self.rows, self.cols})) [self setDimensions:value = truesize]; });},
+
+- (void) setValue:(id)v forUndefinedKey:(NSString *)k { AZLOGCMD;
+
+  [k isEqualToString:@"rows"] ? [self setDimensions:(NSSZ){self.cols,[v unsignedIntegerValue]}] :
+  [k isEqualToString:@"cols"] ? [self setDimensions:(NSSZ){[v unsignedIntegerValue], self.rows}] : ({
+    struct objc_super superInfo = { self, [self superclass]  };
+    objc_msgSendSuper(&superInfo, _cmd, v, k); });
+}
+
+- (id) valueForUndefinedKey:(NSString *)k { AZLOGCMD; // AZSTACKTRACE;
+
+  return  SameString(k, @"rows") ? @(self.dimensions.height) :
+          SameString(k, @"cols") ? @(self.dimensions.width)  :
+          ({
+    struct objc_super superInfo = { self, [self superclass]  };
+    objc_msgSendSuper(&superInfo, _cmd, k); });
+}
+
+ // if dims not set, but rows and cols are..
+
+//});},^{ ({ self.cols = value.width; self.rows = (NSUI)(value.height); });});
+
+//SYNTHESIZE_ASC_PRIMITIVE_KVO(rows,setRows,NSUI);//,^{({ value = value ?: ((id<GridLike>)self).dimenensions.width;  });},
+//                                                     ^{({ self.dimensions = (NSSZ){self.cols,value}; }); });
+//SYNTHESIZE_ASC_PRIMITIVE_KVO(cols,setCols,NSUI);//,^{ value = value ?: (NSUI)self.dimenensions.height;  },^{ self.dimensions = (NSSZ){self.rows,value}; });
+
+SetKPfVA(Rows, @"dimensions");
+SetKPfVA(Cols, @"dimensions");
+//SetKPfVA(Dimensions, @"rows", @"cols");
 
 - (void) iterateGrid:(GridIterator)b { IterateGridWithBlock($RNG(0,self.rows),$RNG(0,self.cols),b); }
 
@@ -247,10 +319,27 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO( cols, setCols, NSUI);
 @implementation NSObject (Indexed)  // @dynamic backingStore;
 
 -   (id) backingStore { return FETCH; }
-- (NSUI) index        { NSAssert (self.backingStore && [self.backingStore count], @""); return [self.backingStore indexOfObject:self]; }
+- (NSUI) index        { NSAssert (self.backingStore && [self.backingStore count], @""); return [(NSA*)self.backingStore indexOfObject:self]; }
 - (NSUI) indexMax     { NSAssert (self.backingStore && [self.backingStore count], @""); return [self.backingStore count] -1; }//NSUI max = NSNotFound; id x; return !(x = [self backingStore]) ? max : (!(max = [x count])) ?: max - 1; }
 
 @end
+
+@concreteprotocol(FakeArray)
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
+
+  return [self.enumerator countByEnumeratingWithState:state objects:buffer count:len];
+}
+- (id<NSFastEnumeration>)enumerator { DEMAND_CONFORMANCE; return (id)nil; }
+- (int) indexOfObject:(id)x { DEMAND_CONFORMANCE; return NSNotFound; }
+/*! @required - (int) idexOfObject:(id)x; */
+
+- (void)eachWithIndex:(void(^)(id obj,int index))block {
+
+    for (id x in self) { int idx = [self indexOfObject:x]; if (idx != (int)NSNotFound) block(x,idx); }
+}
+- (void)do:(void(^)(id obj))block { for (id z in self) block(z); }
+@end
+
 
 @concreteprotocol(Indexed)  SetKPfVA(IndexMax, @"index")  SetKPfVA(Index,@"backingStore") @end
 

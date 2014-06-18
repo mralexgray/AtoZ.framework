@@ -8,7 +8,7 @@ static void __attribute__ ((destructor)) OCUnitToJUnitLoggerStop(void)	{  [insta
 
 @implementation AZLogUnit
 
-- (id)init;	{ if (self != super.init ) return nil;
+- (id)init;	{ 	if (!(self = super.init)) return nil;
 
 //  [AZNOTCENTER addObserver:self selector:@selector(testSuiteStarted:) 	name:XCTestSuiteDidStartNotification object:nil];
 //  [AZNOTCENTER addObserver:self selector:@selector(testSuiteStopped:) 	name:XCTestSuiteDidStopNotification object:nil];

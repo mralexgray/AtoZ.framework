@@ -5,19 +5,18 @@
 //  Created by Alex Gray on 10/15/12.
 //
 //
-
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 
 @interface AZPrismView : NSView
 
-@property (nonatomic, retain)  NSBitmapImageRep *nsBitmapImageRepObj;
+@property (nonatomic)  NSBitmapImageRep *nsBitmapImageRepObj;
 //	NSRect	nsRectFrameRect
-@property (nonatomic, assign) CGFloat	cgFloatRed, cgFloatRedUpdate;
-@property (nonatomic, retain)  NSTimer	*nsTimerRef;
+@property (nonatomic) CGFloat	cgFloatRed, cgFloatRedUpdate;
+@property (nonatomic)  NSTimer	*nsTimerRef;
 
 - (IBAction) startAnimation:(id)pId;
 - (IBAction) stopAnimation:	(id)pId;
 
--(void) paintGradientBitmap;
+- (void) paintGradientBitmap;
 
 @end

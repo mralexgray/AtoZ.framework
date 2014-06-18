@@ -13,6 +13,16 @@
 
 @implementation AZWindowTab  static NSMA *allTabs = nil; static NSPoint mDragOffset;
 
+- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r {
+
+  self = [super initWithContentRect:r styleMask:0|1|2|8 backing:0 defer:NO];
+	if (NSEqualRects(NSZeroRect, r) && v) r = v.frame; // if there's a view, use its frame, but check for nanRect.
+	if (NSEqualRects(NSZeroRect, r)) r = AZRectFromDim(400);
+	NSR tabFrame = AZRectBy(r.size.width + 100, r.size.height + 200); self.frame = tabFrame;
+	return self;
+}
+
+
 - (void) sendEvent:(NSEvent*)e {
 
   CGRect b = [self convertRectFromScreen:self.r];
@@ -324,13 +334,6 @@
 //	[retVal overrideViewResponder];	return retVal;
 //}
 
-//- (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r {
-//
-//	if (NSEqualRects(NSZeroRect, r) && v) r = v.frame; // if there's a view, use its frame, but check for nanRect.
-//	if (NSEqualRects(NSZeroRect, r)) r = AZRectFromDim(400);
-//	NSR tabFrame = AZRectBy(r.size.width + 100, r.size.height + 200);
-//	return  [self initWithFrame:tabFrame];
-//}
 
 //- (void) setContentView:(NSView*)aView { if !aView || self.contentView return;
 //

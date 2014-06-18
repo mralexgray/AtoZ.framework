@@ -6,7 +6,7 @@
 //  Copyright 2008 none. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "BGThemeManager.h"
 
 @interface BGHUDTableCornerView : NSView {

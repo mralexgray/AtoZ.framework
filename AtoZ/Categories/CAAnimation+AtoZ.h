@@ -1,9 +1,7 @@
 
-//@import QuartzCore;
 #import <BlocksKit/BlocksKit.h>
 #import "F.h"
 #import "BlockDelegate.h"
-
 
 @interface CAAnimationGroup (oneLine)
 + (CAAnimationGroup*) groupWithAnimations:(NSA*)anis duration:(NSTI)ti andSet:(CAL*)layer;
@@ -31,9 +29,7 @@ typedef void (^AZCAAnimationCompletionBlock)();
 //	[CATransaction setValue:@(YES) forKey:kCATransactionDisableActions];
 //}
 
-
-extern void disableCA();
-@interface CAKeyframeAnimation (JumpingAndShaking)
+@interface CAKeyframeAnimation (JumpingAndShaking) extern void disableCA();
 + (CAKA*) shakeAnimation:(NSR)frame;
 + (CAKA*) jumpAnimation;
 + (CAKA*) dockBounceAnimationWithIconHeight:(CGF)iconHeight;
@@ -41,17 +37,24 @@ extern void disableCA();
 @end
 
 @interface CABA (AtoZ)
-+ (CABA*) animationWithKeyPath:(NSS*)path from:(id)v1 to:(id)v2 duration:(NSTI)time repeat:(CGF)ct;
-+ (CABA*) dashPhaseAnimation;
++ (CABA*)             dashPhaseAnimation;
+
++ (CABA*) animationWithKeyPath:(NSS*)path from:(id)v1        to:(id)v2
+                                      duration:(NSTI)time repeat:(CGF)ct;
+
 + (CABA*) dashPhaseAnimationForPerimeter:(CGF)phase;
-+ (CABA*) groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption:(id)from to:(id)to andSet:(CAL*)set;
++ (CABA*)           groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption:(id)from to:(id)to andSet:(CAL*)set;
+
 + (CABA*) withKP:(NSS*)path duration:(NSTI)interval fromOption:(id)from to:(id)to andSet:(CAL*)set;
 @end
+
 @interface CAA (AtoZ)
 
++ (CABA*) rotationAnimation; //By:(CGF)deg;
++ (CABA*) rotationWithDuration:(NSTI)dur repeats:(int)times;
++ (CABA*) rotationAt:(NSP)p center:(NSP)c by:(CGF)deg;
 
-+ (CABA*)rotationAnimation; //By:(CGF)deg;
-+ (CABA*)rotationAt:(NSP)p center:(NSP)c by:(CGF)deg;
++ (CABA *)wKP:(NSS*)kp duration:(NSTI)d andProps:(NSS*)firstKey, ... NS_REQUIRES_NIL_TERMINATION;
 
 + (CABA*) animationWithKeyPath: (NSS*)path andDuration:(NSTI)interval andSet:(CAL*)set;
 + (CABA*) propertyAnimation: (NSD*) dict;
@@ -63,9 +66,9 @@ extern void disableCA();
 + (CAAG*) shrinkAnimationAtPoint: (CGP)p;
 + (CAAG*) blowupAnimationAtPoint: (CGP)p;
 
-+ (CAA*)	shakeAnimation;
-+ (CAA*) fadeInAnimation;
-+ (CAA*) fadeOutAnimation;
++ (CAA*)	     shakeAnimation;
++ (CAA*)      fadeInAnimation;
++ (CAA*)     fadeOutAnimation;
 + (CAA*)	animationForOpacity;
 + (CAA*)	flipDown: (NSTI)aDur  scaleFactor: (CGF)scale;
 + (CAA*)	animationOnPath: (CGPR)path  duration:	(CFTI)d 	  timeOffset: (CFTI)o;

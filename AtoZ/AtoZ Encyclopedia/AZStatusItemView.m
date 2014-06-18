@@ -10,7 +10,7 @@
 @implementation DBStatusItemController
 
 - (id)initWithController:(id)controller {
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	_item = [NSStatusBar,systemStatusBar statusItemWithLength:NSSquareStatusItemLength];
 	_item.image  = [[NSIMG imageNamed:@"atoz.icns"]scaledToMax:22];
 	//	statusItem.alternateImage	= [NSImage icons][11];//.randomElement; //[NSImage imageNamed:@"statusimage_pressed"]];

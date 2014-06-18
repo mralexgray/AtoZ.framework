@@ -4,103 +4,41 @@
 
 NSIMG* AZIMGNamed(NSS *constName);
 
-APPKIT_EXTERN NSString *const AZIMG_checkmark;
-APPKIT_EXTERN NSString *const AZIMG_addressBook;
-APPKIT_EXTERN NSString *const AZIMG_paperclip;
-APPKIT_EXTERN NSString *const AZIMG_checkRound;
-APPKIT_EXTERN NSString *const AZIMG_xCircle;
-APPKIT_EXTERN NSString *const AZIMG_off;
-APPKIT_EXTERN NSString *const AZIMG_on;
-APPKIT_EXTERN NSString *const AZIMG_lightning;
-APPKIT_EXTERN NSString *const AZIMG_floppy;
-APPKIT_EXTERN NSString *const AZIMG_folder;
-APPKIT_EXTERN NSString *const AZIMG_globe;
-APPKIT_EXTERN NSString *const AZIMG_jewishHand;
-APPKIT_EXTERN NSString *const AZIMG_calendar;
-APPKIT_EXTERN NSString *const AZIMG_cylinder;
-APPKIT_EXTERN NSString *const AZIMG_document;
-APPKIT_EXTERN NSString *const AZIMG_textDocument;
-APPKIT_EXTERN NSString *const AZIMG_blinkingPlus;
-APPKIT_EXTERN NSString *const AZIMG_blinkingMinus;
-APPKIT_EXTERN NSString *const AZIMG_printer;
-APPKIT_EXTERN NSString *const AZIMG_lock;
-APPKIT_EXTERN NSString *const AZIMG_magnifyingGlass;
-APPKIT_EXTERN NSString *const AZIMG_wavyDocument;
-APPKIT_EXTERN NSString *const AZIMG_computerScreen;
-APPKIT_EXTERN NSString *const AZIMG_foldedEdgeoc;
-APPKIT_EXTERN NSString *const AZIMG_volume;
-APPKIT_EXTERN NSString *const AZIMG_starFilled;
-APPKIT_EXTERN NSString *const AZIMG_starEMpty;
-APPKIT_EXTERN NSString *const AZIMG_textsymbol;
-APPKIT_EXTERN NSString *const AZIMG_bold;
-APPKIT_EXTERN NSString *const AZIMG_italic;
-APPKIT_EXTERN NSString *const AZIMG_strikethrough;
-APPKIT_EXTERN NSString *const AZIMG_trashcan;
-APPKIT_EXTERN NSString *const AZIMG_tag;
-APPKIT_EXTERN NSString *const AZIMG_envelope;
-APPKIT_EXTERN NSString *const AZIMG_plus;
-APPKIT_EXTERN NSString *const AZIMG_minus;
-APPKIT_EXTERN NSString *const AZIMG_recycle;
-APPKIT_EXTERN NSString *const AZIMG_umbrella;
-APPKIT_EXTERN NSString *const AZIMG_XMark;
-APPKIT_EXTERN NSString *const AZIMG_roundX;
-APPKIT_EXTERN NSString *const AZIMG_roundCheck;
-APPKIT_EXTERN NSString *const AZIMG_check;
-APPKIT_EXTERN NSString *const AZIMG_safari;
-APPKIT_EXTERN NSString *const AZIMG_pointer;
-APPKIT_EXTERN NSString *const AZIMG_forbidden;
-APPKIT_EXTERN NSString *const AZIMG_forbiddenLight;
-APPKIT_EXTERN NSString *const AZIMG_atSymbol;
+APPKIT_EXTERN NSString  *const AZIMG_checkmark,       *const AZIMG_addressBook,     *const AZIMG_paperclip,
+                        *const AZIMG_checkRound,      *const AZIMG_xCircle,         *const AZIMG_off,
+                        *const AZIMG_on,              *const AZIMG_lightning,       *const AZIMG_floppy,
+                        *const AZIMG_folder,          *const AZIMG_globe,           *const AZIMG_jewishHand,
+                        *const AZIMG_calendar,        *const AZIMG_cylinder,        *const AZIMG_document,
+                        *const AZIMG_textDocument,    *const AZIMG_blinkingPlus,    *const AZIMG_blinkingMinus,
+                        *const AZIMG_printer,         *const AZIMG_lock,            *const AZIMG_magnifyingGlass,
+                        *const AZIMG_wavyDocument,    *const AZIMG_computerScreen,  *const AZIMG_foldedEdgeoc,
+                        *const AZIMG_volume,          *const AZIMG_starFilled,      *const AZIMG_starEMpty,
+                        *const AZIMG_textsymbol,      *const AZIMG_bold,            *const AZIMG_italic,
+                        *const AZIMG_strikethrough,   *const AZIMG_trashcan,        *const AZIMG_tag,
+                        *const AZIMG_envelope,        *const AZIMG_plus,            *const AZIMG_minus,
+                        *const AZIMG_recycle,         *const AZIMG_umbrella,        *const AZIMG_XMark,
+                        *const AZIMG_roundX,          *const AZIMG_roundCheck,      *const AZIMG_check,
+                        *const AZIMG_safari,          *const AZIMG_pointer,         *const AZIMG_forbidden,
+                        *const AZIMG_forbiddenLight,  *const AZIMG_atSymbol;
 
 @protocol AZDynamicImages <NSO>
 @optional
-//+ (NSIMG*) checkmark;
-//+ (NSIMG*) addressBook;
-//+ (NSIMG*) paperclip;
-//+ (NSIMG*) checkRound;
-//+ (NSIMG*) xCircle;
-//+ (NSIMG*) off;
-//+ (NSIMG*) on;
-//+ (NSIMG*) lightning;
-//+ (NSIMG*) floppy;
-//+ (NSIMG*) folder;
-//+ (NSIMG*) globe;
-//+ (NSIMG*) jewishHand;
-//+ (NSIMG*) calendar;
-//+ (NSIMG*) cylinder;
-//+ (NSIMG*) document;
-//+ (NSIMG*) textDocument;
-//+ (NSIMG*) blinkingPlus;
-//+ (NSIMG*) blinkingMinus;
-//+ (NSIMG*) printer;
-//+ (NSIMG*) lock;
-//+ (NSIMG*) magnifyingGlass;
-//+ (NSIMG*) wavyDocument;
-//+ (NSIMG*) computerScreen;
-//+ (NSIMG*) foldedEdgeoc;
-//+ (NSIMG*) volume;
-//+ (NSIMG*) starFilled;
-//+ (NSIMG*) starEMpty;
-//+ (NSIMG*) textsymbol;
-//+ (NSIMG*) bold;
-//+ (NSIMG*) italic;
-//+ (NSIMG*) strikethrough;
-//+ (NSIMG*) trashcan;
-//+ (NSIMG*) tag;
-//+ (NSIMG*) envelope;
-//+ (NSIMG*) plus;
-//+ (NSIMG*) minus;
-//+ (NSIMG*) recycle;
-//+ (NSIMG*) umbrella;
-//+ (NSIMG*) XMark;
-//+ (NSIMG*) roundX;
-//+ (NSIMG*) roundCheck;
-//+ (NSIMG*) check;
-//+ (NSIMG*) safari;
-//+ (NSIMG*) pointer;
-//+ (NSIMG*) forbidden;
-//+ (NSIMG*) forbiddenLight;
-//+ (NSIMG*) atSymbol;
++ (NSIMG*) checkmark;       + (NSIMG*) addressBook;       + (NSIMG*) paperclip;
++ (NSIMG*) checkRound;      + (NSIMG*) xCircle;           + (NSIMG*) off;
++ (NSIMG*) on;              + (NSIMG*) lightning;         + (NSIMG*) floppy;
++ (NSIMG*) folder;          + (NSIMG*) globe;             + (NSIMG*) jewishHand;
++ (NSIMG*) calendar;        + (NSIMG*) cylinder;          + (NSIMG*) document;
++ (NSIMG*) textDocument;    + (NSIMG*) blinkingPlus;      + (NSIMG*) blinkingMinus;
++ (NSIMG*) printer;         + (NSIMG*) lock;              + (NSIMG*) magnifyingGlass;
++ (NSIMG*) wavyDocument;    + (NSIMG*) computerScreen;    + (NSIMG*) foldedEdgeoc;
++ (NSIMG*) volume;          + (NSIMG*) starFilled;        + (NSIMG*) starEMpty;
++ (NSIMG*) textsymbol;      + (NSIMG*) bold;              + (NSIMG*) italic;
++ (NSIMG*) strikethrough;   + (NSIMG*) trashcan;          + (NSIMG*) tag;
++ (NSIMG*) envelope;        + (NSIMG*) plus;              + (NSIMG*) minus;
++ (NSIMG*) recycle;         + (NSIMG*) umbrella;          + (NSIMG*) XMark;
++ (NSIMG*) roundX;          + (NSIMG*) roundCheck;        + (NSIMG*) check;
++ (NSIMG*) safari;          + (NSIMG*) pointer;           + (NSIMG*) forbidden;
++ (NSIMG*) forbiddenLight;  + (NSIMG*) atSymbol;
 @end
 
 
@@ -125,13 +63,13 @@ NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );
  		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
  		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
 
-+ (NSIMG*) contactSheetWith:(NSA*)images   columns:(NSUI)cols;  // I guess this is natiral size?
-+ (NSIMG*) contactSheetWith:(NSA*)images withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
-+ (NSIMG*) contactSheetWith:(NSA*)images   inFrame:(NSR)rect;//  columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:(NSA*)imgs   columns:(NSUI)cols;  // I guess this is natiral size?
++ (NSIMG*) contactSheetWith:(NSA*)imgs withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
++ (NSIMG*) contactSheetWith:(NSA*)imgs   inFrame:(NSR)rect;//  columns:(NSUI)cols;
 
-+ (NSIMG*) contactSheetWith:		  (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols;
-+ (NSIMG*) contactSheetWith:		  (NSA*)images sized:  (NSSZ)size spaced: (NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
-+ (NSIMG*) imageByTilingImages:    (NSA*)images spacingX:(CGF)spacingX spacingY:(CGF)spacingY vertically:(BOOL)vertically;
++ (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
++ (NSIMG*) imageByTilingImages:(NSA*)imgs spacingX:(CGF)x spacingY:(CGF)y vertically:(BOOL)vertically;
 - (NSIMG*) imageBorderedWithInset: (CGF)inset;
 - (NSIMG*) imageBorderedWithOutset:(CGF)outset;			@end  // (MERGE)
 
@@ -143,13 +81,19 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @interface NSImage (AtoZDrawBlock)
 
 + (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
-+ (NSIMG*) imageInFrame: (NSR)frame withBlock:(LockedFocusWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
++ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(LockedFocusWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
+#define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /*! [NSImage imageNamed:@"document"] */
 
-NS_INLINE NSIMG* NSIMGNAMED(NSS*x){ return [NSIMG imageNamed:x]; }
-
+@import Quartz;
 @class AZFile;	@interface NSImage (AtoZ)
 
+
++ (NSIMG *)imageFromPDF:(PDFDocument *)doc
+                   page:(NSUI)page
+                   size:(NSSZ)size
+                  named:(NSS *)name;
++(INST)missing;
 
 //+ (id) objectForKeyedSubscript:(id)k;
 //@property (NATOM) CGF width, height;
@@ -260,8 +204,9 @@ NS_INLINE NSIMG* NSIMGNAMED(NSS*x){ return [NSIMG imageNamed:x]; }
 @return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
 */
   * dataURL;
-
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
+/*! ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi*/
+
 - (void) 	  openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;
 + (void)   openQuantizeChartFor:(NSA*)images;

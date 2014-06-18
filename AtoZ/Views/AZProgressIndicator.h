@@ -1,11 +1,9 @@
 
-#import <Foundation/Foundation.h>
-#import "AtoZ.h"
+#import "AtoZUmbrella.h"
 
 
 @interface AZProgressBar : NSProgressIndicator
 
-@property NSTimer * animator;
 @property NSC * color;
 @property (NATOM) CGF stripeWidth;
 @property  double   progressOffset;

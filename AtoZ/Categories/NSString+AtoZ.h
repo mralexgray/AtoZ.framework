@@ -1,7 +1,6 @@
 
 #import "AtoZTypes.h"
 
-#import "NSString+SymlinksAndAliases.h"
 
 @interface NSData (AtoZ)
 @property (RONLY) NSS* UTF8String, *UTF16String;
@@ -15,17 +14,26 @@
 - (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
 @end
 
-@class AZDefinition;  @interface NSString (AtoZ)
+@class AZDefinition;
+@interface NSString (AtoZ)
+
+
+@prop_RO Class classified;
+
 + (NSA*) alphabet;
++ (NSA*) digits;
++ (NSA*) lettersAndNumbers;
+
 @property (RONLY) BOOL isInteger;
-@property 			NSRNG	subRange;
+@property   			NSRNG	subRange;
 @property (RONLY) NSRNG range;
 
 - (void) openInTextMate;
 
 - (NSComparisonResult) compareNumberStrings:(NSS*)str;
 - (NSS*) justifyRight:(NSUI)col;
-- (NSS*) withString:	(NSS*)string;
+- (NSS*)   withString:(NSS*)string;
+- (NSS*)   withFormat:(NSS*)format,...;
 
 + (NSS*) stringFromArray:(NSA*)a;
 + (NSS*) stringFromArray:(NSA*)a withSpaces:(BOOL)spaces onePerline:(BOOL)newl;
@@ -62,6 +70,7 @@
 
 @property (readonly) NSA* letters;
 
+- (NSS*) times:(int)count;
 - (NSS*) tidyHTML;
 - (NSS*) decodeHTMLCharacterEntities;
 - (NSS*) encodeHTMLCharacterEntities;
@@ -71,6 +80,9 @@
 + (NSS*) randomDicksonism;
 + (NSA*) dicksonPhrases;
 + (NSS*) dicksonParagraphWith:(NSUI)sentences;
+
++ (NSA*) gaySlang;
++ (NSS*) randomGaySlang;
 
 + (NSA*) badWords;
 + (NSS*) randomBadWord;
@@ -128,14 +140,15 @@
 
 - (NSS*) withPath:(NSS*)path;
 - (NSS*) withExt:	(NSS*)ext;
+- (NSS*) withExtIfMissing:(NSS*)ext;
 
 - (BOOL) loMismo:	(NSS*)s;
 
 - (unichar)lastCharacter;
 - (void) copyFileAtPathTo:(NSS*) path;
 
-- (CGF) pointSizeForFrame:(NSR)frame withFont:(NSS*) fontName;
-+ (CGF) pointSizeForFrame:(NSR)frame withFont:(NSS*) fontName forString:(NSS*) string;
+- (CGF) pointSizeForFrame:(NSR)frame withFont:(id)font;
++ (CGF) pointSizeForFrame:(NSR)frame withFont:(id)font forString:(NSS*) string;
 
 - (NSS*)stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix;
 - (NSS*) stringByReplacingAllOccurancesOfString:(NSS*) search withString:(NSS*) replacement;
@@ -173,17 +186,19 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 - (NSUI)count:(NSS*)aString options:(NSStringCompareOptions)flags; 	/*** Cunts occurrences of a given string with sone compare options */
 
 /* NOTICE nil and @"" are never part of any compared string */
-- (BOOL) contains:		(NSS*)aString; /*** Returns YES when aString is part of the this string. */
-- (BOOL) containsAnyOf:	(NSA*)array;	/*** Returns YES when this string contains ANY of the strings defined in the array */
-- (BOOL) containsAllOf:	(NSA*)array; 	/*** Returns YES when this string contains ALL of the strings defined in the array */
-- (BOOL) startsWith:		(NSS*)aString;	/*** Returns YES when this string starts with aString, just a synonym for hasPrefix */
-- (BOOL) endsWith:		(NSS*)aString;	/*** Returns YES when this string ends with aString, just a synonym for hasSuffix */
-- (BOOL)hasPrefix:(NSS*) prefix andSuffix:(NSS*) suffix;  /*** Returns YES when this string has both given prefix and suffix */
+- (BOOL)      contains:(NSS*)s; /*! YES when aString is part of the this string. */
+- (BOOL) containsAnyOf:(NSA*)a;	/*! YES when this string contains ANY of the strings defined in the array */
+- (BOOL) containsAllOf:(NSA*)a; /*! YES when this string contains ALL of the strings defined in the array */
+- (BOOL)    startsWith:(NSS*)s;	/*! YES when this string starts with aString, just a synonym for hasPrefix */
+- (BOOL)      endsWith:(NSS*)s;	/*! YES when this string ends with aString, just a synonym for hasSuffix */
+- (BOOL)     hasPrefix:(NSS*)p
+             andSuffix:(NSS*)s; /*! YES when this string has both given prefix and suffix */
+
 /*** Substring between prefix and suffix. If either prefix or suffix cannot be matched nil will be returned */
-- (NSS*) substringBetweenPrefix:(NSS*) prefix andSuffix:(NSS*) suffix;
+- (NSS*) substringBetweenPrefix:(NSS*)p andSuffix:(NSS*)s;
 /*** Oldscool indexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
--  (NSI) indexOf:		(NSS*)aString;
--  (NSI) indexOf:		(NSS*)aString afterIndex:(NSI)index;
+-  (NSI) indexOf:(NSS*)s;
+-  (NSI) indexOf:(NSS*)s afterIndex:(NSI)i;
 /*** Oldscool lastIndexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
 -  (NSI) lastIndexOf:(NSS*)aString;
 /*** Returns the first NSRange of any matching substring in this string that is part of the strings set */
@@ -201,32 +216,28 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 
 - (NSA*) trimmedComponentsSeparatedByString:(NSS*) delimiter;
 
-@property (RONLY) NSArray *decolonize;
-@property (RONLY) NSArray *splitByComma;
+@property (RONLY) NSA *decolonize, *splitByComma;
 
-- (NSS*) substringBefore:	(NSS*)delimiter;
-- (NSS*) substringAfter:	(NSS*)delimiter;
+- (NSS*) substringBefore:(NSS*)delimiter;
+- (NSS*)  substringAfter:(NSS*)delimiter;
 // The difference between the splitBy and splitAt groups is that splitAt will return an array containing one or two elements
 - (NSA*) splitAt:(NSS*)delimiter;
 - (BOOL) splitAt:(NSS*)delimiter head:(NSS**)head tail:(NSS**)tail;
 
 // excuse the pun, but it divides the string into a head and body word, trimmed
-@property (RONLY) NSArray *decapitate;
+@property (RONLY)  NSA * decapitate;
 // TBD whether they belong here or elsewhere
-@property (RONLY)  NSP pointValue;
-@property (RONLY) NSUI minutesValue;
-@property (RONLY) NSUI secondsValue;
+@property (RONLY)  NSP   pointValue;
+@property (RONLY) NSUI   minutesValue, secondsValue;
 
-@property (RONLY) NSURL *url;
-@property (RONLY) NSURL *fileURL;
+@property (RONLY) NSURL * url, * fileURL;
 
-@property (RONLY) NSS *ucfirst;
-@property (RONLY) NSS *lcfirst;
+@property (RONLY) NSS * ucfirst, * lcfirst;
 
-@property (RONLY) NSAS *attributedWithDefaults;
+@property (RONLY) NSAS * attributedWithDefaults;
 
 
-+ (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
++ (INST) stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 + (NSS*)   stringWithCGFloat: (CGF)f		 maxDigits: (NSUI)numDigits;
 //- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
 - (NSAS*) attributedWith:(NSD*)attrs;
@@ -271,6 +282,8 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 - (void)setFont:(NSFont*)f;
 @end
 @interface NSAttributedString (AtoZ)
+@prop_RO NSRNG range;
+- (CGF) pointSizeForSize:(NSSZ)z;
 - (void) drawInRect:(NSR)r withBackground:(NSC*)c;
 - (void) drawInRect:(NSR)r withContrastingBackground:(NSC*)c;
 - (void) drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c;
@@ -448,6 +461,8 @@ extern int gNSStringGeometricsTypesetterBehavior;
  */
 @interface NSString (Creations)
 
++ (INST) stringWithFormat:(NSS*)format array:(NSA*)arguments;
+
 /*! @name Initilizing a String */
 
 /*!
@@ -469,26 +484,26 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @brief Creates and returns an NSString from integer value.
  *  @see initWithInteger:
  */
-+ (id)stringWithInteger:(NSInteger)value;
++ (INST) stringWithInteger:(NSInteger)value;
 
 /*!
  *  @brief Creates and returns an NSString object initialized by using a given format string as a template into which the remaining argument values are substituted according to the user’s default locale.
  *  @see [initWithFormat:arguments:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:arguments:
  */
-+ (id)stringWithFormat:(NSS*)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1, 0);
++ (INST) stringWithFormat:(NSS*)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1, 0);
 
 /*!
  *  @brief Creates and returns an NSString object initialized by converting given data into Unicode characters using a given encoding.
  *  @see [initWithData:encoding:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithData:encoding:
  */
-+ (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
++ (INST) stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 
 /*!
  *  @brief Creates and returns an NSString object with concatnating given arguments.
  */
-+ (id)stringWithConcatnatingStrings:(NSS*)first, ...NS_REQUIRES_NIL_TERMINATION;
++ (INST) stringWithConcatnatingStrings:(NSS*)first, ...NS_REQUIRES_NIL_TERMINATION;
 
 @end
 
@@ -538,7 +553,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [NSRangeFromString][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Functions/Reference/reference.html#//apple_ref/c/func/NSRangeFromString
  */
-- (NSRange)range;
+@property (readonly) NSRange range;
 
 /*!
  *  @brief Returns a new string containing the characters of the receiver from the one at a given index with a given length.
@@ -655,7 +670,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 /** Convenience NSString functions. */
 @interface NSString (additions)
 
-+ (id) stringWithCharacter:(unichar)c;
++ (INST) stringWithCharacter:(unichar)c;
 
 /** Count lines.
  * @returns The number of lines in the string.
@@ -765,20 +780,20 @@ typedef int HFSplitRule;
  */
 - (NSA*)split:(NSS*)separator rule:(HFSplitRule)rule;
 
-/** Method alias for `lastPathComponent`.
+/*! Method alias for `lastPathComponent`. This is also a convenient method for baseNameWithExtension: when `YES` is passed to parameter `ext`.
+ */ @prop_RO NSS * baseName;
+/*! Return the containing directory for a specific path. 
+ */ @prop_RO NSS * dirName;
 
- This is also a convenient method for baseNameWithExtension: when `YES` is passed to parameter `ext`.
- */
-- (NSS*)baseName;
+/*
+*/ @prop_RO NSS *stringByDeletingPathComponentsWithoutExtensions;
+@prop_RO NSIMG * iconForFile;
 
 /** Return the last path component with or without the file extension.
-
  @param ext A `BOOL` value which decide whether show the file extension or not.
  */
-- (NSS*)baseNameWithExtension:(BOOL)ext;
+- (NSS*) baseNameWithExtension:(BOOL)ext;
 
-/** Return the containing directory for a specific path. */
-- (NSS*)dirName;
 
 /** Return the character at the index of a string.
 
@@ -868,4 +883,46 @@ Implements fuzzy matching for strings.
  */
 - (NSArray*)matchesForPattern:(NSString*)pattern;
 /// @name Derived from Ruby
+@end
+
+
+@interface NSCharacterSet (GetCharacters)
+
+@prop_RO NSS * name;
+@prop_RO NSA * characters;
+
++ (NSA*) alphanumericCharacters;
++ (NSA*) capitalizedLetterCharacters;
++ (NSA*) controlCharacters;
++ (NSA*) decimalDigitCharacters;
++ (NSA*) decomposableCharacters;
++ (NSA*) illegalCharacters;
++ (NSA*) letterCharacters;
++ (NSA*) lowercaseLetterCharacters;
++ (NSA*) newlineCharacters;
++ (NSA*) nonBaseCharacters;
++ (NSA*) punctuationCharacters;
++ (NSA*) symbolCharacters;
++ (NSA*) uppercaseLetterCharacters;
++ (NSA*) whitespaceAndNewlineCharacters;
++ (NSA*) whitespaceCharacters;
+
+/** Print out all characters of any of these sets:
+ + alphanumericCharacterSet
+ + capitalizedLetterCharacterSet
+ + controlCharacterSet
+ + decimalDigitCharacterSet
+ + decomposableCharacterSet
+ + illegalCharacterSet
+ + letterCharacterSet
+ + lowercaseLetterCharacterSet
+ + newlineCharacterSet
+ + nonBaseCharacterSet
+ + punctuationCharacterSet
+ + symbolCharacterSet
+ + uppercaseLetterCharacterSet
+ + whitespaceAndNewlineCharacterSet
+ + whitespaceCharacterSet
+ */
+
 @end

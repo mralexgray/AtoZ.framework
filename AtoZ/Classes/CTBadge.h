@@ -9,7 +9,6 @@
 //  
 //  Version: 2.0
 
-#import <Cocoa/Cocoa.h>
 //- (void)awakeFromNib  {
 //  myBadge = CTBadge.new;  [self setBadgeValue:scroller];
 //  [[NSColorPanel sharedColorPanel] setShowsAlpha:YES];
@@ -26,15 +25,13 @@
 //  [myBadge setLabelColor:[sender color]];
 //  [self setBadgeValue:scroller];
 
-extern const float CTLargeBadgeSize;
-extern const float CTSmallBadgeSize;
-extern const float CTLargeLabelSize;
-extern const float CTSmallLabelSize;
+@import AppKit;
+
+extern const CGFloat CTLargeBadgeSize, CTSmallBadgeSize, CTLargeLabelSize, CTSmallLabelSize;
 
 @interface CTBadge : NSObject
   {
-  NSColor *badgeColor;
-  NSColor *labelColor;
+  NSColor *badgeColor, *labelColor;
   }
 
 + (CTBadge *)systemBadge;																//Classic white on red badge
@@ -57,7 +54,7 @@ extern const float CTSmallLabelSize;
 - (void)setBadgeColor:(NSColor *)theColor;					//Sets the color used on badge
 - (void)setLabelColor:(NSColor *)theColor;					//Sets the color of the label
 
-- (NSColor *)badgeColor;									//Color currently being used on the badge
-- (NSColor *)labelColor;									//Color currently being used on the label
+@property (readonly) NSColor*badgeColor,									//Color currently being used on the badge
+                            *labelColor;									//Color currently being used on the label
 
 @end

@@ -841,7 +841,7 @@ NSString * AZToStringFromTypeAndValue(const char *typeCode, void *val) {
 		    : SameChar(typeCode, @encode(  int)) ? $(@"%d",          *((int*)  val))
 		    : SameChar(typeCode, @encode(  NSI)) ? $(@"%ld",         *((NSI*)  val))
 		    : SameChar(typeCode, @encode(   id)) ? $(@"%@", (__bridge NSO*)val)
- 		    : SameChar(typeCode, @encode( CGCR)) ? $(@"cg%@", [NSC colorWithCGColor:*((CGCR*)val)].nameOfColor)
+ 		    : SameChar(typeCode, @encode( CGCR)) ? $(@"cg%@", [NSC colorWithCGColor:*((CGCR*)val)].name)
         : nil;
 }
 //		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
@@ -1030,7 +1030,8 @@ NSString * StringFromCATransform3D(CATransform3D transform) {
 
 
 NSN 	*AZNormalNumber (NSN* number, NSN *min, NSN* max) {
-	NSCAssert( [max isGreaterThan:min], @"problem here, max is less than min!");
+
+	NSCAssert( [max isGreaterThan:min], @"problem here, max:%@ is less than min:%@!", max,min);
 	NSN* newNum =  [min isGreaterThan:number] ? min : number;
 			newNum = [number isGreaterThan:max] ? max : number;
 	return newNum;

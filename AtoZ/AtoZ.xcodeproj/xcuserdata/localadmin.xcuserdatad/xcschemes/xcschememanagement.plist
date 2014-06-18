@@ -4,10 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AZPrompt.xcscheme</key>
+		<key>AZPrompt.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>72</integer>
 		</dict>
 		<key>AtoZ.xcscheme_^#shared#^_</key>
 		<dict>
@@ -17,74 +17,82 @@
 		<key>AtoZAgent.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>3</integer>
 		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>37</integer>
+			<integer>6</integer>
 		</dict>
 		<key>AtoZDocumentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>38</integer>
+			<integer>9</integer>
 		</dict>
 		<key>AtoZHelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>4</integer>
 		</dict>
 		<key>AtoZPrefs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>2</integer>
 		</dict>
-		<key>AtoZTestBed∞.xcscheme</key>
+		<key>AtoZTestBed.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>6</integer>
 		</dict>
 		<key>AtoZTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>8</integer>
 		</dict>
-		<key>AtoZUnitTests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<true/>
-			<key>orderHint</key>
-			<integer>32</integer>
-		</dict>
-		<key>Build Frameworks.xcscheme</key>
+		<key>Deps.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>49</integer>
+			<integer>1</integer>
+		</dict>
+		<key>Frameworks.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Libs.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>OCLint.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>ObjectiveCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
-		</dict>
-		<key>ObjectiveCLITests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>71</integer>
+			<integer>11</integer>
 		</dict>
 		<key>Router.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>155</integer>
+			<integer>7</integer>
+		</dict>
+		<key>StaticFrameworks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>WindowPoppers.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>74</integer>
 		</dict>
-		<key>WindowPoppersTests.xcscheme</key>
+		<key>Zangetsu.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>78</integer>
+			<integer>48</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -164,7 +172,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7BCAD9101944BFC1005E6C4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7BCAD9141944C022005E6C4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7BCAD93B1944CE95005E6C4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7BDF568B1627695300041A42</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7BE62485192C5E87007C3772</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,7 +9,7 @@ int main(int argc, const char * argv[])	{ return NSApplicationMain(argc, argv);	
 
 	// Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
-	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+//	[DDLog addLogger:[DDTTYLogger sharedInstance]];
 	// Create server using our custom MyHTTPServer class
 	_server = RoutingHTTPServer.new;
 	
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[])	{ return NSApplicationMain(argc, argv);	
 	NSError *error;
 	if(![httpServer start:&error])
 	{
-		DDLogError(@"Error starting HTTP Server: %@", error);
+//		DDLogError(@"Error starting HTTP Server: %@", error);
 	}
 	XX(httpServer.URL);
 	[_webView bind:@"mainFrameURL" toObject:httpServer withKeyPath:@"URL" transform:^id(id value) {

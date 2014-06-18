@@ -9,15 +9,12 @@
 #import "AZCalculatorController.h"
 #import "CalcModel.h"
 
-@implementation AZCalculatorController
-@synthesize window;
-@synthesize labelValue;
+@implementation AZCalculatorController @synthesize labelValue;
 
-+ (AZCalculatorController *)sharedCalc{
++ (instancetype) sharedCalc {
+
 	static AZCalculatorController *_sharedCalc = nil;
-	if(!_sharedCalc){
-		_sharedCalc = [self.alloc initWithWindowNibName:[self nibName]];
-	}
+	if(!_sharedCalc) _sharedCalc = [self.alloc initWithWindowNibName:self.nibName];
 	return _sharedCalc;
 }
 	// Subclasses can override this to use a nib with a different name.

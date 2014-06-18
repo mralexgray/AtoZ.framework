@@ -4,7 +4,6 @@
 //  Created by Daniele Margutti on 12/21/12.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @protocol NSSplitViewAnimatableDelegate <NSSplitViewDelegate>
 @optional

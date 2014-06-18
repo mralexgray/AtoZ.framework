@@ -6,7 +6,6 @@
 //  Copyright 2009 Thoughtful Tree Software. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 NSString* NSStringFromCGRect(CGRect rect);
 NSString* NSStringFromCGPoint(CGPoint p);

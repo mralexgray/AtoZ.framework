@@ -60,11 +60,6 @@
 
 @implementation TUIView (Subviews)
 
-- (void) setSubviews:  (NSA*) subs {
-
-	[subs each:^(id obj) {
-		[self addSubview:obj];
-	}];
-}
+- (void) setSubviews:  (NSA*) subs { for (id x in subs) [self addSubview:x]; }
 
 @end

@@ -2,27 +2,42 @@
 #import "AtoZUmbrella.h"
 #define CRNR OSCornerType
 
+JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
+                              NSWindowResizeTopRightCorner    = 2,
+                              NSWindowResizeBottomRightCorner = 3,
+                              NSWindowResizeBottomLeftCorner  = 4);
+
+
+
 @interface NSAnimationContext (Blocks)
 
-+ (void) groupWithDuration:(NSTI)duration
-    timingFunctionWithName:(NSS*)tFnunc
-         completionHandler:(VBlk)cHndlr
-            animationBlock:(VBlk)aniBlk;
++ (void) groupWithDuration:(NSTI)d
+    timingFunctionWithName:(NSS*)tF
+         completionHandler:(VBlk)blk
+            animationBlock:(VBlk)aniB;
 
-+ (void) groupWithDuration:(NSTI)duration
-         completionHandler:(VBlk)cHndlr
-            animationBlock:(VBlk)aniBlk;
++ (void) groupWithDuration:(NSTI)d
+         completionHandler:(VBlk)cH
+            animationBlock:(VBlk)ani;
 
-+ (void)groupWithDuration:(NSTI)duration
-           animationBlock:(VBlk)aniBlk;
++ (void)groupWithDuration:(NSTI)d
+           animationBlock:(VBlk)an;
 @end
 
 @interface NSResponder (AtoZ)
-- (void) overrideResponder:(SEL)sel withBool:(BOOL)accepts;
-@property BOOL acceptsFirstResponder, performKeyEquivalent;
+- (void)        overrideResponder:(SEL)sel
+                         withBool:(BOOL)accepts;
+- (void) setAcceptsFirstResponder:(BOOL)a;
+- (void)  setPerformKeyEquivalent:(BOOL)p;
+
+
+/*! [win animateWithDuration:2 block:^(id w){ 
+      [w setFrame:AZScreenFrameUnderMenu()]; 
+    }]
+*/
+- (void) animateWithDuration:(NSTI)d block:(IDBlk)stuff;
 @end
 
-JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTopRightCorner = 2, NSWindowResizeBottomRightCorner = 3, NSWindowResizeBottomLeftCorner = 4);
 
 @interface NSWindow (SBSWindowAdditions)
 + (void) setLiveFrameTracking:(BOOL) bol;
@@ -37,11 +52,26 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 
 @interface NSWindow		(AtoZ)  <RectLike> 
 
-- (void) toggleVisibility;
-@property (NATOM) NSA* childWindows;
+- (void) activate;
 
-- (void)  overrideCanBecomeKeyWindow:(BOOL)canBecomeKey;
++ (INST) withFrame:(NSR)r mask:(NSUI)m;
+#pragma mark - THE MISSING ACCESSORS
+
+@prop_NA NSA * childWindows;
+@prop_RO NSV * frameView;
+@prop_   NSV * view;
+@prop_RO CAL * windowLayer,
+             * contentLayer;
+@prop_RO CGR   contentRect;
+@prop_RO CGF   heightOfTitleBar, toolbarHeight;
+
+- (void) toggleVisibility;
+
 - (void) overrideCanBecomeMainWindow:(BOOL)canBecomeMain;
+- (void)  overrideCanBecomeKeyWindow:(BOOL)canBecomeKey;
+- (void)               setIgnoresEventsButAcceptsMoved;
+
+#pragma mark - FACTORIES
 
 + (INST) windowWithFrame:(NSR)r view:(NSView*)v mask:(NSUI)m;
 + (INST) windowWithFrame:(NSR)r mask:(NSUI)m;
@@ -51,39 +81,33 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 +   (id) hitTestPoint:(NSP)location;
 + (NSA*) appWindows;
 
-@property (RONLY) NSV * frameView;
-@property         NSV * view;
-@property	(RONLY) CAL * windowLayer,
-                      * contentLayer;
-@property (RONLY) CGR   contentRect;
-
 - (NSA*) windowAndChildren;
 + (NSA*) allWindows;
 
-@property (RONLY) CAL* veilLayer;
-- (CAL*) veilLayerForView: (NSV*)view;
++ desktopWindow;
 
-//-  (NSP) midpoint; //get the midpoint of the window
-//- (void) setMidpoint:		(NSPoint) midpoint; //set the midpoint of the window
-- (void) addViewToTitleBar:	(NSView*) viewToAdd atXPosition:(CGFloat)x;
--  (CGF) heightOfTitleBar;
-- (void) setContentSize:		(NSSize) aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag;
+@prop_RO CAL* veilLayer;
+- (CAL*) veilLayerForView:(NSV*)view;
+
+- (void) addViewToTitleBar:	(NSV*)viewToAdd atXPosition:(CGFloat)x;
+
+- (void) setContentSize:		(NSSZ)z display:(BOOL)f animate:(BOOL)a;
 - (void) betterCenter;
-
-//@property (readonly, nonatomic) BOOL isBorderless;
-@property (readonly, nonatomic) CGFloat toolbarHeight;
-
 - (void) fadeIn;
 - (void) fadeOut;
-/* - (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;	*/
 - (void) slideUp;
 - (void) slideDown;
 - (void) extendVerticallyBy: (CGF) amount;
-//- (void) setDefaultFirstResponder;
 - (void) animateInsetTo:(CGF)f anchored:(AZA)edge;
-- (void) setIgnoresEventsButAcceptsMoved;
 - (void) delegateBlock: (void(^)(NSNOT*))block;
+
 @end
+
+//@property (readonly, nonatomic) BOOL isBorderless;
+//-  (NSP) midpoint; //get the midpoint of the window
+//- (void) setMidpoint:		(NSPoint) midpoint; //set the midpoint of the window
+/* - (void) fadeInYesOrOutNo: (BOOL)fade andResizeTo: (NSRect)frame;	*/
+//- (void) setDefaultFirstResponder;
 
 #define kNTSetDefaultFirstResponderNotification @"NTSetDefaultFirstResponderNotification"  // object is the window, must check
 
@@ -93,19 +117,20 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner = 1, NSWindowResizeTop
 
 @interface  NSWindow (UKFade)
 
--(void) fadeInWithDuration: (NSTimeInterval)duration;
--(void) fadeInOneStep: 		(NSTimer*)timer;
+-(void)       fadeInOneStep:(NSTimer*)timer;
+-(void)      fadeOutOneStep:(NSTimer*)timer;
+-(void)  fadeInWithDuration:(NSTimeInterval)duration;
 -(void) fadeOutWithDuration:(NSTimeInterval)duration;
--(void) fadeOutOneStep: 	(NSTimer*)timer;
--(void)	fadeToLevel: 		(int)lev withDuration: (NSTimeInterval)duration;
-@end
-
-
-@interface DesktopWindow : NSWindow 
+-(void)	        fadeToLevel:(int)lev
+               withDuration:(NSTimeInterval)duration;
 @end
 
 @interface NSWindow (SDResizableWindow)
-- (void) setContentViewSize:(NSSize)newSize display:(BOOL)display animate:(BOOL)animate;
+
+- (void) setContentViewSize:(NSSize)x
+                    display:(BOOL)d
+                    animate:(BOOL)a;
+
 -  (NSR) windowFrameForNewContentViewSize:(NSSize)newSize;
 
 @end

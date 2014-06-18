@@ -1,66 +1,44 @@
 
 
-#import "AtoZ.h"
 @import ObjectiveC;
-#import "NSImage+AtoZ.h"
 //#import <AppKit/AppKit.h>
 //#import <Quartz/Quartz.h>
 #import <QuickLook/QuickLook.h>
 #import <SVGKit/SVGKit.h>
-#import "AZHTMLParser.h"
-#import "HTMLNode.h"
+#import "AtoZ.h"
+//#import "AZHTMLParser.h"
+//#import "HTMLNode.h"
+//#import "AtoZCategories.h"
+#import "NSImage+AtoZ.h"
 
-#import "AtoZCategories.h"
 
 NSIMG* AZIMGNamed(NSS *constName) {  return objc_msgSend(NSIMG.class, NSSelectorFromString(constName)); }
 
-NSString *const AZIMG_checkmark = @"checkmark";
-NSString *const AZIMG_addressBook = @"addressBook";
-NSString *const AZIMG_paperclip = @"paperclip";
-NSString *const AZIMG_checkRound = @"checkRound";
-NSString *const AZIMG_xCircle = @"xCircle";
-NSString *const AZIMG_off = @"off";
-NSString *const AZIMG_on = @"on";
-NSString *const AZIMG_lightning = @"lightning";
-NSString *const AZIMG_floppy = @"floppy";
-NSString *const AZIMG_folder = @"folder";
-NSString *const AZIMG_globe = @"globe";
-NSString *const AZIMG_jewishHand = @"jewishHand";
-NSString *const AZIMG_calendar = @"calendar";
-NSString *const AZIMG_cylinder = @"cylinder";
-NSString *const AZIMG_document = @"document";
-NSString *const AZIMG_textDocument = @"textDocument";
-NSString *const AZIMG_blinkingPlus = @"blinkingPlus";
-NSString *const AZIMG_blinkingMinus = @"blinkingMinus";
-NSString *const AZIMG_printer = @"printer";
-NSString *const AZIMG_lock = @"lock";
-NSString *const AZIMG_magnifyingGlass = @"magnifyingGlass";
-NSString *const AZIMG_wavyDocument = @"wavyDocument";
-NSString *const AZIMG_computerScreen = @"computerScreen";
-NSString *const AZIMG_foldedEdgeoc = @"foldedEdgeoc";
-NSString *const AZIMG_volume = @"volume";
-NSString *const AZIMG_starFilled = @"starFilled";
-NSString *const AZIMG_starEMpty = @"starEMpty";
-NSString *const AZIMG_textsymbol = @"textsymbol";
-NSString *const AZIMG_bold = @"bold";
-NSString *const AZIMG_italic = @"italic";
-NSString *const AZIMG_strikethrough = @"strikethrough";
-NSString *const AZIMG_trashcan = @"trashcan";
-NSString *const AZIMG_tag = @"tag";
-NSString *const AZIMG_envelope = @"envelope";
-NSString *const AZIMG_plus = @"plus";
-NSString *const AZIMG_minus = @"minus";
-NSString *const AZIMG_recycle = @"recycle";
-NSString *const AZIMG_umbrella = @"umbrella";
-NSString *const AZIMG_XMark = @"XMark";
-NSString *const AZIMG_roundX = @"roundX";
-NSString *const AZIMG_roundCheck = @"roundCheck";
-NSString *const AZIMG_check = @"check";
-NSString *const AZIMG_safari = @"safari";
-NSString *const AZIMG_pointer = @"pointer";
-NSString *const AZIMG_forbidden = @"forbidden";
-NSString *const AZIMG_forbiddenLight = @"forbiddenLight";
-NSString *const AZIMG_atSymbol = @"atSymbol";
+NSString
+*const AZIMG_checkmark = @"checkmark",              *const AZIMG_addressBook = @"addressBook",
+*const AZIMG_paperclip = @"paperclip",              *const AZIMG_checkRound = @"checkRound",
+*const AZIMG_xCircle = @"xCircle",                  *const AZIMG_off = @"off",
+*const AZIMG_on = @"on",                            *const AZIMG_lightning = @"lightning",
+*const AZIMG_floppy = @"floppy",                    *const AZIMG_folder = @"folder",
+*const AZIMG_globe = @"globe",                      *const AZIMG_jewishHand = @"jewishHand",
+*const AZIMG_calendar = @"calendar",                *const AZIMG_cylinder = @"cylinder",
+*const AZIMG_document = @"document",                *const AZIMG_textDocument = @"textDocument",
+*const AZIMG_blinkingPlus = @"blinkingPlus",        *const AZIMG_blinkingMinus = @"blinkingMinus",
+*const AZIMG_printer = @"printer",                  *const AZIMG_lock = @"lock",
+*const AZIMG_magnifyingGlass = @"magnifyingGlass",  *const AZIMG_wavyDocument = @"wavyDocument",
+*const AZIMG_computerScreen = @"computerScreen",    *const AZIMG_foldedEdgeoc = @"foldedEdgeoc",
+*const AZIMG_volume = @"volume",                    *const AZIMG_starFilled = @"starFilled",
+*const AZIMG_starEmpty = @"starEmpty",              *const AZIMG_textsymbol = @"textsymbol",
+*const AZIMG_bold = @"bold",                        *const AZIMG_italic = @"italic",
+*const AZIMG_strikethrough = @"strikethrough",      *const AZIMG_trashcan = @"trashcan",
+*const AZIMG_tag = @"tag",                          *const AZIMG_envelope = @"envelope",
+*const AZIMG_plus = @"plus",                        *const AZIMG_minus = @"minus",
+*const AZIMG_recycle = @"recycle",                  *const AZIMG_umbrella = @"umbrella",
+*const AZIMG_XMark = @"XMark",                      *const AZIMG_roundX = @"roundX",
+*const AZIMG_roundCheck = @"roundCheck",            *const AZIMG_check = @"check",
+*const AZIMG_safari = @"safari",                    *const AZIMG_pointer = @"pointer",
+*const AZIMG_forbidden = @"forbidden",              *const AZIMG_forbiddenLight = @"forbiddenLight",
+*const AZIMG_atSymbol = @"atSymbol";
 
 @interface AZImageCache ()
 @property(assign, nonatomic) dispatch_queue_t queue;
@@ -68,71 +46,49 @@ NSString *const AZIMG_atSymbol = @"atSymbol";
 
 @implementation AZImageCache
 SYNTHESIZE_SINGLETON_FOR_CLASS(AZImageCache, sharedCache);
-- (id)init {
-  if (!(self = [super init]))
-    return nil;
-  _queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-  NSString *cachesD = NSSearchPathForDirectoriesInDomains(
-      NSCachesDirectory, NSUserDomainMask, YES)[0];
-  _cacheDirectory = [cachesD withPath:[APP_NAME withString:@"_ImageCache"]];
-  if (![AZFILEMANAGER fileExistsAtPath:_cacheDirectory])
-    [AZFILEMANAGER createDirectoryAtPath:_cacheDirectory
-             withIntermediateDirectories:YES
-                              attributes:nil
-                                   error:nil];
+
+- (id)init { SUPERINIT;
+
+  _queue          = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+  _cacheDirectory = [AZCACHEDIR withPath:[APP_NAME withString:@"_ImageCache"]];
+  MAKEDIR_IFNEEDED(_cacheDirectory);
   return self;
 }
 
 - (void)removeAllObjects {
+
   [AZFILEMANAGER removeItemAtPath:_cacheDirectory error:nil];
-  [AZFILEMANAGER createDirectoryAtPath:_cacheDirectory
-           withIntermediateDirectories:YES
-                            attributes:nil
-                                 error:nil];
+  MAKEDIR(_cacheDirectory);
   [super removeAllObjects];
 }
 
-- (NSIMG *)imageForKey:(NSS *)key {
-  if (![self hasPropertyForKVCKey:@"key"] || !key)
-    return nil;
-  NSIMG *image = [self objectForKey:key];
-  if (!image) {
-    NSS *path = [self pathForImage:image key:key];
-    image = [NSIMG.alloc initWithContentsOfFile:path];
-    if (image)
-      [self setObject:image forKey:key];
-  }
-  return image ?: nil;
-}
-+ (void)cacheImage:(NSImage *)image {
+- (NSIMG *)imageForKey:(NSS *)key { if (![self hasPropertyForKVCKey:@"key"] || !key) return nil;
 
-  NSS *path =
-      [self.sharedCache pathForImage:image key:image.name ?: NSS.randomWord];
-  [image saveAs:path];
+  NSIMG *image = [self objectForKey:key]; return image ?: ({ NSS *path = [self pathForImage:image key:key];
+
+    if ((image = [NSIMG.alloc initWithContentsOfFile:path])) [self setObject:image forKey:key];  image;  });
 }
-- (void)setImage:(NSIMG *)image forKey:(NSS *)key {
-  if (!image || !key)
-    return;
-  [self setObject:image forKey:key];
-  dispatch_async(_queue, ^{
-      NSS *path = [self pathForImage:image key:key];
-      //		NSLog(@"%@", path);
-      [image saveAs:path];
-      //		NSData *imageData = NSIMGPNGRepresentation(image);
-      //		if (imageData) [imageData writeToFile:path atomically:NO];
-  });
+
++ (void)cacheImage:(NSIMG*)i { [i saveAs:[self.sharedCache pathForImage:i key:i.name ?: NSS.randomWord]]; }
+
+- (void)setImage:(NSIMG*)i forKey:(NSS*)k { IF_RETURNV(!i || !k);
+
+  [self setObject:i forKey:k];
+  dispatch_async(_queue, ^{ [i saveAs:[self pathForImage:i key:k]]; /* path */ });
+
+//  NSLog(@"%@", path); NSData *imageD = NSIMGPNGRepresentation(image);
+//  if (imageD) [imageData writeToFile:path atomically:NO];
 }
 
 #pragma mark - Private Methods
 
 - (NSS *)pathForImage:(NSIMG *)image key:(NSS *)key {
+
   NSS *path = key;
 #if TARGET_OS_IPHONE
-  if (image.scale == 2.0f)
-    path = [key stringByAppendingString:@"@2x"];
+  if (image.scale == 2.0f) path = [key stringByAppendingString:@"@2x"];
 #endif
-  path = [key stringByAppendingString:@".png"];
-  return [_cacheDirectory stringByAppendingPathComponent:path];
+  return [_cacheDirectory withPath:[path withExtIfMissing:@"png"]];
 }
 
 @end
@@ -175,26 +131,25 @@ CGImageRef CreateCGImageFromData(NSData* data)
 respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 */
 NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
-  __block NSR frame = NSZeroRect;
-  __block NSUI col;
-  __block CGF rowWidth = 0, rowHeight = 0;
-  [[items vFKP:@"size"]
-      enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-          if (AZMaxDim(frame.size) > 10000) {
-            NSLog(@"bailing on maxdim: %@", AZStringFromRect(frame));
-            *stop = YES;
-          }
-          if ((idx % cols) == 0) {
-            frame.size.width = MAX(frame.size.width, rowWidth);
-            NSLog(@"setting width: %f of row at index:%ld", rowWidth, idx);
-            rowWidth = 0;
-            frame.size.height += rowHeight;
-            rowHeight = 0;
-          }
-          rowHeight = MAX([obj sizeValue].height, rowHeight);
-          rowWidth += [obj sizeValue].width;
-      }];
-  return frame;
+
+  __block NSR frame = NSZeroRect; __block NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
+
+  [[items vFKP:@"size"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+    if (AZMaxDim(frame.size) > 10000) return
+      NSLog(@"bailing on maxdim: %@", AZStringFromRect(frame)), *stop = YES, (void)nil;
+
+    if (!(idx % cols)) {
+      frame.size.width = MAX(frame.size.width, rowWidth);
+      NSLog(@"setting width: %f of row at index:%ld", rowWidth, idx);
+      rowWidth = 0;
+      frame.size.height += rowHeight;
+      rowHeight = 0;
+    }
+    rowHeight = MAX([obj sizeValue].height, rowHeight);
+    rowWidth += [obj sizeValue].width;
+
+  }];  return frame;
 }
 
 @implementation NSImage (Merge)
@@ -569,11 +524,12 @@ NSData *PNGRepresentation(NSIMG *image) {
 }
 
 - (void)lockFocusBlock:(void (^)(NSIMG *))block {
-  [NSGraphicsContext state:^{
       [self lockFocus];
+//  [NSGraphicsContext state:^{
+
       block(self);
       [self unlockFocus];
-  }];
+//  }];
 }
 - (NSIMG *)lockFocusBlockOut:(NSIMG * (^)(NSIMG *))block {
   [self lockFocus];
@@ -1086,41 +1042,40 @@ NSIMG* resolve(id self, SEL _cmd) {
 */
 //#define ARRAYWITHOBJECTSATINDEXES(...)
 
-+ (NSA *)monoIcons {
++ (NSA *)monoIcons { AZSTATIC_OBJ(NSA, monos, ({
 
-  AZSTATIC_OBJ(PDFDocument, myPDF, self.monoPDF);
-  AZSTATIC_OBJ(NSA, monos, ({
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{    IndexedKeyMap *map = IndexedKeyMap.new;
 
-       NSD *entries = @{
-   @(43).sV : @"checkmark",		@(75).sV  : @"paperclip",		@(44).sV : @"addressBook",
-   @(43).sV : @"checkRound",	@(76).sV  : @"xCircle",     @(81).sV : @"off",
-   @(82).sV : @"on",          @(109).sV : @"lightning",   @(111).sV : @"floppy",
-  @(115).sV : @"folder",      @(131).sV : @"globe",       @(136).sV : @"jewishHand",
-  @(140).sV : @"calendar",    @(189).sV : @"cylinder",    @(220).sV : @"document",
-  @(232).sV : @"textDocument",@(261).sV : @"blinkingPlus",@(262).sV : @"blinkingMinus",
-  @(266).sV : @"printer",     @(280).sV : @"lock",        @(279).sV : @"magnifyingGlass",
-  @(276).sV : @"wavyDocument",@(278).sV : @"computerScreen",@(273).sV : @"foldedEdgeoc",
-  @(320).sV : @"volume",      @(323).sV : @"starFilled",  @(324).sV : @"starEMpty",
-  @(332).sV : @"textsymbol",  @(337).sV : @"bold",        @(338).sV : @"italic",
-  @(339).sV : @"strikethrough",@(345).sV : @"trashcan",   @(409).sV : @"tag",
-  @(422).sV : @"envelope",     @(488).sV : @"plus",       @(489).sV : @"minus",
-  @(608).sV : @"recycle",     @(621).sV : @"umbrella",    @(631).sV : @"XMark",
-  @(630).sV : @"roundX",      @(626).sV : @"roundCheck",  @(677).sV : @"check",
-  @(692).sV : @"safari",      @(693).sV : @"pointer",     @(695).sV : @"forbidden",
-  @(648).sV : @"forbiddenLight", @(640).sV : @"atSymbol"};
+    map[43] = @"checkmark";       map[75] = @"paperclip";   map[44] = @"addressBook";
+    map[43] = @"checkRound";      map[76] = @"xCircle";     map[81] = @"off";
+    map[82] = @"on";              map[109] = @"lightning";  map[111] = @"floppy";
+    map[115] = @"folder";         map[131] = @"globe";            map[136] = @"jewishHand";
+    map[140] = @"calendar";       map[189] = @"cylinder";         map[220] = @"document";
+    map[232] = @"textDocument";   map[261] = @"blinkingPlus";     map[262] = @"blinkingMinus";
+    map[266] = @"printer";        map[280] = @"lock";             map[279] = @"magnifyingGlass";
+    map[276] = @"wavyDocument";   map[278] = @"computerScreen";   map[273] = @"foldedEdgeoc";
+    map[320] = @"volume";         map[323] = @"starFilled";       map[324] = @"starEMpty";
+    map[332] = @"textsymbol";     map[337] = @"bold";             map[338] = @"italic";
+    map[339] = @"strikethrough";  map[345] = @"trashcan";         map[409] = @"tag";
+    map[422] = @"envelope";       map[488] = @"plus";             map[489] = @"minus";
+    map[608] = @"recycle";        map[621] = @"umbrella";         map[631] = @"XMark";
+    map[630] = @"roundX";         map[626] = @"roundCheck";       map[677] = @"check";
+    map[692] = @"safari";         map[693] = @"pointer";          map[695] = @"forbidden";
+    map[648] = @"forbiddenLight"; map[640] = @"atSymbol";
 
+    PDFDocument * myPDF =self.monoPDF;
 
-     monos = [[@0 to: @(myPDF.pageCount - 1)] map:^id(NSN* o){
-
-          id match = [entries valueForKey:o.sV];
-          NSString *name = match ? [match copy] : o.sV;
+    monos = [[@0 to: @(myPDF.pageCount - 1)] map:^id(NSN* o){     //          NSString *name = match ? [match copy] : o.strV;
           return [self imageFromPDF:myPDF page:o.iV size:AZSizeFromDim(256)
-                                      named:name];
+                                      named:map[o.iV] ?:[@"AtoZMono-"withString:o.strV]];
     }];
-  }));
-
-  return monos;
+  }); monos; })); return monos;
 }
+
+#pragma TODO - NEED to make this shit dynamic , keysubbed, etc.
+
++ (INST) missing { return [self imageNamed:@"missing.png"]; }
 
 + (NSIMG *)imageFromPDF:(PDFDocument *)doc
                    page:(NSUI)page
@@ -1142,10 +1097,10 @@ NSIMG* resolve(id self, SEL _cmd) {
   }];
 }
 + (instancetype)frameworkImageNamed:(NSS *)string {
-  return [NSImage imageWithFileName:string inBundle:AZFWORKBUNDLE];
+  return [self.class imageWithFileName:string inBundle:AZFWORKBUNDLE];
 }
 + (instancetype)randomIcon {
-  return [NSImage az_imageNamed:self.picolStrings.randomElement];
+  return [self.class az_imageNamed:self.picolStrings.randomElement];
 }
 //+ (NSA *)iconsColoredWithColor:(NSC *)color;
 //{}
@@ -1154,8 +1109,7 @@ NSIMG* resolve(id self, SEL _cmd) {
 
   return picolStrings_ =
              picolStrings_
-                 ?: [NSFileManager
-                        filesInFolder:[AZFWRESOURCES withPath:@"picol/"]];
+                 ?: [AZFILEMANAGER filesInFolder:[AZFWRESOURCES withPath:@"picol/"]];
 }
 + (NSA *)icons {
   return [NSA arrayWithArrays:@[ self.monoIcons, self.systemIcons ]];
@@ -1176,6 +1130,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                        imageScaledToFitSize:theSize]
                  : [NSImage az_imageNamed:@"missing.png"];
 }
+
 + (NSA *)randomImages:(NSUI)count {
   static NSA *randomImages_;
 
@@ -1641,7 +1596,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   // now use that bitmap to store the desired view rectangle as bits
   [view cacheDisplayInRect:rect toBitmapImageRep:imageRep];
   // jam that bitrep into an image and return it
-  NSIMG *image = [[NSImage.alloc initWithSize:rect.size] autorelease];
+  NSIMG *image = [NSImage.alloc initWithSize:rect.size];
   [image addRepresentation:imageRep];
   return image;
 }
@@ -1725,7 +1680,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
             }
         }];
     target.name =
-        self.name ?: $(@"Image filled with color: %@", [inColor nameOfColor]);
+        self.name ?: $(@"Image filled with color: %@", [inColor name]);
     //		[target unlockFocus];
     return target;
   } else
@@ -1855,31 +1810,35 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   NSA *q = self.quantize;
   return (q.count) ? q.first : CHECKERS;
 }
-- (NSA *)quantize { // AZSTATIC_OBJ(NSMA,catcher,NSMA.new);
 
-  //  if (catcher.count) return catcher;
-  NSMA *catcher = NSMA.new;
-  self.size = AZSizeFromDim(32);
-  NSBIR *imageRep = self.bitmap;
-  [imageRep bitmapImageRepByRetaggingWithColorSpace:
-                NSColorSpace.deviceRGBColorSpace]; //	[imageRep
-  // bitmapImageRepByConvertingToColorSpace:NSColorSpace.deviceRGBColorSpace
-  // renderingIntent:NSColorRenderingIntentDefault];
-  __block NSBag *satchel = NSBag.bag; //	NSI width = 32, height = 32;				//
-                                      //[imageRep pixelsWide]; NSInteger height
-                                      //= 	[imageRep pixelsHigh];
+- (NSA *)quantize { NSMA *catcher = objc_getAssociatedObject(self, _cmd);
 
-  IterateGridWithBlock($RNG(0, 32), $RNG(0, 32), ^(NSI i, NSI j) {
-      NSC *thisPx;
-      if ((thisPx = [imageRep colorAtX:i y:j]).alphaComponent)
-        [satchel add:thisPx];
+  return catcher.count ? catcher : ({ NSBag *satchel = NSBag.bag;
+
+    NSIMG *cp = self.copy; cp.size = AZSizeFromDim(32);  NSBIR *imageRep = cp.bitmap;
+    [imageRep bitmapImageRepByRetaggingWithColorSpace:NSColorSpace.deviceRGBColorSpace];
+
+
+    IterateGridWithBlock($RNG(0, 32), $RNG(0, 32), ^(NSI i, NSI j) { NSC *thisPx;
+
+      !(thisPx = [imageRep colorAtX:i y:j]).alphaComponent ?: [satchel add:thisPx];
+
+    });
+    NSUI ctr = satchel.objects.count < 10 ? satchel.objects.count : 10;
+    for (int j = 0; j < ctr; j++)
+      for (int s = 0; s < [satchel occurrencesOf:satchel.objects[j]]; s++)
+        [catcher addObject:satchel.objects[j]];
+
+    objc_setAssociatedObject(self, _cmd, catcher, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    catcher;
   });
-  NSUI ctr = satchel.objects.count < 10 ? satchel.objects.count : 10;
-  for (int j = 0; j < ctr; j++)
-    for (int s = 0; s < [satchel occurrencesOf:satchel.objects[j]]; s++)
-      [catcher addObject:satchel.objects[j]];
-  return catcher;
 }
+    //	[imageRep bitmapImageRepByConvertingToColorSpace:NSColorSpace.deviceRGBColorSpace
+    // renderingIntent:NSColorRenderingIntentDefault];
+ //	NSI width = 32, height = 32;				//
+                                        //[imageRep pixelsWide]; NSInteger height
+                                        //= 	[imageRep pixelsHigh];
 
 //	for (int i = 0; i < width; i++) {
 //		for (int j = 0; j < height; j++) {  				//	[self
@@ -1933,7 +1892,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 //	[NSGraphicsContext state:^{
 - (NSIMG *)generateQuantizedSwatch {
 
-  NSA *q = [self quantize];
+  NSA *q = self.quantize;
   NSIMG *u = [NSIMG.alloc initWithSize:AZSizeFromPoint((NSPoint) {512, 256})];
   AZSizer *s = [AZSizer forQuantity:q.count inRect:AZRectFromDim(256)];
   [u lockFocus];
@@ -1995,16 +1954,17 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 - (void)openQuantizedSwatch {
   [AZStopwatch named:@"openQuantizedSwatch"
                block:^{
-                   NSS *p = $(@"/tmp/quantization.%@.png",
-                              [NSString newUniqueIdentifier]);
-                   [[self generateQuantizedSwatch] saveAs:p];
-                   AZLOG(p);
-                   [AZWORKSPACE openFile:p withApplication:@"Preview"];
-               }];
+    NSS *p = $(@"/tmp/quantization.%@.png", NSString.newUniqueIdentifier);
+     [self.generateQuantizedSwatch saveAs:p];
+     AZLOG(p);
+     [AZWORKSPACE openFile:p withApplication:@"Preview"];
+ }];
 }
 
 #ifdef RETARDO
+/*!
 ~ ❯❯❯ jp2a --colors -f file:///tmp/quantization.A3CB1F74-FD32-4A04-A785-B1117D27D6CB.jpg
+
 NNNNNNNNNOddddddddxXXXXXXXXXkoxxxOKXXXXXK00Okkdl:;;,,
 NNNNNNNNNOddddddddxXXXXXXXXXOxkkxk0KKXXXXK0koddc::;;,.
 NNNNNNNNNOddddddddxXXXXXXXXXOk00xxkO0KKXkl,..;clcc::;'.
@@ -2019,7 +1979,9 @@ oooooooooONNNNNNNNNK00000000kodxxkkOx'klddld; .dddolc'.
 lllllllll0MMMMMMMMMMMMMMMMMMx.,..'..;,,.........,,,'.;,,;
 lllllllll0MMMMMMMMMMMMMMMMMMKxxxxdoxo;oddko;.,;.c,k:,Oddd
 lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
-#endif 
+
+*/
+#endif
 
 + (void)openQuantizeChartFor:(NSA *)images {
   [AZStopwatch named:@"openQuantizedChart"
@@ -3084,8 +3046,7 @@ rightDone:
   CGContextClipToMask(c, NSRectToCGRect(maskRect), maskImage);
 
   // Draw gradient:
-  NSGradient *gradient =
-      [[NSG.alloc initWithStartingColor:GRAY5 endingColor:GRAY2] autorelease];
+  NSGradient *gradient = [NSG.alloc initWithStartingColor:GRAY5 endingColor:GRAY2];
   [gradient drawInRect:maskRect angle:90.0];
   CGContextSetShadowWithColor(c, CGSizeMake(0, -1), innerShadowBlurRadius,
                               CGColorGetConstantColor(kCGColorBlack));
@@ -4451,7 +4412,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                  fraction:1.0f];
   [maskedImage unlockFocus];
 
-  return [maskedImage autorelease];
+  return maskedImage;
 }
 
 - (NSImage *)imageMaskedByImage:(NSImage *)image atSize:(NSSize)targetSize {
@@ -4471,7 +4432,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
            fraction:1.0f];
   [maskedImage unlockFocus];
 
-  return [maskedImage autorelease];
+  return maskedImage;
 }
 
 - (void)drawInRect:(NSRect)drawRect
@@ -4725,7 +4686,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
   // Proceed only if size or delta are changing
   if ((NSEqualSizes(originalSize, size)) && (delta == 1.0) && !flipImage) {
-    return [[self copy] autorelease];
+    return [self copy];
 
   } else {
     NSImage *newImage;
@@ -4833,7 +4794,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
       [newImage unlockFocus];
     }
 
-    return [newImage autorelease];
+    return newImage;
   }
 }
 
@@ -4856,7 +4817,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
   // Proceed only if size or delta are changing
   if ((NSEqualSizes(originalSize, size)) && (delta == 1.0) && !flipImage) {
-    return [[self copy] autorelease];
+    return [self copy];
 
   } else {
     // Scale proportionally (rather than stretching to fit) if requested and
@@ -5006,7 +4967,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
     //		[scaledImage release];
 
-    return [newImage autorelease];
+    return newImage;
   }
 }
 
@@ -5212,7 +5173,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
     image = [NSImage.alloc initWithContentsOfFile:imagePath];
   }
 
-  return [image autorelease];
+  return image;
 }
 
 // Returns an image from the owners bundle with the specified name
@@ -5507,7 +5468,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   NSSize size = [self size];
   NSRect rect = NSMakeRect(0.0f, 0.0f, size.width, size.height);
   NSBitmapImageRep *bm =
-      [[NSBitmapImageRep.alloc initWithFocusedViewRect:rect] autorelease];
+      [NSBitmapImageRep.alloc initWithFocusedViewRect:rect];
 
   [self unlockFocus];
 
@@ -5548,7 +5509,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
     NSUInteger height = ((CGFloat)imageRep.pixelsWide - 100.0f) * ratio;
 
     // Create a new rep with the lowered size
-    NSBitmapImageRep *newImageRep = [[NSBitmapImageRep.alloc
+    NSBitmapImageRep *newImageRep = [NSBitmapImageRep.alloc
         initWithBitmapDataPlanes:NULL
                       pixelsWide:width
                       pixelsHigh:height
@@ -5558,7 +5519,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                         isPlanar:imageRep.isPlanar
                   colorSpaceName:NSCalibratedRGBColorSpace
                      bytesPerRow:imageRep.bytesPerRow
-                    bitsPerPixel:imageRep.bitsPerPixel] autorelease];
+                    bitsPerPixel:imageRep.bitsPerPixel];
 
     // Draw the old rep into the new rep
     [NSGraphicsContext saveGraphicsState];
@@ -5683,7 +5644,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
       [newImage addRepresentation:bitmapImageRep];
       //            [bitmapImageRep release];
       if (newImage)
-        return [newImage autorelease];
+        return newImage;
     }
     CFRelease(ref);
   } else {

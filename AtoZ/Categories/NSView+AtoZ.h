@@ -74,7 +74,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (NSV*) dragSubviewWihEvent:(NSE*)e;
 - (void) handleDragForTypes:(NSA*)files withHandler:(void (^)(NSURL *URL))handler;
 
-- (NSSplitView*) split;
+
 - (void) debug;
 - (void) debuginQuadrant:(AZQuad)q;
 
@@ -259,6 +259,7 @@ typedef void (^NSAnimationContextRunAnimationBlock)( dispatch_block_t group, dis
 
 + (void)runAnimationBlock:(dispatch_block_t)group	completionHandler:(dispatch_block_t)completionHandler
 				 duration:(NSTimeInterval)time;
+
 
 @end
 

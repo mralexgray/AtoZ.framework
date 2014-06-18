@@ -1,5 +1,4 @@
 
-#import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AtoZMacroDefines.h"
 

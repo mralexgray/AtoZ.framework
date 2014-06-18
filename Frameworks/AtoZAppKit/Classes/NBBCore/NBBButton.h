@@ -4,7 +4,7 @@
 
  */
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "NBBTheme.h"
 
 @interface NBBButtonCell : NSButtonCell

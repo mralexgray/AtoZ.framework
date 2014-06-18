@@ -8,19 +8,17 @@
 
 #import "AtoZUmbrella.h"
 
-@interface  NSColorList (Dictionary)
-@property (readonly) NSDictionary *dictionary;
-@end
-
+@interface  NSColorList (Dictionary) @prop_RO NSD *dictionary;  @end
 
 @interface AZNamedColors : NSColorList
 
-
 + (AZNamedColors *)namedColors;
 
-+(NSString *)nameOfColor:(NSColor *)color;
-+(NSString *)nameOfColor:(NSColor *)color savingDistance:(NSColor **)distance;
-- (id) normal:(NSUI)idx;
-@property (RONLY) NSA* colors;
++ (NSS*) nameOfColor:(NSC*)color;
++ (NSS*) nameOfColor:(NSC*)color savingDistance:(NSC**)distance;
++ (NSC*) normal:(NSUI)idx;
+
+@prop_RO NSA* colors;
+
 @end
 

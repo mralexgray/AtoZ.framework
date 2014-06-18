@@ -20,7 +20,7 @@
 
 + (NSSpeechSynthesizer*) talker { return [self.sharedInstance talker]; }
 
-+ (void) randomDicksonism { [self say:NSS.dicksonisms.randomElement]; }
++ (void) randomDicksonism { SAY(NSS.dicksonisms.randomElement); }
 
 
 + (void) sayUntilFinished:(NSS*)x { finished = NO; [self say:x then:^{ finished = YES; }];

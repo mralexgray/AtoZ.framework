@@ -111,21 +111,19 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 @end 	  
 
 @implementation NSWindow (NoodleEffects)
-- (void) animateToFrame:				(NSR)frameRect duration:(NSTI)dur	{
+- (void) animateToFrame:(NSR)f duration:(NSTI)d	{
 
 	NSVA	 *animation = 
-	[NSViewAnimation.alloc initWithViewAnimations: @[@{NSViewAnimationTargetKey: self,NSViewAnimationEndFrameKey: AZVrect(frameRect)}]];
-	[animation setDuration:dur];
+	[NSViewAnimation.alloc initWithViewAnimations: @[@{NSViewAnimationTargetKey: self,NSViewAnimationEndFrameKey: AZVrect(f)}]];
+	[animation setDuration:d];
 	[animation setAnimationBlockingMode:NSAnimationBlocking];
 	[animation setAnimationCurve:NSAnimationLinear];
 	[animation startAnimation];
 }
-- (NSW*) _createZoomWindowWithRect:	(NSR)rect									{
-	NSWindow		*zoomWindow;
-	NSImageView	*imageView;
-	NSRect			frame 		= self.frame;
-	BOOL			isOneShot = self.isOneShot;
-	isOneShot ? [self setOneShot:NO] : nil;
+- (NSW*)      _createZoomWindowWithRect:(NSR)r  {	NSWindow		*zoomWindow;	NSImageView	*imageView;
+
+	NSR frame = self.frame; BOOL isOneShot = self.isOneShot; isOneShot ? [self setOneShot:NO] : nil;
+
 	[self windowNumber] <= 0 ? ^{
 		// Force creation of window device by putting it on-screen. We make it transparent to minimize the chance of visible flicker.
 		CGFloat alpha = self.alphaValue;
@@ -140,7 +138,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 	[image unlockFocus];
 	[image setDataRetained:YES];
 	[image setCacheMode:NSImageCacheNever];
-	zoomWindow = [NSW.alloc initWithContentRect:rect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	zoomWindow = [NSW.alloc initWithContentRect:r styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	[zoomWindow setBackgroundColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.0]];
 	[zoomWindow setHasShadow:[self hasShadow]];
 	[zoomWindow setLevel:[self level]];
@@ -157,7 +155,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 	[self setOneShot:isOneShot];	// Reset one shot flag
 	return zoomWindow;
 }
-- (void) zoomOnFromRect:				(NSR)startRect								{
+- (void) zoomOnFromRect:(NSR)startRect								{
 	NSRect			  frame;
 	NSWindow			*zoomWindow;
 	if ([self isVisible])	return;
@@ -168,7 +166,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 	[self makeKeyAndOrderFront:self];
 	[zoomWindow close];
 }
-- (void) zoomOffToRect:					(NSR)endRect								{
+- (void)  zoomOffToRect:(NSR)endRect								{
 	NSRect  frame = [self frame];
 	if (![self isVisible]) return;
 	NSWindow *zoomWindow = [self _createZoomWindowWithRect:frame];
@@ -179,9 +177,9 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 }	
 @end
 
-@implementation NSResponder (AtoZ) @dynamic performKeyEquivalent;
+@implementation NSResponder (AtoZ) // @dynamic performKeyEquivalent;
 
-- (void)        overrideResponder:(SEL)sel withBool:(BOOL)accepts { AZSTATIC_OBJ(NSMA,alreadyDone,NSMA.new);
+- (void) overrideResponder:(SEL)sel withBool:(BOOL)acc  { AZSTATIC_OBJ(NSMA,alreadyDone,NSMA.new);
 
   NSString *selString = NSStringFromSelector(sel); [self triggerKVO:selString block:^(id _self) {
 
@@ -189,14 +187,45 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
     [self az_overrideSelector:sel withBlock:(__bridge void *)^BOOL(id z){ return [objc_getAssociatedObject(z, sel) bV]; }],
     [alreadyDone addObject:selString] : nil;
 
-    objc_setAssociatedObject(_self, sel, @(accepts), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(_self, sel, @(acc), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   }];
 }
-- (void) setAcceptsFirstResponder:(BOOL)x { [self overrideResponder:@selector(acceptsFirstResponder) withBool:x]; }
-- (void)  setPerformKeyEquivalent:(BOOL)x { [self overrideResponder:@selector(performKeyEquivalent:) withBool:x]; }
+- (void)            setAcceptsFirstResponder:(BOOL)x    { [self overrideResponder:@selector(acceptsFirstResponder) withBool:x]; }
+- (void)             setPerformKeyEquivalent:(BOOL)x    { [self overrideResponder:@selector(performKeyEquivalent:) withBool:x]; }
+
+- (void) animateWithDuration:(NSTI)d block:(IDBlk)stuff {
+
+//  if ([self.class conformsToProtocol:@protocol(NSAnimatablePropertyContainer)])
+  //  return XX(@"You dont coform to NSAnimatablePropertyContainer>!");
+  [NSACTX beginGrouping];
+  NSACTX.currentContext.duration = d;
+  stuff([(id<NSAnimatablePropertyContainer>)self animator]);
+  [NSACTX endGrouping];
+}
 @end
 
 @implementation NSWindow (AtoZ) @dynamic childWindows;
+
+- (void) activate {  [self makeKeyAndOrderFront:nil]; [NSApp activateIgnoringOtherApps:YES]; !self.isVisible ?: [self.animator setAlphaValue:1];
+}
++ (INST) withFrame:(NSR)r mask:(NSUI)m {
+
+  return [self.class.alloc initWithContentRect:r styleMask:m backing:NSBackingStoreBuffered defer:NO];
+}
+//  - (id)initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+//  return self = [super initWithContentRect:r styleMask:m backing:b defer:d] ? ({
+
++ desktopWindow  { NSW *x; return x = [super.alloc initWithContentRect:NSZeroRect styleMask:0|1|2|8 backing:2 defer:NO] ? ({
+		[x setOpaque:NO];
+		[x setBackgroundColor:[NSColor clearColor]];
+		[x setMovableByWindowBackground:NO];
+		[x setLevel:NSNormalWindowLevel - 1];
+		[x setStyleMask:NSBorderlessWindowMask];
+		[x setCollectionBehavior:NSWindowCollectionBehaviorStationary];
+		[x setCanHide:NO];
+		[x setIgnoresMouseEvents:YES];  NSR vFrame = NSScreen.mainScreen.visibleFrame;
+		[x setFrameTopLeftPoint:(NSP){NSMinX(vFrame) + 20, NSMaxY(vFrame) - 20}];       x; }) : nil;
+}
 
 - (void) toggleVisibility                         { [self toggleBoolForKey:@"isVisible"];  }
 - (void) setChildWindows:(NSA*)xyz                { for (NSW*w in xyz) [self addChildWindow:w ordered:NSWindowAbove]; }
@@ -205,9 +234,11 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 - (void) overrideCanBecomeMainWindow:(BOOL)canI   { [self overrideResponder:@selector(canBecomeMainWindow) withBool:canI]; }
 
 
-+ (instancetype) windowWithFrame:(NSR)r view:(NSV*)v mask:(NSUI)m {  id x;
++ (instancetype) windowWithFrame:(NSR)r view:(NSV*)v mask:(NSUI)m {  NSW* x;
 
-  return ({ x = [self windowWithFrame:r mask:m level:NSNormalWindowLevel]; v ? x : [x objectBySettingValue:v forKey:@"contentView"]; });
+  return ({ x = [self.class.alloc initWithContentRect:r styleMask:m backing:2 defer:NO]; [x setLevel:NSNormalWindowLevel];
+
+  [x objectBySettingValue:v forKey:@"contentView"]; });
 }
 + (instancetype) windowWithFrame:(NSR)r              mask:(NSUI)m { return [self windowWithFrame:r view:nil mask:m]; }
 
@@ -224,9 +255,9 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 	return [@[self] arrayByAddingObjectsFromArray:self.childWindows];
 }
 +  (NSA*) allWindows 						{
+
 	return (__bridge_transfer id)CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID);
 }	
-
 /* prevent any "offscreen action"
 
 //  Not sure why this is here.
@@ -301,12 +332,12 @@ typedef void (^notificationObserver_block)(NSNotification *);
 - (NSV*) view             { return self.contentView;    }
 - (NSV*) frameView        { return self.view.superview; }
 - (CAL*) contentLayer     { return [self.contentView setupHostView]; }
-- (CAL*) windowLayer      {  return [self.contentView layer] ?: [self.contentView setupHostView]; }
+- (CAL*) windowLayer      {  return [(NSV*)self.contentView layer] ?: [self.contentView setupHostView]; }
 - (void) setFrameSize:(NSSZ)size 			{ NSR f = self.frame;	f.size.width 	= size.width; f.size.height = size.height ;
 																											[self setFrame:f display:YES animate:YES] ;	}
 // works  is  good;
 - (CAL*) veilLayer						{
-	return  [self veilLayerForView:[self contentView]];
+	return  [self veilLayerForView:self.contentView];
 }
 - (CAL*) veilLayerForView: (NSV*)v 	{
 
@@ -407,22 +438,20 @@ typedef void (^notificationObserver_block)(NSNotification *);
 
 	[self setAlphaValue:0.f];
 	[self makeKeyAndOrderFront:nil];
-	[NSAnimationContext beginGrouping];
-		[NSAnimationContext.currentContext setDuration:.6];
+	[NSAnimationContext groupWithDuration:.6 animationBlock:^{
 		[self.animator setAlphaValue:1.f];
-	[NSAnimationContext endGrouping];
+  }];
 }
 - (void) fadeOut 					{
 
-	[NSAnimationContext beginGrouping];
-		[NSAnimationContext.currentContext setDuration:.6];
-		__block __unsafe_unretained NSWindow *bself = self;
+	[NSAnimationContext groupWithDuration:.6 animationBlock:^{
+    __block __unsafe_unretained NSWindow *bself = self;
 		[NSAnimationContext.currentContext setCompletionHandler:^{
 			[bself orderOut:nil];
 			[bself setAlphaValue:1.f];
 		}];
 		[self.animator setAlphaValue:0.f];
-	[NSAnimationContext endGrouping];
+  }];
 }
 - (void) slideTo:(NSS*)rect 	{
 
@@ -628,26 +657,6 @@ typedef void (^notificationObserver_block)(NSNotification *);
 
 @end
 
-@implementation DesktopWindow
-- (id)initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
-
-  return self = [super initWithContentRect:r styleMask:m backing:b defer:d] ? ({
-
-		[self setOpaque:NO];
-		[self setBackgroundColor:[NSColor clearColor]];
-		[self setMovableByWindowBackground:NO];
-		[self setLevel:NSNormalWindowLevel - 1];
-		[self setStyleMask:NSBorderlessWindowMask];
-		[self setCollectionBehavior:NSWindowCollectionBehaviorStationary];
-		[self setCanHide:NO];
-		[self setIgnoresMouseEvents:YES];
-		
-		NSRect visibleFrame = NSScreen.mainScreen.visibleFrame;
-		[self setFrameTopLeftPoint:NSMakePoint(NSMinX(visibleFrame) + 20, NSMaxY(visibleFrame) - 20)]; self;
-		
-	}) : nil;
-}
-@end
 
 @implementation NSWindow (SDResizableWindow)
 - (void) setContentViewSize:(NSSZ)newSize display:(BOOL)display animate:(BOOL)animate {

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-@class NSMutableData, NSData;
+//@class NSMutableData, NSData;
 @interface AZXMLWriter : NSObject
 
 {

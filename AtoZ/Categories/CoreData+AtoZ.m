@@ -1,11 +1,5 @@
-//
-//  CoreData+AtoZ.m
-//  AtoZ
-//
-//  Created by Alex Gray on 5/14/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
 
+@import CoreData;
 #import "CoreData+AtoZ.h" 
 
 @implementation NSManagedObjectContext (EasyFetch)

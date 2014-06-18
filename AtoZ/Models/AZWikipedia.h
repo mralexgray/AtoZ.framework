@@ -6,7 +6,8 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <AtoZ/AtoZ.h>
+#import "AtoZUmbrella.h"
+@import WebKit;
 
 @interface AZWikipedia : BaseModel
 

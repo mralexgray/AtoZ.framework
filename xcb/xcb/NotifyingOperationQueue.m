@@ -229,7 +229,7 @@
 //}
 
 //- (id) init {
-//	if (self != super.init ) return nil;
+//	if (!(self = super.init)) return nil;
 ////	self.stdOutDelegate = d;
 //	self.completionBlock = blk;
 //	return self;

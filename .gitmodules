@@ -299,3 +299,9 @@
 [submodule "AtoZ/Views/iCarousel"]
 	path = AtoZ/Views/iCarousel
 	url = https://github.com/mralexgray/iCarousel.git
+[submodule "Scripts/xclint"]
+	path = Scripts/xclint
+	url = https://gist.github.com/e15d9d2efb24d8b6ceb0.git
+[submodule "Frameworks/GRNavigationController"]
+	path = Frameworks/GRNavigationController
+	url = https://github.com/mralexgray/GRNavigationController

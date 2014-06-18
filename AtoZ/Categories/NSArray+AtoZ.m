@@ -3,12 +3,40 @@
 #import "NSArray+AtoZ.h"
 
 
-@interface AZSparseArray () @property (nonatomic) NSPointerArray *storage; @end
+@interface AZSparseArray ()
+@prop_RO NSMD * storage;
+@prop_ int lastIndex;
+@end
  
 @implementation AZSparseArray
 
+- (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(__unsafe_unretained id [])buffer count:(NSUInteger)le { DEMAND_CONFORMANCE; return NSNotFound; }
+
+- (id<NSFastEnumeration>) enumerator { return _storage.allValues; }
+
+- (NSS*) description {
+
+//  id x = [NSIMG.alloc initWithContentsOfURL:
+
+ return [_storage reduce:^id(id memo, id key, id value) {
+      return [memo appendFormat:@"@idx[%@] = %@\n",  key, value], memo;
+  } withInitialMemo:@"\n".mC];
+}
+
 + (instancetype) arrayWithObjectsAndIndexes:(id) first,... {
 
+  AZSparseArray *new = self.new;
+  id x = first;
+  va_list list; va_start(list, first);
+  while(!!x) {
+
+    int newInt = va_arg(list, int);
+    NSUI newIndex = ABS(newInt);
+    [new insertObject:x atIndex:newIndex];
+    x = va_arg(list, id);
+  }
+  va_end(list);
+  return new;
 //  id sentinel = @1;
 //  va_list args;  va_start(args, first);
 //  while ((detector = va_arg(args, id)) != nil);
@@ -16,46 +44,127 @@
 //  (r = va_arg(args, NSRect));
 //  [re addObject:AZVrect(r)];
 //  va_end(args);
-  return nil;
-
 }
 
-- (id) init { return self = super.init ? _storage = NSPointerArray.strongObjectsPointerArray, self: nil; }
+
+#pragma mark -  FakeArray
+
+- (int) indexOfObject:(id)x { return [_storage keyForObjectEqualTo:x].intValue; }
+
++ (void) test {
+
+
+  [IndexedKeyMap mapWithObjectsAndIndexes:
+  @"\033[48;5;17m", ',', /* Blue background */
+  @"\033[48;5;231m",'.', /* White stars */
+  @"\033[48;5;16m" ,'\'', /* Black border */
+  @"\033[48;5;230m", '@', /* Tan poptart */
+  @"\033[48;5;175m", '$', /* Pink poptart */
+  @"\033[48;5;162m", '-', /* Red poptart */
+  @"\033[48;5;196m", '>', /* Red rainbow */
+  @"\033[48;5;214m", '&', /* Orange rainbow */
+  @"\033[48;5;226m", '+', /* Yellow Rainbow */
+  @"\033[48;5;118m", '#', /* Green rainbow */
+  @"\033[48;5;33m" , '=', /* Light blue rainbow */
+  @"\033[48;5;19m" , ';', /* Dark blue rainbow */
+  @"\033[48;5;240m", '*', /* Gray cat face */
+  @"\033[48;5;175m", '%', nil]; /* Pink cheeks */
+
+}
+- (instancetype)init; { SUPERINIT; _storage = @{}.mC; return self; }
+ 
+//- (instancetype)initWithCapacity:(NSUInteger)numItems {  return self = [self init] ?
+//    [_storage setCount:MAX(numItems - 1, 0)], self : nil;
+//}
 
 #pragma mark - NSArray primitive methods
  
-- (NSUInteger)count { return _storage.count; }
-- (id)objectAtIndex:(NSUInteger)x { return [_storage pointerAtIndex:x]; }
-
+- (NSUI) count { return _storage.count; }
+ 
+- (id) objectAtIndex:(NSUI)idx { return _storage[@(idx).strV]; }
+ 
 #pragma mark - NSMutableArray primitive methods
  
-- (void)insertObject:(id)o atIndex:(NSUInteger)x {
-
-  if (x >= _storage.count) [_storage setCount:x];
-  [_storage insertPointer:(__bridge void *)o atIndex:x];
+- (void) insertObject:(id)x atIndex:(NSUI)idx { // if (idx >= _storage.count) [_storage setCount:idx];
+ 
+  _storage[@(idx).strV] = x;// insertPointer:(__bridge void *)x atIndex:idx];
+  _lastIndex = idx;
 }
  
-- (void)removeObjectAtIndex:(NSUInteger)x {[_storage removePointerAtIndex:x]; }
-- (void)addObject:(id)o { [_storage addPointer:(__bridge void *)o]; }
-- (void)removeLastObject { [_storage removePointerAtIndex:_storage.count]; }
+- (void) removeObjectAtIndex:(NSUI)idx {  [_storage removeObjectForKey:@(idx).strV]; } // removePointerAtIndex:idx]; }
+ 
+- (void)addObject:(id)x { if (!x) return;  BOOL inserted = NO;  int i = 0;
 
-- (void)replaceObjectAtIndex:(NSUInteger)x withObject:(id)o {
+  while (!inserted && i < 1000000 ) {
+    id z = [_storage objectForKey:@(i).strV];
+    if (!z) { _storage[@(i).strV] = x;  inserted = YES;    _lastIndex = i; return; }
+    else { i++; }
+  }
+  XX($(@"%@ ca oly try to store up to 100000 items!", AZSELSTR)); // [_storage addPointer:(__bridge void *)x];
+}
 
-  if (x >= _storage.count) [_storage setCount:x];
-  [_storage replacePointerAtIndex:x withPointer:(__bridge void *)o];
+- (void)removeLastObject { [_storage removeObjectForKey:@(_lastIndex).strV]; } //]  [_storage removePointerAtIndex:_storage.count]; }
+ 
+- (void)replaceObjectAtIndex:(NSUI)idx withObject:(id)x;
+{
+//  if (idx >= _storage.count) [_storage setCount:idx];
+
+//  [_storage replacePointerAtIndex:idx withPointer:(__bridge void *)x];
+  [self insertObject:x atIndex:idx];
 }
  
 #pragma mark - Subscript Overrides
  
 // Avoids NSRangeException thrown in setObject:atIndex: (Private?)
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+- (void)setObject:(id)obj atIndexedSubscript:(NSUI)idx {
   [self replaceObjectAtIndex:idx withObject:obj];
 }
-// Don't need to override but it's nice to be sure
-- (id)objectAtIndexedSubscript:(NSUInteger)idx {
-  return [self objectAtIndex:idx];
-}
  
+// Don't need to override but it's nice to be sure
+- (id)objectAtIndexedSubscript:(NSUI)idx {
+  return [_storage objectForKey:@(idx).strV];
+}
+
+//- (NSUI) countByEnumeratingWithState:(NSFastEnumerationState*)s objects:(id __unsafe_unretained [])b count:(NSUInteger)l {
+//  return [_storage.allVak countByEnumeratingWithState:s objects:b count:l];
+//}
+
+//- (id) init { return self = super.init ? _storage = NSPointerArray.strongObjectsPointerArray, self: nil; }
+
+#pragma mark - NSArray primitive methods
+ 
+//- (NSUInteger)count { return _storage.count; }
+//- (id)objectAtIndex:(NSUInteger)x { return [_storage pointerAtIndex:x]; }
+
+//#pragma mark - NSMutableArray primitive methods
+// 
+//- (void)insertObject:(id)o atIndex:(NSUInteger)x {
+//
+//  if (x >= _storage.count) [_storage setCount:x];
+//  [_storage insertPointer:(__bridge void *)o atIndex:x];
+//}
+// 
+//- (void)removeObjectAtIndex:(NSUInteger)x {[_storage removePointerAtIndex:x]; }
+//- (void)addObject:(id)o { [_storage addPointer:(__bridge void *)o]; }
+//- (void)removeLastObject { [_storage removePointerAtIndex:_storage.count]; }
+//
+//- (void)replaceObjectAtIndex:(NSUInteger)x withObject:(id)o {
+//
+//  if (x >= _storage.count) [_storage setCount:x];
+//  [_storage replacePointerAtIndex:x withPointer:(__bridge void *)o];
+//}
+
+#pragma mark - Subscript Overrides
+ 
+// Avoids NSRangeException thrown in setObject:atIndex: (Private?)
+//- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+//  [self replaceObjectAtIndex:idx withObject:obj];
+//}
+//// Don't need to override but it's nice to be sure
+//- (id)objectAtIndexedSubscript:(NSUInteger)idx {
+//  return [self objectAtIndex:idx];
+//}
+
 @end
 
 
@@ -90,15 +199,43 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
   [self.allObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {  if (block(obj)) x = obj;  if (x != nil) *stop = YES;  }];
   return x;
 }
+- (INST)  setByRemovingObject:(id)x {
+
+  return ![self containsObject:x] ? self : ({ NSMSET *s = self.mutableCopy; [s removeObject:x]; s; });
+}
 @end
+@implementation NSMutableArray (AtoZ)
+
+VOID(addObjectIfMissing:(id)x{ [self containsObject:x] ?: [self addObject:x]; });
+VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObjectIfMissing:z]; });
+@end
+
 @implementation NSArray (AtoZ)
+
+- (NSA*) unionOfObjects { return [self valueForKeyPath:@"@unionOfObjects"]; }
+
+- (NSA*) alphaGrouped         { return [self alphaMapValuesOnly:YES]; }
+- (IndexedKeyMap*) alphaMap   { return [self alphaMapValuesOnly:NO]; }
+
+- (id) alphaMapValuesOnly:(BOOL)only {
+
+  IndexedKeyMap *map = [IndexedKeyMap mapWithKeys:NSS.lettersAndNumbers forAlloced:NSMA.class];
+  [self.alphabetized do:^(id obj) {
+    NSString *first = [obj respondsToStringThenDo:@"firstLetter"];
+    if (first) [map[first.lowercaseString] addObject:obj];
+  }];
+
+  return only ? map.allValues : map;
+
+}
+- (NSMA*) mapM:(BKTransformBlock)block { return [self map:block].mC; }
+
 -    (id) reduce:(id)initial with:(AZIndexedAccumulationBlock)block {	NSParameterAssert(block != nil); __block id result = initial;
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { result = block(result, obj, idx); }];
 	return result;
 }
--  (NSA*) alphabetized {
-    return [self.mutableCopy alphabetize].copy;
-}
+-  (NSA*) alphabetized { return [self.mutableCopy alphabetize].copy; }
+
 +  (NSA*) arrayWithCopies:(NSUI)copies of:(id<NSCopying>)obj {
   NSAssert([(NSO*)obj conformsToProtocol:@protocol(NSCopying)], @"only NSCopying items may pass!");
   return [@(copies) mapTimes:^id(NSN*num) { return [(NSO<NSCopying>*)obj copy]; }];
@@ -246,8 +383,23 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 - (void) setStringsToNilOnbehalfOf:(id)entity {
   [self each:^(id obj) { [entity setValue:nil forKey:obj]; }];
 }
+- (NSA*) sorted { return self.descending; }
+
 - (NSA*)     sorted:(AZOrder)o  {
+
   return o != AZAscending && o != AZDescending ? self.alphabetized : [self sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending: o == AZAscending]]];
+}
+
+- (NSA*) sortedColors {
+
+  return [self sortedArrayUsingSelector:@selector(compare:)];
+}
+#define MAKESORT(key,asc) [NSSortDescriptor sortDescriptorWithKey:key ascending:asc]
+NSA* SortersForKeysAsc(NSString*sort, BOOL order, ...) {
+
+  AZNewVal(descrioptors, @[MAKESORT(sort,order)].mC);  NSString *s; BOOL a;  va_list list;  va_start(list, order);
+  while ((s = va_arg(list, NSString*))) { a = (BOOL)va_arg(list,int); [descrioptors addObject:MAKESORT(s,a)]; }
+  va_end(list); return descrioptors;
 }
 - (NSA*)  ascending             { return [self sorted:AZAscending];  }
 - (NSA*) descending             { return [self sorted:AZDescending]; }
@@ -387,7 +539,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 // NSArray instance methods
 // set-version of this array
-- (NSSet*) set        { return [NSSet setWithArray:self]; }
+- (NSSet*) asSet        { return [NSSet setWithArray:self]; }
 - (NSA*) shifted    {
   NSMA*re = self.mutableCopy;
   [re removeFirstObject];
@@ -564,7 +716,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   return re;
 }
 - (NSA*) arrayWithoutArray:(NSA*) value {
-  return [self arrayWithoutSet:value.set];
+  return [self arrayWithoutSet:value.asSet];
 }
 - (NSA*) arrayWithoutStringContaining:(NSS*)str { return [self filter:^BOOL(id obj){ return !ISA(obj, NSS) ? NO : ![obj containsString:str]; }]; }
 - (NSA*) arrayWithoutSet:(NSSet *)values {
@@ -620,12 +772,37 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   for (id anO in self) { yeah = block(anO); if (yeah == YES) return anO; }
 	return nil;
 }
+
+- (BOOL)hasMemberEqualToString:(NSS*)s {
+
+  return [self any:^BOOL(id object) {
+
+//  }testThatAllReturn:NO block:^BOOL(id o) {
+
+    //return ISA(o,NSS) &&
+    return SameString(object,s);
+  }];
+}
 - (BOOL)allKindOfClass:(Class)aClass {
   for (id o in self) {
     if (![o isKindOfClass:aClass]) return NO;
   }
   return YES;
 }
+
+//- (BOOL) testThatAllReturn:(BOOL)desired block:(BOOL(^)(id o))boolblock {
+
+//  __block BOOL allMatchDesired = YES;
+//  BOOL [self none:^BOOL(id object) { return desired != boolblock(object); }];
+
+//  }
+//  } usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//       BOOL thisGot = boolblock(obj); if (thisGot != descired) { allMatchDesired = NO; *stop = YES; }
+//  }];
+//  return allMatchDesired;
+//}
+
+
 -    (NSA*) arrayOfClass:(Class)aClass forKey:(NSS*)k { return [[self vFK:k] arrayOfClass:aClass]; }
 -    (NSA*) arrayOfClass:(Class)aClass { return [self mapArray:^id(id o) { return ISA(o,aClass) ? o : nil;  }]; }
 - (NSA*) elementsOfClass:(Class)aClass {
@@ -694,7 +871,17 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   NSA* valsA = split[0], *valsB = split[1];
   [valsA eachWithIndex:^(id obj, NSI idx) {  pairs(obj, valsB[idx]); }];
 }
-- (NSA*) pairedWith:(NSA*)pairs {   NSAssert(self.count == pairs.count, @"Arrays must by of equzl count!");
+- (NSA*) pairedWith:(NSA*)pairs {
+  NSParameterAssert(self.count);
+  NSParameterAssert(pairs.count);
+  NSAssert(self.count == pairs.count, @"Arrays must by of equzl count!");
+  return [self reduce:@[].mutableCopy with:^id(id sum, id obj, NSUI idx) {
+    [sum addObject:@[obj,pairs[idx]]];
+    return sum;
+  }];
+}
+
+- (NSA*) combinedWith:(NSA*)pairs {   NSAssert(self.count == pairs.count, @"Arrays must by of equzl count!");
   return [self reduce:@[].mutableCopy with:^id(id sum, id obj, NSUInteger idx) {
     [sum addObject:obj]; [sum addObject:pairs[idx]]; return sum;
   }];
@@ -975,6 +1162,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 - (NSD*) mapToDictValuesForgivingly:(id(^)(id))b { return [self mapToDictByReturningValue:YES block:b]; }
 - (NSD*)   mapToDictKeysForgivingly:(id(^)(id))b { return [self mapToDictByReturningValue:NO  block:b]; }
+
+- (NSDictionary*)mapToDictionaryForKey:(NSS*)k {
+
+  return [self reduce:@{}.mC with:^id(id sum, id obj, NSUInteger idx) { [sum sV:obj fK:k]; return sum; }];
+}
 @end
 @implementation NSArray (ListComprehensions) // Create a new array with a block applied to each index to create a new element
 + (NSA*) arrayWithBlock:(id (^)(int index))block range:(NSRNG)range {
@@ -1023,75 +1215,60 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 @end
 @implementation NSMA (AG)
 -  (NSA*) alphabetize { return [self sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];	}
--  (void) swizzleInsertObject:(id) o atIndex:(NSUInteger)idx {
-	[self swizzleInsertObject:o atIndex:idx];
-	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
-}
--  (void) swizzleAddObject:(id) o {
-	[self swizzleAddObject:o];
-	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
-}
--  (void) swizzleAddObjectsFromArray:(NSA*)a {
-	[self swizzleAddObjectsFromArray:a];
-	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
-}
-+  (void) load  {
-	[$ swizzleMethod:@selector(insertObject:atIndex:) with:@selector(swizzleInsertObject:atIndex:) in:self.class];
-	[$ swizzleMethod:@selector(addObject:) with:@selector(swizzleAddObject:) in:self.class];
-	[$ swizzleMethod:@selector(addObjectsFromArray:) with:@selector(swizzleAddObjectsFromArray:) in:self.class];
-}
--  (void) addPoint:(NSPoint)point {
-  [self addObject:AZVpoint(point)];
-}
--  (void) addRect:(NSRect)rect {
-  [self addObject:AZVrect(rect)];
-}
--    (id) advance {
-	id first = self.firstObject;
-	[self firstToLast];
-	return first;
-}
--    (id) last {
-  return self.lastObject;
-}
--  (void) setLast:(id)anObject {
-  if (anObject) [self triggerKVO:@"last" block:^(id _self) { [_self addObject:anObject]; }];
-}
--    (id) first { return [super first]; }
--  (void) firstToLast {
+
+//-  (void) swizzleInsertObject:(id) o atIndex:(NSUInteger)idx {
+//	[self swizzleInsertObject:o atIndex:idx];
+//	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
+//}
+//-  (void) swizzleAddObject:(id) o {
+//	[self swizzleAddObject:o];
+//	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
+//}
+//-  (void) swizzleAddObjectsFromArray:(NSA*)a {
+//	[self swizzleAddObjectsFromArray:a];
+//	[AZNOTCENTER postNotificationName:NSMutableArrayDidInsertObjectNotification object:self userInfo:nil];
+//}
+//+  (void) load  {
+//	[$ swizzleMethod:@selector(insertObject:atIndex:) with:@selector(swizzleInsertObject:atIndex:) in:self.class];
+//	[$ swizzleMethod:@selector(addObject:) with:@selector(swizzleAddObject:) in:self.class];
+//	[$ swizzleMethod:@selector(addObjectsFromArray:) with:@selector(swizzleAddObjectsFromArray:) in:self.class];
+//}
+
+
+-  (void) addPoint:(NSP)p { [self addObject:AZVpoint(p)]; }
+-  (void)  addRect:(NSR)r { [self addObject:AZVrect(r)]; }
+-    (id) advance         {	id first = self.firstObject;	[self firstToLast];	return first; }
+-    (id)    last         { return self.lastObject; }
+-  (void) setLast:(id)x   { if (x) [self triggerKVO:@"last" block:^(id _self) { [_self addObject:x]; }]; }
+-    (id)       first     { return self.firstObject; }
+-  (void) firstToLast     {
+
   if (self.count == 0) return;      //there is no object to move, return
   int toIndex = self.count - 1;     //toIndex too large, assume a move to end
   [self moveObjectAtIndex:0 toIndex:toIndex];
 }
--  (void) lastToFirst {
+-  (void) lastToFirst     {
   if (self.count == 0) return;      //there is no object to move, return
   [self moveObjectAtIndex:self.count - 1 toIndex:0];
 }
--  (void) setFirst:(id)anObject {
-  if (anObject == nil) return;
-  [self willChangeValueForKey:@"first"];
-  [self insertObject:anObject atIndex:0];
-  [self didChangeValueForKey:@"first"];
-}
+-  (void) setFirst:(id)x  { !x ?: [self triggerKVO:@"first" block:^(id _) { [_ insertObject:x atIndex:0]; }]; }
 -  (void) removeFirstObject {
   [self shift];
 }
--    (id) shift {
+-    (id) shift         {
   if (self.count == 0) return nil;
   id re = self.first;
   [self removeObjectAtIndex:0];
   return re;
 }
--    (id) pop {
+-    (id) pop           {
   if (self.count == 0) return nil;
   id o = self.lastObject;
   [self removeLastObject];
   return o;
 }
--  (void) shove:(id)object {
-  [self insertObject:object atIndex:0];
-}
--    (id) peek {
+-  (void) shove:(id)x   {  [self insertObject:x atIndex:0]; }
+-    (id) peek          {
   return self.lastObject;
 }
 -  (void) push:(id)obj  { [self addObject:obj]; }
@@ -1101,7 +1278,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
       [self exchangeObjectAtIndex:i withObjectAtIndex:(self.count - i - 1)];
   } return self;
 }
-- (NSMA*) shuffle {
+- (NSMA*) shuffle       {
   @synchronized(self) {
     for (NSUI i = 0; i < self.count; i++) {
       NSUI one = random() % self.count;
@@ -1231,7 +1408,10 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 #import <stdarg.h>
 /* Thanks to August Joki, Emanuele Vulcano, BlueLlama, Optimo, jtbandes To add Math Extensions like sum, product?  */
 @implementation AZKeyPair
-+ (instancetype) key:(id)k value:(id)v {  AZKeyPair *kp = self.new; kp.key = k; kp.value = v; return kp; }
+
++ (INST) withDuo:(NSA*)a { NSParameterAssert(isEven(a.count));  return [self key:a[0] value:a[1]]; }
+
++ (INST) key:(id)k value:(id)v {  AZKeyPair *kp = self.new; kp.key = k; kp.value = v; return kp; }
 @end
 #pragma mark UtilityExtensions
 @implementation NSArray (UtilityExtensions)
@@ -1251,14 +1431,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     [copy removeObjectIdenticalTo:object];
     [copy addObject:object];
   }
-  return [copy autorelease];
+  return [copy self];//autorelease];
 }
 - (NSA*) unionWithArray:(NSA*)anArray {
   if (!anArray) return self;
   return [[self arrayByAddingObjectsFromArray:anArray] uniqueMembers];
 }
 - (NSA*) intersectionWithArray:(NSA*)anArray {
-  NSMA*copy = [self.mutableCopy autorelease];
+  NSMA*copy = [self.mutableCopy self];// autorelease];
   for (id object in self) {
     if (![anArray containsObject:object]) [copy removeObjectIdenticalTo:object];
   }

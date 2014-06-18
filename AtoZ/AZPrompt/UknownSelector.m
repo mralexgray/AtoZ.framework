@@ -1,15 +1,15 @@
 #include <Foundation/Foundation.h>
  
 // The methods need to be declared somewhere
-@interface Dummy : NSObject	- (void) rill;	- (void) ing:(NSString *)s;	@end
+@interface Dummy : NSObject	- (void)grill;	- (void)ding:(NSString *)s;	@end
  
-@interface Example : NSObject	- (void) oo;	- (void) ar;						@end
+@interface Example : NSObject	- (void) foo;	- (void)bar;						@end
  
 @implementation Example
-- (void) oo {  NSLog(@"this is foo");	}
-- (void) ar {  NSLog(@"this is bar");	}
+- (void) foo {  NSLog(@"this is foo");	}
+- (void) bar {  NSLog(@"this is bar");	}
 
-- (void) orwardInvocation:(NSInvocation*)inv {
+- (void) forwardInvocation:(NSInvocation*)inv {
 
   NSLog(@"tried to handle unknown method %@", NSStringFromSelector([inv selector]));
   NSUInteger n = inv.methodSignature.numberOfArguments;
@@ -53,7 +53,7 @@
 	return nil;// Discard the call
 }
 
-- (void) orwardInvocation:(NSInvocation *)invocation {   // Call valueForKey: and setValue:forKey:
+- (void)forwardInvocation:(NSInvocation *)invocation {   // Call valueForKey: and setValue:forKey:
 
 	id	stringSelector = NSStringFromSelector([invocation selector]);
 	NSUInteger	parameterCount = [[stringSelector componentsSeparatedByString:@":"] count]-1;

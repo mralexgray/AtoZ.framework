@@ -11,7 +11,7 @@
 //  this copyright and permission notice. Attribution in compiled projects is
 //  appreciated but not required.
 //
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "NSTask+OneLineTasksWithOutput.h"
 #import <AtoZ/AtoZ.h>
 

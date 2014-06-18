@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "AtoZMacroDefines.h"
 
 @interface NSButton (SNRAdditions)

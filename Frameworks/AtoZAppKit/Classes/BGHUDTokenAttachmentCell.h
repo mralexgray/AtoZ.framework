@@ -6,7 +6,7 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "NSTokenAttachmentCell.h"
 
 @interface BGHUDTokenAttachmentCell : NSTokenAttachmentCell {

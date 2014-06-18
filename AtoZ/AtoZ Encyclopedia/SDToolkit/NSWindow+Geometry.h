@@ -6,7 +6,6 @@
 //  Copyright 2008 Giant Robot Software. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @interface NSWindow (SDResizableWindow)
 

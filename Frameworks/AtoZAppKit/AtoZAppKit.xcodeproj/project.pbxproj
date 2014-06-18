@@ -117,30 +117,6 @@
 		F62F7C2A0EC7DC1400343989 /* BGHUDComboBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F62F7C280EC7DC1400343989 /* BGHUDComboBoxCell.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7B46362617551DB400072CA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4311A74413D7429E00820313;
-			remoteInfo = FunSize;
-		};
-		7B46362817551DB400072CA0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4339C607142222D300C21E14;
-			remoteInfo = "FunSize-Static";
-		};
-		7BC9600A17D64E0F00E64FCB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4311A74313D7429E00820313;
-			remoteInfo = FunSize;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		13F8B88807B434F6008AE28D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		13F8B88A07B434F6008AE28D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -150,7 +126,6 @@
 		7B0E20D7174FDC4000DF3D20 /* RMSuggestionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSuggestionPanel.h; sourceTree = "<group>"; };
 		7B0E20D8174FDC4000DF3D20 /* RMSuggestionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSuggestionPanel.m; sourceTree = "<group>"; };
 		7B232FA41727EE6F00B111FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../../FunSize.framework/FunSize.xcodeproj; sourceTree = "<group>"; };
 		7B3366241754D2B30037DE96 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7B3366251754D2B30037DE96 /* screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot1.png; sourceTree = "<group>"; };
 		7B3366261754D2B30037DE96 /* screenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot2.png; sourceTree = "<group>"; };
@@ -363,7 +338,6 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */,
 				13F8B88A07B434F6008AE28D /* Foundation.framework */,
 				7B232FA41727EE6F00B111FE /* QuartzCore.framework */,
 				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
@@ -408,15 +382,6 @@
 			);
 			name = BPODial;
 			path = submodules/BPODial;
-			sourceTree = "<group>";
-		};
-		7B46362217551DB400072CA0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7B46362717551DB400072CA0 /* FunSize.framework */,
-				7B46362917551DB400072CA0 /* libFunSize.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		7B4636A917552A2500072CA0 /* MTTokenField */ = {
@@ -663,7 +628,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7BC9600B17D64E0F00E64FCB /* PBXTargetDependency */,
 			);
 			name = AtoZAppKit;
 			productName = BGHUDAppKit;
@@ -693,35 +657,12 @@
 			);
 			mainGroup = 0259C574FE90428111CA0C5A /* BGHUDAppKit */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7B46362217551DB400072CA0 /* Products */;
-					ProjectRef = 7B3365FE1754A6920037DE96 /* FunSize.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				53DF68FC067E5B5A0090B5B0 /* AtoZAppKit */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7B46362717551DB400072CA0 /* FunSize.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = FunSize.framework;
-			remoteRef = 7B46362617551DB400072CA0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7B46362917551DB400072CA0 /* libFunSize.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFunSize.a;
-			remoteRef = 7B46362817551DB400072CA0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7B784D7818ACE421006DC29D /* Resources */ = {
@@ -795,14 +736,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7BC9600B17D64E0F00E64FCB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FunSize;
-			targetProxy = 7BC9600A17D64E0F00E64FCB /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7B657CE3176225ED000BF102 /* AtoZAppKit.xib */ = {

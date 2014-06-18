@@ -6,11 +6,11 @@
 
 @interface SomeClass :NSObject											@end
 @implementation SomeClass
-- (void) sethodA {		// imagine some meaningful actions here
+- (void)methodA {		// imagine some meaningful actions here
 	NSLog(@"Doing important methodA stuff");	}
 - (int)methodB {	// imagine some meaningful actions here
 	NSLog(@"Doing important methodB stuff");	return 42;}
-- (void) sethodCWithInt:(int)i {	// imagine some meaningful actions here
+- (void)methodCWithInt:(int)i {	// imagine some meaningful actions here
 	NSLog(@"Doing important methodC stuff");}										@end
 @interface LoggingInterceptor :NSObject 								@end
 @implementation LoggingInterceptor
@@ -49,9 +49,9 @@ After methodC
 @interface Driver:NSObject															@end
 @implementation Driver
 + (void)performActions {
-	SomeClass *someClass = SomeClass.new;
+	SomeClass *someClass = [[SomeClass alloc] init];
 	[[someClass	instanceMethodNames]log];
-	[SomeClass addMethodForSelector:@selector(iFarted) typed:"@@:" implementation:^id(id self, SEL _cmd) {
+	[SomeClass addMethodForSelector:NSSelectorFromString(@"iFarted") typed:"@@:" implementation:^id(id self, SEL _cmd) {
 			return NSS.randomDicksonism;
 	}];
 	[[someClass	instanceMethodNames]log];

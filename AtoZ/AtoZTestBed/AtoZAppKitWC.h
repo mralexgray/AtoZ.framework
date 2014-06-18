@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 mrgray.com, inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 
 @interface AtoZAppKitWC : NSWindowController <RMSuggestionPanelDatasource>
 @property (assign) IBOutlet RMSuggestionPanel *suggestionPanel;

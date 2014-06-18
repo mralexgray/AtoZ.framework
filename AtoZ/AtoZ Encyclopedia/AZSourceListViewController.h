@@ -4,8 +4,7 @@
 
 //  Created by Alex Gray on 8/20/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <Cocoa/Cocoa.h>
-#import <AtoZ/AtoZ.h>
+#import "AtoZUmbrella.h"
 
 //#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
 

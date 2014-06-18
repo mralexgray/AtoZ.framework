@@ -5,10 +5,14 @@
 JREnumDefine(AssetType);
 
 static NSArray* extensionsForAssetType(AssetType type) {
- return  type == AssetTypeBASH 	? @[@"sh"]					:	type == AssetTypeJS  	? @[@"js"]
-		:	type == AssetTypeCSS 	? @[@"css"]					:	type == AssetTypeHTML5 	? @[@"shtml", @"html"]
-		:	type == AssetTypePHP 	? @[@"php"]					:	type == AssetTypeObjC 	? @[@"m"]
-		:	type == AssetTypeTXT 	? @[@"txt", @"rtf"] 		: 	 nil;		}
+ return   type == AssetTypeBASH   ? @[@"sh"]
+        :	type == AssetTypeJS     ? @[@"js"]
+        : type == AssetTypeCSS    ? @[@"css"]
+        :	type == AssetTypeHTML5 	? @[@"shtml", @"html"]
+        :	type == AssetTypePHP    ? @[@"php"]
+        :	type == AssetTypeObjC 	? @[@"m"]
+        :	type == AssetTypeTXT    ? @[@"txt", @"rtf"] : nil;
+}
 
 @implementation Asset
 + (instancetype) test {
@@ -18,12 +22,12 @@ static NSArray* extensionsForAssetType(AssetType type) {
 }
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit {
 
-	Asset *n 		= self.instance;
-	n.assetType		= type == AssetTypeNotFound ? AssetTypeUNKNOWN : type;
-	n.path 			= path;
+	Asset *n        = self.instance;
+	n.assetType     = type == AssetTypeNotFound ? AssetTypeUNKNOWN : type;
+	n.path          = path;
 	n.printInline 	= path == nil || isit ?: NO;
-	n.contents 		= contents;
-	NSS *apath 		= @keypath(NSIMG.monoIcons, first);
+	n.contents      = contents;
+	NSS *apath      = @keypath(NSIMG.monoIcons, first);
 	return n;
 }
 - (void) setUp 	{  _active = @(NSOffState); _priority = @(0); }
@@ -44,43 +48,57 @@ static NSArray* extensionsForAssetType(AssetType type) {
 @end
 
 @implementation AssetController
-+ (instancetype) shared			  {  __strong static AssetController *_uno = nil;   static dispatch_once_t onlyOnce;
-      dispatch_once(&onlyOnce, ^{   _uno 			 = [[self _alloc] _init];
-												_uno.content = _uno.assets = NSMA.new;  	}); return _uno;
+//+ (instancetype) shared			  {  __strong static AssetController *shared = nil;   static dispatch_once_t uno;
+//
+//  dispatch_once(&uno, ^{   shared 			 = [[self _alloc] _init];
+//												shared.content = shared.assets = NSMA.new;  	}); return shared;
+//}
+//+ (id) allocWithZone:(NSZone*)z { return [self shared];              }
+//+ (id) alloc                    { return [self shared];              }
+- (id) init                     {
+  if (!(self = super.init)) return nil;
+  _content = NSMA.new;
+  return self;
 }
-+ (id) allocWithZone:(NSZone*)z { return [self shared];              }
-+ (id) alloc                    { return [self shared];              }
-- (id) init                     { return  self;                      }
-+ (id)_alloc                    { return [super allocWithZone:NULL]; }
-- (id)_init                     { return [super init];               }
- 
 
-- (void) addFolder: (NSS*)path matchingType:(AssetType)fileType	{
+//+ (id)_alloc                    { return [super allocWithZone:NULL]; }
+//- (id)_init                     { return [super init];               }
+
+@end
+@implementation AssetCollection { NSMA *assets; }
+
++ (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit{
+
+  AssetCollection *new = self.class.new;
+  [new addFolder:path.stringByStandardizingPath matchingType:fileType printInline:isit];
+  return new;
+}
+
+- (void) addFolder: (NSS*)path matchingType:(AssetType)fileType	printInline:(BOOL)printI {
 
 
 	NSA * ext =  extensionsForAssetType(fileType);
 	NSError *error;
 	NSA* filed = [AZFILEMANAGER contentsOfDirectoryAtPath:path error:&error];
-	if (!error) {
-		filed = [filed filter:^BOOL(id object) {
-			return 	[ext containsObject:[object pathExtension]];
-		}];
-		AZLOG(filed);
-		[[filed map:^id(id obj) { return  [Asset instanceOfType:fileType withPath:obj orContents:nil printInline:NO]; 	}] each:^(id obj) {
-//			AZLOG([obj propertiesPlease]);
-			[self insertObject:obj inAssetsAtIndex:self.assets.count];
-		}];
-	}
+	if (error) return;
+  filed = [filed filter:^BOOL(id object) { return 	[ext containsObject:[object pathExtension]]; }];
+  AZLOG(filed);
+  [filed do:^(id obj) {
+
+    [self addObject://insertObject:
+          [Asset instanceOfType:fileType withPath:obj orContents:nil printInline:printI]];
+//       inAssetsAtIndex:self.assets.count];
+  }];
 //	NSLog(@"folders: %@   assets:%@", _folders, _assets);
 }
 
-- (NSUI)countOfAssets 											{	return self.assets.count; 					  }
-
-- (id)objectInAssetsAtIndex:(NSUI)index 							{	return self.assets[index];	 				  }
-
-- (void)removeObjectFromAssetsAtIndex:(NSUI)index 				{ 	[self.assets removeObjectAtIndex:index];		  }
-
-- (void)insertObject:(Asset*)todo inAssetsAtIndex:(NSUI)index {	[self.assets insertObject:todo atIndex:index]; }
+//- (NSUI) countOfAssets 											{	return self.assets.count; 					  }
+//
+//-   (id) objectInAssetsAtIndex:(NSUI)index 							{	return self.assets[index];	 				  }
+//
+//- (void) removeObjectFromAssetsAtIndex:(NSUI)index 				{ 	[self.assets removeObjectAtIndex:index];		  }
+//
+//- (void) insertObject:(Asset*)todo inAssetsAtIndex:(NSUI)index {	[self.assets insertObject:todo atIndex:index]; }
 
 @end
 

@@ -1,36 +1,33 @@
-//
-//  AtoZContacts.h
-//  AtoZ
-//
-//  Created by Alex Gray on 5/4/13.
-//  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
-//
+//#import AtoZAutoBox
+//- (void) openCardAtIndex:(NSUI)@index;
+//+ (instancetype) instanceWithImage:(NSIMG*)img imageID:(NSS*)imgID andImageSubTitle:(NSS*) subT andPersonUID:(NSS*)pUID;
 
 #import "AtoZUmbrella.h"
 
+@protocol    AZDataSource <NSTableViewDataSource>
+- (id)     contactAtIndex:(NSUI)i;
+- (NSA*)	contactsInRange:(NSRange)r;
+- (NSUI) numberOfContacts;
+@end
 
 @interface AtoZContact : BaseModel
 
-//+ (instancetype) instanceWithImage:(NSIMG*)img imageID:(NSS*)imgID andImageSubTitle:(NSS*) subT andPersonUID:(NSS*)pUID;
-
-@property (CP,NATOM) 	NSIMG *image;
-@property (CP,NATOM) 	NSS 	*firstName, *lastName, *company;
-@property (RONLY) 		NSS 	*fullName;
-@property (RONLY) 		BOOL	 hasImage;
-@property (ASS) 			BOOL 		cached;
-
+@prop_RO	 BOOL   hasImage;
+@property  BOOL   cached;
+@prop_NC 	NSIMG * image;
+@prop_RO 	  NSS * fullName;
+@prop_NC 	  NSS * firstName,
+                * lastName,
+                * company,
+                * tel;
 @end
 
-@protocol AZDataSource <NSTableViewDataSource>
-
--   (id)	contactAtIndex:(NSUI)i;
-- (NSUI) numberOfContacts;
-- (NSA*)	contactsInRange:(NSRange)r;
-
+@interface AtoZContacts : AtoZSingleton <AZDataSource> - (id) find:(id)sender;
 @end
-@interface AtoZContacts : AtoZSingleton <AZDataSource>
 
-//- (void) openCardAtIndex:(NSUI)index;
--   (id) find:				   (id)sender;
+@interface   AtoZContacts (Proxied)
++ (NSA*)	contactsInRange:(NSRange)r;
++ (NSA*)    contactImages;
++ (NSA*)         contacts;
 @end
 

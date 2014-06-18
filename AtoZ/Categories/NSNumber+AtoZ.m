@@ -11,6 +11,8 @@
 
 @implementation NSNumber (AtoZ)
 
+- (void) do:(void(^)(int ctr))block { [self.toArray do:^(NSN* obj) {  block(obj.intValue); }]; }
+
 + (NSN*) randomFloatBetween:(CGF)min :(CGF)max { return [self numberWithFloat:RAND_FLOAT_VAL(min, max)]; }
 
 //- (NSUI) bitInUse { int is_in_use(int car_num) {
@@ -172,41 +174,6 @@
 
 	for (double gamma = alpha; _(gamma); gamma += delta) [re addObject:@(gamma)];
 	return re;
-}
-
-@end
-
-@implementation NSNumber (Description)
-
-+ (void)load	    				{
-  SEL d = @selector(description);
-  SEL swizzleD = @selector(swizzleDescription);
-//  NSClassFromString(@"__NSCFNumber")
-//  [$ swizzleMethod:d in:NSN.class with:swizzleD in:NSN.class];
-  Class c = objc_getClass("__NSCFNumber");
-  [ConciseKit swizzleMethod:d in:c with:swizzleD in:self.class];
-
-}
-
-- (NSS*) swizzleDescription {
-
-  return // NSStringFromClass(self.class);
-          [self isEqualToNumber:@YES] || [self isEqualToNumber:@NO] ? StringFromBOOL(self.boolValue) : [self swizzleDescription];
-}
-
-- (NSS*)typeFormedDescription {
-	if ([self.className isEqualToString:@"__NSCFNumber"]) {
-		NSString *defaultDescription = [self description];
-		if (strcmp(self.objCType, @encode(float)) == 0 || strcmp(self.objCType, @encode(double)) == 0) {
-			if (![defaultDescription hasSubstring:@"."]) {
-				return [defaultDescription stringByAppendingString:@".0"];
-			}
-		}
-		return defaultDescription;
-	} else if ([self.className isEqualToString:@"__NSCFBoolean"]) {
-		return [self boolValue] ? @"YES" : @"NO";
-	}
-	return [self description];
 }
 
 @end

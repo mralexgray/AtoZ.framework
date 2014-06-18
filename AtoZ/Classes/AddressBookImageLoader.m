@@ -78,7 +78,7 @@ static NSString * const kImageDataKey = @"image";
 }
 
 
-- (id) init	{	if (self != super.init ) return nil;
+- (id) init	{		if (!(self = super.init)) return nil;
 
 	[AZStopwatch named:@"Create AddressBook" block:^{
 
@@ -139,7 +139,7 @@ static NSString * const kImageDataKey = @"image";
 //
 //- (id) initWithUid:(NSS*)uid
 //{
-//	if (self != super.init ) return nil;
+//	if (!(self = super.init)) return nil;
 //	_uid = uid.copy;
 //	return self;
 //}
@@ -289,7 +289,7 @@ static NSString * const kImageDataKey = @"image";
 //+ (NSArray *) groupsMatchingName: (NSString *) fname;
 //- (id) initWithRecord: (ABRecord*) aRecord
 //{
-//	if (self != super.init ) return nil;
+//	if (!(self = super.init)) return nil;
 //	[@{ @"firstname" : kABFirstNameProperty, @"middlename": kABMiddleNameProperty,  @"lastname"	 : kABLastNameProperty,
 //		@"suffix" 	 : kABSuffixProperty, 	 @"nickname"  : kABNicknameProperty, 	@"organization" : kABOrganizationProperty }
 //		enumerateEachKeyAndObjectUsingBlock:^(NSS* key, NSS* obj) {

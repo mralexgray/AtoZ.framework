@@ -12,10 +12,10 @@
 #import "CTBadge.h"
 #import "AtoZ.h"
 
-const float CTLargeBadgeSize = 46.;
-const float CTSmallBadgeSize = 23.;
-const float CTLargeLabelSize = 24.;
-const float CTSmallLabelSize = 11.;
+const CGFloat CTLargeBadgeSize = 46.;
+const CGFloat CTSmallBadgeSize = 23.;
+const CGFloat CTLargeLabelSize = 24.;
+const CGFloat CTSmallLabelSize = 11.;
 
 @interface CTBadge (Private)
 - (NSImage *)badgeMaskOfSize:(float)size length:(unsigned)length;				//return a badge with height of <size> to fit <length> characters
@@ -26,20 +26,10 @@ const float CTSmallLabelSize = 11.;
 
 @implementation CTBadge
 
-- (id)init
-  {
-  self = [super init];
-  
-  if (self != nil)
-	{
-	badgeColor = nil;
-	labelColor = nil;
-	
-	[self setBadgeColor:RANDOMCOLOR];
-	[self setLabelColor:self.badgeColor.contrastingForegroundColor];
-	}
-  return self;
-  }
+- (id)init  { return self = [super init] ?
+	[self setBadgeColor:RANDOMCOLOR],
+	[self setLabelColor:self.badgeColor.contrastingForegroundColor], self : nil;
+}
 + (CTBadge *)systemBadge
   {
   id newInstance = [[[self class] alloc] init];

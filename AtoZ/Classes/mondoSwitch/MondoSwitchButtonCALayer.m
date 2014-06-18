@@ -1,27 +1,17 @@
 
-//  MondoSwitchButtonCALayer.m
-//  CocoaMondoKit
+//  MondoSwitchButtonCALayer.m  CocoaMondoKit
+//  Created by Matthieu Cormier on 12/8/09.  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
 
-//  Created by Matthieu Cormier on 12/8/09.
-//  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
-#import "MondoSwitchButtonCALayer.h"
 #import "AtoZ.h"
-@implementation MondoSwitchButtonCALayer
+#import "MondoSwitchButtonCALayer.h"
 
-// The grayscale values for the button colors.
-static const CGF
-  notClickedTopColor = 0.9921,
-  notClickedBotColor = 0.9019,
-  clickedTopColor = 0.8745,
-  clickedBotColor = 0.9568,
-  cornerRadius = 5.0;
+@implementation MondoSwitchButtonCALayer @synthesize notClickedImgRef, clickedImgRef, theSwitch;
 
-@synthesize notClickedImgRef, clickedImgRef, theSwitch;
+static const CGF notClickedTopColor = .9921, notClickedBotColor = .9019, clickedTopColor = .8745,
+/* The grayscale values for the button colors. */  cornerRadius = 5.,    clickedBotColor = .9568;
 
-#pragma mark - init methods
-
-- (id) init {
-	if (self != super.init) return nil; //  self = CALayer.new;//[CALayer layer];
+-   (id) init     {
+	if (!(self = super.init)) return nil; //  self = CALayer.new;//[CALayer layer];
   self.autoresizingMask = kCALayerWidthSizable;
   self.cornerRadius = cornerRadius;
   self.borderWidth = 0;
@@ -37,8 +27,7 @@ static const CGF
   
   return self;
 }
-
-- (void) dealloc {
+- (void) dealloc  {
   CGImageRelease(notClickedImgRef);
   CGImageRelease(clickedImgRef);
 //  [super dealloc];
@@ -46,53 +35,33 @@ static const CGF
 
 #pragma mark - mouse events
 
--(void)mouseDown:(CGPoint)point {
-  _currentEventState = CGRectContainsPoint ( theSwitch.frame, point )  
-					   ? PPcanDragSwitch : PPstandardMouseDown;
+-(void)    mouseDownAt:(CGP)p {
 
-  if (_currentEventState == PPcanDragSwitch) {
-	[theSwitch setContents:(__bridge_transfer id)clickedImgRef];
-  }
-  
-  _mouseDownPointForCurrentEvent = point;
-}
+    _currentEventState = CGRectContainsPoint(theSwitch.frame,p) ? PPcanDragSwitch : PPstandardMouseDown;
 
--(void)mouseUp:(CGPoint)point {
-	[self switchSide];
-	[theSwitch setContents:(__bridge_transfer id)notClickedImgRef];
+ if (_currentEventState == PPcanDragSwitch) [theSwitch setContents:(__bridge_transfer id)clickedImgRef];
+
+  _mouseDownPointForCurrentEvent = p;
 }
--(void)mouseDragged:(CGPoint)point {
-  
-  if (_currentEventState == PPdragOccurred ||  _currentEventState == PPcanDragSwitch) {
-	_currentEventState = PPdragOccurred;
-	[self moveSwitch:point];	
-  }
-  
+-(void)      mouseUpAt:(CGP)p { [self switchSide]; [theSwitch setContents:(__bridge_transfer id)notClickedImgRef]; }
+-(void) mouseDraggedAt:(CGP)p {
+
+  if (_currentEventState != PPdragOccurred &&  _currentEventState != PPcanDragSwitch) return;
+
+    	_currentEventState = PPdragOccurred; [self moveSwitch:p];
 }
 
 #pragma mark - propertyMethods
--(void)setOn:(BOOL)on {
-  if (_on == on ) return;
-  _on = on;
-  [self switchSide];
+
+- (void)setOn:(BOOL)on                  { if (_on == on ) return; _on = on; [self switchSide];
 }
+- (void)setOn:(BOOL)on animated:(BOOL)a {	[CATransaction immediately:^{ [self setOn:on];}]; }
 
-- (void)setOn:(BOOL)on animated:(BOOL)animated {
-	[CATransaction immediately:^{
-    [self setOn:on];
-  }];
-}
+#pragma mark - PrivateMethods
 
-@end
+- (void) createtheSwitch        {
 
-#pragma mark -
-@implementation MondoSwitchButtonCALayer (PrivateMethods)
-
-- (void) createtheSwitch {
-  self.theSwitch = [CALayer layer];
-  //  [theSwitch retain];
-  theSwitch.cornerRadius = cornerRadius;
-  theSwitch.borderWidth = 0.5;
+  self.theSwitch = [CAL layerWithValuesForKeys:@(cornerRadius),@"cornerRadius",@(.5), @"borderWidth",nil];
   
   // Sizing -- The Time Machine Switch on 10.6.2 has a sizing of 93px wide and 27px height. the internal switch is 40px wide or
   theSwitch.frame = AZRectBy(self.frame.size.height * (1 + 40/27), self.frame.size.height);
@@ -101,17 +70,14 @@ static const CGF
   [theSwitch addConstraint:AZCACHigh];
   [self addSublayer:theSwitch];
   
-  NSBezierPath* path = [NSBezierPath bezierPathWithRoundedRect:NSRectFromCGRect(theSwitch.frame) 
-													   xRadius:cornerRadius yRadius:cornerRadius];
+  NSBP* path = [NSBP bezierPathWithRoundedRect:NSRectFromCGRect(theSwitch.frame) radius:cornerRadius];
   
   notClickedImgRef = [self switchImageForPath:path topColor:notClickedTopColor bottomColor:notClickedBotColor];
-  clickedImgRef = [self switchImageForPath:path topColor:clickedTopColor bottomColor:clickedBotColor];
+  clickedImgRef    = [self switchImageForPath:path topColor:clickedTopColor bottomColor:clickedBotColor];
   
   [theSwitch setContents:(__bridge_transfer id)notClickedImgRef];
-  
 }
-
-- (void) switchSide {
+- (void) switchSide             {
   CGRect newFrame = theSwitch.frame;
   CGFloat superWidth = self.width;
 	
@@ -124,8 +90,7 @@ static const CGF
   theSwitch.frame = newFrame;	
   _currentEventState = PPNoEvent;  
 }
-
-- (BOOL)shouldDrag:(CGFloat)dx {
+- (BOOL) shouldDrag:(CGF)dx     {
   
   // if delta negative and already to far left exit...
   return dx < 0 && theSwitch.x <= 0  ||
@@ -133,8 +98,7 @@ static const CGF
         dx > 0 && theSwitch.x >= self.width - theSwitch.width
         ? NO : YES;
 }
-
-- (void)moveSwitch:(CGPoint)point {
+- (void) moveSwitch:(CGP)point  {
   // ignore the request if we are hidden
   if (self.hidden ) return;
   
@@ -157,16 +121,13 @@ static const CGF
   _mouseDownPointForCurrentEvent = point;
 }
 
-- (CGImageRef)switchImageForPath:(NSBezierPath*)path topColor:(CGFloat)topColor  bottomColor:(CGFloat)bottomColor {  
-  
+- (CGImageRef) switchImageForPath:(NSBP*)p topColor:(CGF)topColor
+                                           bottomColor:(CGF)bottomColor { // buttonImage
 
-  NSGradient *bgGradient = [NSG gradientFrom:[NSColor white:bottomColor a:1.0] to:[NSC white:topColor a:1.0]];
+  return [NSIMG imageWithSize:p.bounds.size drawnUsingBlock:^{
 
-  NSImage* buttonImage = [NSIMG imageWithSize:path.bounds.size drawnUsingBlock:^{
+    [p fillGradientFrom:[NSC white:bottomColor a:1.] to:[NSC white:topColor a:1.] angle:90.];
 
-     [bgGradient drawInBezierPath:path angle:90.0];
-  }];
-  
-  return [buttonImage CGImage];
+  }].CGImage;
 }
 @end

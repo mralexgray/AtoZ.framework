@@ -1,12 +1,7 @@
-//
 //  NSNumber+AtoZ.h
-//  AtoZ
-//
-//  Created by Alex Gray on 7/7/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+//  Created by Alex Gray on 7/7/12. Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
-#import <Foundation/Foundation.h>
+#import "AtoZUmbrella.h"
 
 @interface NSNumber (AtoZ)
 
@@ -14,17 +9,20 @@
 
 @property (RONLY) NSS* hexString;
 
-+ (NSR) rectBy:(NSA*)sizes;
-+ (NSNumber*) numberWithBytes:(const void *) bytes objCType:(const char *)type;
-- (NSN*)plus:(NSN*)toAdd;
-- (NSN*)minus:(NSN*)toSub;
-- (NSN*)plusF:(CGF)toAdd;
-- (NSN*)minusF:(CGF)toSub;
-- (NSN*)plusI:(NSI)toAdd;
-- (NSN*)minusI:(NSI)toSub;
+- (void) do:(void(^)(int ctr))block;
++ (INST) numberWithBytes:(const void*)bytes objCType:(const char*)type;
 
-- (NSN*) dividedBy:(CGF)f;
-+ (NSN*)integerWithHexString:(NSS*)hexString;
++  (NSR) rectBy:(NSA*)sizes;
+
+- (INST)      plus:(NSN*)toAdd;
+- (INST)     minus:(NSN*)toSub;
+- (INST)     plusF:(CGF)toAdd;
+- (INST)    minusF:(CGF)toSub;
+- (INST)     plusI:(NSI)toAdd;
+- (INST)    minusI:(NSI)toSub;
+
+- (INST) dividedBy:(CGF)f;
++ (INST) integerWithHexString:(NSS*)hexString;
 
 /* CFNumberType {
    kCFNumberSInt8Type = 1,
@@ -47,20 +45,18 @@
 */
 - (CFNumberType) type;
 
-- (NSString*) prettyBytes;
-+ (NSNumber*) zero;
-+ (NSNumber*) one;
-+ (NSNumber*) two;
+@prop_RO NSS* prettyBytes;
 
-- (NSNumber*) increment;
-- (NSNumber*) abs;
-- (NSNumber*) negate;
-- (NSNumber*) transpose;
++ (INST) zero;
++ (INST) one;
++ (INST) two;
+
+@prop_RO NSN * increment, * abs, *negate, * transpose;
 
 - (NSA*) times:(id (^)(void))block;
 
-@property (RONLY) NSA* toArray;
-@property (RONLY) NSS* sVal;
+@prop_RO NSA* toArray;
+@prop_RO NSS* sVal;
 
 - (NSA*) to:(NSNumber*) to;
 - (NSA*) to:(NSNumber*) to by:(NSNumber*) by;

@@ -16,7 +16,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	if (self != [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) return nil;
+	if (!(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) return nil;
 	[self awakeFromNib];
 	return self;
 }

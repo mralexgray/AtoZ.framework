@@ -62,7 +62,7 @@ CLANG_POP
 @end
 
 
-@implementation NSControl (AtoZ)
+@implementation NSControl (AtoZEvent)
 
 - (void) actionHandler:(id)e {    if (self.eventActionBlock) self.eventActionBlock([e ISKINDA:NSE.class] ? ((NSE*)e).type : (AZEvent)e, self); }
 

@@ -147,6 +147,7 @@ typedef NSTableRowView*(^RowViewForItem)(NSOutlineView *ov,id x);
 
 @interface NSOV (AtoZBlocks)
 @property (CP) RowViewForItem rowViewForItem;
+-(void) setRowViewForItem:(NSTableRowView*(^)(NSOutlineView *ov,id x))rowViewForItem;
 @end
 
 @interface  NSOutlineViewBlockDelegate : NSO <NSOutlineViewDelegate, NSOutlineViewDataSource>

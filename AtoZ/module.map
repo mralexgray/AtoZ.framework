@@ -1,8 +1,16 @@
 
 framework module AtoZ {
-  umbrella header "AtoZ.h"
-  export *
-  module * { export * }
+
+  //umbrella "Headers"
+ umbrella header "AtoZ.h"
+   export *
+  module * {
+    export *
+  }
+  explicit module AtoZCategories {
+     header "AtoZCategories.h"
+     export *
+   }
 }
 
 
@@ -12,7 +20,7 @@ framework module AtoZ {
 //    export *
 //    module * { export * }
 //  }
- //[system] {
+ //[system] {// [system]
 //  umbrella "Headers"
 //  exclude header "ffi/ffi_x86_64.h"
 //  exclude header "ffi/ffi.h"

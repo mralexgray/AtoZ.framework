@@ -3,22 +3,24 @@
 #import "AtoZ.h"
 
 @interface  BNRBlockView ()
-@prop_CP RectBlock   rBlock;
-@prop_CP BLKVIEWRBLK   drawBlock;
-@prop_CP BlkViewLayerBlock   layerDelBlock;
 
 @end
 
 @implementation BNRBlockView
+
++ (INST) vWF:(NSR)f b:(void(^)(id))blk {
+
+  id v = [self.class viewWithFrame:f]; [v setVBlock:blk]; [v setOpaque:YES]; return v;
+}
 
 + (INST) drawInView:(NSV*)v block:(RectBlock)blk {
 
   BLKV *x = [self viewWithFrame:v.bounds];  x.rBlock = blk; [v addSubview:x]; return x;
 }
 
-+ (INST) viewWithFrame:(NSR)f drawBlock:(BLKVIEWRBLK)blk { return [self.class viewWithFrame:f opaque:YES drawnUsingBlock:blk]; }
++ (INST) viewWithFrame:(NSR)f drawBlock:(BlkViewRectBlock)blk { return [self.class viewWithFrame:f opaque:YES drawnUsingBlock:blk]; }
 
-+ (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BLKVIEWRBLK)blk {
++ (INST) viewWithFrame:(NSR)f opaque:(BOOL)o drawnUsingBlock:(BlkViewRectBlock)blk {
 
   BLKVIEW *v = [self viewWithFrame:f]; [v setDrawBlock:blk]; [v setOpaque:o]; return v;
 }
@@ -72,7 +74,8 @@
 - (void) drawRect:(NSR)dRect { IF_VOID(!_rBlock && !_drawBlock);  AZBlockSelf(_self);
 
   [AZGRAPHICSCTX state:^{ _self.rBlock    ? _self.rBlock    (_self.bounds) :
-                          _self.drawBlock ? _self.drawBlock (_self, dRect) :  nil;
+                          _self.drawBlock ? _self.drawBlock (_self, dRect) :
+                          _self.vBlock    ? _self.vBlock    (_self) : nil;
   }];
 }
 @end

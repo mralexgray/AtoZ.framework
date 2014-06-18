@@ -3,35 +3,39 @@
 #import "AtoZMacroDefines.h"
 #import "AtoZTypes.h"
 
+@protocol RectLike   <NSO>
+@required @prop_ NSR  frame, bounds;
 
-@protocol             RectLike   <NSO> @property NSR frame;
+@optional @prop_ NSP  anchorPoint,
+                      position;
 
-@optional
-@property                  NSP    anchorPoint, position;
-@concrete
-@property                  NSR    superframe;
-@prop_RO                   AZA    insideEdge; // !!!
-@prop_RO NSS* insideEdgeHex;
+@concrete @prop_    NSR   superframe;
+          @prop_RO  AZA   insideEdge;                     // !!!
+          @prop_RO  NSS * insideEdgeHex;
+          @prop_NA NSUI   arMASK;
+          @prop_NA  NSR   r;                        // alias [frame]
+          @prop_NA NSSZ   size;
+          @prop_NA  CGF   w,        h,              // alias [size/width]
+                            width,    height,         // bounds
+                            x,        y,              // position
+                            minX,     minY,           // frame ...
+                            midX,     maxX,
+                            midY,     maxY,
+                            posX,     posY,
+                            anchX,    anchY;
+@prop_NA              CGP   minXmaxY, midXmaxY, maxXmaxY,
+                            minXmidY, midXmidY, maxXmidY,
+                            minXminY, midXminY, maxXminY,
+                            centerPt, apex, origin, bOrigin;
 
-@property   NSAlignmentOptions    alignment;
-@property                 NSUI    arMASK;
-@property                  NSR    bounds,
-                                  r;                        // alias [frame]
-@property                 NSSZ    size;
-@property                  CGF    w,        h,              // alias [size/width]
-                                  width,    height,         // bounds
-                                  x,        y,              // position
-                                  minX,     minY,           // frame ...
-                                  midX,     maxX,
-                                  midY,     maxY,
-                                  posX,     posY,
-                                  anchX,    anchY;
-@property                  CGP    minXmaxY, midXmaxY, maxXmaxY,                 
-                                  minXmidY, midXmidY, maxXmidY,
-                                  minXminY, midXminY, maxXminY,
-                                  centerPt, apex, origin;
-                                  
-@property (RONLY)           CGF   perimeter, area;              // 2 * (width + height)
+@prop_RO              CGF   perimeter, area;              // 2 * (width + height)
+
+- (BOOL)  isLargerThan:(id<RectLike>)r;
+- (BOOL) isSmallerThan:(id<RectLike>)r;
+- (BOOL)     isRectLke:(id<RectLike>)r;
+- (BOOL)  isLargerThanRect:(NSR)r;
+- (BOOL) isSmallerThanRect:(NSR)r;
+- (BOOL)        isSameRect:(NSR)r;
 
 /*! Protocol factory methods for all conformant classes! */
 
@@ -44,42 +48,30 @@
 + (INST) withRect:(NSR)r;                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
 @end
 
-#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
+//@prop_ NSAlignmentOptions   alignment;
 
-DECLARECONFORMANCE(NSV,     RectLike)
-DECLARECONFORMANCE(NSW,     RectLike)
-DECLARECONFORMANCE(CAL,     RectLike)
-DECLARECONFORMANCE(NSScreen,RectLike)
-
-
-
-//@interface NSIMG (SizeLike) <SizeLike> @end
-
-//#define    FORBIDDEN_CLASSES( ([NSA arrayWithObjects:__VA_ARGS__]contains           [NSException raise:@"We should never get here!" format:@"%@ should have implemented this:%@", self.className, AZSELSTR]
-#define  ASSERTSAME(A,B)      NSAssert(A == B, @"These values should be same, but they are %@ and %@", @(A), @(B))
-#define    CONFORMS(PROTO)    [self conformsToProtocol:@protocol(PROTO)]
-#define IF_CONFORMS(PROTO,X)  if(CONFORMS(PROTO)){ ({ X; }) }
-
-#define    GETALIAS(X)        return [self floatForKey:NSStringify(X)]  // [self vFK:NSStringify(X)];    [value getValue: ptr];    (const char * typeCode, void * value); [self  X]
-#define    SETALIAS(X,V)      [self sV:V fK:NSStringify(X)]
-
-#ifndef AZO
-#define AZO AZOrient
-#endif
-//- (BOOL) isVertical;
-
-@interface NSO (AZAZA)
-
-@property NSO* owner;
-@property BOOL expanded, selected, hovered;
-@property NSUI orientation;
+@protocol Random  <NSO>
+@required + (INST) random;              // implement random and you get random:ct for free!
+@concrete + (NSA*) random:(NSUI)ct;     // ie. +[NSColor random:10] -> 10 randos..
 @end
 
-@protocol Indexed <NSO> @concrete @prop_RO id<NSFastEnumeration> backingStore; @prop_RO NSUI index, indexMax; @end
+@protocol Indexed <NSO> @concrete
+@prop_RO id<NSFastEnumeration> backingStore;
+@prop_RO  NSUI index, indexMax;
+@end
 
-@protocol ArrayLike <NSO,NSFastEnumeration> @concrete
-@property NSA<Indexed>*storage;
+@protocol FakeArray <NSO,NSFastEnumeration>
+@required
+@prop_RO id<NSFastEnumeration>enumerator;
+- (int) indexOfObject:(id)x;
+@concrete
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
+- (void)eachWithIndex:(void(^)(id obj,int index))block; // Dep's on indexOffObject:
+- (void)do:(void(^)(id obj))block;               // Dep's on <NSFastEnumeration>
+@end
 
+@protocol ArrayLike <NSO,NSFastEnumeration>
+@concrete @prop_ NSA<Indexed>*storage;
 @prop_RO NSUI count;
 
 - (void)     addObject:(id)x;
@@ -87,28 +79,60 @@ DECLARECONFORMANCE(NSScreen,RectLike)
 - (void)    addObjects:(NSA*)x;
 - (void) removeObjects:(NSA*)x;
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)s objects:(id __unsafe_unretained [])b count:(NSUInteger)len;
-
 @end
 
-@protocol Drawable   <RectLike>
-@property (CP) ObjRectBlock /*ObjRectBlock*/ drawObjectBlock;
+#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
+
+DECLARECONFORMANCE( NSV,     RectLike )
+DECLARECONFORMANCE( NSW,     RectLike )
+DECLARECONFORMANCE( CAL,     RectLike )
+DECLARECONFORMANCE( NSScreen,RectLike )
+DECLARECONFORMANCE( NSIMG,   RectLike )
+
+
+
+@interface NSO (AZAZA) @prop_ NSO* owner; @prop_ BOOL expanded, selected, hovered; @prop_ NSUI orientation;   @end
+
+
+@protocol Drawable   <RectLike> @prop_CP ObjRectBlock /*ObjRectBlock*/ drawObjectBlock;
 @concrete
-@property (RONLY)   CGF   span, expansionDelta;
-@property           CGF   spanExpanded, spanCollapsed;
+@prop_RO        CGF   span, expansionDelta;
+@prop_          CGF   spanExpanded, spanCollapsed;
 - (void) setSpanCollapsed:(CGF)c expanded:(CGF)x;
 @end
 
 typedef void(^GridIterator)(NSI r1, NSI r2);  
 typedef void(^GridIteratorStep)(NSI r1Loc);
+typedef void(^SizeChange)(NSSZ oldSz,NSSZ newSz);
+
 
 void IterateGridWithBlockStep(RNG *r1, RNG *yRange, GridIterator block, GridIteratorStep step);
 void     IterateGridWithBlock(RNG * r1, RNG *r2, GridIterator block);
 
-@protocol     GridLike <NSO> @concrete
-@property         NSUI  rows, cols;  
-- (void) iterateGrid:(GridIterator)b;    
+@protocol     GridLike <NSO>
+@concrete
+@prop_NA          NSSZ  dimensions;
+@prop_NA          NSUI  rows, cols;
+
+- (void) iterateGrid:(GridIterator)b;
+@prop_CP SizeChange sizeChanged;
+- (void) setSizeChanged:(void(^)(NSSZ oldSz,NSSZ newSz))c;
+
 @end
+
+@protocol      TypedArray   <NSO> @concrete
+@prop_ Class objectClass;
+@end
+
+//@protocol     GridLike <NSO> @concrete
+//@prop_CP SizeChange sizeChanged;
+//- (void) setSizeChanged:(void(^)(NSSZ oldSz,NSSZ newSz))c;
+//
+//@prop_NA          NSSZ  dimensions;
+//@prop_NA          NSUI  rows, cols;  
+//
+//- (void) iterateGrid:(GridIterator)b;
+//@end
 
 
 

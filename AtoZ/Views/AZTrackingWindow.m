@@ -244,7 +244,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 	theGroup.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 	theGroup.animations=@[bounceAnimation,mainAnimation];
 
-	CALayer *target = ([something isKindOfClass:[NSWindow class]]) ? [[something contentView]layer] : [(NSView*)something layer];
+	CALayer *target = ([something isKindOfClass:[NSWindow class]]) ? [(NSV*)[something contentView]layer] : [(NSView*)something layer];
 
 	[target addAnimation:theGroup forKey:@"sagar"];
 	[something setFrame:AZCenterRectOnPoint([something frame], (NSPoint){160, 406})];//)]imgV.center=CGPointMake(160, 406);

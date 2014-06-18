@@ -1,12 +1,5 @@
-//
-//  NSShadow+AtoZ.h
-//  AtoZ
-//
-//  Created by Alex Gray on 7/7/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 
-#import <Cocoa/Cocoa.h>
+#import "AtoZUmbrella.h"
 
 @interface NSShadow (AtoZ)
 + (NSShadow*)shadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius color:(NSColor *)shadowColor ;

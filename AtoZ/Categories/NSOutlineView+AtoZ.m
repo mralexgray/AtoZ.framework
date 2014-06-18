@@ -12,6 +12,10 @@
 
 @implementation NSOutlineView (AtoZ)
 
+- (id) selectedObject { return  [[self itemAtRow:self.selectedRow] representedObject]; }
+
+SetKPfVA(SelectedObject,@"selectedRow",@"selectedRowIndexes")
+
 @end
 
 NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
@@ -568,4 +572,16 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	[self removeObjectsAtArrangedObjectIndexPaths:indexPaths];
 }
  */
+@end
+
+
+@implementation NSBrowser (AtoZ)
+
+- (NSA*) selectedObjects {
+
+  return [self.selectionIndexPaths mapArray:^id(NSIndexPath * ip) {
+		return [self itemAtIndexPath:ip];
+	}];
+}
+
 @end

@@ -6,7 +6,10 @@
 
 static KSStringWriter *writer = nil; static id shared = nil; 	static dispatch_once_t uno;
 
-+ (instancetype) shared { return dispatch_once(&uno, ^{ writer = KSStringWriter.new; shared = [KSHTMLWriter.alloc initWithOutputWriter:writer]; }), shared; }
++ (instancetype) shared {
+
+  return dispatch_once(&uno, ^{
+    writer = KSStringWriter.new; shared = [KSHTMLWriter.alloc initWithOutputWriter:writer]; }), shared; }
 
 + (NSA*) _combineArray:(NSA*)a withBase:(NSS*)base { return [a map:^id(id obj) { return [base withString:obj]; }]; }
 
@@ -17,8 +20,13 @@ static KSStringWriter *writer = nil; static id shared = nil; 	static dispatch_on
 	[cssLinks do:^(id obj) { [self.shared writeLinkToStylesheet:obj title:@"" media:@""];	[self.shared startNewline]; }];
 	return [self.shared startNewline], writer.string;
 }
-+ (NSS*) markupForScripts:(NSA*)jsSrcs { 	[writer removeAllCharacters];
-	[jsSrcs do:^(id obj) { [self.shared writeJavascriptWithSrc:obj encoding:NSUTF8StringEncoding];	[self.shared startNewline]; }];
++ (NSS*) markupForScripts:(NSA*)jsSrcs {
+
+  [writer removeAllCharacters];
+	[jsSrcs do:^(id obj) {
+    [self.shared writeJavascriptWithSrc:obj encoding:NSUTF8StringEncoding];
+    [self.shared startNewline];
+  }];
 	return [self.shared startNewline], writer.string;
 }
 //		AZLOG(obj.propertiesPlease);

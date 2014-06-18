@@ -387,7 +387,7 @@ void resolveHSV(float *color1, float *color2);
 
 + (id)rainbowGradient
   {
-  id newInstance = [[[self class] alloc] init];
+  CTGradient* newInstance = [[[self class] alloc] init];
   
   CTGradientElement color1;
   color1.red   = 1.00;
@@ -413,7 +413,7 @@ void resolveHSV(float *color1, float *color2);
 
 + (id)hydrogenSpectrumGradient
   {
-  id newInstance = [[[self class] alloc] init];
+  CTGradient* newInstance = [[[self class] alloc] init];
   
   struct {float hue; float position; float width;} colorBands[4];
   

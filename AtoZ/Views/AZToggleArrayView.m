@@ -371,7 +371,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 }
 - (id) init 																		{ return [self.class toggleWithOn:nil off:nil]; }
 - (id) initWithOn:(NSS*)on off:(NSS*)off								{
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	self.masksToBounds = YES;
 	self.cornerRadius = 3.0f;
 	self.borderWidth = .30f;

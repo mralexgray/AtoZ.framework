@@ -5,36 +5,36 @@
 //  Created by John  C. Randolph on 7/22/04.
 //  Copyright 2004-2009 John C. Randolph. All rights reserved.
 
-#import <Cocoa/Cocoa.h>
+@import Foundation;
 
 @interface RuntimeReporter : NSObject  // Simple singleton, only has class methods.
 
-+ (NSArray *) rootClasses;
++ (NSArray*) rootClasses; /*! AOK  NSLeafProxy, NSObject, NSProxy, Object,"_CNZombie_"... */
 
-+ (NSString *) superclassNameForClassNamed:(NSString *) className;
-+ (NSString *) superclassNameForClass:(Class) aClass;
++ (NSString*) superclassNameForClassNamed:(NSString*)x;
++ (NSString*) superclassNameForClass:(Class)x; /*! AOK [RuntimeReporter superclassNameForClass:NSString.class] = NSObject */
 
-+ (NSArray *) inheritanceForClassNamed:(NSString *) className;
-+ (NSArray *) inheritanceForClass:(Class) aClass;
++ (NSArray*) inheritanceForClassNamed:(NSString*)x;
++ (NSArray*) inheritanceForClass:         (Class)x; /*! AOK [... inheritanceForClass:AtoZ.class] = ( NSObject, BaseModel, AtoZ ) */
 
-+ (NSArray *) iVarNamesForClassNamed:(NSString *) className;
-+ (NSArray *) iVarNamesForClass:(Class) aClass;
++ (NSArray*) iVarNamesForClassNamed:(NSString*)x;
++ (NSArray*) iVarNamesForClass:         (Class)x;
 
-+ (NSArray *) methodNamesForClassNamed:(NSString *) className;
-+ (NSArray *) methodNamesForClass:(Class) aClass;
++ (NSArray*) methodNamesForClassNamed:(NSString*)x;
++ (NSArray*) methodNamesForClass:         (Class)x;
 
-+ (NSArray *) propertyNamesForClassNamed:(NSString *) className;
-+ (NSArray *) propertyNamesForClass:(Class) aClass;
++ (NSArray*) propertyNamesForClassNamed:(NSString*)x;
++ (NSArray*) propertyNamesForClass:         (Class)x;
 
-+ (NSArray *) subclassNamesForClassNamed:(NSString *) className;  // Pass nil for the root classes.
-+ (NSArray *) subclassNamesForClass:(Class) aClass;
++ (NSArray*) subclassNamesForClassNamed:(NSString*)x;  // Pass nil for the root classes.
++ (NSArray*) subclassNamesForClass:         (Class)x;
 
-+ (NSArray *) protocolNamesForClassNamed:(NSString *) className;
-+ (NSArray *) protocolNamesForClass:(Class) aClass;
++ (NSArray*) protocolNamesForClassNamed:(NSString*)x;
++ (NSArray*) protocolNamesForClass:         (Class)x;
 
-+ (BOOL) classHasSubclasses:(Class) aClass;
++ (BOOL) classHasSubclasses:(Class)x;
 
-+ (int) numberOfSubclassesOfClass:(Class) aClass;
++ (int) numberOfSubclassesOfClass:(Class)x;
 + (int) numberOfClasses;
 
 @end

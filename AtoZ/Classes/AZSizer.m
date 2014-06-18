@@ -60,7 +60,7 @@
 
 - (id) initWithQuantity:(NSUI)aNumber inRect:(NSR)aFrame
 {
-	if (self != super.init ) return nil;
+	if (!(self = super.init)) return nil;
 	_orient			= AZOrientGrid;	//_size 		= NSZeroSize;
 	_outerFrame 	= aFrame;			_quantity 	= aNumber;
 	

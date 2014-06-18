@@ -6,7 +6,7 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+@import AppKit;
 #import "BGThemeManager.h"
 
 @interface BGHUDLabel : NSTextField {

@@ -9,36 +9,35 @@ typedef void (^animationCompletionBlock)(void);
 #define kAnimationCompletionBlock @"animationCompletionBlock"
 @protocol AZSemiResponder;
 @class  AZDynamicTabLayer, AZSizer;
-@interface AZSemiResponderWindow : NSWindow
+@interface AZSemiResponderWindow : NSW
 
-@property (NATOM, STRNG) AZDynamicTabLayer 	*tabs;
-@property (NATOM, STRNG) CAL 				*content,
+@prop_NA AZDynamicTabLayer 	*tabs;
+@prop_NA CAL 				*content,
 											*root;
-@property (ASS,	  NATOM) NSR  inactiveRect;
-@property (ASS,	  NATOM) NSP  scrollPoint, 	dragStart, 	dragDiff;
-@property (ASS,   NATOM) BOOL dragging, 	noHit;
-@property (ASS,   NATOM) NSI  unitOffset;
-@property (ASS,   NATOM) CGF  unit;
+@prop_NA NSR  inactiveRect;
+@prop_NA NSP  scrollPoint, 	dragStart, 	dragDiff;
+@prop_NA BOOL dragging, 	noHit;
+@prop_NA NSI  unitOffset;
+@prop_NA CGF  unit;
 
-@property (weak) id <AZSemiResponder> 		semiResponder;
-@property (weak) AZLayer					*hit;
+@property (weak) id <AZSemiResponder> 	semiResponder;
+@property (weak)              AZLayer * hit;
 @end
 
-@protocol  AZSemiResponder
-@optional
--(void) logString:(NSS*)s;
+@protocol  AZSemiResponder @optional
+-(void)   logString:(NSS*)s;
 -(void) windowEvent:(NSEvent*)event;
 @end
 
 @interface AZDynamicTabLayer : CAL <AZSemiResponder>
 
-@property (STRNG, NATOM) NSA 					*palette;
-@property (STRNG, NATOM) NSOrderedDictionary 		*tabs;
-@property (STRNG, NATOM) AZSizer 				*sizer;
+@prop_NA     NSA 					*palette;
+@prop_NA NSOrderedDictionary 		*tabs;
+@prop_NA  AZSizer 				*sizer;
 // @property (ASS,   NATOM) AZRange 					 range;
-@property (ASS,   NATOM) AZOrient				 orient;
-@property (ASS,   NATOM) CGF						 offset;
-@property (STRNG, NATOM) NSBP 					*scrollPath;
+@prop_NA AZOrient				 orient;
+@prop_NA      CGF						 offset;
+@prop_NA     NSBP 					*scrollPath;
 
 //+ (id<CAAction>)defaultActionForKey:(NSS*)event;
 

@@ -16,7 +16,6 @@
 #define UINSImage   UIImage
 #define UINSScreen  UIScreen
 #else
-#import <Cocoa/Cocoa.h>
 #define UINSImage   NSImage
 #define UINSScreen  NSScreen
 #endif

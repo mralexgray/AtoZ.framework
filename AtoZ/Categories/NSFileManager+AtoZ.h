@@ -1,4 +1,11 @@
 
+NS_INLINE NSS* humanReadableFileTypeForFileExtension (NSS *ext) {
+
+	CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+                                                             (__bridge CFStringRef)ext, NULL);
+	NSS *UTIDesc = (__bridge NSS*)UTTypeCopyDescription(fileUTI); return CFRelease(fileUTI),UTIDesc;
+}
+
 
 NSS *NSDocumentsFolder(void);
 NSS *NSLibraryFolder(void);
@@ -11,22 +18,23 @@ NSS *NSBundleFolder(void);
 
 - (NSA*) arrayWithFilesMatchingPattern: (NSS*) pattern inDirectory: (NSS*) directory;
 
-+ (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path;
-+ (NSS*) pathForDocumentNamed: (NSS*) fname;
-+ (NSS*) pathForBundleDocumentNamed: (NSS*) fname;
+- (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path;
+- (NSS*) pathForDocumentNamed: (NSS*) fname;
+- (NSS*) pathForBundleDocumentNamed: (NSS*) fname;
 
 //non-resursive
-+ (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
+- (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
 
-+ (NSA*) pathsOfFilesIn:(NSS*)path withExtension:  (NSS*)ext;
-+ (NSA*) pathsOfFilesIn:(NSS*)path matchingPattern:(NSS*)regex;
-+ (NSA*) pathsOfFilesIn:(NSS*)path passing:(BOOL(^)(NSS*))testBlock;
+- (NSA*) pathsOfFilesIn:(NSS*)path withExtension:  (NSS*)ext;
+- (NSA*) pathsOfFilesIn:(NSS*)path matchingPattern:(NSS*)regex;
+- (NSA*) pathsOfFilesIn:(NSS*)path passing:(BOOL(^)(NSS*))testBlock;
 //recursive
-+ (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;
-+ (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext;
-+ (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext;
+- (NSA*) pathsForItemsNamed:(NSS*)ext inFolder:(NSS*)path;
+- (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;
+- (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext;
+- (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext;
 
-+ (NSA*) filesInFolder: (NSS*) path;
+- (NSA*) filesInFolder: (NSS*) path;
 
 //+ (NSImage *) imageNamed: (NSS*) aName;
 //+ (NSImage *) imageFromURLString: (NSS*) urlstring;
@@ -85,9 +93,10 @@ NSS *NSBundleFolder(void);
 @end
 
 @interface NSString (CarbonUtilities)
-+(NSS*)    stringWithFSRef:(const FSRef *)aFSRef;
--(BOOL)         getFSRef:(FSRef *)aFSRef;
--(NSS*)    resolveAliasFile;
++ (NSS*)    stringWithFSRef:(const FSRef *)aFSRef;
+- (BOOL)         getFSRef:(FSRef *)aFSRef;
+- (NSS*)    resolveAliasFile;
+- (NSS*) humanReadableFileTypeForFileExtension;
 @end
 
 @interface NSFileManager (UKVisibleDirectoryContents)

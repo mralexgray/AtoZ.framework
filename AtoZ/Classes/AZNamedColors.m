@@ -1,62 +1,45 @@
-//
-//  THnamedColors.m
-//  Lumumba
-//
-//  Created by Benjamin Schüttler on 28.10.09.
-//  Copyright 2011 Rogue Coding. All rights reserved.
-//
-#import "AZNamedColors.h"
+
+//  THnamedColors.m  Lumumba
+//  Created by Benjamin Schüttler on 28.10.09.  Copyright 2011 Rogue Coding. All rights reserved.
+
 #import "AtoZ.h"
-
-static NSDictionary * makeDictionaryFromList(NSColorList* list) {
-
-	return [list.allKeys mapToDictForgivingly:^AZKeyPair *(id key) {
-		return [AZKeyPair key:key value:[list colorWithKey:key]];
-	}];
-}
+#import "AZNamedColors.h"
 
 @implementation NSColorList (Dictionary)
--(NSDictionary*)dictionary { return makeDictionaryFromList(self); }
+
+-(NSD*) dictionary { return [self.allKeys mapToDictForgivingly:^AZKeyPair *(id key) {
+		return [AZKeyPair key:key value:[self colorWithKey:key]];
+	}];
+}
 @end
-
-
 
 @implementation AZNamedColors
 
 
 //+ (void)initialize {	[super initialize]; [self namedColors];
 //}
-+ (AZNamedColors *)namedColors {
-	static AZNamedColors *sharedNamedColors = nil;
++ (INST) namedColors {	static AZNamedColors *sharedNamedColors = nil;
 	static dispatch_once_t predicate;
-	dispatch_once(&predicate, ^{
-                sharedNamedColors = self.new; 
-	});
-   return sharedNamedColors;
-
-
-//	static  dispatch_once_t once;
-//	dispatch_once( &once, ^{  		  instance = self.new; });
-//	return instance;
-
-//	@synchronized(self) {
-//		if (!instance)        instance = self.new;
-//	}
-//	return instance;
+	dispatch_once(&predicate, ^{ sharedNamedColors = self.new; });
+  return sharedNamedColors;
 }
+
+- (id) init { return self = [super initWithName:@"AZNamedColors"] ? [self _initColors], self :nil; }
+
 - (void)_initColors {
 	if ([self.allKeys count] > 0)
 		return;
 
 #define _COLOR(V, N) \
-[self setColor :[@"#" stringByAppendingString : @#V].colorValue \
-forKey : @#N]
-	//	_COLOR(FFFFFF00, Transparent);
+\
+ ({ id x = [NSC colorWithHex:@#V]; id z =@#N; if(x&&z)[self setColor:x forKey:z]; })
+
+  //	_COLOR(FFFFFF00, Transparent);
 	_COLOR(F0F8FF, AliceBlue);
 	_COLOR(FAEBD7, AntiqueWhite);
 	_COLOR(AFB837, AppleGreen);
 	_COLOR(00FFFF, Aqua);
-	_COLOR(7FFFD 4, Aquamarine);
+	_COLOR(7FFFD4, Aquamarine);
 	_COLOR(F0FFFF, Azure);
 	_COLOR(F5F5DC, Beige);
 	_COLOR(FFE4C4, Bisque);
@@ -66,16 +49,16 @@ forKey : @#N]
 	_COLOR(8A2BE2, BlueViolet);
 	_COLOR(A52A2A, Brown);
 	_COLOR(DEB887, BurlyWood);
-	_COLOR(5F 9EA0, CadetBlue);
-	_COLOR(7FFF 00, Chartreuse);
+	_COLOR(5F9EA0, CadetBlue);
+	_COLOR(7FFF00, Chartreuse);
 	_COLOR(D2691E, Chocolate);
 	_COLOR(FF7F50, Coral);
 	_COLOR(6495ED, CornflowerBlue);
 	_COLOR(FFF8DC, Cornsilk);
 	_COLOR(DC143C, Crimson);
 	_COLOR(00FFFF, Cyan);
-	_COLOR(0000 8B, DarkBlue);
-	_COLOR(00 8B8B, DarkCyan);
+	_COLOR(00008B, DarkBlue);
+	_COLOR(008B8B, DarkCyan);
 	_COLOR(B8860B, DarkGoldenRod);
 	_COLOR(A9A9A9, DarkGray);
 	_COLOR(006400, DarkGreen);
@@ -87,10 +70,10 @@ forKey : @#N]
 	_COLOR(8B0000, DarkRed);
 	_COLOR(E9967A, DarkSalmon);
 	_COLOR(8FBC8F, DarkSeaGreen);
-	_COLOR(483D 8B, DarkSlateBlue);
-	_COLOR(2F 4F 4F, DarkSlateGray);
+	_COLOR(483D8B, DarkSlateBlue);
+	_COLOR(2F4F4F, DarkSlateGray);
 	_COLOR(00CED1, DarkTurquoise);
-	_COLOR(9400D 3, DarkViolet);
+	_COLOR(9400D3, DarkViolet);
 	_COLOR(FF1493, DeepPink);
 	_COLOR(00BFFF, DeepSkyBlue);
 	_COLOR(696969, DimGray);
@@ -104,7 +87,7 @@ forKey : @#N]
 	_COLOR(FFD700, Gold);
 	_COLOR(DAA520, GoldenRod);
 	_COLOR(808080, Gray);
-	_COLOR(00 8000, Green);
+	_COLOR(008000, Green);
 	_COLOR(ADFF2F, GreenYellow);
 	_COLOR(F0FFF0, HoneyDew);
 	_COLOR(FF69B4, HotPink);
@@ -129,7 +112,7 @@ forKey : @#N]
 	_COLOR(778899, LightSlateGray);
 	_COLOR(B0C4DE, LightSteelBlue);
 	_COLOR(FFFFE0, LightYellow);
-	_COLOR(00FF 00, Lime);
+	_COLOR(00FF00, Lime);
 	_COLOR(32CD32, LimeGreen);
 	_COLOR(FAF0E6, Linen);
 	_COLOR(FF00FF, Magenta);
@@ -137,18 +120,18 @@ forKey : @#N]
 	_COLOR(66CDAA, MediumAquaMarine);
 	_COLOR(0000CD, MediumBlue);
 	_COLOR(BA55D3, MediumOrchid);
-	_COLOR(9370D 8, MediumPurple);
+	_COLOR(9370D8, MediumPurple);
 	_COLOR(3CB371, MediumSeaGreen);
 	_COLOR(7B68EE, MediumSlateBlue);
 	_COLOR(00FA9A, MediumSpringGreen);
-	_COLOR(48D 1CC, MediumTurquoise);
+	_COLOR(48D1CC, MediumTurquoise);
 	_COLOR(C71585, MediumVioletRed);
 	_COLOR(191970, MidnightBlue);
 	_COLOR(F5FFFA, MintCream);
 	_COLOR(FFE4E1, MistyRose);
 	_COLOR(FFE4B5, Moccasin);
 	_COLOR(FFDEAD, NavajoWhite);
-	_COLOR(0000 80, Navy);
+	_COLOR(000080, Navy);
 	_COLOR(FDF5E6, OldLace);
 	_COLOR(808000, Olive);
 	_COLOR(6B8E23, OliveDrab);
@@ -180,13 +163,13 @@ forKey : @#N]
 	_COLOR(6A5ACD, SlateBlue);
 	_COLOR(708090, SlateGray);
 	_COLOR(FFFAFA, Snow);
-	_COLOR(00FF 7F, SpringGreen);
+	_COLOR(00FF7F, SpringGreen);
 	_COLOR(4682B4, SteelBlue);
 	_COLOR(D2B48C, Tan);
-	_COLOR(00 8080, Teal);
+	_COLOR(008080, Teal);
 	_COLOR(D8BFD8, Thistle);
 	_COLOR(FF6347, Tomato);
-	_COLOR(40E0D 0, Turquoise);
+	_COLOR(40E0D0, Turquoise);
 	_COLOR(EE82EE, Violet);
 	_COLOR(F5DEB3, Wheat);
 	_COLOR(FFFFFF, White);
@@ -197,7 +180,7 @@ forKey : @#N]
 }
 //- (id)init {
 //	if (instance != nil) {
-//		[NSException
+//		[NSExcep  tion
 //		 raise:NSInternalInconsistencyException
 //		 format:@"[%@ %@] cannot be called; use +[%@ %@] instead",
 //		 [self className],
@@ -241,7 +224,8 @@ forKey : @#N]
 	return re;
 }
 
-- (id) normal:(NSUI)idx { return [self valueForKey:[[self allKeys] normal: idx]]; }
++ (NSC*) normal:(NSUI)idx { return [self.namedColors.colors normal:idx]; }// valueForKey:[[self allKeys] normal: idx]]; }
+
 - (NSA*) colors { return [NSC colorsInListNamed:self.name]; }
 
 @end

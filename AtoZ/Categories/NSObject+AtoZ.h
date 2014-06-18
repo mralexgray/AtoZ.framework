@@ -115,6 +115,15 @@ typedef void(^bSelf)(id _self);
 
 @interface NSObject (AtoZ)
 
+- (void)  setYesForKey:(id)k;
+- (void)  setYesForKeys:(NSA*)ks;
+- (void)  setNoForKey:(id)k;
+- (void)  setNoForKeys:(NSA*)ks;
+
+
+- (void) sV:(id)v fK:(id)k;  // setValue:forKey:
+- (void) sV:(id)v fKP:(id)k; // setValue:forKeyPath:
+
 - (void)  blockSelf:(bSelf)block;
 - (void) triggerKVO:(NSS*)k 
               block:(bSelf)blk;
@@ -224,10 +233,10 @@ typedef void(^bSelf)(id _self);
 
 //-(void) propagateValue:(id)value forBinding:(NSString*)binding;
 
--(void) 	DDLogError;
--(void) 	DDLogWarn;
--(void) 	DDLogInfo	;
--(void) 	DDLogVerbose;
+//-(void) 	DDLogError;
+//-(void) 	DDLogWarn;
+//-(void) 	DDLogInfo	;
+//-(void) 	DDLogVerbose;
 
 - (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
@@ -283,15 +292,17 @@ typedef void (^caseBlock)();
    defaultBlock:(caseBlock)defaultBlock
 		  cases:casesList, ...;
 
-
+/* DISABLED
 	// To add array style subscripting:
 - (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 
+*/
 	// To add dictionary style subscripting
 //- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
 //- (id)objectForKeyedSubscript:(id)key;						   // getter
-- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay;
+//- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay; // conflict BlocksKit
+
 - (void)fireBlockAfterDelay:(void (^)(void))block;
 
 
@@ -450,7 +461,7 @@ BOOL respondsToString(id obj,NSS* string);
 
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
-+ (NSDictionary*) classPropsFor:	(Class) klass;
+//+ (NSDictionary*) classPropsFor:	(Class) klass; // COnflig AQProperties
 //- (NSA*) methodDumpForClass:	(NSString*) Class;
 + (NSA*) classMethods;
 - (NSS*) methods;
@@ -500,7 +511,7 @@ _Pragma("clang diagnostic pop") \
 
 - (id) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
 - (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2;
-- (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
+//- (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
 - (void) addObserver:	(NSObject*) observer 
 	   forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
@@ -579,6 +590,12 @@ _Pragma("clang diagnostic pop") \
 
 @interface NSObject (SadunUtilities)
 
++ (NSA*) selectorList; // Return an array of all an object's selectors
++ (NSA*) propertyList; // Return an array of all an object's properties
++ (NSA*)     ivarList;     // Return an array of all an object's properties
++ (NSA*) protocolList; // Return an array of all an object's properties
+
+/*
 // Return all superclasses of object
 @property (RONLY) NSA* superclasses;
 // Selector Utilities
@@ -609,14 +626,10 @@ _Pragma("clang diagnostic pop") \
 - (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1;
 - (id) valueByPerformingSelector:(SEL)selector;
 
-+ (NSA*) selectorList; // Return an array of all an object's selectors
-+ (NSA*) propertyList; // Return an array of all an object's properties
-+ (NSA*)     ivarList;     // Return an array of all an object's properties
-+ (NSA*) protocolList; // Return an array of all an object's properties
 
 - (BOOL)          hasProperty:(NSS*)pName; // Runtime checks of properties, etc.
 - (BOOL)              hasIvar:(NSS*)iName;
-+ (BOOL)          classExists:(NSS*)cName;
+//+ (BOOL)          classExists:(NSS*)cName;
 +   (id) instanceOfClassNamed:(NSS*)cName;
 // Access to object essentials for run-time checks. Stored by class in dictionary.
 @property (RONLY) NSD * selectors, 
@@ -628,6 +641,7 @@ _Pragma("clang diagnostic pop") \
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
 - (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1;
 - (id) tryPerformSelector: (SEL) aSelector;
+*/
 @end
 
 // Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
@@ -649,8 +663,6 @@ _Pragma("clang diagnostic pop") \
 
 @interface 		     		 	  NSObject  (FOOCoding)
 
-- (void) sV:(id)v fK:(id)k;  // setValue:forKey:
-- (void) sV:(id)v fKP:(id)k; // setValue:forKeyPath:
 
 //-      (id)  		 initWithDictionary : (NSD*)dictionary;
 -    (NSA*)        	     arrayForKey : (NSS*)key;

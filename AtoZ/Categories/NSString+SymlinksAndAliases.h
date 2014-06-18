@@ -12,7 +12,7 @@
 //  appreciated but not required.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Foundation;
 
 @interface NSString (SymlinksAndAliases)
 
@@ -33,3 +33,4 @@
 - (NSArray*) resolveSymlinksAndAliasesInPaths;
 
 @end
+

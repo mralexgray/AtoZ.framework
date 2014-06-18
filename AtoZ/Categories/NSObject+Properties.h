@@ -8,6 +8,8 @@
 
 #define statictype(x)	"@\"" #x "\""
 
+//typedef struct AZKVPair { __UNSFE NSS*k; __UNSFE id v; } AZKVPair;
+
 // Also, note that the runtime information doesn't include an atomicity hint, so we can't determine that information
 
 @interface NSObject (AQProperties)
@@ -22,8 +24,11 @@
 - (INST)        objectBySettingVariadicPairs:(NSA*)vsForKs;
 - (INST)                   withValuesForKeys:(id)v,...;
 - (INST)                              wVsfKs:(id)v,...;
+- (void)                    setValuesForKeys:(AZKP*)kp,...;
 - (void)                        incrementKey:(NSS*)k 
                                           by:(NSN*)v;
+
+- (void)  setKVs:(id)firstKey,... NS_REQUIRES_NIL_TERMINATION;
 
 + (NSD*) classPropertiesAndTypes;
 + (NSA*) objcPropertiesWithoutSuperclass;

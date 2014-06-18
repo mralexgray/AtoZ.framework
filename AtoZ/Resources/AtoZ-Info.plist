@@ -15,7 +15,7 @@
 	<key>CFBundleIconFile</key>
 	<string>atoz.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.mrgray.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.mrgray.AtoZ</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -27,7 +27,7 @@
 	<key>CFBundleSignature</key>
 	<string>ATOZ</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>${CURRENT_PROJECT_VERSION}</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2014 mrgray.com, inc. Do the fuck what you want license.</string>
 	<key>NSPrincipalClass</key>

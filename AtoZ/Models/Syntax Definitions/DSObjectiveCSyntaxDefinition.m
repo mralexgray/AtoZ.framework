@@ -6,42 +6,37 @@
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 //
 
+#import "AtoZ.h"
 #import "DSObjectiveCSyntaxDefinition.h"
 
 @implementation DSObjectiveCSyntaxDefinition
 
-+ (NSString *)name {
-  return @"Objective-C";
-}
++ (NSString *)name { return @"Objective-C"; }
 
-+ (NSArray *)extensions {
-  return @[ @"h", @"m" ];
-}
++ (NSArray *)extensions { return @[ @"h", @"m" ]; }
 
-- (id)init {
-  self = [super init];
-  if (self) {
-    self.keywords = @[
-    @"id",
-    @"nil",
-    @"self",
-    @"void",
-    @"@implementation",
-    @"@interface",
-    @"@end",
-    @"__block"
-    ];
+- (id)init { SUPERINIT;
 
-    self.delimiters = @[
-    @[ @"{", @"}" ],
-    @[ @"[", @"]" ],
-    @[ @"@{", @"}" ],
-    @[ @"@[", @"]" ],
-    ];
+  self.keywords = @[
+  @"id",
+  @"nil",
+  @"self",
+  @"void",
+  @"@implementation",
+  @"@interface",
+  @"@end",
+  @"__block"
+  ];
 
-    self.commentPattern = @[@"//.*?\n"];
+  self.delimiters = @[
+  @[ @"{", @"}" ],
+  @[ @"[", @"]" ],
+  @[ @"@{", @"}" ],
+  @[ @"@[", @"]" ],
+  ];
 
-  }
+  self.commentPattern = @[@"//.*?\n"];
+
   return self;
 }
 

@@ -19,6 +19,7 @@
 
 @interface NSOutlineView (AtoZ)
 
+@prop_RO id selectedObject;
 @end
 
 extern NSString* const kAZTreeNodeChildNodesKey;
@@ -30,16 +31,16 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 	NSMutableArray * _childNodes;
 }
 @property (readonly,nonatomic) id parentNode;
-@property (readonly,nonatomic) NSA *childNodes;
-@property (readonly,nonatomic) NSMA *mutableChildNodes; // returns a proxy through mutableArrayValueForKey:
-@property (readonly,nonatomic) BOOL isLeaf;
-@property (readonly,nonatomic) NSUI countOfChildNodes;
-@property (readonly,nonatomic) NSA *descendantNodes;
-@property (readonly,nonatomic) NSA *descendantNodesInclusive;
-@property (readonly,nonatomic) NSA *descendantLeafNodes;
-@property (readonly,nonatomic) NSA *descendantLeafNodesInclusive;
-@property (readonly,nonatomic) NSA *descendantGroupNodes;
-@property (readonly,nonatomic) NSA *descendantGroupNodesInclusive;
+@prop_RO  NSA * childNodes;
+@prop_RO NSMA * mutableChildNodes; // returns a proxy through mutableArrayValueForKey:
+@prop_RO BOOL   isLeaf;
+@prop_RO NSUI   countOfChildNodes;
+@prop_RO  NSA * descendantNodes;
+@prop_RO  NSA * descendantNodesInclusive;
+@prop_RO  NSA * descendantLeafNodes,
+              * descendantLeafNodesInclusive,
+              * descendantGroupNodes,
+              * descendantGroupNodesInclusive;
 
 - (BOOL)isDescendantOfNode:(AZTreeNode*)node;
 @end
@@ -96,3 +97,10 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 - (void)removeRepresentedObjects:(NSArray *)representedObjects;
 */
 @end
+
+
+@interface NSBrowser (AtoZ)
+@prop_RO NSA * selectedObjects;
+@end
+
+

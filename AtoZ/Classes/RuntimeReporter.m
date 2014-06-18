@@ -5,194 +5,107 @@
 //  Created by John  C. Randolph on 7/22/04.
 //  Copyright 2004-2009 John C. Randolph. All rights reserved.
 
+
+#import "AtoZ.h"
 #import "RuntimeReporter.h"
 #import <objc/runtime.h>
+#import <objc/Protocol.h>
 
 #define ROOT_CLASSES_KEY @"ROOT_CLASSES_KEY"
 
-@interface RuntimeReporter (private)
+@implementation RuntimeReporter NSMD *classLookupCache; NSMDATA *rawClassPointers;
 
-+ (NSMutableDictionary *) cache;
++ (void) initialize         { [AZNOTCENTER addObserver:self selector:@selector(recache:) name:NSBundleDidLoadNotification object:nil]; }
++ (void) recache:(NSNOT*)a  {  // If a bundle loaded, then what we knew about the class tree is invalid
 
-@end
+  NSMD * cache = self.cache; [cache removeObjectsForKeys:cache.allKeys];	// dump these, they'll be reloaded as necessary.
+  rawClassPointers = nil;
+}
++ (NSMD*) cache             { return classLookupCache = classLookupCache ?: NSMutableDictionary.new; }
++ (DATA*) rawClassPointers  { return rawClassPointers = rawClassPointers ?: ({
 
-@implementation RuntimeReporter
+  int numClasses = self.numberOfClasses;
+  rawClassPointers = [NSMutableData.alloc initWithLength: numClasses * sizeof(Class)];
+  void *bytes = [rawClassPointers mutableBytes];
+  objc_getClassList((__unsafe_unretained Class*)bytes, numClasses);
+  rawClassPointers; });
+}
++ (NSA*)  rootClasses       { return [self subclassNamesForClass: Nil];}   // Pass Nil for root classes.
 
-NSMutableDictionary *classLookupCache;
-NSMutableData *rawClassPointers;
++ (NSS*) superclassNameForClassNamed:(NSS*)k  { return [self superclassNameForClass:NSClassFromString(k)]; }
++ (NSS*)      superclassNameForClass:(Class)k { return NSStringFromClass(class_getSuperclass(k)); }
++ (NSA*)    inheritanceForClassNamed:(NSS*)k  { return [self inheritanceForClass:NSClassFromString(k)]; }
++ (NSA*)         inheritanceForClass:(Class)k {
+  return class_getSuperclass(k)  ? [[self inheritanceForClass:class_getSuperclass(k)] arrayByAddingObject:NSStringFromClass(k)]
+                                      : @[NSStringFromClass(k)];
+}
++ (NSA*)  subclassNamesForClassNamed:(NSS*)k  {
+  return [classLookupCache valueForKey:( k ? k : ROOT_CLASSES_KEY)]
+      ?: [self subclassNamesForClass:NSClassFromString(k)];
+} // Pass nil for the root classes.
 
-+ (void) initialize
-	{
-	[[NSNotificationCenter defaultCenter]
-		addObserver:self
-			 selector:@selector(recache:)
-					 name:NSBundleDidLoadNotification
-				 object:nil];
-	}
 
-+ (void) recache:(NSNotification *) aNotification  // If a bundle loaded, then what we knew about the class tree is invalid
-	{
-	id cache = [self cache];
-	[cache removeObjectsForKeys:[cache allKeys]];		// dump these, they'll be reloaded as necessary.
-	[rawClassPointers release];
-	rawClassPointers = nil;
-	}
+// This method always checks the runtime, not the cached results!  Don't use this directly, use  -subclassNamesForClassNamed:  if you care about efficiency.
++ (NSA*)subclassNamesForClass:(Class)k   // Pass Nil for root classes.
+{
+  NSMA* names = @[].mC;  Class *classPointers = (Class*)self.rawClassPointers.bytes;
 
-+ (NSMutableDictionary *) cache
-	{
-	if (!classLookupCache)
-		classLookupCache = NSMutableDictionary.new;  
-	return classLookupCache;
-	}
+  int index = self.numberOfClasses;
 
-+ (NSData *) rawClassPointers
-	{
-	if (!rawClassPointers)
-		{
-		int numClasses =  [self numberOfClasses];
-		rawClassPointers = [NSMutableData.alloc initWithLength: numClasses * sizeof(Class)];
-		void *bytes = [rawClassPointers mutableBytes];
-		objc_getClassList(bytes, numClasses);
-		}
-	return rawClassPointers;
-	}
+  while (index --)	{
+      Class thisClass = classPointers[index];
+      if (class_getSuperclass(thisClass) ==k)
+        if(thisClass) [names addObject:NSStringFromClass(thisClass)];
+  }
+  [names sortUsingSelector:@selector(compare:)];
+  [self.cache setValue:names forKey:k ? NSStringFromClass(k) : ROOT_CLASSES_KEY];
+  return names;
+}
 
-+ (NSString *) superclassNameForClassNamed:(NSString *) className { return [self superclassNameForClass:NSClassFromString(className)]; }
-+ (NSString *) superclassNameForClass:(Class) aClass { return NSStringFromClass(class_getSuperclass(aClass)); }
++ (BOOL) classHasSubclasses:(Class)k {  // Class*classPointers = (Class*)self.rawClassPointers.bytes;
 
-+ (NSArray *) inheritanceForClassNamed:(NSString *) className { return [self inheritanceForClass:NSClassFromString(className)]; }
-+ (NSArray *) inheritanceForClass:(Class) aClass
-	{
-	if (class_getSuperclass(aClass))
-		{
-		return [[self inheritanceForClass:class_getSuperclass(aClass)] arrayByAddingObject:NSStringFromClass(aClass)];
-		}
-	return @[NSStringFromClass(aClass)];	
-	}
+  return [self subclassNamesForClass:k].count != 0;
+//  int index = self.numberOfClasses;
+//
+//  return [@(index-1).toArray testThatAllReturn:NO block:^BOOL(id o) {
+//      Class thisClass = (Class) classPointers[[o uIV]];
+//      return class_getSuperclass(thisClass) ==k;
+//  }];
 
-+ (NSArray *) subclassNamesForClassNamed:(NSString *) className  // Pass nil for the root classes.
-	{
-	NSArray *result = [classLookupCache valueForKey:( className ? className : ROOT_CLASSES_KEY)];
-	return result ? result : [self subclassNamesForClass:NSClassFromString(className)];	
-	}
+//  while (index --) { Class thisClass = (Class) classPointers[index];
+//      if (class_getSuperclass(thisClass) ==k)  return YES;
+//  }
+//  return NO;
+}
 
-+ (NSArray *) rootClasses { return [self subclassNamesForClass: Nil];}   // Pass Nil for root classes.  
++ (int) numberOfSubclassesOfClass:(Class)k  { return 0; }
++ (int) numberOfClasses                           { return objc_getClassList(nil, 0); }
++ (NSA*) methodNamesForClassNamed:(NSS*)k   { return [self methodNamesForClass:NSClassFromString(k)]; }
++ (NSA*)      methodNamesForClass:(Class)k  {
 
-	// This method always checks the runtime, not the cached results!  Don't use this directly, use  -subclassNamesForClassNamed:  if you care about efficiency.
-+ (NSArray *) subclassNamesForClass:(Class) aClass   // Pass Nil for root classes.  
-	{
-	id 
-		names = [NSMutableArray array]; 
+  unsigned int mCt; Method *meths = class_copyMethodList(k, &mCt); if (!meths) return nil;
+  id z = [@(mCt-1) mapTimes:^id(NSN*num) { return @(sel_getName(method_getName(meths[num.uIV]))); }]; return free(meths), z;
+}
 
-	Class 
-		*classPointers = (Class *) [[self rawClassPointers] bytes];
++ (NSA*) iVarNamesForClassNamed:(NSS*)k   { return [self iVarNamesForClass:NSClassFromString(k)]; }
++ (NSA*)      iVarNamesForClass:(Class)k  {
 
-	int 
-		index = [self numberOfClasses];
+  Ivar *ivars = NULL; unsigned int ivarCount; if (!(ivars = class_copyIvarList(k, &ivarCount))) return nil;
+  id z = [@(ivarCount-1) mapTimes:^id(NSN*num) { return @(ivar_getName(ivars[num.uIV])); }]; return free(ivars), z;
+}
 
-	while (index --)
-		{ 
-		Class thisClass = classPointers[index];
-		if (class_getSuperclass(thisClass) == aClass)
-			if(thisClass)
-				[names addObject:NSStringFromClass(thisClass)];
-		}
-	names = [names sortedArrayUsingSelector:@selector(compare:)];
-	[[self  cache] setValue:names forKey:(aClass ? NSStringFromClass(aClass) : ROOT_CLASSES_KEY)];
-	return names;	
-	}
++ (NSA*) propertyNamesForClassNamed:(NSS*)k   { return [self iVarNamesForClass:NSClassFromString(k)]; }
++ (NSA*)      propertyNamesForClass:(Class)k  {
 
-+ (BOOL) classHasSubclasses:(Class) aClass 
-	{
-	Class 
-		*classPointers = (Class *) [[self rawClassPointers] bytes];
-	
-	int 
-		index = [self numberOfClasses];
-		
-	while (index --)
-		{ 
-		Class thisClass = (Class) classPointers[index];
-		if (class_getSuperclass(thisClass) == aClass)
-			return YES;
-		}
-	return NO;	
-	}
+  objc_property_t *props = NULL; unsigned int propsCount; if (!(props = class_copyPropertyList(k, &propsCount))) return nil;
+  id z = [@(propsCount-1) mapTimes:^id(NSN*num) { return @(property_getName(props[num.uIV])); }]; return free(props), z;
+}
 
-+ (int) numberOfSubclassesOfClass:(Class) aClass { return 0; }
-+ (int) numberOfClasses { return objc_getClassList(nil, 0); }
++ (NSA*) protocolNamesForClassNamed:(NSS*)k   { return [self protocolNamesForClass:NSClassFromString(k)]; }
++ (NSA*)      protocolNamesForClass:(Class)k  {
 
-+ (NSArray *) methodNamesForClassNamed:(NSString *) className { return [self methodNamesForClass:NSClassFromString(className)]; }
-
-+ (NSArray *) methodNamesForClass:(Class) aClass
-		{
-		Method *methods = NULL;
-		unsigned int methodCount;
-		if (methods == class_copyMethodList(aClass, &methodCount))
-			{
-			NSMutableArray *results = [NSMutableArray arrayWithCapacity:methodCount];
-
-			while (methodCount--) 
-			[results addObject:@(sel_getName(method_getName(methods[methodCount])))];
-
-			free(methods);	
-			return results;
-			}
-		return nil;
-		}
-
-+ (NSArray *) iVarNamesForClassNamed:(NSString *) className { return [self iVarNamesForClass:NSClassFromString(className)]; }
-+ (NSArray *) iVarNamesForClass:(Class) aClass
-	{
-	Ivar *ivars = NULL;
-	unsigned int ivarCount;
-	if (ivars == class_copyIvarList(aClass, &ivarCount))
-		{
-		NSMutableArray *results = [NSMutableArray arrayWithCapacity:ivarCount];
-
-		while (ivarCount--) 
-		[results addObject:@(ivar_getName(ivars[ivarCount]))];
-
-		free(ivars);	
-		return results;
-		}
-	return nil;
-	}
-
-+ (NSArray *) propertyNamesForClassNamed:(NSString *) className { return [self iVarNamesForClass:NSClassFromString(className)]; }
-+ (NSArray *) propertyNamesForClass:(Class) aClass
-	{
-	objc_property_t *props = NULL;
-	unsigned int propsCount;
-	if (props == class_copyPropertyList(aClass, &propsCount))
-		{
-		NSMutableArray *results = [NSMutableArray arrayWithCapacity:propsCount];
-
-		while (propsCount--) 
-			[results addObject:@(property_getName(props[propsCount]))];
-
-		free(props);	
-		return results;
-		}
-	return nil;			
-	}
-
-+ (NSArray *) protocolNamesForClassNamed:(NSString *) className { return [self protocolNamesForClass:NSClassFromString(className)]; }
-+ (NSArray *) protocolNamesForClass:(Class) aClass
-	{
-	Protocol **protos = NULL;
-	unsigned int protoCount;
-	if (protos == class_copyProtocolList(aClass, &protoCount))
-		{
-		NSMutableArray *results = [NSMutableArray arrayWithCapacity:protoCount];
-
-		while (protoCount--) 
-			[results addObject:@(protocol_getName(protos[protoCount])) ];
-
-		free(protos);	
-		return results;
-		}
-	return nil;
-	}
+  Protocol *__unsafe_unretained * pr; unsigned int prCt; if (!(pr = class_copyProtocolList(k, &prCt))) return nil;
+  id z = [@(prCt-1) mapTimes:^id(NSN *num) {  return @(protocol_getName(pr[num.uIV]));  }];  return free(pr), z;
+}
 
 @end

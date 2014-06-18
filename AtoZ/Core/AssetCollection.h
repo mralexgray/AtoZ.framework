@@ -3,37 +3,43 @@
 
 #define AssetDataType @"AssetDataTypeForTableViewDrag"
 
-JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS, AssetTypeHTML5, AssetTypePHP, AssetTypeBASH,
-									AssetTypeObjC, AssetTypeTXT, AssetTypeUNKNOWN = 99, AssetTypeNotFound = NSNotFound );
+JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS,  AssetTypeHTML5,
+                          AssetTypePHP, AssetTypeBASH, AssetTypeObjC, AssetTypeTXT,
+                          AssetTypeUNKNOWN = 99,
+                          AssetTypeNotFound = NSNotFound );
 
 //static NSArray* extensionsForAssetType(AssetType type);
 
 @interface AssetController : NSTreeController
 
-@property (STR) NSMA *assets;
 
-//+ (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit;
--         (void) addFolder:(NSS*)path matchingType:(AssetType)fileType;
+@end
 
+@interface AssetCollection : NSMA
+
+- (void) addFolder: (NSS*)path matchingType:(AssetType)fileType	printInline:(BOOL)printI;
+@prop_RO AssetType assetType;
++ (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit;
 @end
 
 @interface Asset : BaseModel
 @property (WK)	AssetController * controller;
-@property (STR)				NSN * priority;
+@property               NSN * priority;
 @property (CP)					NSS * path,
-										 * contents;
-@property				     BOOL	printInline,
-									 		active;
-@property (STR)				NSB * bundle;
-@property				AssetType 	assetType;
+                            * contents;
+@property				       BOOL  	printInline,
+									 		        active;
+@property (STR)				  NSB * bundle;
+@property				  AssetType 	assetType;
 @property (RONLY)				NSS * markup;
 + (instancetype) test;
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit;
 @end
+
 @interface AssetTypeTransformer: NSValueTransformer	@end
 
 @interface NSString (AssetType)
--      (NSS*) wrapInHTML;
+@prop_RO NSS * wrapInHTML;
 @end
 
 

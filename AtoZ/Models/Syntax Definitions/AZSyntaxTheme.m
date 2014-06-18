@@ -88,7 +88,7 @@
 }
 
 - (id)init {
-	if (self != [super init]) return nil;
+	if (!(self = super.init)) return nil;
 	_name = @"Default";
 	_plainTextColor  = RGB(255.f, 255.f, 255.f);
 	_backgroundColor = RGB(0.f, 0.f, 0.f);

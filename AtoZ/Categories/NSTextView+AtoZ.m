@@ -6,14 +6,57 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 #import "AtoZ.h"
-#import "NSTextView+AtoZ.h"
+#import "NSString+AtoZ.h"
 #import "AtoZCategories.h"
+#import "NSTextView+AtoZ.h"
 
 @implementation AZTextViewResponder
 - (void) mouseDown:(NSEvent *)theEvent {
 	[[self nextResponder] mouseDown:theEvent];
 }
 @end
+
+@import AppKit;
+
+@implementation NSControl (AtoZ)
+
+- (void) setSizeToFit:(BOOL)sizeTo {
+
+
+
+//  [self.cell az_overrideSelector:@selector(drawInteriorWithFrame:inView:)
+//                  withBlock:(__bridge void*)^(id _self, NSR cellFrame,NSView *controlView){
+
+  [self.cell interceptSelector:@selector(drawInteriorWithFrame:inView:)  /* here we add a proxy to an existing object */
+                         atPoint:InterceptPointStart
+                           block:^(NSInvocation *inv, InterceptionPoint intPt) {
+
+    XX(@"well hello!");
+    NSMAS *maString = [self attributedStringValue].mC;
+    NSR cellFrame = self.bounds;
+    NSSZ stringSize = maString.size;
+
+    if (stringSize.width > cellFrame.size.width) {
+      while (stringSize.width > cellFrame.size.width) {
+        NSFont *font = [maString attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
+        [maString addAttribute:NSFontAttributeName value:
+                 [NSFont fontWithName:font.fontName size:[font.fontDescriptor[NSFontSizeAttribute] floatValue] - 0.5]
+                                                   range:[(NSS*)maString range]];
+          stringSize = maString.size;
+      }
+    }
+    NSR dRect            = cellFrame;
+    dRect.size.height    = stringSize.height;
+    dRect.origin.y      += (cellFrame.size.height - stringSize.height) / 2;
+    [maString drawInRect:dRect];
+  }];
+
+  [[self cell] drawInteriorWithFrame:NSZeroRect inView:self];
+//To make the font correctly center vertically, the following line is needed right before the while:
+//  [mutableAttributedString removeAttribute:@"NSOriginalFont" range:NSMakeRange(0, [mutableAttributedString length])];
+}
+@end
+
 
 @implementation NSTextView (AtoZ)
 - (NSString*) highlightColorDefaultsKeyName 	{	  return @"CurrentLineHighlightColor";	}

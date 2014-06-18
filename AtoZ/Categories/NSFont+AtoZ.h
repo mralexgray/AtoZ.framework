@@ -1,5 +1,4 @@
 
-#import <Cocoa/Cocoa.h>
 #import "AtoZUmbrella.h"
 
 @interface NSFont (AtoZ)

@@ -1,40 +1,115 @@
 
-#import "AtoZ.h"
-@import Darwin;
+//@import Darwin;
 #import "AZLog.h"
+#import "AtoZ.h"
 //#import <stdio.h>
 //#import <asl.h>
 #import <notify.h>
 //#import <sys/time.h>
 #import <notify_keys.h>
-//#import <RoutingHTTPServer/RoutingHTTPServer.h>
 
-//+ (void) initialize { [DDLog addLogger:DDSHARED]; DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = self.new; }
+
+//+ (void) initiablize { [DDLog addLogger:DDSHARED]; DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = self.new; }
+
+@implementation NSO (AtoZObjectLog)
+- (void*) log { NSLog(@"%@",self);  return (void*)nil; }
+@end
 
 JREnumDefine ( LogEnv );
 
+//@interface AtoZLumberLog() <DDLogFormatter> @end
+
 #define DDSHARED DDTTYLogger.sharedInstance
 
-@interface AtoZLumberLog (DD) <DDLogFormatter> @end @implementation AtoZLumberLog
+__attribute__((constructor)) static void setupLogger() {
 
-+ (void) load { AZLOGCMD; [DDLog addLogger:DDSHARED]; DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = self.new; }
-
-+ (void) logFile:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,... {
-
-	if (!fmt || ISNOTA(fmt,NSS)) return NSLog(@"you tried formatting with a %@, not a string!", [fmt className]);
-
-	va_list argList;  va_start(argList, fmt);   // Get a reference to the arguments that follow the format parameter
-
-  [DDLog log:YES level:1 flag:0 context:0 file:file function:fnc line:ln tag:0 format:fmt args:argList]; 	va_end(argList);
+  [DDLog addLogger:DDSHARED];  DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = AtoZLumberLog.logger;
 }
 
-- (NSS*) formatLogMessage:(DDLogMessage*)m{ return //NSS* meth = "]; return  
+@implementation AtoZLumberLog @synthesize logEnv=_logEnv;
 
-  @[[AZLog colorizeString:m->logMsg withColor:AtoZ.globalPalette.nextNormalObject].clr, zTAB,
-    [m.methodName substringBetweenPrefix:@"⬆[" andSuffix:@"]"] ?: @""].componentString;
+//LogEnvUnknown      = 0x00000000,
+//                       LogEnvXcode        = 0x00000001,
+//                       LogEnvXcodeColors  = 0x00000011, 
+//                       LogEnvTTY          = 0x00000100,
+//                       LogEnvTTYColor     = 0x00001100,
+//                       LogEnvTTY256       = 0x00011100,
+//                       LogEnvError        = 0x11111111, )
+- (LogEnv) logEnv{ return _logEnv = !_logEnv ||  _logEnv == LogEnvUnknown ? ({
+
+    LogEnv env;
+    env = DDTTYLogger.isaXcodeColorTTY ? LogEnvXcodeColors
+        : DDTTYLogger.isaColor256TTY   ? LogEnvTTY256
+        : DDTTYLogger.isaColorTTY      ? LogEnvTTYColor :  LogEnvError;
+  }) : _logEnv;
 }
-                    
+
+SYNTHESIZE_SINGLETON_FOR_CLASS(AtoZLumberLog, logger)
+
+- (NSString*)formatLogMessage:(DDLogMessage*)logMessage {
+
+  return $(@"%@",logMessage->logMsg);
+}
+
+
++ (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l {
+
+  id toLog;
+  objswitch(x)
+  objkind(NSC)
+//    [AZTalker sayFormat:@"its a color! %@", ((NSC*)x).name];
+    [DDSHARED setForegroundColor:((NSC*)x) backgroundColor:nil forFlag:LOG_LEVEL_VERBOSE];
+    toLog = $(@"COLOR %@", [(NSC*)x name]);
+
+//  objkind(NSIMG)
+//   ∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i
+
+  defaultcase
+    toLog = [x description];
+  endswitch
+//  [DDLog log:YES level:LOG_LEVEL_INFO flag:LOG_FLAG_INFO context:1 file:f function:func line:l tag:nil format:@"%@",toLog];
+  DDLogVerbose(@"%@", toLog);
+}
+
 @end
+
+/*
+    return [NSString stringWithFormat:@"%@ | %@\n", logLevel, logMessage->logMsg];
+ NSString *logLevel;  switch (logMessage->logFlag)  { case LOG_FLAG_ERROR : logLevel = @"E"; break; case LOG_FLAG_WARN  : logLevel = @"W"; break; case LOG_FLAG_INFO  : logLevel = @"I"; break; case LOG_FLAG_DEBUG : logLevel = @"D"; break; default : logLevel = @"V"; break;   }
+
+- (void)logMessage:(DDLogMessage*)logMessage{
+
+    NSString *logMsg = logMessage->logMsg;
+
+    if (self->formatter)
+        logMsg = [self->formatter formatLogMessage:logMessage];
+
+    if (logMsg)
+    {
+        // Write logMsg to wherever...
+    }
+}
+*/
+//+ (void) load { AZLOGCMD;
+//
+//[DDLog addLogger:DDSHARED];
+//  DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = self.new; }
+
+//+ (void) logFile:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,... {
+//
+//	if (!fmt || ISNOTA(fmt,NSS)) return NSLog(@"you tried formatting with a %@, not a string!", [fmt className]);
+//
+//	va_list argList;  va_start(argList, fmt);   // Get a reference to the arguments that follow the format parameter
+//
+//  [DDLog log:YES level:1 flag:0 context:0 file:file function:fnc line:ln tag:0 format:fmt args:argList]; 	va_end(argList);
+//}
+
+//- (NSS*) formatLogMessage:(DDLogMessage*)m{ return //NSS* meth = "]; return  
+//
+//  @[[AZLog colorizeString:m->logMsg withColor:AtoZ.globalPalette.nextNormalObject].clr, zTAB,
+//    [m.methodName substringBetweenPrefix:@"⬆[" andSuffix:@"]"] ?: @""].componentString;
+//}
+
 
 @implementation NSLogMessage @synthesize  JSONRepresentation = _JSONRep, data = _data, message = _message, file = _file, function = _function, line = _line, date = _date;
 
@@ -282,7 +357,7 @@ static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVE
 									[t bind:NSValueBinding toObject:self withKeyPath:@"arrangedObjects.representedObject" options:nil];
 									[_show makeKeyAndOrderFront:nil]; return _show;
 }
--   (id) init		{	if (self != super.init) return nil; self.childrenKeyPath = @"childNodes"; self.content = @[[NSTreeNode treeNodeWithRepresentedObject:@"LOGS"]].mutableCopy;  return self; }
+-   (id) init		{	if (!(self = super.init)) return nil; self.childrenKeyPath = @"childNodes"; self.content = @[[NSTreeNode treeNodeWithRepresentedObject:@"LOGS"]].mutableCopy;  return self; }
 - (void) watch	{
 
 		/* We use ASL_KEY_MSG_ID to see each message once, but there's no obvious way to get the "next" ID. To bootstrap the process, we'll

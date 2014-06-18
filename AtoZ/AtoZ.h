@@ -333,33 +333,33 @@ Metaprogramming is normally something that people associate with more dynamic la
 
 #ifdef __OBJC__
 
-  //@import Cocoa;
-  #import <Cocoa/Cocoa.h>                               
-  //@import ObjectiveC; 
-  #import <Foundation/NSObjCRuntime.h>                  
-  //@import QuartzCore; 
-  #import <QuartzCore/QuartzCore.h>                   
+//@import Cocoa;
+//  @import AppKit;
+@import ObjectiveC;
+//  #import <Foundation/NSObjCRuntime.h>                  
+@import QuartzCore;
+//  #import <QuartzCore/QuartzCore.h>                   
                                                         //  @import Darwin;
-  //#import <ApplicationServices/ApplicationServices.h>   //  @import ApplicationServices;
-  //#import <AudioToolbox/AudioToolbox.h>                 //  @import AudioToolbox;
-  //#import <AVFoundation/AVFoundation.h>                 //  @import AVFoundation;
-  //#import <CoreServices/CoreServices.h>                 //  @import CoreServices;
-  //#import <Dispatch/Dispatch.h>                         //  @import Dispatch;
-  //#import <SystemConfiguration/SystemConfiguration.h>   //  @import SystemConfiguration;
-  //#import <WebKit/WebView.h>
-  #import <Zangetsu/Zangetsu.h>
+//#import <ApplicationServices/ApplicationServices.h>   //  @import ApplicationServices;
+//#import <AudioToolbox/AudioToolbox.h>                 //  @import AudioToolbox;
+//#import <AVFoundation/AVFoundation.h>                 //  @import AVFoundation;
+//#import <CoreServices/CoreServices.h>                 //  @import CoreServices;
+//#import <Dispatch/Dispatch.h>                         //  @import Dispatch;
+//#import <SystemConfiguration/SystemConfiguration.h>   //  @import SystemConfiguration;
+//#import <WebKit/WebView.h>
+//@import RoutingHTTPServer;
 
-//  #import <RoutingHTTPServer/RoutingHTTPServer.h> //@import RoutingHTTPServer;
+//#import <Zangetsu/Zangetsu.h>
+//#import <RoutingHTTPServer/RoutingHTTPServer.h>
 
-
-
-#import "AOPProxy/AOPProxy.h"
-#import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
-#import "JATemplate/JATemplate.h"
-#import "KVOMap/KVOMap.h"
-#import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
+//#import "AOPProxy/AOPProxy.h"
+//#import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
+//#import "JATemplate/JATemplate.h"
+//#import <KVOMap/KVOMap.h>
+#import <Zangetsu/Zangetsu.h>
+//#import <ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h>
+//#import <AtoZAutoBox/AtoZAutoBox.h>
 #import <AtoZAppKit/AtoZAppKit.h>
-#import <AtoZAutoBox/AtoZAutoBox.h>
 #import <AtoZBezierPath/AtoZBezierPath.h>
 #import <BlocksKit/A2DynamicDelegate.h>
 #import <BlocksKit/BlocksKit.h>
@@ -378,210 +378,232 @@ Metaprogramming is normally something that people associate with more dynamic la
 #import <TwUI/TUIKit.h>
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UIKit/UIKit.h>
-//  #import "AtoZSingleton/AtoZSingleton.h"
 
+//#import "AtoZSingleton/AtoZSingleton.h"
+//#import <MapKit/MapKit.h>
+//#import <RoutingHTTPServer/AZRouteResponse.h>
 
-  //#import <MapKit/MapKit.h>
-  //#import <RoutingHTTPServer/AZRouteResponse.h>
-
-  #import "JREnum.h"
-  #import "objswitch.h"
-  #import "BaseModel.h"
-  #import "AutoCoding.h"
-  #import "HRCoder.h"
-  #import "F.h"
-
+//#import "JREnum.h"
+//#import "objswitch.h"
+//#import "BaseModel.h"
+//#import "AutoCoding.h"
+//#import "HRCoder.h"
+//#import "F.h"
+///////////////////////////////////////////////////////////////
 //  #import "AtoZAutoBox/AtoZAutoBox.h"
-
-
-  #import "AtoZTypes.h"
-  #import "AtoZMacroDefines.h"
-
-  #import "BoundingObject.h"
-
-  #import "AtoZUmbrella.h"
-  #import "AtoZGeometry.h"
-  #import "AtoZCategories.h"
-
-  #import "BlocksAdditions.h"
-
-  #import "AddressBookImageLoader.h"
-  #import "AFNetworking.h"
-  #import "AGNSSplitView.h"
-  #import "AGNSSplitViewDelegate.h"
-  #import "AHLayout.h"
-  #import "ASIHTTPRequest.h"
-  #import "BBMeshView.h"
-  #import "BETaskHelper.h"
-  #import "BlockDelegate.h"
-  #import "ConciseKit.h"
-  #import "CPAccelerationTimer.h"
-  #import "CTBadge.h"
-  #import "CTGradient.h"
-  #import "DSObjectiveCSyntaxDefinition.h"
-  #import "DSPodfileSyntaxDefinition.h"
-  #import "DSPodspecSyntaxDefinition.h"
-  #import "DSRubySyntaxDefinition.h"
-  #import "DSSyntaxCollection.h"
-  #import "DSSyntaxHighlighter.h"
-  #import "DSSyntaxTextView.h"
-  #import "iCarousel.h"
-  #import "JsonElement.h"
-  #import "JSONKit.h"
-  #import "KGNoise.h"
-  #import "LoremIpsum.h"
-  #import "MAAttachedWindow.h"
-  #import "MAKVONotificationCenter.h"
-  #import "MASShortcut.h"  // SHortcut Manager and View
-  
-  #import "NotificationCenterSpy.h"
-  #import "NSBag.h"
-  #import "NSMenu+Dark.h" 
-  #import "NSObject_KVOBlock.h"
-  #import "M13OrderedDictionary.h"
+//#import "AtoZTypes.h"
+//#import "AtoZMacroDefines.h"
+//#import "BoundingObject.h"
+#import "AtoZUmbrella.h"
+//#import "AtoZGeometry.h"
+#import "AtoZCategories.h"
+#import "BlocksAdditions.h"
+#import "AddressBookImageLoader.h"
+#import "AFNetworking.h"
+#import "AGNSSplitView.h"
+#import "AGNSSplitViewDelegate.h"
+#import "AHLayout.h"
+#import "ASIHTTPRequest.h"
+#import "BBMeshView.h"
+#import "BETaskHelper.h"
+#import "BlockDelegate.h"
+//#import "ConciseKit.h"
+#import "CPAccelerationTimer.h"
+#import "CTBadge.h"
+#import "CTGradient.h"
+#import "DSObjectiveCSyntaxDefinition.h"
+#import "DSPodfileSyntaxDefinition.h"
+#import "DSPodspecSyntaxDefinition.h"
+#import "DSRubySyntaxDefinition.h"
+#import "DSSyntaxCollection.h"
+#import "DSSyntaxHighlighter.h"
+#import "DSSyntaxTextView.h"
+#import "iCarousel.h"
+#import "JSONKit.h"
+#import "KGNoise.h"
+#import "LoremIpsum.h"
+#import "MAAttachedWindow.h"
+#import "MAKVONotificationCenter.h"
+#import "MASShortcut.h"  // SHortcut Manager and View
+#import "NotificationCenterSpy.h"
+#import "NSBag.h"
+#import "NSMenu+Dark.h" 
+#import "NSObject_KVOBlock.h"
+#import "M13OrderedDictionary.h"
 //  #import "NSTerminal.h"
-  #import "NSWindow_Flipr.h"
-  #import "NullSafe.h"
-  #import "ObjectMatcher.h"
-  #import "PXListDocumentView.h"
-  #import "PXListView.h"
-  #import "PXListViewCell.h"
-  #import "RuntimeReporter.h"
-  #import "SDToolkit.h"
-  #import "SelectorMatcher.h"
-  #import "SIAppCookieJar.h"
-  #import "SIAuthController.h"
-  #import "SIConstants.h"
-  #import "SIInboxDownloader.h"
-  #import "SIInboxModel.h"
-  #import "SIViewControllers.h"
-  #import "SIWindow.h"
-  #import "StandardPaths.h"
-  #import "StarLayer.h"
-  #import "StickyNoteView.h"
-  #import "Transition.h"
-  #import "TransparentWindow.h"
-  #import "TUIFastIndexPath.h"
-  #import "XLDragDropView.h"
-
-
-  //#import "AtoZMacroDefines.h"
-  //#import "AtoZUmbrella.h"
-  //#import "AtoZTypes.h"
-  //#import "AtoZGeometry.h"
-  #import "AtoZFunctions.h"
-  #import "AZLog.h"
-  #import "AZProxy.h"
-  #import "AZBaseModel.h"  // NSDocument / AZDoc
-
-  #import "SynthesizeSingleton.h"
-  #import "AZObserversAndBinders.h"
-
-  #import "MondoSwitch.h"
-
-  #import "AssetCollection.h"
-  #import "AtoZColorWell.h"
-  #import "AtoZContacts.h"
-  #import "AtoZDelegate.h"
-  #import "AtoZGridView.h"
-  #import "AtoZGridViewProtocols.h"
-  #import "AtoZInfinity.h"
-  #import "AtoZMacroDefines.h"
-  #import "AtoZModels.h"
-  //#import "AtoZNodeProtocol.h"
-  #import "AtoZWebSnapper.h"
-  #import "AZApplePrivate.h"
-  #import "AZASIMGV.h"
-  #import "AZAttachedWindow.h"
-  #import "AZAXAuthorization.h"
-  #import "AZBackground.h"
-  #import "AZBackgroundProgressBar.h"
-  #import "AZBlockView.h"
-  #import "AZBonjourBlock.h"
-  #import "AZBorderlessResizeWindow.h"
-  #import "AZBox.h"
-  #import "AZBoxGrid.h"
-  #import "AZBoxMagic.h"
-  #import "AZCalculatorController.h"
-  #import "AZCLI.h"
-  #import "AZCLICategories.h"
-  #import "AZColor.h"
-  #import "AZCoreScrollView.h"
-  #import "AZDebugLayer.h"
-  #import "AZDockQuery.h"
-  #import "AZExpandableView.h"
-  #import "AZFacebookConnection.h"
-  #import "AZFactoryView.h"
-  #import "AZFavIconManager.h"
-  #import "AZFoamView.h"
-  #import "AZGit.h"
-  #import "AZGoogleImages.h"
-  #import "AZGrid.h"
-  #import "AZHomeBrew.h"
-  #import "AZHostView.h"
-  #import "AZHTMLParser.h"
-  #import "AZHTTPURLProtocol.h"
-  #import "AZImageToDataTransformer.h"
-  #import "AZIndeterminateIndicator.h"
-  #import "AZIndexedObjects.h"
-  #import "AZInfiniteCell.h"
-  #import "AZInstantApp.h"
-
-  #import "AZLassoView.h"
-  #import "AZLaunchServices.h"
-  #import "AZLayer.h"
-
-  #import "AZLogConsole.h"
-  #import "AZMacTrackBall.h"
-  #import "AZMedallionView.h"
-  #import "AZMouser.h"
-  #import "AZObject.h"
-  #import "AZObserversAndBinders.h"
-  #import "AZPopupWindow.h"
-  #import "AZPrismView.h"
-  #import "AZProcess.h"
-  #import "AZProgressIndicator.h"
-  #import "AZPropellerView.h"
-  #import "AZProportionalSegmentController.h"
-  #import "AZQueue.h"
-  #import "AZScrollerLayer.h"
-  #import "AZScrollPaneLayer.h"
-  #import "AZSegmentedRect.h"
-  #import "AZSemiResponderWindow.h"
-  #import "AZSimpleView.h"
-  #import "AZSizer.h"
-  #import "AZSnapShotLayer.h"
-  #import "AZSound.h"
-  #import "AZSourceList.h"
-  #import "AZSpeechRecognition.h"
-  #import "AZStopwatch.h"
-  #import "AZSyntaxTheme.h"
-  #import "AZSynthesize.h"
-  #import "AZTalker.h"
-  #import "AZTimeLineLayout.h"
-  #import "AZToggleArrayView.h"
-  #import "AZTrackingWindow.h"
+#import "NSWindow_Flipr.h"
+#import "NullSafe.h"
+#import "ObjectMatcher.h"
+#import "PXListDocumentView.h"
+#import "PXListView.h"
+#import "PXListViewCell.h"
+#import "RuntimeReporter.h"
+#import "SDToolkit.h"
+#import "SelectorMatcher.h"
+#import "SIAppCookieJar.h"
+#import "SIAuthController.h"
+#import "SIConstants.h"
+#import "SIInboxDownloader.h"
+#import "SIInboxModel.h"
+#import "SIViewControllers.h"
+#import "SIWindow.h"
+#import "StandardPaths.h"
+#import "StarLayer.h"
+#import "StickyNoteView.h"
+#import "Transition.h"
+#import "TransparentWindow.h"
+#import "TUIFastIndexPath.h"
+#import "XLDragDropView.h"
+//#import "AtoZMacroDefines.h"
+//#import "AtoZUmbrella.h"
+//#import "AtoZTypes.h"
+//#import "AtoZGeometry.h"
+#import "AtoZFunctions.h"
+#import "AZLog.h"
+#import "AZProxy.h"
+#import "AZBaseModel.h"  // NSDocument / AZDoc
+#import "SynthesizeSingleton.h"
+#import "AZObserversAndBinders.h"
+#import "MondoSwitch.h"
+#import "AssetCollection.h"
+#import "AtoZColorWell.h"
+#import "AtoZContacts.h"
+#import "AtoZDelegate.h"
+#import "AtoZGridView.h"
+#import "AtoZGridViewProtocols.h"
+#import "AtoZInfinity.h"
+#import "AtoZModels.h"
+//#import "AtoZNodeProtocol.h"
+#import "AtoZWebSnapper.h"
+#import "AZApplePrivate.h"
+#import "AZASIMGV.h"
+#import "AZAttachedWindow.h"
+#import "AZAXAuthorization.h"
+#import "AZBackground.h"
+#import "AZBackgroundProgressBar.h"
+#import "AZBlockView.h"
+#import "AZBonjourBlock.h"
+#import "AZBorderlessResizeWindow.h"
+#import "AZBox.h"
+#import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "AZCalculatorController.h"
+#import "AZCLI.h"
+#import "AZCLICategories.h"
+#import "AZColor.h"
+#import "AZCoreScrollView.h"
+#import "AZDebugLayer.h"
+#import "AZDockQuery.h"
+#import "AZExpandableView.h"
+#import "AZFacebookConnection.h"
+#import "AZFactoryView.h"
+#import "AZFavIconManager.h"
+#import "AZFoamView.h"
+#import "AZGit.h"
+#import "AZGoogleImages.h"
+#import "AZGrid.h"
+#import "AZHomeBrew.h"
+#import "AZHostView.h"
+#import "AZHTMLParser.h"
+#import "AZHTTPURLProtocol.h"
+#import "AZImageToDataTransformer.h"
+#import "AZIndeterminateIndicator.h"
+#import "AZIndexedObjects.h"
+#import "AZInfiniteCell.h"
+#import "AZInstantApp.h"
+#import "AZLassoView.h"
+#import "AZLaunchServices.h"
+#import "AZLayer.h"
+#import "AZLogConsole.h"
+#import "AZMacTrackBall.h"
+#import "AZMedallionView.h"
+#import "AZMouser.h"
+#import "AZObject.h"
+#import "AZPopupWindow.h"
+#import "AZPrismView.h"
+#import "AZProcess.h"
+#import "AZProgressIndicator.h"
+#import "AZPropellerView.h"
+#import "AZProportionalSegmentController.h"
+#import "AZQueue.h"
+#import "AZScrollerLayer.h"
+#import "AZScrollPaneLayer.h"
+#import "AZSegmentedRect.h"
+#import "AZSemiResponderWindow.h"
+#import "AZSimpleView.h"
+#import "AZSizer.h"
+#import "AZSnapShotLayer.h"
+#import "AZSound.h"
+#import "AZSourceList.h"
+#import "AZSpeechRecognition.h"
+#import "AZSpinnerLayer.h"
+#import "AZStopwatch.h"
+#import "AZSyntaxTheme.h"
+#import "AZSynthesize.h"
+#import "AZTalker.h"
+#import "AZTimeLineLayout.h"
+#import "AZToggleArrayView.h"
+#import "AZTrackingWindow.h"
 //  #import "AZURLSnapshot.h"
-  #import "AZVeil.h"
-  #import "AZWeakCollections.h"
-  #import "AZWindowExtend.h"
-  #import "AZWindowTab.h"
-  #import "AZXMLWriter.h"
+#import "AZVeil.h"
+#import "AZWeakCollections.h"
+#import "AZWindowExtend.h"
+#import "AZWindowTab.h"
+#import "AZXMLWriter.h"
+#import "NSOperationStack.h"
+#import "Bootstrap.h"
+#import "CalcModel.h"
+#import "CAScrollView.h"
+#import "CAWindow.h"
+#import "DefinitionController.h"
+#import "HTMLNode.h"
+#import "IsometricView.h"
+#import "LetterView.h"
+#import "NSTextView+SyntaxColoring.h"
+#import <AtoZ/AtoZEmoji.h>
+#import "AZNamedColors.h"
 
-  #import "NSOperationStack.h"
-  #import "Bootstrap.h"
-  #import "CalcModel.h"
-  #import "CAScrollView.h"
-  #import "CAWindow.h"
-  #import "DefinitionController.h"
-  #import "HTMLNode.h"
-  #import "IsometricView.h"
-  #import "LetterView.h"
-  #import <AtoZ/AtoZEmoji.h>
+#ifndef IMPORTMODULEHEADERSBECAUSEITWANTSTO
+#define IMPORTMODULEHEADERSBECAUSEITWANTSTO
+// <module-includes>:1:1: warning: umbrella header for module 'AtoZ' does not include header 'ASIDownloadCache.h' [-Wincomplete-umbrella]
+#import "ASIDataDecompressor.h"
+#import "ASIDownloadCache.h"
+#import "ASIFormDataRequest.h"
+#import "ASIInputStream.h"
+#import "ASINetworkQueue.h"
+#import "AtoZStack.h"
+#import "AtoZWebSnapperGridViewController.h"
+#import "AZBeetlejuice.h"
+#import "AZButton.h"
+#import "AZCSSColorExtraction.h"
+#import "AZHoverButton.h"
+#import "AZMatteButton.h"
+#import "AZMatteFocusedGradientBox.h"
+#import "AZMattePopUpButton.h"
+#import "AZMattePopUpButtonView.h"
+#import "AZMatteSegmentedControl.h"
+#import "AZURLBar.h"
+#import "AZWikipedia.h"
+#import "AZWindowTabViewController.h"
+#import "DSURLDataSource.h"
+#import "EGOCache.h"
+#import "EGOImageLoadConnection.h"
+#import "GTMHTTPFetcher.h"
+#import "GTMNSString+HTML.h"
+#import "HTMLParserViewController.h"
+#import "MediaServer.h"
+#import "NSColor+RGBHex.h"
+#import "NSObject+AZBlockObservation.h"
+#import "NSString+SymlinksAndAliases.h"
+#import "NSString+PathAdditions.h"
+#import "NSTerminal.h"
+#import "OperationsRunnerProtocol.h"
+#import "PythonOperation.h"
+#import "RoundedView.h"
+#import "SDCloseButtonCell.h"
+#import "TUITableView+Updating.h"
 
-//  #import <RoutingHTTPServer/RoutingHTTPServer.h>
-
-
+#endif
 //  #ifdef DEBUG
 //    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //  #else
@@ -614,7 +636,9 @@ Metaprogramming is normally something that people associate with more dynamic la
 // Views
 //#import "AZBoxLayer.h"
 //#import "azCarousel.h"
-//#import "AZDarkButtonCell.h"
+#import "AZDarkButtonCell.h"
+#import "ASIDataCompressor.h"
+
 //#import "AZFileGridView.h"
 //#import "AZHTTPRouter.h"
 //#import "AZMatteButton.h"
@@ -850,14 +874,14 @@ AZNSIFACE(AZClassProxy)
 @property AZBonjourBlock *bonjourBlock;
 
 
-+  (NSS*) macroFor:(NSS*)w;
-+  (NSD*) macros;
-+  (void) processInfo;
++      (NSS*) macroFor:(NSS*)w;
++      (NSD*) macros;
++      (void) processInfo;
 //-  (NSS*) formatLogMessage:(DDLogMessage*)lm;
--  (void) appendToStdOutView:(NSS*)text;
-+  (void) playSound:(id)number;
-+  (void) playRandomSound;
-+  (NSF*) controlFont;
+-      (void) appendToStdOutView:(NSS*)text;
++      (void) playSound:(id)number;
++      (void) playRandomSound;
++      (NSF*) controlFont;
 + (CGFontRef) cfFont; // CF controlFont;
 +  (NSA*) fonts;
 +  (NSF*) font:(NSS*)family size:(CGF)size;
@@ -1139,8 +1163,7 @@ AZNSIFACE(AZClassProxy)
 ////@import Quartz;
 //#import <Quartz/Quartz.h>
 ////@import QuartzCore;
-//#import <Cocoa/Cocoa.h>
-//#import <QuartzCore/QuartzCore.h>
+////#import <QuartzCore/QuartzCore.h>
 
 ////@import AudioToolbox;
 //#import <AudioToolbox/AudioToolbox.h>
@@ -1268,7 +1291,6 @@ AZNSIFACE(AZClassProxy)
 
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
-#import <Cocoa/Cocoa.h>
 #import <Python/Python.h>
 #import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>

@@ -44,7 +44,9 @@ static id 	drawer = nil;
 	}];						//		rootVC.view.frame = self.view.bounds;
 
 }
--   (id) initInView: (NSV*)view withDataSource:(id<AZProportionalSegmentViewDatasource>)ds {		if (self != super.init ) return nil;
+-   (id) initInView: (NSV*)view withDataSource:(id<AZProportionalSegmentViewDatasource>)ds {
+
+	if (!(self = super.init)) return nil;
 
 	 _datasource = ds;	_controllers = NSMA.new; _cache = NSMA.new;	_maxVisible = 3;
 			drawer = ds;

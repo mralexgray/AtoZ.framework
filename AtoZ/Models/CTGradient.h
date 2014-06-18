@@ -7,7 +7,6 @@
 //
 //  Version: 1.5
 
-#import <Cocoa/Cocoa.h>
 
 typedef struct _CTGradientElement 
 	{

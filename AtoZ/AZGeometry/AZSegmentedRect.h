@@ -6,8 +6,7 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-//#import <Cocoa/Cocoa.h>
-//#import "AtoZGeometry.h"
+////#import "AtoZGeometry.h"
 // #import "AtoZ.h"  // Do not change..  Weirdly essential.
 #import "AtoZUmbrella.h"
 #import "AZRect.h"

@@ -6,34 +6,37 @@ JREnumDefine(AZLexicon);
 
 #define DREF DCSDictionaryRef
 
-NSA *     DCSGetActiveDictionaries();
-NSA * DCSCopyAvailableDictionaries();
-NSS *    DCSDictionaryGetShortName(DREF  dictID);
-NSS *         DCSDictionaryGetName(DREF  dictID);
-DREF           DCSDictionaryCreate(CFURLRef url);
-
+NSA * DCSGetActiveDictionaries();     NSS * DCSDictionaryGetShortName(DREF dictID);
+NSA * DCSCopyAvailableDictionaries(); NSS *      DCSDictionaryGetName(DREF dictID);
+                                      DREF        DCSDictionaryCreate(CFURLRef url);  // SNEAKY
 NSMD *       dPrefs;
 NSS  * const DefaultsID = @"com.apple.DictionaryServices",
    	 * const ActiveDKey = @"DefaultsIdentifier",
 		 * const AppleWords = @"/Library/Dictionaries/Apple Dictionary.dictionary",
 		 * const Thesaurus  = @"/Library/Dictionaries/New Oxford American Dictionary.dictionary",
-		 * const OxfordD    = @"/Library/Dictionaries/Oxford American Writer's Thesaurus.dictionary";
+		 * const OxfordD    = @"/Library/Dictionaries/Oxford American Writer's Thesaurus.dictionary",
+     * const WikiTempl  = @"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",
+     * const DuckTempl  = @"http://api.duckduckgo.com/?q=%@&format=json";
 
-@interface      AZDefinition () @property ASIHTTPRequest *requester; @property BOOL ranCompletion; @end @implementation AZDefinition
+EXTEND(AZDefinition) @prop_ ASIHTTPRequest *requester; @prop_ BOOL ranCompletion; @end
+
+@implementation AZDefinition
 
 - (BOOL) fromTheWeb     { return _lexicon & AZLexiconFromTheWeb; }
-- (NSS*) formatted      { return $(@"According to %@, %@ is %@ %@", [AZLexiconToString(_lexicon) substringAfter:@"AZLexicon"], _word ?: @"warning: word not set!", _definition ?: @"undefined!", self.fromTheWeb ? @"(Results from the internet)" : @"" ); }
+- (NSS*) formatted      { return $(@"According to %@, %@ is %@ %@",
+
+  [AZLexiconToString(_lexicon) substringAfter:@"AZLexicon"],
+  _word           ?: @"warning: word not set!",
+  _definition     ?: @"undefined!",
+  self.fromTheWeb ? @"(Results from the internet)" : @"" );
+}
 - (NSS*) description    { return self.formatted; }
 - (NSS*) definition     { return _definition ?: _results ? _results[0] : nil; }
 - (NSU*) query          { if (!_word || _lexicon == (AZLexicon)NSNotFound) return  nil;
 
-	return  _lexicon == AZLexiconDuckDuckGo ? $URL($(@"http://api.duckduckgo.com/?q=%@&format=json", _word)) :
-          _lexicon == AZLexiconWiki 		 ? $URL($(@"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1",_word)) : nil;
+	return $URL($(_lexicon == AZLexiconDuckDuckGo ? DuckTempl :
+                _lexicon == AZLexiconWiki       ? WikiTempl : @"UNKNOWNLEXI!:%@", _word)) ;
 }
-
-//SetKPfVA(RawResult, @"word", @"lexicon", @"completion")
-
-
 + (INST)                     define:(NSS*)word  { return [self define:word ofType:AZLexiconAppleDictionary completion:NULL];	}
 + (INST)                 synonymsOf:(NSS*)word  { return [self define:word ofType:AZLexiconAppleThesaurus completion:NULL];	}
 + (INST) definitionFromDuckDuckGoOf:(NSS*)query { return [self define:query ofType:AZLexiconDuckDuckGo completion:NULL];	}
@@ -47,7 +50,10 @@ NSS  * const DefaultsID = @"com.apple.DictionaryServices",
 
   dPrefs[ActiveDKey] = ds; [AZUSERDEFS setPersistentDomain:dPrefs forName:DefaultsID];
 }
-- (void)      setCompletion:(DefinedBlock)c { _completion = [c copy]; if (_definition && !_ranCompletion) _completion(self); }
+- (void)      setCompletion:(DefinedBlock)c { _completion = [c copy];
+
+  if (_definition && !_ranCompletion) _completion(self);
+}
 
 -   (void) drawResult {
 
@@ -90,7 +96,118 @@ NSS  * const DefaultsID = @"com.apple.DictionaryServices",
 		[requester startAsynchronous];
 	}
 
+}
+@end
+
+@implementation Tweet //@synthesize screenNameString, createdAtDate, createdAtString, tweetTextString;
+
++ (INST) tweetFromJSON:(NSD*)dict { return [self.class.alloc initWithJSON:dict]; }
+
+- (id)initWithJSON:(NSD*)json { SUPERINIT;
+
+	AZSTATIC_OBJ(NSDateFormatter,dateFormatter, ({ [NSDateFormatter.alloc initWithProperties: @{
+
+                   @"dateFormat" : @"EEE, d LLL yyyy HH:mm:ss Z",
+                    @"timeStyle" : @(NSDateFormatterShortStyle),
+                    @"dateStyle" : @(NSDateFormatterShortStyle),
+   @"doesRelativeDateFormatting" : @(YES) }]; }));
+
+	_screenNameString = json[@"from_user"];
+	_tweetTextString  = json[@"text"];
+  _createdAtDate    = [dateFormatter dateFromString:json[@"created_at"]];
+  _createdAtString  = [dateFormatter stringFromDate: _createdAtDate];
+	return self;
+}
+
+@end
+
+#define DEFAULT_TIMEOUT        120.0f
+#define SEARCH_RESULTS_PER_TAG 20
+
+//        [NSURLREQ requestWithURL:
+//          $(@"http://search.twitter.com/search.json?q=%@&rpp=%i&include_entities=true&result_type=mixed",
+//            query.urlEncoded, SEARCH_RESULTS_PER_TAG).urlified
+//                                                  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+//                                              timeoutInterval:DEFAULT_TIMEOUT];
+
+@implementation AZTwitter
+
++ (void) searchForTweets:(NSS*)query block:(FetchBlock)block {
+
+//- (void) setchTweetsForSearch:(NSString *)searchString block:(FetchBlock)block;
+
+  NSBLO *operation = [NSBLO blockOperationWithBlock:^{
+
+    NSError *err = nil; NSHTTPURLResponse *response = nil;
+    NSURLREQ *request  =  NSURLREQFMT(
+                                        NSURLRequestReloadIgnoringLocalCacheData,
+                                        DEFAULT_TIMEOUT,  @"http://search.twitter.com/search.json?q=%@&rpp=%i&include_entities=true&result_type=mixed",
+                                        query.urlEncoded,
+                                        SEARCH_RESULTS_PER_TAG);
+
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+    NSD *JSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
+
+    // Serialize JSON response into lightweight Tweet objects for convenience.
+    NSA *tweets = [JSON[@"results"] map:^id (id tweetD) { return [Tweet tweetFromJSON:tweetD]; }];
+    NSLog(@"Search for '%@' returned %lu results.", query, tweets.count);
+    // Return to the main queue once the request has been processed.
+    [NSOQMQ addOperationWithBlock:^{ block(nil,err); }];
+  }];
+  // Optionally, set the operation priority. This is useful when flooding the operation queue with different requests.
+  [operation setQueuePriority:NSOperationQueuePriorityVeryHigh];
+  [AZSOQ addOperation:operation];
+}
+
+//- (id)init;
+//{
+//    if (!(self = [super init]) ) return nil;
+//    // The maxConcurrentOperationCount should reflect the number of open
+//    // connections the server can handle. Right now, limit it to two for the sake of this example.
+//    _operationQueue = NSOperationQueue.new;
+//    _operationQueue.maxConcurrentOperationCount = 2;
+//    return self;
+//}
+@end
+
+	//
+	//@dynamic  appCategories;// = _appCategories,
+	//@dynamic  sortOrder;// = _sortOrder,
+	//@dynamic  appFolderStrings;// = _appFolderStrings,
+	//@dynamic  _dock;// = _dock,
+	//@dynamic  dockSorted;// = _dockSorted,
+	//@dynamic  appFolder;// = _appFolder,
+	//@dynamic  appFolderSorted;// = _appFolderSorted;
+
+@implementation SizeObj @synthesize width, height;
+
++   (id)      forSize:(NSSZ)sz {
+
+	return [[self alloc]initWithSize:sz];
+}
+-   (id) initWithSize:(NSSZ)sz {
+	if (self = [super init]) {
+		width  = sz.width;
+		height = sz.height;
+	}
+	return self;
+}
+- (NSSZ)    sizeValue          {
+	return NSMakeSize(width, height);
+}
+@end
+//+ (instancetype) definitionOf:(NSS*)wordOrNilForRand lexicon:(AZLexicon)lex completion:(DefinitionBlock)orNullForSync {
+/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];	*/
+//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities		);
+//#import "AtoZModels.h"
+//#import "AtoZFunctions.h"
+
+
 /* appleds
+
+//SetKPfVA(RawResult, @"word", @"lexicon", @"completion")
+
+
     NSURL *url = [NSURL fileURLWithPath:Ox];
     CFTypeRef dict = DCSDictionaryCreate((CFURLRef) url);
     printf("%s\n", [[[dict_name componentsSeparatedByString: @" "] lastObject] UTF8String]);
@@ -109,7 +226,7 @@ NSS  * const DefaultsID = @"com.apple.DictionaryServices",
 		// Restore the cached active dictionaries
 		SetActiveDictionaries(activeDictionaries);
 */
-}
+//}
 
 //- (NSS*) description { return  }
 
@@ -153,59 +270,3 @@ NSS  * const DefaultsID = @"com.apple.DictionaryServices",
 	//	@"https://www.google.com/search?client=safari&rls=en&q=%@&ie=UTF-8&oe=UTF-8", );
 //	while (!result) [@5 times:^id{
 
-
-@end
-
-
-NSString *TagsDefaultsKey = @"tags";
-
-@implementation Tweet
-@synthesize screenNameString, createdAtDate, createdAtString, tweetTextString;
-
-- (id)initWithJSON:(NSDictionary *)JSONObject;
-{
-	if (self != super.init ) return nil;
-	self.screenNameString 			= 					  JSONObject [@"from_user"];
-	NSDateFormatter *dateFormatter 	= [NSDateFormatter.alloc 	 initWithProperties:
-									@{ 	@"dateFormat" : @"EEE, d LLL yyyy HH:mm:ss Z",
-										@"timeStyle"  : @(NSDateFormatterShortStyle),
-										@"dateStyle"  : 	@(NSDateFormatterShortStyle),
-										@"doesRelativeDateFormatting": 	  @(YES) }];
-	self.createdAtDate 	 = [dateFormatter dateFromString:JSONObject[@"created_at"]];
-	self.createdAtString = [dateFormatter stringFromDate:		self.createdAtDate];
-	self.tweetTextString = 										JSONObject[@"text"];
-	return self;
-}
-
-@end
-	//
-	//@dynamic  appCategories;// = _appCategories,
-	//@dynamic  sortOrder;// = _sortOrder,
-	//@dynamic  appFolderStrings;// = _appFolderStrings,
-	//@dynamic  _dock;// = _dock,
-	//@dynamic  dockSorted;// = _dockSorted,
-	//@dynamic  appFolder;// = _appFolder,
-	//@dynamic  appFolderSorted;// = _appFolderSorted;
-
-@implementation SizeObj @synthesize width, height;
-
-+   (id)      forSize:(NSSZ)sz {
-
-	return [[self alloc]initWithSize:sz];
-}
--   (id) initWithSize:(NSSZ)sz {
-	if (self = [super init]) {
-		width  = sz.width;
-		height = sz.height;
-	}
-	return self;
-}
-- (NSSZ)    sizeValue          {
-	return NSMakeSize(width, height);
-}
-@end
-//+ (instancetype) definitionOf:(NSS*)wordOrNilForRand lexicon:(AZLexicon)lex completion:(DefinitionBlock)orNullForSync {
-/**	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://en.wikipedia.org/w/api.php?action=parse&page=%@&prop=text&section=0&format=json&callback=?", self))];//http://en.wikipedia.org/w/api.php?action=parse&page=%@&format=json&prop=text&section=0",self))];	*/
-//	return $(@"POOP: %@",  p.body.rawContents.urlDecoded.decodeHTMLCharacterEntities		);
-//#import "AtoZModels.h"
-//#import "AtoZFunctions.h"

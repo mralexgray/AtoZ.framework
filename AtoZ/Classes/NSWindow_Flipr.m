@@ -1,13 +1,7 @@
-//
-//  NSWindow_Flipr.m
-//  Flipr
-//
-//  Created by Rainer Brockerhoff on 12/20/06.
-//  Copyright 2006,2007 Rainer Brockerhoff. Some rights reserved.
-//
 
+#import "AtoZ.h"
 #import "NSWindow_Flipr.h"
-#import <QuartzCore/QuartzCore.h>
+
 #include <sys/sysctl.h>
 #include <mach/mach_time.h>
 
@@ -18,9 +12,7 @@
 
 // We subclass NSAnimation to maximize frame rate, instead of using progress marks.
 
-@interface FliprAnimation : NSAnimation {
-}
-@end
+@interface FliprAnimation : NSAnimation @end
 
 @implementation FliprAnimation
 

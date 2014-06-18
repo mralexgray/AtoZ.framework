@@ -70,7 +70,7 @@
 + (void) save 									{ [[[self sharedInstance]projects] writeToFile:self.saveFile atomically:YES]; }
 #pragma mark - SINGLETON PATTERN
 static id _sharedSingleton		= nil;
-- (id) init 			 						{	if (self != super.init ) return nil;	
+- (id) init 			 						{	if (!(self = super.init)) return nil;	
 _projects = AZNode.new;
 //_projects.children = // [AZFILEMANAGER fileExistsAtPath:self.class.saveFile] ? [NSMD dictionaryWithContentsOfFile:self.class.saveFile] : NSMD.new;	_ac = [NSArrayController new];
 //		_items =

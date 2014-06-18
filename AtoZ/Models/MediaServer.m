@@ -9,6 +9,7 @@
 
 #import "MediaServer.h"
 #import "AtoZModels.h"
+/*
 
 #define DEFAULT_TIMEOUT        120.0f
 #define SEARCH_RESULTS_PER_TAG 20
@@ -63,3 +64,4 @@
 }
 
 @end
+*/
