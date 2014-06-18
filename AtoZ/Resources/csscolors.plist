@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>aliceblue</key>
+	<string>F0F8FF</string>
+
+	<key>antiquewhite</key>
+	<string>FAEBD7</string>
+
+	<key>aqua</key>
+	<string>00FFFF</string>
+
+	<key>aquamarine</key>
+	<string>7FFFD4</string>
+
+	<key>azure</key>
+	<string>F0FFFF</string>
+
+	<key>beige</key>
+	<string>F5F5DC</string>
+
+	<key>bisque</key>
+	<string>FFE4C4</string>
+
+	<key>black</key>
+	<string>000000</string>
+
+	<key>blanchedalmond</key>
+	<string>FFEBCD</string>
+
+	<key>blue</key>
+	<string>0000FF</string>
+
+	<key>blueviolet</key>
+	<string>8A2BE2</string>
+
+	<key>brown</key>
+	<string>A52A2A</string>
+
+	<key>burlywood</key>
+	<string>DEB887</string>
+
+	<key>cadetblue</key>
+	<string>5F9EA0</string>
+
+	<key>chartreuse</key>
+	<string>7FFF00</string>
+
+	<key>chocolate</key>
+	<string>D2691E</string>
+
+	<key>coral</key>
+	<string>FF7F50</string>
+
+	<key>cornflowerblue</key>
+	<string>6495ED</string>
+
+	<key>cornsilk</key>
+	<string>FFF8DC</string>
+
+	<key>crimson</key>
+	<string>DC143C</string>
+
+	<key>cyan</key>
+	<string>00FFFF</string>
+
+	<key>darkblue</key>
+	<string>00008B</string>
+
+	<key>darkcyan</key>
+	<string>008B8B</string>
+
+	<key>darkgoldenrod</key>
+	<string>B8860B</string>
+
+	<key>darkgray</key>
+	<string>A9A9A9</string>
+
+	<key>darkgrey</key>
+	<string>A9A9A9</string>
+
+	<key>darkgreen</key>
+	<string>006400</string>
+
+	<key>darkkhaki</key>
+	<string>BDB76B</string>
+
+	<key>darkmagenta</key>
+	<string>8B008B</string>
+
+	<key>darkolivegreen</key>
+	<string>556B2F</string>
+
+	<key>darkorange</key>
+	<string>FF8C00</string>
+
+	<key>darkorchid</key>
+	<string>9932CC</string>
+
+	<key>darkred</key>
+	<string>8B0000</string>
+
+	<key>darksalmon</key>
+	<string>E9967A</string>
+
+	<key>darkseagreen</key>
+	<string>8FBC8F</string>
+
+	<key>darkslateblue</key>
+	<string>483D8B</string>
+
+	<key>darkslategray</key>
+	<string>2F4F4F</string>
+
+	<key>darkslategrey</key>
+	<string>2F4F4F</string>
+
+	<key>darkturquoise</key>
+	<string>00CED1</string>
+
+	<key>darkviolet</key>
+	<string>9400D3</string>
+
+	<key>deeppink</key>
+	<string>FF1493</string>
+
+	<key>deepskyblue</key>
+	<string>00BFFF</string>
+
+	<key>dimgray</key>
+	<string>696969</string>
+
+	<key>dimgrey</key>
+	<string>696969</string>
+
+	<key>dodgerblue</key>
+	<string>1E90FF</string>
+
+	<key>firebrick</key>
+	<string>B22222</string>
+
+	<key>floralwhite</key>
+	<string>FFFAF0</string>
+
+	<key>forestgreen</key>
+	<string>228B22</string>
+
+	<key>fuchsia</key>
+	<string>FF00FF</string>
+
+	<key>gainsboro</key>
+	<string>DCDCDC</string>
+
+	<key>ghostwhite</key>
+	<string>F8F8FF</string>
+
+	<key>gold</key>
+	<string>FFD700</string>
+
+	<key>goldenrod</key>
+	<string>DAA520</string>
+
+	<key>gray</key>
+	<string>808080</string>
+
+	<key>grey</key>
+	<string>808080</string>
+
+	<key>green</key>
+	<string>008000</string>
+
+	<key>greenyellow</key>
+	<string>ADFF2F</string>
+
+	<key>honeydew</key>
+	<string>F0FFF0</string>
+
+	<key>hotpink</key>
+	<string>FF69B4</string>
+
+	<key>indianred</key>
+	<string>CD5C5C</string>
+
+	<key>indigo</key>
+	<string>4B0082</string>
+
+	<key>ivory</key>
+	<string>FFFFF0</string>
+
+	<key>khaki</key>
+	<string>F0E68C</string>
+
+	<key>lavender</key>
+	<string>E6E6FA</string>
+
+	<key>lavenderblush</key>
+	<string>FFF0F5</string>
+
+	<key>lawngreen</key>
+	<string>7CFC00</string>
+
+	<key>lemonchiffon</key>
+	<string>FFFACD</string>
+
+	<key>lightblue</key>
+	<string>ADD8E6</string>
+
+	<key>lightcoral</key>
+	<string>F08080</string>
+
+	<key>lightcyan</key>
+	<string>E0FFFF</string>
+
+	<key>lightgoldenrodyellow</key>
+	<string>FAFAD2</string>
+
+	<key>lightgray</key>
+	<string>D3D3D3</string>
+
+	<key>lightgrey</key>
+	<string>D3D3D3</string>
+
+	<key>lightgreen</key>
+	<string>90EE90</string>
+
+	<key>lightpink</key>
+	<string>FFB6C1</string>
+
+	<key>lightsalmon</key>
+	<string>FFA07A</string>
+
+	<key>lightseagreen</key>
+	<string>20B2AA</string>
+
+	<key>lightskyblue</key>
+	<string>87CEFA</string>
+
+	<key>lightslategray</key>
+	<string>778899</string>
+
+	<key>lightslategrey</key>
+	<string>778899</string>
+
+	<key>lightsteelblue</key>
+	<string>B0C4DE</string>
+
+	<key>lightyellow</key>
+	<string>FFFFE0</string>
+
+	<key>lime</key>
+	<string>00FF00</string>
+
+	<key>limegreen</key>
+	<string>32CD32</string>
+
+	<key>linen</key>
+	<string>FAF0E6</string>
+
+	<key>magenta</key>
+	<string>FF00FF</string>
+
+	<key>maroon</key>
+	<string>800000</string>
+
+	<key>mediumaquamarine</key>
+	<string>66CDAA</string>
+
+	<key>mediumblue</key>
+	<string>0000CD</string>
+
+	<key>mediumorchid</key>
+	<string>BA55D3</string>
+
+	<key>mediumpurple</key>
+	<string>9370D8</string>
+
+	<key>mediumseagreen</key>
+	<string>3CB371</string>
+
+	<key>mediumslateblue</key>
+	<string>7B68EE</string>
+
+	<key>mediumspringgreen</key>
+	<string>00FA9A</string>
+
+	<key>mediumturquoise</key>
+	<string>48D1CC</string>
+
+	<key>mediumvioletred</key>
+	<string>C71585</string>
+
+	<key>midnightblue</key>
+	<string>191970</string>
+
+	<key>mintcream</key>
+	<string>F5FFFA</string>
+
+	<key>mistyrose</key>
+	<string>FFE4E1</string>
+
+	<key>moccasin</key>
+	<string>FFE4B5</string>
+
+	<key>navajowhite</key>
+	<string>FFDEAD</string>
+
+	<key>navy</key>
+	<string>000080</string>
+
+	<key>oldlace</key>
+	<string>FDF5E6</string>
+
+	<key>olive</key>
+	<string>808000</string>
+
+	<key>olivedrab</key>
+	<string>6B8E23</string>
+
+	<key>orange</key>
+	<string>FFA500</string>
+
+	<key>orangered</key>
+	<string>FF4500</string>
+
+	<key>orchid</key>
+	<string>DA70D6</string>
+
+	<key>palegoldenrod</key>
+	<string>EEE8AA</string>
+
+	<key>palegreen</key>
+	<string>98FB98</string>
+
+	<key>paleturquoise</key>
+	<string>AFEEEE</string>
+
+	<key>palevioletred</key>
+	<string>D87093</string>
+
+	<key>papayawhip</key>
+	<string>FFEFD5</string>
+
+	<key>peachpuff</key>
+	<string>FFDAB9</string>
+
+	<key>peru</key>
+	<string>CD853F</string>
+
+	<key>pink</key>
+	<string>FFC0CB</string>
+
+	<key>plum</key>
+	<string>DDA0DD</string>
+
+	<key>powderblue</key>
+	<string>B0E0E6</string>
+
+	<key>purple</key>
+	<string>800080</string>
+
+	<key>red</key>
+	<string>FF0000</string>
+
+	<key>rosybrown</key>
+	<string>BC8F8F</string>
+
+	<key>royalblue</key>
+	<string>4169E1</string>
+
+	<key>saddlebrown</key>
+	<string>8B4513</string>
+
+	<key>salmon</key>
+	<string>FA8072</string>
+
+	<key>sandybrown</key>
+	<string>F4A460</string>
+
+	<key>seagreen</key>
+	<string>2E8B57</string>
+
+	<key>seashell</key>
+	<string>FFF5EE</string>
+
+	<key>sienna</key>
+	<string>A0522D</string>
+
+	<key>silver</key>
+	<string>C0C0C0</string>
+
+	<key>skyblue</key>
+	<string>87CEEB</string>
+
+	<key>slateblue</key>
+	<string>6A5ACD</string>
+
+	<key>slategray</key>
+	<string>708090</string>
+
+	<key>slategrey</key>
+	<string>708090</string>
+
+	<key>snow</key>
+	<string>FFFAFA</string>
+
+	<key>springgreen</key>
+	<string>00FF7F</string>
+
+	<key>steelblue</key>
+	<string>4682B4</string>
+
+	<key>tan</key>
+	<string>D2B48C</string>
+
+	<key>teal</key>
+	<string>008080</string>
+
+	<key>thistle</key>
+	<string>D8BFD8</string>
+
+	<key>tomato</key>
+	<string>FF6347</string>
+
+	<key>turquoise</key>
+	<string>40E0D0</string>
+
+	<key>violet</key>
+	<string>EE82EE</string>
+
+	<key>wheat</key>
+	<string>F5DEB3</string>
+
+	<key>white</key>
+	<string>FFFFFF</string>
+
+	<key>whitesmoke</key>
+	<string>F5F5F5</string>
+
+	<key>yellow</key>
+	<string>FFFF00</string>
+
+	<key>yellowgreen</key>
+	<string>9ACD32</string>
+</dict>
+</plist>
