@@ -1,7 +1,6 @@
 //#import <AtoZ/AtoZ.h>
 
-#import <Python/Python.h>
-//@import Python;
+#include <Python.h>
 #import "AtoZ.h"
 #import "NSString+AtoZ.h"
 #import "AtoZTypes.h"

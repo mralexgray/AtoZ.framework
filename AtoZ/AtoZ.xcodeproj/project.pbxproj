@@ -8359,31 +8359,24 @@
 		7B311979159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				GENERATE_PROFILING_CODE = YES;
 				IBC_FLATTEN_NIBS = NO;
 				IBC_STRIP_NIBS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 			};
 			name = Debug;
 		};
 		7B31197A159B6D9E002134C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				GENERATE_PROFILING_CODE = YES;
 				IBC_FLATTEN_NIBS = NO;
 				IBC_STRIP_NIBS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 			};
 			name = Release;
 		};
@@ -8391,6 +8384,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -8403,10 +8397,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)/include",
 					"$(SDKROOT)/usr/include/libxml2",
+					/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/include/python2.7,
 				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks $(inherited) $(HOME)/Library/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)",
+					/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -8517,10 +8515,9 @@
 					CocoaLumberjack,
 					"-framework",
 					CocoaLumberjack,
-					"-framework",
-					Python,
+					"-lpython2.7",
 				);
-				RUN_OCLINT = Yes;
+				RUN_OCLINT = NO;
 			};
 			name = Debug;
 		};
@@ -8528,6 +8525,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -8540,10 +8538,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(BUILT_PRODUCTS_DIR)/include",
 					"$(SDKROOT)/usr/include/libxml2",
+					/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/include/python2.7,
 				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks $(inherited) $(HOME)/Library/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)",
+					/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config,
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -8654,10 +8656,9 @@
 					CocoaLumberjack,
 					"-framework",
 					CocoaLumberjack,
-					"-framework",
-					Python,
+					"-lpython2.7",
 				);
-				RUN_OCLINT = Yes;
+				RUN_OCLINT = NO;
 			};
 			name = Release;
 		};
