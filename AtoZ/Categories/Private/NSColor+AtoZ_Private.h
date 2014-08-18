@@ -1,5 +1,6 @@
 
 
+/*
 typedef struct {  NSUI value; const char name[24];} ColorNameRec;   // Longest name is 20 chars, pad out to multiple of 8
 
 static ColorNameRec sColorTable[] = {
@@ -42,7 +43,8 @@ static ColorNameRec sColorTable[] = {
   { 0xffffff, "white" },        { 0xf5f5f5, "whitesmoke" },       { 0xffff00, "yellow" },       { 0x9acd32, "yellowgreen" },
 };
 
-
+*/
+/**
 #import <string.h>
 
 static NSArray *defaultValidColors = nil;
@@ -65,7 +67,7 @@ static NSArray *defaultValidColors = nil;
   @"violet",        @"yellowgreen"]
 
 
-
+*/
 
 //@dynamic name;
 //SYNTHESIZE_ASC_OBJ_LAZYDEFAULT_EXP(name,setName,[self nameOfColor])

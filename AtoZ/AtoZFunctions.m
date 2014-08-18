@@ -1,6 +1,7 @@
 //#import <AtoZ/AtoZ.h>
 
 #import <Python/Python.h>
+//@import Python;
 #import "AtoZ.h"
 #import "NSString+AtoZ.h"
 #import "AtoZTypes.h"
@@ -17,6 +18,8 @@ JREnumDefine(AZAlign);
 JREnumDefine(AZOrient);
 JREnumDefine(AZCompass);
 JREnumDefine(AZState);
+JREnumDefine(AZSectionState);
+JREnumDefine(AZSelectState);
 
 JREnumDefine(AZOutlineCellStyle);
 
@@ -284,7 +287,7 @@ void pyRunWithArgsInDirPythonPath(NSS *_spriptP,NSA *_optArgs, NSS *working, NSS
 	NSLog(@"PYTHONPATH: %@", [NSS stringWithCString:getenv("PYTHONPATH") encoding:NSUTF8StringEncoding]);
 	NSArray *args = _optArgs ? [@[_spriptP] arrayByAddingObjectsFromArray : _optArgs] : @[_spriptP];
 	char **cargs;
-	int x = [args createArgv:&cargs];																		  //cArrayFromNSArray(array);	////{ "weather.py", "10011" };
+	__unused int x = [args createArgv:&cargs];																		  //cArrayFromNSArray(array);	////{ "weather.py", "10011" };
 	PySys_SetArgv(args.count, cargs);																		  //argc, (char **)argv);
 
 //			PyObject* PyFileObject = PyFile_FromString((char*)_spriptP.UTF8String, "r");
@@ -368,7 +371,8 @@ char** cArrayFromNSArray ( NSArray* array ){
 	return @selector(tickPriority);
 }
 - (void) tickPriority										{
-	NSUInteger val = [[self objectValue]unsignedIntegerValue];
+
+  __unused NSUInteger val = [[self objectValue]unsignedIntegerValue];
 //	((TodoItem*)[TodoList sharedInstance].items[[(NSTableView*)[self controlView]selectedRow]]).priority = @( val < 8 ? val + 1 : 0 );
 }
 - (void) drawWithFrame:(NSR)cF inView:(NSV *)cV  	{

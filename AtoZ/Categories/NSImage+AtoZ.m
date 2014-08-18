@@ -108,7 +108,7 @@ float distance(NSP aPoint) {
                                        aPoint from the origin. */
 }
 static void BitmapReleaseCallback(void *info, const void *data, size_t size) {
-  id bir = (__bridge_transfer NSBitmapImageRep *)info;
+  __unused id bir = (__bridge_transfer NSBitmapImageRep *)info;
   //	DLog(@"%@", bir);
 }
 /*	 from http://developer.apple.com/technotes/tn2005/tn2143.html
@@ -132,7 +132,7 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 */
 NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
 
-  __block NSR frame = NSZeroRect; __block NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
+  __block NSR frame = NSZeroRect; __block __unused NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
 
   [[items vFKP:@"size"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 
@@ -677,7 +677,7 @@ NSData *PNGRepresentation(NSIMG *image) {
               eachBlock:(void (^)(NSIMG *results))block {
 
   __block NSIMG *returner = nil;
-  AZGoogleQuery *q = [AZGoogleImages
+  __unused AZGoogleQuery *q = [AZGoogleImages
       searchGoogleImages:query
                withBlock:^(NSArray *imageURLs) {
                    if (!block || ct == 1)
@@ -1651,7 +1651,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 }
 - (NSIMG *)coloredWithColor:(NSC *)inColor
                   composite:(NSCompositingOperation)comp {
-  static CGF kGradientShadowLevel = 0.25;
+  static __unused CGF kGradientShadowLevel = 0.25;
   static CGF kGradientAngle = 270.0;
   if (inColor) {
     BOOL avoidGradient = NO; // ( [self state] == NSOnState );
@@ -2143,7 +2143,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   NSIMG *tintedImage = [NSImage.alloc initWithSize:size];
   CIImage *filterPreviewImage = [self toCIImage];
   [tintedImage lockFocus];
-  CIFilter *edgeWork =
+  CIFilter __unused *edgeWork =
       [CIFilter filterWithName:@"CIEdgeWork"
                  keysAndValues:kCIInputImageKey, filterPreviewImage,
                                @"inputRadius", @4.6f, nil];

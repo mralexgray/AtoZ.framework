@@ -4295,49 +4295,6 @@ typedef struct {
 + (void)encodeColor:(struct CGColor *)arg1 withCoder:(id)arg2 withKey:(id)arg3;
 @end
 
-@interface NSColor (AIColorAdditions_Comparison)
-- (BOOL)equalToRGBColor:(id)arg1;
-@end
-
-@interface NSColor (AIColorAdditions_DarknessAndContrast)
-- (id)contrastingColor;
-- (id)colorWithInvertedLuminance;
-- (id)darkenAndAdjustSaturationBy:(double)arg1;
-- (id)darkenBy:(double)arg1;
-- (BOOL)colorIsMedium;
-- (BOOL)colorIsDark;
-@end
-
-@interface NSColor (AIColorAdditions_HLS)
-- (id)adjustHue:(double)arg1 saturation:(double)arg2 brightness:(double)arg3;
-@end
-
-@interface NSColor (AIColorAdditions_RepresentingColors)
-- (id)stringRepresentation;
-- (id)hexString;
-@end
-
-@interface NSString (AIColorAdditions_RepresentingColors)
-- (id)representedColorWithAlpha:(double)arg1;
-- (id)representedColor;
-@end
-
-@interface NSColor (AIColorAdditions_RandomColor)
-+ (id)randomColorWithAlpha;
-+ (id)randomColor;
-@end
-
-@interface NSColor (AIColorAdditions_ObjectColor)
-+ (id)representedColorForObject:(id)arg1 withValidColors:(id)arg2;
-@end
-
-@interface NSColor (NSColor_ColorspaceEquality)
-- (BOOL)isEqualToColor:(id)arg1 colorSpace:(id)arg2;
-@end
-
-@interface NSColor (NSColor_CSSRGB)
-+ (id)colorWithCSSRGB:(id)arg1;
-@end
 
 @interface NSColor (Utilities)
 + (float *)xyzToLab:(float *)arg1;

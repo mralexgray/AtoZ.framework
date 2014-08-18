@@ -80,7 +80,7 @@
 
 //	[NSGraphicsContext drawInContext:cgContext flipped:NO actions:^{
 
- NSRect theRect = NSRectFromCGRect(CGContextGetClipBoundingBox(cgContext));
+ NSRect __unused theRect = NSRectFromCGRect(CGContextGetClipBoundingBox(cgContext));
 
 	if ( [layer.name isEqualToString:@"mainLayer"] )
 	{

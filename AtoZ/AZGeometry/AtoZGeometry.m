@@ -190,7 +190,7 @@ int 	GCD							    (int a, int b)	{
 }
 // Using Konrad's code:	var gcd = GCD(A, B);	return string.Format("{0}:{1}", A / gcd, B / gcd)
 NSS* 	AZAspectRatioString(CGF ratio)	{
-	CGF a, b; int newRatio, m; m =10;
+	CGF __unused a, b; int newRatio, m; m =10;
 	if (ratio != 1.0) {
 	while (	isWhole(m * ratio) == NO) m = m *10;
 	newRatio = GCD(m, (int)m*ratio );
@@ -257,8 +257,8 @@ AZPOS  AZPositionOfEdgeAtOffsetAlongPerimeterOfRect (CGF offset, NSR r)         
 }
 CGP           	AZPointAtOffsetAlongPerimeterOfRect	(CGF offset, NSR r)                   {
 	NSSZ sz = r.size; 
-	NSP anchor; 
-	CGF offsetOnSide;
+	NSP anchor;
+	CGF __unused offsetOnSide;
 	if 		  ( sz.width > offset )						anchor = (NSP) { offset,	  0};   // along bottom;
 	else if ( sz.width + sz.height > offset ) 		anchor = (NSP) { sz.width, 	offset - sz.width}; // along right
 	else if ( AZPerimeter(r) - sz.height > offset ) anchor = (NSP) { ABS( sz.width - (offset - sz.width - sz.height)),  sz.height};
@@ -522,7 +522,7 @@ NSP	AZNormalizedDistanceToCenterOfRect	(NSP point, NSR rect)	{
 }
 NSP AZPointClosestOnRect ( NSP point, NSR rect) {
 
-  AZA c = AZClosestCorner(rect, point);
+  AZA __unused c = AZClosestCorner(rect, point);
 //  AZA dir = AZ, <#AZAlign position#>
   return NSZeroPoint;
 

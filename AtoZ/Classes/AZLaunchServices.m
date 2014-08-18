@@ -247,7 +247,7 @@ typedef  id (^AZMappingBlock)(id obj);
 
 + (NSInteger)indexOfItemWithURL:(NSURL*)url inList:(CFStringRef)list_name {
 	NSA*tmp = [AZLaunchServices allItemsFromList: list_name];
-	NSInteger idx = -1;
+	NSInteger __unused idx = -1;
 	return [tmp indexOfObjectPassingTest: ^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return [[(AZLaunchServicesListItem*)obj url] isEqualTo: url];
 	}]; // idx

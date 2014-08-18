@@ -15,6 +15,10 @@
         metamacro_concat(metamacro_take, N)(__VA_ARGS__)
 #endif
 
+#ifndef metamacro_take
+#define RNG AZRange
+#endif
+
 #pragma mark - COLORS
 #define $RGBA(R,G,B,A) ((NSC*)[NSC r:R g:G b:B a:A])
 #define idCG(COLOR) (id)[COLOR CGColor]
@@ -264,6 +268,8 @@
 #define      NSPInRect NSPointInRect
 #define        AZOQMAX NSOperationQueueDefaultMaxConcurrentOperationCount
 #define            NSD NSDictionary
+#define            NSPLS NSPropertyListSerialization
+#define            NSJSONS NSJSONSerialization
 #define           NSAC NSArrayController
 #define           NSUI NSUInteger
 #define            NSE NSEvent
@@ -331,6 +337,7 @@
 #define            NSN NSNumber
 #define        NSBRWSR NSBrowser
 #define           NSOQ NSOperationQueue
+#define           NSOS NSOperationStack
 #define            NSO NSObject
 #define        ISADICT isKindOfClass:NSDictionary.class
 #define           NSAT NSAffineTransform
@@ -1192,6 +1199,7 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define $IDX(X) [NSIS indexSetWithIndex:X]
 #define $idxsetrng(X) [NSIS indexSetWithIndexesInRange:X]
 
+#define idxOf indexOfObject
 #define AZSELSTR NSStringFromSelector(_cmd)
 
 #define capped capitalizedString

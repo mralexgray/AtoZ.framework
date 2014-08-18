@@ -300,6 +300,10 @@ typedef NS_ENUM(NSInteger,  AZStatus) { AZMIXED = NSMixedState, AZOFF =  NSOffSt
 
 JREnumDeclare(AZState, AZOff, AZOn, AZModifyingState, AZIdleState, AZCreatingState, AZDeletingState);
 
+JREnumDeclare(AZSectionState, AZCollapsed, AZExpanded);
+JREnumDeclare(AZSelectState, AZDeselected, AZSelected);
+
+
 //typedef NSInteger NSCellStateValue;
 
 typedef NS_ENUM(NSUInteger,    AZSlideState ) { AZIn, AZOut, AZToggle																						};

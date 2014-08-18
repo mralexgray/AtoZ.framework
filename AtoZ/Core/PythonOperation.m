@@ -198,7 +198,7 @@ static dispatch_once_t once;
 
 		NSArray *args = _optArgs ? [@[_spriptP] arrayByAddingObjectsFromArray:_optArgs] : @[_spriptP];
 		char **cargs;
-		int x = [args createArgv:&cargs];//cArrayFromNSArray(array);	////{ "weather.py", "10011" };
+		int __unused x = [args createArgv:&cargs];//cArrayFromNSArray(array);	////{ "weather.py", "10011" };
 		PySys_SetArgv(args.count,cargs); //argc, (char **)argv);
 	//			Py_SetProgramName(cargs[0]);
 //		PySys_SetArgv(x, cargs);

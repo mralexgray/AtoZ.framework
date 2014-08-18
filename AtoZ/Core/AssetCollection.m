@@ -27,7 +27,7 @@ static NSArray* extensionsForAssetType(AssetType type) {
 	n.path          = path;
 	n.printInline 	= path == nil || isit ?: NO;
 	n.contents      = contents;
-	NSS *apath      = @keypath(NSIMG.monoIcons, first);
+	__unused NSS *apath      = @keypath(NSIMG.monoIcons, first);
 	return n;
 }
 - (void) setUp 	{  _active = @(NSOffState); _priority = @(0); }

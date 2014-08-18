@@ -1,7 +1,7 @@
 
 #import <Zangetsu/Zangetsu.h>
-#import "AtoZMacroDefines.h"
-#import "AtoZTypes.h"
+#import <AtoZ/AtoZMacroDefines.h>
+#import <AtoZ/AtoZTypes.h>
 
 @protocol RectLike   <NSO>
 @required @prop_ NSR  frame, bounds;

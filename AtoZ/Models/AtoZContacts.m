@@ -41,7 +41,7 @@
         ABMultiValue *x; if ((x = [person valueForProperty:kABPhoneProperty])) {
 
           [@"ss".properties self];
-          NSString *phone = nil;
+          NSString *__unused phone = nil;
           int count = [x count];
 //          if (count > 1) {
           // find the right one (work?)

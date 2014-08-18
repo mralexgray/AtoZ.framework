@@ -24,7 +24,7 @@ void logClassMethods(NSString *className)	{
 @end
 
 static NSMD *SUPERDICTIONARY	= nil;	static NSN	 *INSTANCE_CT 	= nil, *SUBCLASSES_CT = nil, *SUBCLASSES_INSTANCE_CT = nil;
-static NSS 	*LAST_MOD_KEY 		= nil;	static 	id  LAST_MOD_INST	= nil;			 static char  CNVRT_XML_KEY = false;		
+static NSS 	*LAST_MOD_KEY 		= nil;	static 	id  LAST_MOD_INST	= nil;			 static __unused char  CNVRT_XML_KEY = false;		
 @implementation BaseModel (AtoZ)
 
 - (instancetype) sharedInstance {

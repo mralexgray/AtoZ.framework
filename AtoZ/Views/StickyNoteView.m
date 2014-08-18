@@ -146,8 +146,8 @@ JREnumDefine(AZDraggingMode)
 		[self removeFromSuperview];
 }
 -  (void) _doubleMouse: (NSE*)theEvent			{
-	NSRect cellFrame = [self _cellRectForCurrentFrame];
-	NSText *editor = [self.window fieldEditor:YES forObject:self];
+	NSRect __unused cellFrame = [self _cellRectForCurrentFrame];
+__unused 	NSText *editor = [self.window fieldEditor:YES forObject:self];
 //	[[self cell] setEditable:YES];
 //	[[self cell] editWithFrame:cellFrame inView:self editor:editor delegate:self event:theEvent];
 }
@@ -202,12 +202,12 @@ JREnumDefine(AZDraggingMode)
 	//	[shadow release];
 	/* draw cell */
 //	if ([self currentEditor] == nil) {
-		NSRect cellFrame = [self _cellRectForCurrentFrame];
+		NSRect __unused cellFrame = [self _cellRectForCurrentFrame];
 //		[self.cell drawWithFrame:cellFrame inView:self];
 //	}
 	/* draw controls */
 	NSPoint mouseLoc = [self convertPoint:[self.window mouseLocationOutsideOfEventStream] fromView:nil];
-	NSRect fillerRect = [self _fillRectForCurrentFrame];
+	NSRect __unused fillerRect = [self _fillRectForCurrentFrame];
 	if ([self mouse:mouseLoc inRect:fillRect]) {
 			[[GRAY2 alpha:0.8] set];
 		NSRect closeRect = NSInsetRect([self _closeButtonRectForCurrentFrame], 3.0, 3.0);

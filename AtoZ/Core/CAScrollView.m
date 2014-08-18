@@ -62,8 +62,8 @@ JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 //		CGF nativeVisible = 0; while (nativeVisible < vMinWidth) { ct++; nativeVisible += qNativeWidth; }
 //	}
 //	else 
-	NSUI ct = lQ.count;
-	CGF unitPercent = .4;	
+	__unused NSUI ct = lQ.count;
+	__unused CGF unitPercent = .4;
 //	int normalI = 0;
 //	while ( f < ( )  {		CAL*copy = [[lQ normal:normalI]copyLayer];
 //																		  [layerQueue addObject:copy];

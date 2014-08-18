@@ -90,7 +90,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 	
 	if (!isTopTab)  frame = NSInsetRect(frame, 0.5f, 0.5f);
 	frame.size.height -= AZButtonDropShadowBlurRadius;
-	BOOL custom = TRUE;
+	BOOL __unused custom = TRUE;
 //	self.buttonColor = (!self.buttonColor ? RANDOMCOLOR : self.buttonColor);
 	__bezelPath =  (!isTopTab ? 
 					[NSBezierPath bezierPathWithRoundedRect:frame xRadius:AZButtonCornerRadius yRadius:AZButtonCornerRadius ] :
@@ -245,7 +245,7 @@ static NSString* const AZButtonReturnKeyEquivalent = @"\r";
 
 - (NSRect)az_drawButtonTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView {
 
-	NSColor *contrasting  = color.contrastingForegroundColor;
+	__unused NSColor *contrasting  = color.contrastingForegroundColor;
 	BOOL blue             = self.az_shouldDrawBlueButton;
 	NSString *label       = title.string;
 	NSShadow *textShadow  = NSShadow.new;

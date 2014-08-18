@@ -68,7 +68,7 @@ IF_VOID(          !lyr          // require thatthe layer exist
   a.toValue = SameString(k,@"onOrderIn") ? @1 : @0;// ? @(self.perimeter) : @0;
   CABA *b = [CABA animationWithKeyPath:@"lineDashPhase"];
   b.toValue = SameString(k,@"onOrderIn") ? @(self.perimeter) : @0;
-  CABA *c = [CABA animationWithKeyPath:@"strokeEnd"];
+  __unused CABA *c = [CABA animationWithKeyPath:@"strokeEnd"];
   b.toValue = SameString(k,@"onOrderIn") ? @(self.perimeter) : @0;
 
   a.duration = b.duration = .6;

@@ -6,7 +6,7 @@
 - (void) iesta {
 
 	CGF f = AZPerimeter(AZScreenFrame());
-	int unit = floor([AtoZ dockSorted].count / f);
+	int __unused unit = floor([AtoZ dockSorted].count / f);
 //	[[AtoZ dockSorted]
 	 [(NSA*)[AZFolder appFolder] eachWithIndex:^(id obj, NSInteger i){
 //		NSImageView *k = [[NSImageView alloc]initWithFrame:(NSRect) { i * unit, 0, unit, unit} ];
@@ -64,7 +64,7 @@
 //		@autoreleasepool {
                NSArray *raw = [self.image quantize];
                NSBag *allBag = [NSBag bagWithObjects:raw];          // put all colors in a bag //[raw do:^(id obj) { [allBag add:obj];}];
-               NSBag *rawBag = [NSBag bag];
+              __unused  NSBag *rawBag = [NSBag bag];
 //               NSUI total      = 0;
                NSArray *filtered = [raw filter:^BOOL (NSColor *aColor) {
             return [allBag occurrencesOf:aColor] > (.0005 * [raw count]) && [aColor isExciting] ? YES : NO;

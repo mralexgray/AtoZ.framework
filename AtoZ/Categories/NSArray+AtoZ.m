@@ -184,7 +184,7 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 @implementation NSArray (AtoZCLI)
 - (NSS*) stringValueInColumnsCharWide:(NSUI)characters {
   return [self reduce:^id (id memo, id obj) {
-    NSUI min = MAX(characters - [obj length], 0);
+    __unused NSUI min = MAX(characters - [obj length], 0);
     return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
   } withInitialMemo:@""];
 }
@@ -866,6 +866,23 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   //    }
   //    return [self subarrayWithRange:(NSRNG) {from, to }];
 }
+
+- (NSArray *) subarrayWithIndexes: (NSIndexSet *)indexes
+{
+    NSMA *targetArray  = NSMA.new;
+    NSUI count = self.count;
+
+    NSUI index = [indexes firstIndex];
+    while ( index != NSNotFound )
+    {
+        if ( index < count) [targetArray addObject: [self objectAtIndex: index]];
+        index = [indexes indexGreaterThanIndex: index];
+    }
+    return targetArray;
+}
+
+
+
 - (void) eachWithVariadicPairs:(void(^)(id a, id b))pairs {
   NSA* split = self.splitByParity;
   NSA* valsA = split[0], *valsB = split[1];

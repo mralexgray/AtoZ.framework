@@ -165,7 +165,7 @@
 	}
 	return [super actionForKey:key];
 }
-- (NSA*) nodeRects 							{	__block NSR thisRect = (NSRect) { 0, 0, self.width, 0 };
+- (NSA*) nodeRects 							{	__block __unused NSR thisRect = (NSRect) { 0, 0, self.width, 0 };
 
 	//vertical unit                 // if there is no selection it is evenly divided...  this is impossible, currently
 //	CGF unit = //_nodes.selectedNode == nil 	? self.nodeRect.size.height / _controller.numberOfChildren.floatValue : zKEYWORDS_V_UNIT;
@@ -214,7 +214,7 @@ EXTMixin			  (AZOutlineLayerNode, CAScrollLayer);
 	if (_cellStyle == AZOutlineCellStyleToggleHeader) {
 
 		Class headerClass = objc_allocateClassPair(CAL.class, "ListHeader", 0);
-		CAL *tHost = [headerClass layer];
+		__unused CAL *tHost = [headerClass layer];
 	}
 	else if (_cellStyle == AZOutlineCellStyleScrollList) {
 		
@@ -265,10 +265,10 @@ nl.sublayers 			= @[tHost, list];
 		[NSGraphicsContext drawInContext:x flipped:NO actions:^{
 			NSRectFillWithColor(l.bounds,RANDOMCOLOR);//[grads normal:n.index.iV-1]); 
 			NSLog(@"drawblock!! lbounds: %@", AZString(l.bounds));
-			NSMD* attrs = @{ 	NSFontSizeAttribute : @(zCATEGORY_FONTSIZE), NSForegroundColorAttributeName	: NSColor.whiteColor,
+			__unused NSMD* attrs = @{ 	NSFontSizeAttribute : @(zCATEGORY_FONTSIZE), NSForegroundColorAttributeName	: NSColor.whiteColor,
 									NSFontAttributeName : [NSFont fontWithName:@"UbuntuMono-Bold" size:zCATEGORY_FONTSIZE]}.mutableCopy;
 //			[[nL.reprsentedNode key] drawInRect:l.bounds withAttributes:attrs];
-			NSR badgeRect = (NSR){l.width - zCATEGORY_RECT.size.height, 0, l.height, l.height};
+			__unused NSR badgeRect = (NSR){l.width - zCATEGORY_RECT.size.height, 0, l.height, l.height};
 //			[[NSIMG badgeForRect:AZRectFromSize(badgeRect.size) 
 //				withColor:RANDOMCOLOR stroked:BLACK withString:@(nL.reprsentedNode.siblingIndex).stringValue]	drawInRect:badgeRect];
 		}];

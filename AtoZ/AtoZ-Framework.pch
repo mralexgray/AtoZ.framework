@@ -22,7 +22,7 @@
 #import <FunSize/FunSize.h>
 #import <KSHTMLWriter/KSHTMLWriter.h>
 #import <MenuApp/MenuApp.h>
-#import <NMSSH/NMSSH.h>
+//#import <NMSSH/NMSSH.h>
 #import <NoodleKit/NoodleKit.h>
 #import <PhFacebook/PhFacebook.h>
 #import <Rebel/Rebel.h>
@@ -30,4 +30,7 @@
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UIKit/UIKit.h>
 
+#import <KVOMap/KVOMap.h>
+#import <AtoZAutoBox/AtoZAutoBox.h>
+           
 #endif

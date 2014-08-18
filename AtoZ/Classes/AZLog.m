@@ -135,7 +135,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AtoZLumberLog, logger)
 - (NSS*) message									{ return _message = _message ?: _data ? [NSS stringWithUTF8Data:_data] : @""; }
 @end
 
-void WEBLOG	   (id fmt, ...)  { AZLogConsoleView* e = (AZLogConsoleView*)[AZLogConsole.sharedConsole webView]; /* [e logString: file:(char*)filename lineNumber:(int)lineNum];*/ }
+void WEBLOG	   (id fmt, ...)  { AZLogConsoleView* __unused e = (AZLogConsoleView*)[AZLogConsole.sharedConsole webView]; /* [e logString: file:(char*)filename lineNumber:(int)lineNum];*/ }
 NSA* AZEnvVars (char** envp)  { 					NSMA * vars = NSMA.new; char** env;
 
 	for (env = envp; *env != 0; env++)	{ NSS * var, * raw;

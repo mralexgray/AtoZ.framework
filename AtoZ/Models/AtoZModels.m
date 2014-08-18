@@ -70,9 +70,9 @@ EXTEND(AZDefinition) @prop_ ASIHTTPRequest *requester; @prop_ BOOL ranCompletion
 			_requester 							= [ASIHTTPRequest.alloc initWithURL:self.query];
 			_requester.completionBlock 	= ^(ASIHTTPRequest *request) {	wikiD = request.responseString.copy; requestError = [request error];	};
 			[_requester startSynchronous];
-			AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
+			AZHTMLParser *p	__unused 	= [AZHTMLParser.alloc initWithString:wikiD error:nil];
 			_rawResult = wikiD;
-			NSString * stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);
+			NSString * __unused stripped 	= [_rawResult stripHtml];																		// parseXMLTag:@"text"]);
 			self.results  			= requestError 		?  @[$(@"Error: %@  headers: %@", requestError, _requester.responseHeaders)]
 										: ![wikiD isEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] : nil;
 		}
@@ -87,7 +87,7 @@ EXTEND(AZDefinition) @prop_ ASIHTTPRequest *requester; @prop_ BOOL ranCompletion
 			if (requestError) { self.definition =  @"no response from urban"; return; }
 			AZHTMLParser *p 	= [AZHTMLParser.alloc initWithString:responsePage error:&requestError];
 			HTMLNode *title 	= [p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES];
-			NSS *content	 	= [title getAttributeNamed:@"content"];
+			NSS *__unused content	 	= [title getAttributeNamed:@"content"];
 			HTMLNode *descN   = [p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES];
 			self.definition = [descN getAttributeNamed:@"content"];
         ///rawContents.urlDecoded.decodeHTMLCharacterEntities);

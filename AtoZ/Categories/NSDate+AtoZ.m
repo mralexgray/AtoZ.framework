@@ -132,7 +132,7 @@
 	NSDate *midnight 							= [calendar dateFromComponents:offsetComponents];
 	// comparing against midnight
 	NSComparisonResult midnight_result = [date compare:midnight];
-	NSString *displayString;
+	__unused NSString *displayString;
 
 	if (midnight_result == NSOrderedDescending) 	prefixed	?	[displayFormatter setDateFormat:@"'at' h:mm a"] 	// at 11:30 am
 																			:	[displayFormatter setDateFormat:@"h:mm a"]; 			// 11:30 am

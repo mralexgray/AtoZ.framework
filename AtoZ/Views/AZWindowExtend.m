@@ -14,7 +14,7 @@
 @implementation AZWindowExtendController
 - (void)awakeFromNib
 {
-	NSPoint point = [NSEvent mouseLocation];
+	NSPoint __unused point = [NSEvent mouseLocation];
 //	NSString *infoText = [NSString.alloc initWithFormat:@"x:%.2f\ny:%.2f", point.x, point.y];
 
 //	[infoTextField bind

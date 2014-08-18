@@ -681,6 +681,12 @@ _Pragma("clang diagnostic pop") \
 -    (NSUI)     unsignedIntegerForKey : (NSS*)key;
 -  (NSURL*)                 URLForKey : (NSS*)key;
 
+
+/* Depend on \c shadySetValue:forKey: + shadyValueForKey: in AtoZSwizzles */
+-     (SEL)            selectorForKey : (NSS*)key;
+-    (void) setSelector:(SEL)s forKey : (NSS*)key;
+
+
 - (id) mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath;
 - (id) valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
 - (id) valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition

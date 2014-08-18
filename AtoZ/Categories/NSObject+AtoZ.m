@@ -2514,6 +2514,16 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 
+-     (SEL)            selectorForKey : (NSS*)key {
+
+  id x = [self vFK:key]; NSAssert(ISA(x, NSVAL), @"should be an NSValue!");
+  NSValue *fromKVCValue = x;
+  SEL fromKVC = NULL;
+  [fromKVCValue getValue:&fromKVC];
+  return fromKVC;
+}
+-    (void) setSelector:(SEL)s forKey : (NSS*)key { [self setValue:[NSValue valueWithPointer:s] forKey:key]; }
+
 id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;
 };

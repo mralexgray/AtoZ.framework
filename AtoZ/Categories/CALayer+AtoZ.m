@@ -143,7 +143,7 @@ SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self
 }
 -  (NSR) actuallyVisibleRectInView:(NSV *)v;     {
 
-  NSView *view = v ?: self.hostView;
+  __unused NSView *view = v ?: self.hostView;
   // ? : [[self.superlayers cw_mapArray:^id (id o) { return [o hostView]; }]
 //	  sortedWithKey:@"minDim" ascending:NO].first;
 	NSR actual = NSIntersectionRect(self.visibleRect, AZRectFromSize(v.window.size));
@@ -495,7 +495,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 		}];
 	}];
 	}
-	else { CAShapeLayer *lasso = [self.class lassoLayerForLayer:self]; }
+	else { __unused CAShapeLayer *lasso = [self.class lassoLayerForLayer:self]; }
 //	lasso.name = @"lasso";  [self addSublayer:lasso]; }
 	//	[self sublayersBlockSkippingSelf:^(CAL*layer) {
 	//	[layer[@"name"] isEqualToString:@"lasso"
@@ -960,7 +960,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	lace.frame = [view bounds];
 	lace.borderWidth = 10; lace.borderColor = cgRANDOMCOLOR;
 	CGContextRef context = NULL;         CGColorSpaceRef colorSpace;
-	int bitmapByteCount;	      int bitmapBytesPerRow;
+	__unused int bitmapByteCount;	      int bitmapBytesPerRow;
 	int pixelsHigh = (int)[[view layer] bounds].size.height;
 	int pixelsWide = (int)[[view layer] bounds].size.width;
 	bitmapBytesPerRow   = (pixelsWide * 4);
@@ -1106,7 +1106,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	int pixelsHigh = (int)[view bounds].size.height;
 	int pixelsWide = (int)[view bounds].size.width;
 	int bitmapBytesPerRow   = (pixelsWide * 4);
-	int bitmapByteCount = (bitmapBytesPerRow * pixelsHigh);
+	__unused int bitmapByteCount = (bitmapBytesPerRow * pixelsHigh);
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 	//	context = NULL;
 	CGContextRef context = CGBitmapContextCreate (NULL, pixelsWide, pixelsHigh,
@@ -1475,7 +1475,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 	int pixelsHigh	       = (int)self.height;
 	int pixelsWide	       = (int)self.width;
 	int bitmapBytesPerRow   = (pixelsWide * 4);
-	int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
+	__unused int bitmapByteCount     = (bitmapBytesPerRow * pixelsHigh);
 	CGColorSpaceRef cSpc    = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 	CGContextRef ctx     = CGBitmapContextCreate (NULL, pixelsWide, pixelsHigh, 8,
 		 bitmapBytesPerRow, cSpc, kCGImageAlphaPremultipliedLast);

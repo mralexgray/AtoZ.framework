@@ -3,7 +3,15 @@
 #import "AtoZ.h"
 #import "NSView+AtoZ.h"
 
+@implementation NSViewFlipped
+- (BOOL) isFlipped { return YES; }
+@end
 
+
+@implementation NSView (IsFlipped)
+- (void) setIsFlipped:(BOOL)f {  [self az_overrideBoolMethod:@selector(isFlipped) returning:f]; }
+- (void)  setIsOpaque:(BOOL)f {  [self az_overrideBoolMethod:@selector(isOpaque)  returning:f]; }
+@end
 
 @implementation NSView (MoveAndResize)
 
@@ -57,6 +65,13 @@ NSAnimationBlockingMode AZDefaultAnimationBlockingMode  = NSAnimationNonblocking
 #define ifARGC(...) do { int x = metamacro_argcount(__VA_ARGS__); 
 
 @implementation NSView (AtoZ) @dynamic onEndLiveResize;
+
+- copyWithZone:(NSZone*)z {
+
+  NSData * archivedView = [NSKeyedArchiver archivedDataWithRootObject:self];
+  return [NSKeyedUnarchiver unarchiveObjectWithData:archivedView.copy];
+}
+
 
 - (void) setOnEndLiveResize:(VoidObjBlock)b { static dispatch_once_t onLive;
 
@@ -489,7 +504,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 }
 
 static        NSS * ANIMATION_IDENTIFER   = @"animation";
-static char const * const ISANIMATED_KEY  = "ObjectRep";
+static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
 
 - (void) setAnimationIdentifer:(NSS*)newAnimationIdentifer{
 	objc_setAssociatedObject(self, &ANIMATION_IDENTIFER, newAnimationIdentifer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -799,7 +814,7 @@ static char const * const ISANIMATED_KEY  = "ObjectRep";
 
 - (void) handleMouseEvent:(NSEventType)type withBlock:(void (^)())block  {
 	[NSEVENTLOCALMASK:NSEventMaskFromType(type) handler:^NSE*(NSE *e) {
-		NSP localP = self.localPoint;
+		NSP __unused localP = self.localPoint;
 //		[self setNeedsDisplay:YES];		NSLog(@"oh my god.. point %@", NSStringFromPoint(localP));
 		if (e.type == type ) {//if ( NSPointInRect(localP, view.frame) ){
 			NSLog(@"oh my god.. point is local to view: %@! Localpoint: %@...  about to run block !!". self.description, [self localPoint]);
@@ -1197,7 +1212,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 	NSR edgeRect = AZRectInsideRectOnEdge(AZRectFromDim(tailArea), frame, AZPosAtCGRectEdge(popoverEdge));
 	NSBP * tail = [NSBezierPath bezierPathWithTriangleInRect:edgeRect orientation:popoverEdge];
 	NSBP * Boxpath = [NSBezierPath bezierPathWithRect:box];
-	NSBP * unionp = [Boxpath az_intersect:tail];
+	NSBP * __unused unionp = [Boxpath az_intersect:tail];
 	NSBP *pp = [DKShapeFactory arrowTailFeatherWithRake:.4];
 	pp = [pp scaledToFrame:box];
 	return  pp.quartzPath;

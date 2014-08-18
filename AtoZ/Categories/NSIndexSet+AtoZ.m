@@ -27,8 +27,8 @@
 
 + (NSIP*)indexPathForSection:(NSUI)section { return [NSIP indexPathWithIndex:section]; }
 
-- (NSUI) index   { return [self indexAtPosition:1]; }
-- (NSUI) section { return [self indexAtPosition:0]; }
+- (NSI) index   { return [self indexAtPosition:1]; }
+- (NSI) section { return [self indexAtPosition:0]; }
 
 #pragma mark - ESExtensions
 

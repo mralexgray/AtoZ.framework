@@ -305,3 +305,12 @@
 [submodule "Frameworks/GRNavigationController"]
 	path = Frameworks/GRNavigationController
 	url = https://github.com/mralexgray/GRNavigationController
+[submodule "Frameworks/color-names"]
+	path = Frameworks/color-names
+	url = https://github.com/mralexgray/color-names.git
+[submodule "Frameworks/RXPreprocessing"]
+	path = Frameworks/RXPreprocessing
+	url = https://github.com/mralexgray/RXPreprocessing.git
+[submodule "AtoZ/AtoZAutoBox/RXConcreteProtocol"]
+	path = AtoZ/AtoZAutoBox/RXConcreteProtocol
+	url = git@github.com:mralexgray/RXConcreteProtocol.git

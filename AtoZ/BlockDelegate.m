@@ -229,7 +229,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
 		[self performSelectorWithoutWarnings:@selector(setDelegate:) withObject:x];
 	}
 	const char *types = @"v@:".UTF8String;
-	BOOL success = class_addMethod([x class],sel,imp, types);
+  __unused BOOL success = class_addMethod([x class],sel,imp, types);
 	NSLog(@"Added method:%@ to class:%@",NSStringFromSelector(sel),NSStringFromClass([x class]));
 
 //		[x az_overrideSelector:sel withBlock:imp_implementationWithBlock(id block)

@@ -195,8 +195,8 @@ void getPointsFromBezier(void *info, const CGPathElement *element) 	{
 
 	NSBezierPath *path = [NSBezierPath bezierPath];
 	[path moveToPoint:[points[0] pointValue]];
-	int i;
-	int count = [points count];
+	__unused int i;
+	__unused int count = [points count];
 	for (NSValue* point in points)
 		[path lineToPoint:[point pointValue]];
 	return path;
@@ -1096,7 +1096,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
   [NSGraphicsContext restoreGraphicsState];
 }
 
-- (void) bezel { static NSG *pressedGradient;	static NSC *strokeColor; static NSSHDW *innerShadow1, *innerShadow2;
+- (void) bezel { static __unused NSG *pressedGradient;	static NSC *strokeColor; static NSSHDW *innerShadow1, *innerShadow2;
 
   [NSGraphicsContext state:^{
 

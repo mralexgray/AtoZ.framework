@@ -43,7 +43,7 @@
 	
 	BLKVIEW *blkV 	= [self.alloc initWithFrame:v.bounds];
 	blkV.arMASK = NSSIZEABLE;
-	BOOL hasLayer = (v.layer != nil);	
+	__unused BOOL hasLayer = (v.layer != nil);
 	[blkV setupHostView];	
 //	if (!hasLayer)  [v setupHostView];
 	blkV.layer.needsDisplayOnBoundsChange = YES;
@@ -52,7 +52,7 @@
 	l.frame = f;
 	[blkV.layer addSublayer:l]; 
 	l.arMASK 			= CASIZEABLE;
-	BlockDelegate *d = [BlockDelegate delegateFor:l ofType:CABlockTypeDrawBlock withBlock: ^(CAL* layer,CGContextRef ref){
+	__unused BlockDelegate *d = [BlockDelegate delegateFor:l ofType:CABlockTypeDrawBlock withBlock: ^(CAL* layer,CGContextRef ref){
 		[NSGraphicsContext drawInContext:ref flipped:NO actions:^{
 			NSLog(@"drawing in blockview block delegate context: %@", AZString(layer.frame));
 			ctxBlk(blkV, layer);

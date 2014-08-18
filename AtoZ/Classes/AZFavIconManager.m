@@ -91,7 +91,7 @@ CGSize sizeInPixels(NSIMG *icon) {
 		CGSize size = sizeInPixels(icon);
 		return size.width >= (16 * 2 && size.height >= 16.f * 2);
 	};
-	NSS* oper =	$(@"Operation %ld of %ld. %@", requestNumber, _opQueue.operationCount, [self.class keyForURL:url]);
+	NSS* __unused oper =	$(@"Operation %ld of %ld. %@", requestNumber, _opQueue.operationCount, [self.class keyForURL:url]);
 //	_opQueue.operationCountoperationNumberOf = $(@"%ld", requestNumber);
 //	NSLog(oper);
 

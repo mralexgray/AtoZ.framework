@@ -102,11 +102,11 @@ static id 	drawer = nil;
 
 	// we'll release him later on in the completion block
 	__weak __block TUIViewController *oldTopVC = _controllers.pull;
-	TUIViewController *newTopVC = self.controllers.last;
+	TUIViewController *__unused newTopVC = self.controllers.last;
 	[oldTopVC viewWillDisappear:ani];
 //	[_controllers removeLastObject];	newTopVC.view.frame = self.view.bounds;[newTopVC viewWillAppear:ani];[self.view insertSubview:newTopVC.view belowSubview:oldTopVC.view];
 
-	AZTUICompletionBlock done = ^(BOOL finished) {
+	AZTUICompletionBlock __unused done = ^(BOOL finished) {
 																[oldTopVC.view removeFromSuperview];
 																[oldTopVC     viewDidDisappear:ani];
 //																[newTopVC        viewDidAppear:ani];

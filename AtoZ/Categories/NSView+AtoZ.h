@@ -3,6 +3,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AtoZUmbrella.h"
 
+@interface NSViewFlipped : NSView @end
+
+@interface NSView (IsFlipped)
+- (void) setIsFlipped:(BOOL)f;
+- (void)  setIsOpaque:(BOOL)f;
+@end
+
 
 @interface NSView (MoveAndResize)
 - (void)setNewFrameFromMouseDrag:(NSRect)newFrame;
@@ -51,7 +58,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 #define NSViewDidMoveToWindowNotification @"NSViewDidMoveToWindowNotification"
 
 @class AZWT;
-@interface NSView (AtoZ)
+@interface NSView  (AtoZ) <NSCopying>
 
 @property (NATOM) VoidObjBlock onEndLiveResize;
 @property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..

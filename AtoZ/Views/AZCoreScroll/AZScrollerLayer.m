@@ -428,7 +428,7 @@
 }
 #pragma mark - General Helper Methods
 - (NSImage*) createGlassImageForSize:(NSSize)size {
-	NSBezierPath* glassEffect = [NSBezierPath bezierPath];
+	NSBezierPath* __unused glassEffect = [NSBezierPath bezierPath];
 /*
 	NSPoint glassPt1 = NSMakePoint(0, size.height);
 	NSPoint glassPt2 = NSMakePoint(glassPt1.x + INNER_RADIUS, glassPt1.y - INNER_RADIUS);

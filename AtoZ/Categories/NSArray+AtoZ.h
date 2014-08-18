@@ -262,10 +262,12 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
 @property (RONLY) NSArray *trimmedStrings;
 
-- (NSA*)after:(NSUI)subarrayFromIndex; /* subarrayFromIndex alias; */
-- (NSA*)subarrayFromIndex:(NSUI)start;
-- (NSA*)subarrayToIndex:(NSUI)end;
-- (NSA*)subarrayFromIndex:(NSUI)start toIndex:(NSUI)end;
+- (NSA*)             after:(NSUI)subarrayFromIndex; /* subarrayFromIndex alias; */
+- (NSA*)  subarrayFromIndex:(NSUI)start;
+- (NSA*)     subarrayToIndex:(NSUI)end;
+- (NSA*)   subarrayFromIndex:(NSUI)start toIndex:(NSUI)end;
+- (NSA*) subarrayWithIndexes:(NSIS*)idxs;
+
 /*** Returns a random element from this array */
 @property (RONLY) id randomElement;
 /*** Returns a random subArray of this array with up to 'size' elements */

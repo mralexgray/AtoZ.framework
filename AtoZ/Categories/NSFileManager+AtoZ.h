@@ -1,4 +1,6 @@
 
+#import "AtoZUmbrella.h"
+
 NS_INLINE NSS* humanReadableFileTypeForFileExtension (NSS *ext) {
 
 	CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
@@ -6,28 +8,27 @@ NS_INLINE NSS* humanReadableFileTypeForFileExtension (NSS *ext) {
 	NSS *UTIDesc = (__bridge NSS*)UTTypeCopyDescription(fileUTI); return CFRelease(fileUTI),UTIDesc;
 }
 
-
-NSS *NSDocumentsFolder(void);
-NSS *NSLibraryFolder(void);
-NSS *NSTmpFolder(void);
-NSS *NSBundleFolder(void);
+NSS * NSDocumentsFolder (void);
+NSS *   NSLibraryFolder (void);
+NSS *       NSTmpFolder (void);
+NSS *    NSBundleFolder (void);
 
 @interface NSFileManager (AtoZ)
 
-- (NSA*) pathsOfContentsOfDirectory:(NSS*) directory;
+- (NSA*)    pathsOfContentsOfDirectory:(NSS*)dir;
 
-- (NSA*) arrayWithFilesMatchingPattern: (NSS*) pattern inDirectory: (NSS*) directory;
+- (NSA*) arrayWithFilesMatchingPattern:(NSS*)pattern inDirectory:(NSS*)dir;
 
-- (NSS*) pathForItemNamed: (NSS*) fname inFolder: (NSS*) path;
-- (NSS*) pathForDocumentNamed: (NSS*) fname;
-- (NSS*) pathForBundleDocumentNamed: (NSS*) fname;
+- (NSS*)              pathForItemNamed:(NSS*)fname      inFolder:(NSS*)path;
+- (NSS*)          pathForDocumentNamed:(NSS*)fname;
+- (NSS*)    pathForBundleDocumentNamed:(NSS*)fname;
 
 //non-resursive
 - (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
 
-- (NSA*) pathsOfFilesIn:(NSS*)path withExtension:  (NSS*)ext;
-- (NSA*) pathsOfFilesIn:(NSS*)path matchingPattern:(NSS*)regex;
-- (NSA*) pathsOfFilesIn:(NSS*)path passing:(BOOL(^)(NSS*))testBlock;
+- (NSA*) pathsOfFilesIn:(NSS*)p   withExtension:(NSS*)ext;
+- (NSA*) pathsOfFilesIn:(NSS*)p matchingPattern:(NSS*)regex;
+- (NSA*) pathsOfFilesIn:(NSS*)p         passing:(BOOL(^)(NSS*))testBlock;
 //recursive
 - (NSA*) pathsForItemsNamed:(NSS*)ext inFolder:(NSS*)path;
 - (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;

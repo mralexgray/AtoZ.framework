@@ -24,14 +24,15 @@
 @end
 
 @implementation NSWindow   (RectLike) // @dynamic /*! @todo */ anchorPoint;
-//- (NSRect)frame; Provided by NWINdow
+//- (NSR) frame; Provided by NWINdow
+-  (NSR)      bounds            { return AZRectFromSizeOfRect(self.frame); }
+
 - (void) setFrame:(NSR)f    { [self setContentSize:f.size]; } // display:YES]; } //self.isVisible animate:NO]; }
 
 //- (void)   setBounds:(NSR)b { NSR r = self.frame; }
 
 // [ setFramesize = AZSizeFromRect(b); }
 
-//-  (NSR)      bounds            { return AZRectFromSizeOfRect(self.frame); }
 @end
 //-  (NSP)    position            { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
 //- (void) setPosition:(NSP)p     { /*! @todo */ NSAssertFail(@"neeed to fix");  }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));

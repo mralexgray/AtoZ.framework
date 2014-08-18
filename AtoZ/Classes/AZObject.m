@@ -101,7 +101,7 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
 #pragma mark NSMutableCopying
 - (id)mutableCopyWithZone:(NSZone *)zone {
 	__typeof__([self class]) copy = self.class.new;
-	for (NSS* aProp in self.propertyNames)
+	for (__unused NSS* aProp in self.propertyNames)
 	for (NSS* aProp in self.propertyNames)
 		[self valueWasSetForKey:aProp] ?	[copy sV:[self vFK:aProp] fK:aProp] : nil;
 	return copy;

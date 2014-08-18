@@ -673,7 +673,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 
 + (NSS*)pathOfProcessWithIdentifier:(int)pid;
 {
-   pid_t pidT = (pid_t)pid;
+   __unused pid_t pidT = (pid_t)pid;
    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 	int ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
 	return ret ? $(@"%s", pathbuf) : nil;

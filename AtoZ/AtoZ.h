@@ -4,21 +4,22 @@
 						 d88b           88                              ,88																				\
             d8'`8b        MM88MMM                         ,88^ 																				\
            d8'  `8b         88        ,adPPYba,         ,88^   																				\
-          d8YaaaaY8b        88       a8'     '8a      ,88^      																  			\
+          d8YaaaaY8b        88       a8'     '8a      ,88^      																  		\
          d8""""""""8b       88       8b       d8    ,88^       																				\
         d8'        `8b      88       '8a,   ,a8'   88^         																				\
        d8'          `8b     'Y888     `^YbbdP^'    888888888888																				\
 																																																		  \
 			     _    _     _           _            _    _																									\
-          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/																				  		\
-					|    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\																					   	\
+          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/																				 		\
+					|    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\																				   	\
 																																																			"
-                                                                                  #define AZWELCOME @"\n\
-Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать! Willkommen! 接 待! Bonjour!"                 @"\n\
-𝗔𝗍𝗈𝗭•𝖿𝗋𝖺𝗆𝖾𝗐𝗈𝗋𝗄! © ⅯⅯⅯⅩⅠⅤ ! 𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆"
+                                                                                  #define AZWELCOME @"\
+                                                                                                      \
+Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать! Willkommen! 接 待! Bonjour!                 \
+                                                                                                      \
+             𝗔𝗍𝗈𝗭•𝖿𝗋𝖺𝗆𝖾𝗐𝗈𝗋𝗄! © ⅯⅯⅯⅩⅠⅤ ! 𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆"
 
-/*! @discussion 
-  
+/*! @discussion
   
   The DTFWYWTPL * The DO THE FUCK WHAT YOU WANT TO PUBLIC LICENSE, Version 2, Modified, ® 2013 Alex Gray, lol.
 
@@ -370,11 +371,11 @@ Metaprogramming is normally something that people associate with more dynamic la
 #import <DrawKit/DKDrawKit.h>
 #import <FunSize/FunSize.h>
 #import <KSHTMLWriter/KSHTMLWriter.h>
-#import <MenuApp/MenuApp.h>
-#import <NMSSH/NMSSH.h>
+//#import <MenuApp/MenuApp.h>
+//#import <NMSSH/NMSSH.h>
 #import <NoodleKit/NoodleKit.h>
 #import <PhFacebook/PhFacebook.h>
-#import <Rebel/Rebel.h>
+//#import <Rebel/Rebel.h>
 #import <TwUI/TUIKit.h>
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UIKit/UIKit.h>
@@ -407,6 +408,8 @@ Metaprogramming is normally something that people associate with more dynamic la
 #import "BBMeshView.h"
 #import "BETaskHelper.h"
 #import "BlockDelegate.h"
+#import "AtoZSwizzles.h"
+
 //#import "ConciseKit.h"
 #import "CPAccelerationTimer.h"
 #import "CTBadge.h"
@@ -821,13 +824,16 @@ AZNSIFACE(AZClassProxy)
 //    while (1) if (!(number = va_arg (args, int))) break; else sum += number;
 //    va_end (args);   return (sum);
 
-/*!
- *	@class      AtoZ
- *	@abstract   A class used to interface with AtoZ
- *	@discussion This class provides a means to interface with AtoZ
- *	 Currently it provides a way to detect if AtoZ is installed and launch the AtoZHelper if it's not already running.
+@class MASShortcutView, MASShortcut, AZLiveReload;
+
+/*! @class      AtoZ
+    @abstract   A class used to interface with AtoZ
+    @discussion This class provides a means to interface with AtoZ
+                Currently it provides a way to detect if AtoZ is installed and launch the AtoZHelper if it's not already running.
  */
-@class MASShortcutView, MASShortcut, AZLiveReload; @interface AtoZ : BaseModel 
+#define ATOZ AtoZ.sharedInstance
+
+@interface AtoZ : BaseModel
 
 @property AZLiveReload *reloader;
 
@@ -838,6 +844,7 @@ AZNSIFACE(AZClassProxy)
  *	@result Returns YES if AtoZHelper is running, NO otherwise.
  */
 //+ (BOOL) isAtoZRunning;
+
 /*	@method setAtoZDelegate:
 	@abstract Set the object which will be responsible for providing and receiving Growl information.
 	@discussion 
@@ -856,22 +863,25 @@ AZNSIFACE(AZClassProxy)
 //@property (readonly) NSMA *delegates;
 //+ (NSMA*) delegates;
 
-@property (NATOM) MASShortcutView	* azHotKeyView;
-@property (NATOM) MASShortcut 		* azHotKey;
-@property (NATOM) 		BOOL 					  azHotKeyEnabled;
+@prop_NA MASShortcutView	* azHotKeyView;
+@prop_NA MASShortcut 		* azHotKey;
+@prop_NA 		BOOL 					  azHotKeyEnabled;
 
-@property (NATOM) NSW * azWindow;
-@property (NATOM) NSC * logColor;
-@property (NATOM)	NSA * basicFunctions,
-                      * fonts,
-                      * cachedImages;
-@property (RONLY) NSB * bundle;
-@property (RONLY) BOOL 	inTTY,
+@prop_NA  NSW * azWindow;
+@prop_NA  NSC * logColor;
+@prop_NA	NSA * fonts,          /// 13 font... names.
+              * cachedImages;   /// nil.
+@prop_RO  NSB * bundle;
+@prop_RO BOOL 	inTTY,          /// Seems accurate..
                         inXcode;
 
-@property (ASS) IBO 	NSTXTV * stdOutView;
+@prop_RO NSOS * sharedStack;
+@prop_RO NSOQ * sharedQ,
+              * sharedSQ;
 
-@property AZBonjourBlock *bonjourBlock;
+@prop_AS IBO 	NSTXTV * stdOutView;
+
+@prop_ AZBonjourBlock *bonjourBlock;
 
 
 +      (NSS*) macroFor:(NSS*)w;
@@ -904,17 +914,25 @@ AZNSIFACE(AZClassProxy)
 +  (NSA*) macPortsCategories;
 +  (void) playNotificationSound: (NSD*)apsDictionary;
 +  (void) badgeApplicationIcon:  (NSS*)string;
-+  (void) testVarargs: (NSA*)args;
 +  (NSA*) globalPalette;
+
++  (void) testVarargs: (NSA*)args;
 
 /* USAGE:	AZVA_ArrayBlock varargB = ^(NSA* enumerator){ NSLog(@"what a value!: %@", enumerator); };
 				[AtoZ varargBlock:varargB withVarargs:@"vageen",@2, GREEN, nil];
 */
-+  (void) varargBlock: (void(^)(NSA*enumerator))block withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
-+  (void) sendArrayTo: (SEL)method inClass:(Class)klass withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
++  (void)  varargBlock:(void(^)(NSA*enumerator))block withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
++  (void)  sendArrayTo:(SEL)method inClass:(Class)klass withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
 -  (void) performBlock:(VoidBlock)block waitUntilDone:(BOOL)wait;
-- (NSJS*) jsonRequest: (NSString*) url;
-+ (NSJS*) jsonRequest: (NSString*) url;
+- (NSJS*)  jsonRequest:(NSS*) url;
++ (NSJS*)  jsonRequest:(NSS*) url;
+
++  (NSA*) processes;
+
+#ifdef GROWL_ENABLED
+- (BOOL) registerGrowl;	<GrowlApplicationBridgeDelegate>
+#endif
+
 
 //+ (AZPOS) positionForString: (NSS*)strVal;
 //+  (NSS*) stringForPosition:(AZPOS)enumVal;
@@ -928,9 +946,6 @@ AZNSIFACE(AZClassProxy)
 //+ (NSA*) appCategories;
 //+ (NSA*) appFolderSorted;
 //+ (NSA*) appFolderSamplerWith: (NSUInteger) apps;
-#ifdef GROWL_ENABLED 
-- (BOOL) registerGrowl;	<GrowlApplicationBridgeDelegate>
-#endif
 //@property (NATOM, STRNG) SoundManager *sManager;
 //@property (strong, nonatomic) NSLogConsole *console;
 

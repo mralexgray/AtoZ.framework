@@ -2,15 +2,16 @@
 framework module AtoZ {
 
   //umbrella "Headers"
- umbrella header "AtoZ.h"
-   export *
+  umbrella header "AtoZ.h"
+  exclude header "DrawKit/DKDrawableContainerProtocol.h"
+  export *
   module * {
     export *
   }
   explicit module AtoZCategories {
-     header "AtoZCategories.h"
-     export *
-   }
+    header "AtoZCategories.h"
+    export *
+  }
 }
 
 

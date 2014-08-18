@@ -150,7 +150,7 @@ NSString *taskWithPathAndArgs(NSString*path,NSArray *args){
 static NSD* d = nil;
 + (instancetype) languageNamed:(NSS*)s {
 
-static NSA* langs = nil;
+static __unused  NSA* langs = nil;
 	d = d ?: [NSD dictionaryWithContentsOfFile:[AZFWORKBUNDLE pathForResource:@"GithubLanguages" ofType:@"plist"]];
 	AZGistLanguage *l = AZGistLanguage.new;
 	[d enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

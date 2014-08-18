@@ -69,7 +69,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 //		 [_datasource respondsToSelector:@selector( toggleCountforView:)] ) 
 //	{	
 	NSUI ct = [_datasource toggleCountForView:self];
-	AZOrient oreo = [_datasource toggleOrientationForView:self];
+	AZOrient __unused oreo = [_datasource toggleOrientationForView:self];
 	_containerLayer.sublayers = [[@0 to:@(ct)] nmap:^id(id obj, NSUInteger i) {
 			NSS* relativeName = $(@"toggleUnit%ld", i);
 			CAL *toggleUnit = [CAL layerNamed:relativeName];

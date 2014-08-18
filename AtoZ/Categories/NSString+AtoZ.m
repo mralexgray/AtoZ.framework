@@ -160,7 +160,14 @@ NSString *stringForBrightness( CGF brightness )	{	return
   //}
 
 }
--  (void) openInTextMate 								{ runCommand($(@"/bin/echo \"%@\" | mate", self));	}
+-  (void) openInTextMate 								{
+
+  id x;
+  [self writeToFile:x = [AtoZ tempFilePathWithExtension:@"txt"] atomically:YES];
+  [AZWORKSPACE openFile:x withApplication:@"TextMate"];
+
+//  runCommand($(@"/bin/echo \"%@\" | mate", self));
+}
 -  (void) setSubRange:(NSRNG) rng 					{
 
   NSLog(@"setting range: %@", NSStringFromRange(rng));
@@ -435,7 +442,7 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 		AZHTMLParser * p = [AZHTMLParser.alloc initWithString:responsePage error:&error];
 		HTMLNode * title = [p.head findChildWithAttribute:@"property"
                                          matchingName:@"og:title" allowPartial:YES];
-		NSS    * content = [title       getAttributeNamed:@"content"];
+		NSS    * __unused content = [title       getAttributeNamed:@"content"];
 		HTMLNode * descN = [p.head findChildWithAttribute:@"property"
                                          matchingName:@"og:description" allowPartial:YES];
 		NSS       * desc = [descN       getAttributeNamed:@"content"];

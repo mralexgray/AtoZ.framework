@@ -199,7 +199,7 @@ void dragTo ( CGPoint dest ) {
 
 
 - (NSA*) coaxPointsForPoints:(CGPoint)point to:(CGPoint)dest {
-	CGF dist = AZDistanceFromPoint(point, dest);
+	CGF __unused dist = AZDistanceFromPoint(point, dest);
 	CGF large = [self largeValue];
 	switch (self.orientation) {
 		case AZDockOrientBottom: {
@@ -223,7 +223,7 @@ void dragTo ( CGPoint dest ) {
 
 - (NSA*) arcPointsBetween:(CGPoint)a p2:(CGPoint)b
 {
-	CGF distance = AZDistanceFromPoint(a,b);
+	CGF __unused  distance = AZDistanceFromPoint(a,b);
 	CGF radius = 25;
 	//	return [[@0 to:@20]arrayUsingIndexedBlock:^id(id obj, NSUInteger idx) {
 	NSBezierPath *originalPath = [NSBezierPath bezierPath];

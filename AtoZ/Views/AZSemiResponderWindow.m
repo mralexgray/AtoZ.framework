@@ -130,7 +130,7 @@
 	self.tabs  			= [NSOrderedDictionary	 new];
 	//	self.layoutManager 	= self;
 
-	NSSZ unitSize 		= self.sizer.size;
+	NSSZ __unused unitSize 		= self.sizer.size;
 
 	//	_scrollPath = [NSBP bezierPathWithRoundedRect:NSInsetRect(AZScreenFrameUnderMenu(), _sizer.width, _sizer.height) cornerRadius:20];
 

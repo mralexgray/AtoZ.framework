@@ -738,7 +738,7 @@ CLANG_IGNORE_PROTOCOL
 //}
 - (void) viewDidMoveToSuperview
 {
-	NSR superF = self.superview.bounds;
+	__unused NSR superF = self.superview.bounds;
   NSLog(@"Autogrid did move to superV. self:%@ items:%@", AZString(self.frame), self.subviews);//self.items);
 
   self.scrollView.documentView  = self.grid;

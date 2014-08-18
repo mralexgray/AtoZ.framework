@@ -1,9 +1,10 @@
 
 #import <sys/sysctl.h>
-#import <sys/proc_info.h>
-#import <objc/runtime.h>
-#import <libproc.h>
-//#import "ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h"
+#import <sys/proc_info.h>     /// + (NSArray*)processes
+#import <libproc.h>           /// GetBSDProcessList....
+
+//#import <objc/runtime.h>
+
 #import "AtoZ.h"
 
 @implementation NSObject (AtoZEssential)
@@ -34,37 +35,31 @@
 
 
 //- (void)blockSelf:(bSelf)block {	declareBlockSafeAs(self, bSelf); block(bSelf); }
-
 //- (void)triggerKVO:(NSS*)k block:(bSelf)blk {
-//
 //	[self wCVfK:k]; [self blockSelf:^(__typeof(self)_self){	blk(_self); }];	[self dCVfK:k];
 //}
 
 /*
-SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(orientation, setOrientation, AZ0, ^{}, ^{ objswitch(self.class)
+    SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(orientation, setOrientation, AZ0, ^{}, ^{ objswitch(self.class)
 
-  objcase(CAL.class)
-    CAL* _self = (id)self;
-    _self.anchorPoint  = AZAnchorPtAligned(value);
-    _self.position     = AZAnchorPointOfActualRect(_self.superlayer.bounds, value); // ((id<BoundingObject>)self).super.bounds, value);
-  endswitch
-});
+      objcase(CAL.class)
+        CAL* _self = (id)self;
+        _self.anchorPoint  = AZAnchorPtAligned(value);
+        _self.position     = AZAnchorPointOfActualRect(_self.superlayer.bounds, value); // ((id<BoundingObject>)self).super.bounds, value);
+      endswitch
+    });
 */
-
 
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(faded, setFaded, BOOL, ^{}, ^{ objswitch(self.class)
 
-  objcase(NSV.class)
-    NSV* vSelf = (id)self;
-    NSLog(@"fading a view! (%@)", StringFromBOOL(value));
-    if ( vSelf.layer && vSelf.layer != vSelf.superview.layer)
-      [vSelf.layer performSelectorWithoutWarnings:value ? @selector(fadeOut) : @selector(fadeIn)];
-    else if ( vSelf.isVisible &&  value) [vSelf fadeOut];
-    else if (!vSelf.isVisible && !value) [vSelf  fadeIn];
+  objkind(NSV) NSV* vSelf = (id)self; NSLog(@"fading a view! (%@)", StringFromBOOL(value));
 
-  objcase(NSW.class)
-    ((NSW*)self).animator.alphaValue = !value;
- endswitch
+  vSelf.layer && vSelf.layer != vSelf.superview.layer ? [vSelf.layer performSelectorWithoutWarnings:value ? @selector(fadeOut)
+                                                                                                          : @selector(fadeIn)]
+                                                      : vSelf.isVisible &&  value   ? [vSelf fadeOut]
+                                                      : !vSelf.isVisible && !value  ? [vSelf  fadeIn] : nil;
+  objkind(NSW) ((NSW*)self).animator.alphaValue = !value;
+  endswitch
 });
 
 SYNTHESIZE_ASC_OBJ(representedObject, setRepresentedObject);
@@ -93,17 +88,16 @@ SYNTHESIZE_ASC_OBJ(representedObject, setRepresentedObject);
 
 @end
 
-@implementation AZClassProxy
-- (id)valueForUndefinedKey:(NSS*)key {
+@implementation AZClassProxy - valueForUndefinedKey:(NSS*)key {
 
   LOGCOLORS(@"-[", AZCLSSTR, zSPC, AZSELSTR, key, @"] returning:[", AZCLSSTR, @" class]", nil);
-  return NSClassFromString(key);	}
-@end
+  return NSClassFromString(key);	} @end
 
 /*! NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1 */
 
 @implementation NSObject (AZClassProxy) // Notice the PLUS.
-+ (id)performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
+
++ performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
 
 //	NSObject* anInstance = self.new;
 //	return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel];
@@ -111,43 +105,6 @@ SYNTHESIZE_ASC_OBJ_LAZY(classProxy, AZClassProxy);
 //- (AZClassProxy*) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
 @end
 
-
-/* A shared operation que that is used to generate thumbnails in the background. *//**
-                                                                                    static NSOperationQueue *_AZGeneralOperationQueue = nil;
-                                                                                    return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
-                                                                                    _AZGeneralOperationQueue.maxConcurrentOperationCount = AZOQMAX;
-                                                                                    return _AZGeneralOperationQueue;
-                                                                                    }();																									*/
-NSOQ *AZSharedOperationStack() 			 {	return AZDummy.sharedInstance.sharedStack; }
-NSOQ *AZSharedOperationQueue() 			  {	return AZDummy.sharedInstance.sharedQ; }
-NSOQ *AZSharedSingleOperationQueue()	{	return AZDummy.sharedInstance.sharedSQ; }
-
-/**	static NSOperationQueue *_AZSingleOperationQueue = nil;
- return _AZSingleOperationQueue  ?: ^{
- _AZSingleOperationQueue = NSOperationQueue.new;
- _AZSingleOperationQueue.maxConcurrentOperationCount = 1;
- return _AZSingleOperationQueue;
- }();
-
- */
-
-@implementation AZDummy
-SYNTHESIZE_SINGLETON_FOR_CLASS(AZDummy, sharedInstance);
-SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedStack,[NSOperationStack.new  objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]);
-SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedQ,    [NSOQ.new              objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]);
-SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingValue:@(1)       forKey:@"maxConcurrentOperationCount"]);
-@end
-//- (id)init
-//   _sharedStack = NSOperationStack.new;
-//	_sharedQ = NSOQ.new;
-//	_sharedSQ = NSOQ.new;
-//	_sharedStack .maxConcurrentOperationCount = AZOQMAX;
-//	_sharedQ .maxConcurrentOperationCount = AZOQMAX;
-//	_sharedSQ .maxConcurrentOperationCount = 1;	return self;
-//}
-//+ (AZDummy*) sharedInstance	{ 	static AZDummy *sharedInstance = nil;	static dispatch_once_t isDispatched;
-//	dispatch_once(&isDispatched, ^{  sharedInstance = AZDummy.new;	}); 	return sharedInstance;
-//}
 
 @interface AToZFuntion	: BaseModel
 @property (STR,NATOM) NSS* name;
@@ -201,42 +158,26 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 }
 @end
 
-@implementation AtoZ	{	__weak id _constantShortcutMonitor;	} static BOOL fontsRegistered; const char*XCenv;
+/*! @abstract A shared operation que that is used to generate thumbnails in the background. 
+    @code
+    
+    static NSOperationQueue *_AZGeneralOperationQueue = nil;  
+    return _AZGeneralOperationQueue ?: ^{		_AZGeneralOperationQueue = NSOperationQueue.new;
+ 
+            _AZGeneralOperationQueue.maxConcurrentOperationCount = AZOQMAX;
+            return _AZGeneralOperationQueue;
+            }();																									*/
+NSOQ       * AZSharedOperationStack (void)  {	return ATOZ.sharedStack; }
+NSOQ       * AZSharedOperationQueue (void) 	{	return ATOZ.sharedQ; }
+NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 
-+ (void) load							{  int res;
+@implementation AtoZ	{	__weak id _constantShortcutMonitor;	} static __unused BOOL fontsRegistered; const char*XCenv;
+
++ (void) load							{  __unused int res;
 
 	XCenv = getenv("__XCODE_BUILT_PRODUCTS_DIR_PATHS") ?: getenv("AZBUILD");
   //  if (XCenv != NULL) setenv("XCODE_COLORS", "YES", &res);  [self sharedInstance];
 }
-//globalRandoPalette = NSC.randomPalette.shuffeled; }
-//+ (void) initialize { [@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil]; }
-
-+ (NSS*) macroFor:(NSS*)w { return [self.macros keyForObjectEqualTo:
-
-  [w stringByReplacingAnyOf:@[@"__NSCF",@"__NS"] withString:@"NS"]]; }
-
-+  (NSD*) macros {	static NSD *macros; return macros = macros ?: ({ NSString *e = nil;	NSPropertyListFormat fmt;
-
-  macros = [NSPropertyListSerialization propertyListFromData:
-    [NSData dataWithContentsOfFile:@"/Volumes/2T/ServiceData/AtoZ.framework/AtoZMacroDefines.plist"] 
-                  mutabilityOption:NSPropertyListMutableContainersAndLeaves 
-                            format:&fmt errorDescription:&e]; macros; });
-} 															/* parse the plist */
-//-        (AZNode*) root 								{ 
-//
-//	__block AZNode*_root = AZNode.new; _root.key = @"Expansions"; __block AZNode *cat, *def; 
-//	NSMutableArray *_allKeywords, *_allReplacements, *_allCats;	
-//	_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
-//	return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//		[_root addChild:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
-//		[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
-//			[cat addChild:def = AZNode.new];
-//			[_allKeywords 		addObject:def.key = macro]; 
-//			[_allReplacements addObject:def.value = expansion];	
-//		}];
-////			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
-//	}], _root;
-//}
 
 - (void) setUp 						{
 
@@ -245,118 +186,147 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
   //  LOGCOLORS(@"Set Assertion Handler:", assertionHandler, nil);
 
   [NSB loadAZFrameworks];
-  LOGCOLORS( [[AZWELCOME componentsSeparatedByString:@"!"] map:^id(id w){ return [w withString:@"!"]; }], zNL,
-            AZProcess.currentProcess.command,
+  LOGCOLORS( [[AZWELCOME componentsSeparatedByString:@"!"] map:^id(id w){ return [w withString:@"!"]; }], zNL, AZProcess.currentProcess.command,
             @" (",AZAPP_ID, @") has objc_arc_weak:", StringFromBOOL(__has_feature(objc_arc_weak)),
-            @" has objc_arc:",     StringFromBOOL( __has_feature(objc_arc)),nil);
+                             @" has objc_arc:",      StringFromBOOL( __has_feature(objc_arc)), nil);
 }
 
-//	[AZStopwatch named:$(@"PROCESS:%i\n%s\n",AZPROCINFO.processIdentifier,AZWELCOME) block:^{
+@synthesize sharedQ, sharedStack, sharedSQ;
 
-//		AZ_SET_DEFAULT(@"azHotKeyEnabled",@YES); 		// set them in the standard user defaults
-//		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKey
-// Command-Shift-D the default shortcut.
-//		self.azHotKeyView = [MASShortcutView.alloc initWithFrame:AZRectBy(200,100)];
-//		self.azHotKey 		= [MASShortcut setGlobalShortcut:[MASShortcut shortcutWithKeyCode:0x2 modifierFlags:NSCommandKeyMask|NSShiftKeyMask] forUserDefaultsKey:VARNAME(_azHotKey)];
-//		self.azHotKey		= [MASShortcut addGlobalHotkeyMonitorWithShortcut:shortcut handler:^{
-//			[[NSAlert alertWithMessageText:NSLocalizedString(@"⌘F2 has been pressed.", @"Alert message for constant shortcut")
-//         					  defaultButton:NSLocalizedString(@"OK", @"Default button for the alert on constant shortcut")
-//      						alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-//		}];
-//    }
-//    else {
-//        [MASShortcut removeGlobalHotkeyMonitor:_constantShortcutMonitor];
-//
-//
-//	[MASShortcut registerGlobalShortcutWithUserDefaultsKey:@"azHotKey" handler:^{
-//			[[NSAlert alertWithMessageText:NSLocalizedString(@"Global hotkey has been pressed.", @"Alert message for custom shortcut")
-//								  defaultButton:NSLocalizedString(@"OK", @"Default button for the alert on custom shortcut")
-//							   alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-//        }];`
-//    }
-//    else {
-//        [MASShortcut unregisterGlobalShortcutWithUserDefaultsKey:MASPreferenceKeyShortcut];
-//    }
-//		 Shortcut view will follow and modify user preferences automatically
-//		_azHotKeyView.associatedUserDefaultsKey = VARNAME(_azHotKey);
+- (NSOS*)  sharedStack { return sharedStack = sharedStack ?: [NSOS.new  objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]; }
+- (NSOQ*)      sharedQ { return sharedQ     = sharedQ     ?: [NSOQ.new  objectBySettingValue:@(AZOQMAX) forKey:@"maxConcurrentOperationCount"]; }
+- (NSOQ*)     sharedSQ { return sharedSQ    = sharedSQ    ?: [NSOQ.new  objectBySettingValue:@(1)       forKey:@"maxConcurrentOperationCount"]; }
 
-// Activate the global keyboard shortcut if it was enabled last time
-//		_azHotKey forUserDefaultsKey:VARNAME(_azHotKey)];
-// Activate the shortcut Command-F1 if it was enabled
++  (NSS*) macroFor:(NSS*)w { return [self.macros keyForObjectEqualTo:[w stringByReplacingAnyOf:@[@"__NSCF",@"__NS"] withString:@"NS"]]; }
 
-//		NSC* c = RANDOMCOLOR;
-//		NSProcessInfo* infoD = AZPROCINFO;
-//		NSS*initial = @"A";
-//		self.bonjourBlock = [AZBonjourBlock instanceWithTypes:nil consumer:^(NSNetService *svc) {
-//			[$(@"%@ was just notified about new service... %@", AZCLSSTR, svc) log];
-//			[AZWORKSPACE openURLs:@[$URL($(@"http://%@:%ld",svc.domain, svc.port))] withAppBundleIdentifier:@"com.google.Chrome.canary" options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
-//		}];
++  (NSD*) macros { AZSTATIC_OBJ(NSD, macros, ({ NSString *e = nil;	NSPropertyListFormat fmt;
 
-//		NSS *procName = [infoD processName];
-//		initial = procName ? procName.firstLetter : @"A";
+  macros = [NSPropertyListSerialization propertyListFromData:
+    [NSData dataWithContentsOfFile:@"/Volumes/2T/ServiceData/AtoZ.framework/AtoZMacroDefines.plist"] 
+                  mutabilityOption:NSPropertyListMutableContainersAndLeaves 
+                            format:&fmt errorDescription:&e]; macros; })); return macros;
+} /// parse the plist
 
-//		[NSApp setApplicationIconImage:[NSIMG badgeForRect:AZRectFromDim(256) withColor:c stroked:c.contrastingForegroundColor withString:initial]];
-// imageNamed:@"logo.png"]];
-//		_fonts = self.fonts;
-//		[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
-//		AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
-//		AZSHAREDLOG.logFormatter = self;
-//		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
-//		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
-//		[NSS.randomDicksonism respondsToStringThenDo:obj];
-
-//- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
-//+ (NSMA*) delegates { return [sharedI delegates]; }
-
-//+ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
-//	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
-//}
-//+ (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
-//+ (BOOL) isAtoZRunning {
-//
-//	return self.delegate &&
-//			 [NSRunningApplication runningApplicationsWithBundleIdentifier:[[self delegate].bundle bundleIdentifier]].count;
-//}
-+ (NSW*) window 						{ return [self.sharedInstance azWindow]; }
-
-- (NSW*) azWindow 					{ return _azWindow = _azWindow ?: ^{ return
-
-	[NSW.alloc initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask|NSResizableWindowMask
-                         backing:NSBackingStoreBuffered defer:NO];
-}();
+/*
+-        (AZNode*) root 								{
+	__block AZNode*_root = AZNode.new; _root.key = @"Expansions"; __block AZNode *cat, *def; 
+	NSMutableArray *_allKeywords, *_allReplacements, *_allCats;	
+	_allKeywords = NSMutableArray.new; _allReplacements = NSMutableArray.new; _allCats = NSMutableArray.new;
+	return [self.expansions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		[_root addChild:cat = AZNode.new]; cat.key = key;  [_allCats addObject:key];
+		[obj enumerateKeysAndObjectsUsingBlock:^(NSString *macro,NSString *expansion, BOOL*s){ 
+			[cat addChild:def = AZNode.new];
+			[_allKeywords 		addObject:def.key = macro]; 
+			[_allReplacements addObject:def.value = expansion];	
+		}];
+//			if (cat.children.count) { if (_searchField.stringValue) cat.expanded = @YES; [_root.children addObject:cat]; }
+	}], _root;
 }
-/*		[self.class playRandomSound];
- [[NSIMG imageFromLockedFocusSize:AZSizeFromDim(256) lock:^NSImage *(NSImage *s) {
- [NSGraphicsContext state:^{
- NSIMG* i = [NSIMG imageNamed:@"logo.png"];
- NSBP *bp = [NSBP bezierPathRoundedRectOfSize:AZSizeFromDim(256)];
- [bp addClip];
- [i drawInRect:AZRectFromSize(s.size) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
- }];
- return s;
- }]openInPreview];
- [NSAppleEventManager.sharedAppleEventManager setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
- [AZFWORKBUNDLE cacheNamedImages];
- _cachedImages = cachedI;
- Sound *rando = [Sound randomSound];
- [[SoundManager sharedManager] prepareToPlayWithSound:rando];
- [[SoundManager sharedManager] playSound:rando];
- [self registerHotKeys];
- */
-//	- (void) resetConstantShortcutRegistration	{
-//		if (self.constantShortcutEnabled) {
-//			MASShortcut *shortcut = [MASShortcut shortcutWithKeyCode:kVK_F2 modifierFlags:NSCommandKeyMask];
-//			_constantShortcutMonitor = [MASShortcut addGlobalHotkeyMonitorWithShortcut:shortcut handler:^{
-//            [[NSAlert alertWithMessageText:NSLocalizedString(@"⌘F2 has been pressed.", @"Alert message for constant shortcut")
-//                             defaultButton:NSLocalizedString(@"OK", @"Default button for the alert on constant shortcut")
-//                           alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
-//			}];
-//		}
-//		else [MASShortcut removeGlobalHotkeyMonitor:_constantShortcutMonitor];
-//	}
+*/  /// MACRO CRAP
+/*
+	[AZStopwatch named:$(@"PROCESS:%i\n%s\n",AZPROCINFO.processIdentifier,AZWELCOME) block:^{
+		AZ_SET_DEFAULT(@"azHotKeyEnabled",@YES); 		// set them in the standard user defaults
+		[NSUserDefaultsController.sharedUserDefaultsController bind:@"azHotKeyEnabled" toObject:self withKeyPathUsingDefaults:@"azHotKey
+ Command-Shift-D the default shortcut.
+		self.azHotKeyView = [MASShortcutView.alloc initWithFrame:AZRectBy(200,100)];
+		self.azHotKey 		= [MASShortcut setGlobalShortcut:[MASShortcut shortcutWithKeyCode:0x2 modifierFlags:NSCommandKeyMask|NSShiftKeyMask] forUserDefaultsKey:VARNAME(_azHotKey)];
+		self.azHotKey		= [MASShortcut addGlobalHotkeyMonitorWithShortcut:shortcut handler:^{
+			[[NSAlert alertWithMessageText:NSLocalizedString(@"⌘F2 has been pressed.", @"Alert message for constant shortcut")
+         					  defaultButton:NSLocalizedString(@"OK", @"Default button for the alert on constant shortcut")
+      						alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+	}];   }  else { [MASShortcut removeGlobalHotkeyMonitor:_constantShortcutMonitor];
+	[MASShortcut registerGlobalShortcutWithUserDefaultsKey:@"azHotKey" handler:^{
+			[[NSAlert alertWithMessageText:NSLocalizedString(@"Global hotkey has been pressed.", @"Alert message for custom shortcut")
+								  defaultButton:NSLocalizedString(@"OK", @"Default button for the alert on custom shortcut")
+							   alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+        }];`
+    }
+    else {
+        [MASShortcut unregisterGlobalShortcutWithUserDefaultsKey:MASPreferenceKeyShortcut];
+    }
+		 Shortcut view will follow and modify user preferences automatically
+		_azHotKeyView.associatedUserDefaultsKey = VARNAME(_azHotKey);
+ Activate the global keyboard shortcut if it was enabled last time
+		_azHotKey forUserDefaultsKey:VARNAME(_azHotKey)];
+ Activate the shortcut Command-F1 if it was enabled
+ 
+	- (void) resetConstantShortcutRegistration	{
+		if (self.constantShortcutEnabled) {
+			MASShortcut *shortcut = [MASShortcut shortcutWithKeyCode:kVK_F2 modifierFlags:NSCommandKeyMask];
+			_constantShortcutMonitor = [MASShortcut addGlobalHotkeyMonitorWithShortcut:shortcut handler:^{
+            [[NSAlert alertWithMessageText:NSLocalizedString(@"⌘F2 has been pressed.", @"Alert message for constant shortcut")
+                             defaultButton:NSLocalizedString(@"OK", @"Default button for the alert on constant shortcut")
+                           alternateButton:nil otherButton:nil informativeTextWithFormat:@""] runModal];
+			}];
+		}
+		else [MASShortcut removeGlobalHotkeyMonitor:_constantShortcutMonitor];
+	}
 
+*/  /// MAS HOTKEY CRAP
+/*
+  globalRandoPalette = NSC.randomPalette.shuffeled; }
+  + (void) initialize { [@"AtoZ.framework Version:%@ Initialized!" log:[self version], nil]; }
 
-+ (void) processInfo							{
+		NSC* c = RANDOMCOLOR;
+		NSProcessInfo* infoD = AZPROCINFO;
+		NSS*initial = @"A";
+		self.bonjourBlock = [AZBonjourBlock instanceWithTypes:nil consumer:^(NSNetService *svc) {
+			[$(@"%@ was just notified about new service... %@", AZCLSSTR, svc) log];
+			[AZWORKSPACE openURLs:@[$URL($(@"http://%@:%ld",svc.domain, svc.port))] withAppBundleIdentifier:@"com.google.Chrome.canary" options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
+		}];
+
+		NSS *procName = [infoD processName];
+		initial = procName ? procName.firstLetter : @"A";
+
+		[NSApp setApplicationIconImage:[NSIMG badgeForRect:AZRectFromDim(256) withColor:c stroked:c.contrastingForegroundColor withString:initial]];
+ imageNamed:@"logo.png"]];
+		_fonts = self.fonts;
+		[DDLog addLogger:AZSHAREDLOG]; 		// Standard lumberjack initialization
+		AZSHAREDLOG.colorsEnabled = YES;		// And then enable colors
+		AZSHAREDLOG.logFormatter = self;
+		[AZSHAREDLOG setForegroundColor:PINK backgroundColor:GRAY2.deviceRGBColor forFlag:LOG_FLAG_INFO];
+		[@[@"DDLogError", @"DDLogWarn", @"DDLogInfo", @"DDLogVerose"] each:^(id obj) {
+		[NSS.randomDicksonism respondsToStringThenDo:obj];
+
+- (NSMA*) delegates { return _delegates = _delegates ?: [NSMA mutableArrayUsingWeakReferences]; }
++ (NSMA*) delegates { return [sharedI delegates]; }
+
++ (AZDELEGATE*)setDelegate:(AZDELEGATE*)d {
+	if (!self.delegate)  [sharedI setAtozDelegate:d]; [self.delegates addObjectIf:d]; return self.delegate;
+}
++ (NSObject<AtoZDelegate>*)delegate { return  [self.sharedInstance atozDelegate]; }
++ (BOOL) isAtoZRunning {
+
+	return self.delegate &&
+			 [NSRunningApplication runningApplicationsWithBundleIdentifier:[[self delegate].bundle bundleIdentifier]].count;
+}
+
+  [self.class playRandomSound];
+  [[NSIMG imageFromLockedFocusSize:AZSizeFromDim(256) lock:^NSImage *(NSImage *s) {
+  [NSGraphicsContext state:^{
+  NSIMG* i = [NSIMG imageNamed:@"logo.png"];
+  NSBP *bp = [NSBP bezierPathRoundedRectOfSize:AZSizeFromDim(256)];
+  [bp addClip];
+  [i drawInRect:AZRectFromSize(s.size) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+  }];
+  return s;
+  }]openInPreview];
+  [NSAppleEventManager.sharedAppleEventManager setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+  [AZFWORKBUNDLE cacheNamedImages];
+  _cachedImages = cachedI;
+  Sound *rando = [Sound randomSound];
+  [[SoundManager sharedManager] prepareToPlayWithSound:rando];
+  [[SoundManager sharedManager] playSound:rando];
+  [self registerHotKeys];
+
++ (void) logError:(NSS*)log 	{ DDLogError(@"%@",log); }
++ (void) logInfo: (NSS*)log 	{ DDLogError(@"%@",log); }
++ (void) logWarn: (NSS*)log 	{ DDLogWarn (@"%@",log); }
+
+*/  /// VARIOUS DISABLED CRAP
+
++ (NSW*) window                 { return [self.sharedInstance azWindow]; }
++ (void) processInfo            {
 
 	LOGCOLORS( RED, ORANGE, YELLOW, GREEN,
             $(@"\n\tEXE:\t%@",  															 AZPROCINFO.processName),
@@ -382,18 +352,7 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 	NSLog(@"args: %@", [pi arguments]);
 
 }
-
-
-
-
-- (void) andleURLEvent:(NSAppleEventDescriptor*)theEvent withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
-
-	NSString* path = [[theEvent paramDescriptorForKeyword:keyDirectObject] stringValue];
-	NSLog(@"apple url event: %@", path);
-	[[NSAlert alertWithMessageText:@"URL Request" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", path] runModal];
-}
-- (BOOL) inTTY							{   return [@(isatty(STDERR_FILENO))boolValue]; }
-+ (void) testSizzle 					{
++ (void) testSizzle             {
 	//
 	//	AZLOG(@"The original, non -siizled");
 	//	AZLOG(NSStringFromSelector(_cmd));
@@ -405,27 +364,45 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 	//	AZLOG(NSStringFromSelector(_cmd));
 	//	[[AtoZ class] testSizzle];	[$ swizzleClassMethod:@selector(testSizzle) in:[AtoZ class] with:@selector(testSizzleReplacement) in:[AtoZ class]];	[[AtoZ class] testSizzle];
 }
-+ (NSS*) version						{
++ (NSS*) version                {
 	NSString *myVersion	= [AZFWORKBUNDLE infoDictionary][@"CFBundleShortVersionString"];
 	NSString *buildNum 	= [AZFWORKBUNDLE infoDictionary][(NSString*)kCFBundleVersionKey];
 	return $(@"%@ [ %@ ]", myVersion ?: @"N/A", buildNum ?: @"N/A");
 	//	AZLOG(versText); return versText;
 }
-+ (NSS*) wrapper		  				{ return $(@"%s", getenv("WRAPPER_NAME")); }
-+ (NSS*) installPath  				{ return $(@"%s", getenv("BUILT_PRODUCTS_DIR")); }
-+ (NSB*) bundle 						{	return [NSBundle bundleForClass:self.class]; }
-+ (NSS*) resources 					{ return self.bundle.resourcePath; }
-+ (NSUserDefaults*) defs			{	return [NSUserDefaults standardUserDefaults];	}
-- (NSS*) description 				{	return [[self.propertiesPlease valueForKey:@"description"] componentsJoinedByString:@""];	}
-//+ (void) logError:(NSS*)log 	{ DDLogError(@"%@",log); }
-//+ (void) logInfo: (NSS*)log 	{ DDLogError(@"%@",log); }
-//+ (void) logWarn: (NSS*)log 	{ DDLogWarn (@"%@",log); }
-- (NSC*) logColor 		{  return _logColor = _logColor ?: RANDOMCOLOR; }
-- (NSA*) basicFunctions	{
++ (NSS*) wrapper                { return $(@"%s", getenv("WRAPPER_NAME")); }
++ (NSS*) installPath            { return $(@"%s", getenv("BUILT_PRODUCTS_DIR")); }
++ (NSB*) bundle                 {	return [NSBundle bundleForClass:self]; }
++ (NSS*) resources              { return self.bundle.resourcePath; }
++ (NSUserDefaults*) defs        {	return [NSUserDefaults standardUserDefaults];	}
++ (NSS*) tempFilePathWithExtension:(NSS*)e      {return [NSTemporaryDirectory() withPath:$(@"atoztempfile.%@.%@", NSS.newUniqueIdentifier,e)]; }
++ (NSF*)                      font:(NSS*)family
+                              size:(CGF)size    {
 
-	return @[@"Maps", @"Browser", @"Contacts", @"Mail", @"Gists", @"Settings"];
+	NSS * font = [AtoZ.sharedInstance.fonts filterOne:^BOOL(NSS* object) {	return [object.lowercaseString contains:family.lowercaseString]; }];
+	return font ? [NSFont fontWithName:font size:size] : nil;
 }
-+ (NSS*) tempFilePathWithExtension:(NSS*)extension	{return [NSTemporaryDirectory() withPath:$(@"atoztempfile.%@.%@", NSS.newUniqueIdentifier, extension)]; }
++ (NSS*) randomFontName {	return AtoZ.sharedInstance.fonts.randomElement;	}
++ (CGFontRef) cfFont    { return (__bridge CGFontRef)self.controlFont; }
++ (NSF*) controlFont    {	return [self font:@"UbuntuMono-Bold" size:14];	}
++ (NSA*) globalPalette  { AZSTATIC_OBJ(NSA,gPal,RANDOMPAL); return gPal; }
+
+- (NSS*) description            {	return [[self.propertiesPlease valueForKey:@"description"] componentsJoinedByString:@""];	}
+- (NSW*) azWindow               { return _azWindow = _azWindow ?: ({
+
+	[NSW.alloc initWithContentRect:AZScreenFrameUnderMenu() styleMask:NSBorderlessWindowMask|NSResizableWindowMask
+                         backing:NSBackingStoreBuffered       defer:NO];
+  });
+}
+- (void) andleURLEvent:(NSAppleEventDescriptor*)theEvent withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
+
+	NSString* path = [[theEvent paramDescriptorForKeyword:keyDirectObject] stringValue];
+	NSLog(@"apple url event: %@", path);
+	[[NSAlert alertWithMessageText:@"URL Request" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", path] runModal];
+}
+- (BOOL) inTTY                  {   return [@(isatty(STDERR_FILENO))boolValue]; }
+- (NSC*) logColor               {  return _logColor = _logColor ?: RANDOMCOLOR; }
+
 - (void) appendToStdOutView:(NSS*)text		{
 	NSAttributedString *string = [text attributedWithFont:AtoZ.controlFont andColor:self.logColor];
 	// Get the length of the textview contents
@@ -439,15 +416,6 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 	} else	// Append string to textview
 		[[_stdOutView textStorage] appendAttributedString:string];
 }
-+ (NSF*) font: (NSS*)family size:(CGF)size	{
-
-	NSS * font = [AtoZ.sharedInstance.fonts filterOne:^BOOL(NSS* object) {	return [object.lowercaseString contains:family.lowercaseString]; }];
-	return font ? [NSFont fontWithName:font size:size] : nil;
-}
-+ (NSS*) randomFontName {	return AtoZ.sharedInstance.fonts.randomElement;	}
-+ (CGFontRef) cfFont { return (__bridge CGFontRef)self.controlFont; }
-+ (NSF*) controlFont 	{	return [self font:@"UbuntuMono-Bold" size:14];	}
-+ (NSA*) globalPalette { AZSTATIC_OBJ(NSA,gPal,RANDOMPAL); return gPal; }
 - (void) egisterHotKeys	{
 	EventHotKeyRef 	hotKeyRef; 		EventTypeSpec 	eventType;		EventHotKeyID 	hotKeyID;
 	eventType.eventClass  = kEventClassKeyboard;
@@ -505,7 +473,7 @@ SYNTHESIZE_ASC_OBJ_LAZY_EXP(sharedSQ,   [NSOQ.new              objectBySettingVa
 - (NSA*) fonts								{	return _fonts = _fonts ?:
 
 	[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] cw_mapArray:^id(NSURL* obj) {
-		if (!obj) return nil; NSError *err; FSRef fsRef; OSStatus status;
+		if (!obj) return nil; __unused NSError *err; FSRef fsRef; OSStatus status;
 		CFURLGetFSRef((CFURLRef)obj, &fsRef);
 		if (status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal,
                                                   kATSFontFormatUnspecified, NULL,
@@ -635,21 +603,18 @@ static int GetBSDProcessList (struct kinfo_proc **procList, size_t *procCount)	{
  "/bin/bash",
  "/System/Library/Services/AppleSpell.service/Contents/MacOS/findNames",
  "/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker", ... ) */
-+ (NSArray*)processes	{ NSMA* procs = NSMA.new;
++ (NSA*) processes	{
 
-	int numberOfProcesses = proc_listpids(PROC_ALL_PIDS, 0, NULL, 0);
-	pid_t pids[1024];
-	bzero(pids, 1024);
-	proc_listpids(PROC_ALL_PIDS, 0, pids, sizeof(pids));
-	for (int i = 0; i < numberOfProcesses; ++i) {
-    if (pids[i] == 0) { continue; }
-    char pathBuffer[PROC_PIDPATHINFO_MAXSIZE];
-    bzero(pathBuffer, PROC_PIDPATHINFO_MAXSIZE);
-    proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
-    if (strlen(pathBuffer) > 0)
-      [procs addObject:$UTF8(pathBuffer)];
-	}
-	return procs;
+	int numberOfProcesses = proc_listpids (PROC_ALL_PIDS, 0, NULL, 0); pid_t pids[1024], *pidsPointer; pidsPointer = pids;
+                                  bzero (pids, 1024);
+                        	proc_listpids (PROC_ALL_PIDS, 0, pids, sizeof(pids));
+
+  return [@(numberOfProcesses) mapTimes:^id(NSNumber *num) { if (!pidsPointer[num.iV]) return nil;
+
+     char pathBuffer [PROC_PIDPATHINFO_MAXSIZE];
+    bzero(pathBuffer, PROC_PIDPATHINFO_MAXSIZE); proc_pidpath(pidsPointer[num.iV], pathBuffer,      sizeof(pathBuffer));
+                                                                     return strlen(pathBuffer) > 0 ? $UTF8(pathBuffer) : nil;
+	}];
 }
 + (NSDictionary *)infoForPID:(pid_t)pid 	{    ProcessSerialNumber psn = { kNoProcess, kNoProcess };
 
@@ -758,7 +723,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	AZVA_Block theBlk = ^(id thing) { [thing isKindOfClass:NSO.class] ? [stuffToPass addObject:thing] : [stuffToPass addObject:AZString(thing)]; };
 
 	azva_iterate_list(varargs, theBlk);
-	id theShared = [klass sharedInstance];
+	__unused id theShared = [klass sharedInstance];
 	[[klass class] performSelectorWithoutWarnings:method withObject:stuffToPass];
 }
 
@@ -816,9 +781,8 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
  NSArray *AllApplications(NSArray *searchPaths) { NSMA *applications = NSMA.new; NSEnumerator *searchPathEnum = [searchPaths objectEnumerator]; NSString *path;	while (path = [searchPathEnum nextObject]) ApplicationsInDirectory(path, applications);	return ([applications count]) ? applications : nil; }
  */
 
-#define GROWL_ENABLED 0
 #ifdef GROWL_ENABLED
-- (BOOL) registerGrowl 											{
+- (BOOL) registerGrowl                                  {
 
 	NSBundle *growlBundle = [NSBundle bundleWithPath:[[AZFWORKBUNDLE privateFrameworksPath] withPath: @"Growl.framework"]];
 	//	NSLog(@"growl props: %@ ", [growlBundle propertiesPlease]);
@@ -831,7 +795,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	} else {		NSLog(@"Could not load Growl.framework"); return NO; }
 
 }
--(void) growlNotificationWasClicked:(id)clickContext 	{
+- (void) growlNotificationWasClicked:(id)clickContext 	{
 
 	NSLog(@"got clickback from growl... ");
 	NSLog(@"clickback: %@", clickContext);
@@ -842,7 +806,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 @end
 @implementation AtoZ (MiscFunctions)
 
-+  (void) say:				(NSS*)thing 													{
++   (void)            say:(NSS*)thing 													{
 	// for (NSString *voice in
 	// 	NSArray *voices = [NSSpeechSynthesizer availableVoices];
 	// 	NSUInteger randomIndex = arc4random() % [voices count];
@@ -854,37 +818,37 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	// 	printf("Speaking as %s\n", [voice UTF8String]);
 	// 	while ([speaker isSpeaking]) { usleep(40); }
 }
-+	 (CGP) centerOfRect:	(CGR)rect 														{ return AZCenterOfRect(rect);
++	   (CGP)   centerOfRect:(CGR)rect 														{ return AZCenterOfRect(rect);
 
 	//	CGF midx = CGRectGetMidX(rect);CGF midy = CGRectGetMidY(rect);return CGPointMake(midx, midy);
 }
-+  (void) printCGRect:	(CGR)cgRect 													{	[AtoZ printRect:cgRect];	}
-+  (void) printRect:		(NSR)toPrint													{
++   (void)    printCGRect:(CGR)cgRect 													{	[AtoZ printRect:cgRect];	}
++   (void)      printRect:(NSR)toPrint													{
 	NSLog(@"Rect is x: %i y: %i width: %i height: %i ", (int)toPrint.origin.x, (int)toPrint.origin.y,
         (int)toPrint.size.width, (int)toPrint.size.height);
 }
-+  (void) printCGPoint:	(CGP)cgPoint 													{	[AtoZ printPoint:cgPoint];	}
-+  (void) printPoint:	(NSP)toPrint 													{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
-+  (void) printTransform:(CGAffineTransform)t 										{
++   (void)   printCGPoint:(CGP)cgPoint 													{	[AtoZ printPoint:cgPoint];	}
++   (void)     printPoint:(NSP)toPrint 													{		NSLog(@"Point is x: %f y: %f", toPrint.x, toPrint.y);	}
++   (void) printTransform:(CGAffineTransform)t 										{
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.a, t.b);
 	NSLog(@"[ %1.1f %1.1f 0.0 ]", t.c, t.d);
 	NSLog(@"[ %1.1f %1.1f 1.0 ]", t.tx, t.ty);
 }
-+	 (CGF) clamp:			(CGF)v      from:(CGF)minimum  to:(CGF)maximum 		{
++	   (CGF)          clamp:(CGF)v      from:(CGF)minimum  to:(CGF)maximum 		{
 	return v = v < minimum 	 ? minimum : v > maximum ? v= maximum : v;
 }
-+	 (CGF) scaleForSize:	(CGS)size inRect:(CGR)rect									{
++	   (CGF)   scaleForSize:(CGS)size inRect:(CGR)rect									{
 	CGF hScale = rect.size.width / size.width;
 	CGF vScale = rect.size.height / size.height;
 	return  MIN(hScale, vScale);
 }
-+ 	 (CGR) centerSize:	(CGS)size inRect:(CGR)rect 								{
++    (CGR)     centerSize:(CGS)size inRect:(CGR)rect 								{
 	CGF scale = [[self class] scaleForSize:size inRect:rect];
 	return AZMakeRect(	CGPointMake ( rect.origin.x + 0.5 * (rect.size.width  - size.width),
                                    rect.origin.y + 0.5 * (rect.size.height - size.height) ),
                     CGSizeMake(size.width * scale, size.height * scale) );
 }
-+   (NSR) rectFromPointA:(NSP)pointA 			   andPointB:(NSP)pointB 		{
++    (NSR) rectFromPointA:(NSP)pointA 			   andPointB:(NSP)pointB 		{
 
 	// 	get the current distance from the original mouse down point
 	float xDistance = pointB.x - pointA.x;		float yDistance = pointB.y - pointA.y;
@@ -896,7 +860,7 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 	else {								returnRect.origin.y= pointA.y;				returnRect.size.height = yDistance;			}
 	return returnRect;
 }
-+(NSIMG*) cropImage:		(NSIMG*)sourceImage      withRect:(NSR)sourceRect	{
++ (NSIMG*)      cropImage:(NSIMG*)sourceImage      withRect:(NSR)sourceRect	{
 
 	NSImage* cropImage = [NSImage.alloc initWithSize:NSMakeSize(sourceRect.size.width, sourceRect.size.height)];
 	[cropImage lockFocus];

@@ -1,12 +1,7 @@
 
-//  NSFileManager+AtoZ.m
-//  AtoZ
-
-//  Created by Alex Gray on 8/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+//  NSFileManager+AtoZ.m  Created by Alex Gray on 8/28/12.
 
 #import "AtoZ.h"
-#import "NSFileManager+AtoZ.h"
 @import os;
 @import Darwin;
 //#include <glob.h>
@@ -18,28 +13,20 @@
 //#import <dirent.h>
 //#import <sys/stat.h>
 //#include <assert.h>
+#import "NSFileManager+AtoZ.h"
 
-NSS * NSDocumentsFolder() {
-	return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-}
-NSS * NSLibraryFolder()   {
-	return [NSHomeDirectory() stringByAppendingPathComponent:@"Library"];
-}
-NSS * NSTmpFolder()       {
-	return [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"];
-}
-NSS * NSBundleFolder()    {
-	return [[NSBundle mainBundle] bundlePath];
-}
-NSS * NSDCIMFolder()      {
-	return @"/var/mobile/Media/DCIM";
-}
+NSS * NSDocumentsFolder() { return [NSHomeDirectory() withPath:@"Documents"]; }
+NSS * NSLibraryFolder()   { return [NSHomeDirectory() withPath:@"Library"];   }
+NSS * NSTmpFolder()       {	return [NSHomeDirectory() withPath:@"tmp"];       }
+NSS * NSBundleFolder()    {	return NSBundle.mainBundle.bundlePath;            }
+NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 @implementation NSFileManager (AtoZ)
 
 - (NSA*) pathsOfContentsOfDirectory:(NSS*) dir {
 
-	return [[AZFILEMANAGER contentsOfDirectoryAtPath:dir.stringByStandardizingPath error:nil] map:^id(id obj) { return [dir stringByAppendingPathComponent:obj].stringByStandardizingPath;
+	return [[AZFILEMANAGER contentsOfDirectoryAtPath:dir.stringByStandardizingPath error:nil] map:^id(id obj) {
+                                            return [dir stringByAppendingPathComponent:obj].stringByStandardizingPath;
   }];
 }
 
@@ -47,21 +34,19 @@ NSS * NSDCIMFolder()      {
 
 - (NSA*) arrayWithFilesMatchingPattern:(NSS*)pattern inDirectory:(NSS*) directory {
 
-	NSMutableArray* files = [NSMutableArray array];
-	glob_t gt;
+	NSMutableArray* files = NSMutableArray.array;	glob_t gt;
+
 	NSString* globPathComponent = [NSString stringWithFormat: @"/%@", pattern];
-	NSString* expandedDirectory = [directory stringByExpandingTildeInPath];
-	const char* fullPattern = [[expandedDirectory stringByAppendingPathComponent: globPathComponent] UTF8String];
-	if (glob(fullPattern, 0, NULL, &gt) == 0) {
-		int i;
-		for (i=0; i<gt.gl_matchc; i++) {
-			int len = strlen(gt.gl_pathv[i]);
-			NSString* filename = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: gt.gl_pathv[i] length: len];
-			[files addObject: filename];
+	NSString* expandedDirectory = directory.stringByExpandingTildeInPath;
+	const char* fullPattern = [expandedDirectory stringByAppendingPathComponent:globPathComponent].UTF8String;
+
+	if (!glob(fullPattern, 0, NULL, &gt)) {
+
+		for (int i=0; i<gt.gl_matchc; i++) { int len = strlen(gt.gl_pathv[i]);
+			NSString* filename = [AZFILEMANAGER stringWithFileSystemRepresentation: gt.gl_pathv[i] length: len]; if (filename) [files addObject: filename];
 		}
 	}
-	globfree(&gt);
-	return [NSArray arrayWithArray: files];
+	return globfree(&gt), [files copy];
 }
 
 /*
@@ -79,13 +64,8 @@ NSS * NSDCIMFolder()      {
 	return nil;
 }
 
-- (NSS*) pathForDocumentNamed:(NSS*)fname {
-	return [self pathForItemNamed:fname inFolder:NSDocumentsFolder()];
-}
-
-- (NSS*) pathForBundleDocumentNamed:(NSS*)fname {
-	return [self pathForItemNamed:fname inFolder:NSBundleFolder()];
-}
+- (NSS*)       pathForDocumentNamed:(NSS*)fname { return [self pathForItemNamed:fname inFolder:NSDocumentsFolder()];  }
+- (NSS*) pathForBundleDocumentNamed:(NSS*)fname {	return [self pathForItemNamed:fname inFolder:NSBundleFolder()];     }
 
 - (NSA*) filesInFolder:(NSS*)path {
 	NSString *file;
@@ -243,7 +223,7 @@ NSS * NSDCIMFolder()      {
 	NSUInteger dirCount = [components count];
 	NSMutableArray *trimmedPaths = [NSMutableArray.alloc initWithCapacity:dirCount];
 
-	NSString *finalPath = [NSString pathWithComponents:components];
+	__unused NSString *finalPath = [NSString pathWithComponents:components];
 
 	NSMutableArray *trim = [NSMutableArray.alloc initWithArray:components];
 	NSError *error = nil;
@@ -291,7 +271,7 @@ NSS * NSDCIMFolder()      {
 		NSString *pathString = [trimmedPaths lastObject];
 		const char *path = [pathString fileSystemRepresentation];
 		if (mkdir(path, mode) != 0) {
-			int err = errno;
+			__unused int err = errno;
 //			OBErrorWithErrnoObjectsAndKeys(outError, err, "mkdir", pathString,
 //										   NSLocalizedStringFromTableInBundle(@"Could not create directory", @"OmniFoundation", OMNI_BUNDLE, @"Error message when mkdir() fails"),
 //										   finalPath, NSFilePathErrorKey, nil);

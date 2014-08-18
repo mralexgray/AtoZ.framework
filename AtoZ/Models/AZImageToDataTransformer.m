@@ -80,7 +80,7 @@
 - (id)reverseTransformedValue:(id)value
 {
 
-	NSPDFImageRep *img = // value;
+	NSPDFImageRep *__unused img = // value;
 	[NSPDFImageRep imageRepWithData:value];////   imageRepsWithContentsOfFile:[AZBUNDLE pathForImageResource:@"volume_mute.pdf"]];
 	NSSize size = AZSizeFromDim(512);
 	NSBitmapImageRep* bmRep = [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
