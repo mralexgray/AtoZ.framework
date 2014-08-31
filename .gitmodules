@@ -314,3 +314,9 @@
 [submodule "AtoZ/AtoZAutoBox/RXConcreteProtocol"]
 	path = AtoZ/AtoZAutoBox/RXConcreteProtocol
 	url = git@github.com:mralexgray/RXConcreteProtocol.git
+[submodule "Frameworks/JNWCollectionView"]
+	path = Frameworks/JNWCollectionView
+	url = https://github.com/mralexgray/JNWCollectionView.git
+[submodule "Frameworks/SoundManager"]
+	path = Frameworks/SoundManager
+	url = https://github.com/mralexgray/SoundManager.git

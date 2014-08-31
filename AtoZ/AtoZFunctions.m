@@ -281,7 +281,7 @@ void pyRunWithArgsInDirPythonPath(NSS *_spriptP,NSA *_optArgs, NSS *working, NSS
 //		dispatch_once(&opoo, ^{
 //		Py_Initialize();
 
-//		[[NSThread mainThread]performBlock:^{
+//		[NSThread.mainThreadperformBlock:^{
 	setenv("PYTHONPATH", [@"$PYTHONPATH:/mg/siprtmp/p2p-sip/src/app:/mg/siprtmp/p2p-sip/external:/mg/siprtmp/p2p-sip/src:/mg/siprtmp:." UTF8String], 1);
 	NSLog(@"PYTHONPATH: %@", [NSS stringWithCString:getenv("PYTHONPATH") encoding:NSUTF8StringEncoding]);
 	NSArray *args = _optArgs ? [@[_spriptP] arrayByAddingObjectsFromArray : _optArgs] : @[_spriptP];
@@ -539,7 +539,7 @@ NSS * googleSearchFor(NSS *string) {
 	NSURLREQ *request = [NSURLREQ requestWithURL:url];
 	// Prepare for the response back from the server
 	NSHTTPURLResponse *response = nil;			  NSError *error = nil;
-	[[NSThread mainThread]performBlock:^{
+	[NSThread.mainThread performBlock:^{
 	} waitUntilDone:YES];
 //	[NSURLConnection sendAsynchronousRequest:request queue: completionHandler]
 	NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];

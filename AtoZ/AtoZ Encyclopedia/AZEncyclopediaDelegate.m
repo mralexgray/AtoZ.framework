@@ -296,7 +296,7 @@
 		//				e.backgroundColor = block.color;
 		//				return e;
 		//			}].mutableCopy;
-		//			[[NSThread mainThread] performBlock:^{
+		//			[NSThread.mainThread performBlock:^{
 		//				[infiniteBlocks setInfiniteViews:arrayOfBlocks];
 		//				[pIndi stopAnimation:pIndi];
 		//			}];
@@ -415,7 +415,7 @@
 			//
 		return app;
 	}]];
-		//		[[NSThread mainThread] performBlock:^{
+		//		[NSThread.mainThread performBlock:^{
 	sourceListItems = @[appsListItem];
 	[AZStopwatch stop:@"makingbadges"];
 	[sourceList reloadData];
@@ -463,7 +463,7 @@
 
 	for (AZFile *file in [AtoZ dock]) {
 		if (cancelled == NO){
-				//			[[NSThread mainThread]performBlock:^{
+				//			[NSThread.mainThreadperformBlock:^{
 			NSLog(@"%@ spot:%ld to %ld", file.name, file.spot, file.spotNew);
 
 			CGPoint now = [[AZDockQuery instance]locationNowForAppWithPath:file.path];
@@ -532,7 +532,7 @@
  __block id ii = [isoView superview];
  NSLog(@"[self props]");// self.propertiesPlease);
 
- [[NSThread mainThread]performBlock:^{
+ [NSThread.mainThreadperformBlock:^{
  [rootView fadeOut];
  [isoView setHidden:YES];
 

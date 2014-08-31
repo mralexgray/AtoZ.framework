@@ -78,7 +78,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(altColor, setAltColor, ^{ if (!value) value = self.colo
 
 + (instancetype)withFrame:(NSRect)frame color:(NSC*)c	{
 
-return [[AZSimpleView.alloc initWithFrame:frame] wVsfKs:c,@"backgroundColor", nil];
+return [[self.class.alloc initWithFrame:frame] wVsfKs:c,@"backgroundColor", nil];
 
 }
 
@@ -128,9 +128,9 @@ return [[AZSimpleView.alloc initWithFrame:frame] wVsfKs:c,@"backgroundColor", ni
 }
 @end
 @implementation AZSimpleGridView
-@synthesize //rows, cols,
+//@synthesize //rows, cols,
 //  grid,
-  dimensions;
+//  dimensions;
 
 - (void) viewWillMoveToWindow:(NSWindow *)newWindow {
 
@@ -142,7 +142,7 @@ return [[AZSimpleView.alloc initWithFrame:frame] wVsfKs:c,@"backgroundColor", ni
 	self.grid.layoutManager = self;
   [self.layer disableResizeActions];
 
-  [self setSizeChanged:^(NSSize oldSz, NSSize newSz) {
+//  [self setSizeChanged:^(NSSize oldSz, NSSize newSz) {
 
 //    NSArray *subs = self.layer.sublayers;
 //    [self iterateGrid:^(NSInteger r1, NSInteger r2) {
@@ -155,7 +155,7 @@ return [[AZSimpleView.alloc initWithFrame:frame] wVsfKs:c,@"backgroundColor", ni
 //
 //
 //    }];
-  }];
+//  }];
 }
 
 //-(void) setDimensions:(NSSize)dims {

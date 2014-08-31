@@ -79,6 +79,8 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 @property (RONLY) NSS * joinedByNewlines, * joinedWithSpaces, * componentString;
 
+- (NSS*) joinedBy:(NSS*)x;
+
 /** Iterates objects with Timer, executing a block on each step.
  @param time Speed of the timer interval
  @param repeat Should it loop?

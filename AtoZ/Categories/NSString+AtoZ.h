@@ -232,7 +232,7 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 
 @property (RONLY) NSURL * url, * fileURL;
 
-@property (RONLY) NSS * ucfirst, * lcfirst;
+@property (RONLY) NSS * ucfirst, * lcfirst,  *fileContents;
 
 @property (RONLY) NSAS * attributedWithDefaults;
 

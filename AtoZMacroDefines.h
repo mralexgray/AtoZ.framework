@@ -83,6 +83,8 @@
 #define   NATOM nonatomic
 #define   prop_ property
 
+#define   prop_RW property (nonatomic,readwrite)
+
 #define   prop_NC property (nonatomic,copy)
 #define   prop_NA property (nonatomic)
 #define   prop_RO property (readonly)
@@ -486,8 +488,9 @@ q&AZ_arc__WEAK      ? weak    : assign
 #define AZINTERFACEIMPLEMENTEDWITHBLOCK(_name_,_super_,_BLOCK__) AZIFACE(_name_,_super_) _BLOCK__(); @end @implementation _name_ @end
 
 #define AZTESTCASE(_name_)   \
-  @interface _name_ : SenTestCase @end @implementation _name_ 
+  @interface _name_ : XCTestCase @end @implementation _name_ 
 
+#define AZTEST(_methodname_, _actions_)   - (void) test##_methodname_ { ({ _actions_; }); }
 
 //#define AZINTERFACE(_name_,...) @interface _name_ : __VA_ARGS__ ?: NSObject   // AZINTERFACE(NSMA,Alex) -> @interface Alex : NSMutableArray
 
@@ -1110,14 +1113,11 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 //#define YESNO ( b )    ( (b) ? @"YES" : @"NO" )
 //#define YESNO ( b ) b ? @"YES" : @"NO"
 
-// degree to radians
-#define       ARAD 0.017453f
-#define      DEG2RAD(x)  ((x)*ARAD)
+
 #define       P(x,y)  CGPointMake(x, y)
 #define       R(x,y)  CGRectMake(0,0,x, y)
 #define       S(w,h)  NSMakeSize(w,h)
 #define        TWOPI  (2 * 3.1415926535)
-#define     RAD2DEG(rad)  (rad * 180.0f / M_PI)
 #define       RAND01()  ((random() / (float)0x7fffffff ))     // returns float in range 0 - 1.0f
           //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
 #pragma mark - arc4random()
@@ -1143,10 +1143,27 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define LIMIT( value, min, max )  (((value) < (min))? (min) : (((value) > (max))? (max) : (value))) // pinning a value between a lower and upper limit
 //#define DEGREES_TO_RADIANS( d )  ((d) * 0.0174532925199432958)    // converting from radians to degrees
 //#define  RADIANS_TO_DEGREES( r )  ((r) * 57.29577951308232)
-#define      FIFTEEN_DEGREES  (0.261799387799)        // some useful angular constants
-#define     NINETY_DEGREES  (pi * 0.5)
-#define    FORTYFIVE_DEGREES  (pi * 0.25)
-#define        HALF_PI  (pi * 0.5)
+
+
+
+#ifndef DEG2RAD
+
+// degree to radians
+#define    ARAD       0.017453f
+
+#define DEG2RAD(deg)  (deg * ARAD)
+#define RAD2DEG(rad)  (rad * 180.0f / M_PI)
+#endif
+
+// some useful angular constants
+#ifndef FIFTEEN_DEGREES
+#define      FIFTEEN_DEGREES  .261799387799
+#define       NINETY_DEGREES  (pi * .5 )
+#define    FORTYFIVE_DEGREES  (pi * .25)
+
+#define         HALF_PI       (pi * .5 )
+
+#endif
 
 
 #define CLAMP(value, lowerBound, upperbound) MAX( lowerBound, MIN( upperbound, value ))

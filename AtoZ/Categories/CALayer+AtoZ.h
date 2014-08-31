@@ -8,9 +8,12 @@
 #define NOHITLAYER(RAW) [CANoHitLayer noHitLayerOfClass:[RAW class]]
 #define NOHITLAYERFRAME(RAWTYPE,FRAME) [NOHITLAYER(RAWTYPE) objectBySettingValue:AZVrect(FRAME) forKey:@"frame"]
 
-@interface CAL (AtoZLayerFactory)
+@interface CAL (AtoZLayerFactory) <GridLike>
+
 + (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt;
 + (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt palette:(NSA*)pal;
+@property NSA *gridPalette;
+
 + (instancetype) noHitLayer;
 + (instancetype) noHitLayerWithFrame:(NSR)r;
 + (instancetype) noHitLayerWithFrame:(NSR)r mask:(NSUI)m;
@@ -49,6 +52,7 @@
 
 //- (void) setWasHit:(LayerBlock)b; - (void) setMouseOverBlock:(LayerBlock)b;
 //@property (CP) void(^sublayerMouseOverBlock)(CAL*);
+- (void) setSublayerMouseOverBlock:(void(^)(CAL*layer))block;
 
 // Coerce-to-property setters.
 - (void) addSublayers:(NSA*)subLayers;

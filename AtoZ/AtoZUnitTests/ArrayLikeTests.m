@@ -1,6 +1,6 @@
 
 //#import <GHUnit/GHUnit.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <AtoZ/AtoZ.h>
 
 @interface      ArrayLikeClass : NSO <ArrayLike> @end
@@ -9,7 +9,7 @@ CLANG_IGNORE_PROTOCOL
 @end
 CLANG_POP
 
-@interface ArrayLikeTests : SenTestCase
+@interface ArrayLikeTests : XCTestCase
 @property ArrayLikeClass *arrayLike;
 @end
 @implementation ArrayLikeTests
@@ -18,9 +18,9 @@ CLANG_POP
 
 - (void) testStorage {
 
-  STAssertTrue(_arrayLike.count == 0, @"count should be zero, it was %lu",_arrayLike.count);
-  STAssertNoThrow([_arrayLike addObject:@"A"], @"can add");
-  STAssertTrue(_arrayLike.count == 1, @"count should be 1, it was %lu",_arrayLike.count);
+  XCTAssertTrue(_arrayLike.count == 0, @"count should be zero, it was %lu",_arrayLike.count);
+  XCTAssertNoThrow([_arrayLike addObject:@"A"], @"can add");
+  XCTAssertTrue(_arrayLike.count == 1, @"count should be 1, it was %lu",_arrayLike.count);
 }
 - (void) testKVO {
 
@@ -32,10 +32,10 @@ CLANG_POP
     wasArrayLike = [sender isEqual:__arrayLike];
     doesContain = [[sender vFK:@"storage"] containsObject:a];
   }];
-  STAssertNoThrow([_arrayLike addObject:a], @"can add");
-  STAssertTrue(observationHappened, @"Observation should have happened");
-  STAssertTrue(wasArrayLike, @"sender should have bee _arraylike");
-  STAssertTrue(doesContain, @"added value should have been present in storage array");
+  XCTAssertNoThrow([_arrayLike addObject:a], @"can add");
+  XCTAssertTrue(observationHappened, @"Observation should have happened");
+  XCTAssertTrue(wasArrayLike, @"sender should have bee _arraylike");
+  XCTAssertTrue(doesContain, @"added value should have been present in storage array");
 
 }
 
@@ -43,14 +43,14 @@ CLANG_POP
 
   NSA* colors = RANDOMPAL;
   NSUI ctr = 0;
-  STAssertNoThrow([_arrayLike addObjects:colors], @"can add");
-  STAssertTrue(_arrayLike.count == colors.count, @"count should equal added array object count");
+  XCTAssertNoThrow([_arrayLike addObjects:colors], @"can add");
+  XCTAssertTrue(_arrayLike.count == colors.count, @"count should equal added array object count");
   for (id x in _arrayLike) {
     ctr++;
-    STAssertTrue(ISA(x,NSC), @"ALl objects are colors");
+    XCTAssertTrue(ISA(x,NSC), @"ALl objects are colors");
   }
   NSLog(@"Counted %lu objects during fast Enumeration",ctr);
-  STAssertTrue(ctr == colors.count, @"ctr should have been iteated for each color");
+  XCTAssertTrue(ctr == colors.count, @"ctr should have been iteated for each color");
 }
 @end
 

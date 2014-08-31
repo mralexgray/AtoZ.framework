@@ -17,9 +17,9 @@ void WithAutoreleasePool					 (BasicBlock block);
 /*
 	RunInBackground(^{
 		WithAutoreleasePool(^{
-			NSLog(@"Current thread: %@  Main thread: %@", [NSThread currentThread], [NSThread mainThread]);
+			NSLog(@"Current thread: %@  Main thread: %@", [NSThread currentThread], NSThread.mainThread);
 			RunOnMainThread(YES, ^{
-				NSLog(@"Current thread: %@  Main thread: %@", [NSThread currentThread], [NSThread mainThread]);
+				NSLog(@"Current thread: %@  Main thread: %@", [NSThread currentThread], NSThread.mainThread);
 				RunAfterDelay(1, ^{
 					NSLog(@"Delayed log");
 				});

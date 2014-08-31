@@ -8,7 +8,8 @@ JREnumDeclare (AZLexicon, AZLexiconUrbanD = 0x10000001,
                   AZLexiconAppleThesaurus = 0x11000005,
                  AZLexiconAppleDictionary = 0x11000006,
                       AZLexiconFromTheWeb = 0x10000000,
-                           AZLexiconLocal = 0x11000000);
+                           AZLexiconLocal = 0x11000000,
+              zDCSWikipediaDictionaryName = 0x11110000);
 
 #define AZDEF                   AZDefinition
 #define $AZDEFINELEX(W,D,LEX)  [AZDEF.alloc initWithProperties:@{@"word":W,@"definition":D,@"lexicon":@(LEX)}]
@@ -17,21 +18,25 @@ JREnumDeclare (AZLexicon, AZLexiconUrbanD = 0x10000001,
 @interface AZDefinition : BaseModel
 
 + (INST) synonymsOf:(NSS*)word;
++ (INST)     define:(NSS*)term;
++ (INST)  wikipedia:(NSS*)topic;
 
 typedef void (^DefinedBlock)(AZDefinition *def);
 
-+ (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon completion:(DefinedBlock)block;
++ (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon                  completion:(DefinedBlock)block;
++ (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon timeout:(NSTI)ti completion:(DefinedBlock)block;
 
-@prop_AS    AZLexicon   lexicon;
+@prop_NA    AZLexicon   lexicon;
 @prop_NC DefinedBlock   completion;
+@prop_NA         NSTI   timeout;
 @prop_RO           id   rawResult;
 @prop_RO         BOOL   fromTheWeb;
 @prop_CP        NSERR * error;
-@prop_RO          NSS * formatted;
 @prop_RO          NSU * query;
-@prop_NA          NSA * results;
-@prop_NA          NSS * word,
-                      * definition;
+@prop_RO          NSA * results;
+@prop_NA          NSS * word;
+@prop_RO          NSS * definition,
+                      * formatted;
 @end
 
 extern NSS * TagsDefaultsKey;

@@ -16,6 +16,7 @@
 *User Data
 .DS_Store
 .idea/
+.ideas/
 Archive*
 AtoZ.framework
 AtoZ/XcodeENV.sh

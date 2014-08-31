@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
 
-	@import AppKit;
+  #import <AppKit/AppKit.h>
 	#import <FunSize/FunSize.h>
 #endif
 

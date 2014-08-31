@@ -367,7 +367,7 @@
 
 	[NSThread performBlockInBackground:^{
 //		[self capture];
-		[[NSThread mainThread] performBlock:^{
+		[NSThread.mainThread performBlock:^{
 			[NSAnimationContext beginGrouping];
 			[[NSAnimationContext currentContext]setDuration:.5];
 			[[NSAnimationContext currentContext]setTimingFunction:
@@ -378,7 +378,7 @@
 			[NSAnimationContext endGrouping];
 
 		} waitUntilDone:YES];
-		[[NSThread mainThread]performBlock:^{// [[_shroud animator] setAlphaValue:0]; }afterDelay:.01];
+		[NSThread.mainThread performBlock:^{// [[_shroud animator] setAlphaValue:0]; }afterDelay:.01];
 			[[ NSNotificationCenter defaultCenter] postNotificationName:@"okWindowFadeOutNow" object:nil];
 		}];
 	}];
@@ -444,7 +444,7 @@
 		//- (void) applicationDidBecomeActive:(NSNotification *)notification {
 		//	[NSThread performBlockInBackground:^{
 		//	[self performSelectorOnMainThread:@selector(capture) withObject:nil waitUntilDone:YES];
-		//			[[NSThread mainThread] performBlock:^{
+		//			[NSThread.mainThread performBlock:^{
 		//			[_view setNeedsDisplay : YES];
 		[NSAnimationContext beginGrouping];
 	[[NSAnimationContext currentContext]setDuration:.5];
@@ -470,7 +470,7 @@
 		//	__block NSArray *thradedArray;
 		//	[NSThread performBlockInBackground:^{
 		//		thradedArray = [AtoZ dockSorted];
-		//		[[NSThread mainThread] performBlock:^{
+		//		[NSThread.mainThread performBlock:^{
 		//			[thradedArray each:^(AZFile * obj, NSUInteger index, BOOL *stop) {
 		//				number++;
 		//				[tabView addTabWithRepresentedObject: obj];//@{ @"name": obj.name }];

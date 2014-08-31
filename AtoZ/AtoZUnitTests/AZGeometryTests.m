@@ -1,5 +1,5 @@
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <AtoZ/AtoZ.h>
 
 AZTESTCASE(AZGeometryTests) { 
@@ -7,18 +7,24 @@ AZTESTCASE(AZGeometryTests) {
   NSR rect0, rect100; NSP pt0, pt100; NSSZ sz0, sz100; AZRect *azR0, *azR100; 
 }
 
-- (void) setUp { [super setUp]; rect0 = NSZeroRect;   rect100 = AZRectFromDim(100);
-                                  pt0 = NSZeroPoint;    pt100 = AZPointFromDim(100);
-                                  sz0 = NSZeroSize;     sz100 = AZSizeFromDim(100);
-                                  sz0 = NSZeroSize;    azR100 = AZRDim(100);             
-}
-- (void) testAZPointIsInInsetRects {
+- (void) setUp { [super setUp];
 
-  STAssertTrue  (AZPointIsInInsetRects(pt0, rect100, AZSizeFromDim(10)), @"{0, 0} SHOULD technically be inside insets of size {10,10} inside {0,0,100,100}");
-  STAssertFalse (AZPointIsInInsetRects(AZPointFromDim(-10),rect100,AZSizeFromDim(10)), @"{-10, -10} should NOT be inside insets of size {10,10} inside {0,0,100,100}");
-  STAssertFalse (AZPointIsInInsetRects(AZPointFromDim( 20),rect100,AZSizeFromDim(10)), @"{20,20} should NOT be in edges of size {10,10} inside {0,0,100,100}");
-  STAssertThrows(AZPointIsInInsetRects(AZPointFromDim(101),rect100,AZSizeFromDim(100)), @"Should complain inset is too big!");
+  rect0 = NSZeroRect;
+rect100 = AZRectFromDim(100);
+    pt0 = NSZeroPoint;
+  pt100 = AZPointFromDim(100);
+    sz0 = NSZeroSize;
+  sz100 = AZSizeFromDim(100);
+    sz0 = NSZeroSize;    azR100 = AZRDim(100);             
 }
+
+AZTEST(PointIsInInsetRects,
+
+  XCTAssertTrue  (AZPointIsInInsetRects(pt0, rect100, AZSizeFromDim(10)), @"{0, 0} SHOULD technically be inside insets of size {10,10} inside {0,0,100,100}");
+  XCTAssertFalse (AZPointIsInInsetRects(AZPointFromDim(-10),rect100,AZSizeFromDim(10)), @"{-10, -10} should NOT be inside insets of size {10,10} inside {0,0,100,100}");
+  XCTAssertFalse (AZPointIsInInsetRects(AZPointFromDim( 20),rect100,AZSizeFromDim(10)), @"{20,20} should NOT be in edges of size {10,10} inside {0,0,100,100}");
+  XCTAssertThrows(AZPointIsInInsetRects(AZPointFromDim(101),rect100,AZSizeFromDim(100)), @"Should complain inset is too big!");
+)
 
 @end
 
@@ -32,14 +38,10 @@ typedef  void (^AZCLITest)(void);
 //+(NSA*) results;
 @end
 
-@interface AZSizerTests : AZTestNode
-@end
-@interface AZGeometryTestsA : AZTestNode
-@end
-@interface AZFavIconTests : AZTestNode
-@end
-@interface NSImageTests :AZTestNode
-@end
+@interface     AZSizerTests  : AZTestNode @end
+@interface  AZGeometryTestsA : AZTestNode @end
+@interface   AZFavIconTests  : AZTestNode @end
+@interface     NSImageTests :AZTestNode  @end
 #import "AZCLITests.h"
 
 JREnumDefine(AZTestCase);
@@ -107,7 +109,7 @@ JREnumDefine(AZTestCase);
 
 - (AZTestCase) testAZAlign	{
 
-	__block AZTestCase test = AZTestUnset;
+	__block __unused AZTestCase test = AZTestUnset;
 
 	NSR testRect = AZRectFromDim(100);
 

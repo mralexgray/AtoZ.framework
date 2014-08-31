@@ -6,39 +6,36 @@
 //  Copyright (c) 2013 Neil Cowburn. All rights reserved.
 //
 
-#define XCT ST
-//#define XCTest.h SenTestingKit.h
+#import <XCTest/XCTest.h>
 
-#import <SenTestingKit/SenTestingKit.h>
-
-@interface RedGreenXCTests : SenTestCase
+@interface RedGreenXCTests : XCTestCase
 
 @end
 
 @implementation  RedGreenXCTests
 
-- (void) testBooleanAssertions	{
+- (void)testBooleanAssertions	{
 
-    STAssertFalse(true, @"Expected true to be false.");
-    STAssertTrue(false, @"Expected false to be true.");
+    XCTAssertFalse(true, @"Expected true to be false.");
+    XCTAssertTrue(false, @"Expected false to be true.");
 }
 
-- (void) testCanIProvideBetterOutput	{}
+- (void)testCanIProvideBetterOutput	{}
 
-- (void) testDidIProvideBetterOutput	{}
+- (void)testDidIProvideBetterOutput	{}
 
-- (void) testEqualityAssertions
+- (void)testEqualityAssertions
 {
-    STAssertEqualObjects(@"a", @"a", @"Expected a to equal a");
-    STAssertEqualObjects(@"(null)", @"Invalid user credentials.", @"Unexpected error messsage.");
+    XCTAssertEqualObjects(@"a", @"a", @"Expected a to equal a");
+    XCTAssertEqualObjects(@"(null)", @"Invalid user credentials.", @"Unexpected error messsage.");
 }
 
-- (void) testEstimatesAreEqual	{	STAssertEquals(1, 1, @"");	}
+- (void)testEstimatesAreEqual	{	XCTAssertEqual(1, 1, @"");	}
 
-- (void) testSenTestLogOutput	{	STAssertEquals(1, 1, @"");	}
+- (void)testSenTestLogOutput	{	XCTAssertEqual(1, 1, @"");	}
 
-- (void) testFails					{ STFail(@"You deliberately called XCTFail().");	}
+- (void)testFails					{ XCTFail(@"You deliberately called XCTFail().");	}
 
-- (void) testSucceeds				{}
+- (void)testSucceeds				{}
 
 @end

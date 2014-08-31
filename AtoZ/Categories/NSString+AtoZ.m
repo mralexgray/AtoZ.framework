@@ -1045,6 +1045,12 @@ finish:
 	return [NSURL fileURLWithPath:self];
 }
 
+- (NSS*) fileContents {
+
+  id parse = [self.stringByStandardizingPath stringByReplacingOccurrencesOfRegex:@"\\ " withString:@" "];
+  return [NSS.alloc initWithContentsOfFile:parse encoding:NSUTF8StringEncoding error:nil];
+}
+
 - (NSS*)ucfirst {
 	NSString *head = [[self substringToIndex:1] uppercaseString];   NSString *tail = [self substringFromIndex:1];
 	return $(@"%@%@", head, tail);

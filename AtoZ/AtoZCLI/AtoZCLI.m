@@ -310,7 +310,7 @@ int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	
                         [AtoZ performBlock:^{
    //				[self someLongAssFunction];
                         } afterDelay:10];
-                [AtoZ performSelector:@selector(dock) onThread:[NSThread mainThread] withObject:nil waitUntilDone:YES];
+                [AtoZ performSelector:@selector(dock) onThread:NSThread.mainThread withObject:nil waitUntilDone:YES];
                         AZLOG(@"longblock");
         }];
    }

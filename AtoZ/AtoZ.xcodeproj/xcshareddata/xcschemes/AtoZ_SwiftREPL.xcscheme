@@ -4,7 +4,7 @@
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "NO">
+      buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B34536A18A3148B00D28DF5"
-               BuildableName = "libAOPProxy.a"
-               BlueprintName = "AOPProxy (OSX)"
-               ReferencedContainer = "container:Frameworks/AtoZAutoBox/AOPProxy/AOPProxy.xcodeproj">
+               BlueprintIdentifier = "7B469B0519B2192A00C15DDB"
+               BuildableName = "AtoZ_SwiftREPL"
+               BlueprintName = "AtoZ_SwiftREPL"
+               ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,17 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B34539C18A33CAD00D28DF5"
-               BuildableName = "AOPProxyTests.octest"
-               BlueprintName = "AOPProxyTests"
-               ReferencedContainer = "container:Frameworks/AtoZAutoBox/AOPProxy/AOPProxy.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B469B0519B2192A00C15DDB"
+            BuildableName = "AtoZ_SwiftREPL"
+            BlueprintName = "AtoZ_SwiftREPL"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -49,6 +48,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B469B0519B2192A00C15DDB"
+            BuildableName = "AtoZ_SwiftREPL"
+            BlueprintName = "AtoZ_SwiftREPL"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -58,6 +66,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B469B0519B2192A00C15DDB"
+            BuildableName = "AtoZ_SwiftREPL"
+            BlueprintName = "AtoZ_SwiftREPL"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -12,20 +12,15 @@
 
 @implementation NSBlockOperation(Completion)
 
-- (void) setCompletionBlockInCurrentThread:(void (^)(void))block {
-	dispatch_queue_t queue = dispatch_get_current_queue();
-	[self setCompletionBlock:^(void) {
-		if (dispatch_get_current_queue() == queue)
-			block();
-		else
-			dispatch_sync(queue, block);
-	}];
+- (void) setCompletionBlockInCurrentThread:(void (^)(void))block { dispatch_queue_t queue = dispatch_get_current_queue();
+
+	self.completionBlock = ^(void) { dispatch_get_current_queue() == queue ? block() : dispatch_sync(queue, block); };
 }
 @end
 
 @implementation  NSThread (AtoZ)
 
-+ (void) stackTrace {
++ (void) stackTrace                   {
 
 	NSArray *syms = [[self class] callStackSymbols];
 	if ([syms count] > 1) {
@@ -34,58 +29,47 @@
 		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
 	}
 }
++ (void) stackTraceAtIndex:(NSUI)idx  {
 
-
-+ (void) stackTraceAtIndex:(NSUI)index {
-
-	NSArray *syms = [[self class] callStackSymbols];
-	if ([syms count] > 1) {
-		NSLog(@"<%@ %p> %@ - caller: %@ ", [self class], self, NSStringFromSelector(_cmd),[syms objectAtIndex:index]);
-	} else {
-		NSLog(@"<%@ %p> %@", [self class], self, NSStringFromSelector(_cmd));
-	}
+	NSArray *syms = [self.class callStackSymbols];
+	syms.count > 1 ? NSLog(@"<%@ %p> %@ - caller: %@ ", self.class, self, NSStringFromSelector(_cmd),syms[idx])
+                 : NSLog(@"<%@ %p> %@", self.class, self, NSStringFromSelector(_cmd));
 }
 
 @end
-
 
 @implementation NSThread (BlocksAdditions)
 
-+ (void)performBlockInBackground:(void (^)())block {
++ (void)                 runBlock:(void(^)())blk  {	blk(); }
+- (void)             performBlock:(void(^)())blk  {
+
+	[[NSThread currentThread] isEqual:self] ? blk() : [self performBlock:blk waitUntilDone:NO];
+}
++ (void) performBlockInBackground:(void(^)())blk  {
 	[NSThread performSelectorInBackground:NSSelectorFromString(@"runBlock:")
-							               withObject:[[block copy] autorelease]];
+							               withObject:[[blk copy] autorelease]];
 }
-- (void)performBlockOnMainThread:(void (^)())block {
-	[[NSThread mainThread] performBlock:block];
+- (void) performBlockOnMainThread:(void(^)())blk  {
+	[NSThread.mainThread performBlock:blk];
 }
-+ (void)runBlock:(void (^)())block{	block(); }
+- (void)             performBlock:(void(^)())blk
+                       afterDelay:(NSTI)delay     {
 
-- (void)performBlock:(void (^)())block{
-
-	[[NSThread currentThread] isEqual:self] ? block() : [self performBlock:block waitUntilDone:NO];
+	[self performSelector:NSSelectorFromString(@"performBlock:") withObject:[[blk copy] autorelease] afterDelay:delay];
 }
+- (void)             performBlock:(void(^)())blk
+                    waitUntilDone:(BOOL)wait      {
 
-
-- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait{
-
-	[NSThread performSelector:NSSelectorFromString(@"runBlock:")
-					 onThread:self
-				   withObject:[[block copy] autorelease]
-				waitUntilDone:wait];
-}
-- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay{
-
-	[self performSelector:NSSelectorFromString(@"performBlock:")
-             withObject:[[block copy] autorelease]
-			       afterDelay:delay];
+	[NSThread performSelector:NSSelectorFromString(@"runBlock:") onThread:self withObject:[[blk copy] autorelease] waitUntilDone:wait];
 }
 
 @end
+
 /*
 @implementation NSThread (AZBlocks)
 
 + (void)performAZBlockOnMainThread:(void (^)())block {
-	[[NSThread mainThread] performAZBlock:block];
+	[NSThread.mainThread performAZBlock:block];
 }
 
 + (void)performAZBlockInBackground:(void (^)())block{

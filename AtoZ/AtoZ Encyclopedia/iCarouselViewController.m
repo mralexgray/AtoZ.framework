@@ -57,7 +57,7 @@
 		//			[obj trackFullView];
 		//		}];
 	[self setDefs];
-//	[[NSThread mainThread]performBlock:^{
+//	[NSThread.mainThreadperformBlock:^{
 //		[self orient:[[self view]layer] WithX:0 andY:0.3];
 //		NSBeep();
 //	}afterDelay:5];

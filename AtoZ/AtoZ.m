@@ -748,14 +748,14 @@ static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ 
 
  - (NSA*) dockSorted {	self.sortOrder = AZDockSortColor;	//	[NSThread performBlockInBackground:^{
  if (!_dockSorted)
- [[NSThread mainThread] performBlock:^{
+ [NSThread.mainThread performBlock:^{
  if (!dockSorted)
  return  [[[dock sortedWithKey:@"hue" ascending:YES] reversed] arrayUsingIndexedBlock:^id(AZFile* obj, NSUInteger idx) {
  if ([obj.name isEqualToString:@"Finder"]) {
  obj.spotNew = 999;
  obj.dockPointNew = obj.dockPoint;	} else { obj.spotNew = idx;
  obj.dockPointNew = [[dock[idx]valueForKey:@"dockPoint"]pointValue];	} return obj;
- }];	return dockSorted;			}waitUntilDone:YES];	return _dockSorted;		[[NSThread mainThread] performBlock:^{			 _dockSorted = adock.mutableCopy;		} waitUntilDone:YES];	}];/	return _dockSorted;	}
+ }];	return dockSorted;			}waitUntilDone:YES];	return _dockSorted;		[NSThread.mainThread performBlock:^{			 _dockSorted = adock.mutableCopy;		} waitUntilDone:YES];	}];/	return _dockSorted;	}
 
 
  + (NSA*) appFolderSorted {	return [AZAppFolder sharedInstance].sorted;	[AZFiles sharedInstance].appFolderSorted = [AZFiles.sharedInstance.appFolder sortedWithKey:@"hue" ascending:YES].reversed.mutableCopy;		//	return  [AZFiles sharedInstance].appFolderSorted; }

@@ -20,6 +20,20 @@
                ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "270B11B11628E676005A82FA"
+               BuildableName = "RoutingHTTPServer.framework"
+               BlueprintName = "RoutingHTTPServerOSX"
+               ReferencedContainer = "container:../Frameworks/RoutingHTTPServerFramework/RoutingHTTPServer.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -33,12 +47,21 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7B644DB51816B5A00036D205"
-               BuildableName = "AtoZUnitTests.octest"
+               BuildableName = "AtoZUnitTests.xctest"
                BlueprintName = "AtoZUnitTests"
                ReferencedContainer = "container:AtoZ.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B311950159B6D9E002134C4"
+            BuildableName = "AtoZ.framework"
+            BlueprintName = "AtoZ"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = ""
@@ -50,6 +73,15 @@
       debugDocumentVersioning = "YES"
       debugXPCServices = "NO"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B311950159B6D9E002134C4"
+            BuildableName = "AtoZ.framework"
+            BlueprintName = "AtoZ"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -59,6 +91,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7B311950159B6D9E002134C4"
+            BuildableName = "AtoZ.framework"
+            BlueprintName = "AtoZ"
+            ReferencedContainer = "container:AtoZ.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

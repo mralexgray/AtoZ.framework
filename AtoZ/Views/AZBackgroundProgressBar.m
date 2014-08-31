@@ -159,7 +159,7 @@ const CGF framesPerSecond = 10.0;
 - (IBAction)startAnimation:(id)sender
 {
 	shouldStop = NO;
-	[NSThread mainThread]pe
+	NSThread.mainThreadpe
 	[self performSelector:@selector(doAnimation) withObject:nil afterDelay: 1 / framesPerSecond];
 }
 - (IBAction)stopAnimation:(id)sender

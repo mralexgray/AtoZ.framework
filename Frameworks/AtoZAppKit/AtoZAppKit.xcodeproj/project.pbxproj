@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13F8B89007B43554008AE28D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		7B0E20D9174FDC4000DF3D20 /* RMSuggestionPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0E20D7174FDC4000DF3D20 /* RMSuggestionPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B0E20DA174FDC4000DF3D20 /* RMSuggestionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E20D8174FDC4000DF3D20 /* RMSuggestionPanel.m */; };
-		7B232FA51727EE6F00B111FE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B232FA41727EE6F00B111FE /* QuartzCore.framework */; };
 		7B33663B1754D3320037DE96 /* NSAffineTransform+Rotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3366381754D3310037DE96 /* NSAffineTransform+Rotation.m */; };
 		7B3366411754D3600037DE96 /* NSAffineTransform+Rotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B33663E1754D3600037DE96 /* NSAffineTransform+Rotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4636BB17552A2500072CA0 /* _MTTokenCompletionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4636AA17552A2500072CA0 /* _MTTokenCompletionTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -118,14 +116,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13F8B88807B434F6008AE28D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		13F8B88A07B434F6008AE28D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		53DF68FD067E5B5A0090B5B0 /* AtoZAppKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZAppKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DF68FE067E5B5A0090B5B0 /* AtoZAppKitFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AtoZAppKitFramework-Info.plist"; sourceTree = "<group>"; };
 		7B0E20D6174FDC4000DF3D20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7B0E20D7174FDC4000DF3D20 /* RMSuggestionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSuggestionPanel.h; sourceTree = "<group>"; };
 		7B0E20D8174FDC4000DF3D20 /* RMSuggestionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSuggestionPanel.m; sourceTree = "<group>"; };
-		7B232FA41727EE6F00B111FE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7B3366241754D2B30037DE96 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		7B3366251754D2B30037DE96 /* screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot1.png; sourceTree = "<group>"; };
 		7B3366261754D2B30037DE96 /* screenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot2.png; sourceTree = "<group>"; };
@@ -210,7 +205,6 @@
 		7BDC5F731724D4A8002C62E7 /* BFColorPickerPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFColorPickerPopover.m; path = Classes/BFColorPickerPopover.m; sourceTree = "<group>"; };
 		7BFB9892163DCEAB00254DCF /* AZFlatTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFlatTheme.m; sourceTree = "<group>"; };
 		7BFB98A0163DFB5700254DCF /* AZDebugTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZDebugTheme.m; sourceTree = "<group>"; };
-		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E7050814104AD68D00F2212D /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
 		E706FE790E12DE180017E470 /* BGHUDOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGHUDOutlineView.h; sourceTree = "<group>"; };
 		E706FE7A0E12DE180017E470 /* BGHUDOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGHUDOutlineView.m; sourceTree = "<group>"; };
@@ -275,8 +269,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B232FA51727EE6F00B111FE /* QuartzCore.framework in Frameworks */,
-				13F8B89007B43554008AE28D /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +312,6 @@
 			children = (
 				1ED78706FE9D4A0611CA0C5A /* Products */,
 				E7050814104AD68D00F2212D /* README.textile */,
-				2E58F364FFB232C311CA0CBA /* Frameworks */,
 				7B4AC892173BFB8E002CD411 /* AtoZAppKit-Prefix.pch */,
 				53DF68FE067E5B5A0090B5B0 /* AtoZAppKitFramework-Info.plist */,
 			);
@@ -333,17 +324,6 @@
 				53DF68FD067E5B5A0090B5B0 /* AtoZAppKit.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				13F8B88A07B434F6008AE28D /* Foundation.framework */,
-				7B232FA41727EE6F00B111FE /* QuartzCore.framework */,
-				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
-				13F8B88807B434F6008AE28D /* AppKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7B0E20D5174FDC4000DF3D20 /* RMSuggestionPanel */ = {
@@ -758,14 +738,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREFIX_HEADER = "./Resources/AtoZAppKit-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Resources/AtoZAppKit-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AtoZAppKit;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -774,16 +751,13 @@
 			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "./Resources/AtoZAppKit-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Resources/AtoZAppKit-Prefix.pch";
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = AtoZAppKit;
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -798,7 +772,6 @@
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -812,7 +785,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};

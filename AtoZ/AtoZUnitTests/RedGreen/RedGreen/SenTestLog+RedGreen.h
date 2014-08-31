@@ -8,8 +8,8 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-//@interface SenTestLog (RedGreen)
-//
-//+ (void)testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
-//
-//@end
+@interface SenTestLog (RedGreen)
+
++ (void)testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+
+@end

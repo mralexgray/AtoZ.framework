@@ -101,7 +101,9 @@ DECLARECONFORMANCE( NSIMG,   RectLike )
 - (void) setSpanCollapsed:(CGF)c expanded:(CGF)x;
 @end
 
-typedef void(^GridIterator)(NSI r1, NSI r2);  
+typedef void(^GridIterator)(NSI r, NSI c);
+typedef void(^GridIteratorIdx)(NSI r, NSI c, NSUI idx);
+
 typedef void(^GridIteratorStep)(NSI r1Loc);
 typedef void(^SizeChange)(NSSZ oldSz,NSSZ newSz);
 
@@ -109,14 +111,22 @@ typedef void(^SizeChange)(NSSZ oldSz,NSSZ newSz);
 void IterateGridWithBlockStep(RNG *r1, RNG *yRange, GridIterator block, GridIteratorStep step);
 void     IterateGridWithBlock(RNG * r1, RNG *r2, GridIterator block);
 
-@protocol     GridLike <NSO>
-@concrete
-@prop_NA          NSSZ  dimensions;
-@prop_NA          NSUI  rows, cols;
+
+typedef struct  { NSUI  rows;
+                  NSUI  cols; } AZTable;
+
+@protocol  GridLike <NSO> @concrete
+
+@prop_NA       NSSZ  dimensions;
+@prop_RO    AZTable  table;
+@prop_NA       NSUI  rows,
+                     cols;
+@prop_CP  SizeChange onChangeDimensions;
 
 - (void) iterateGrid:(GridIterator)b;
-@prop_CP SizeChange sizeChanged;
-- (void) setSizeChanged:(void(^)(NSSZ oldSz,NSSZ newSz))c;
+- (void) iterateGridWithIndex:(GridIteratorIdx)b;
+
+- (void) setOnChangeDimensions:(void(^)(NSSZ oldSz,NSSZ newSz))c;
 
 @end
 

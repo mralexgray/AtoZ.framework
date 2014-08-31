@@ -81,11 +81,11 @@
  
 - (NSUI) count { return _storage.count; }
  
-- (id) objectAtIndex:(NSUI)idx { return _storage[@(idx).strV]; }
+- objectAtIndex:(NSUI)idx { return _storage[@(idx).strV]; }
  
 #pragma mark - NSMutableArray primitive methods
  
-- (void) insertObject:(id)x atIndex:(NSUI)idx { // if (idx >= _storage.count) [_storage setCount:idx];
+- (void) insertObject:x atIndex:(NSUI)idx { // if (idx >= _storage.count) [_storage setCount:idx];
  
   _storage[@(idx).strV] = x;// insertPointer:(__bridge void *)x atIndex:idx];
   _lastIndex = idx;
@@ -93,7 +93,7 @@
  
 - (void) removeObjectAtIndex:(NSUI)idx {  [_storage removeObjectForKey:@(idx).strV]; } // removePointerAtIndex:idx]; }
  
-- (void)addObject:(id)x { if (!x) return;  BOOL inserted = NO;  int i = 0;
+- (void) addObject:x { if (!x) return;  BOOL inserted = NO;  int i = 0;
 
   while (!inserted && i < 1000000 ) {
     id z = [_storage objectForKey:@(i).strV];
@@ -103,10 +103,9 @@
   XX($(@"%@ ca oly try to store up to 100000 items!", AZSELSTR)); // [_storage addPointer:(__bridge void *)x];
 }
 
-- (void)removeLastObject { [_storage removeObjectForKey:@(_lastIndex).strV]; } //]  [_storage removePointerAtIndex:_storage.count]; }
+- (void) removeLastObject { [_storage removeObjectForKey:@(_lastIndex).strV]; } //]  [_storage removePointerAtIndex:_storage.count]; }
  
-- (void)replaceObjectAtIndex:(NSUI)idx withObject:(id)x;
-{
+- (void) replaceObjectAtIndex:(NSUI)idx withObject:x {
 //  if (idx >= _storage.count) [_storage setCount:idx];
 
 //  [_storage replacePointerAtIndex:idx withPointer:(__bridge void *)x];
@@ -116,12 +115,12 @@
 #pragma mark - Subscript Overrides
  
 // Avoids NSRangeException thrown in setObject:atIndex: (Private?)
-- (void)setObject:(id)obj atIndexedSubscript:(NSUI)idx {
+- (void) setObject:obj atIndexedSubscript:(NSUI)idx {
   [self replaceObjectAtIndex:idx withObject:obj];
 }
  
 // Don't need to override but it's nice to be sure
-- (id)objectAtIndexedSubscript:(NSUI)idx {
+- objectAtIndexedSubscript:(NSUI)idx {
   return [_storage objectForKey:@(idx).strV];
 }
 
@@ -250,6 +249,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
  	} repeats:repeat];
   return t;
 }
+- (NSS*) joinedBy:(NSS*)x { return [self  componentsJoinedByString:x]; } 
 -  (NSS*) joinedByNewlines { return [self componentsJoinedByString: zNL]; }
 -  (NSS*) joinedWithSpaces { return [self componentsJoinedByString:zSPC]; }
 -  (NSS*) componentString  { return [self componentsJoinedByString:zNIL]; }
@@ -284,7 +284,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
   va_end(args);
   return re;
 }
-- (int)createArgv:(char ***)argv {
+- (int) createArgv:(char ***)argv {
   char **av;
   int i, ac = 0, actotal;
   if (self == nil || [ self count ] == 0) {
@@ -319,14 +319,14 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
   return(ac);
 }
 + (NSA*) from:(NSI)from to:(NSI)to { return [NSA arrayFrom:from to:to]; }
--   (id) nextNormalObject {
+- nextNormalObject {
 	NSN    * n = [self associatedValueForKey:@"AZNextNormalObjectInternalIndex" orSetTo:@0 policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	NSUI indie = n.unsignedIntegerValue > self.count ? 0 : n.unsignedIntegerValue;
   n = indie ? n : @0;
 	[self setAssociatedValue:n.increment forKey:@"AZNextNormalObjectInternalIndex" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
  	return [self normal:indie];
 }
--   (id) nextObject       {
+- nextObject       {
 	NSN    * n = [self associatedValueForKey:@"AZNextObjectInternalIndex" orSetTo:@(0) policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	NSUI indie = n.unsignedIntegerValue;
 	if (indie > self.count) return nil;
@@ -729,14 +729,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSA*) subIndex:(NSUI)subIndex filter:(BOOL (^)(id object))block {
   return [self[subIndex] filter:block];
 }
-- (id)subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block {
+- subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block {
   return [self[subIndex] filterOne:block];
 }
-- (id)subIndex:(NSUI)subIndex blockReturnsIndex:(MapArrayBlock)block {
+- subIndex:(NSUI)subIndex blockReturnsIndex:(MapArrayBlock)block {
   id theIndex = [self subIndex:subIndex block:block];
   return self[[self indexOfObject:theIndex]];
 }
-- (id)subIndex:(NSUI)subIndex block:(MapArrayBlock)block;
+- subIndex:(NSUI)subIndex block:(MapArrayBlock)block;
 {
   return block(self[subIndex]);
 }
@@ -750,7 +750,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 	}];
 	return index;
 }
-- (id)filterNonNil:(id(^)(id))block { __block id x = nil;
+- filterNonNil:(id(^)(id))block { __block id x = nil;
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
     x = block(obj);
     if (x) *stop = YES;
@@ -760,14 +760,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - (NSA*) filter:(BOOL (^)(id object))blk {
   return [self filteredArrayUsingBlock:^(id o, NSD *d) { return (BOOL)blk(o); }];
 }
-- (id) filterOneBlockObject:(id(^)(id object))block {
+- filterOneBlockObject:(id(^)(id object))block {
   __block id x = nil;
   [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
     *stop = ((x = block(obj)));
   }];
   return x;
 }
-- (id)filterOne:(BOOL (^)(id))block {
+- filterOne:(BOOL (^)(id))block {
 	BOOL yeah = NO;
   for (id anO in self) { yeah = block(anO); if (yeah == YES) return anO; }
 	return nil;
@@ -828,18 +828,18 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 //	return re;
 //}
 // accessing
-- (id)objectAtIndex:(NSUI)index fallback:(id)fallback {
+- objectAtIndex:(NSUI)index fallback:fallback {
   if (self.count <= index)     return fallback;
   @try { id re = self[index];  return !re ? fallback : re;  }
   @catch (NSException *e) {    return fallback;             }
 }
-- (id) objectOrNilAtIndex:(NSUI)index { return self.count <= index ? nil : self[index]; }
-- (id) first    { return [self objectOrNilAtIndex:0]; }
-- (id) second   { return [self objectOrNilAtIndex:1]; }
-- (id) thrid    { return [self objectOrNilAtIndex:2]; }
-- (id) fourth   { return [self objectOrNilAtIndex:3]; }
-- (id) fifth    { return [self objectOrNilAtIndex:4]; }
-- (id) sixth    { return [self objectOrNilAtIndex:5]; }
+- objectOrNilAtIndex:(NSUI)index { return self.count <= index ? nil : self[index]; }
+- first    { return [self objectOrNilAtIndex:0]; }
+- second   { return [self objectOrNilAtIndex:1]; }
+- thrid    { return [self objectOrNilAtIndex:2]; }
+- fourth   { return [self objectOrNilAtIndex:3]; }
+- fifth    { return [self objectOrNilAtIndex:4]; }
+- sixth    { return [self objectOrNilAtIndex:5]; }
 - (NSA*)             after:(NSUI)from                     { return [self subarrayFromIndex:from]; }
 - (NSA*) subarrayFromIndex:(NSUI)start                    { return [self subarrayFromIndex:start toIndex:self.count - 1]; }
 - (NSA*)   subarrayToIndex:(NSUI)end                      { return [self subarrayFromIndex:0 toIndex:end];                }
@@ -917,7 +917,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   while(x) {  [jumbled exchangeObjectAtIndex:x withObjectAtIndex:arc4random_uniform(x)];  x--; }
   return jumbled;
 }
--   (id) randomElement {  return !self.count ? nil : [self normal:(arc4random() % self.count)];	}
+-   randomElement {  return !self.count ? nil : [self normal:(arc4random() % self.count)];	}
 - (NSA*) shuffeled { return self.count < 2 ? self : ((NSMA*)self.mutableCopy).shuffle; }
 - (NSA*) randomSubarrayWithSize:(NSUInteger)size {
   if (self.count == 0) {
@@ -934,7 +934,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return re;
 }
--   (id)objectAtNormalizedIndex:(NSI)index {
+-   objectAtNormalizedIndex:(NSI)index {
   return [self normal:index];
 }
 - (NSUI) normalizedIndex:(NSI)index { NSI x = index;
@@ -942,7 +942,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   while (x < 0) x += self.count;
   return x % self.count;
 }
--   (id)normal:(NSI)index { return self[[self normalizedIndex:index]]; }
+-   normal:(NSI)index { return self[[self normalizedIndex:index]]; }
 - (NSI)sumIntWithKey:(NSS*) keyPath {
   NSI re = 0;
   for (id v in self) {
@@ -991,7 +991,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   if ([self containsObject:object]) return NO; return YES;
 }
 // will always return nil
-- (id)andExecuteEnumeratorBlock {
+- andExecuteEnumeratorBlock {
   return nil;
 }
 - (void)setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUI idx, BOOL *stop))block {
@@ -1004,7 +1004,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   va_end(args);
   return [self filteredArrayUsingPredicate:p];
 }
-- (id)firstObjectWithFormat:(NSS*) format, ...{
+- firstObjectWithFormat:(NSS*) format, ...{
   va_list args;
   va_start(args, format);
   NSPredicate *p = [NSPredicate predicateWithFormat:format arguments:args];
@@ -1015,7 +1015,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return nil;
 }
--(id) firstObjectOfClass:(Class)k {
+- firstObjectOfClass:(Class)k {
 	return [self filterOne:^BOOL(id object) {return [[object class] ISKINDA: k.class]; }];
 }
 - (NSA*) filteredArrayUsingBlock:(BOOL (^)(id evaluatedObject, NSDictionary *bindings))block {
@@ -1045,10 +1045,10 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 /**	Convenience Method to return the first object in
  * a NSArray	*/
-- (id)firstObject  {
+- firstObject  {
   return self.count > 0 ? self[0] : nil;
 }
-- (id)last             {
+- last             {
   return self.lastObject;
 }                                                         //return self.count > 0 ? self[self.count - 1] : nil;	}
 - (NSN*) sum {  /*	!! @YES = 1, @NO = 0  !! */

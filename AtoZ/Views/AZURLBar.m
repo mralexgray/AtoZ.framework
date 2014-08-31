@@ -33,12 +33,12 @@
 }
 - (void)updateProgress  {
 	static float progress;
-	self.urlBar.progressPhase = KFProgPending;
+	self.urlBar.progressPhase = AZProgPending;
 	progress += .005;
 	self.urlBar.progress = progress;
 	progress < 1 ?
 	[self performSelector:@selector(updateProgress) withObject:nil afterDelay:.02f] :
-	[self.urlBar setProgressPhase:KFProgNone];
+	[self.urlBar setProgressPhase:AZProgNone];
 }
 //- (AZURLBar *) urlBar { return [self associatedValueForKey:_cmd]; }
 - (void) awakeFromNib {
@@ -104,7 +104,7 @@
 - (void)urlBar:(AZURLBar *)urlBar didRequestURL:(NSURL *)url
 {
 	[[self mainFrame] loadRequest:[NSURLRequest.alloc initWithURL:url]];
-	self.urlBar.progressPhase = KFProgPending;
+	self.urlBar.progressPhase = AZProgPending;
 }
 
 
@@ -131,7 +131,7 @@
 
 - (void)webKitProgressDidChangeFinishedCount:(NSInteger)finishedCount ofTotalCount:(NSInteger)totalCount
 {
-	self.urlBar.progressPhase = KFProgDownloading;
+	self.urlBar.progressPhase = AZProgDownloading;
 	self.urlBar.progress = (float)finishedCount / (float)totalCount;
 	if (totalCount == finishedCount)
 	{
@@ -140,7 +140,7 @@
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 		dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
 							{
-								weakSelf.urlBar.progressPhase = KFProgNone;
+								weakSelf.urlBar.progressPhase = AZProgNone;
 							});
 	}
 }
@@ -188,7 +188,7 @@
 
 
 @interface AZURLBar ()
-//@property (nonatomic) KFProgPhase progressPhase;
+//@property (nonatomic) AZProgPhase progressPhase;
 @property (nonatomic) BOOL drawBackground;
 @property (nonatomic) NSColor *currentBarColorTop, *currentBarColorBottom;
 @property (nonatomic) NSTextField *urlTextField;
@@ -219,7 +219,7 @@
 
 		_progress						= .0f;
 		_cornerRadius 					= 2.5f;
-		_progressPhase 				= KFProgNone;
+		_progressPhase 				= AZProgNone;
 		self.gradientColorTop 		= kAZURLBarGradientColorTop;
 		self.gradientColorBottom 	= kAZURLBarGradientColorBottom;
 		self.borderColorTop 			= kAZURLBarBorderColorTop;
@@ -343,11 +343,11 @@
 
 	switch (self.progressPhase)
 	{
-		case KFProgPending:
+		case AZProgPending:
 			color4 = [NSColor colorWithCalibratedWhite:.8f alpha:.8f];
 			color5 = [NSColor colorWithCalibratedWhite:.8f alpha:.4f];
 			break;
-		case KFProgDownloading:
+		case AZProgDownloading:
 			color4 = [NSColor colorForControlTint:[NSColor currentControlTint]];
 			color5 = [[NSColor colorForControlTint:[NSColor currentControlTint]] colorWithAlphaComponent:.6f];
 			color = [NSColor colorWithCalibratedRed: 0.45 green: 0.45 blue: 0.45 alpha: 1];
@@ -414,10 +414,10 @@
 	CGFloat barWidth = 0;
 	switch (self.progressPhase)
 	{
-		case KFProgNone:
+		case AZProgNone:
 			barWidth = 0;
 			break;
-		case KFProgPending:
+		case AZProgPending:
 			barWidth = [self barWidthForProtocol];
 			break;
 		default:
@@ -483,11 +483,11 @@
 	_progress = progress;	[self setNeedsDisplay:YES];
 }
 
-- (void)setProgressPhase:(KFProgPhase)progressPhase
+- (void)setProgressPhase:(AZProgPhase)progressPhase
 {
 	if (progressPhase != _progressPhase)
 	{
-		if (_progressPhase == KFProgDownloading && progressPhase == KFProgNone)
+		if (_progressPhase == AZProgDownloading && progressPhase == AZProgNone)
 		{
 			_progress = 1.0f;
 			[self setNeedsDisplay:YES];

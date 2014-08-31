@@ -605,7 +605,7 @@
  n.strV = sV ?: [[[NSApplication sharedApplication]mainWindow]contentView];
  n.v1 = [sV subviews][0] ?: [NSObject viewInView:sV];
  n.v2 = v;
- //		[[NSThread mainThread]performBlock:^{
+ //		[NSThread.mainThreadperformBlock:^{
  [n perform];
  //		} waitUntilDone:YES];
  return n;

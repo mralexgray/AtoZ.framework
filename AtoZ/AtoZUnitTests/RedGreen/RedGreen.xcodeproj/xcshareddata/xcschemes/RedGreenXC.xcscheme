@@ -14,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7BC10D47181EE2200031D473"
-               BuildableName = "sansTest"
-               BlueprintName = "libsans demo"
-               ReferencedContainer = "container:../dev/SansNib/sans.xcodeproj">
+               BlueprintIdentifier = "7BD3F728180051C400E321E3"
+               BuildableName = "libRedGreenXC.a"
+               BlueprintName = "RedGreenXC"
+               ReferencedContainer = "container:RedGreen.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7BD3F739180051C500E321E3"
+               BuildableName = "RedGreenXCTests.xctest"
+               BlueprintName = "RedGreenXCTests"
+               ReferencedContainer = "container:RedGreen.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,14 +42,24 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7BD3F739180051C500E321E3"
+               BuildableName = "RedGreenXCTests.xctest"
+               BlueprintName = "RedGreenXCTests"
+               ReferencedContainer = "container:RedGreen.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BC10D47181EE2200031D473"
-            BuildableName = "sansTest"
-            BlueprintName = "libsans demo"
-            ReferencedContainer = "container:../dev/SansNib/sans.xcodeproj">
+            BlueprintIdentifier = "7BD3F728180051C400E321E3"
+            BuildableName = "libRedGreenXC.a"
+            BlueprintName = "RedGreenXC"
+            ReferencedContainer = "container:RedGreen.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -48,15 +72,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BC10D47181EE2200031D473"
-            BuildableName = "sansTest"
-            BlueprintName = "libsans demo"
-            ReferencedContainer = "container:../dev/SansNib/sans.xcodeproj">
+            BlueprintIdentifier = "7BD3F728180051C400E321E3"
+            BuildableName = "libRedGreenXC.a"
+            BlueprintName = "RedGreenXC"
+            ReferencedContainer = "container:RedGreen.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -66,15 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7BC10D47181EE2200031D473"
-            BuildableName = "sansTest"
-            BlueprintName = "libsans demo"
-            ReferencedContainer = "container:../dev/SansNib/sans.xcodeproj">
+            BlueprintIdentifier = "7BD3F728180051C400E321E3"
+            BuildableName = "libRedGreenXC.a"
+            BlueprintName = "RedGreenXC"
+            ReferencedContainer = "container:RedGreen.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -21,13 +21,15 @@
 //@end
 //@property (nonatomic, weak) id<AZURLBarDelegate> delegate;
 
-typedef NS_ENUM(int, KFProgPhase) { KFProgNone,  KFProgPending,  KFProgDownloading};
+
+typedef NS_ENUM(int, AZProgPhase) { AZProgNone,  AZProgPending,  AZProgDownloading};
+
 
 @class AZWebView;
 @interface AZURLBar : NSView
 @property (weak) AZWebView *webView;
 @property (nonatomic) double progress;
-@property (nonatomic) KFProgPhase progressPhase;
+@property (nonatomic) AZProgPhase progressPhase;
 @property (nonatomic,weak) NSString *addressString;
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic,strong) NSColor *gradientColorTop, *gradientColorBottom, *borderColorTop, *borderColorBottom, *barColorPendingTop,  *barColorPendingBottom, *barColorDownloadingTop, *barColorDownloadingBottom;

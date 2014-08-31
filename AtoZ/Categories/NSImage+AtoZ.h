@@ -89,6 +89,8 @@ extern NSData *PNGRepresentation(NSIMG *image);
 @class AZFile;	@interface NSImage (AtoZ)
 
 
++ (NSIMG*) gravatarForEmail:(NSS*)e;
+
 + (NSIMG *)imageFromPDF:(PDFDocument *)doc
                    page:(NSUI)page
                    size:(NSSZ)size

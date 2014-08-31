@@ -418,12 +418,30 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	}];
 }
 - (void) blinkLayerWithColor:(NSC *)color	 {
-	CABA *blinkAnimation = [CABA animationWithKeyPath:@"backgroundColor"];
-	[blinkAnimation setDuration:0.2];
-	[blinkAnimation setAutoreverses:YES];
-	[blinkAnimation setFromValue:(id)self.backgroundColor];
-	[blinkAnimation setToValue:(id)color.CGColor];
-	[self addAnimation:blinkAnimation forKey:@"blink"];
+
+//  CAGradientLayer
+  CABA *blinkAnimation;
+  if (ISA(self, CAGL)) {
+
+    [self animate:@"colors" to:@[(id)color.lighterColor.CGColor,(id)color.darkerColor.CGColor] time:2 completion:^{
+      XX(@"im done!");
+    }];
+
+//    blinkAnimation = [CABA animationWithKeyPath:@"colors"];
+//     [blinkAnimation setFromValue:((CAGL*)self).colors];
+//     blinkAnimation.toValue = @[(id)color.lighterColor.CGColor,(id)color.darkerColor.CGColor];
+  }
+  else {
+    blinkAnimation = [CABA animationWithKeyPath:@"backgroundColor"];
+    [blinkAnimation setFromValue:(id)self.backgroundColor];
+    [blinkAnimation setToValue:(id)color.CGColor];
+
+  [blinkAnimation setAutoreverses:YES];
+  [blinkAnimation setDuration:0.2];
+
+	[self addAnimation:blinkAnimation forKey:ISA(self, CAGL)? @"colors" : @"blink"];
+
+  }
 }
 -   (id) hitTestEvent:(NSE*)e inView:(NSV*)v                    {
 
@@ -801,15 +819,20 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 
 - (void)         setAnchorPoint:(CGP)pt inRect:(NSR)r   {
 
-	CGP newPoint = (CGP) {r.size.width *pt.x, r.size.height *pt.y };
-	CGP oldPoint = (CGP) {r.size.width *self.anchorPoint.x, r.size.height *self.anchorPoint.y }; 	//	newPoint = CGPo CGPointApplyAffineTransform(newPoint, self.transform); oldPoint = CGPointApplyAffineTransform(oldPoint, self.transform);
-	CGP position = self.position;
-	position.x -= oldPoint.x;       position.x += newPoint.x;
-	position.y -= oldPoint.y;       position.y += newPoint.y;
+	CGP newPoint = (CGP) {r.size.width *pt.x, r.size.height *pt.y },
+      oldPoint = (CGP) {r.size.width *self.anchorPoint.x, r.size.height *self.anchorPoint.y },
+      position = self.position;
+
+  position.x += (newPoint.x - oldPoint.x);
+  position.y += (newPoint.y - oldPoint.y);
+
 	self.position	= position;
 	self.anchorPoint = pt;
 
 }
+
+//	newPoint = CGPo CGPointApplyAffineTransform(newPoint,
+//  self.transform); oldPoint = CGPointApplyAffineTransform(oldPoint, self.transform);
 //- (void) flipHorizontally {	[self flipForward:YES vertically:NO atPosition:99]; } - (void) flipVertically;  {	[self flipForward:YES vertically:YES atPosition:99]; }
 
 - (void)    flipBackAtEdge:(AZA)pos { [self flipForward:NO atPosition:pos]; }
@@ -848,10 +871,15 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	}];
 }
 - (CAT3D)flipForward:(BOOL)forward atPosition:(AZPOS)pos      {
+
 	[self setAnchorPoint:AZAnchorPtAligned(pos) inRect:self.frame];
-	CATransform3D flip = forward ? CATransform3DIdentity
-	: pos == AZTop || pos == AZBtm ? CA3DxRotation(90) : CA3DyRotation(90);
+
+	CATransform3D flip = forward ? CATransform3DIdentity :
+
+  pos == AZTop || pos == AZBtm ? CA3DxRotation(90) : CA3DyRotation(90);
+
 	flip.m34 = -1 / 700;
+
 	return flip;
 }
 
@@ -865,6 +893,8 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	[self setValue:[NSValue valueWithSize:NSSizeToCGSize((NSSize) {scale, scale})] forKeyPath:@"transform.scale"];
 }
 - (ReverseAnimationBlock)pulse  {
+
+  self.hostView.layerUsesCoreImageFilters = YES;
 	CIFilter *filter = [CIFilter filterWithName:@"CIBloom"]; [filter setDefaults];
 	[filter setValue:@5.0f forKey:@"inputRadius"];
 	// name the filter so we can use the keypath to animate the inputIntensity attribute of the filter
@@ -1081,7 +1111,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 - (void)addSublayers:(NSA *)subLayers;  { self.sublayers = [self.sublayers ?: @[] arrayByAddingObjectsFromArray:subLayers]; } //	[subLayers do :^(id obj) { self addSublayer:obj]; }]; }
 @end
 
-@implementation CALayer (AtoZLayerFactory)
+@implementation CALayer (AtoZLayerFactory) @dynamic gridPalette;
 
 + (instancetype)layerNamed:(NSS *)name { id a = [self.class new]; [a sV:name fK:@"name"];	return a; }
 
@@ -1150,7 +1180,6 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	return layer;
 }
 
-+ (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt                    { return [self gridLayerWithFrame:r rows:rowCt cols:colCt palette:nil]; }
 + (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt palette:(NSA*)pal  {   NSN *rows = @(rowCt); NSN*cols = @(colCt);
 
   CAL *grid = [[self layerWithFrame:r mask:CASIZEABLE] objectBySettingValue:AZLAYOUTMGR forKey:@"layoutManager"];
@@ -1172,6 +1201,50 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
   [grid disableResizeActions];
   return grid;
 }
+
++ (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt
+                                   cols:(NSUI)colCt { return [self gridLayerWithFrame:r rows:rowCt cols:colCt palette:nil]; }
+
+
+/*
++ (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt
+                                   cols:(NSUI)colCt
+                                palette:(NSA*)pal   { // NSN *rows = @(rowCt); NSN*cols = @(colCt);
+
+  CAL *grid = [[self layerWithFrame:r mask:CASIZEABLE] wVsfKs:AZLAYOUTMGR,@"layoutManager",nil];//AZVSZBy(colCt, rowCt), @"dimensions", nil];
+
+  [grid  setSizeChanged:^(NSSize oldSz, NSSize newSz) {
+
+  [grid iterateGrid:^(NSInteger r, NSInteger c) {
+
+    if ([grid.sublayers.count] != (r + c) - 2)
+
+          cell.constraints  = @[  AZConstRelSuperScaleOff( kCAConstraintWidth,  1/(float)colCt, 0),
+                              AZConstRelSuperScaleOff( kCAConstraintHeight, 1/(float)rowCt, 0),
+                       AZConstAttrRelNameAttrScaleOff( kCAConstraintMinX, AZSLayer, kCAConstraintMaxX, c/(float)colCt,0),
+                       AZConstAttrRelNameAttrScaleOff( kCAConstraintMinY, AZSLayer, kCAConstraintMaxY, r/(float)rowCt,0)];
+
+  }];
+
+
+  [grid iterateGrid:^(NSInteger r, NSInteger c) {  // equiv to [rows times:^(NSN *r) { [cols times:^(NSN *c) { }]; }};
+
+      CAL *cell         = pal ? [CAGL gradientWithColor:pal.nextNormalObject] : [self layer];
+      cell.borderColor  = cgWHITE;
+      cell.borderWidth  = 1;
+      [cell disableResizeActions];
+      cell.name = $(@"%lu:%lu",r,c);
+      [grid addSublayer:cell];
+    }];
+  [grid disableResizeActions];
+  return grid;
+}
+
+- (void) setGridPalette:(NSArray *)gridPalette {
+
+  [self iterateGrid:^(NSInteger r1, NSInteger c) {  }]
+}
+*/
 + (INST) noHitLayerWithFrame:(NSR)r mask:(NSUI)m  { id x = [self.class noHitLayer]; [x setFrame:r]; [(CAL*)x setAutoresizingMask:m]; return x; }
 + (INST) noHitLayerWithFrame:(NSR)r               { id x = [self.class noHitLayer]; [x setFrame:r];    return x; }
 + (INST) noHitLayer                               { id x = [self.class layer]; [x setNoHit:YES]; return x; }

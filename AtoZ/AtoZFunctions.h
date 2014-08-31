@@ -95,6 +95,10 @@ void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task
 #define ISNOTA(OBJ,KLASS) (BOOL)(!ISA(((id)OBJ),KLASS))       /*! @code  ISA(@"apple",NSString)          -> YES    */
 #define AM_I_A(KLASS) ISA(self,KLASS)                         /*! @code  AM_I_A(NSString)                -> YES    */
 
+
+#define IS_NULL(X) (!X || [X isEqual:AZNULL])
+
+
 ///#define ANYSUPERLAYERISA
 
 //OBJC_EXPORT  BOOL AZISAAnyOfThese(Class x, ...); // under construction

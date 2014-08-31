@@ -232,7 +232,7 @@
 			//
 		return app;
 	}]];
-		//		[[NSThread mainThread] performBlock:^{
+		//		[NSThread.mainThread performBlock:^{
 	sourceListItems = @[appsListItem];
 	[AZStopwatch stop:@"makingbadges"];
 	[_sourceList reloadData];

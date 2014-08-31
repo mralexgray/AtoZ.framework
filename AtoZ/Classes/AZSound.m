@@ -1,12 +1,11 @@
 
-#import "AZSound.h"
-#import "BaseModel.h"
 #import "AtoZ.h"
+#import "AZSound.h"
 
 static NSA *soundPaths(){ return  [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""]; }
 
-
 #pragma mark Sound class
+
 NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotification";
 
 #ifdef SM_USE_AV_AUDIO_PLAYER
@@ -15,13 +14,11 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 @interface Sound() <NSSoundDelegate>
 #endif
 
-@property (nonatomic, assign) float startVolume;
-@property (nonatomic, assign) float targetVolume;
-@property (nonatomic, assign) NSTimeInterval fadeTime;
-@property (nonatomic, assign) NSTimeInterval fadeStart;
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) Sound *selfReference;
-@property (nonatomic, strong) SM_SOUND *sound;
+@property (nonatomic)    float startVolume, targetVolume;
+@property (nonatomic)     NSTI fadeTime,    fadeStart;
+@property (nonatomic)  NSTimer *timer;
+@property (nonatomic)    Sound *selfReference;
+@property (nonatomic) SM_SOUND *sound;
 
 -(void)prepareToPlay;
 
@@ -29,26 +26,17 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 @implementation Sound
 
-@synthesize baseVolume;
-@synthesize startVolume;
-@synthesize targetVolume;
-@synthesize fadeTime;
-@synthesize fadeStart;
-@synthesize timer;
-@synthesize selfReference;
-@synthesize url;
-@synthesize sound;
-@synthesize completionHandler;
+@synthesize baseVolume, startVolume, targetVolume, fadeTime, fadeStart, timer, selfReference, url, sound, completionHandler;
 
 + (Sound*) randomSound {
 
 //	NSArray *randos = ;//[[SoundManager sharedManager]soundPaths];
-	return [[Sound alloc]initWithContentsOfFile:[[SoundManager soundPaths] randomElement]];// [(NSS*)randos.randomElement copy]];
+	return [self.class.alloc initWithContentsOfFile:SoundManager.soundPaths.randomElement];// [(NSS*)randos.randomElement copy]];
 }
 
 + (Sound *)soundNamed:(NSString *)name
 {
-	return [[Sound alloc]initWithContentsOfFile:[[SoundManager soundPaths] filterOne:^BOOL(id object) {
+	return [self.class.alloc initWithContentsOfFile:[SoundManager.soundPaths filterOne:^BOOL(id object) {
 		return [(NSS*)object containsString:name];
 	}]];
 }

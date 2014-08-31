@@ -1,5 +1,5 @@
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <AtoZ/AtoZ.h>
 
 AZFULLIMP(ColorStringObject, EXTMultiObject,
@@ -12,15 +12,15 @@ AZTESTCASE(EXTMultiObjectTests) { ColorStringObject *mObj; }
 
 - (void) testResonse {
   
-  STAssertNotNil(mObj, @"Ugh, it doesnt even exiust!");
-    STAssertTrue([mObj respondsToString:@"length"], @"should respond to nsstring's sel:length");
-    STAssertTrue([mObj respondsToString:@"darker"], @"should respond to nsColor's sel:darker");
+  XCTAssertNotNil(mObj, @"Ugh, it doesnt even exiust!");
+    XCTAssertTrue([mObj respondsToString:@"length"], @"should respond to nsstring's sel:length");
+    XCTAssertTrue([mObj respondsToString:@"darker"], @"should respond to nsColor's sel:darker");
 }  
 - (void) testClassKindResponse {
 
-    STAssertTrue(ISA(mObj,NSS), @"should \"be\" a string");
-    STAssertTrue(ISA(mObj,NSC), @"should \"be\" a string");
-   STAssertFalse(ISA(mObj,NSA), @"should \"not be\" an array");
+    XCTAssertTrue(ISA(mObj,NSS), @"should \"be\" a string");
+    XCTAssertTrue(ISA(mObj,NSC), @"should \"be\" a string");
+   XCTAssertFalse(ISA(mObj,NSA), @"should \"not be\" an array");
 }
 - (void) testCodingAndCopying {
 

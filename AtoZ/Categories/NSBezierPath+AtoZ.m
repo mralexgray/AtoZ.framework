@@ -1063,6 +1063,33 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
    */
 }
 
+//Inner shadow drawing code
+- (void) drawInnerShadowInContext:(CGContextRef)context
+                     shadowColor:(CGColorRef)shadowColor
+                          offset:(CGSize)offset
+                      blurRadius:(CGFloat)blurRadius {
+
+    CGContextSaveGState(context);
+    
+    CGContextAddPath(context, self.quartzPath);
+    CGContextClip(context);
+        
+    CGColorRef opaqueShadowColor = CGColorCreateCopyWithAlpha(shadowColor, 1.0);
+    
+    CGContextSetAlpha(context, CGColorGetAlpha(shadowColor));
+    CGContextBeginTransparencyLayer(context, NULL);
+        CGContextSetShadowWithColor(context, offset, blurRadius, opaqueShadowColor);
+        CGContextSetBlendMode(context, kCGBlendModeSourceOut);
+        CGContextSetFillColorWithColor(context, opaqueShadowColor);
+        CGContextAddPath(context, self.quartzPath);
+        CGContextFillPath(context);
+    CGContextEndTransparencyLayer(context);
+    
+    CGContextRestoreGState(context);
+    CGColorRelease(opaqueShadowColor);
+}
+
+
 - (void)applyInnerShadow:(NSShadow *)shadow {
   [NSGraphicsContext saveGraphicsState];
 

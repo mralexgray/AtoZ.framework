@@ -1,0 +1,23 @@
+//
+// Prefix header for all source files of the 'AtoZ Entitlement' target in the 'AtoZ Entitlement' project
+//
+
+#ifdef __OBJC__
+#import <XCTest/XCTest.h>
+
+#define XCTSameString(A,B,...) XCTAssertTrue([A isEqualToString:B],__VA_ARGS__)
+
+#endif
+
+
+/*
+	#import <AtoZ/AtoZ.h>
+	#import <QuartzCore/QuartzCore.h>
+  #import <SenTestingKit/SenTestingKit.h>
+  #import <OCMock/OCMock.h>	
+	#import <OCHamcrest/OCHamcrest.h>	
+	#import <GHUnit/GHUnit.h>
+  
+	#define XCTestCase SenTestCase
+	#import <Foundation/Foundation.h>
+*/

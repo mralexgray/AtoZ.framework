@@ -3,23 +3,9 @@
    LastUpgradeVersion = "0600"
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "NO"
+      parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "270B11B11628E676005A82FA"
-               BuildableName = "CocoaHTTPServer.framework"
-               BlueprintName = "CocoaHTTPServerOSX"
-               ReferencedContainer = "container:Frameworks/RoutingHTTPServerFramework/Frameworks/CocoaHTTPServer/CocoaHTTPServer.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
@@ -28,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "270B11B11628E676005A82FA"
-               BuildableName = "RoutingHTTPServer.framework"
-               BlueprintName = "RoutingHTTPServerOSX"
-               ReferencedContainer = "container:Frameworks/RoutingHTTPServerFramework/RoutingHTTPServer.xcodeproj">
+               BlueprintIdentifier = "28A482791722CECB0091EB34"
+               BuildableName = "libRedGreen.a"
+               BlueprintName = "RedGreen"
+               ReferencedContainer = "container:RedGreen.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "28A4828A1722CECB0091EB34"
+               BuildableName = "RedGreenTests.octest"
+               BlueprintName = "RedGreenTests"
+               ReferencedContainer = "container:RedGreen.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,13 +46,22 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7B3BFD9B189782FF006ABA97"
-               BuildableName = "RoutingHTTPServerOSXTests.octest"
-               BlueprintName = "RoutingHTTPServerOSXTests"
-               ReferencedContainer = "container:Frameworks/RoutingHTTPServerFramework/RoutingHTTPServer.xcodeproj">
+               BlueprintIdentifier = "28A4828A1722CECB0091EB34"
+               BuildableName = "RedGreenTests.octest"
+               BlueprintName = "RedGreenTests"
+               ReferencedContainer = "container:RedGreen.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "28A482791722CECB0091EB34"
+            BuildableName = "libRedGreen.a"
+            BlueprintName = "RedGreen"
+            ReferencedContainer = "container:RedGreen.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -63,6 +72,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "28A482791722CECB0091EB34"
+            BuildableName = "libRedGreen.a"
+            BlueprintName = "RedGreen"
+            ReferencedContainer = "container:RedGreen.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -72,6 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "28A482791722CECB0091EB34"
+            BuildableName = "libRedGreen.a"
+            BlueprintName = "RedGreen"
+            ReferencedContainer = "container:RedGreen.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

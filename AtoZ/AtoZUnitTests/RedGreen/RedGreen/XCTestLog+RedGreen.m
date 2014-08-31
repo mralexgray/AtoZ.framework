@@ -1,10 +1,14 @@
 
 /**  XCTestLog+RedGreen.m  *//* © 𝟮𝟬𝟭𝟯 𝖠𝖫𝖤𝖷 𝖦𝖱𝖠𝖸  𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆 */
 
-#import "XCTestLog+RedGreen.h"
-#import <objc/runtime.h>
-#import <objc/message.h>
+@import XCTest;
+@import ObjectiveC;
+//#import <objc/message.h>
 #import <stdarg.h>
+
+#define SHOW_SECONDS 0
+#define PRINT_START_FINISH_NOISE 0
+
 
 #define CLR_BEG "\033[fg"
 #define CLR_END "\033[;"
@@ -50,7 +54,7 @@ NSString *const kRGTestCaseFormat 				= @"%@: %s (%.3fs)",
 
 + (NSString*) updatedOutputFormat:(NSString*)fmt	{ return [fmt isEqualToString:kXCTestCaseFormat] ? kRGTestCaseFormat : fmt; }
 
-- (void) testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)	{
+- (void)testLogWithColorFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2)	{
 
 	va_list arguments;	va_start(arguments, format);
 

@@ -67,6 +67,12 @@
 - (void) strokeInsideWithinRect:(NSR)clipRect;
 - (void) applyInnerShadow:      (NSSHDW*)shadow;
 - (void) fillWithInnerShadow:   (NSSHDW*)shadow;
+
+- (void) drawInnerShadowInContext:(CGContextRef)context
+                     shadowColor:(CGColorRef)shadowColor
+                          offset:(CGSize)offset
+                      blurRadius:(CGFloat)blurRadius;
+
 - (void) strokeWithColor:       (NSC*)color;
 - (void) fillWithColor:         (NSC*)color;
 - (void) strokeWithColor:       (NSC*)color andWidth:(CGF)width;
