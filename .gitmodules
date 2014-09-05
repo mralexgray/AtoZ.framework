@@ -1,4 +1,4 @@
-[submodule "AtoZ/AtoZAutoBox"]
+[submodule "AtoZAutoBox"]
 	path = Frameworks/AtoZAutoBox
 	url = https://github.com/mralexgray/AtoZAutoBox.git
 	ignore = dirty
@@ -6,11 +6,11 @@
 	path = AtoZWebkit
 	url = https://github.com/mralexgray/AtoZWebkit.git
 	ignore = dirty
-[submodule "AtoZ/Categories/Functional"]
+[submodule "Functional"]
 	path = AtoZ/Categories/Functional
 	url = https://github.com/mralexgray/Functional.m.git
 	ignore = dirty
-[submodule "Frameworks/FunSize.framework"]
+[submodule "FunSize.framework"]
 	path = Frameworks/FunSize.framework
 	url = https://github.com/mralexgray/FunSize.git
 	ignore = dirty
