@@ -14,6 +14,8 @@
 + (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt palette:(NSA*)pal;
 @property NSA *gridPalette;
 
+@property BOOL   noHit;
+
 + (instancetype) noHitLayer;
 + (instancetype) noHitLayerWithFrame:(NSR)r;
 + (instancetype) noHitLayerWithFrame:(NSR)r mask:(NSUI)m;
@@ -57,10 +59,10 @@
 // Coerce-to-property setters.
 - (void) addSublayers:(NSA*)subLayers;
 
+- (NSP) layerPoint:(NSE*)e;
 
 @property (RONLY)  CAL * permaPresentation;
-@property         BOOL   noHit,
-                         animatesResize;
+@property         BOOL   animatesResize;
 @property          NSC * backgroundNSColor;
 
 @property (RONLY)  NSA * siblings;            // SUPER -> @[A,B,C]  B.siblings            = @[A,C]

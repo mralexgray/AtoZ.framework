@@ -184,6 +184,7 @@ SetKPfVA(InsideEdge, @"frame", @"superframe");
 //- (void) setFrame:(CGR)f  { self.bounds = AZRectFromSizeOfRect(f); self.origin = f.origin;  }  //(NSR){self.origin,self.size}; }
 
 + (INST) withDims:(NSN*)d1, ...     { AZVA_ARRAY(d1,dims); return [self withRect:[NSN rectBy:dims]]; }
+
 + (INST) rectLike:(NSNumber *)d1, ... {
 
   AZVA_ARRAY(d1, rectParts);

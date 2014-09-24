@@ -16,13 +16,14 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 	if ([_delegate respondsToSelector:@selector(textWasEntered:)]) [_delegate textWasEntered:term.string];
 }
 
-- 	 (id) init								{	if (!(self = super.init)) return nil;
+- init { SUPERINIT;
 
-	_autoOpens	= YES;		_logPath		= NULL;
-	inited		= YES;		_tokensForCompletion = NSMA.new;
-
-	_original_stderr 	= dup(STDERR_FILENO); 	// Save stderr
-	_logPath 			= $(@"%@%@.log.txt", NSTemporaryDirectory(),AZBUNDLE.bundleIdentifier);
+  _autoOpens           = YES;
+  _logPath             = NULL;
+  inited               = YES;
+  _tokensForCompletion = NSMA.new;
+  _original_stderr     = dup(STDERR_FILENO);// Save stderr
+  _logPath             = $(@"%@%@.log.txt", NSTemporaryDirectory(),AZBUNDLE.bundleIdentifier);
 
 	// Create the file — NSFileHandle doesn't do it !
 	[@"" writeToFile:_logPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -32,7 +33,7 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 
 	NSAssert(dup2((int)_fileHandle.fileDescriptor, STDERR_FILENO), @"ERROR Couldn't redirect stderr");
 
-	_fileOffset = 0;	[_fileHandle readInBackgroundAndNotify];
+    _fileOffset      = 0;	[_fileHandle readInBackgroundAndNotify];
 	[AZNOTCENTER addObserver:self selector:@selector(dataAvailable:) name:NSFileHandleReadCompletionNotification object: _fileHandle];
 	return self;
 }	// Init : should only be called once by sharedConsole

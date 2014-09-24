@@ -429,7 +429,7 @@ NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 	//- (void) pplicationDidFinishLaunching:(NSNotification *)aNotification  { [self registerHotKeys]; }
 
 }
-+ (void) playRandomSound 			{	[SoundManager.sharedManager playSound:Sound.randomSound looping:NO]; }
++ (void) playRandomSound 			{	[SoundManager playRandomSound]; }
 + (void) playSound: (id)number	{   //[ playSound:@1];
 
 	NSA *sounds = @[@"welcome.wav", @"bling"];

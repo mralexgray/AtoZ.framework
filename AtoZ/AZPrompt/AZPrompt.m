@@ -11,8 +11,9 @@ int main(int argc, char *argv[], char**argp ){	@autoreleasepool {
 //	AZSHAREDAPP;
 //	[NSApp run];
 
-  NSLog(@"%@", [@"∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i"
-      stringWithoutSpaces]);
+  NSS *path = @"/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.png";
+  
+  NSLog(@"%@", $(@"∂i!!(1)%@ƒ i", path).stringWithoutSpaces);
 
 
 }	return EXIT_SUCCESS;	}

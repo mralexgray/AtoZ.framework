@@ -1,50 +1,51 @@
-// AZProcess.m
-//
-// Copyright (c) 2002-2003 Aram Greenman. All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-//
-// 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-// 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-// 3. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAZES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAZE.
+/*! AZProcess.m
 
-// Version History:
-//
-// 0.1 - February 13, 2003
-//	Initial release - Aram Greenman
-//
-// 0.2 - August 4, 2003
-//	Added code to check OS versions in computations for task memory usage - Aram Greenman
-//	Added methods to retrieve task events (pageins, faults, etc.) - Craig Hockenberry
-//	Fixed compilation warnings in AZGetMachThreadPriority - Craig Hockenberry
-//	Fixed -siblings method to exclude the receiver - Steve Gehrman
-//
-// 0.3 - November 3, 2003
-//	Added code in doProcargs to handle command names with UTF-8 characters - Craig Hockenberry
-//	Changed code to weed out bogus entries in the argument list (isprint only works with 7-bit ASCII characters) - Craig Hockenberry
-//
-// 0.4 - May 31, 2005
-//	Cleaned up parsing in doProcargs - Craig Hockenberry
-//		Fixed the parser to handle the buffer returned by KERN_PROCARGS (the contents vary depending on the version of Mac OS X)
-//		Added a special case for Tiger that uses KERN_PROCARGS2 -- this version provides an argument count for more reliable results
-//		Fixed a bug with parsing arguments on Japanese systems
-//		Tested the parser on Jaguar, Panther and Tiger (10.2 to 10.4)
-//	Added an annotation for Java and DashboardClient commands - Craig Hockenberry
-//		Added an -annotation method which can be used to distinguish multiple instances of each command
-//		Added an -annotatedCommand method which produces a composite of the command and annotation strings
-//	Changed the computation of VM sizes to match the "top" command (which differs from how "ps" does it) - Craig Hockenberry
-//	Fixed compilation warnings when using GCC 4.0 and Xcode 2.0 - Craig Hockenberry
-//	Updated the ProcessTest application to use new methods and shown unknown values - Craig Hockenberry
-//
-// 0.5 - August 8, 2005
-//	Cleaned up parsing in doProcargs - Craig Hockenberry
-//		Fixed a bug with the parser's argument count causing a NSRangeException for processes with no arguments running from
-//		a bash shell
-//	Fixed a memory leak during command allocation when the parser failed - Steve Gehrman
-//	Fixed a memory leak when deallocating an instance -- the annotation was not being freed - Craig Hockenberry
-//	Added annotations for Konfabulator widgets - Craig Hockenberry
+ Copyright (c) 2002-2003 Aram Greenman. All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ 3. The name of the author may not be used to endorse or promote products derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAZES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAZE.
+
+ Version History:
+
+ 0.1 - February 13, 2003
+	Initial release - Aram Greenman
+
+ 0.2 - August 4, 2003
+	Added code to check OS versions in computations for task memory usage - Aram Greenman
+	Added methods to retrieve task events (pageins, faults, etc.) - Craig Hockenberry
+	Fixed compilation warnings in AZGetMachThreadPriority - Craig Hockenberry
+	Fixed -siblings method to exclude the receiver - Steve Gehrman
+
+ 0.3 - November 3, 2003
+	Added code in doProcargs to handle command names with UTF-8 characters - Craig Hockenberry
+	Changed code to weed out bogus entries in the argument list (isprint only works with 7-bit ASCII characters) - Craig Hockenberry
+
+ 0.4 - May 31, 2005
+	Cleaned up parsing in doProcargs - Craig Hockenberry
+		Fixed the parser to handle the buffer returned by KERN_PROCARGS (the contents vary depending on the version of Mac OS X)
+		Added a special case for Tiger that uses KERN_PROCARGS2 -- this version provides an argument count for more reliable results
+		Fixed a bug with parsing arguments on Japanese systems
+		Tested the parser on Jaguar, Panther and Tiger (10.2 to 10.4)
+	Added an annotation for Java and DashboardClient commands - Craig Hockenberry
+		Added an -annotation method which can be used to distinguish multiple instances of each command
+		Added an -annotatedCommand method which produces a composite of the command and annotation strings
+	Changed the computation of VM sizes to match the "top" command (which differs from how "ps" does it) - Craig Hockenberry
+	Fixed compilation warnings when using GCC 4.0 and Xcode 2.0 - Craig Hockenberry
+	Updated the ProcessTest application to use new methods and shown unknown values - Craig Hockenberry
+
+ 0.5 - August 8, 2005
+	Cleaned up parsing in doProcargs - Craig Hockenberry
+		Fixed a bug with the parser's argument count causing a NSRangeException for processes with no arguments running from
+		a bash shell
+	Fixed a memory leak during command allocation when the parser failed - Steve Gehrman
+	Fixed a memory leak when deallocating an instance -- the annotation was not being freed - Craig Hockenberry
+	Added annotations for Konfabulator widgets - Craig Hockenberry
+*/
 
 #import <AtoZ/AtoZ.h>
 #include <mach/mach_host.h>
@@ -68,6 +69,10 @@
 #include <string.h>
 #include <errno.h>
 #include <libproc.h>
+
+#include <mach/mach_types.h>
+#include <limits.h>
+
 #import "AZProcess.h"
 
 #define GLOBAL_SHARED_TEXT_SEGMENT	0x90000000U
@@ -79,19 +84,14 @@
 
 JREnumDefine(AZProcessState);
 
-static unsigned global_shared_text_segment;
-static unsigned shared_data_region_size;
-static unsigned shared_text_region_size;
-static int argument_buffer_size;
-static int major_version;
-static int minor_version;
-static int update_version;
+static unsigned global_shared_text_segment, shared_data_region_size, shared_text_region_size;
+static int argument_buffer_size, major_version, minor_version, update_version;
 
 // call this before any of the AZGetMach... functions
 // sets the correct split library segment for running kernel
 // should work at least through Darwin 6.6 (Mac OS X 10.2.6)
-static kern_return_t
-AZMachStatsInit() {
+
+static kern_return_t AZMachStatsInit() {
 	int mib[2];
 	size_t len = 256;
 	char rel[len];
@@ -184,8 +184,7 @@ static kern_return_t AZGetMachTaskMemoryUsage(task_t task, unsigned *virtual_siz
 	return error;
 }
 
-static kern_return_t
-AZGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time, double *percent) {
+static kern_return_t AZGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time, double *percent) {
 	kern_return_t error;
 	struct thread_basic_info th_info;
 	mach_msg_type_number_t th_info_count = THREAD_BASIC_INFO_COUNT;
@@ -200,8 +199,7 @@ AZGetMachThreadCPUUsage(thread_t thread, double *user_time, double *system_time,
 	return error;
 }
 
-static kern_return_t
-AZGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, double *percent) {
+static kern_return_t AZGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, double *percent) {
 	kern_return_t error;
 	struct task_basic_info t_info;
 	thread_array_t th_array;
@@ -244,8 +242,7 @@ AZGetMachTaskCPUUsage(task_t task, double *user_time, double *system_time, doubl
 	return error;
 }
 
-static kern_return_t
-AZGetMachThreadPriority(thread_t thread, int *current_priority, int *base_priority) {
+static kern_return_t AZGetMachThreadPriority(thread_t thread, int *current_priority, int *base_priority) {
 	kern_return_t error;
 	struct thread_basic_info th_info;
 	mach_msg_type_number_t th_info_count = THREAD_BASIC_INFO_COUNT;
@@ -290,8 +287,7 @@ AZGetMachThreadPriority(thread_t thread, int *current_priority, int *base_priori
 	return error;
 }
 
-static kern_return_t
-AZGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
+static kern_return_t AZGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
 	kern_return_t error;
 	thread_array_t th_array;
 	mach_msg_type_number_t th_count;
@@ -326,8 +322,7 @@ AZGetMachTaskPriority(task_t task, int *current_priority, int *base_priority) {
 	return error;
 }
 
-static kern_return_t
-AZGetMachThreadState(thread_t thread, int *state) {
+static kern_return_t AZGetMachThreadState(thread_t thread, int *state) {
 	kern_return_t error;
 	struct thread_basic_info th_info;
 	mach_msg_type_number_t th_info_count = THREAD_BASIC_INFO_COUNT;
@@ -361,8 +356,7 @@ AZGetMachThreadState(thread_t thread, int *state) {
 	return error;
 }
 
-static kern_return_t
-AZGetMachTaskState(task_t task, int *state) {
+static kern_return_t AZGetMachTaskState(task_t task, int *state) {
 	kern_return_t error;
 	thread_array_t th_array;
 	mach_msg_type_number_t th_count;
@@ -395,8 +389,7 @@ AZGetMachTaskState(task_t task, int *state) {
 	return error;
 }
 
-static kern_return_t
-AZGetMachTaskThreadCount(task_t task, int *count) {
+static kern_return_t AZGetMachTaskThreadCount(task_t task, int *count) {
 	kern_return_t error;
 	thread_array_t th_array;
 	mach_msg_type_number_t th_count;
@@ -414,8 +407,7 @@ AZGetMachTaskThreadCount(task_t task, int *count) {
 	return error;
 }
 
-static kern_return_t
-AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int *messages_sent, int *messages_received, int *syscalls_mach, int *syscalls_unix, int *csw) {
+static kern_return_t AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int *messages_sent, int *messages_received, int *syscalls_mach, int *syscalls_unix, int *csw) {
 	kern_return_t error;
 	task_events_info_data_t t_events_info;
 	mach_msg_type_number_t t_events_info_count = TASK_EVENTS_INFO_COUNT;
@@ -435,14 +427,383 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return error;
 }
 
-@interface AZProcess (Private)
-+ (NSArray *)processesForThirdLevelName:(int)name value:(int)value;
-- (void)doProcargs;
-@end
+@implementation AZProcess { int process; task_t task; NSS *command; NSS *annotation; NSA *arguments; NSD *environment;	}
 
-@implementation AZProcess (Private)
++ process:(NSString*)property { return [self.currentProcess vFK:property]; }
 
-+ (NSArray *)processesForThirdLevelName:(int)name value:(int)value {
++ (void)initialize {	AZMachStatsInit();	[super initialize]; }
+
+- initWithProcessIdentifier:(int)pid { SUPERINIT;
+
+  process = pid;
+
+  if (task_for_pid(mach_task_self(), process, &task) != KERN_SUCCESS) task = MACH_PORT_NULL;
+
+  return self.state == AZProcessStateExited ?  [self release], nil : self;
+}
+
++ (INST) currentProcess {
+	return [self processForProcessIdentifier:getpid()];
+}
+
++ (NSA*) allProcesses {
+	return [self processesForThirdLevelName:KERN_PROC_ALL value:0];
+}
+
++ (NSA*) userProcesses {
+	return [self processesForUser:geteuid()];
+}
+
++ (NSS*)pathOfProcessWithIdentifier:(int)pid {
+   __unused pid_t pidT = (pid_t)pid;
+   char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+	int ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
+	return ret ? $(@"%s", pathbuf) : nil;
+}
+
++ (INST) processForProcessIdentifier:(int)pid {
+	return [[self.alloc initWithProcessIdentifier:pid] autorelease];
+}
+
++ (NSA*) processesForProcessGroup:(int)pgid {
+	return [self processesForThirdLevelName:KERN_PROC_PGRP value:pgid];
+}
+
++ (NSA*) processesForTerminal:(int)tty {
+	return [self processesForThirdLevelName:KERN_PROC_TTY value:tty];
+}
+
++ (NSA*) processesForUser:(int)uid {
+	return [self processesForThirdLevelName:KERN_PROC_UID value:uid];
+}
+
++ (NSA*) processesForRealUser:(int)ruid {
+	return [self processesForThirdLevelName:KERN_PROC_RUID value:ruid];
+}
+
+NSA *_processesForCommandInsensitive(NSS* comm, BOOL insensitive) {
+
+  return [AZProcess.allProcesses filter:^BOOL(AZProcess *command) {
+   return SameString(insensitive ? command.command.lowercaseString : command.command, insensitive ? comm.lowercaseString : comm);
+  }];
+}
+
++ (NSA*) processesForCommandInsensitive:(NSS*)comm { return _processesForCommandInsensitive(comm, YES); }
+
++ (NSA*) processesForCommand:(NSS*)comm { return _processesForCommandInsensitive(comm, NO); }
+
++ (AZProcess*) processForCommand:(NSString*)comm {
+	NSArray *processes = [self processesForCommand:comm];
+	if ([processes count])
+		return processes[0];
+	return nil;
+}
+
+- (int) processIdentifier {
+	return process;
+}
+
+- (int) parentProcessIdentifier {
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
+		return AZProcessValueUnknown;
+	if (length == 0)
+		return AZProcessValueUnknown;
+	return info.kp_eproc.e_ppid;
+}
+
+- (int) processGroup {
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
+		return AZProcessValueUnknown;
+	if (length == 0)
+		return AZProcessValueUnknown;
+	return info.kp_eproc.e_pgid;
+}
+
+- (int) terminal {
+
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	return sysctl(mib, 4, &info, &length, NULL, 0) < 0 ||
+              (!length || !info.kp_eproc.e_tdev)      ? AZProcessValueUnknown
+                                                      : info.kp_eproc.e_tdev;
+}
+
+- (int) terminalProcessGroup {
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
+		return AZProcessValueUnknown;
+	if (length == 0 || info.kp_eproc.e_tpgid == 0)
+		return AZProcessValueUnknown;
+	return info.kp_eproc.e_tpgid;
+}
+
+- (int) userIdentifier {
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
+		return AZProcessValueUnknown;
+	if (length == 0)
+		return AZProcessValueUnknown;
+	return info.kp_eproc.e_ucred.cr_uid;
+}
+
+- (int) realUserIdentifier {
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
+		return AZProcessValueUnknown;
+	if (length == 0)
+		return AZProcessValueUnknown;
+	return info.kp_eproc.e_pcred.p_ruid;
+}
+
+- (NSS*) command {
+	[self doProcargs];
+	return command;
+}
+
+- (NSS*) annotation {
+	[self doProcargs];
+	return annotation;
+}
+
+- (NSS*) annotatedCommand {
+	[self doProcargs];
+	if (annotation)
+		return [NSString stringWithFormat:@"%@ (%@)", command, annotation];
+	else
+		return command;
+}
+
+- (NSA*) arguments {
+	[self doProcargs];
+	return arguments;
+}
+
+- (NSD*) environment {
+	[self doProcargs];
+	return environment;
+}
+
+- (NSS*) path { return [self.environment[@"PWD"] stringByAppendingPathComponent:self.command]; }
+
+- (INST) parent {
+	return [[self class] processForProcessIdentifier:[self parentProcessIdentifier]];
+}
+
+- (NSA*) children {
+	NSArray *all = [[self class] allProcesses];
+	NSMutableArray *children = [NSMutableArray array];
+	int i, count = [all count];
+	for (i = 0; i < count; i++)
+		if ([all[i] parentProcessIdentifier] == process)
+			[children addObject:all[i]];
+	return children;
+}
+
+- (NSA*) siblings {
+	NSArray *all = [[self class] allProcesses];
+	NSMutableArray *siblings = [NSMutableArray array];
+	int i, count = [all count], ppid = [self parentProcessIdentifier];
+	for (i = 0; i < count; i++) {
+		AZProcess *p = all[i];
+		if ([p parentProcessIdentifier] == ppid && [p processIdentifier] != process)
+			[siblings addObject:p];
+	}
+	return siblings;
+}
+
+- (double) percentCPUUsage {
+	double percent;
+	if (AZGetMachTaskCPUUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return percent;
+}
+
+- (double) totalCPUTime {
+	double user, system;
+	if (AZGetMachTaskCPUUsage(task, &user, &system, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return user + system;
+}
+
+- (double) userCPUTime {
+	double user;
+	if (AZGetMachTaskCPUUsage(task, &user, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return user;
+}
+
+- (double) systemCPUTime {
+	double system;
+	if (AZGetMachTaskCPUUsage(task, NULL, &system, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return system;
+}
+
+- (double) percentMemoryUsage {
+	double percent;
+	if (AZGetMachTaskMemoryUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return percent;
+}
+
+- (unsigned)virtualMemorySize {
+	unsigned size;
+	if (AZGetMachTaskMemoryUsage(task, &size, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return size;
+}
+
+- (unsigned)residentMemorySize {
+	unsigned size;
+	if (AZGetMachTaskMemoryUsage(task, NULL, &size, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return size;
+}
+
+- (AZProcessState)state {
+	int state;
+	struct kinfo_proc info;
+	size_t length = sizeof(struct kinfo_proc);
+	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
+	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
+		return AZProcessStateExited;
+	if (length == 0)
+		return AZProcessStateExited;
+	if (info.kp_proc.p_stat == SZOMB)
+		return AZProcessStateZombie;
+	if (AZGetMachTaskState(task, &state) != KERN_SUCCESS)
+		return AZProcessStateUnknown;
+	return state;
+}
+
+- (int) priority {
+	int priority;
+	if (AZGetMachTaskPriority(task, &priority, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return priority;
+}
+
+- (int) basePriority {
+	int priority;
+	if (AZGetMachTaskPriority(task, NULL, &priority) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return priority;
+}
+
+- (int) threadCount {
+	int count;
+	if (AZGetMachTaskThreadCount(task, &count) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return count;
+}
+
+#pragma mark - Signals
+
+- (BOOL)suspend {
+	return [self kill:SIGSTOP];
+}
+
+- (BOOL)resume {
+	return [self kill:SIGCONT];
+}
+
+- (BOOL)interrupt {
+	return [self kill:SIGINT];
+}
+
+- (BOOL)terminate {
+	return [self kill:SIGTERM];
+}
+
+- (BOOL)kill:(int)signal {
+	return kill(process, signal) == 0;
+}
+
++ (BOOL)killAllProcessesForCommand:(NSString*)comm insensitive:(BOOL)insensitive {
+
+  __block BOOL success = YES;
+  [insensitive ? [self processesForCommandInsensitive:comm] : [self processesForCommand:comm] each:^(AZProcess *proc) {
+    if (success) success = [proc kill:9];
+    else [proc kill:9];
+
+  }];
+  return success;
+}
+
+#pragma mark -  MachTaskEvents
+
+- (int) faults {
+	int faults;
+	if (AZGetMachTaskEvents(task, &faults, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return faults;
+}
+
+- (int) pageins {
+	int pageins;
+	if (AZGetMachTaskEvents(task, NULL, &pageins, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return pageins;
+}
+
+- (int) copyOnWriteFaults {
+	int cow_faults;
+	if (AZGetMachTaskEvents(task, NULL, NULL, &cow_faults, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return cow_faults;
+}
+
+- (int) messagesSent {
+	int messages_sent;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, &messages_sent, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return messages_sent;
+}
+
+- (int) messagesReceived {
+	int messages_received;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, &messages_received, NULL, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return messages_received;
+}
+
+- (int) machSystemCalls {
+	int syscalls_mach;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, &syscalls_mach, NULL, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return syscalls_mach;
+}
+
+- (int) unixSystemCalls {
+	int syscalls_unix;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, &syscalls_unix, NULL) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return syscalls_unix;
+}
+
+- (int) contextSwitches {
+	int csw;
+	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &csw) != KERN_SUCCESS)
+		return AZProcessValueUnknown;
+	return csw;
+}
+
+#pragma mark - Private
+
++ (NSArray*)processesForThirdLevelName:(int)name value:(int)value {
 	AZProcess *proc;
 	NSMutableArray *processes = [NSMutableArray array];
 	int mib[4] = { CTL_KERN, KERN_PROC, name, value };
@@ -475,12 +836,13 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	return processes;
 }
 
-- (void)doProcargs {
+- (void) doProcargs {
 
 	NSMutableArray     * args = NSMutableArray.new;
-	NSMutableDictionary * env = NSMutableDictionary.new;	int mib[3];
+	NSMutableDictionary * env = NSMutableDictionary.new;
+  int mib[3];
 
-	if (command)return; 	// make sure this is only executed once for an instance
+	if (command) return; 	// make sure this is only executed once for an instance
 
 	if (major_version >= 8) { // kernel version >= 8.0 (Mac OS X 10.4 - Tiger)
   // a newer sysctl selector is available -- it includes the number of arguments as an integer at the beginning of the buffer
@@ -495,7 +857,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	}
 
 	size_t length = argument_buffer_size;
-	char *buffer = (char *)malloc(length);;
+	char *buffer = (char*)malloc(length);;
 
 	BOOL parserFailure = NO;
 	if (sysctl(mib, 3, buffer, &length, NULL, 0) == 0) {
@@ -550,13 +912,10 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 										isFirstArgument = NO;
 
 										// these are the commands we will annotate
-										if ([command isEqualToString:@"DashboardClient"]) {
-											createAnnotation = YES;
-										} else if ([command isEqualTo:@"Konfabulator"]) {
-											createAnnotation = YES;
-										} else if ([command isEqualTo:@"java"]) {
-											createAnnotation = YES;
-										}
+										createAnnotation = [command isEqualToString:@"DashboardClient"]
+                                    || [command isEqualTo:@"Konfabulator"]
+                                    || [command isEqualTo:@"java"]
+                                    ?: createAnnotation;
 									} else {
 										// the command argument is sometimes duplicated, ignore the duplicates (unless it
 										//	is part of the bash shell's "_" environment variable)
@@ -644,288 +1003,7 @@ AZGetMachTaskEvents(task_t task, int *faults, int *pageins, int *cow_faults, int
 	environment = [env retain];
 }
 
-@end
-
-@implementation AZProcess
-
-+ (void)initialize {	AZMachStatsInit();	[super initialize]; }
-
-- (id)initWithProcessIdentifier:(int)pid {
-
-	if (!(self = super.init)) return nil; process = pid;
-  if (task_for_pid(mach_task_self(), process, &task) != KERN_SUCCESS)
-    task = MACH_PORT_NULL;
-  if ([self state] == AZProcessStateExited)  return [self release], nil;
-	return self;
-}
-
-+ (AZProcess *)currentProcess {
-	return [self processForProcessIdentifier:getpid()];
-}
-
-+ (NSArray *)allProcesses {
-	return [self processesForThirdLevelName:KERN_PROC_ALL value:0];
-}
-
-+ (NSArray *)userProcesses {
-	return [self processesForUser:geteuid()];
-}
-
-+ (NSS*)pathOfProcessWithIdentifier:(int)pid;
-{
-   __unused pid_t pidT = (pid_t)pid;
-   char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
-	int ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
-	return ret ? $(@"%s", pathbuf) : nil;
-}
-
-+ (AZProcess *)processForProcessIdentifier:(int)pid {
-	return [[self.alloc initWithProcessIdentifier:pid] autorelease];
-}
-
-+ (NSArray *)processesForProcessGroup:(int)pgid {
-	return [self processesForThirdLevelName:KERN_PROC_PGRP value:pgid];
-}
-
-+ (NSArray *)processesForTerminal:(int)tty {
-	return [self processesForThirdLevelName:KERN_PROC_TTY value:tty];
-}
-
-+ (NSArray *)processesForUser:(int)uid {
-	return [self processesForThirdLevelName:KERN_PROC_UID value:uid];
-}
-
-+ (NSArray *)processesForRealUser:(int)ruid {
-	return [self processesForThirdLevelName:KERN_PROC_RUID value:ruid];
-}
-
-NSArray *_processesForCommandInsensitive(NSString* comm, BOOL insensitive) {
-
-  return [AZProcess.allProcesses filter:^BOOL(AZProcess *command) {
-   return SameString(insensitive ? command.command.lowercaseString : command.command, insensitive ? comm.lowercaseString : comm);
-  }];
-}
-
-+ (NSArray*) processesForCommandInsensitive:(NSString*)comm { return _processesForCommandInsensitive(comm, YES); }
-+ (NSArray *)processesForCommand:(NSString *)comm { return _processesForCommandInsensitive(comm, NO); }
-
-
-+ (AZProcess *)processForCommand:(NSString *)comm {
-	NSArray *processes = [self processesForCommand:comm];
-	if ([processes count])
-		return processes[0];
-	return nil;
-}
-
-- (int)processIdentifier {
-	return process;
-}
-
-- (int)parentProcessIdentifier {
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessValueUnknown;
-	if (length == 0)
-		return AZProcessValueUnknown;
-	return info.kp_eproc.e_ppid;
-}
-
-- (int)processGroup {
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessValueUnknown;
-	if (length == 0)
-		return AZProcessValueUnknown;
-	return info.kp_eproc.e_pgid;
-}
-
-- (int)terminal {
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessValueUnknown;
-	if (length == 0 || info.kp_eproc.e_tdev == 0)
-		return AZProcessValueUnknown;
-	return info.kp_eproc.e_tdev;
-}
-
-- (int)terminalProcessGroup {
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessValueUnknown;
-	if (length == 0 || info.kp_eproc.e_tpgid == 0)
-		return AZProcessValueUnknown;
-	return info.kp_eproc.e_tpgid;
-}
-
-- (int)userIdentifier {
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessValueUnknown;
-	if (length == 0)
-		return AZProcessValueUnknown;
-	return info.kp_eproc.e_ucred.cr_uid;
-}
-
-- (int)realUserIdentifier {
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessValueUnknown;
-	if (length == 0)
-		return AZProcessValueUnknown;
-	return info.kp_eproc.e_pcred.p_ruid;
-}
-
-- (NSString *)command {
-	[self doProcargs];
-	return command;
-}
-
-- (NSString *)annotation {
-	[self doProcargs];
-	return annotation;
-}
-
-- (NSString *)annotatedCommand {
-	[self doProcargs];
-	if (annotation)
-		return [NSString stringWithFormat:@"%@ (%@)", command, annotation];
-	else
-		return command;
-}
-
-- (NSArray *)arguments {
-	[self doProcargs];
-	return arguments;
-}
-
-- (NSDictionary *)environment {
-	[self doProcargs];
-	return environment;
-}
-
-- (AZProcess *)parent {
-	return [[self class] processForProcessIdentifier:[self parentProcessIdentifier]];
-}
-
-- (NSArray *)children {
-	NSArray *all = [[self class] allProcesses];
-	NSMutableArray *children = [NSMutableArray array];
-	int i, count = [all count];
-	for (i = 0; i < count; i++)
-		if ([all[i] parentProcessIdentifier] == process)
-			[children addObject:all[i]];
-	return children;
-}
-
-- (NSArray *)siblings {
-	NSArray *all = [[self class] allProcesses];
-	NSMutableArray *siblings = [NSMutableArray array];
-	int i, count = [all count], ppid = [self parentProcessIdentifier];
-	for (i = 0; i < count; i++) {
-		AZProcess *p = all[i];
-		if ([p parentProcessIdentifier] == ppid && [p processIdentifier] != process)
-			[siblings addObject:p];
-	}
-	return siblings;
-}
-
-- (double)percentCPUUsage {
-	double percent;
-	if (AZGetMachTaskCPUUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return percent;
-}
-
-- (double)totalCPUTime {
-	double user, system;
-	if (AZGetMachTaskCPUUsage(task, &user, &system, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return user + system;
-}
-
-- (double)userCPUTime {
-	double user;
-	if (AZGetMachTaskCPUUsage(task, &user, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return user;
-}
-
-- (double)systemCPUTime {
-	double system;
-	if (AZGetMachTaskCPUUsage(task, NULL, &system, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return system;
-}
-
-- (double)percentMemoryUsage {
-	double percent;
-	if (AZGetMachTaskMemoryUsage(task, NULL, NULL, &percent) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return percent;
-}
-
-- (unsigned)virtualMemorySize {
-	unsigned size;
-	if (AZGetMachTaskMemoryUsage(task, &size, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return size;
-}
-
-- (unsigned)residentMemorySize {
-	unsigned size;
-	if (AZGetMachTaskMemoryUsage(task, NULL, &size, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return size;
-}
-
-- (AZProcessState)state {
-	int state;
-	struct kinfo_proc info;
-	size_t length = sizeof(struct kinfo_proc);
-	int mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, process };
-	if (sysctl(mib, 4, &info, &length, NULL, 0) < 0)
-		return AZProcessStateExited;
-	if (length == 0)
-		return AZProcessStateExited;
-	if (info.kp_proc.p_stat == SZOMB)
-		return AZProcessStateZombie;
-	if (AZGetMachTaskState(task, &state) != KERN_SUCCESS)
-		return AZProcessStateUnknown;
-	return state;
-}
-
-- (int)priority {
-	int priority;
-	if (AZGetMachTaskPriority(task, &priority, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return priority;
-}
-
-- (int)basePriority {
-	int priority;
-	if (AZGetMachTaskPriority(task, NULL, &priority) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return priority;
-}
-
-- (int)threadCount {
-	int count;
-	if (AZGetMachTaskThreadCount(task, &count) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return count;
-}
+#pragma mark - NSObject
 
 - (NSUInteger)hash {
 	return process;
@@ -934,10 +1012,10 @@ NSArray *_processesForCommandInsensitive(NSString* comm, BOOL insensitive) {
 - (BOOL)isEqual:(id)object {
 	if (![object isKindOfClass:[self class]])
 		return NO;
-	return process == [(AZProcess *)object processIdentifier];
+	return process == [(AZProcess*)object processIdentifier];
 }
 
-- (NSString *)description {
+- (NSString*) description {
 	return [NSString stringWithFormat:@"%@ process = %d, task = %u, command = %@, arguments = %@, environment = %@", [super description], process, task, [self command], [[self arguments] description], [[self environment] description]];
 }
 
@@ -950,98 +1028,15 @@ NSArray *_processesForCommandInsensitive(NSString* comm, BOOL insensitive) {
 	[super dealloc];
 }
 
-@end
 
-@implementation AZProcess (Signals)
+#pragma mark - ClassKeyGet
 
-- (BOOL)suspend {
-	return [self kill:SIGSTOP];
++ objectForKeyedSubscript:x { SEL resolve = NSSelectorFromString(x);
+
+  return [self instancesRespondToSelector:resolve] ? [self process:x] :
+         [self resolveClassMethod:NSSelectorFromString(x)] ? [self performSelector:NSSelectorFromString(x)] : nil;
 }
 
-- (BOOL)resume {
-	return [self kill:SIGCONT];
-}
 
-- (BOOL)interrupt {
-	return [self kill:SIGINT];
-}
-
-- (BOOL)terminate {
-	return [self kill:SIGTERM];
-}
-
-- (BOOL)kill:(int)signal {
-	return kill(process, signal) == 0;
-}
-
-+ (BOOL)killAllProcessesForCommand:(NSString*)comm insensitive:(BOOL)insensitive {
-
-  __block BOOL success = YES;
-  [insensitive ? [self processesForCommandInsensitive:comm] : [self processesForCommand:comm] each:^(AZProcess *proc) {
-    if (success) success = [proc kill:9];
-    else [proc kill:9];
-
-  }];
-  return success;
-}
-@end
-
-@implementation AZProcess (MachTaskEvents)
-
-- (int)faults {
-	int faults;
-	if (AZGetMachTaskEvents(task, &faults, NULL, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return faults;
-}
-
-- (int)pageins {
-	int pageins;
-	if (AZGetMachTaskEvents(task, NULL, &pageins, NULL, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return pageins;
-}
-
-- (int)copyOnWriteFaults {
-	int cow_faults;
-	if (AZGetMachTaskEvents(task, NULL, NULL, &cow_faults, NULL, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return cow_faults;
-}
-
-- (int)messagesSent {
-	int messages_sent;
-	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, &messages_sent, NULL, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return messages_sent;
-}
-
-- (int)messagesReceived {
-	int messages_received;
-	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, &messages_received, NULL, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return messages_received;
-}
-
-- (int)machSystemCalls {
-	int syscalls_mach;
-	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, &syscalls_mach, NULL, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return syscalls_mach;
-}
-
-- (int)unixSystemCalls {
-	int syscalls_unix;
-	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, &syscalls_unix, NULL) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return syscalls_unix;
-}
-
-- (int)contextSwitches {
-	int csw;
-	if (AZGetMachTaskEvents(task, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &csw) != KERN_SUCCESS)
-		return AZProcessValueUnknown;
-	return csw;
-}
 
 @end

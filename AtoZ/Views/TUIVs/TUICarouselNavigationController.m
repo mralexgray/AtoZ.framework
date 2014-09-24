@@ -7,7 +7,7 @@
 //
 #import "TUICarouselNavigationController.h"
 //#import "TUIView.h"
-#import <TwUI/TUIKit.h>
+#import <TwUI/TwUI.h>
 @interface TUICarouselNavigationController ()
 @property (unsafe_unretained, nonatomic, readwrite) TUIViewController *currentController;
 @property (nonatomic) NSMutableArray *controllers;

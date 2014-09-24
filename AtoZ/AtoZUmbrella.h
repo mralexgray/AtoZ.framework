@@ -10,11 +10,11 @@
 #import <ExtObjC/ExtObjC.h>
 #import <Zangetsu/Zangetsu.h>
 
-#import "KVOMap/KVOMap.h"
-#import "AtoZAutoBox/AtoZAutoBox.h"
+//#import "KVOMap/KVOMap.h"
+//#import "AtoZAutoBox/AtoZAutoBox.h"
 
-//#import <KVOMap/KVOMap.h>
-//#import <AtoZAutoBox/AtoZAutoBox.h>
+#import <KVOMap/KVOMap.h>
+#import <AtoZAutoBox/AtoZAutoBox.h>
 
 //#import <RoutingHTTPServer/RoutingHTTPServer.h>
 //#import <CocoaHTTPServer/CocoaHTTPServer.h>
@@ -33,20 +33,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 
 #pragma mark - ATOZFRAMEWORK
 
-#import "JREnum.h"
-#import "objswitch.h"
-#import "BaseModel.h"
-#import "AutoCoding.h"
-#import "HRCoder.h"
-#import "F.h"
+//#import <AtoZ/JREnum.h>
+#import <AtoZ/objswitch.h>
+#import <AtoZ/BaseModel.h>
+#import <AtoZ/AutoCoding.h>
+#import <AtoZ/HRCoder.h>
+#import <AtoZ/F.h>
 
-#import "AtoZMacroDefines.h"
-#import "AtoZTypes.h"
-#import "BoundingObject.h"
-#import "MutableGeometry.h"
+#import <AtoZ/AtoZMacroDefines.h>
+#import <AtoZ/AtoZTypes.h>
+#import <AtoZ/BoundingObject.h>
+#import <AtoZ/MutableGeometry.h>
 
 /*! id x = CAL.new; [x setGeos:@"bounds", @"x",@100, @"width", @5000, nil];   NEAT! */
-#import "AtoZGeometry.h"
+#import <AtoZ/AtoZGeometry.h>
 
 //#import <Zangetsu/Zangetsu.h>
 //#import <RoutingHTTPServer/RoutingHTTPServer.h>

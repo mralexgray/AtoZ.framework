@@ -42,7 +42,7 @@ typedef  void (^AZCLITest)(void);
 @interface  AZGeometryTestsA : AZTestNode @end
 @interface   AZFavIconTests  : AZTestNode @end
 @interface     NSImageTests :AZTestNode  @end
-#import "AZCLITests.h"
+
 
 JREnumDefine(AZTestCase);
 

@@ -8,7 +8,7 @@
 
 #import "AtoZUmbrella.h"
 
-#import <TwUI/TUIKit.h>
+#import <TwUI/TwUI.h>
 
 @interface TUIView (Dimensions)
 

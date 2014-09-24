@@ -8,6 +8,7 @@
 
 //BPODial
 #import "NSAffineTransform+Rotation.h"
+#import "NSBezierPath+MCAdditions.h"
 #import "BPODial.h"
 #import "BPOSliderCell.h"
 
@@ -72,3 +73,5 @@
 ////#import "AZStatusItemView.h"
 //#import "NSMenu+Dark.h"
 
+/// module demanded
+#import "NSTokenAttachment.h"

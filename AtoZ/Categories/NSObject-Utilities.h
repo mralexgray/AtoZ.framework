@@ -19,28 +19,31 @@
 + (INV*) createInvocationOnTarget:(id)t selector:(SEL)s
                                    withArguments:(id)a1, ...;
 @end
+
+
 @interface NSInvocation(OCMAdditions)
 
 - (NSS*)              invocationDescription;
--   (id)         getArgumentAtIndexAsObject:(int)argIndex;
-- (NSS*)         argumentDescriptionAtIndex:(int)argIndex;
-- (NSS*)           objectDescriptionAtIndex:(int)anInt;
-- (NSS*)             charDescriptionAtIndex:(int)anInt;
-- (NSS*)     unsignedCharDescriptionAtIndex:(int)anInt;
-- (NSS*)              intDescriptionAtIndex:(int)anInt;
-- (NSS*)      unsignedIntDescriptionAtIndex:(int)anInt;
-- (NSS*)            shortDescriptionAtIndex:(int)anInt;
-- (NSS*)    unsignedShortDescriptionAtIndex:(int)anInt;
-- (NSS*)             longDescriptionAtIndex:(int)anInt;
-- (NSS*)     unsignedLongDescriptionAtIndex:(int)anInt;
-- (NSS*)         longLongDescriptionAtIndex:(int)anInt;
-- (NSS*) unsignedLongLongDescriptionAtIndex:(int)anInt;
-- (NSS*)           doubleDescriptionAtIndex:(int)anInt;
-- (NSS*)            floatDescriptionAtIndex:(int)anInt;
-- (NSS*)           structDescriptionAtIndex:(int)anInt;
-- (NSS*)          pointerDescriptionAtIndex:(int)anInt;
-- (NSS*)          cStringDescriptionAtIndex:(int)anInt;
-- (NSS*)         selectorDescriptionAtIndex:(int)anInt;
+
+- (NSS*)           objectDescriptionAtIndex:(int)x;
+- (NSS*)             charDescriptionAtIndex:(int)x;
+- (NSS*)     unsignedCharDescriptionAtIndex:(int)x;
+- (NSS*)              intDescriptionAtIndex:(int)x;
+- (NSS*)      unsignedIntDescriptionAtIndex:(int)x;
+- (NSS*)            shortDescriptionAtIndex:(int)x;
+- (NSS*)    unsignedShortDescriptionAtIndex:(int)x;
+- (NSS*)             longDescriptionAtIndex:(int)x;
+- (NSS*)     unsignedLongDescriptionAtIndex:(int)x;
+- (NSS*)         longLongDescriptionAtIndex:(int)x;
+- (NSS*) unsignedLongLongDescriptionAtIndex:(int)x;
+- (NSS*)           doubleDescriptionAtIndex:(int)x;
+- (NSS*)            floatDescriptionAtIndex:(int)x;
+- (NSS*)           structDescriptionAtIndex:(int)x;
+- (NSS*)          pointerDescriptionAtIndex:(int)x;
+- (NSS*)          cStringDescriptionAtIndex:(int)x;
+- (NSS*)         selectorDescriptionAtIndex:(int)x;
+- (NSS*)         argumentDescriptionAtIndex:(int)x;
+-                getArgumentAtIndexAsObject:(int)x;
 @end
 @interface AZInvocationGrabber : NSProxy { id _target; NSInvocation *_invocation;	}
 @property				  NSInvocation * invocation;
@@ -74,26 +77,32 @@
 - (void) performSelector:(SEL)s                            afterDelay:(NSTimeInterval)d;
 - (void) performSelector:(SEL)s                 withDelayAndArguments:(NSTimeInterval)d,...;
 
-// Return Values, allowing non-object returns
-- (id) valueByPerformingSelector:(SEL)s withObject:(id)x1 withObject:(id)x2;
-- (id) valueByPerformingSelector:(SEL)s withObject:(id)x1;
-- (id) valueByPerformingSelector:(SEL)s;
+/// Return Values, allowing non-object returns
 
-// Access to object essentials for run-time checks. Stored by class in dictionary.
-@property (RONLY) NSD *selectors, *properties, *ivars, *protocols;
+- valueByPerformingSelector:(SEL)s withObject:x1 withObject:x2;
+- valueByPerformingSelector:(SEL)s withObject:x1;
+- valueByPerformingSelector:(SEL)s;
 
-// Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
-- (BOOL)          hasProperty:(NSS*)propertyName;
-- (BOOL)              hasIvar:(NSS*)ivarName;
-+ (BOOL)          classExists:(NSS*)className;
+/// Access to object essentials for run-time checks. Stored by class in dictionary.
+
+@property (RONLY) NSD * protocols,
+                      * selectors,
+                      * properties,
+                      * ivars;
+
+/// Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
+
+- (BOOL) hasProperty:(NSS*)pName;
+- (BOOL)     hasIvar:(NSS*)iName;
++ (BOOL) classExists:(NSS*)cName;
 //+   (id) instanceOfClassNamed:(NSS*)className;
 
 // Attempt selector if possible
-- (id) tryPerformSelector:(SEL)s withObject: (id) object1 withObject: (id) object2;
-- (id) tryPerformSelector:(SEL)s withObject: (id) object1;
-- (id) tryPerformSelector:(SEL)s;
+- tryPerformSelector:(SEL)s withObject: (id) object1 withObject: (id) object2;
+- tryPerformSelector:(SEL)s withObject: (id) object1;
+- tryPerformSelector:(SEL)s;
 
-// Choose the first selector that the object responds to
+/// Choose the first selector that the object responds to
 - (SEL) chooseSelector:(SEL)s, ...;
 @end
 
@@ -107,9 +116,11 @@
 @end
 
 @interface NSObject (AZOverride)
-- (void) setDescription:(NSS*)x;
 
--  (BOOL) az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB;
+
+@prop_NA NSS * description;
+
+- (BOOL) az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB;
 
 //- (BOOL) conformToProtocol:(id)nameOrProtocol;
 /*! Dynamically overrides the specified method on this particular instance.

@@ -3,14 +3,19 @@
 #import <AtoZ/AtoZMacroDefines.h>
 #import <AtoZ/AtoZTypes.h>
 
-@protocol RectLike   <NSO>
-@required @prop_ NSR  frame, bounds;
+/*! Useful protocol for any object that implements both setter and getters for both FRAME and BOUNDS.  
+    and that can be genuinely represented in those terms.
+ */
+@protocol RectLike <NSO>
 
-@optional @prop_ NSP  anchorPoint,
-                      position;
+@required @prop_    NSR   frame,          ///     -frame  & -setFrame:    MUST be implemented (in a category is OK)
+                          bounds;         /// AND -bounds & -setBounds:   AND shoould accurately reflect those values.
 
-@concrete @prop_    NSR   superframe;
-          @prop_RO  AZA   insideEdge;                     // !!!
+@optional @prop_    NSP   anchorPoint,    /// If unimplemented
+                          position;
+          @prop_    NSR   superframe;     /// WILL store these, for you, if unimplemented.. and make anchorPoint & position calculations meaningful.
+
+@concrete @prop_RO  AZA   insideEdge;                     // !!!
           @prop_RO  NSS * insideEdgeHex;
           @prop_NA NSUI   arMASK;
           @prop_NA  NSR   r;                        // alias [frame]
@@ -44,7 +49,9 @@
          y:(CGF)y
          w:(CGF)w
          h:(CGF)h;
-+ (INST) rectLike:(NSN*)d1, ... NS_REQUIRES_NIL_TERMINATION; // 0 - 4 NSNumber * dims + optional NSValue rect for superframe.
+
+// 0 - 4 * NSNumber.. dims + optional NSValue rect for superframe.
++ (INST) rectLike:(NSN*)d1, ... NS_REQUIRES_NIL_TERMINATION;
 + (INST) withRect:(NSR)r;                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
 @end
 

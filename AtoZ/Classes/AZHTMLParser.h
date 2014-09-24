@@ -2,6 +2,8 @@
 //  HTMLParser.h  StackOverflow
 //  Created by Ben Reeves on 09/03/2010.  Copyright 2010 Ben Reeves. All rights reserved.
 
+#import "AtoZUmbrella.h"
+
 @class           HTMLNode ;
 @interface 	 AZHTMLParser : NSObject
 

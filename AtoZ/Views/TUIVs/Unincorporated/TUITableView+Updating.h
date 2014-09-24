@@ -6,7 +6,7 @@
 //
 //
 
-#import <TwUI/TUIKit.h>
+#import <TwUI/TwUI.h>
 
 //#import "TUITableView.h"
 

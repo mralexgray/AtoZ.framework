@@ -7,7 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 //#import "TUIViewController.h"
-#import <TwUI/TUIKit.h>
+#import <TwUI/TwUI.h>
 
 @class TUICarouselNavigationController;
 @protocol TUICarouselNavigationControllerDelegate  <NSObject>

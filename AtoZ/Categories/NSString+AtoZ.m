@@ -592,6 +592,11 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 finish:
 	return result;
 }
+
+- (NSS*) sansComponent { return self.stringByDeletingLastPathComponent; }
+- (NSS*) sansExtension { return self.stringByDeletingPathExtension; }
+
+
 - (NSS*) withPath:(NSS*)p {	return [self stringByAppendingPathComponent:p]; }
 - (NSS*) withExtIfMissing:(NSS*)ext { NSS*e = [ext containsString:@"."] ? ext.pathExtension : ext;
 

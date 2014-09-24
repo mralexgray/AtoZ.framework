@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>brewinfo</key>
+	<string>&lt;div class="row"&gt;&lt;h1&gt;A52dec&lt;small&gt;a52dec&lt;/small&gt;&lt;a class="twitter-share-button" data-related="machomebrew" data-text="I have installed A52dec with homebrew" data-via="brewformulas" href="https://twitter.com/share"&gt;Tweet&lt;/a&gt;&lt;/h1&gt;&lt;hr&gt;&lt;h4&gt;Description&lt;/h4&gt;&lt;blockquote&gt;&lt;p&gt;a52dec is a test program for liba52. It decodes ATSC A/52 streams, and also includes a demultiplexer for mpeg-1 and mpeg-2 program streams.&lt;/p&gt;&lt;small&gt;Extracted automatically from &lt;cite title="http://liba52.sourceforge.net/"&gt;A52dec homepage&lt;/cite&gt;&lt;/small&gt;&lt;/blockquote&gt;&lt;dl class="dl-horizontal"&gt;&lt;dt&gt;Homepage&lt;/dt&gt;&lt;dd&gt;&lt;a href="http://liba52.sourceforge.net/" target="_blank"&gt;http://liba52.sourceforge.net/&lt;/a&gt;&lt;/dd&gt;&lt;dt&gt;Version&lt;/dt&gt;&lt;dd&gt;Unavailable&lt;/dd&gt;&lt;/dl&gt;&lt;h4&gt;Install A52dec&lt;/h4&gt;&lt;pre&gt;brew install a52dec&lt;/pre&gt;&lt;br&gt;&lt;h4&gt;Dependencies&lt;span class="badge" title="Dependencies count"&gt;0&lt;/span&gt;&lt;/h4&gt;&lt;p&gt;This formula has no dependencies.&lt;/p&gt;&lt;h4&gt;Dependents&lt;span class="badge" title="Dependents count"&gt;2&lt;/span&gt;&lt;/h4&gt;&lt;p class="dependents"&gt;This formula is required by &lt;a href="/GstPluginsUgly"&gt;&lt;span class="glyphicon glyphicon-link"&gt;&lt;/span&gt;GstPluginsUgly&lt;/a&gt; and  &lt;a href="/Gpac"&gt;&lt;span class="glyphicon glyphicon-link"&gt;&lt;/span&gt;Gpac&lt;/a&gt;. &lt;/p&gt;&lt;/div&gt;</string>
+</dict>
+</plist>

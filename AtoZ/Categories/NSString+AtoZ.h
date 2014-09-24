@@ -142,6 +142,9 @@
 - (NSS*) withExt:	(NSS*)ext;
 - (NSS*) withExtIfMissing:(NSS*)ext;
 
+
+@property (readonly) NSS * sansComponent, *sansExtension;
+
 - (BOOL) loMismo:	(NSS*)s;
 
 - (unichar)lastCharacter;

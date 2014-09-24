@@ -12,6 +12,13 @@
 
 #define XXX(x) [AtoZLumberLog logObject:x file:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__]
 
+@interface DDTTYLogger (AtoZ)
++ (BOOL) isaColorTTY;
++ (BOOL) isaColor256TTY;
++ (BOOL) isaXcodeColorTTY;
+@end
+
+
 //((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
 //// __FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
 //[AtoZLumberLog logFile:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]

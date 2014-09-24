@@ -1,54 +1,21 @@
 
 
-//#import <Availability.h>
-//#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED)
-//#import <UIKit/UIKit.h>
-//#define SM_USE_AV_AUDIO_PLAYER
-//#else
-//#if __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_6
-//#define SM_USE_AV_AUDIO_PLAYER
-//#endif
-//#endif
-//#ifdef SM_USE_AV_AUDIO_PLAYER
-#define SM_USE_AV_AUDIO_PLAYER
-#import <AVFoundation/AVFoundation.h>
-#define SM_SOUND AVAudioPlayer
-//#else
-//#define SM_SOUND NSSound
-//#endif
+#import "SoundManager.h"
 
-#import "AtoZUmbrella.h"
-
-extern NSString *const SoundDidFinishPlayingNotification;
-
-typedef void (^SoundCompletionHandler)(BOOL didFinish);
-
-@interface Sound : NSObject
-
-+ (INST)             randomSound;
-+ (INST)              soundNamed:(NSS*)name;
-+ (INST) soundWithContentsOfFile:(NSS*)path;
-- (INST)  initWithContentsOfFile:(NSS*)path;
-+ (INST)  soundWithContentsOfURL:(NSU*)url;
-- (INST)   initWithContentsOfURL:(NSU*)url;
-
-@property (RONLY,CP)                    NSS * name;
-@property (RONLY)                       NSU * url;
-@property (RONLY,getter = isPlaying)   BOOL   playing;
-@property (NATOM,getter = isLooping)   BOOL   looping;
-@property (NATOM,CP) SoundCompletionHandler   completionHandler;
-@prop_NA                                CGF   baseVolume,
-                                            volume;
-- (void)   fadeTo:(CGF)volume
-         duration:(NSTI)duration;
-- (void)   fadeIn:(NSTI)duration;
-- (void)  fadeOut:(NSTI)duration;
-- (void)     play;
-- (void)     stop;
+@interface Sound (AtoZ) // : NSObject
 
 @end
-@interface SoundManager : BaseModel
 
+@interface SoundManager (AtoZ)
+
++ (Sound*)    soundNamed:(NSS*)n;
+//+ (Sound*)   randomSound;
++ (NSA*)      soundPaths;
++ (void) playRandomSound;
+
+@end
+
+/*
 @property (readonly, getter = isPlayingMusic) BOOL playingMusic;
 
 @property (nonatomic) BOOL allowsBackgroundMusic;
@@ -56,9 +23,6 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 @property (nonatomic) NSTI soundFadeDuration, musicFadeDuration;
 
 + (INST) sharedManager;
-
-+ (NSA*) soundPaths;
-+ (void) playRandomSound;
 
 - (void) prepareToPlayWithSound:(id)soundOrName;
 - (void) prepareToPlay;
@@ -79,9 +43,8 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 - (void) stopAllSounds:(BOOL)fadeOut;
 - (void) stopAllSounds;
 
-@end
 
-	//required for 32-bit Macs
+//required for 32-bit Macs
 //#ifdef __i386__
 //{
 //@private
@@ -112,3 +75,53 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 //	SoundCompletionHandler completionHandler;
 //}
 //#endif
+
+
++ (INST) soundWithContentsOfFile:(NSS*)path;
+- (INST)  initWithContentsOfFile:(NSS*)path;
++ (INST)  soundWithContentsOfURL:(NSU*)url;
+- (INST)   initWithContentsOfURL:(NSU*)url;
+
+@property (RONLY,CP)                    NSS * name;
+@property (RONLY)                       NSU * url;
+@property (RONLY,getter = isPlaying)   BOOL   playing;
+@property (NATOM,getter = isLooping)   BOOL   looping;
+@property (NATOM,CP) SoundCompletionHandler   completionHandler;
+
+@prop_NA                                CGF   baseVolume,
+                                            volume;
+- (void)   fadeTo:(CGF)volume
+         duration:(NSTI)duration;
+- (void)   fadeIn:(NSTI)duration;
+- (void)  fadeOut:(NSTI)duration;
+- (void)     play;
+- (void)     stop;
+
+
+
+
+//#import <Availability.h>
+//#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED)
+//#import <UIKit/UIKit.h>
+//#define SM_USE_AV_AUDIO_PLAYER
+//#else
+//#if __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_6
+//#define SM_USE_AV_AUDIO_PLAYER
+//#endif
+//#endif
+//#ifdef SM_USE_AV_AUDIO_PLAYER
+//#define SM_USE_AV_AUDIO_PLAYER
+//#import <AVFoundation/AVFoundation.h>
+//#define SM_SOUND AVAudioPlayer
+//#else
+//#define SM_SOUND NSSound
+//#endif
+
+//#import "AtoZUmbrella.h"
+
+//extern NSString *const SoundDidFinishPlayingNotification;
+
+//typedef void (^SoundCompletionHandler)(BOOL didFinish);
+
+*/
+

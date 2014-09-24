@@ -15,7 +15,7 @@
 //  #import <BlocksKit/A2DynamicDelegate.h>
 //  #import <CFAAction/CFAAction.h>
 //  #import <CocoatechCore/CocoatechCore.h>
-//  #import <DrawKit/DKDrawKit.h>
+//  #import <DrawKit/DrawKit.h>
 //  #import <KSHTMLWriter/KSHTMLWriter.h>
 //  #import <MenuApp/MenuApp.h>
 //  #import <NMSSH/NMSSH.h>
@@ -920,7 +920,7 @@ oldValue = newValue;
 
 	#import <Foundation/NSObjCRuntime.h>
 	#import "AZObserversAndBinders.h"
-	#import <TwUI/TUIKit.h>
+	#import <TwUI/TwUI.h>
 
 
 
@@ -929,7 +929,7 @@ oldValue = newValue;
 //	#import <extobjc/metamacros.h>
 
 	#import <FunSize/FunSize.h>
-	#import <DrawKit/DKDrawKit.h>
+	#import <DrawKit/DrawKit.h>
 //	#import "AtoZAutoBox/NSObject+DynamicProperties.h"
   #import <AtoZAppKit/AtoZAppKit.h>
 	#import <BlocksKit/BlocksKit.h>

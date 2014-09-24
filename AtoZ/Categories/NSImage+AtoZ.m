@@ -464,15 +464,11 @@ NSData *PNGRepresentation(NSIMG *image) {
   unsigned char result[16];
   CC_MD5(cStr, strlen(cStr), result); // compute MD5
 	
-	NSString *md5email = $(@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-			result[0], result[1], result[2], result[3], 
-			result[4], result[5], result[6], result[7],
-			result[8], result[9], result[10], result[11],
-			result[12], result[13], result[14], result[15]);
+	NSString *gravatarEndPoint = $(@"http://www.gravatar.com/avatar/%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x?s=512",
+			result[0],  result[1],  result[2],  result[3],  result[4],  result[5],  result[6],  result[7],
+			result[8],  result[9],  result[10], result[11],	result[12], result[13], result[14], result[15]); //md5email
 
-  NSString *gravatarEndPoint = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=512", md5email];
-
-  return [self imageFromURL:[NSURL URLWithString:gravatarEndPoint]];
+  return ((id)self)[gravatarEndPoint];
 }
 
 //+ (id) objectForKeyedSubscript:(id)k { return [self imageNamed:k]; }
@@ -704,10 +700,10 @@ NSData *PNGRepresentation(NSIMG *image) {
                    if (!block || ct == 1)
                      return (void)(returner =
                                        imageURLs
-                                           ? [self imageFromURL:imageURLs[0]]
+                                           ? ((id)self)[imageURLs[0]]
                                            : nil);
                    for (int i = 0; i < ct; i++)
-                     if (returner = [self imageFromURL:[imageURLs normal:i]])
+                     if (returner = ((id)self)[[imageURLs normal:i]])
                        block(returner);
                }];
   return returner;
@@ -770,9 +766,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
   [self loadImage:@"http://mrgray.com/randomimage.php".url andDisplay:display];
 }
 
-+ (NSIMG *)randomFunny {
-  return [self imageFromURL:@"http://mrgray.com/randomimage.php"];
-}
+//+ (NSIMG *)randomFunny { return ((id)self)[@"http://mrgray.com/randomimage.php"]; }
 
 + (NSIMG *)randomFunnyImage {
   __block NSError *requestError;
@@ -788,7 +782,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
                          matchingName:@"Random Image"
                          allowPartial:TRUE] getAttributeNamed:@"src"];
   NSLog(@"imageurl: %@", imageurl);
-  NSIMG *webI = [self imageFromURL:imageurl];
+  NSIMG *webI = ((id)self)[imageurl];
   [AZStopwatch stop:@"photoTimer"];
   [webI lockFocusBlock:^(NSImage *i) {
       NSAS *stamp =
@@ -860,10 +854,15 @@ allowPartial:YES]
   return webI;
 */
 
-+ (NSIMG *)imageFromURL:(NSS *)url {
 
-  NSData *d = [NSData dataWithContentsOfURL:url.urlified];
-  return !d ? NSLog(@"failed to create image for url string:%@", url),(id)nil : [self.alloc initWithData:d];
+#pragma mark - ClassKeyGet
+
++ (id)objectForKeyedSubscript:(id)x { return [self from:x]; }
+
++ (NSIMG *)from:(NSS*)stringURL {
+
+  NSData *d = [NSData dataWithContentsOfURL:stringURL.urlified];
+  return !d ? NSLog(@"failed to create image for url string:%@", stringURL),(id)nil : [self.alloc initWithData:d];
 
   //	url =  [url doesContain:@"http://"] || [url doesContain:@"http://"] ? url
   //: $(@"http://%@", url);

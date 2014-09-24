@@ -17,8 +17,11 @@
 
 - (CAL*) hostLayer { return self.hostView.layer?: self; }
 
-SYNTHESIZE_ASC_OBJ(eventMonitor,setEventMonitor);
-SYNTHESIZE_ASC_OBJ_LAZY(eventBlocks,IndexedKeyMap.class);
+#pragma mark - EVENT HANDLER
+
+                SYNTHESIZE_ASC_OBJ(eventMonitor,setEventMonitor);          // Saved Monitor
+
+           SYNTHESIZE_ASC_OBJ_LAZY(eventBlocks,IndexedKeyMap.class);       // Indexed Key Map of handlers
 
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
 
@@ -46,27 +49,39 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
 
 //         SYNTHESIZE_ASC_CAST(wasHit,     setWasHit,     LayerBlock);
 //         SYNTHESIZE_ASC_CAST(mouseOver,  setMouseOver,  LayerBlock);
-
-SYNTHESIZE_ASC_PRIMITIVE_KVO(noHit,      setNoHit,            BOOL);
-
 //@dynamic sublayerMouseOverBlock;
-- (void) setSublayerMouseOverBlock:(void(^)(CAL*layer))block {  id monitor;
 
-	[self.hostView.window setAcceptsMouseMovedEvents:YES];
-  __block CAL* hitLayer;
-	if ((!block && (monitor = [self vFK:@"mouseOverBlock"])) || monitor ) [NSE removeMonitor:monitor];
-	[self sV:monitor = [NSEVENTLOCALMASK:NSMouseMovedMask handler:^NSEvent *(NSEvent *e){
-		CAL* l = [self hitTestSubs:[self convertPoint:e.locationInWindow fromLayer:nil]];
-		if (l && l != hitLayer) {  hitLayer = l;  block(hitLayer); }
-		return e;
-	}] fK:@"mouseOverBlock"];
 
-  
+- (void) setSublayerMouseOverBlock:(void(^)(CAL*layer))block {
+
+  id monitor = self[@"mouseOverBlock"];                   // saved monitor
+
+	if (!monitor && block)                                  // "attempt" to dispatch once
+    self.hostView.window.acceptsMouseMovedEvents = YES;   // make window listen.
+
+  if (monitor || !block)                                  // if werealready handling
+                                                          // OR we're simply here to stop
+    [NSE removeMonitor:monitor];                          // remove old handler
+
+	self[@"mouseOverBlock"] =  !block ? nil :               // nil the handler on NULL block
+
+    (monitor = [NSEVENTLOCALMASK:NSMouseMovedMask         // on MOVE
+                         handler:^NSE*(NSE *e){
+
+		CAL* hit; if ((hit = [self hitTestSubs:[self layerPoint:e]])) block(hit); return e;
+
+	}]);
+
 }
+//  __block CAL* hitLayer;                                  // needle
+//		if (hit && hit != hitLayer) {  hitLayer = hit;  block(hitLayer); }
+
+
+- (NSP) layerPoint:(NSE*)e { return [self convertPoint:e.locationInWindow fromLayer:nil]; }
+
+
 //@prop_RO NSA* eventBlocks;//  EventBlock eventBlock;
 //@prop_CP  SenderEvent onHit, onHover;
-
-
 //SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,      setEventMask,            NSEventMask,
 //                                        ^{},^{
 
@@ -79,31 +94,34 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(noHit,      setNoHit,            BOOL);
 - (void)    setActionsForKeys:(NSD*)ks { self.actions = [self.actions ?: @{} dictionaryByAddingEntriesFromDictionary:ks]; }
 - (void) removeActionsForKeys:(NSA*)ks { self.actions = [self.actions dictionaryWithValuesForKeys:[self.actions.allKeys arrayWithoutArray:ks]]; }
 
+#pragma mark - SIBLINGS / INDEX
+
 @dynamic siblings, siblingIndex, siblingIndexIsEven, siblingIndexMax;
 
 SetKPfVA(Siblings,      @"siblingIndexMax")                             SetKPfVA(SiblingIndexIsEven, @"siblingIndex")
 SetKPfVA(SiblingIndex,  @"superlayer", @"superlayer.sublayers.@count")  SetKPfVA(SiblingIndexMax,    @"superlayer", @"superlayer.sublayers.@count")
 
--  (CAL*) siblingNext         {	return self.siblingIndex == self.siblingIndexMax || !self.siblings.count ? nil : self.siblings[self.siblingIndex]; }
--  (CAL*) siblingPrev         {	NSUI idx = self.siblingIndex-1; return self.siblingIndex == 0 || self.siblings.count == 0 || self.siblings.count < idx ? nil : self.siblings[idx]; }
--  (NSA*) siblings            {	return !self.superlayer ? nil : [self.superlayer.sublayers arrayWithoutObject:self]; }
--  (NSI) siblingIndex        {	return !self.superlayer ? -1 : (NSI)[self.superlayer.sublayers indexOfObject:self];      }
+-     (INST) siblingNext         {	return self.siblingIndex == self.siblingIndexMax || !self.siblings.count ? nil : self.siblings[self.siblingIndex]; }
+-     (INST) siblingPrev         {	NSUI idx = self.siblingIndex-1; return self.siblingIndex == 0 || self.siblings.count == 0 || self.siblings.count < idx ? nil : self.siblings[idx]; }
+-     (NSA*) siblings            {	return !self.superlayer ? nil : [self.superlayer.sublayers arrayWithoutObject:self]; }
+-      (NSI) siblingIndex        {	return !self.superlayer ? -1 : (NSI)[self.superlayer.sublayers indexOfObject:self];      }
 
 - (AZParity) siblingIndexParity  { return self.siblingIndex == -1 ? AZUndefined : isEven(self.siblingIndex) ? AZEven : AZOdd; }
 
--  (BOOL) siblingIndexIsEven  { return isEven(self.siblingIndex);                           }
--  (NSI) siblingIndexMax    { return !self.superlayer ? -1 : self.superlayer.sublayers.count - 1; }
+-     (BOOL) siblingIndexIsEven  { return isEven(self.siblingIndex);                           }
+-      (NSI) siblingIndexMax    { return !self.superlayer ? -1 : self.superlayer.sublayers.count - 1; }
 
-- (void) setFilterName:(NSS*)n  {
+-     (void) setFilterName:(NSS*)n  {
 
 	CIFilter *fltr = [CIFilter filterWithName:n]; [fltr setDefaults];	[fltr setName:n];
   self.hostView.layerUsesCoreImageFilters = YES; self.compositingFilter = fltr;
 }
-- (CAL*) permaPresentation	  {	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
+-     (INST) permaPresentation	  {	if (!self.presentationLayer) NSLog(@"no presenta para: %@", self);
 	return self.presentationLayer ? : self.modelCALayer ? : self;
 }
 
 @dynamic backgroundNSColor;
+
 - (void) setBackgroundNSColor:(NSC*)c  { self.bgC = c.CGColor;                                                       }
 - (NSC*)    backgroundNSColor          { return self.bgC == NULL ? CLEAR : [NSC colorWithCGColor:self.bgC];          }
 
@@ -113,29 +131,37 @@ SetKPfVA(SiblingIndex,  @"superlayer", @"superlayer.sublayers.@count")  SetKPfVA
 
 - (void) disableResizeActions             { [self addActionsForKeys: @{ @"position":AZNULL, @"bounds":AZNULL}]; }
 - (void) disableActionsForKeys:(NSA*)ks   {	self.actions = [self.actions ?: @{} dictionaryWithValue:AZNULL forKeys:ks]; }
-- (void) setAnimatesResize:(BOOL)a        { a ? [self removeActionsForKeys:@[@"bounds",@"position"]] : [self disableResizeActions]; }
-- (BOOL) animatesResize                   { return [self actionForKey:@"bounds"] || [self actionForKey:@"position"]; }
+- (void)     setAnimatesResize:(BOOL)a    { a ? [self removeActionsForKeys:@[@"bounds",@"position"]] : [self disableResizeActions]; }
+- (BOOL)        animatesResize            { return [self actionForKey:@"bounds"] || [self actionForKey:@"position"]; }
 
-SYNTHESIZE_ASC_OBJ_BLOCK(needsLayoutForKeys,setNeedsLayoutForKeys,^{},^{ value ? [[value arrayWithoutArray:self.needsLayoutForKeys ?: @[]] do:^(id k){     [self setNeedsLayoutForKey:k]; }]
-                                                                               : [self.needsLayoutForKeys do:^(id x){ [self unbind:x]; }]; });
+SYNTHESIZE_ASC_OBJ_BLOCK(needsLayoutForKeys,setNeedsLayoutForKeys,^{},^{
 
-SYNTHESIZE_ASC_OBJ_BLOCK(needsDisplayForKeys,setNeedsDisplayForKeys,^{},^{ value ? [[value arrayWithoutArray:self.needsDisplayForKeys ?: @[]] do:^(id k) {    [self setNeedsDisplayForKey:k]; }]
-                                                                                 : [self.needsDisplayForKeys do:^(id x){ [self unbind:x]; }]; });
+  value ? [[value arrayWithoutArray:self.needsLayoutForKeys ?: @[]] do:^(id k){ [self setNeedsLayoutForKey:k]; }]
 
-- (void)        setNeedsLayout:(BOOL)x       { x ? [self setNeedsLayout]  : nil; }
-- (void)       setNeedsDisplay:(BOOL)x       { x ? [self setNeedsDisplay] : nil; }
-- (void)  setNeedsLayoutForKey:(NSS*)k   { [self addObserverForKeyPath:k task:^(id x) { LOGREASON; [x setNeedsLayout]; }];  }
+        :                          [self.needsLayoutForKeys do:^(id x){ [self unbind:x]; }];
+});
+
+SYNTHESIZE_ASC_OBJ_BLOCK(needsDisplayForKeys,setNeedsDisplayForKeys,^{},^{
+
+  value ? [[value arrayWithoutArray:self.needsDisplayForKeys ?: @[]] do:^(id k) {    [self setNeedsDisplayForKey:k]; }]
+
+        :                          [self.needsDisplayForKeys do:^(id x){ [self unbind:x]; }];
+});
+
+- (void)        setNeedsLayout:(BOOL)x  { x ? [self setNeedsLayout]  : nil; }
+- (void)       setNeedsDisplay:(BOOL)x  { x ? [self setNeedsDisplay] : nil; }
+- (void)  setNeedsLayoutForKey:(NSS*)k  { [self addObserverForKeyPath:k task:^(id x) { LOGREASON; [x setNeedsLayout]; }];  }
 - (void) setNeedsDisplayForKey:(NSS*)k  { [self addObserverForKeyPath:k task:^(id x) { LOGREASON; [x setNeedsDisplay]; }];  }
 
--   (id) scanSubsForClass:(Class)c     {
+-   (id)   scanSubsForClass:(Class)c    {
   return [self.sublayers filterOneBlockObject:^id(CAL*sub) { return ISA(sub,c) ? sub : sub.sublayers.count ? [sub scanSubsForClass:c] : nil;	}];
 }
--   (id) scanSubsForName:(NSS*)n       {
+-   (id)    scanSubsForName:(NSS*)n     {
   return [self.sublayers filterOneBlockObject:^id(CAL*sub) { return SameString(sub.name,n) ? sub : sub.sublayers.count ? [sub scanSubsForName:n] : nil;	}];
 }
-- (NSA*) sublayersAscending            { return [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
+- (NSA*) sublayersAscending             { return [self.sublayers sortedWithKey:@"frameX" ascending:YES]; }
 
-//SYNTHESIZE_ASC_OBJ_BLOCK
+
 SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self.superlayers filterOneBlockObject:^id(CAL *l) { return l.hostView; }]; }, ^{});
 
 -  (NSR) actuallyVisibleRect;                    {
@@ -382,7 +408,8 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	return (AZPOS)[objc_getAssociatedObject(self, &ORIENT_IDENTIFIER) unsignedIntegerValue];
 }
 */
-- (NSN*) addValues:(int)count, ...{
+
+- (NSN*)            addValues:(int)count, ... {
 	va_list args;
 	va_start(args, count);
 	NSNumber *value;
@@ -394,7 +421,8 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	va_end(args);
 	return @(retval);
 }
-- (void) animateXThenYToFrame:(NSR)toRect duration:(NSUI)time  {
+- (void) animateXThenYToFrame:(NSR)toRect
+                    duration:(NSUI)time       {
 	//	NSRect max, min;
 	//	max = AZIsRectRightOfRect(self.frame,toRect) ? self.frame : toRect;
 	//	min = NSEqualRects(max, self.frame) ? toRect : self.frame;
@@ -417,7 +445,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	self.position = interim;
 	}];
 }
-- (void) blinkLayerWithColor:(NSC *)color	 {
+- (void)  blinkLayerWithColor:(NSC *)color    {
 
 //  CAGradientLayer
   CABA *blinkAnimation;
@@ -443,16 +471,20 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 
   }
 }
--   (id) hitTestEvent:(NSE*)e inView:(NSV*)v                    {
+- (CAL*)         hitTestEvent:(NSE*)e
+                       inView:(NSV*)v         {
 
 	NSPoint mD = [NSScreen convertAndFlipEventPoint:e relativeToView:v];
 
 	return [self hitTest:mD];/// ?: (id)$(@"nada para:%@", AZString(mD));
 }
-- (id)      hitTest:(NSP)p  inView:(NSV*)v forClass:(Class)k  {
+- (CAL*)              hitTest:(NSP)p
+                      inView:(NSV*)v
+                    forClass:(Class)k         {
 
 	CAL *l = [self hitTest:[NSScreen convertAndFlipMousePointInView:v]]; while(l && !ISA(l,k)) l = l.superlayer;	return l;
 }
+
 //How to set the CATransform3DRotate along the x-axis for a specified height with perspective
 - (void) addPerspectiveForVerticalOffset:(CGF)pixels	      {
 	CGF totalHeight = self.bounds.size.height; //height is 30
@@ -1161,7 +1193,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	//	return bitmap;
 }
 
-+ (CAL *)closeBoxLayer   {
++ (CAL*)         closeBoxLayer          {
 	CAL *layer = [CALayer closeBoxLayerForLayer:nil];
 	return layer;
 }
@@ -1245,6 +1277,9 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
   [self iterateGrid:^(NSInteger r1, NSInteger c) {  }]
 }
 */
+
+SYNTHESIZE_ASC_PRIMITIVE_KVO(noHit, setNoHit, BOOL);
+
 + (INST) noHitLayerWithFrame:(NSR)r mask:(NSUI)m  { id x = [self.class noHitLayer]; [x setFrame:r]; [(CAL*)x setAutoresizingMask:m]; return x; }
 + (INST) noHitLayerWithFrame:(NSR)r               { id x = [self.class noHitLayer]; [x setFrame:r];    return x; }
 + (INST) noHitLayer                               { id x = [self.class layer]; [x setNoHit:YES]; return x; }
@@ -1253,15 +1288,17 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 + (INST) layerWithFrame:(NSR)f                { CAL* l = self.class.layer; l.frame = f; return l;    }
 + (INST) layerWithValue:(id)v forKey:(NSS*)k  { return [self.class.layer objectBySettingValue:v forKey:k];                  }
 + (INST) layerWithValuesForKeys:(id)x,...     { azva_list_to_nsarray(x, vals); return [self.class.new objectBySettingVariadicPairs:vals]; }
+
 // create a new "sphere" layer and add it to the container layer
-+ (CAGL*) gradientWithColor:(NSC*)c;     {
++ (CAGL*) gradientWithColor:(NSC*)c {
 	CAGL *h	      = CAGL.layer;
 	h.colors	     =  @[ (id)c.darker.CGColor, (id)c.CGColor, (id)c.brighter.CGColor];
 	h.locations     = @[ @0, @.5, @1 ];
 	return h;
 }
+
 //Metallic grey gradient background
-+ (CAGL *)greyGradient {
++ (CAGL*) greyGradient              {
 	CAGL *headerLayer = CAGL.layer;
 	return headerLayer.colors = @[(id)[NSC white: 0.15f a: 1.0f].CGColor,
 		(id)[NSC white: 0.19f a: 1.0f].CGColor,
@@ -1272,7 +1309,8 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 		$float(.5),
 		$float(1)], headerLayer;
 }
-+ (CAL *)newGlowingSphereLayer   {
+
++  (CAL*) newGlowingSphereLayer     {
 	// generate a random size scale for glowing sphere
 	NSUInteger randomSizeInt	     = (random() % 200 + 50 );
 	CGF sizeScale	= (CGF)randomSizeInt / 100.0;

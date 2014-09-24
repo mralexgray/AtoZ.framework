@@ -53,7 +53,10 @@
 
 //GENERICSABLE(NSColor)
 
-@interface NSColor (AtoZ) <Random>
+@interface NSColor (AtoZ) <Random, ClassKeyGet>
+
+// ClassKeyGet NSC.class[@"red"]
+
 
 @property (RONLY)  	BOOL	 isBoring,   isExciting,
                            isBright,   isDark,

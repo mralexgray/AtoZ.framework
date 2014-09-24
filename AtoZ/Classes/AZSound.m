@@ -2,44 +2,23 @@
 #import "AtoZ.h"
 #import "AZSound.h"
 
-static NSA *soundPaths(){ return  [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""]; }
+@implementation Sound (AtoZ)
 
-#pragma mark Sound class
 
-NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotification";
-
-#ifdef SM_USE_AV_AUDIO_PLAYER
-@interface Sound() <AVAudioPlayerDelegate>
-#else
-@interface Sound() <NSSoundDelegate>
-#endif
-
-@property (nonatomic)    float startVolume, targetVolume;
-@property (nonatomic)     NSTI fadeTime,    fadeStart;
-@property (nonatomic)  NSTimer *timer;
-@property (nonatomic)    Sound *selfReference;
-@property (nonatomic) SM_SOUND *sound;
-
--(void)prepareToPlay;
-
+//+ (Sound*) randomSound {
+//
+////	NSArray *randos = ;//[[SoundManager sharedManager]soundPaths];
+//	return [self.class.alloc initWithContentsOfFile:SoundManager.soundPaths.randomElement];// [(NSS*)randos.randomElement copy]];
+//}
 @end
 
-@implementation Sound
 
+@implementation SoundManager (AtoZ)
+
+
+/*
 @synthesize baseVolume, startVolume, targetVolume, fadeTime, fadeStart, timer, selfReference, url, sound, completionHandler;
 
-+ (Sound*) randomSound {
-
-//	NSArray *randos = ;//[[SoundManager sharedManager]soundPaths];
-	return [self.class.alloc initWithContentsOfFile:SoundManager.soundPaths.randomElement];// [(NSS*)randos.randomElement copy]];
-}
-
-+ (Sound *)soundNamed:(NSString *)name
-{
-	return [self.class.alloc initWithContentsOfFile:[SoundManager.soundPaths filterOne:^BOOL(id object) {
-		return [(NSS*)object containsString:name];
-	}]];
-}
 //	NSArray *randos = LogAndReturn([[SoundManager sharedManager]soundPaths].copy);
 
 //	NSA *i = LogAndReturn([[SoundManager sharedManager]soundPaths].copy);
@@ -245,23 +224,44 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 	[timer invalidate];
 //  AH_RELEASE(timer); AH_RELEASE(url); AH_RELEASE(sound); AH_RELEASE(completionHandler); AH_SUPER_DEALLOC;
 }
-
-@end
+*/
+/*
 #pragma mark SoundManager class
 @interface SoundManager ()
 @property (nonatomic, strong) Sound *currentMusic;
 @property (nonatomic, strong) NSMutableArray *currentSounds;
 @end
+*/
 
 
-@implementation SoundManager
-@synthesize currentMusic, currentSounds, allowsBackgroundMusic, soundVolume, musicVolume, soundFadeDuration, musicFadeDuration;
++ (Sound *)soundNamed:(NSString *)n {
 
-+ (void) playRandomSound;
-{
-	[[self sharedInstance]playSound:[Sound randomSound]];
+	return [Sound soundWithContentsOfFile:[AZFWORKBUNDLE recursiveSearchForPathOfResourceNamed:n]];
+//   filterOne:^BOOL(id object) { return [(NSS*)object containsString:name]; }]];
 }
 
+
++ (void) load { [self.sharedManager prepareToPlayWithSound:[self soundNamed:@"tink"]]; }
+
+//@synthesize currentMusic, currentSounds, allowsBackgroundMusic, soundVolume, musicVolume, soundFadeDuration, musicFadeDuration;
+
++ (void) playRandomSound {
+  [self.sharedManager playSound:self.soundPaths.randomElement looping:NO];
+}
+
++ (NSA*) soundPaths { AZSTATIC_OBJ(NSA,data,
+
+  [AZFILEMANAGER pathsForItemsMatchingExtension:@"caf" inFolder:AZFWORKBUNDLE.resourcePath]);
+
+//[AZFWORKBUNDLE resourcesWithExtensions:@[@"caf", @"mp3",@"aiff"]]; }));
+
+  return data;
+
+}
+@end
+
+
+/*
 
 + (SoundManager *)sharedManager
 {
@@ -287,15 +287,6 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 	return self;
 }
 
-+ (NSArray *)soundPaths
-{
-	static NSArray *data = nil;
-	if (!data) {
-		data =  [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""];
-//		[[NSArray arrayWithObjects:..., nil] retain];
-	}
-	return data;
-}
 
 //- (NSA*)soundPaths{
 //	static NSA* sounds = nil;
@@ -455,9 +446,9 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 //	AH_RELEASE(currentMusic); AH_RELEASE(currentSounds); AH_SUPER_DEALLOC;
 }
+*/
 
-@end
-
+// pathsForResourcesOfType:@"caf" inDirectory:@""]; [[NSArray arrayWithObjects:..., nil] retain]; 	} return data;
 //
 //  SoundManager.m
 //
@@ -491,3 +482,29 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 //  3. This notice may not be removed or altered from any source distribution.
 //
 //
+
+/*
+
+static NSA *soundPaths(){ return  [AZFWORKBUNDLE pathsForResourcesOfType:@"caf" inDirectory:@""]; }
+
+#pragma mark Sound class
+
+NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotification";
+
+#ifdef SM_USE_AV_AUDIO_PLAYER
+@interface Sound() <AVAudioPlayerDelegate>
+#else
+@interface Sound() <NSSoundDelegate>
+#endif
+
+@property (nonatomic)    float startVolume, targetVolume;
+@property (nonatomic)     NSTI fadeTime,    fadeStart;
+@property (nonatomic)  NSTimer *timer;
+@property (nonatomic)    Sound *selfReference;
+@property (nonatomic) SM_SOUND *sound;
+
+-(void)prepareToPlay;
+
+@end
+
+*/

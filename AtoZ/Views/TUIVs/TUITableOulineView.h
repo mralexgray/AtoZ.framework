@@ -7,7 +7,7 @@
 //
 
 //#import "TUITableView.h"
-#import <TwUI/TUIKit.h>
+#import <TwUI/TwUI.h>
 //@class TUITableOulineView;
 //@protocol TUITableOutlineViewDelegate <TUITableViewDelegate>
 //

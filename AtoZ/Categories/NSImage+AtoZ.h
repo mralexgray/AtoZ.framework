@@ -86,7 +86,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /*! [NSImage imageNamed:@"document"] */
 
 @import Quartz;
-@class AZFile;	@interface NSImage (AtoZ)
+@class AZFile;	@interface NSImage (AtoZ) <ClassKeyGet>
 
 
 + (NSIMG*) gravatarForEmail:(NSS*)e;
@@ -111,13 +111,13 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 + (NSIMG*) glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
 
-+ (NSIMG*) imageFromURL:(NSS*)url;
+//+ (NSIMG*) imageFromURL:(NSS*)url;
 + (NSIMG*) randomWebImage;
 
 + (void) random:(void(^)(NSImage*))display;
 + (void) loadImage:(NSURL*)url andDisplay:(void(^)(NSImage* i))b;
 
-+ (NSIMG*) randomFunny;
+//+ (NSIMG*) randomFunny; needs mrgray.com
 
 + (NSA*) randomWebImages:(NSUI)ct;
 + (NSIMG*) googleImage:(NSS*)query;

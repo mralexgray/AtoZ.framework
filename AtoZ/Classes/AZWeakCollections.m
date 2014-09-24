@@ -80,13 +80,13 @@
 	return self;
 }
 
-- (id)initWithCapacity:(NSUInteger)numItems {
-	return [self initWithObjects:NULL count:numItems];
-}
+//- initWithCapacity:(NSUInteger)numItems {
+//	return [super initWithObjects:NULL count:numItems];
+//}
 
-- (id)init {
-	return [self initWithObjects:NULL count:0];
-}
+//- init {
+//	return [super initWithObjects:NULL count:0];
+//}
 
 - (NSUInteger)count {
 	return array.count;

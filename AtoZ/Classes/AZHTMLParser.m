@@ -15,12 +15,12 @@
 
 @implementation AZHTMLParser
 
--(HTMLND*) doc	{ return _docPtr == NULL ? nil : [HTMLNode instanceWithXMLNode:(xmlNode*)_docPtr];	}
--(HTMLND*) html	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"html"];	}
--(HTMLND*) head	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"head"];	}
--(HTMLND*) body	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"body"];	}
+-(EL*) doc	{ return _docPtr == NULL ? nil : [HTMLNode instanceWithXMLNode:(xmlNode*)_docPtr];	}
+-(EL*) html	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"html"];	}
+-(EL*) head	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"head"];	}
+-(EL*) body	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"body"];	}
 
--  (id)        initWithString:(NSS*)str error:(NSERR**)e  {
+-         initWithString:(NSS*)str error:(NSERR**)e  {
 
   if (!(self = super.init)) return nil;	_docPtr = NULL;
 
@@ -37,7 +37,7 @@
 	else *e = e ? [NSERR errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil] : *e;
 	return self;
 }
--  (id)          initWithData:(DTA*)dta error:(NSERR**)e  { if (!(self = [super init])) return nil;
+-           initWithData:(DTA*)dta error:(NSERR**)e  { if (!(self = [super init])) return nil;
 
   _docPtr = NULL;
 
@@ -50,7 +50,7 @@
 	else	*e = e ? [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil] : *e;
 	return self;
 }
--  (id) initWithContentsOfURL:(NSURL*)u error:(NSERR**)e  {
+-  initWithContentsOfURL:(NSURL*)u error:(NSERR**)e  {
 
 	NSData * _data = [NSData.alloc initWithContentsOfURL:u options:0 error:e];
 	if (_data == nil || *e) return nil;

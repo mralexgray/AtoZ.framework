@@ -6,7 +6,7 @@
 //  Written in 2010 by Fileability.
 //
 
-#import <BWTK/BWToolkitFramework.h>
+#import <BWTK/BWGradientBox.h>
 
 @interface AZMatteFocusedGradientBox : BWGradientBox {
 

@@ -8,7 +8,7 @@
 
 #import "TUITableOulineView.h"
 //#import "TUILayoutConstraint.h"
-#import <TwUI/TUIKit.h>
+#import <TwUI/TwUI.h>
 @interface TUIView (PrivateKludge)
 + (id) _currentAnimation;
 @end

@@ -866,7 +866,7 @@ CLANG_POP
 
 /*
 
-#import <DrawKit/DKDrawKit.h>
+#import <DrawKit/DrawKit.h>
 #import <DrawKit/DKStrokeDash.h>
 static CGFloat kDefaultContentInset;
 static CGFloat kDefaultSelectionRingLineWidth;

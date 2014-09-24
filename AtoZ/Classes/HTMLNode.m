@@ -10,7 +10,7 @@
 
 JREnumDefine ( HTMLNodeType )
 
-HTMLNODE            nodeType(xmlNode * node) {
+EL_TYPE nodeType(xmlNode * node) {
 
 	return node == NULL || node->name == NULL ? HTMLUnkownNode : ({
 	
@@ -81,23 +81,23 @@ HTMLNODE            nodeType(xmlNode * node) {
 		}
 }
 
-@implementation HTMLND { xmlNode *_node;}
+@implementation EL { xmlNode *_node;}
 
 + (instancetype) instanceWithXMLNode:(void*)xmlNode { return [self.class.alloc initWithXMLNode:xmlNode]; }
 -           (id)     initWithXMLNode:(void*)xmlNode	{ return self = super.init ? _node = xmlNode, self : nil;  }
 
-- (HTMLND*) parent          {	return [self.class.alloc initWithXMLNode:   (void*)_node->parent  ]; }
-- (HTMLND*) nextSibling     { return [self.class.alloc initWithXMLNode:   (void*)_node->next    ]; }
-- (HTMLND*) previousSibling { return [self.class.alloc initWithXMLNode:   (void*)_node->prev    ]; }
-- (HTMLND*) firstChild      { return [self.class.alloc initWithXMLNode:(xmlNode*)_node->children]; }
+- (INST) parent          {	return [self.class.alloc initWithXMLNode:   (void*)_node->parent  ]; }
+- (INST) nextSibling     { return [self.class.alloc initWithXMLNode:   (void*)_node->next    ]; }
+- (INST) previousSibling { return [self.class.alloc initWithXMLNode:   (void*)_node->prev    ]; }
+- (INST) firstChild      { return [self.class.alloc initWithXMLNode:(xmlNode*)_node->children]; }
 
-- (HTMLNODE) nodetype       {	return nodeType(_node); }
+- (EL_TYPE) nodetype       {	return nodeType(_node); }
 
 - (NSS*) className    {	return [self getAttributeNamed:@"class"]; }
 - (NSS*) tagName      { return $UTF8((void*)_node->name); }
 - (NSA*) children     {	xmlNode *cur_node = NULL; AZNew(NSMA, array);
 
-	for (cur_node = _node->children; cur_node; cur_node = cur_node->next)	[array addObject:[HTMLND.alloc initWithXMLNode:(void*)cur_node]];
+	for (cur_node = _node->children; cur_node; cur_node = cur_node->next)	[array addObject:[self.class.alloc initWithXMLNode:(void*)cur_node]];
 	return array;
 }
 - (NSS*) contents     { return _node->children && _node->children->content ? $UTF8((void*)_node->children->content) : nil; }
@@ -116,10 +116,9 @@ HTMLNODE            nodeType(xmlNode * node) {
 - (NSA*)       findChildrenOfClass:(NSS*)className      {
 	return [self findChildrenWithAttribute:@"class" matchingName:className allowPartial:NO];
 }
-- (HTMLND*)           findChildTag:(NSS*)tagName        {	return [self findChildTag:tagName inXMLNode:_node->children]; }
-- (HTMLND*)       findChildOfClass:(NSS*)className      {
-	HTMLND * node = [self findChildWithAttribute:"class" matchingName:[className UTF8String]  inXMLNode:_node->children allowPartial:NO];
-	return node;
+- (INST)           findChildTag:(NSS*)tagName        {	return [self findChildTag:tagName inXMLNode:_node->children]; }
+- (INST)       findChildOfClass:(NSS*)className      {
+  return [self findChildWithAttribute:"class" matchingName:[className UTF8String]  inXMLNode:_node->children allowPartial:NO];
 }
 
 - (void)             findChildTags:(NSS*)tagName     inXMLNode:(xmlNode*)node
@@ -132,7 +131,7 @@ HTMLNODE            nodeType(xmlNode * node) {
 	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{				
 		if (cur_node->name && !strcmp((char*)cur_node->name, tagNameStr))
-			[array addObject:[HTMLND.alloc initWithXMLNode:(void*)cur_node]];
+			[array addObject:[self.class.alloc initWithXMLNode:(void*)cur_node]];
 
 		[self findChildTags:tagName inXMLNode:cur_node->children inArray:array];
 	}	
@@ -169,7 +168,7 @@ HTMLNODE            nodeType(xmlNode * node) {
 					if (match)
 					{
 						//Found node
-						[array addObject:[HTMLND.alloc initWithXMLNode:(void*)cur_node]];
+						[array addObject:[self.class.alloc initWithXMLNode:(void*)cur_node]];
 						break;
 					}
 				}
@@ -182,7 +181,7 @@ HTMLNODE            nodeType(xmlNode * node) {
 	
 }
 
-- (HTMLND*) findChildWithAttribute:(const char*)a matchingName:(const char*)name
+- (INST) findChildWithAttribute:(const char*)a matchingName:(const char*)name
                          inXMLNode:(xmlNode*)node allowPartial:(BOOL)partial      {
 
 	xmlNode *cur_node = NULL;	const char * classNameStr = name; 	if (node == NULL)	return NULL;
@@ -200,31 +199,31 @@ HTMLNODE            nodeType(xmlNode * node) {
                     ||  partial &&  strstr((char*)child->content, classNameStr) != NULL;
 
 					if (match)
-						return [HTMLND.alloc initWithXMLNode:(void*)cur_node];
+						return [self.class.alloc initWithXMLNode:(void*)cur_node];
 				}
 				break;
 			}
 		}
 		
-		HTMLND * cNode = [self findChildWithAttribute:a matchingName:name inXMLNode:cur_node->children allowPartial:partial];
+		__typeof(self) cNode = [self findChildWithAttribute:a matchingName:name inXMLNode:cur_node->children allowPartial:partial];
 		if (cNode != NULL) return cNode;
 	}
 	return NULL;
 }
-- (HTMLND*) findChildWithAttribute:(NSS*)attr     matchingName:(NSS*)name
+- (INST) findChildWithAttribute:(NSS*)attr     matchingName:(NSS*)name
                                                   allowPartial:(BOOL)partial      {
 	return [self findChildWithAttribute:attr.UTF8String matchingName:name.UTF8String inXMLNode:_node->children allowPartial:partial];
 }
-- (HTMLND*)           findChildTag:(NSS*)tagName     inXMLNode:(xmlNode*)node     {
+- (INST)           findChildTag:(NSS*)tagName     inXMLNode:(xmlNode*)node     {
 	xmlNode *cur_node = NULL;
 	const char * tagNameStr =  [tagName UTF8String];
 	
 	for (cur_node = node; cur_node; cur_node = cur_node->next) 
 	{				
 		if (cur_node && cur_node->name && !strcmp((char*)cur_node->name, tagNameStr))
-			return [HTMLND.alloc initWithXMLNode:(void*)cur_node];
+			return [self.class.alloc initWithXMLNode:(void*)cur_node];
 
-		HTMLND * cNode = [self findChildTag:tagName inXMLNode:cur_node->children];
+		__typeof(self) cNode = [self findChildTag:tagName inXMLNode:cur_node->children];
 		if (cNode != NULL) return cNode;
 	}
 	

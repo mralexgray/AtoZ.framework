@@ -3,44 +3,58 @@
 //  Created by Ben Reeves on 09/03/2010.  Copyright 2010 Ben Reeves. All rights reserved.
 
 #import "AtoZUmbrella.h"
-#import "AZHTMLParser.h"
+
 #define ParsingDepthUnlimited 0
 #define      ParsingDepthSame -1
 #define          ParsingDepth size_t
-#define              HTMLNODE HTMLNodeType
-#define                HTMLND HTMLNode
+#define               EL_TYPE HTMLNodeType
+#define                    EL HTMLNode
 
-JREnumDeclare ( HTMLNodeType,  HTMLHrefNode,   HTMLTextNode,   HTMLUnkownNode,
-                               HTMLCodeNode,   HTMLSpanNode,   HTMLPNode,
-                               HTMLLiNode,     HTMLUlNode,     HTMLImageNode,
-                               HTMLOlNode,     HTMLStrongNode, HTMLPreNode, HTMLBlockQuoteNode)
-@interface HTMLNode : NSO
+JREnumDeclare( HTMLNodeType,  HTMLHrefNode,   HTMLTextNode,   HTMLUnkownNode,
+                     HTMLCodeNode,   HTMLSpanNode,        HTMLPNode,
+                       HTMLLiNode,     HTMLUlNode,     HTMLImageNode,
+                       HTMLOlNode,  HTMLStrongNode, HTMLPreNode,
+                                                    HTMLBlockQuoteNode)
+@CLASS(HTMLNode)
 
-+ (instancetype) instanceWithXMLNode:(void*)xmlNode;
++ (INST) instanceWithXMLNode:(void*)xmlNode;
 
-@property (RONLY)       NSS * contents,         // plaintext contents of node
-                            * allContents,      // plaintext contents of this node + all children
-                            * rawContents,      // html contents of the node
-                            * className;
-@property (RONLY)  HTMLNode * firstChild,       // the first child element
-                            * nextSibling,      // next sibling in tree
-                            * previousSibling,  // previous sibling in tree
-                            * tagName,
-                            * parent;
-@property (RONLY)       NSA * children;         // the first level of children
-@property (RONLY)  HTMLNODE   nodetype;         // if known
+@prop_RO      NSS * contents,         // plaintext contents of node
+                  * allContents,      // plaintext contents of this node + all children
+                  * rawContents,      // html contents of the node
+                  * className;
+@prop_RO HTMLNode * firstChild,       // the first child element
+                  * nextSibling,      // next sibling in tree
+                  * previousSibling,  // previous sibling in tree
+                  * tagName,
+                  * parent;
+@prop_RO      NSA * children;         // the first level of children
+@prop_RO  EL_TYPE   nodetype;         // if known
 
-/*! single node finders */
+#pragma mark - Single node finders
 
-- (HTMLND*)          findChildOfClass:(NSS*)classN;      // Returns a single child of class
-/*! @param  allowPartial to match partial matches  @code <img src="http://www.google.com> [findChildWithAttribute:@"src" matchingName:"google.com" allowPartial:TRUE] */
-- (HTMLND*)    findChildWithAttribute:(NSS*)attr matchingName:(NSS*)classN allowPartial:(BOOL)p;
-/*! Looks for a tag name e.g. "h3" */
-- (HTMLND*)              findChildTag:(NSS*)tagN;
-/*! Gets the attribute value matching tha name */
--    (NSS*)         getAttributeNamed:(NSS*)name;
+/** 
+@method findChildOfClass:
+  Returns a single child of class
+@method getAttributeNamed:
+  Gets the attribute value matching tha name
+@method findChildWithAttribute:matchingName:allowPartial:
+  @param allowPartial Whether to match partial matches 
+  @code
+    <img src="http://www.google.com>
+    [findChildWithAttribute:@"src" matchingName:"google.com" allowPartial:TRUE]
+@method findChildTag:
+  Looks for a tag name e.g. "h3"
+*/
 
-/*! globbing finders */
+- (INST)           findChildTag:(NSS*)tagN;
+- (INST)       findChildOfClass:(NSS*)classN;
+- (NSS*)      getAttributeNamed:(NSS*)name;
+- (INST) findChildWithAttribute:(NSS*)attr
+                   matchingName:(NSS*)classN
+                   allowPartial:(BOOL)p;
+
+#pragma mark - Globbing finders
 
 - (NSA*)             findChildTags:(NSS*)tagN;
 - (NSA*)       findChildrenOfClass:(NSS*)classN;

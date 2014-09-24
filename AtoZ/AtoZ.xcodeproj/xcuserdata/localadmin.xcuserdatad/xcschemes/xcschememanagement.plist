@@ -7,97 +7,97 @@
 		<key>AZPrompt.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>96</integer>
+			<integer>12</integer>
 		</dict>
 		<key>AtoZ.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>5</integer>
 		</dict>
 		<key>AtoZAgent.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>134</integer>
+			<integer>14</integer>
 		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>136</integer>
+			<integer>16</integer>
 		</dict>
 		<key>AtoZDocumentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>138</integer>
+			<integer>18</integer>
 		</dict>
 		<key>AtoZHelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>135</integer>
+			<integer>15</integer>
 		</dict>
 		<key>AtoZPrefs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>133</integer>
+			<integer>13</integer>
 		</dict>
 		<key>AtoZTestBed.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>4</integer>
 		</dict>
 		<key>AtoZTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>137</integer>
+			<integer>17</integer>
 		</dict>
 		<key>AtoZ_SwiftREPL.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>186</integer>
+			<integer>6</integer>
 		</dict>
 		<key>Deps.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Frameworks.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Libs.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>2</integer>
 		</dict>
 		<key>OCLint.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>21</integer>
 		</dict>
 		<key>ObjectiveCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>139</integer>
+			<integer>90</integer>
 		</dict>
 		<key>Router.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>22</integer>
 		</dict>
 		<key>StaticFrameworks.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>3</integer>
 		</dict>
 		<key>WindowPoppers.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>99</integer>
+			<integer>81</integer>
 		</dict>
 		<key>Zangetsu.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>66</integer>
+			<integer>61</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

@@ -10,42 +10,38 @@
 
 
 @interface NSBundle (AtoZBundles)
-
 + (NSA*) bundlesFromStdin;
-@prop_RO NSA* plugins;
-- (NSA*) pluginsConformingTo:(Protocol*)p;
 + (NSA*) bundlesConformingTo:(Protocol*)p atPath:(NSS*)path;
+- (NSA*) pluginsConformingTo:(Protocol*)p;
+@prop_RO NSA* plugins;
 @end
 
 @interface NSBundle (AtoZ)
 
-/*
- BuildMachineOSBuild = 13A598;
-    CFBundleDevelopmentRegion = English;
-    CFBundleExecutable = "dump_info_plist";
-    CFBundleIdentifier = "ch.pitaya.dump_info_plist";
-    CFBundleInfoDictionaryVersion = "6.0";
-    CFBundleName = "dump_info_plist";
-    CFBundleShortVersionString = "1.2.3";
-    CFBundleVersion = "1.2.3";
-    DTCompiler = "com.apple.compilers.llvm.clang.1_0";
-    DTPlatformBuild = 5A2053;
-    DTPlatformVersion = GM;
-    DTSDKBuild = 13A595;
-    DTSDKName = "macosx10.9";
-    DTXcode = 0501;
-    DTXcodeBuild = 5A2053;
-*/
-+   (id) infoPlist;
 + (void) loadAZFrameworks;
-+ (NSB*) bundleForApplicationName:					(NSS*)appName;
-//- (NSD*) infoDictionaryWithIdentifier:			(NSS*)identifier;
-+ (NSS*) bundleIdentifierForApplicationName:	(NSS*)appName;
 
+/*! @see __TEXT", "__info_plist etc */ + infoPlist;
+
+/// :@"Fraise" => NSBundle </Volumes/4X4/Applications/Fraise.app> (not yet loaded)
++ (NSB*) bundleForApplicationName:(NSS*)appName;
+
+///  :@"Fraise" -> org.fraise.Fraise
++ (NSS*) bundleIdentifierForApplicationName:(NSS*)appName;
+
+//- (NSD*)     infoDictionaryWithIdentifier:(NSS*)identifier;
+
+/// (  "NSBundle </Users/localadmin/Library/Frameworks/AtoZBezierPath.framework> (loaded)", ... "NSBundle </Users/localadmin/Library/Frameworks/Zangetsu.framework> (loaded)" )
 + (NSA*) azFrameworkBundles;
-+ (NSA*) azFrameworks;
+
+///  ( AtoZ, AtoZAppKit, .. UIKit, Zangetsu )
++ (NSA*) azFrameworkNames;
+
+/// ( "us.pandamonia.BlocksKit", ... "com.twitter.TwUI" )
 + (NSA*) azFrameworkIds;
+
+/// conveniencer for azFrameworkIds.kvc(@"infoDictionary")
 + (NSA*) azFrameworkInfos;
+
 + (NSD*) azFrameworkInfoForId:(NSS*)bId;
 
 /*! from "__ARCLite__" to ZoneTotalDiff  ALL exported symbols.  Useless. */
@@ -68,19 +64,17 @@
 
 + (INST) bundleForExecutable:(NSS*)path;
 
-
++ resourceOfClass:(Class)rClass inBundleWithClass:(Class)k withName:(NSString*)n init:(SEL)method;
 - (NSA*) cacheImages;
 - (void) cacheNamedImages;
 - (NSA*) recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
 - (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 
-- (NSA*) resourcesWithExtensions:(NSA*)exts; // BROKEN
-
+// [AZFWORKBUNDLE resourcesWithExtensions:@[@"caf"]]; ->  ( ...,  "/Users/localadmin/Library/Frameworks/AtoZ.framework/Resources/Sounds/short_low_high.caf", ... )
+- (NSA*) resourcesWithExtensions:(NSA*)exts; // OK
 
 
 @property (RONLY) NSA* imageResources; // BROKEN
-//- (NSA*) frameworkClasses;
-//+ (NSMutableArray *)systemFrameworks;
 /*! @brief	Returns the path to the application's icon file, derived from the .icns file specified by "CFBundleIconFile" in the application's Info.plist.	*/
 @property (RONLY) NSS * appIconPath;
 /*!
@@ -92,6 +86,8 @@
 @end
 
 
+//- (NSA*) frameworkClasses;
+//+ (NSMutableArray *)systemFrameworks;
 
     #define INITPLUGIN(PROTO,NAME)   id<PROTO>NAME = CONFORMANTBUNDLEOBJ(PROTO)
 
