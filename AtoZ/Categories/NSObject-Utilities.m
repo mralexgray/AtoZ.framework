@@ -730,6 +730,11 @@ CLANG_POP
 - (id) tryPerformSelector:(SEL)sel withObject:(id)x	{ return [self tryPerformSelector:sel withObject:x withObject:nil]; }
 - (id) tryPerformSelector:(SEL)sel 									{ return [self tryPerformSelector:sel withObject:nil withObject:nil];     }
 
+
+- (void)runUntil:(BOOL*)stop {
+
+  while(!stop) [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.date];
+}
 @end
 
 static BOOL OVERRIDE_CLASS_METHOD = YES; // Whether to override the -class method to return the old class name rather than the one from the override subclass.

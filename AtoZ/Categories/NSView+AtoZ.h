@@ -64,10 +64,10 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..
 
 @property (NATOM) NSI tag;
-@property (RONLY) NSIMG* captureFrame;
+@prop_RO NSIMG* captureFrame;
 @property (NATOM) BOOL faded;
-@property (RONLY) NSA* visibleSubviews;
-@property (RONLY) CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
+@prop_RO NSA* visibleSubviews;
+@prop_RO CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
 
 + (instancetype) viewBy:(NSN*)width,...;
 + (instancetype) viewWithFrame:(NSR)r;
@@ -92,8 +92,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 -(CALayer *)layerFromContents;
 
-@property (RONLY) NSBP *path;
-@property (RONLY) CGF maxDim, minDim;
+@prop_RO NSBP *path;
+@prop_RO CGF maxDim, minDim;
 
 - (NSV*) autosizeable;
 // setup 3d transform
@@ -130,15 +130,15 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 - (CAL*) setupHostViewNamed:(NSS*)name;
 
-@property (RONLY) NSA * allSubviews, *subviewsRecursive;
+@prop_RO NSA * allSubviews, *subviewsRecursive;
 @property id firstSubview;
-@property (RONLY) id  lastSubview,  lastSplitPane, lastLastSubview;
+@prop_RO id  lastSubview,  lastSplitPane, lastLastSubview;
 - (void) removeAllSubviews;
 
-@property (RONLY) NSIMG* snapshot;
+@prop_RO NSIMG* snapshot;
 - (NSIMG*) snapshotFromRect:(NSR) sourceRect;
 - (BOOL)  requestFocus;
-@property (RONLY) NSTA* trackFullView;
+@prop_RO NSTA* trackFullView;
 - (NSTA*) trackAreaWithRect:(NSR)rect;
 - (NSTA*) trackAreaWithRect:(NSR)rect  userInfo:(NSD*)context;
 
@@ -175,7 +175,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (NSP) localPoint;
 - (NSP) windowPoint;
 
-@property (RONLY) CAL* hitTestLayer;
+@prop_RO CAL* hitTestLayer;
 
 @end
 

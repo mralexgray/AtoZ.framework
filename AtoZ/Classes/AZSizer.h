@@ -1,6 +1,7 @@
 
 
-#import "BaseModel.h"
+#import "AtoZUmbrella.h"
+
 
 /* Standard C Function: Greatest Common Divisor */
 NS_INLINE NSI gcd ( NSI a, NSI b ){ NSI c; while ( a != 0 ) { c = a; a = b%a;  b = c; } return b; }
@@ -20,11 +21,11 @@ NS_INLINE NSI gcdr ( NSI a, NSI b ){ if ( a==0 ) return b; return gcdr ( b%a, a 
 - (NSR)	 	 rectForPoint: (NSP)point;
 
 
-@property (RONLY) NSUI	rows, columns, capacity;
-@property (RONLY) NSI	remainder;
-@property (RONLY) CGF 	width, height;
-@property (RONLY) NSSZ	size;
-@property (RONLY) NSS	*aspectRatio;
+@prop_RO NSUI	rows, columns, capacity;
+@prop_RO NSI	remainder;
+@prop_RO CGF 	width, height;
+@prop_RO NSSZ	size;
+@prop_RO NSS	*aspectRatio;
 
 @property (NATOM) AZOrient		orient;
 @property (NATOM) NSR		  outerFrame;
@@ -35,4 +36,23 @@ AZPROP (NSA, rects);
 
 @end
 
-//@property (RONLY) 	NSA 	*paths, 	*boxes;
+//@prop_RO 	NSA 	*paths, 	*boxes;
+
+
+NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );
+
+@interface NSImage (Merge)
+/*!	@brief	Returns an image constructed by tiling a given array of images side-by-side or top-to-bottom.
+ 		@param	spacingX  Spacing which will be applied horizontally between images, and at the left and right borders.
+ 		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
+ 		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
+
++ (NSIMG*) contactSheetWith:(NSA*)imgs   columns:(NSUI)cols;  // I guess this is natiral size?
++ (NSIMG*) contactSheetWith:(NSA*)imgs withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
++ (NSIMG*) contactSheetWith:(NSA*)imgs   inFrame:(NSR)rect;//  columns:(NSUI)cols;
+
++ (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
++ (NSIMG*) imageByTilingImages:(NSA*)imgs spacingX:(CGF)x spacingY:(CGF)y vertically:(BOOL)vertically;
+- (NSIMG*) imageBorderedWithInset: (CGF)inset;
+- (NSIMG*) imageBorderedWithOutset:(CGF)outset;			@end  // (MERGE)

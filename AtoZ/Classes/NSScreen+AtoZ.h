@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 6/14/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @interface NSScreen (PointConversion)
 

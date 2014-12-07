@@ -21,9 +21,9 @@
 //@property (nonatomic, assign) IBOutlet NSString *point2y;
 @property (weak) IBOutlet iCarouselViewController *carrie;
 
-- (IBAction) goMouseTest:(id)sender;
-- (IBAction) reload:(id)sender;
-- (IBAction) moveThemAll:(id) sender;
+- (IBAction) goMouseTest:_;
+                              - (IBAction) reload:_;
+                              - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
 
 @end

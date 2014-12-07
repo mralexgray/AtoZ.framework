@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 int main(int argc, char *argv[])
 {

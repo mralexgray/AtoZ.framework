@@ -24,7 +24,7 @@ static const CGS  CAWindowShadowOffset      = (CGS){ 0, -30 };
   @discussion Although the documentation does not state that it constrains windows when moved using -setFrame:display:, such is the case. 
 */
 @property (NATOM) BOOL 	 disableConstrainedWindow;
-@property (RONLY)  CGR   shadowRect;
+@prop_RO  CGR   shadowRect;
 @property (NATOM)  NSW * fullScreenWindow;
 @property (NATOM)  CAL * windowRepresentationLayer;
 @end

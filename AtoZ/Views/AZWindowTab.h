@@ -14,7 +14,7 @@
 @prop_NA       AZR * inFrame, * outFrame, * grabRect, * outerRect;
 @prop_NA      NSSZ   inSize,
                      outSize;
-@property (RONLY) OSCornerType 	outsideCorners;
+@prop_RO OSCornerType 	outsideCorners;
 
 @property CGP offset;
 - (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r;

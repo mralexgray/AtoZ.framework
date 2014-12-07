@@ -40,22 +40,23 @@ typedef void (^KVONewInstanceBlock)( id newInstance );
 - (void) setObject: (id)obj forKeyedSubscript:  (IDCP)key;
 
 
-@property (readonly) NSA *classSiblings;
+@prop_RO NSA *classSiblings;
+
 AZPROPRDO (NSUI, classSiblingIndex);
 AZPROPRDO (NSUI, classSiblingIndexMax);
 
 // A readonly accessor that searches forst if methods are defaults collection, then for
 AZPROPRDO (NSMA, defaultCollection);
 
-@property (RONLY) 		NSS 	*uniqueID, *saveFile, *saveFolder;
+@prop_RO 		NSS 	*uniqueID, *saveFile, *saveFolder;
 @end
 //+ (NSN*) activeSubclasses;  // Root Class introspection
 //+ (NSA*) allClassInstances;
 
 //@property (STRNG)			NSS*	defaultCollectionKey;
-//@property (RONLY) NSA 	*allClassInstances;//, *superProperties;
+//@prop_RO NSA 	*allClassInstances;//, *superProperties;
 
-//@property (RONLY) NSN 	*instanceCt, 	*instanceNumber;
+//@prop_RO NSN 	*instanceCt, 	*instanceNumber;
 //@property (NATOM,ASS) 	BOOL 	defaultCollectionIsMethods;
 // Key that maps the "default" cillection backing store.  defaults to @"items".  Settable.
 

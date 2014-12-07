@@ -23,9 +23,9 @@ typedef NSBP*(^PathBlock)(id shp);
 
 - (void) setPathForRect:(PathBlock)pathForRect;
 @property (CP) PathBlock   pathForRect;
-@property (RONLY)   CGPR   calculatedPath;
-@property (RONLY)    CGF   dynamicStroke;
-@property (RONLY)    NSA * dynamicDash;
+@prop_RO   CGPR   calculatedPath;
+@prop_RO    CGF   dynamicStroke;
+@prop_RO    NSA * dynamicDash;
 
 @end
 

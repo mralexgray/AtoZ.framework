@@ -897,9 +897,10 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	return CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
 }
 - (void)flipForward:(BOOL)forward atPosition:(AZPOS)pos duration:(NSTI)time   {
-	CAT3D flip = [self flipForward:NO atPosition:pos];
+
+	CAT3D flip = [self flipForward:forward atPosition:pos];
 	[self animate:@"transform" toTransform:flip time:time eased:CAMEDIAEASY completion:^{
-	NSLog(@"flipped: %@", StringFromCATransform3D(flip));
+    NSLog(@"flipped: %@", StringFromCATransform3D(flip));
 	}];
 }
 - (CAT3D)flipForward:(BOOL)forward atPosition:(AZPOS)pos      {
@@ -2266,7 +2267,7 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(isListItem,setIsListItem,BOOL);
 @end
 
 /*
-@protocol          KeyBoundShape @concrete @property (RONLY) NSS *binding, *keypath; - (void) remove; @end
+@protocol          KeyBoundShape @concrete @prop_RO NSS *binding, *keypath; - (void) remove; @end
 
 @concreteprotocol(KeyBoundShape)                         @dynamic binding,  keypath;
 

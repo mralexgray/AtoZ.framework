@@ -33,11 +33,11 @@
 + (NSD*) classPropertiesAndTypes;
 + (NSA*) objcPropertiesWithoutSuperclass;
 + (NSA*) objcProperties;
-@property (RONLY) NSD* propertiesPlease, * pp, * propertyNamesAndTypes;
-@property (RONLY) NSS * ppString, // PRIMARY PROPERTY LISTER
+@prop_RO NSD* propertiesPlease, * pp, * propertyNamesAndTypes;
+@prop_RO NSS * ppString, // PRIMARY PROPERTY LISTER
                       * properties;
-@property (RONLY) NSA * propertyNames;
-@property (RONLY) BOOL hasProperties;
+@prop_RO NSA * propertyNames;
+@prop_RO BOOL hasProperties;
 - (NSD*) propertiesSans:						(NSS*)someKey;
 - (NSD*) propertiesSansKeys: 					(NSA*)someKeys;
 + (BOOL) hasProperties;

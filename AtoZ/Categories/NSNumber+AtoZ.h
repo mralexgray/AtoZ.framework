@@ -7,7 +7,7 @@
 
 + (NSN*) randomFloatBetween:(CGF)min :(CGF)max;
 
-@property (RONLY) NSS* hexString;
+@prop_RO NSS* hexString;
 
 - (void) do:(void(^)(int ctr))block;
 + (INST) numberWithBytes:(const void*)bytes objCType:(const char*)type;

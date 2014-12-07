@@ -192,7 +192,7 @@ typedef struct  { NSUI  rows;
 //@concrete
 //@property        NSSZ   size; 
 //@property         CGF   width, height, w, h;
-//@property (RONLY) CGP   mid;
+//@prop_RO CGP   mid;
 //@property         CGF   midX, midY, maxX, maxY;
 
 //@pcategoryinterface (SizeLike,Aliases) @property CGF w, h; @end

@@ -59,7 +59,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 -   (id)       reduce:(id)initial 
                  with:(AZIndexedAccumulationBlock)block;
 
-@property (RONLY) NSA* jumbled, *splitByParity;
+@prop_RO NSA* jumbled, *splitByParity;
 
 /*! @param pairs the array to be "mixed in"
     @code   [@[@1, @2, @3] pairedWith:@[@"a", @"b", @"c"]] -> @[@[@1,@"a"],@[@2,@"b"],@[@3,@"c"]]
@@ -77,7 +77,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 + (instancetype) arrayWithCopies:(NSUI)copies of:(id<NSCopying>)obj;
 
-@property (RONLY) NSS * joinedByNewlines, * joinedWithSpaces, * componentString;
+@prop_RO NSS * joinedByNewlines, * joinedWithSpaces, * componentString;
 
 - (NSS*) joinedBy:(NSS*)x;
 
@@ -101,7 +101,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 -  (int) createArgv:(char***)argv;
 + (NSA*) from:(NSI)from to:(NSI)to;       // shortcut for [@(from) to:@(to)], I think
 
-@property (RONLY) id nextObject,          // keeps tack, ad returns the "next" object from an array.  until it runs out, then trurns nil.
+@prop_RO id nextObject,          // keeps tack, ad returns the "next" object from an array.  until it runs out, then trurns nil.
                       nextNormalObject;   // same as "nextObject", but is a everlasting font of normalized, looping vals
 
 - (NSA*) arrayByAddingAbsentObjectsFromArray:(NSA*)otherArray;
@@ -119,16 +119,16 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*) withMinItems:(NSUI)items usingFiller:(id) fill;
 - (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
 
-@property (RONLY) CSET * countedSet;
-@property (RONLY)  NSN * maxNumberInArray, * minNumberInArray;
-@property (RONLY)  NSA * shifted, * popped, * reversed,
+@prop_RO CSET * countedSet;
+@prop_RO  NSN * maxNumberInArray, * minNumberInArray;
+@prop_RO  NSA * shifted, * popped, * reversed,
                        * ascending, * descending,
                        * URLsForPaths,
                        * colorValues,
                        * arrayWithEach,
                        * allKeysInChildDictionaries,
                        * allvaluesInChildDictionaries;
-@property (RONLY) NSMA * mutableCopies;  // Make each object mutable, if possible. Returns mutable itself.
+@prop_RO NSMA * mutableCopies;  // Make each object mutable, if possible. Returns mutable itself.
 
 //- (NSA<NSN>*) ascending; - (NSA<NSN>*) descending;
 
@@ -258,11 +258,11 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /*** Returns a subArray with all members of the original array that pass the isKindOfClass test with the given Class */
 - (NSA*)elementsOfClass:(Class)aClass;
 /*** Shortcut for elementsOfClass:NSNumber.class */
-@property (RONLY) NSArray *numbers;
+@prop_RO NSArray *numbers;
 /*** Shortcut for elementsOfClass:NSString.class */
-@property (RONLY) NSArray *strings;
+@prop_RO NSArray *strings;
 /*** Returns a subArray with all NSString members and calls trim on each before returning */
-@property (RONLY) NSArray *trimmedStrings;
+@prop_RO NSArray *trimmedStrings;
 
 - (NSA*)             after:(NSUI)subarrayFromIndex; /* subarrayFromIndex alias; */
 - (NSA*)  subarrayFromIndex:(NSUI)start;
@@ -271,11 +271,11 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*) subarrayWithIndexes:(NSIS*)idxs;
 
 /*** Returns a random element from this array */
-@property (RONLY) id randomElement;
+@prop_RO id randomElement;
 /*** Returns a random subArray of this array with up to 'size' elements */
 - (NSA*)randomSubarrayWithSize:(NSUI)size;
 /*** Returns a shuffeled version of this array */
-@property (RONLY) NSArray *shuffeled;
+@prop_RO NSArray *shuffeled;
 /*** A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its first and last element connected to each other */
 - (id)objectAtNormalizedIndex:(NSI)index;
 - (NSUI) normalizedIndex:(NSI)index;  // Gives the normalized index for an out of range index.
@@ -286,9 +286,9 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /*** Will at least return nil in case the index does not fit the array */
 - (id)objectOrNilAtIndex:(NSUI)index;
 
-@property (RONLY) NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings;
+@prop_RO NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings;
 @prop_RO IndexedKeyMap * alphaMap;
-@property (RONLY)  id   first, second, thrid, fourth, fifth, sixth, last, firstObject;
+@prop_RO  id   first, second, thrid, fourth, fifth, sixth, last, firstObject;
 
 - (NSI)              sumIntWithKey:(NSS*)keyPath;
 - (CGF)            sumFloatWithKey:(NSS*)keyPath;
@@ -347,18 +347,18 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 @interface NSMutableArray (AG)
 
-@property (RONLY) NSMA * alphabetize;
+@prop_RO NSMA * alphabetize;
 -  (void) addPoint:(NSP)p;
 -  (void)  addRect:(NSR)r;
 
-@property (RONLY) id advance;  /* returns first object.. moves it to last. */
+@prop_RO id advance;  /* returns first object.. moves it to last. */
 -  (void) firstToLast;
 -  (void) lastToFirst;
 
 
 -(void)removeFirstObject; // alike removeLastObject
 // shift & pop for stacklike operations -  they will return the removed objects removes and returns the first object in the array  if no elements are present, nil will be returned
-@property (RONLY) id shift;
+@prop_RO id shift;
 
 // insert at index: 0
 - (void) shove: (id) object;
@@ -372,14 +372,14 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 	Internally the method sends the receiver `removeLastObject` and returns the removed object.
 	@return Returns the object removed from the receiver.
 	@exception if no elements are present, nil will be returned   FALSE: NSException Raised if the receiver is an empty array.	*/
-@property (RONLY) id pop;
+@prop_RO id pop;
 
 /**	Helper method for looking at the last object in the receiver.
  	Internally, the method sends the receiver `lastObject` message and returns the result. If the receiver is an empty array, `nil` is returned.
  	@return Returns the last object in the receiver.	 */
-@property (RONLY) id peek;
+@prop_RO id peek;
 
-@property (RONLY) NSMA * sort,        // shortcut for the default sortUsingSelector:@selector(compare:)
+@prop_RO NSMA * sort,        // shortcut for the default sortUsingSelector:@selector(compare:)
                        * az_reverse,  // reverses the whole array
                        * shuffle;     // randomizes the order of the array
 
@@ -467,15 +467,15 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 @end
 
 @interface NSArray (StringExtensions)
-@property (RONLY) NSA * reversedArray, *sortedStrings, * uniqueMembers,
+@prop_RO NSA * reversedArray, *sortedStrings, * uniqueMembers,
                       * unionOfObjects; //  valueForKeyPath:@"@unionOfObjects"]
-@property (RONLY) NSS * stringValue;
-@property (RONLY)  id   firstObject;
+@prop_RO NSS * stringValue;
+@prop_RO  id   firstObject;
 
 - (NSA*)        unionWithArray:(NSA*)a;
 - (NSA*) intersectionWithArray:(NSA*)a;
 
-- (NSA*)     map:(SEL)sel; // Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
+//- (NSA*)     map:(SEL)sel; // Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
 - (NSA*) collect:(SEL)sel;
 - (NSA*)  reject:(SEL)sel;
 - (NSA*)     map:(SEL)sel withObject:(id)o;
@@ -488,7 +488,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 @interface NSMutableArray (UtilityExtensions)
 -  (void) moveObjectFromIndex:(NSI)oldIndex toIndex:(NSI)newIndex;
-@property (RONLY)                 NSMA * removeFirstObject, * reverse, *scramble;
+@prop_RO                 NSMA * removeFirstObject, * reverse, *scramble;
 @property (RONLY, getter=reverse) NSMA * reversed;
 @end
 
@@ -497,7 +497,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSMA*)        push:(id)o; // aka pushObject
 - (NSMA*) pushObjects:(id)o,...;
 
-@property (RONLY) id popObject, pop, pullObject, pull; // With Synonyms for traditional use
+@prop_RO id popObject, pop, pullObject, pull; // With Synonyms for traditional use
 @end
 
 @interface NSArray (FilterByProperty)

@@ -58,7 +58,7 @@ FOUNDATION_EXPORT     NSUI   AZCurrentUserID();
 //void AZCLogFormat					 (const char *fmt,...);
 //+ (id) blockEval:(id(^)(id blockArgs, ...))block;
 //@property (		  RONLY) 	 NSS	*frameworkMenu, *methodMenu;
-//@interface AZCLIMenu : 	BaseModel	@property (STRNG)   	NSA 	*items;	@property (RONLY)    NSS 	*outputString;	@property (ASS)  		NSRNG  range;	@end
+//@interface AZCLIMenu : 	BaseModel	@property (STRNG)   	NSA 	*items;	@prop_RO    NSS 	*outputString;	@property (ASS)  		NSRNG  range;	@end
 //@property (		  STRNG)     NSFH *logConsoleHandle;
 //+ (NSFH*) stdinHandle;
 //#import "AZLogConsole.h"

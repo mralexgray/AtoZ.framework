@@ -1,17 +1,30 @@
 
-@import Cocoa;
-#import <RoutingHTTPServer/RoutingHTTPServer.h>
+#import <AtoZ/AtoZ.h>
 
-static RoutingHTTPServer  *http;
+int main() { @autoreleasepool { static RoutingHTTPServer  *http;
 
-int main(int argc, const char * argv[]) { @autoreleasepool {
+  XX([NET localeOfIP:NET.externalIP].autoDescribe);
 
+  http = RoutingHTTPServer.new;
 
-   http = RoutingHTTPServer.new;
-   [http get:@"/dir" handler:^(RouteRequest *q, RouteResponse *n) {
-    [n respondWithString:[NetworkHelpers createindexForDir:@"/"]];
-      }];
-    [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
+  http.port = 22080;
+
+  [http get:@"/index.html" handler:^(RouteRequest *req, RouteResponse *res) {
+
+//    NSLog(@"%@", req.message.allHeaderFields);
+//    NSLog(@"%@", res.connection.asyncSocket.autoDescribe);
+//    NSLog(@"%@", res.connection.asyncSocket.connectedHost);
+
+    [res respondWithFile:@"/Volumes/2T/ServiceData/www/Alex.Gray.Resume.pdf"];
+    //[res setHeader:@"Location" value:@"http://google.com/"];
+
+  }];
+
+  [http get:@"/dir" handler:^(RouteRequest *req, RouteResponse *res) {
+    [res respondWithString:[NetworkHelpers createindexForDir:@"/"]];
+   }];
+
+  [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
 
 
   WSDelegate *d =  WSDelegate.new;
@@ -27,7 +40,7 @@ int main(int argc, const char * argv[]) { @autoreleasepool {
 
   [http setDelegate:d forWSURI:@"/"];
 
-  [http get:@"/dynamic.html" handler:^(RouteRequest *q, RouteResponse *n) {
+  [http get:@"/dynamic.html" handler:^(RouteRequest *req, RouteResponse *res) {
 
 
       NSString *story = @"<br/><br/>\
@@ -46,16 +59,19 @@ int main(int argc, const char * argv[]) { @autoreleasepool {
       
   //		HTTPLogVerbose(@"%@[%p]: replacementDict = \n%@", THIS_FILE, self, replacementDict);
 
-      [n respondBySwappingDelimited:@"%%"
+      [res respondBySwappingDelimited:@"%%"
               with:replacementDict];
 	}];
+  http.name         = @"mrgray.com";
+  http.port         = 22080;
+  http.bonjourBlock = ^(HTTPServer* _http) { [(RoutingHTTPServer*)_http openInBrowser]; };
 
-    [http start:nil];
+  [http start:nil];
+
 			// printf("well helllo %s",NSS.dicksonBible.UTF8String);
     NSLog(@"routes:%@", http.routes);
-    [http openInBrowser];
     [NSRunLoop.currentRunLoop run];
   }
-    return 0;
+  return 0;
 }
 

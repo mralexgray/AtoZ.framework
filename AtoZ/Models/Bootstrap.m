@@ -27,7 +27,7 @@
 
 @implementation Gridly
 
-- (id) init { NSMS* writer = NSMS.new;
+- init { NSMS* writer = NSMS.new;
 
 	if (self != [super initWithOutputWriter:writer]) return nil;
 
@@ -213,7 +213,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 	return outS;
 }
 
-- (NSS*) demo {
++ (NSS*) demo {
 
 
 	NSMS *demo 	= NSMutableString.new;

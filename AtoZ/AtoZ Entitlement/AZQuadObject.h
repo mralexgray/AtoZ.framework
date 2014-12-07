@@ -10,10 +10,10 @@
 @property (NATOM) iCarouselType cType;
 @property (NATOM) CGF 	fontSize;
 @property (NATOM) NSUI 	iconStyle, 	selectedIndex, 	tilt;
-@property (RONLY) NSRNG selectedRange;
+@prop_RO NSRNG selectedRange;
 @property (NATOM, STRNG) NSS 		*activeMenuID,	*activeTrackID;
 @property (NATOM, STRNG) NSD 		*windowLog;
-@property (RONLY) 			 NSA 		*menus, 			*tracks;
+@prop_RO 			 NSA 		*menus, 			*tracks;
 
 @property (NATOM) Option option;
 @property (UNSFE) id refToSelf;
@@ -22,17 +22,17 @@
 @property (NATOM, STRNG) NSD 					*quads;
 @property (NATOM, STRNG) AZSegmentedRect 	*seg;
 
-- (IBAction) toggleQuadFlip: (id)sender;
-//- (IBAction) toggleQuad:	 (id)sender;
-//- (IBAction) setType:		 (id)sender;
-
--(IBAction)advance:(id)sender;
--(IBAction)rewind:(id)sender;
-
+- (IBAction) toggleQuadFlip: _;
+                              //- (IBAction) toggleQuad:	 _;
+                              //- (IBAction) setType:		 _;
+                              
+-(IBAction)advance:_;
+                              -(IBAction)rewind:_;
+                              
 @end
 
-//- (IBAction) setVeils:		 (id)sender;
-//@property (nonatomic, strong) IBOutlet NSArray *southWest;
+//- (IBAction) setVeils:		 _;
+                              //@property (nonatomic, strong) IBOutlet NSArray *southWest;
 //@property (nonatomic, strong) IBOutlet NSArray *northEast;
 //@property (nonatomic, assign) iCarouselType type;
 //@property (nonatomic, strong) NSMutableArray* content;

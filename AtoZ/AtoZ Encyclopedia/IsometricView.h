@@ -25,11 +25,11 @@ void DrawBluePrintInRectWithScale(NSR r,CGF gridSize);
 
 @property (weak) IBOutlet NSMatrix *editorSelector;
 
-- (IBAction)new:(id)sender;
-- (void)enableShadows:(BOOL)hasShadows;
+- (IBAction)new:_;
+                              - (void)enableShadows:(BOOL)hasShadows;
 
-- (IBAction)toggleShadows:(id)sender;
-- (IBAction)appearWithRotation:(id)sender;
-- (IBAction)appearWithTranslation:(id)sender;
-- (IBAction)appearWithScale:(id)sender;
-@end
+- (IBAction)toggleShadows:_;
+                              - (IBAction)appearWithRotation:_;
+                              - (IBAction)appearWithTranslation:_;
+                              - (IBAction)appearWithScale:_;
+                              @end

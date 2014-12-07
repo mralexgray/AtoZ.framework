@@ -34,7 +34,7 @@
 @property (nonatomic, retain) AZTrackingWindow *top;
 @property (nonatomic, retain) AZTrackingWindow *bottom;
 
-- (IBAction) addNote:(id)sender;
-- (IBAction) removeAllNotes:(id)sender;
-
+- (IBAction) addNote:_;
+                              - (IBAction) removeAllNotes:_;
+                              
 @end

@@ -17,7 +17,7 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 
 @protocol AtoZNodeProtocol	<NSObject>
 @required
-@property (RONLY) AZNodeProtocolKeyPaths keyPaths;
+@prop_RO AZNodeProtocolKeyPaths keyPaths;
 - (void) addChild:(id<AtoZNodeProtocol>)c;
 @optional
 //@property (readonly) NSString *valuePath, *keyPath, *childrenPath;

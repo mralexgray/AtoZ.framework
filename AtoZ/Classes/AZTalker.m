@@ -2,7 +2,10 @@
 #import "AtoZ.h"
 #import "AZTalker.h"
 
-@interface AZTalker ()  AZPROP(NSSpeechSynthesizer,talker); @end
+@interface AZTalker ()
+AZPROP(NSSpeechSynthesizer,talker);
+@end
+
 @implementation AZTalker static NSMA* queue = nil; static BOOL finished = NO;
 
 - (void) setUp { _talker = NSSpeechSynthesizer.new; _talker.delegate = self; queue = NSMA.new; }

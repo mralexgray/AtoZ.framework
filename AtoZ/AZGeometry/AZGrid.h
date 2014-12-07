@@ -50,8 +50,8 @@ JREnumDeclare( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
 -    (id) initWithCapacity:(NSUInteger)numItems;
 
 @property (UNSFE,RONLY) AZSize* size;
-@property (RONLY) NSUI count;
-@property (RONLY) CGF width, height, min, max;
+@prop_RO NSUI count;
+@prop_RO CGF width, height, min, max;
 
 @property (ASS) NSUI parallels, order, style;
 

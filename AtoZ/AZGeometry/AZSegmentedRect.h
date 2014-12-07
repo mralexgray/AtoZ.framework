@@ -29,8 +29,8 @@
 @property (NATOM,ASS)  NSSZ minimumSegmentSize;
 @property (NATOM,ASS)  NSSZ maximumSegmentSize;
 
-@property (RONLY)  NSUI segmentCount;
-@property (RONLY)  NSSZ 	 segmentSize;
+@prop_RO  NSUI segmentCount;
+@prop_RO  NSSZ 	 segmentSize;
 
 - (id) setCubicSize:	  (NSUInteger) size;
 - (id) setDimensionWidth: (NSUInteger) width 	height: (NSUInteger) height;

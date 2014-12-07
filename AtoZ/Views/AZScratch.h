@@ -328,7 +328,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 //#import "extobjc_OSX/extobjc.h"
 //@import Cocoa; 
-//@import QuartzCore;
+//#import <QuartzCore/QuartzCore.h>
 //@import WebKit;
 //#import <WebKit/WebKit.h>
 //#define SDDefaults [NSUserDefaults standardUserDefaults]

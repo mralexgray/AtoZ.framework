@@ -12,9 +12,9 @@ JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 @property (NATOM)	 CGF 		offset;
 @property (NATOM) NSUI 		normalizedCopyIndex;
 @property (NATOM) BOOL 		recursiveFix, scrolling;
-@property (RONLY)	CAL	*lastLayer, *firstLayer;
-@property (RONLY) NSA 	*scrollLayersByAscendingPosition, *sSubs;
-@property (RONLY) 	BOOL 	isVRT;
+@prop_RO	CAL	*lastLayer, *firstLayer;
+@prop_RO NSA 	*scrollLayersByAscendingPosition, *sSubs;
+@prop_RO 	BOOL 	isVRT;
 @property (STRNG) CWStack *stack;
 @property (STRNG) CAScrollLayer *sclr;
 @property (NATOM)		StateStyle 	hoverStyle, selectedStyle;

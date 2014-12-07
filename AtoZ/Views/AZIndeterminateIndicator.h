@@ -10,7 +10,7 @@
 //  http://www.harmless.de
 //  Copyright 2007 Andreas Mayer. All rights reserved.
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @interface AZIndeterminateIndicator : NSCell {
 //	double doubleValue;

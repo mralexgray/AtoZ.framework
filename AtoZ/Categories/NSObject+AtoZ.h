@@ -8,7 +8,7 @@
 
 #define PROXY_DEFINE_BLOCK(__NAME__,__BACKING_CLASS__,__BACKING_BLOCK__) \
 @implementation __NAME__ { __BACKING_CLASS__*backing; } \
-- (id) init 	{ backing = (__BACKING_CLASS__*)__BACKING_BLOCK__(backing);  return self;	}\
+- init 	{ backing = (__BACKING_CLASS__*)__BACKING_BLOCK__(backing);  return self;	}\
 - (NSMethodSignature*) methodSignatureForSelector:(SEL)sel 	{ return [backing methodSignatureForSelector:sel] ?: nil;	}\
 - (void)forwardInvocation:(NSInvocation *)invocation 			{ [invocation invokeWithTarget: backing];							}\
 - (BOOL)respondsToSelector:(SEL)aSelector 						{ return [backing respondsToSelector:aSelector]; 				}\
@@ -44,7 +44,7 @@
 
 @interface NSObject (ClassAssociatedReferences)
 + (void)		setValue:(id)value forKey:(NSS*)key;
-+   (id) valueForKey:(NSS*)key;
++   valueForKey:(NSS*)key;
 @end
 
 #define invokeSupersequent(...)  ([self getImplementationOf:_cmd after:impOfCallingMethod(self, _cmd)]) (self, _cmd, ##__VA_ARGS__)
@@ -54,7 +54,7 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 - (IMP)getImplementationOf:(SEL)lookup after:(IMP)skip;
 @end
 
-/* AWEOME!!
+/* AWESOME!!
 
 	[@["methodOne", @"methodtwo"] each:^(id x) {
 		[Foo addMethodForSelector:NSSelectorFromString(x) typed:"v@:" implementation:^(id self,SEL _cmd) {
@@ -85,20 +85,17 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 @end
 #define PLCY objc_AssociationPolicy
 @interface 						 NSObject   (AssociatedValues)
-- (void)          setAssociatedValue : (id)val
-										forKey : (NSS*)k; 	/* DEFAULTS TO OBJC_ASSOCIATION_RETAIN */
-- (void)          setAssociatedValue : (id)val
-									   forKey : (NSS*)k
-										policy : (PLCY)p;
--   (id)       associatedValueForKey : (NSS*)k
-									  orSetTo : (id)def
-							         policy : (PLCY)p;
--   (id)       associatedValueForKey :	(NSS*)k
-							        orSetTo : (id)def; 	/* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
-//-   (id)       associatedValueForKey :	(NSS*)k; 	/* or nil! */
-- (void) removeAssociatedValueForKey :	(NSS*)k;
-- (BOOL)    hasAssociatedValueForKey :	(NSS*)k;
-- (void)   removeAllAssociatedValues ;
+
+- (void)          setAssociatedValue:val      forKey:(NSS*)k;                 /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN */
+- (void)          setAssociatedValue:val      forKey:(NSS*)k policy:(PLCY)p;
+-              associatedValueForKey:(NSS*)k orSetTo:def     policy:(PLCY)p;
+-              associatedValueForKey:(NSS*)k orSetTo:def;                     /* DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC */
+//-            associatedValueForKey:(NSS*)k;                                 /* or nil! */
+- (void) removeAssociatedValueForKey:(NSS*)k;
+- (BOOL)    hasAssociatedValueForKey:(NSS*)k;
+- (void)   removeAllAssociatedValues;
+
+
 @end
 //	- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {	NSLog(@"someValue changed: %@", change);  }]; }
 //	-(void)observeKeyPath:(NSS*)keyPath;
@@ -128,8 +125,8 @@ typedef void(^bSelf)(id _self);
 - (void) triggerKVO:(NSS*)k 
               block:(bSelf)blk;
 
-@property (RONLY) NSAS *attributedDescription;
-@property (RONLY) const char *cDesc;
+@prop_RO NSAS *attributedDescription;
+@prop_RO const char *cDesc;
 
 - (NSString*) descriptionForKey:(NSS*)k;
 
@@ -217,7 +214,7 @@ typedef void(^bSelf)(id _self);
 
 
 
--(id) filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil;
+-filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil;
 
 - (void)performBlock:(VoidBlock)block;
 //- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
@@ -240,8 +237,8 @@ typedef void(^bSelf)(id _self);
 
 - (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 
-- (id) performString:(NSS*)string;
-- (id) performString:(NSS*)string withObject:(id) obj;
+- performString:(NSS*)string;
+- performString:(NSS*)string withObject:obj;
 
 //- (id)performSelectorARC:(SEL)selector withObject:(id)obj;
 //- (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two;
@@ -322,7 +319,7 @@ typedef void (^caseBlock)();
 //+ (NSString*)  autoDescribeWithClassType:	(Class) classType;
 
 + (NSString*)  autoDescribe;
-- (NSString*)  autoDescribe;
+- (NSString*)  autoDescription;
 
 
 - (void) setWindowPosition:	(AZWindowPosition) pos;
@@ -363,7 +360,7 @@ typedef void (^caseBlock)();
 
 - (NSS*)formatWithArguments:(NSA*)arr;
 + (NSS*)evaluatePseudoFormat:(NSS*)fmt withArguments:(NSA*)arr;
-//- (void) log:(id) firstObject, ...;
+//- (void) log:firstObject, ...;
 @end
 
 @interface NSObject (AG)
@@ -440,7 +437,7 @@ typedef void (^caseBlock)();
 
 - (NSS*)segmentLabel;
 
-- (id) responds:(NSS*)selStr do:(id)doBlock;
+- responds:(NSS*)selStr do:(id)doBlock;
 
 BOOL respondsTo(id obj, SEL selector);
 BOOL respondsToString(id obj,NSS* string);
@@ -449,16 +446,16 @@ BOOL respondsToString(id obj,NSS* string);
 -(NSS*) firstResponsiveString:(NSA*)selectors;
 
 - (BOOL) respondsToString:(NSS*)string;
-- (id) respondsToStringThenDo: (NSS*)string withObject:(id)obj withObject:(id)objtwo;
-- (id) respondsToStringThenDo: (NSS*)string withObject:(id)obj;
-- (id) respondsToStringThenDo: (NSS*)string;
+- respondsToStringThenDo: (NSS*)string withObject:(id)obj withObject:(id)objtwo;
+- respondsToStringThenDo: (NSS*)string withObject:(id)obj;
+- respondsToStringThenDo: (NSS*)string;
 
-- (IBAction)increment:(id)sender;
-- (IBAction)setFromSegmentLabel:(id)sender;
-- (IBAction)performActionFromSegmentLabel:(id)sender;
-
-- (IBAction)performActionFromLabel:(id)sender;
-
+- (IBAction)increment:_;
+                              - (IBAction)setFromSegmentLabel:_;
+                              - (IBAction)performActionFromSegmentLabel:_;
+                              
+- (IBAction)performActionFromLabel:_;
+                              
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
 //+ (NSDictionary*) classPropsFor:	(Class) klass; // COnflig AQProperties
@@ -480,7 +477,7 @@ BOOL respondsToString(id obj,NSS* string);
 - (void) fire:	(NSString*) notificationName userInfo:	(NSDictionary*) userInfo;
 
 
-- (id) observeName:(NSString*)noteName usingBlock:(void(^)(NSNotification*n))blk;
+- observeName:(NSString*)noteName usingBlock:(void(^)(NSNotification*n))blk;
 
 - (void) observeObject:	(NSObject*) object
 			 forName:	(NSString*) notificationName
@@ -505,12 +502,12 @@ _Pragma("clang diagnostic pop") \
 } while (0)
 
 - (BOOL) canPerformSelector: (SEL)aSelector;
-- (id) performSelectorSafely:(SEL)aSelector;
-- (id) performSelectorIfResponds:(SEL)sel;
-- (id) performSelectorWithoutWarnings:(SEL)aSelector;
+- performSelectorSafely:(SEL)aSelector;
+- performSelectorIfResponds:(SEL)sel;
+- performSelectorWithoutWarnings:(SEL)aSelector;
 
-- (id) performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
-- (id) performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2;
+- performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
+- performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2;
 //- (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
 - (void) addObserver:	(NSObject*) observer 
@@ -556,7 +553,7 @@ _Pragma("clang diagnostic pop") \
 /// USAGE:  [someDictionary mapPropertiesToObject: someObject];
 @interface NSDictionary  (PropertyMap)
 
-- (void) mapPropertiesToObject:	(id) instance;
+- (void) mapPropertiesToObject:	instance;
 
 @end
 
@@ -597,7 +594,7 @@ _Pragma("clang diagnostic pop") \
 
 /*
 // Return all superclasses of object
-@property (RONLY) NSA* superclasses;
+@prop_RO NSA* superclasses;
 // Selector Utilities
 - (NSInvocation *) invocationWithSelectorAndArguments: (SEL) selector,...;
 - (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...;
@@ -608,10 +605,10 @@ _Pragma("clang diagnostic pop") \
 
 
 // Request return value from performing selector
-- (id) objectByPerformingSelectorWithArguments: (SEL) selector, ...;
-- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2;
-- (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1;
-- (id) objectByPerformingSelector:(SEL)selector;
+- objectByPerformingSelectorWithArguments: (SEL) selector, ...;
+- objectByPerformingSelector:(SEL)selector withObject:object1 withObject: object2;
+- objectByPerformingSelector:(SEL)selector withObject:object1;
+- objectByPerformingSelector:(SEL)selector;
 
 // Delay Utilities
 - (void) performSelector: (SEL)select withCPointer:(void*)cPointer afterDelay:(NSTI)delay;
@@ -622,25 +619,25 @@ _Pragma("clang diagnostic pop") \
 - (void) performSelector: (SEL)select withDelayAndArguments: (NSTI)delay,...;
 
 // Return Values, allowing non-object returns
-- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2;
-- (id) valueByPerformingSelector:(SEL)selector withObject:(id) object1;
-- (id) valueByPerformingSelector:(SEL)selector;
+- valueByPerformingSelector:(SEL)selector withObject:object1 withObject: object2;
+- valueByPerformingSelector:(SEL)selector withObject:object1;
+- valueByPerformingSelector:(SEL)selector;
 
 
 - (BOOL)          hasProperty:(NSS*)pName; // Runtime checks of properties, etc.
 - (BOOL)              hasIvar:(NSS*)iName;
 //+ (BOOL)          classExists:(NSS*)cName;
-+   (id) instanceOfClassNamed:(NSS*)cName;
++   instanceOfClassNamed:(NSS*)cName;
 // Access to object essentials for run-time checks. Stored by class in dictionary.
-@property (RONLY) NSD * selectors, 
+@prop_RO NSD * selectors, 
                       * properties, // a dictionary with class/selectors entries, all the way up to NSObject
                       * ivars, 
                       * protocols;
 
 // Attempt selector if possible
-- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1 withObject: (id) object2;
-- (id) tryPerformSelector: (SEL) aSelector withObject: (id) object1;
-- (id) tryPerformSelector: (SEL) aSelector;
+- tryPerformSelector: (SEL) aSelector withObject: object1 withObject: object2;
+- tryPerformSelector: (SEL) aSelector withObject: object1;
+- tryPerformSelector: (SEL) aSelector;
 */
 @end
 
@@ -648,7 +645,7 @@ _Pragma("clang diagnostic pop") \
 //- (BOOL) hasProperty: (NSS*)propertyName;
 //- (BOOL) hasIvar: 	 (NSS*)ivarName;
 //+ (BOOL) classExists: (NSS*)className;
-//+ (id) instanceOfClassNamed:(NSS*)className;
+//+ instanceOfClassNamed:(NSS*)className;
 //typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
 //@interface NSObject (NSObject_KVOBlock)
 //- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
@@ -664,7 +661,7 @@ _Pragma("clang diagnostic pop") \
 @interface 		     		 	  NSObject  (FOOCoding)
 
 
-//-      (id)  		 initWithDictionary : (NSD*)dictionary;
+//-       		 initWithDictionary : (NSD*)dictionary;
 -    (NSA*)        	     arrayForKey : (NSS*)key;
 -    (NSA*) arrayOfDictionariesForKey : (NSS*)key;
 -    (NSA*)      arrayOfStringsForKey : (NSS*)key;
@@ -687,12 +684,12 @@ _Pragma("clang diagnostic pop") \
 -    (void) setSelector:(SEL)s forKey : (NSS*)key;
 
 
-- (id) mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath;
-- (id) valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
-- (id) valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
-- (id) valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
-- (id) valueForKey:(NSS*)key assertingClass:(Class)klass;
-- (id) valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
+- mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath;
+- valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
+- valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
+- valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
+- valueForKey:(NSS*)key assertingClass:(Class)klass;
+- valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;
 - (BOOL)contentsOfCollection:(id <NSFastEnumeration>)theCollection areKindOfClass:(Class)theClass;
 
 

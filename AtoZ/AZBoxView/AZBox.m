@@ -2,7 +2,7 @@
 #import "AtoZ.h"
 
 @interface AZBox ()
-@property (RONLY) float dynamicStroke;
+@prop_RO float dynamicStroke;
 @end
 
 @implementation AZBox

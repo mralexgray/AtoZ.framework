@@ -25,7 +25,7 @@
 //  [myBadge setLabelColor:[sender color]];
 //  [self setBadgeValue:scroller];
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 extern const CGFloat CTLargeBadgeSize, CTSmallBadgeSize, CTLargeLabelSize, CTSmallLabelSize;
 

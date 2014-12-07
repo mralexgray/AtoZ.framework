@@ -9,7 +9,7 @@
 #import "AtoZUmbrella.h"
 
 @interface AZFilters : BaseModel
-@property (RONLY) NSA *filterNames;
+@prop_RO NSA *filterNames;
 @end
 
 @interface AZIrisOpenFilter : CIFilter

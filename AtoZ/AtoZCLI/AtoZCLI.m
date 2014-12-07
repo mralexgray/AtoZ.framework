@@ -32,6 +32,9 @@ void CRWait (void) { while ( getchar() != '\n' ) { }; }
   
   @note This is the actual full declaration of main() on OS X. The "apple"  parameter is the path to the executable, i.e. _NSGetProgname().
 */
+#define APPLE_MAIN int main(int argc, char **argv, char **envp, char **apple)
+#define APPLEMAIN(...) APPLE_MAIN { ({ __VA_ARGS__; }); }
+
 int main(int argc, char **argv, char **envp, char **apple) { @autoreleasepool {	AZSHAREDAPP;
 
 #if FORCE_XCOLORS

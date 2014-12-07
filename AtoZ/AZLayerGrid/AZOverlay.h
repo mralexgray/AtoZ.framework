@@ -112,7 +112,7 @@
 /** Specifies the index of the overlay the user clicked to trigger an action message.
  
  @see target	*/
-@property (RONLY) NSInteger clickedOverlay;
+@prop_RO NSInteger clickedOverlay;
 
 /// ---------------------------------
 /// @name Selecting Overlays
@@ -179,13 +179,13 @@
 /** Select all overlays.
  
  @param sender Typically the object that sent the message.	*/
-- (IBAction)selectAllOverlays:(id)sender;
-
+- (IBAction)selectAllOverlays:_;
+                              
 /** Deselect all overlays.
  
  @param sender Typically the object that sent the message.	*/
-- (IBAction)deselectAllOverlays:(id)sender;
-
+- (IBAction)deselectAllOverlays:_;
+                              
 /// ---------------------------------
 /// @name Setting Display Attributes
 /// ---------------------------------

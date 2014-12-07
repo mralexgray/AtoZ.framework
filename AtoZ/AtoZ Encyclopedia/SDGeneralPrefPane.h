@@ -15,6 +15,6 @@
 
 }
 
-- (IBAction) changeAppearance:(id)sender;
-
+- (IBAction) changeAppearance:_;
+                              
 @end

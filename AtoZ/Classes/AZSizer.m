@@ -435,3 +435,264 @@
  }
  
  @end	*/
+NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
+
+  __block NSR frame = NSZeroRect; __block __unused NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
+
+  [[items vFKP:@"size"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+
+    if (AZMaxDim(frame.size) > 10000) return
+      NSLog(@"bailing on maxdim: %@", AZStringFromRect(frame)), *stop = YES, (void)nil;
+
+    if (!(idx % cols)) {
+      frame.size.width = MAX(frame.size.width, rowWidth);
+      NSLog(@"setting width: %f of row at index:%ld", rowWidth, idx);
+      rowWidth = 0;
+      frame.size.height += rowHeight;
+      rowHeight = 0;
+    }
+    rowHeight = MAX([obj sizeValue].height, rowHeight);
+    rowWidth += [obj sizeValue].width;
+
+  }];  return frame;
+}
+
+@implementation NSImage (Merge)
+
+
+//- (void)contactSheetWith:(NSA*)images inRect:(NSR)rect cols:(NSUI)cols
+// callback:(void (^)(NSImage *))callback  {
+//
+//	[NSThread performBlockInBackground:^{
+//		AZSizer *d = [AZSizer for]
+//		NSIMG* image =	[NSImage contactSheetWith:images inFrame:rect
+// columns:cols];
+//		[NSThread.mainThread performBlock:^{	callback(image); }];
+//	}];
+//}
+
++ (NSIMG *)contactSheetWith:(NSA *)imgs columns:(NSUI)c {
+
+  AZSizer *s = [AZSizer forQuantity:imgs.count
+                             inRect:AZRectForItemsWithColumns(imgs, c)];
+  return [self contactSheetWith:imgs
+                          sized:s.size
+                         spaced:NSZeroSize
+                        columns:c
+                       withName:NO]; // wors perfectly
+                                     //	return  [self contactSheetWith:imgs
+  // inFrame:AZRectForItemsWithColumns(imgs,c) columns:c]; }
+}
++ (NSIMG *)contactSheetWith:(NSA *)images
+                    inFrame:(NSR)rect { // columns:(NSUI)cols	{
+
+  AZSizer *s = [AZSizer forQuantity:images.count inRect:rect];
+  return
+      [self contactSheetWith:images withSizer:s withName:NO]; // wors perfectly
+
+  // this doesnt work!
+  /*
+    NSSZ iSize = AZSizeFromDim(rect.size.width/cols);
+    AZSizer *s = [AZSizer forQuantity:images.count  ofSize:iSize
+  withColumns:cols];
+    NSA *rects = s.rects.copy;
+    return [NSIMG imageInFrame:AZRectBy(s.rows*s.width, s.columns*s.height)
+  withBlock:^(NSRect dRect) {
+      //imageWithSize: drawnUsingBlock:^{
+      //	[contact lockFocus];
+      [images eachWithIndex:^(NSIMG* obj, NSInteger idx) {
+        NSR theR = [[rects normal:idx]rectValue];
+        [(NSIMG*)obj scaleImageToFillSize:theR.size];
+        NSLog(@"Contact Sheet render:%@   #%ld of %ld rect:%@", obj.name, idx,
+  images.count, AZStringFromRect(theR));
+
+        ///[obj scaledToMax:AZMaxDim(iSize)]
+        [obj drawCenteredinRect:theR operation:NSCompositeSourceOver
+  fraction:1];
+  //		if (obj.name) NSF * f = [AtoZ font:@"UbuntuTitling-Bold"
+  size:AZMinDim(theR.size)*.1];
+      }];
+    }];
+  //	[contact unlockFocus];
+  //	return contact;
+  //	NSAS* string = [[obj.name truncatedForRect:nameRect withFont:f]
+  attributedWithSize:AZMinDim(theR.size)*.1 andColor:WHITE];
+  //	nameRect = AZRectExceptWide(nameRect, theR.size.width <
+  nameRect.size.width ? theR.size.width : nameRect.size.width);
+  //	nameRect = AZRectOffset(nameRect, theR.origin);
+  //	NSRectFillWithColor(nameRect, RED);
+  //	NSR nameRect = [obj.name frameWithFont:f];
+  //	[string
+  drawCenteredVerticallyInRect:nameRect];//:@"UbuntuTitling-Bold"];//:nameRect /
+  * NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)* / withFont:font
+  andColor:WHITE];
+  */
+}
+
++ (NSIMG *)contactSheetWith:(NSA *)images
+                      sized:(NSSZ)size
+                     spaced:(NSSZ)spacing
+                    columns:(NSUI)cols
+                   withName:(BOOL)name; // wors perfectly
+{
+  NSSZ sizeAndPhoto = AZAddSizes(spacing, size);
+  sizeAndPhoto.height += name ? 18 : 0;
+  AZSizer *s =
+      [AZSizer forQuantity:images.count ofSize:sizeAndPhoto withColumns:cols];
+  return [self contactSheetWith:images
+                      withSizer:s
+                       withName:name]; // wors perfectly
+}
++ (NSIMG *)contactSheetWith:(NSA *)images
+                  withSizer:(AZSizer *)s
+                   withName:(BOOL)name; // wors perfectly
+{
+  __block NSIMG *contact;
+  [AZStopwatch named:$(@"ContactSheetWith%ldImages", images.count)
+               block:^{
+                   NSA *rects = s.rects.copy;
+                   contact = [[NSIMG alloc] initWithSize:s.outerFrame.size];
+                   [contact lockFocus];
+                   [images eachWithIndex:^(NSIMG *obj, NSInteger idx) {
+                       NSR theR = [[rects normal:idx] rectValue];
+                       [[obj scaledToMax:AZMaxDim(s.size)]
+                           drawCenteredinRect:theR
+                                    operation:NSCompositeSourceOver
+                                     fraction:1];
+                       if (name) {
+                         NSR nameRect = AZRectOffset(
+                             AZRectFromDim(AZMinDim(theR.size) * .25),
+                             theR.origin);
+                         NSRectFillWithColor(nameRect, RED);
+                         [obj.name drawInRect:nameRect
+                                withFontNamed:@"Ubuntu Mono Bold"
+                                     andColor:WHITE]; //:nameRect
+                                                      ///*NSMakeRect(2, 2,
+                         // sizeAndPhoto.width - 4,
+                         // 14)*/ withFont:font
+                         // andColor:WHITE];
+                       }
+                   }];
+                   [contact unlockFocus];
+               }];
+  return contact;
+}
+
++ (NSIMG *)contactSheetWith:(NSA *)images
+                      sized:(NSSZ)size
+                     spaced:(NSSZ)spacing
+                    columns:(NSUI)cols;
+{
+  return [self contactSheetWith:images
+                          sized:size
+                         spaced:spacing
+                        columns:cols
+                       withName:NO];
+}
+
++ (NSIMG *)imageByTilingImages:(NSA *)imgs
+                      spacingX:(CGF)x
+                      spacingY:(CGF)y
+                    vertically:(BOOL)v {
+
+  CGF mergedWidth = 0.0, mergedHeight = 0.0;
+  imgs = v ? imgs.reversed : imgs;
+  for (NSIMG *image in imgs) {
+    NSSize size = image.size;
+    if (v) {
+      mergedWidth = MAX(mergedWidth, size.width);
+      mergedHeight += (size.height + y);
+    } else {
+      mergedWidth += (size.width + x);
+      mergedHeight = MAX(mergedHeight, size.height);
+    }
+  }
+  // Add the outer margins for the single-image dimension (The multi-image
+  // dimension has already had it added in the loop)
+  if (v)
+    mergedWidth += 2 * x; // Add left and right margins
+  else
+    mergedHeight += 2 * y; // Add top and bottom margins
+
+  NSSize mergedSize = NSMakeSize(mergedWidth, mergedHeight);
+  NSIMG *mergedImage = [NSImage.alloc initWithSize:mergedSize];
+  [mergedImage lockFocus];
+  // Draw the images into the mergedImage
+  CGFloat xx = x;
+  CGFloat yy = y;
+  for (NSIMG *image in imgs) {
+    [image drawAtPoint:NSMakePoint(xx, yy)
+              fromRect:NSZeroRect
+             operation:NSCompositeSourceOver
+              fraction:1.0];
+    if (v) {
+      yy += [image size].height;
+      yy += y;
+    } else {
+      xx += [image size].width;
+      xx += x;
+    }
+  }
+  [mergedImage unlockFocus];
+  return mergedImage;
+}
+
+- (NSIMG *)imageBorderedWithInset:(CGFloat)inset {
+  NSIMG *image = [NSImage.alloc initWithSize:[self size]];
+
+  [image lockFocus];
+
+  [self drawAtPoint:NSZeroPoint
+           fromRect:NSZeroRect
+          operation:NSCompositeCopy
+           fraction:1.0];
+
+  NSBP *path = [NSBP bezierPath];
+
+  //[[NSC colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
+  [[NSC grayColor] setStroke];
+  [path setLineWidth:inset];
+  // Start at left
+  [path moveToPoint:NSMakePoint(inset / 2, inset / 2)];
+  // Move to the right
+  [path relativeLineToPoint:NSMakePoint(self.size.width - (2.5) * inset, 0)];
+  // Move up
+  [path relativeLineToPoint:NSMakePoint(0, self.size.height - inset)];
+  // Move left
+  [path relativeLineToPoint:NSMakePoint(-self.size.width + (2.5) * inset, 0)];
+  // Finish
+  [path closePath];
+  [path stroke];
+  [image unlockFocus];
+  return image;
+}
+
+- (NSIMG *)imageBorderedWithOutset:(CGFloat)outset {
+  NSSize newSize = NSMakeSize([self size].width + 2 * outset,
+                              [self size].height + 2 * outset);
+  NSIMG *image = [NSImage.alloc initWithSize:newSize];
+  [image lockFocus];
+  [self drawAtPoint:NSMakePoint(outset, outset)
+           fromRect:NSZeroRect
+          operation:NSCompositeCopy
+           fraction:1.0];
+  NSBP *path = [NSBP bezierPath];
+  //[[NSC colorWithCalibratedWhite:0.0 alpha:0.7] set] ;
+  [[NSC grayColor] setStroke];
+  [path setLineWidth:2.0];
+  // Start at left
+  [path moveToPoint:NSMakePoint(1.0, 1.0)];
+  // Move to the right
+  [path relativeLineToPoint:NSMakePoint(newSize.width - 2.0, 0)];
+  // Move up
+  [path relativeLineToPoint:NSMakePoint(0, newSize.height - 2.0)];
+  // Move left
+  [path relativeLineToPoint:NSMakePoint(-newSize.width + 2.0, 0)];
+  // Finish
+  [path closePath];
+  [path stroke];
+  [image unlockFocus];
+  return image;
+}
+@end
+

@@ -1,46 +1,30 @@
 
-
 #import   "AtoZUmbrella.h"
 
-#ifndef AtoZFramework
-#define AtoZFramework
-#endif
-
 @interface NSO (AtoZObjectLog)
-@prop_RO void * log;
+- (void) log;
 @end
 
 #define XXX(x) [AtoZLumberLog logObject:x file:__FILE__ function:__PRETTY_FUNCTION__ line:__LINE__]
 
-@interface DDTTYLogger (AtoZ)
-+ (BOOL) isaColorTTY;
-+ (BOOL) isaColor256TTY;
-+ (BOOL) isaXcodeColorTTY;
-@end
+//@interface DDTTYLogger (AtoZ)
+//+ (BOOL) isaColorTTY;
+//+ (BOOL) isaColor256TTY;
+//+ (BOOL) isaXcodeColorTTY;
+//@end
 
 
-//((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
-//// __FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
-//[AtoZLumberLog logFile:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
 
-JREnumDeclare( LogEnv, LogEnvUnknown      = 0x00000000,
+JREnumDeclare( LogEnv, LogEnvUnset        = 0,
                        LogEnvXcode        = 0x00000001,
                        LogEnvXcodeColors  = 0x00000011, 
                        LogEnvTTY          = 0x00000100,
                        LogEnvTTYColor     = 0x00001100,
                        LogEnvTTY256       = 0x00011100,
-                       LogEnvError        = 0x11111111, );
+                       LogEnvASL          = 0x10000000,
+                       LogEnvUnknown      = 0x01010101,
+                       LogEnvError        = 0x11111111 )
 
-
-@interface AtoZLumberLog : NSO  <DDLogFormatter>
-
-@property (RONLY)			LogEnv   logEnv;
-
-+ (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l;
-+ (INST) logger;
-//+ (void) logFile:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...;
-
-@end
 
 #define 	AZLOGSHARED 	[AZLog sharedInstance]
 #define           clr   colorLogString
@@ -48,10 +32,10 @@ JREnumDeclare( LogEnv, LogEnvUnknown      = 0x00000000,
 
 @interface  NSLogMessage : NSObject
 
-@property (RONLY)		  id   JSONRepresentation;
-@property (RONLY) NSDate * date;
-@property (RONLY)    NSS * message, *severityString, * function, * file;
-@property (RONLY) NSData * data;
+@prop_RO		  id   JSONRepresentation;
+@prop_RO NSDate * date;
+@prop_RO    NSS * message, *severityString, * function, * file;
+@prop_RO NSData * data;
 @property				     NSN * line, * severity;
 
 + (instancetype) messageWithLog:(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUInteger)sev;
@@ -59,7 +43,8 @@ JREnumDeclare( LogEnv, LogEnvUnknown      = 0x00000000,
 
 @interface 					   AZLog : BaseModel
 
-@property (RONLY)			LogEnv   logEnv;
+@prop_RO			LogEnv   logEnv;
++ (NSS*) log;
 
 /*** Get a color from a string, a color, or an rgb tuple.
 	@param color An NSString name of, or hex representation of a color, an NSColor, or and NSArray of RGB values.
@@ -91,8 +76,8 @@ JREnumDeclare( LogEnv, LogEnvUnknown      = 0x00000000,
 @end
 
 @interface		     NSString  (AtoZColorLog)
-@property (RONLY) const char * cchar;
-@property (RONLY) 	     NSS * colorLogString;  // TTY formatted NSString with Associated Color Info included
+@prop_RO const char * cchar;
+@prop_RO 	     NSS * colorLogString;  // TTY formatted NSString with Associated Color Info included
 - (void)    setLogBackground : (id)color;
 - (void)    setLogForeground : (id)color;
 @end
@@ -373,3 +358,10 @@ static NSString* MakeCritical(NSString *format,...) { NSString *string;	va_list 
 
 
 
+//((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
+//// __FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
+//[AtoZLumberLog logFile:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ format:fmt, nil]
+
+//#ifndef AtoZFramework
+//#define AtoZFramework
+//#endif

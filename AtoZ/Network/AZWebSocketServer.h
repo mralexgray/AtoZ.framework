@@ -4,7 +4,7 @@
 //@protocol		AZWebSocketServerDelegate ;
 //@property    (WK)				  SOCKSRVRD   delegate;
 //#define SOCKSRVRD     id<AZWebSocketServerDelegate>
-//@property (RONLY)  clientCount;
+//@prop_RO  clientCount;
 
 //+ (NSS*) baseHTML;
 
@@ -32,7 +32,7 @@
 JREnumDeclare(WebSocketMessageType, WSText, WSImage, WSJSCode);
 
 @protocol WebSocketFrame <NSO>
-@property (RONLY) id webSocketDataValue;
+@prop_RO id webSocketDataValue;
 @property WebSocketMessageType type;
 @end
 @interface NSString (WebsocketData) <WebSocketFrame> @end

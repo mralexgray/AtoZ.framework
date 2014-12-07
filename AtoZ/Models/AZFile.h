@@ -13,12 +13,12 @@
 @property (NATOM)   NSA * colors;
 @property (NATOM)  NSS * name,
 								 		    * calulatedBundleID;
-@property (RONLY)   NSC * labelColor;
+@prop_RO   NSC * labelColor;
 @property (NATOM) NSIMG * image;
 @property (NATOM)   AZA   position;
-@property (RONLY)  NSUI  	labelNumber;
-@property (RONLY)   CGF   hue;
-@property (RONLY)  BOOL   hasLabel;
+@prop_RO  NSUI  	labelNumber;
+@prop_RO   CGF   hue;
+@prop_RO  BOOL   hasLabel;
 
 + (INST)         forAppNamed:(NSS*)appName;
 + (INST)    instanceWithPath:(NSS*)path;
@@ -32,9 +32,9 @@
 
 
 @interface AZFolder : AZFile// <AtoZNodeProtocol> //AZFile
-//@property (RONLY) NSUI count;
+//@prop_RO NSUI count;
 //	@property(NATOM, readonly) NSMutableArray *children;
-//	@property (RONLY) NSUI capacity;
+//	@prop_RO NSUI capacity;
 - (id) initWithArray:(NSArray*)array;
 + (id) appFolder;
 + (id) samplerWithCount:(NSUInteger)items;
@@ -53,12 +53,12 @@
 @property (NATOM, assign) 	CGPoint		dockPointNew;
 @property (NATOM, assign) 	NSUInteger	spot;
 @property (NATOM, assign) 	NSUInteger 	spotNew;
-@property (RONLY)			BOOL		isRunning;
+@prop_RO			BOOL		isRunning;
 @end
 
 @interface AZDock : BaseModel
-@property (RONLY) NSA *dock;
-@property (RONLY) NSA *dockSorted;
+@prop_RO NSA *dock;
+@prop_RO NSA *dockSorted;
 @property (NATOM) AZDockSort sortOrder;
 @end
 
@@ -80,7 +80,7 @@
 //- (void) oadImage;
 //
 //	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-//@property (RONLY) BOOL imageLoading;
+//@prop_RO BOOL imageLoading;
 //
 //@end
 	//extern NSString *const AtoZFileUpdated;
@@ -111,7 +111,7 @@
 	//- (void) oadImage;
 	//
 	//	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-	//@property (RONLY) BOOL imageLoading;
+	//@prop_RO BOOL imageLoading;
 	//
 	//@end
 	// Declared constants to avoid typos in KVO. Common prefixes are used for easy code completion.

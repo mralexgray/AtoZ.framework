@@ -6,10 +6,11 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //#import "BaseModel.h"
 //#import "AtoZ.h"
-#import <QuartzCore/QuartzCore.h>
-
 //#import "AtoZAutoBox/AtoZAutoBox.h"
 //#import "AtoZSingleton/AtoZSingleton.h"
+
+/*****
+#import <QuartzCore/QuartzCore.h>
 
 @interface AZLassoLayer : NSObject// AtoZSingleton
 
@@ -19,7 +20,7 @@
 +(void) setLayer:(CAL*)layer;
 + (NSR) frame;
 @end
-
+===========================*/
 
 //@interface LassoMaster : AZSingleton
 //@property (nonatomic, retain) NSMutableArray *lassos;

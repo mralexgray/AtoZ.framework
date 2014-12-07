@@ -20,13 +20,13 @@
 	SDInstructionsWindowController *instructionWindowController;
 }
 
-- (IBAction) showInstructionsWindow:(id)sender;
-
-- (IBAction) showPreferencesPanel:(id)sender;
-
-- (IBAction) showAboutPanel:(id)sender;
-- (IBAction) toggleOpensAtLogin:(id)sender;
-
+- (IBAction) showInstructionsWindow:_;
+                              
+- (IBAction) showPreferencesPanel:_;
+                              
+- (IBAction) showAboutPanel:_;
+                              - (IBAction) toggleOpensAtLogin:_;
+                              
 // useful methods
 
 - (void) setOpensAtLogin:(BOOL)opens;

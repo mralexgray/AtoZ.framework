@@ -16,7 +16,7 @@
 }
 @end
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @implementation NSControl (AtoZ)
 

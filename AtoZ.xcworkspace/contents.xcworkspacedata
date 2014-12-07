@@ -26,7 +26,7 @@
       location = "group:../dev/AtoZCodeFactory/AtoZCodeFactory.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Frameworks/TwUI/ExampleProject/Example.xcodeproj">
+      location = "group:Frameworks/TwUI/ExampleProject/TwUIExample.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../dev/GistHub/GistHub/GistHub.xcodeproj">

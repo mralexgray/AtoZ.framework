@@ -9,13 +9,13 @@
 
 @interface NSMenu (SBAdditions)
 
-+ (instancetype) mennuWithItems:(NSA*)items;
++ (INST) menuWithItems:(NSA*)items;
 - (void) setItemArray:(NSA*)items;
 
-- (NSMenuItem *)selectedItem;
-- (void) electItem:(NSMenuItem *)menuItem;
-- (NSMenuItem *)selectItemWithRepresentedObject:(id)representedObject;
-- (void) eselectItem;
+- (NSMI*) selectedItem;
+-  (void) selectItem:(NSMI*)menuItem;
+- (NSMI*) selectItemWithRepresentedObject:(id)representedObject;
+- (void) seselectItem;
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag;
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector;
 @end
@@ -30,6 +30,8 @@ OBJC_EXPORT void SetDockIconImage(NSIMG *i);
 extern NSString *const kShowDockIconUserDefaultsKey;
 
 @interface NSApplication (AtoZ)
+
+@property (nonatomic) BOOL launchAtLogin;
 
 + (id)		infoValueForKey:(NSS*)key;
 - (BOOL)	showsDockIcon;

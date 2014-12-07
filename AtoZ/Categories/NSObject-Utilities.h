@@ -13,13 +13,12 @@
   }];   
 */
 
-+   (id)     invocationWithTarget:(id)t  block:(IDBlk)b;
++   invocationWithTarget:t  block:(IDBlk)b;
 // http://www.numbergrinder.com/2008/12/callable-objects-in-cocoa-nsinvocation/
-+ (INV*) createInvocationOnTarget:(id)t selector:(SEL)s;
-+ (INV*) createInvocationOnTarget:(id)t selector:(SEL)s
-                                   withArguments:(id)a1, ...;
++ (INV*) createInvocationOnTarget:t selector:(SEL)s;
++ (INV*) createInvocationOnTarget:t selector:(SEL)s
+                                withArguments:a1, ...;
 @end
-
 
 @interface NSInvocation(OCMAdditions)
 
@@ -64,10 +63,10 @@
 - (const char *) returnTypeForSelector:(SEL)s;
 
 // Request return value from performing selector
-- (id) objectByPerformingSelectorWithArguments:(SEL)s, ...;
-- (id) objectByPerformingSelector:(SEL)s withObject:(id)x1 withObject:(id)x2;
-- (id) objectByPerformingSelector:(SEL)s withObject:(id)x1;
-- (id) objectByPerformingSelector:(SEL)s;
+- objectByPerformingSelectorWithArguments:(SEL)s, ...;
+- objectByPerformingSelector:(SEL)s withObject:x1 withObject:x2;
+- objectByPerformingSelector:(SEL)s withObject:x1;
+- objectByPerformingSelector:(SEL)s;
 
 // Delay Utilities
 - (void) performSelector:(SEL)s withCPointer:(void*)cPtr   afterDelay:(NSTimeInterval)d;
@@ -85,7 +84,7 @@
 
 /// Access to object essentials for run-time checks. Stored by class in dictionary.
 
-@property (RONLY) NSD * protocols,
+@prop_RO NSD * protocols,
                       * selectors,
                       * properties,
                       * ivars;
@@ -98,12 +97,15 @@
 //+   (id) instanceOfClassNamed:(NSS*)className;
 
 // Attempt selector if possible
-- tryPerformSelector:(SEL)s withObject: (id) object1 withObject: (id) object2;
-- tryPerformSelector:(SEL)s withObject: (id) object1;
+- tryPerformSelector:(SEL)s withObject:o1 withObject:o2;
+- tryPerformSelector:(SEL)s withObject:o1;
 - tryPerformSelector:(SEL)s;
 
 /// Choose the first selector that the object responds to
 - (SEL) chooseSelector:(SEL)s, ...;
+
+- (void)runUntil:(BOOL*)stop;
+
 @end
 
 #define overrideSEL(X) az_overrideSelector:@selector(X)

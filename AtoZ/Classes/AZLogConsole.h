@@ -32,15 +32,15 @@ void			NSLogPostLog(char* file, int line);
 @property (STRNG)		NSFileHandle	*fileHandle;
 
 @property (assign)	unsigned long long	fileOffset;
-@property (RONLY) 	NSA 				*classes;
+@prop_RO 	NSA 				*classes;
 @property (STRNG)		NSS				*windowTitle, *logPath;
 + (instancetype) sharedConsole __attribute__((const));;
 - (void) open;
 - (void) close;
 - (BOOL) isOpen;
--  (IBA) clear:			(id)sender;
--  (IBA) searchChanged:(id)sender;
-- (void) logData:		(NSData*)data 			file:(char*)file lineNumber:(int)line;
+-  (IBA) clear:			_;
+                              -  (IBA) searchChanged:_;
+                              - (void) logData:		(NSData*)data 			file:(char*)file lineNumber:(int)line;
 - (void) updateLogWithFile:(char*)file lineNumber:(int)line;
 @end
 

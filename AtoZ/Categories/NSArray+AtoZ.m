@@ -188,9 +188,12 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
   } withInitialMemo:@""];
 }
 - (NSS*) formatAsListWithPadding:(NSUI)characters	{
-	return /*$(@"\n%@",*/  [self.alphabetized map:^id (id obj) {
-//		return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]; }].joinedWithSpaces; // );
-		return [obj justifyRight:characters]; }].joinedWithSpaces; // );
+
+	return [self.alphabetized map:^id (id obj) { return [obj justifyRight:characters];
+
+  }].joinedWithSpaces;
+
+// /*$(@"\n%@", return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]; }].joinedWithSpaces; // );
 }
 @end
 @implementation NSSet (AtoZ)

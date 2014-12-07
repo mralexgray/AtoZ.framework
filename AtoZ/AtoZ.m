@@ -1,15 +1,83 @@
 
+//#import <Xtrace.h>
+
 #import <sys/sysctl.h>
 #import <sys/proc_info.h>     /// + (NSArray*)processes
 #import <libproc.h>           /// GetBSDProcessList....
-
-//#import <objc/runtime.h>
-
 #import "AtoZ.h"
+
+
+/*!  idler.c - Uses IOKit to figure out the idle time of the system. The idle time is stored as a property of the IOHIDSystem class; the name is HIDIdleTime. Stored as a 64-bit int, measured in ns. * The program itself just prints to stdout the time that the computer has been idle in seconds. Compile with gcc -Wall -framework IOKit -framework Carbon idler.c -o
+*/
+
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
+#include <IOKit/IOKitLib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+/* 10^9 --  number of ns in a second */
+#define NS_SECONDS 1000000000
+
+int SinceActive () {
+
+  mach_port_t masterPort;
+  io_iterator_t iter;
+  io_registry_entry_t curObj;
+
+  IOMasterPort(MACH_PORT_NULL, &masterPort);
+
+  /* Get IOHIDSystem */
+  IOServiceGetMatchingServices(masterPort,IOServiceMatching("IOHIDSystem"), &iter);
+  if (!iter)  return printf("Error accessing IOHIDSystem\n"), -99;
+
+  curObj = IOIteratorNext(iter);
+
+  if (!curObj) return printf("Iterator's empty!\n"), NSNotFound;
+
+  CFMutableDictionaryRef properties = 0;
+  CFTypeRef obj = NULL;
+
+  if (IORegistryEntryCreateCFProperties(curObj, &properties, kCFAllocatorDefault, 0) ==
+                                 KERN_SUCCESS && properties != NULL) {
+    obj = CFDictionaryGetValue(properties, CFSTR("HIDIdleTime"));
+    CFRetain(obj);
+  } else {
+    printf("Couldn't grab properties of system\n");
+  }
+
+  uint64_t tHandle = NULL;
+
+  if (obj != NULL) {
+
+    CFTypeID type = CFGetTypeID(obj);
+
+    if (type == CFDataGetTypeID())
+      CFDataGetBytes((CFDataRef) obj, CFRangeMake(0, sizeof(tHandle)), (UInt8*) &tHandle);
+    else if (type == CFNumberGetTypeID())
+      CFNumberGetValue((CFNumberRef)obj, kCFNumberSInt64Type,&tHandle);
+    else return printf("%d: unsupported type\n", (int)type), -1;
+
+    CFRelease(obj);
+
+    // essentially divides by 10^9
+    tHandle >>= 30;
+    printf("%qi\n", tHandle);
+  }else  printf("Can't find idle time\n");
+
+
+  /* Release our resources */
+  IOObjectRelease(curObj);
+//  IOObjectRelease(iter);
+//  CFRelease((CFTypeRef)properties);
+  return tHandle;
+}
+
 
 @implementation NSObject (AtoZEssential)
 
--   (id) objectForKeyedSubscript:(id)k            {  AZBlockSelf(_self);
+-  objectForKeyedSubscript:k            {  AZBlockSelf(_self);
 
     return  [self respondsToStringThenDo:k]
         ?:  [self respondsToString:@"associatedDictionary"] && [self associatedDictionary].count
@@ -25,14 +93,13 @@
           return reducer; 
           }() : self.kvc[k];
 }
-- (void)               setObject:(id)x
+- (void)               setObject:x
                forKeyedSubscript:(id<NSCopying>)k	{
                
   ISA((id)k,NSS) && (ISA(self,CAL)  || 
   [self canSetValueForKey:(NSS*)k])  ? [self sV:x fK:k] 
                                      : ({ self.associatedDictionary[k] = x; });
 }
-
 
 //- (void)blockSelf:(bSelf)block {	declareBlockSafeAs(self, bSelf); block(bSelf); }
 //- (void)triggerKVO:(NSS*)k block:(bSelf)blk {
@@ -64,27 +131,29 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(faded, setFaded, BOOL, ^{}, ^{ objswitch(self
 
 SYNTHESIZE_ASC_OBJ(representedObject, setRepresentedObject);
 
-//- (BOOL) selected	{ id x = [self vFK:@"_selected"]; return x && [x respondsToSelector:@selector(boolValue)] ? [x boolValue] : NO; }
-//- (void) setSelected:(BOOL)s	      {
-//	if (s == self.selected) return;
-//	[self willChangeValueForKey:@"selected"];
-//	[self triggerKVO:@"selected" block:^(NSO *bSelf) {
-//	[self setBool:s forKey:@"_selected"];// policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
-//	[self didChangeValueForKey:@"selected"];
-////	[self setNeedsDisplay];
-//	[self.loM setNeedsLayout];
-//}
-//- (BOOL) hovered                        { id x = self[@"_hovered"]; if (!x) self[@"_hovered"] = (x = @NO);  return [x boolValue];  }
-//- (void) setHovered:(BOOL)h             {
-//	if (h == self.hovered) return;
-//	[self willChangeValueForKey:@"hovered"];
-//	//	[self triggerKVO:@"hovered" block:^(NSO *bSelf) { //willChangeValueForKey:@"hovered"];
-//	[self setBool:h forKey:@"_hovered"];
-//	//	[self setValue:@(h) forKey:@"_hovered"];
-//	[self didChangeValueForKey:@"hovered"];
+/*
+- (BOOL) selected	{ id x = [self vFK:@"_selected"]; return x && [x respondsToSelector:@selector(boolValue)] ? [x boolValue] : NO; }
+- (void) setSelected:(BOOL)s	      {
+	if (s == self.selected) return;
+	[self willChangeValueForKey:@"selected"];
+	[self triggerKVO:@"selected" block:^(NSO *bSelf) {
+	[self setBool:s forKey:@"_selected"];// policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
+	[self didChangeValueForKey:@"selected"];
 //	[self setNeedsDisplay];
-//	[self setNeedsLayout];
-//}
+	[self.loM setNeedsLayout];
+}
+- (BOOL) hovered                        { id x = self[@"_hovered"]; if (!x) self[@"_hovered"] = (x = @NO);  return [x boolValue];  }
+- (void) setHovered:(BOOL)h             {
+	if (h == self.hovered) return;
+	[self willChangeValueForKey:@"hovered"];
+	//	[self triggerKVO:@"hovered" block:^(NSO *bSelf) { //willChangeValueForKey:@"hovered"];
+	[self setBool:h forKey:@"_hovered"];
+	//	[self setValue:@(h) forKey:@"_hovered"];
+	[self didChangeValueForKey:@"hovered"];
+	[self setNeedsDisplay];
+	[self setNeedsLayout];
+}
+*/
 
 @end
 
@@ -94,21 +163,19 @@ SYNTHESIZE_ASC_OBJ(representedObject, setRepresentedObject);
   return NSClassFromString(key);	} @end
 
 /*! NSLog(@"%@", [[RED.classProxy valueForKey:@"NSColor"] redColor]);  --> NSCalibratedRGBColorSpace 1 0 0 1 */
-
 @implementation NSObject (AZClassProxy) // Notice the PLUS.
 
 + performSelector:(SEL)sel { return objc_msgSend(self.class, sel); }
 
-//	NSObject* anInstance = self.new;
-//	return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel];
 SYNTHESIZE_ASC_OBJ_LAZY(classProxy, AZClassProxy);
-//- (AZClassProxy*) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; }
+
 @end
+/* SCRATCH	NSObject* anInstance = self.new; return [[anInstance.classProxy valueForKey:NSStringFromClass([self class])] performSelector:sel]; - (AZClassProxy*) classProxy {	static AZClassProxy *proxy = nil; return proxy = proxy ?: AZClassProxy.new; } */
 
 
 @interface AToZFuntion	: BaseModel
-@property (STR,NATOM) NSS* name;
-@property (STR,NATOM) NSIMG* icon;
+@prop_NA NSS* name;
+@prop_NA NSIMG* icon;
 @end
 
 /*
@@ -171,7 +238,63 @@ NSOQ       * AZSharedOperationStack (void)  {	return ATOZ.sharedStack; }
 NSOQ       * AZSharedOperationQueue (void) 	{	return ATOZ.sharedQ; }
 NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 
-@implementation AtoZ	{	__weak id _constantShortcutMonitor;	} static __unused BOOL fontsRegistered; const char*XCenv;
+@implementation AtoZ
+
+{	__weak id _constantShortcutMonitor;	}
+
+static __unused BOOL fontsRegistered; const char*XCenv;
+
+@synthesize logEnv = _logEnv;
+
+
++ (BOOL) isInternetAvail {
+
+  const char *hostName = @"google.com".ASCIIString;
+  SCNetworkConnectionFlags flags = 0;
+
+  return SCNetworkCheckReachabilityByName(hostName, &flags) && flags > 0 && flags == kSCNetworkFlagsReachable;
+}
+#define DDSHARED DDTTYLogger.sharedInstance
+
+__attribute__((constructor)) static void setupLogger() {
+
+  [DDLog addLogger:DDSHARED]; DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = AtoZ.sharedInstance;
+}
+
+- (LogEnv) logEnv{ return _logEnv = !_logEnv ||  _logEnv == LogEnvUnknown ?
+
+               [DDTTYLogger isaXcodeColorTTY] ? LogEnvXcodeColors
+             : [DDTTYLogger isaColor256TTY]   ? LogEnvTTY256
+             : [DDTTYLogger isaColorTTY]      ? LogEnvTTYColor
+             : LogEnvError : _logEnv;
+}
+
+
+- (NSString*)formatLogMessage:(DDLogMessage*)logMessage {
+
+  return $(@"%@",logMessage->logMsg);
+}
+
+
++ (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l {
+
+  id toLog;
+  objswitch(x)
+  objkind(NSC)
+  //    [AZTalker sayFormat:@"its a color! %@", ((NSC*)x).name];
+  [DDSHARED setForegroundColor:((NSC*)x) backgroundColor:nil forFlag:LOG_LEVEL_VERBOSE];
+  toLog = $(@"COLOR %@", [(NSC*)x name]);
+
+  //  objkind(NSIMG)
+  //   ∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i
+
+  defaultcase
+  toLog = [x description];
+  endswitch
+  //  [DDLog log:YES level:LOG_LEVEL_INFO flag:LOG_FLAG_INFO context:1 file:f function:func line:l tag:nil format:@"%@",toLog];
+  DDLogVerbose(@"%@", toLog);
+}
+
 
 + (void) load							{  __unused int res;
 
@@ -185,11 +308,16 @@ NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
   //  NSThread.currentThread.threadDictionary[NSAssertionHandlerKey] = assertionHandler;
   //  LOGCOLORS(@"Set Assertion Handler:", assertionHandler, nil);
 
-  [NSB loadAZFrameworks];
-  LOGCOLORS( [[AZWELCOME componentsSeparatedByString:@"!"] map:^id(id w){ return [w withString:@"!"]; }], zNL, AZProcess.currentProcess.command,
-            @" (",AZAPP_ID, @") has objc_arc_weak:", StringFromBOOL(__has_feature(objc_arc_weak)),
-                             @" has objc_arc:",      StringFromBOOL( __has_feature(objc_arc)), nil);
+
+//  LOGCOLORS( [[AZWELCOME componentsSeparatedByString:@"!"] map:^id(id w){
+
+//    return [w withString:@"!"]; }], zNL, AZProcess.currentProcess.command,
+//            @" (",AZAPP_ID, @") has objc_arc_weak:", StringFromBOOL(__has_feature(objc_arc_weak)),
+//                             @" has objc_arc:",      StringFromBOOL( __has_feature(objc_arc)), nil);
 }
+
++ (NSTI) lastActivity { return SinceActive(); }
+
 
 @synthesize sharedQ, sharedStack, sharedSQ;
 
@@ -539,6 +667,20 @@ NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
                                                                                 @"Google Chrome Renderer.app"]] ? obj.bundleURL.path : nil;
 	}];
 }
+
+
+
++ (void) onAppSwitch:(void(^)(id runningApp))block {
+
+
+  [AZWORKSPACE.notificationCenter observeName:NSWorkspaceDidActivateApplicationNotification usingBlock:^(NSNotification *n) {
+
+    NSRunningApplication *app = n.userInfo[NSWorkspaceApplicationKey];
+    block(app);
+    printf("%s\n", app.localizedName.UTF8String);
+  }];
+}
+
 - (NSArray*)getCarbonProcessList	{    NSMutableArray *ret = NSMA.new;
 
   ProcessSerialNumber psn = { kNoProcess, kNoProcess };

@@ -24,11 +24,11 @@
 @property (weak) IBOutlet NSW *window;
 @property (strong) 		  NSMA *items;
 
-- (IBAction)doSegmentStuff:(id)sender;
-- (IBAction)itemSizeSliderAction:(id)sender;
-
-- (IBAction)showXFLDragDrop:(id)sender;
-
+- (IBAction)doSegmentStuff:_;
+                              - (IBAction)itemSizeSliderAction:_;
+                              
+- (IBAction)showXFLDragDrop:_;
+                              
 @property (assign, nonatomic) BOOL spinning;
 @property (assign, nonatomic) double progress;
 

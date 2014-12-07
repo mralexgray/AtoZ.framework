@@ -1,95 +1,43 @@
 
 //@import Darwin;
-#import "AZLog.h"
-#import "AtoZ.h"
 //#import <stdio.h>
 //#import <asl.h>
-#import <notify.h>
 //#import <sys/time.h>
+
+#import "AtoZ.h"
+#import "AZLog.h"
+#import <notify.h>
 #import <notify_keys.h>
 
 
 //+ (void) initiablize { [DDLog addLogger:DDSHARED]; DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = self.new; }
 
 @implementation NSO (AtoZObjectLog)
-- (void*) log { NSLog(@"%@",self);  return (void*)nil; }
+- (void) log { NSLog(@"%@",self);  } // return (void*)nil; }
 @end
 
 JREnumDefine ( LogEnv );
 
 //@interface AtoZLumberLog() <DDLogFormatter> @end
 
-#define DDSHARED DDTTYLogger.sharedInstance
-
-__attribute__((constructor)) static void setupLogger() {
-
-  [DDLog addLogger:DDSHARED];  DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = AtoZLumberLog.logger;
-}
-
-@implementation AtoZLumberLog @synthesize logEnv=_logEnv;
-
-//LogEnvUnknown      = 0x00000000,
-//                       LogEnvXcode        = 0x00000001,
-//                       LogEnvXcodeColors  = 0x00000011, 
-//                       LogEnvTTY          = 0x00000100,
-//                       LogEnvTTYColor     = 0x00001100,
-//                       LogEnvTTY256       = 0x00011100,
-//                       LogEnvError        = 0x11111111, )
-- (LogEnv) logEnv{ return _logEnv = !_logEnv ||  _logEnv == LogEnvUnknown ? ({
-
-    LogEnv env;
-    env = DDTTYLogger.isaXcodeColorTTY ? LogEnvXcodeColors
-        : DDTTYLogger.isaColor256TTY   ? LogEnvTTY256
-        : DDTTYLogger.isaColorTTY      ? LogEnvTTYColor :  LogEnvError;
-  }) : _logEnv;
-}
-
-SYNTHESIZE_SINGLETON_FOR_CLASS(AtoZLumberLog, logger)
-
-- (NSString*)formatLogMessage:(DDLogMessage*)logMessage {
-
-  return $(@"%@",logMessage->logMsg);
-}
-
-
-+ (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l {
-
-  id toLog;
-  objswitch(x)
-  objkind(NSC)
-//    [AZTalker sayFormat:@"its a color! %@", ((NSC*)x).name];
-    [DDSHARED setForegroundColor:((NSC*)x) backgroundColor:nil forFlag:LOG_LEVEL_VERBOSE];
-    toLog = $(@"COLOR %@", [(NSC*)x name]);
-
-//  objkind(NSIMG)
-//   ∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i
-
-  defaultcase
-    toLog = [x description];
-  endswitch
-//  [DDLog log:YES level:LOG_LEVEL_INFO flag:LOG_FLAG_INFO context:1 file:f function:func line:l tag:nil format:@"%@",toLog];
-  DDLogVerbose(@"%@", toLog);
-}
-
-@end
 
 /*
-    return [NSString stringWithFormat:@"%@ | %@\n", logLevel, logMessage->logMsg];
+ return [NSString stringWithFormat:@"%@ | %@\n", logLevel, logMessage->logMsg];
  NSString *logLevel;  switch (logMessage->logFlag)  { case LOG_FLAG_ERROR : logLevel = @"E"; break; case LOG_FLAG_WARN  : logLevel = @"W"; break; case LOG_FLAG_INFO  : logLevel = @"I"; break; case LOG_FLAG_DEBUG : logLevel = @"D"; break; default : logLevel = @"V"; break;   }
 
-- (void)logMessage:(DDLogMessage*)logMessage{
+ - (void)logMessage:(DDLogMessage*)logMessage{
 
-    NSString *logMsg = logMessage->logMsg;
+ NSString *logMsg = logMessage->logMsg;
 
-    if (self->formatter)
-        logMsg = [self->formatter formatLogMessage:logMessage];
+ if (self->formatter)
+ logMsg = [self->formatter formatLogMessage:logMessage];
 
-    if (logMsg)
-    {
-        // Write logMsg to wherever...
-    }
-}
-*/
+ if (logMsg)
+ {
+ // Write logMsg to wherever...
+ }
+ }
+ */
 //+ (void) load { AZLOGCMD;
 //
 //[DDLog addLogger:DDSHARED];
@@ -104,7 +52,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AtoZLumberLog, logger)
 //  [DDLog log:YES level:1 flag:0 context:0 file:file function:fnc line:ln tag:0 format:fmt args:argList]; 	va_end(argList);
 //}
 
-//- (NSS*) formatLogMessage:(DDLogMessage*)m{ return //NSS* meth = "]; return  
+//- (NSS*) formatLogMessage:(DDLogMessage*)m{ return //NSS* meth = "]; return
 //
 //  @[[AZLog colorizeString:m->logMsg withColor:AtoZ.globalPalette.nextNormalObject].clr, zTAB,
 //    [m.methodName substringBetweenPrefix:@"⬆[" andSuffix:@"]"] ?: @""].componentString;
@@ -115,21 +63,21 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AtoZLumberLog, logger)
 
 - (INST) initWithLog:		(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUI)sev {	self = super.init;
 
-	ISA(data,NSS) ? _message = data : ISA(data,NSData) ? _data = data : nil;
-	_file = $(@"%s",file); _date = NSDate.date; _line = @(line ?: 0); _severity = @(sev ?: 0); _function = func ? $UTF8(func) : nil;
-	return self;
+  ISA(data,NSS) ? _message = data : ISA(data,NSData) ? _data = data : nil;
+  _file = $(@"%s",file); _date = NSDate.date; _line = @(line ?: 0); _severity = @(sev ?: 0); _function = func ? $UTF8(func) : nil;
+  return self;
 }
 + (INST) messageWithLog:(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUI)sev {
-	return [self.alloc initWithLog:data file:file func:func line:line sev:sev];
+  return [self.alloc initWithLog:data file:file func:func line:line sev:sev];
 }
 -   (id) JSONRepresentation				{ if (_JSONRep) return _JSONRep; NSERR*error;
 
-	id x = [NSJSONSerialization dataWithJSONObject:self.dictionaryRepresentation options:NSJSONWritingPrettyPrinted error:&error];
-	// Pass 0 if you don't care about the readability of the generated string
-	return _JSONRep = error ? NSLog(@"Got an error: %@", error), (id)nil: [NSS stringWithUTF8Data:x];
+  id x = [NSJSONSerialization dataWithJSONObject:self.dictionaryRepresentation options:NSJSONWritingPrettyPrinted error:&error];
+  // Pass 0 if you don't care about the readability of the generated string
+  return _JSONRep = error ? NSLog(@"Got an error: %@", error), (id)nil: [NSS stringWithUTF8Data:x];
 }
 - (NSD*) dictionaryRepresentation {
-	return @{@"message":self.message,	@"date": _date.string, @"file": _file ?:@"", @"line":_line ? _line.stringValue : @"0", @"severity":self.severityString};
+  return @{@"message":self.message,	@"date": _date.string, @"file": _file ?:@"", @"line":_line ? _line.stringValue : @"0", @"severity":self.severityString};
 }
 - (NSS*) severityString						{ objswitch(_severity) objcase(@0) return @"INFO"; objcase(@1) return @"WARN"; defaultcase return @"DEBUG"; endswitch }
 - (NSS*) message									{ return _message = _message ?: _data ? [NSS stringWithUTF8Data:_data] : @""; }
@@ -138,164 +86,208 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AtoZLumberLog, logger)
 void WEBLOG	   (id fmt, ...)  { AZLogConsoleView* __unused e = (AZLogConsoleView*)[AZLogConsole.sharedConsole webView]; /* [e logString: file:(char*)filename lineNumber:(int)lineNum];*/ }
 NSA* AZEnvVars (char** envp)  { 					NSMA * vars = NSMA.new; char** env;
 
-	for (env = envp; *env != 0; env++)	{ NSS * var, * raw;
-		raw = [NSS stringWithCString:*env encoding:NSASCIIStringEncoding];
-		objc_setAssociatedObject(	var = [raw substringBefore:@"="],	 	__VSTR(@"envVarValue"),
-																		[raw substringAfter:@"="],	OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-		[vars addObject:var];
-	}
-	return vars;
+  for (env = envp; *env != 0; env++)	{ NSS * var, * raw;
+    raw = [NSS stringWithCString:*env encoding:NSASCIIStringEncoding];
+    objc_setAssociatedObject(	var = [raw substringBefore:@"="],	 	__VSTR(@"envVarValue"),
+                             [raw substringAfter:@"="],	OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [vars addObject:var];
+  }
+  return vars;
 }
 NSD* AZEnv		 (char** envp)	{	return [AZEnvVars(envp) mapToDictionary:^id(id o) {
-														return objc_getAssociatedObject(o, __VSTR(@"envVarValue"));		}];
+  return objc_getAssociatedObject(o, __VSTR(@"envVarValue"));		}];
 }
 void AZLogEnv	 (char** envp)	{
 
-
-    NSMutableArray *env=[NSMutableArray array];
-    while (*envp) {
-        char *thisenv=*envp;
-        char *equals=strchr( thisenv, '=');
-        if (equals) [env addObject:[NSString.alloc initWithBytes:*envp length:equals-*envp encoding:NSISOLatin1StringEncoding]];
-        envp++;
-    }
+  NSMA *env= @[].mC;
+  while (*envp) {
+    char *thisenv = *envp;
+    char *equals = strchr(thisenv, '=');
+    if (equals) [env addObject:[NSS.alloc initWithBytes:*envp length:equals-*envp encoding:NSISOLatin1StringEncoding]];
+    envp++;
+  }
   NSD* envD   = AZEnv(envp);
-	NSUI length = [envD.allKeys lengthOfLongestMemberString] + 2;
-  NSColor *keys = NSC.randomBrightColor, *vals = NSC.randomBrightColor;
-  NSArray *keysA = [NSColor gradientPalletteBetween:keys.darkerColor c2:keys.brighter steps:envD.count],
-        *valuesA = [NSColor gradientPalletteBetween:vals.darkerColor c2:vals.brighter steps:envD.count];
+  NSUI length = [envD.allKeys lengthOfLongestMemberString] + 2;
+  NSC *keys   = NSC.randomBrightColor, *vals = NSC.randomBrightColor;
+  NSA *keysA   = [NSC gradientPalletteBetween:keys.darkerColor c2:keys.brighter steps:envD.count],
+      *valuesA = [NSC gradientPalletteBetween:vals.darkerColor c2:vals.brighter steps:envD.count];
 
-//  LOGCOLORS( 	[NSA arrayWithArrays:[envD mapToArray:^NSArray *(id k, id v) {
-//    return @[[k paddedTo:length], v, zNL]; }]], [NSC colorsInListNamed:@"flatui"], nil);
+  //  LOGCOLORS( 	[NSA arrayWithArrays:[envD mapToArray:^NSArray *(id k, id v) {
+  //    return @[[k paddedTo:length], v, zNL]; }]], [NSC colorsInListNamed:@"flatui"], nil);
 
-  [envD eachWithIndex:^(id key, id value, NSUInteger idx, BOOL *stop) {
-    NSString *k = [key paddedRightTo:length];
-    [k setLogForeground:keysA[idx]];
-    [value setLogForeground:valuesA[idx]];
+  [envD eachWithIndex:^(id key, NSS* value, NSUI idx, BOOL *stop) {
+    NSS *k = [key paddedRightTo:length];
+    k.logForeground = keysA[idx];
+    value.logForeground = valuesA[idx];
 
-    printf("ZZZZ:%s  %s\n", [k colorLogString].UTF8String, [value colorLogString].UTF8String);
+    printf("ZZZZ:%s  %s\n", k.colorLogString.UTF8String, value.colorLogString.UTF8String);
   }];
   //[NSC colorsInListNamed:@"flatui"], nil);
- }
+}
 void QuietLog  (NSS*fmt,...)	{	va_list argList; va_start(argList, fmt);
-	printf("%s\n",  [[NSS stringWithFormat:fmt arguments:argList]UTF8String]);
-	va_end(argList);
+  printf("%s\n",  [[NSS stringWithFormat:fmt arguments:argList]UTF8String]);
+  va_end(argList);
 }
 
-@implementation AZLog @synthesize logEnv = _logEnv;  //- (void) setUp { _logEnv = LogEnvUnknown; } 
+@implementation AZLog @synthesize logEnv = _logEnv;  //- (void) setUp { _logEnv = LogEnvUnknown; }
 
 
 -   (void) logThese:(const char *)pretty things:(id)colorsAndThings,...	{  // This does Bienvenidos, etc, pretty coplors..
 
-	__block NSMA *colors = NSMA.mutableArrayUsingWeakReferences, *words  = NSMA.mutableArrayUsingWeakReferences;
-  
-	AZVA_Block sort = ^(id it) { objswitch(it)  
-  
+  __block NSMA *colors = NSMA.mutableArrayUsingWeakReferences, *words  = NSMA.mutableArrayUsingWeakReferences;
+
+  AZVA_Block sort = ^(id it) { objswitch(it)
+
     objkind(NSC) [colors addObject:it];
-    objkind(NSS) [words  addObject:it];       
+    objkind(NSS) [words  addObject:it];
     objkind(NSA) ALLARE(it,NSC) ? [colors addObjectsFromArray:it]
-                                : [words addObjectsFromArray:[(NSA*)it map:^id(id obj) { return [obj debugDescription]; }]];
-		defaultcase  [words addObject:it[@"debugDescription"]?:[it description]];
-		endswitch
-	};
-  
-	azva_iterate_list(colorsAndThings, sort);
-        
+    : [words addObjectsFromArray:[(NSA*)it map:^id(id obj) { return [obj debugDescription]; }]];
+    defaultcase  [words addObject:it[@"debugDescription"]?:[it description]];
+    endswitch
+  };
+
+  azva_iterate_list(colorsAndThings, sort);
+
   if (!words.count)   ({ printf( "WARNING, NO WORDS TO PRINT: %s", pretty); return; });
-  if (!colors.count)  colors = RANDOMPAL.mutableCopy; 
-	
+  if (!colors.count)  colors = RANDOMPAL.mutableCopy;
+
   [words addObject:zNL];
-  
-	fprintf(stdout, "%s", [[words reduce:NSMS.new withBlock:^NSS*(NSMS *sum,NSS *o) { // LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@""
+
+  fprintf(stdout, "%s", [[words reduce:NSMS.new withBlock:^NSS*(NSMS *sum,NSS *o) { // LOG_CALLER_VERBOSE ? @"LOGCOLORS: ":@""
 
     [sum appendString:[o isEqualToAnyOf:@[@" ",@"\n", @""]] ? o : ([o setLogForeground:colors.nextNormalObject], o.clr)];  return sum;
-    
+
   }] UTF8String]);
-    
-//		NSC  *c = [colors advance];
-//     c.isDark ? [c colorWithBrightnessMultiplier:2]: c;
-//		return [sum withString:o.colorLogString];
-//	}
-//	else return  o]; }]UTF8String]);
+
+  //		NSC  *c = [colors advance];
+  //     c.isDark ? [c colorWithBrightnessMultiplier:2]: c;
+  //		return [sum withString:o.colorLogString];
+  //	}
+  //	else return  o]; }]UTF8String]);
 }
 
 #pragma mark - Class Util
 
 + (NSA*) rgbColorValues:(id)color																		{
 
-	__block CGF r = 255., g = 255., b= 255.;  __block NSC *x;
+  __block CGF r = 255., g = 255., b= 255.;  __block NSC *x;
 
-	if (ISA(color,NSS))		{ x = [NSC colorWithName:color] ?: [NSC colorWithCSSRGB:color] ?: RED;
-			r = (x.redComponent * 255); g = (x.greenComponent * 255); b = (x.blueComponent * 255);
-	}
-	else if (ISA(color, NSC))	{ x = color;  x = x.isDark ? [x colorWithBrightnessOffset:2] : x;
-		x = [x colorUsingColorSpace:NSColorSpace.genericRGBColorSpace];
-		r = (x.redComponent * 255); g = (x.greenComponent * 255); b = (x.blueComponent * 255);
-	}
-	else if (ISA(color,NSA) && [color count] == 3) {
-		r = [color[0] fV]; g = [color[1] fV]; b = [color[2] fV];
-		r = r < 1.0 ? r *255. : r; g = g < 1.0 ? g *255. : g; b = b < 1.0 ? b *255. : b;
+  if (ISA(color,NSS))		{ x = [NSC colorWithName:color] ?: [NSC colorWithCSSRGB:color] ?: RED;
+    r = (x.redComponent * 255); g = (x.greenComponent * 255); b = (x.blueComponent * 255);
+  }
+  else if (ISA(color, NSC))	{ x = color;  x = x.isDark ? [x colorWithBrightnessOffset:2] : x;
+    x = [x colorUsingColorSpace:NSColorSpace.genericRGBColorSpace];
+    r = (x.redComponent * 255); g = (x.greenComponent * 255); b = (x.blueComponent * 255);
+  }
+  else if (ISA(color,NSA) && [color count] == 3) {
+    r = [color[0] fV]; g = [color[1] fV]; b = [color[2] fV];
+    r = r < 1.0 ? r *255. : r; g = g < 1.0 ? g *255. : g; b = b < 1.0 ? b *255. : b;
 
-	}
-	return @[@(r), @(g), @(b)];
+  }
+  return @[@(r), @(g), @(b)];
 }
 + (NSS*) colorizeString:(NSS*)string front:(id)front back:(id)back  {
-	if (front) [string setLogForeground:front];
-	if (back)  [string setLogBackground:back];
-	return string;
+  if (front) [string setLogForeground:front];
+  if (back)  [string setLogBackground:back];
+  return string;
 }
 + (NSS*) colorizeString:(NSS*)string withColor:(id)color						{
-	return [self colorizeString:string front:color back:nil];
+  return [self colorizeString:string front:color back:nil];
 }
 + (NSA*) colorizeAndReturn:(id) colorsAndThings, ...								{
 
-	__block NSMA *colors = NSMA.new;  __block NSMA *words  = NSMA.new;
+  __block NSMA *colors = NSMA.new;  __block NSMA *words  = NSMA.new;
 
-	AZVA_Block sort   = ^(id thing) { ISA(thing,NSC) ? [colors addObject:thing] : [words addObject:thing]; };
-	AZVA_Block theBlk = ^(id thing) { ISA(thing,NSA) ? [(NSA*)thing each:^(id obj){ sort(thing); }] : sort (thing); };
+  AZVA_Block sort   = ^(id thing) { ISA(thing,NSC) ? [colors addObject:thing] : [words addObject:thing]; };
+  AZVA_Block theBlk = ^(id thing) { ISA(thing,NSA) ? [(NSA*)thing each:^(id obj){ sort(thing); }] : sort (thing); };
 
-	azva_iterate_list(colorsAndThings, theBlk);
-	return [words nmap:^id (id o, NSUI i) { 
-		NSS *n = $(@"%@", o); NSC *c  = [colors normal:i];  
-		n.logForeground = c.isDark ? c.invertedColor : c;  return n;
-	}];
+  azva_iterate_list(colorsAndThings, theBlk);
+  return [words nmap:^id (id o, NSUI i) {
+    NSS *n = $(@"%@", o); NSC *c  = [colors normal:i];
+    n.logForeground = c.isDark ? c.invertedColor : c;  return n;
+  }];
 }
 
 #pragma mark - Properties
 
-- (LogEnv) logEnv	{ if (_logEnv != LogEnvUnknown) return _logEnv;
+JREnum(zLoggingTo,
+    kLoggingToOther,
+    kLoggingToFile,
+    kLoggingToTTY,
+    kLoggingToColorTTY,     // Terminal that supports ANSI color escape codes
+    kLoggingToColorXcode    // Xcode with XcodeColors plugin installed
+)
 
-  BOOL isXcode = [NSProcessInfo.processInfo.arguments[0] containsString:@"Xcode"];
-  NSS* term = NSProcessInfo.processInfo.environment[@"XCODE_COLORS"];
 
-	_logEnv = isXcode ||  SameString(term,@"YES") ? LogEnvXcodeColors // : SameString(term,@"NO")  ? LogEnvXcodeNOColor
-     :	isatty(STDERR_FILENO) && (term = AZPROCINFO.environment[@"TERM"])
-     ? [term containsAllOf:@[@"color",@"256"]] ? LogEnvTTY256
-    : [term contains:@"color"]								? LogEnvTTYColor
-                  : LogEnvTTY : LogEnvError;  //: LogEnvUnknown
-    JATLog(@"LOGENV:{0} isXcode:{isXcode} term:{term}", LogEnvToString(_logEnv), isXcode, term);
-    return _logEnv;
+
+/** Does the file descriptor connect to console output, i.e. a terminal or Xcode? */
++ (NSString *) log {
+
+  AZSTATIC_OBJ(NSS, getLoggingMode, ^{
+
+    int fd = STDERR_FILENO;
+      if( isatty(fd) ) {
+          const char *xcode_colors = getenv("XcodeColors");
+          if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
+              return zLoggingToToString(kLoggingToColorXcode);
+
+          const char *term = getenv("TERM");
+          if( term && (strstr(term,"ANSI") || strstr(term,"ansi") || strstr(term,"color")) )
+              return zLoggingToToString(kLoggingToColorTTY);
+          else
+              return zLoggingToToString(kLoggingToTTY);
+        } else {
+  #if GNUSTEP
+          return zLoggingToToString(kLoggingToFile);
+  #else
+          char path[MAXPATHLEN];
+          if( fcntl(fd, F_GETPATH, path) == 0 )
+              return zLoggingToToString(kLoggingToFile);
+          else
+              return zLoggingToToString(kLoggingToOther);
+  #endif
+        }
+  }());
+  return getLoggingMode;
 }
+
+
+
+//- (LogEnv) logEnv	{ if (_logEnv) return _logEnv;
+//
+//  BOOL isXcode = [NSProcessInfo.processInfo.arguments[0] containsString:@"Xcode"];
+//  BOOL useXCColors = NSProcessInfo.processInfo.environment[@"XCODE_COLORS"];
+//
+//  _logEnv = isXcode ||  SameString(term,@"YES") ? LogEnvXcodeColors // : SameString(term,@"NO")  ? LogEnvXcodeNOColor
+//  :	isatty(STDERR_FILENO) && (term = AZPROCINFO.environment[@"TERM"])
+//  ? [term containsAllOf:@[@"color",@"256"]] ? LogEnvTTY256
+//  : [term contains:@"color"]								? LogEnvTTYColor
+//  : LogEnvTTY : LogEnvError;  //: LogEnvUnknown
+//
+//  JATLog(@"LOGENV:{0} isXcode:{isXcode} term:{term}", LogEnvToString(_logEnv), isXcode, term);
+//
+//  return _logEnv;
+//}
 
 # pragma mark -+*%$%*+-+*%$%*+-+*%$-+*%$%*+-+*%$%*+-+*%$-+*%$%*+-+*%$%*+- ACTIVE NSLOG
 
 -(void) logInColor:(id)colr file:(const char*)file
-							line:(int)ln  func:(const char*)fnc format:(id)fmt,...{
+              line:(int)ln  func:(const char*)fnc format:(id)fmt,...{
 
   static NSArray *logPalette; logPalette = logPalette ?: RANDOMPAL;
 
-	if (!fmt || ISNOTA(fmt,NSS)) return NSLog(@"you tried formatting with a %@, not a string!", [fmt className]);
+  if (!fmt || ISNOTA(fmt,NSS)) return NSLog(@"you tried formatting with a %@, not a string!", [fmt className]);
 
   // Get a reference to the arguments that follow the format parameter
-	va_list argList;  va_start(argList, fmt);
+  va_list argList;  va_start(argList, fmt);
 
   // Perform format string argument substitution, reinstate %% escapes, then print
-	NSS *s,*funcString = $UTF8(fnc);
+  NSS *s,*funcString = $UTF8(fnc);
 
-	if ((s = [NSS.alloc initWithFormat:fmt arguments:argList]) && s.length)
-    printf("%s %s[%s %i] %s" CHAR_RESET "\n", [s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"].UTF8String, 
-                                              self.logEnv == LogEnvXcodeColors ? CHAR_ESCAPE "fg13,144,144;" : "", 
-                                              $UTF8(file).lastPathComponent.UTF8String, ln, funcString.UTF8String);
+  if ((s = [NSS.alloc initWithFormat:fmt arguments:argList]) && s.length)
+    printf("%s %s[%s %i] %s" CHAR_RESET "\n", [s stringByReplacingOccurrencesOfString:@"%%" withString:@"%%%%"].UTF8String,
+           self.logEnv == LogEnvXcodeColors ? CHAR_ESCAPE "fg13,144,144;" : "",
+           $UTF8(file).lastPathComponent.UTF8String, ln, funcString.UTF8String);
   va_end(argList);
 }
 - (void) logMessage:(NSLogMessage*)msg { printf("%s\n", [AZLog colorizeString:msg.JSONRepresentation front:RANDOMCOLOR back:RANDOMCOLOR].cchar); }
@@ -314,30 +306,30 @@ void QuietLog  (NSS*fmt,...)	{	va_list argList; va_start(argList, fmt);
 - (const char*) cchar                   {  return self.clr.UTF8String; }
 -        (NSS*) colorLogString					{
 
-	NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
-   NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
-	if (!fgs && !bgs) return self;
-   NSS *colored = self.copy;
-	if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && AZLOGSHARED.logEnv == LogEnvXcodeColors) {
-		if (fgs && fgs.count ==3) {
-			colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
-							[fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
-		}
-		if (bgs && bgs.count ==3) {
-			colored = colored ? : self;
-			colored = $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET,
-							[bgs[0] intValue], [bgs[1] intValue], [bgs[2] intValue], colored);
-		}
-		return colored;
-	}
-	if (AZLOGSHARED.logEnv == LogEnvTTYColor || AZLOGSHARED.logEnv == LogEnvTTY256){
-		static NSArray* cs, *bg;
-		cs = cs ?: @[@31,@32,@33,@34,@35,@36,@37];
-		bg = bg ?: @[@40,@41,@42];//,@43,@44,@45,@46,@47];
-		return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", [cs[arc4random() % 7 ]stringValue],
-				  [bg[arc4random() % 3 ]stringValue], self];
-	}
-	else return self;
+  NSA *fgs = [self hasAssociatedValueForKey:@"logFG"] ? [self associatedValueForKey:@"logFG"] : nil;
+  NSA *bgs = [self hasAssociatedValueForKey:@"logBG"] ? [self associatedValueForKey:@"logBG"] : nil;
+  if (!fgs && !bgs) return self;
+  NSS *colored = self.copy;
+  if ((( fgs && fgs.count == 3) || (bgs && bgs.count ==3) ) && AZLOGSHARED.logEnv == LogEnvXcodeColors) {
+    if (fgs && fgs.count ==3) {
+      colored = $(XCODE_COLORS_ESCAPE @"fg%i,%i,%i;%@" XCODE_COLORS_RESET,
+                  [fgs[0] intValue], [fgs[1] intValue], [fgs[2] intValue], colored);
+    }
+    if (bgs && bgs.count ==3) {
+      colored = colored ? : self;
+      colored = $(XCODE_COLORS_ESCAPE @"bg%i,%i,%i;%@" XCODE_COLORS_RESET,
+                  [bgs[0] intValue], [bgs[1] intValue], [bgs[2] intValue], colored);
+    }
+    return colored;
+  }
+  if (AZLOGSHARED.logEnv == LogEnvTTYColor || AZLOGSHARED.logEnv == LogEnvTTY256){
+    static NSArray* cs, *bg;
+    cs = cs ?: @[@31,@32,@33,@34,@35,@36,@37];
+    bg = bg ?: @[@40,@41,@42];//,@43,@44,@45,@46,@47];
+    return [NSString stringWithFormat:@"\033[%@;%@m%@\033[0m", [cs[arc4random() % 7 ]stringValue],
+            [bg[arc4random() % 3 ]stringValue], self];
+  }
+  else return self;
 }
 @end
 
@@ -346,43 +338,43 @@ void QuietLog  (NSS*fmt,...)	{	va_list argList; va_start(argList, fmt);
 
 
 static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVEL_NOTICE
-	asl_set_query(query, ASL_KEY_LEVEL, param, ASL_QUERY_OP_LESS_EQUAL | ASL_QUERY_OP_NUMERIC);
+  asl_set_query(query, ASL_KEY_LEVEL, param, ASL_QUERY_OP_LESS_EQUAL | ASL_QUERY_OP_NUMERIC);
 }
 @implementation AZASLLogger
 - (NSW*) show   { _show = [NSWindow.alloc initWithContentRect:NSInsetRect(NSScreen.mainScreen.frame,200,200) styleMask:0|1|2|8 backing:0 defer:NO];
-									_show.level = NSScreenSaverWindowLevel;
-									NSScrollView *v;  _show.contentView = v = [NSScrollView.alloc initWithFrame:[_show.contentView bounds]];
-									NSOutlineView *o; v.documentView = o = [NSOutlineView.alloc initWithFrame:v.bounds];
-									NSTableColumn *t; [o addTableColumn:t=[NSTableColumn.alloc initWithIdentifier:@"value"]];
-									[t bind:NSValueBinding toObject:self withKeyPath:@"arrangedObjects.representedObject" options:nil];
-									[_show makeKeyAndOrderFront:nil]; return _show;
+  _show.level = NSScreenSaverWindowLevel;
+  NSScrollView *v;  _show.contentView = v = [NSScrollView.alloc initWithFrame:[_show.contentView bounds]];
+  NSOutlineView *o; v.documentView = o = [NSOutlineView.alloc initWithFrame:v.bounds];
+  NSTableColumn *t; [o addTableColumn:t=[NSTableColumn.alloc initWithIdentifier:@"value"]];
+  [t bind:NSValueBinding toObject:self withKeyPath:@"arrangedObjects.representedObject" options:nil];
+  [_show makeKeyAndOrderFront:nil]; return _show;
 }
 -   (id) init		{	if (!(self = super.init)) return nil; self.childrenKeyPath = @"childNodes"; self.content = @[[NSTreeNode treeNodeWithRepresentedObject:@"LOGS"]].mutableCopy;  return self; }
 - (void) watch	{
 
 		/* We use ASL_KEY_MSG_ID to see each message once, but there's no obvious way to get the "next" ID. To bootstrap the process, we'll
-			 search by timestamp until we've seen a message. */
-		
-		  struct timeval						  timeval	= { .tv_sec = 0 };		gettimeofday(&timeval, NULL);
-		  unsigned long long			  startTime	= timeval.tv_sec;
+     search by timestamp until we've seen a message. */
+
+  struct timeval						  timeval	= { .tv_sec = 0 };		gettimeofday(&timeval, NULL);
+  unsigned long long			  startTime	= timeval.tv_sec;
 		__block unsigned long long lastSeenID = 0;
-		
+
 		/* syslogd posts kNotifyASLDBUpdate (com.apple.system.logger.message) through the notify API when it saves messages to the ASL database.
-			 There is some coalescing - currently it is sent at most twice per second - but there is no documented guarantee about this. In any
-			 case, there may be multiple messages per notification.
+     There is some coalescing - currently it is sent at most twice per second - but there is no documented guarantee about this. In any
+     case, there may be multiple messages per notification.
 
-			 Notify notifications don't carry any payload, so we need to search for the messages.
-		*/
+     Notify notifications don't carry any payload, so we need to search for the messages.
+     */
 
-			int notifyToken;	// Can be used to unregister with notify_cancel().
+  int notifyToken;	// Can be used to unregister with notify_cancel().
 
-			notify_register_dispatch(kNotifyASLDBUpdate, &notifyToken, dispatch_get_main_queue(),^(int token) {	@autoreleasepool	{		// At least one message has been posted; build a search query.
+  notify_register_dispatch(kNotifyASLDBUpdate, &notifyToken, dispatch_get_main_queue(),^(int token) {	@autoreleasepool	{		// At least one message has been posted; build a search query.
 
-			      aslmsg    query	= asl_new(ASL_TYPE_QUERY);		char stringValue[64];
+    aslmsg    query	= asl_new(ASL_TYPE_QUERY);		char stringValue[64];
 
 				lastSeenID	? snprintf(stringValue, sizeof stringValue, "%llu", lastSeenID) : snprintf(stringValue, sizeof stringValue, "%llu", startTime);
 				lastSeenID	? asl_set_query(query, ASL_KEY_MSG_ID, stringValue, ASL_QUERY_OP_GREATER			 | ASL_QUERY_OP_NUMERIC)
-										: asl_set_query(query, ASL_KEY_TIME,	 stringValue, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
+    : asl_set_query(query, ASL_KEY_TIME,	 stringValue, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
 
 				ConfigureQuery(query); aslmsg msg;		// Iterate over new messages.
 				aslresponse response = asl_search(NULL, query);
@@ -391,25 +383,25 @@ static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVE
 
 				while ((msg =	aslresponse_next(response))) {
 
-					newSender =		[NSString stringWithUTF8String:asl_get(msg, ASL_KEY_SENDER)];
+          newSender =		[NSString stringWithUTF8String:asl_get(msg, ASL_KEY_SENDER)];
 
-					if (lastSender && newSender && [lastSender isEqualToString:newSender])
-						 node = node ?:	[NSTreeNode treeNodeWithRepresentedObject:lastSender = newSender];
-					else      node ?  [self addObject:node] : nil,
-									  [self addObject:node =	[NSTreeNode treeNodeWithRepresentedObject:lastSender = newSender]];
+          if (lastSender && newSender && [lastSender isEqualToString:newSender])
+            node = node ?:	[NSTreeNode treeNodeWithRepresentedObject:lastSender = newSender];
+          else      node ?  [self addObject:node] : nil,
+            [self addObject:node =	[NSTreeNode treeNodeWithRepresentedObject:lastSender = newSender]];
 
-					[node.mutableChildNodes                     addObject:
-										  [NSTreeNode treeNodeWithRepresentedObject:
+          [node.mutableChildNodes                     addObject:
+           [NSTreeNode treeNodeWithRepresentedObject:
 											 [NSString           stringWithUTF8String: asl_get(msg, ASL_KEY_MSG)]]];
 
 
-					printf("%ld Nodes: Current node:%s children:%ld\n", [self.arrangedObjects count], lastSender.UTF8String, node.childNodes.count);
+          printf("%ld Nodes: Current node:%s children:%ld\n", [self.arrangedObjects count], lastSender.UTF8String, node.childNodes.count);
 
-					lastSeenID = atoll(asl_get(msg, ASL_KEY_MSG_ID)); // Keep track of which messages we've seen.
-			}
-			aslresponse_free(response);
+          lastSeenID = atoll(asl_get(msg, ASL_KEY_MSG_ID)); // Keep track of which messages we've seen.
+        }
+    aslresponse_free(response);
 		}
-	});
+  });
 }
 @end
 //  EOF
@@ -418,24 +410,24 @@ static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVE
 /*
 
  e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
-		[(NSA*)it each:^(id obj) {
-		   [obj ISKINDA:NSC.class] ? [colors addObject:[obj copy]] :
-		   [obj ISKINDA:NSS.class] ? [words  addObject:[obj copy]] : nil;
-			NSS* first = [obj firstResponsiveString:@[@"stringValue", @"name"]];
-			if (first) [words addObject:[obj vFK:first]]; }]:
-			NSS* first = [it firstResponsiveString:@[@"stringValue", @"name"]];
-				? [words addObject:[[ it stringValue]copy]] : nil;
+ [(NSA*)it each:^(id obj) {
+ [obj ISKINDA:NSC.class] ? [colors addObject:[obj copy]] :
+ [obj ISKINDA:NSS.class] ? [words  addObject:[obj copy]] : nil;
+ NSS* first = [obj firstResponsiveString:@[@"stringValue", @"name"]];
+ if (first) [words addObject:[obj vFK:first]]; }]:
+ NSS* first = [it firstResponsiveString:@[@"stringValue", @"name"]];
+ ? [words addObject:[[ it stringValue]copy]] : nil;
 	NSLog(@"colors:%ld:%@ words:%ld:%@", colors.count, colors, words.count, words);
 	NSA *colors, *words, *colorStringArray;  colorStringArray = colors1strings2(colorsAndThings); colors = colorStringArray[0]; words = colorStringArray[1];
 
 
-int main(int argc, const char * argv[])	{	@autoreleasepool {	id x = [NSApplication sharedApplication]; [x setActivationPolicy:NSApplicationActivationPolicyRegular];
+ int main(int argc, const char * argv[])	{	@autoreleasepool {	id x = [NSApplication sharedApplication]; [x setActivationPolicy:NSApplicationActivationPolicyRegular];
 
 	SysLogger *s; [s = SysLogger.new watch]; [s show]; [NSApp run];
-//	/dispatch_main();
+ //	/dispatch_main();
 	}
 
-} 		// Run forever.
+ } 		// Run forever.
 
 
  NSA * COLORIZE		  ( id colorsAndThings, ...
@@ -858,6 +850,6 @@ int main(int argc, const char * argv[])	{	@autoreleasepool {	id x = [NSApplicati
  file = [[file truncateInMiddleToCharacters:12]paddedTo:12];
  file = [AZLog colorizeString:file withColor:GREEN];
  printf("%s", file.UTF8String); return $(@"%@:%i%@", file , lM->lineNumber, lM->logMsg); }
-
+ 
  */
 

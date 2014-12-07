@@ -12,8 +12,8 @@ AZQuadCarousel * refToSelf;
 static const NSString *didScroll = @"scrollOffset";
 @interface AZQuadCarousel ()
 
-@property (RONLY) 			 CGF 		intrusion;
-@property (RONLY) 			 NSUI 	vCt, hCt;
+@prop_RO 			 CGF 		intrusion;
+@prop_RO 			 NSUI 	vCt, hCt;
 
 @end
 @implementation AZQuadCarousel

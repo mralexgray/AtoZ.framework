@@ -31,6 +31,6 @@
 - (NSUI) selectedImageIndexPlusOne;
 
 - (IBAction) navigateFromArrowsButton:(NSSegmentedControl*)sender;
-- (IBAction) closeWindow:(id)sender;
-
+- (IBAction) closeWindow:_;
+                              
 @end

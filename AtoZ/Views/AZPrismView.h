@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 10/15/12.
 //
 //
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @interface AZPrismView : NSView
 

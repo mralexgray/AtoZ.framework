@@ -233,8 +233,7 @@
 @end
 */
 
-
-+ (Sound *)soundNamed:(NSString *)n {
++ (Sound*) soundNamed:(NSS*)n {
 
 	return [Sound soundWithContentsOfFile:[AZFWORKBUNDLE recursiveSearchForPathOfResourceNamed:n]];
 //   filterOne:^BOOL(id object) { return [(NSS*)object containsString:name]; }]];

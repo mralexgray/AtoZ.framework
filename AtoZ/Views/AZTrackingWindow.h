@@ -14,9 +14,9 @@
 + oriented:(AZA)o intruding:(CGF)d;
 + oriented:(AZA)o intruding:(CGF)d withDelegate:(id)del;
 
-@property (RONLY) NSRect	 	outFrame;
-@property (RONLY) AZOrient 	orientation;
-@property (RONLY) NSUInteger capacity;
+@prop_RO NSRect	 	outFrame;
+@prop_RO AZOrient 	orientation;
+@prop_RO NSUInteger capacity;
 @property (NATOM, ASS) NSRange range;
 
 - (void) slideOut;

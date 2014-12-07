@@ -1246,6 +1246,8 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 #define COMPONENT_OFFSET_DEGREES_BLUE 240.0f
 #define COMPONENT_PERCENTAGE 100.0f
 
+/* 
+
 @implementation NSColor (HSVExtras) // NSColor+HSVExtras.m MMPieChart Demo
 
 - (RgbColor) rgbColor { return [NSC rgbColorFromColor:self]; }
@@ -1272,7 +1274,7 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 
     CGF range = maximumValue - minimumValue; hsvColor.hueValue = 0;
 
-    if (maximumValue == minimumValue) { /* continue */ }
+    if (maximumValue == minimumValue) {} /// continue
 
     else if (maximumValue == color.r) {
         hsvColor.hueValue = (int)roundf(COMPONENT_DOMAIN_DEGREES * (color.g - color.b) / range);
@@ -1286,7 +1288,8 @@ SYNTHESIZE_ASC_OBJ(name, setName);
                                         + COMPONENT_OFFSET_DEGREES_BLUE));
     
     hsvColor.saturationValue = 0;
-    if (!maximumValue) { /* continue */ }
+    if (!maximumValue) {  } /// continue
+
     else hsvColor.saturationValue = (int)roundf(((1.0f - (minimumValue / maximumValue)) * COMPONENT_PERCENTAGE));
     
     hsvColor.brightnessValue      = (int)roundf((maximumValue * COMPONENT_PERCENTAGE));
@@ -1320,7 +1323,9 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 - (CGF) brightness  { return [NSColor hsvColorFromColor:self].brightness;   }
 - (CGF) value       {	return self.brightness;                               }
 
+
 @end
+*/
 
 #ifdef php
 function swatch() { $r = ceil(rand(0,255));    $g = ceil(rand(0,255));    $b = ceil(rand(0,255));    return array($r,$g,$b); } //Return an RGB array

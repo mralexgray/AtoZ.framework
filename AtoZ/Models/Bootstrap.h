@@ -9,7 +9,10 @@
 - (NSS*) htmlWithBody:(NSS*)bod;
 
 #pragma mark - OUTPUT
-@property (readonly)					NSS *demo, *xml, *markup;
+
++ (NSS*) demo;
+
+@property (readonly)		NSS *xml, *markup;
 
 @property (nonatomic)		NSS *userHTML, *html;
 @property (nonatomic) 	NSB	 		*bundle;

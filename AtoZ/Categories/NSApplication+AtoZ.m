@@ -1,6 +1,7 @@
 
 #import "AtoZ.h"
 #import "NSApplication+AtoZ.h"
+
 #import <TargetConditionals.h>
 #if TARGET_OS_IPHONE
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -15,8 +16,6 @@
 #import <dirent.h>
 #import <sys/stat.h>
 
-#import "AtoZ.h"
-
 
 void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplication.dockTile; NSImageView *iv;
 
@@ -25,15 +24,13 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
   iv.image          = i;   [dock display];
 }
 
-
 @implementation NSMenu (SBAdditions)
 
++ (INST) menuWithItems:(NSA*)items { NSMenu *m = self.new;  m.itemArray = items;  return m; }
 
-+ (instancetype) mennuWithItems:(NSA*)items { NSMenu *m = self.new;  m.itemArray = items;  return m; }
-- (void) setItemArray:(NSA*)items { for (NSMI*m in items) [self addItem:m]; }
+- (void)   setItemArray:(NSA*)items { for (NSMI*m in items) [self addItem:m]; }
 
-- (NSMenuItem *)selectedItem
-{
+- (NSMI*) selectedItem {
 	NSMenuItem *menuItem = nil;
 	for (NSMenuItem *item in [self itemArray])
 	{
@@ -46,7 +43,7 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 	return menuItem;
 }
 
-- (void) electItem:(NSMenuItem *)menuItem
+- (void) selectItem:(NSMenuItem *)menuItem
 {
 	for (NSMenuItem *item in [self itemArray])
 	{
@@ -54,8 +51,7 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 	}
 }
 
-- (NSMenuItem *)selectItemWithRepresentedObject:(id)representedObject
-{
+- (NSMI*) selectItemWithRepresentedObject:(id)representedObject {
 	NSMenuItem *selectedItem = nil;
 	for (NSMenuItem *item in [self itemArray])
 	{
@@ -71,17 +67,16 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 	return selectedItem;
 }
 
-- (void) eselectItem
-{
+- (void) seselectItem {
 	for (NSMenuItem *item in [self itemArray])
 	{
 		[item setState:NSOffState];
 	}
 }
 
-- (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag
-{
-	NSMenuItem *item = [[NSMenuItem.alloc init] autorelease];
+- (NSMI*) addItemWithTitle:(NSS*)aString target:target action:(SEL)aSelector tag:(NSInteger)tag {
+
+  NSMenuItem *item = NSMenuItem.new;
 	[item setTitle:aString];
 	[item setTarget:target];
 	[item setAction:aSelector];
@@ -90,8 +85,7 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 	return item;
 }
 
-- (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector
-{
+- (NSMI*) addItemWithTitle:(NSString *)aString representedObject:representedObject target:target action:(SEL)aSelector {
 	NSMenuItem *item = [[NSMenuItem.alloc init] autorelease];
 	[item setTitle:aString];
 	[item setTarget:target];
@@ -102,11 +96,12 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 }
 
 @end
+
 @implementation NSMenuItem (AtoZ)
 
-- (id)initWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector keyEquivalent:(NSS*)keyEquivalent representedObject:(id)representedObject;
-
-{
+- initWithTitle:(NSString*)aString    target:target
+         action:(SEL)aSelector keyEquivalent:(NSS*)keyEquivalent
+                           representedObject:representedObject {
 	if (!(self = super.init)) return self;
 	[self setTitle:aString];
 	[self setTarget:target];
@@ -120,9 +115,10 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 @end
 
 NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
+
 @implementation NSApplication (AtoZ)
 
-+ (id)infoValueForKey:(NSS*)key {
++ infoValueForKey:(NSS*)key {
 	if ([[NSBundle mainBundle] localizedInfoDictionary][key]) {
 		return [[NSBundle mainBundle] localizedInfoDictionary][key];
 	}
@@ -130,9 +126,7 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 	return [[NSBundle mainBundle] infoDictionary][key];
 }
 
-- (BOOL)showsDockIcon {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:kShowDockIconUserDefaultsKey];
-}
+- (BOOL)showsDockIcon { return [AZUSERDEFS bFK:kShowDockIconUserDefaultsKey]; }
 
 	/** this should be called from the application delegate's applicationDidFinishLaunching method or from some controller object's awakeFromNib method neat dockless hack using Carbon from <a href="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it" title="http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-to-do-it">http://codesorcery.net/2008/02/06/feature-requests-versus-the-right-way-...</a> */
 	
@@ -154,6 +148,77 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 		[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	}
 }
+
+- (BOOL) launchAtLogin {
+
+  LSSharedFileListItemRef loginItem = self.loginItem;
+
+  BOOL result = loginItem ? YES : NO;
+
+  if (loginItem) CFRelease(loginItem);
+
+  return result;
+}
+
+- (void)setLaunchAtLogin:(BOOL)launchAtLogin {
+
+  if (launchAtLogin == self.launchAtLogin) return;
+
+
+  LSSharedFileListRef loginItemsRef = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+
+  if (launchAtLogin) {
+    CFURLRef appUrl = (__bridge CFURLRef)[[NSBundle mainBundle] bundleURL];
+    LSSharedFileListItemRef itemRef = LSSharedFileListInsertItemURL(loginItemsRef, kLSSharedFileListItemLast, NULL,
+                                                                    NULL, appUrl, NULL, NULL);
+    if (itemRef) CFRelease(itemRef);
+
+  } else {
+
+    LSSharedFileListItemRef loginItem = self.loginItem;
+
+    LSSharedFileListItemRemove(loginItemsRef, loginItem);
+    if (loginItem != nil) CFRelease(loginItem);
+  }
+
+  if (loginItemsRef) CFRelease(loginItemsRef);
+}
+
+#pragma mark Private Login Item Shit
+
+- (LSSharedFileListItemRef)loginItem {
+
+  NSURL *bundleURL = AZAPPBUNDLE.bundleURL;
+
+  LSSharedFileListRef loginItemsRef = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+
+  if (!loginItemsRef) return NULL;
+
+  NSArray *loginItems = CFBridgingRelease(LSSharedFileListCopySnapshot(loginItemsRef, nil));
+
+  LSSharedFileListItemRef result = NULL;
+
+  for (id item in loginItems) {
+
+    LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)item;
+    CFURLRef itemURLRef;
+
+    if (LSSharedFileListItemResolve(itemRef, 0, &itemURLRef, NULL) == noErr) {
+      NSURL *itemURL = (__bridge NSURL *)itemURLRef;
+
+      if ([itemURL isEqual:bundleURL]) {
+        result = itemRef;
+        break;
+      }
+    }
+  }
+
+  if (result) CFRetain(result);
+  CFRelease(loginItemsRef);
+
+  return result;
+}
+
 @end
 
 

@@ -3,10 +3,10 @@
 #import "AZStopwatch.h"
 #import "AtoZ.h"
 
-
 #pragma mark - MMStopwatch
 // +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  - 
 // =================[ PRIVATE ]==================================
+
 @interface AZStopwatch ()
 + (AZStopwatch*) 		sharedInstance;
 - (AZStopwatchItem*) get:(NSS*)name;
@@ -16,30 +16,34 @@
 
 @implementation AZStopwatch {	NSMutableDictionary *items; }
 
-+ (void) named:	 (NSS*)name block: (VoidBlock)block	{	[AZStopwatch stopwatch:name timing:block];	}
++ (void)     named:(NSS*)name  block:(VoidBlock)block	{	[AZStopwatch stopwatch:name timing:block];	}
 + (void) stopwatch:(NSS*)name timing:(VoidBlock)block	{	[AZStopwatch start:name];	block(); [AZStopwatch stop: name]; }
-+ (void) start:	 (NSS*)name 								{ [self.sharedInstance add:name]; }
-+ (void) stop:		 (NSS*)name 								{ [[self.sharedInstance get:name] stop];	[self print:name]; }
-+ (void) print:	 (NSS*)name 								{
+
++ (void)     start:(NSS*)name { [self.sharedInstance add:name]; }
++ (void)      stop:(NSS*)name { [[self.sharedInstance get:name] stop];	[self print:name]; }
++ (void)     print:(NSS*)name {
 
 	AZStopwatchItem *item = [AZStopwatch.sharedInstance get:name];
 	if (item) item.stopped ?	NSLog(@"%@", item) : NSLog(@"%@ (running)", item);
 	else	NSLog(@"No stopwatch named [%@] found", name);
 }
-+ (NSS*) runtime :(NSS*)name {
++ (NSS*)   runtime:(NSS*)name {
 	AZStopwatchItem *item = [AZStopwatch.sharedInstance get:name];
 	return item && item.stopped ?	 $(@"%@", item) : $(@"%@ (running)", item);
 	return $(@"No stopwatch named [%@] found", name);
 }
+
 // INTERNALS
 - (AZStopwatchItem*) get:(NSS*)name {	return  name ? (AZStopwatchItem *)items[name] : nil;	}
 - (void) remove:(NSS*)name 	  		{		if ( ! name) return; 	[items removeObjectForKey:name];	}
 - (void) add:   (NSS*)name 	 		{ if ( ! name) return; [self remove:name]; items[name] = [AZStopwatchItem named:name]; }
-// +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -   
+
+// +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -  +  -
 #pragma mark - SINGLETON PATTERN
 static id _sharedSingleton		= nil;
-- (id) init 			 {	if (!(self = super.init)) return nil;	items = NSMD.new;	return self; }
-+ (id) sharedInstance {
+
+- init            {	if (!(self = super.init)) return nil;	items = NSMD.new;	return self; }
++ sharedInstance  {
 	
 	// return before any locking .. should perform better
 	if (_sharedSingleton) return _sharedSingleton;
@@ -47,7 +51,7 @@ static id _sharedSingleton		= nil;
 	@synchronized(self) { if (	!	_sharedSingleton) _sharedSingleton		= self.new;	}
 	return _sharedSingleton;
 }
-+ (id) alloc 			 {	NSAssert(_sharedSingleton == nil, @"Attempted to allocate a 2nd instance of a singleton."); return super.alloc; }
++ alloc           {	NSAssert(_sharedSingleton == nil, @"Attempted to allocate a 2nd instance of a singleton."); return super.alloc; }
 @end
 
 #pragma mark - MMStopwatchItemARC
@@ -61,18 +65,19 @@ static id _sharedSingleton		= nil;
 
 	AZStopwatchItem *item	= AZStopwatchItem.new;	item.name = name;	item.started = NSDate.date; return item;
 }
--   (void) start        {  self.started = NSDate.date; }
-- 	 (void) stop 			{	self.stopped = NSDate.date; }
--   (NSS*) description 	{	
+
+-   (void) start          {  self.started = NSDate.date; }
+- 	(void) stop           {	self.stopped = NSDate.date; }
+-   (NSS*) description    {
 
 	return $(@"%@ : %@", name, [AZLog colorizeString:$(@"[%@]",[self runtimePretty]) withColor:NSColor.whiteColor]);	}
-- (double) runtimeMills {	return [self runtime] * 1000.0; }
--   (NSTI) runtime 		{
+- (double) runtimeMills   {	return [self runtime] * 1000.0; }
+-   (NSTI) runtime        {
 			// never started																		/* start to stop time */
 	return !started ? 0.0 :	!stopped ? [started timeIntervalSinceNow] * -1 : [started timeIntervalSinceDate:stopped] * -1;
 		
 }
--   (NSS*) runtimePretty{ return [self.class runtimePrettyForRuntime:[self runtime]]; }
+-   (NSS*) runtimePretty  { return [self.class runtimePrettyForRuntime:self.runtime]; }
 +   (NSS*) runtimePrettyForRuntime:(NSTI)runtime {
 	double secsRem	= runtime;
 	// 3600 seconds in an hour
@@ -98,12 +103,6 @@ static char *TIMER_CONST;
   [s start];
 }
 
-//- (double) runningTimer {
-//
-//  AZStopwatchItem *s = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
-//	double run = [[self associatedValueForKey:@"totalDuration" orSetTo:@0]doubleValue];
-//	return (s && s.started) ? (run + s.runtime) : run;
-//}
 - (void) stopTiming {
 
   !self.stopWatch ?: [self.stopWatch stop];
@@ -112,8 +111,19 @@ static char *TIMER_CONST;
 //    [self setAssociatedValue:@(run) forKey:@"totalDuration"];
 }
 - (NSS*) elapsed { return self.stopWatch ? self.stopWatch.runtimePretty : nil; }
-//  AZStopwatchItem *i = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
-//	return i==nil ? nil : [AZStopwatchItem runtimePrettyForRuntime:self.runningTimer]; }
 
 @end
 
+
+/*
+
+ - (double) runningTimer {
+
+ AZStopwatchItem *s = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
+ double run = [[self associatedValueForKey:@"totalDuration" orSetTo:@0]doubleValue];
+ return (s && s.started) ? (run + s.runtime) : run;
+ }
+
+ AZStopwatchItem *i = objc_getAssociatedObject(self, (__bridge const void *)@"watch");
+	return i==nil ? nil : [AZStopwatchItem runtimePrettyForRuntime:self.runningTimer]; }
+ */

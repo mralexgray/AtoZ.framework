@@ -16,7 +16,7 @@
 	NSImage *image;
 	NSColor *color;
 }
-@property (RONLY) float dynamicStroke;
+@prop_RO float dynamicStroke;
 
 @property (assign) 			  BOOL 		selected;
 @property (assign) 			  BOOL 		hovered;

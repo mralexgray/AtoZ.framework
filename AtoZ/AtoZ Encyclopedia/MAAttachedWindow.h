@@ -31,7 +31,7 @@
      explicitly request that the window attach itself to a particular side.
  */
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 typedef enum _MAWindowPosition {
     // The four primary sides are compatible with the preferredEdge of NSDrawer.

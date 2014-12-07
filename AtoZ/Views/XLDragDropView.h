@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Xinranmsn Labs. All rights reserved.
 //
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @protocol DragDropViewDelegate;
 

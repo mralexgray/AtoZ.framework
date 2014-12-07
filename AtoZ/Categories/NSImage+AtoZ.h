@@ -55,23 +55,6 @@ AZPROP(NSString,cacheDirectory);
 static inline int 	get_bit							( unsigned char *arr, unsigned long bit_num);
 CGImageRef  			CreateCGImageFromData		( NSData * data );
 float 			  		distance							( NSP    aPoint );				// Just one function to declare...
-NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );
-
-@interface NSImage (Merge) <AZDynamicImages>
-/*!	@brief	Returns an image constructed by tiling a given array of images side-by-side or top-to-bottom.
- 		@param	spacingX  Spacing which will be applied horizontally between images, and at the left and right borders.
- 		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
- 		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
-
-+ (NSIMG*) contactSheetWith:(NSA*)imgs   columns:(NSUI)cols;  // I guess this is natiral size?
-+ (NSIMG*) contactSheetWith:(NSA*)imgs withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
-+ (NSIMG*) contactSheetWith:(NSA*)imgs   inFrame:(NSR)rect;//  columns:(NSUI)cols;
-
-+ (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
-+ (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;
-+ (NSIMG*) imageByTilingImages:(NSA*)imgs spacingX:(CGF)x spacingY:(CGF)y vertically:(BOOL)vertically;
-- (NSIMG*) imageBorderedWithInset: (CGF)inset;
-- (NSIMG*) imageBorderedWithOutset:(CGF)outset;			@end  // (MERGE)
 
 typedef void(^NSImageDrawer)(void);
 typedef void(^LockedFocusWithFrame)(NSR dRect);
@@ -86,7 +69,9 @@ extern NSData *PNGRepresentation(NSIMG *image);
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /*! [NSImage imageNamed:@"document"] */
 
 @import Quartz;
-@class AZFile;	@interface NSImage (AtoZ) <ClassKeyGet>
+@class AZFile;
+
+@interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
 
 
 + (NSIMG*) gravatarForEmail:(NSS*)e;
@@ -99,7 +84,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 //+ (id) objectForKeyedSubscript:(id)k;
 //@property (NATOM) CGF width, height;
-@property (RONLY) NSAS *attributedString;
+@prop_RO NSAS *attributedString;
 
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
@@ -152,6 +137,8 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 - (NSIMG*) initWithFile:(NSS*)file named:(NSS*)name;
 + (NSIMG*) imageWithFile:(NSS*)file named:(NSS*)name;
+
++ (INST) withFile:x;
 
 + (NSIMG*) systemIconNamed:(NSS*)name;
 + (NSIMG*) frameworkImageNamed:(NSS*)string;

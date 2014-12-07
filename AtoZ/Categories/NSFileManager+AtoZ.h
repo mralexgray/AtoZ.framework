@@ -62,7 +62,7 @@ NSS *    NSBundleFolder (void);
 - (BOOL)touchItemAtURL:(NSURL *)url error:(NSError **)outError;
 
 #ifdef DEBUG
-- (void) ogPropertiesOfTreeAtURL:(NSURL *)url;
+- (void) logPropertiesOfTreeAtURL:(NSURL *)url;
 #endif
 
 @end

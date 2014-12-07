@@ -74,9 +74,9 @@
 - (NSA*) resourcesWithExtensions:(NSA*)exts; // OK
 
 
-@property (RONLY) NSA* imageResources; // BROKEN
+@prop_RO NSA* imageResources; // BROKEN
 /*! @brief	Returns the path to the application's icon file, derived from the .icns file specified by "CFBundleIconFile" in the application's Info.plist.	*/
-@property (RONLY) NSS * appIconPath;
+@prop_RO NSS * appIconPath;
 /*!
  @brief	Returns the image in the file specified by -appIconPath.	*/
 @prop_RO NSIMG * appIcon;

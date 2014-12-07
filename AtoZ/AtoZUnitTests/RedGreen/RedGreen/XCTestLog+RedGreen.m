@@ -1,4 +1,7 @@
 
+#define LBREAK @"-+*%%$%%*+-%s-+*%%$%%*+-%s-+*%%$%%*+-%s-+*%%$-+*%%$%%*+-%s-+*%%$%%*+-%s\n"
+
+#define XDEFS NSUserDefaults.standardUserDefaults
 #define CLR_BEG "\033[fg"
 #define CLR_END "\033[;"
 #define CLR_WHT CLR_BEG "239,239,239;%s"CLR_END
@@ -12,6 +15,8 @@
 
 #define ENABLED(X) X ? "ENABLED" : "DISABLED"
 
+
+
 @import XCTest; /**  XCTestLog+RedGreen.m  *//* © 𝟮𝟬𝟭𝟯 𝖠𝖫𝖤𝖷 𝖦𝖱𝖠𝖸  𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆 */
 
 @implementation XCTest (Shutup) static BOOL onlyOnFail;
@@ -19,13 +24,10 @@
 + (void) setOnlyOnFail:(BOOL)only {
 
   @synchronized(self) {
-
     printf("Only Log On FAIL: " CLR_BEG "%s;%s\n", (onlyOnFail = only) ? "46,204,113" : "211,84,0", ENABLED(onlyOnFail));
-
   }
-
-
 }
+
 + (BOOL) onlyOnFail { return onlyOnFail; }
 
 @end
@@ -42,15 +44,16 @@
 
 __attribute__((constructor))
 static void initialize_redgreen() {
-  [NSUserDefaults.standardUserDefaults setObject:@"RedGreenTestObserver" forKey:@"XCTestObserverClass"];
-  [NSUserDefaults.standardUserDefaults synchronize];
-
+  [XDEFS setObject:@"RedGreenTestObserver" forKey:@"XCTestObserverClass"];
+  [XDEFS synchronize];
+  printf("XTrace set XCTestObserverClass to %s\n", "RedGreenTestObserver");
 }
 
 __attribute__((destructor))
 static void destroy_redgreen() {
-  [NSUserDefaults.standardUserDefaults setObject:@"XCTestLog" forKey:@"XCTestObserverClass"];
-  [NSUserDefaults.standardUserDefaults synchronize];
+  [XDEFS setObject:@"XCTestLog" forKey:@"XCTestObserverClass"];
+  [XDEFS synchronize];
+  printf("Xtrace reset XCTestObserverClass user defaults to %s\n", "XCTestObserverClass");
 }
 
 
@@ -64,34 +67,77 @@ static void destroy_redgreen() {
 //																	class_getInstanceMethod(self, @selector(testLogWithColorFormat:)));
 //}
 
-- init { self = super.init;
-	_xColorsON = getenv("XcodeColors") && !strcmp(getenv("XcodeColors"), "YES");
-  printf( CLR_WHT " : " CLR_WOW "  " CLR_WHT " : " CLR_WOW "\n",
-                                            "xcodecolors",
-                                              ENABLED(_xColorsON),
-                                              "Noisy",
-                                              ENABLED(PRINT_START_FINISH_NOISE));
+- init { return self = super.init ? ({
+
+  const char *xcc = getenv("XcodeColors");
+	_xColorsON = xcc &&
+       !strcmp(xcc, "YES"),
+
+  printf( CLR_WHT CLR_WOW CLR_WHT CLR_WOW CLR_WHT CLR_WOW "\n",
+          "xcodecolors : ",
+                  ENABLED(_xColorsON),
+                          " | Noisy : ",
+                                  ENABLED(PRINT_START_FINISH_NOISE),
+                                  " | XCTestObserverClass : ",
+                                  [[XDEFS objectForKey:@"XCTestObserverClass"] UTF8String]
+
+                                  ); }), self : nil;
 //  _document = @{}.mutableCopy;
   return self;
 }
 
 
-- (void)startObserving {
-//    printf("%s\n",NSStringFromSelector(_cmd).UTF8String);
-    [super startObserving];
+#pragma mark - Primary Result Logger
+
+- (void) testCaseDidStop:(XCTestRun*)testRun {
+//    XCTestCaseRun *testCaseRun = (XCTestCaseRun *) testRun;
+//    XCTest *test = [testCaseRun test];
+    if (!testRun.totalFailureCount)
+      printf(CLR_GRN CLR_WHT CLR_GRY "\n", "PASS",
+      [NSString stringWithFormat:@"%6.2fs ",testRun.testDuration].UTF8String,
+        testRun.test.name.UTF8String);
 }
 
-- (void)stopObserving {
+- (void) testCaseDidFail:(XCTestRun*)testRun
+         withDescription:(NSString*)description
+                  inFile:(NSString*)filePath
+                  atLine:(NSUInteger)lineNumber {
 
-//    printf("%s\n",NSStringFromSelector(_cmd).UTF8String);
+  XCTest *test = [testRun test];
 
-    [super stopObserving];
+
+  printf( CLR_RED " #%lu " CLR_GRY " " CLR_WHT "\n", "FAIL",
+    testRun.failureCount,
+    [[test.name substringToIndex:test.name.length-1]
+              substringFromIndex:[test.name rangeOfString:@" "].location].UTF8String,
+    description.UTF8String);
 }
 
-- (void)testSuiteDidStart:(XCTestRun *)testRun { // self.run = testRun;
+//- (void)startObserving {
+//    printf("%s\n",NSStringFromSelector(_cmd).UTF8String);
+//    [super startObserving];
+//}
+//- (void)stopObserving {
+//    printf("%s\n",NSStringFromSelector(_cmd).UTF8String);
+//    [super stopObserving];
+//}
 
-    printf(CLR_WOW " %lu \n", [testRun test].name.UTF8String,[(id)testRun testCaseCount]);//object_getClassName([(id)testRun testRunClass]));
+- (void) testSuiteDidStart:(XCTestRun*)testRun { // self.run = testRun;
 
+  /*! prints:
+    [fg241,196,15;All tests[; 22 (XCTestSuite)  | [fg241,196,15;GVoiceTests.xctest[; 22 (XCTestSuite)  | [fg241,196,15;GVTests[; 19 (XCTestCaseSuite)
+  */
+  NSUInteger count = [(id)testRun testCaseCount];
+  if (!count) return;
+  printf(CLR_WOW " %lu (" CLR_WHT ") %s",
+  testRun.test.name.UTF8String,
+  count,
+  testRun.test.className.UTF8String,
+  [testRun.test isKindOfClass:NSClassFromString(@"XCTestCaseSuite")] ? "\n" : " | "
+
+                        );
+
+//object_getClassName([(id)testRun testRunClass]));
 //    XCTestSuite *testSuite = (XCTestSuite *) [testRun test];
 //    _tests[testSuite.name] = @[].mutableCopy;
 //    _currentSuiteElement = @{@"testsuite:"];
@@ -118,10 +164,17 @@ static void destroy_redgreen() {
 //    }
 }
 
+#pragma mark - Noisy
+
 - (void)testCaseDidStart:(XCTestRun *)testRun { // self.run = testRun;
-    XCTest *test = [testRun test];
-    printf(CLR_GRY " (" CLR_WOW " Tests) \n", object_getClassName(test.testRunClass),
-                                    @(test.testCaseCount).stringValue.UTF8String);
+
+  if (!PRINT_START_FINISH_NOISE) return;
+
+  // prints:   [fg150,150,150;XCTestCaseRun[; ([fg241,196,15;1[; Tests)
+  XCTest *test = [testRun test];
+  printf(CLR_GRY " (" CLR_WOW " Tests) \n",
+          object_getClassName(test.testRunClass),
+                      @(test.testCaseCount).stringValue.UTF8String);
 
 //      if (testRun.failureCount==1)
 //    printf(CLR_BEG CLR_WHT ";START:%s - %s\n\n" CLR_END,test.name.UTF8String, test.description.UTF8String);
@@ -129,24 +182,7 @@ static void destroy_redgreen() {
 //    [_currentCaseElement addAttribute:[GDataXMLNode attributeWithName:@"name" stringValue:[test name]]];
 }
 
-- (void)testCaseDidStop:(XCTestRun *)testRun {
-//    XCTestCaseRun *testCaseRun = (XCTestCaseRun *) testRun;
-//    XCTest *test = [testCaseRun test];
-    if (!testRun.totalFailureCount)
-      printf(CLR_GRN CLR_GRY "\n", "PASS    ", testRun.test.name.UTF8String);
-}
 
-- (void)testCaseDidFail:(XCTestRun *)testRun withDescription:(NSString *)description inFile:(NSString *)filePath atLine:(NSUInteger)lineNumber; {
-
-  XCTest *test = [testRun test];
-
-
-  printf( CLR_RED " #%lu " CLR_GRY " " CLR_WHT "\n", "FAIL",
-    testRun.failureCount,
-    [[test.name substringToIndex:test.name.length-1]
-              substringFromIndex:[test.name rangeOfString:@" "].location].UTF8String,
-    description.UTF8String);
-}
 
 @end
 
@@ -279,3 +315,115 @@ NSString  * const kRGTestCaseFormat 				= @"%@: %s (%.3fs)",
  #import <stdarg.h>
 
  */
+
+
+@import ObjectiveC;
+#import "NSObject+CleanDescription.h"
+
+//  NSObject+AutoDescribe.m  AutoDescribe   Created by Simon Strandgaard on 10/5/12.
+
+@implementation NSObject (AutoDescribe)
+
+- (NSArray*) auto_uncodableKeys  { return nil; }
+- (NSArray*) auto_codableKeys    {
+
+    NSMutableArray *array = @[].mutableCopy;
+    Class class = self.class;
+    while (class != NSObject.class) {
+
+      unsigned int outCount = 0, i;
+      objc_property_t *properties = class_copyPropertyList(class, &outCount);
+
+      for (i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        const char *propName = property_getName(property);
+        if(propName) {
+//            const char *propType = getPropertyType(property);
+            NSString *propertyName = [NSString stringWithUTF8String:propName];
+//            NSString *propertyType = [NSString stringWithUTF8String:propType];
+//            [results setObject:propertyType forKey:propertyName];
+            [array addObject:propertyName];
+        }
+      }
+      free(properties);
+      class = class.superclass;
+    }
+
+    // returning a copy here to make sure the dictionary is immutable
+//    return [NSDictionary dictionaryWithDictionary:results];
+//    while (class != NSObject.class)
+//    {
+//        unsigned int count;
+//        objc_property_t *properties = class_copyPropertyList(class, &count);
+//        for (int i = 0; i < count; i++) {
+//
+//            objc_property_t property = properties[i];
+//            const char   *attributes = property_getAttributes(property);
+//            NSString       *encoding = [NSString stringWithCString:attributes encoding:NSUTF8StringEncoding];
+//            if (![[encoding componentsSeparatedByString:@","] containsObject:@"R"]) {
+//
+//                //omit read-only properties
+//                const char *name = property_getName(property);
+//                [array addObject:[NSString stringWithCString:name encoding:NSUTF8StringEncoding]]; // key
+//            }
+//        }
+//        free(properties);
+//        class = class.superclass;
+//    }
+    [array removeObjectsInArray:self.auto_uncodableKeys];
+    return array;
+}
+
+- (NSString*) autoDescribe {
+
+	// Don't try to autoDescribe NSManagedObject subclasses (Core Data does this already)
+  BOOL managed = [self isKindOfClass:NSClassFromString(@"NSManagedObject")];
+  return managed ? self.description : [self autoDescribe:self.class var:NULL];
+}
+- (NSString*) autoDescribeVar:(const char*)name { return [self autoDescribe:self.class var:name]; }
+- (NSString*) autoDescribe:(Class)classType
+                          var:(const char*)name {
+
+  unsigned int       count;
+  objc_property_t *propList = class_copyPropertyList(classType, &count);
+  NSMutableString *propPrnt = name ? [NSMutableString stringWithFormat:@"\n\n%20s * %s =\n\n", self.className.UTF8String, name]
+                                   : @"".mutableCopy;
+
+  NSMutableArray *nilKeys = @[].mutableCopy;
+
+  for ( int i = 0; i < count; i++ ){
+
+    if (i) [propPrnt appendString:@"\n"];
+    objc_property_t  property = propList[i];
+    NSString * propNameString = [NSString stringWithUTF8String:property_getName(property)];
+    if(!property_getName(property)) continue;
+    @try {
+
+      id value = [self valueForKey:propNameString];
+      if (!value) { [nilKeys addObject:propNameString]; continue; }
+
+      if ([propNameString isEqualToString:@"nanoObjectDictionaryRepresentation"])
+
+        [propPrnt appendFormat:@"nanoObjectDictionaryRepresentation (%@) COUNT:%lu", [value className], [value count]];
+
+      else [propPrnt appendFormat:@"%20s   %@",propNameString.UTF8String, value];
+    }
+    @catch (NSException *exc) {
+      [propPrnt appendFormat:@"Can't get value for property %@ through KVO 😡",propNameString];
+    }
+  }
+  free(propList);
+  if (!name) {
+    NSString *nCounter = !nilKeys.count ? @"" :[NSString stringWithFormat:@" (NULL Keys: %@)",[nilKeys componentsJoinedByString:@", "]],
+             *insert  = [NSString stringWithFormat:@"%@%@%@\n", LBREAK, NSStringFromClass(classType), nCounter];
+    [propPrnt insertString:insert atIndex:0];
+  }
+
+  Class superClass = class_getSuperclass(classType);   // Now see if we need to map any superclasses as well.
+  !superClass || [superClass isEqual:NSObject.class] ?:
+    [propPrnt appendFormat:@"\n%@", [self autoDescribe:superClass var:NULL]];
+
+  return propPrnt;
+}
+
+@end

@@ -137,10 +137,10 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 @prop_RO id randomValue, randomKey;
 
 + (NSD*) withFile:(NSS*)p;
-@property (RONLY) VAL* oldVal, *newVal;
-@property (RONLY) NSN* oldNum, *newNum;
+@prop_RO VAL* oldVal, *newVal;
+@prop_RO NSN* oldNum, *newNum;
 
-@property (RONLY) NSS* flattenedString;
+@prop_RO NSS* flattenedString;
 
 - (NSA*) mapToArray:(KeyValueToObjectBlock)block;
 

@@ -1,8 +1,7 @@
-/**
-  MMStopwatch.h
-  MBMLibrary
-  Created by Matt Maher on 1/24/12.
-*//*
+
+/*! MMStopwatch.h MBMLibrary  Created by Matt Maher on 1/24/12. */
+
+/*
 	[MMStopwatchARC start:@"My Timer"];  		your work here ...	[MMStopwatchARC stop:@"My Timer"];
 		
 		And you end up with:
@@ -12,11 +11,7 @@
 
 #import "AtoZUmbrella.h"
 
-
 @interface AZStopwatch : NSObject 
-
-//+ (void) timerBlock:((^)(char *file))block;
-#define AZSTOPWATCH(...) [AZStopwatch named:$UTF8(__PRETTY_FUNCTION__) block:^{ ({ __VA_ARGS__; }); }]
 
 + (void) named:	(NSS*)name block: (VoidBlock)block;
 + (void) stopwatch:(NSS*)name timing:(VoidBlock)block;
@@ -44,6 +39,10 @@
 @interface  NSObject (Stopwatch)
 - (void) startTiming;
 - (void) stopTiming;
-@prop_RO AZStopwatchItem* stopWatch;
-@prop_RO NSS* elapsed;
+
+@prop_RO AZStopwatchItem * stopWatch;
+@prop_RO             NSS * elapsed;
 @end
+
+//+ (void) timerBlock:((^)(char *file))block;
+#define AZSTOPWATCH(...) [AZStopwatch named:$UTF8(__PRETTY_FUNCTION__) block:^{ ({ __VA_ARGS__; }); }]

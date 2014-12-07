@@ -3,7 +3,7 @@
 //
 
 #ifdef __OBJC__
-//	@import AppKit;
+//	#import <AppKit/AppKit.h>
 //	#import <QuartzCore/QuartzCore.h>
 //	#import <AtoZ/AtoZ.h>
 //	#import <MenuApp/MenuApp.h>

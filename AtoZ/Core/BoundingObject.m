@@ -804,7 +804,7 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(index,setIndex,NSUI);
 SYNTHESIZE_ASC_OBJ_LAZY(getter, class)(, setter)(storage, NSMA);
 SYNTHESIZE_ASC_CAST(onInsert, setOnInsert,MutationBlock);
 
-@property (RONLY) NSMA<Indexed>*storage;
+@prop_RO NSMA<Indexed>*storage;
 
 
 

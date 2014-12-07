@@ -3,12 +3,12 @@
 
 @interface AZExpandableView : TUIView
 
-@property (RONLY) NSIMG	* favicon;
-@property (RONLY)   NSC	* color;
-@property (RONLY)  	NSS * string;
-@property (RONLY)	NSURL	* url;
-@property (RONLY)	 NSAS	* attrString;
-@property (RONLY)	 BOOL   faviconOK;
+@prop_RO NSIMG	* favicon;
+@prop_RO   NSC	* color;
+@prop_RO  	NSS * string;
+@prop_RO	NSURL	* url;
+@prop_RO	 NSAS	* attrString;
+@prop_RO	 BOOL   faviconOK;
 @property (NATOM)  NSMD * dictionary;
 
 @end

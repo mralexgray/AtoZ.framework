@@ -7,7 +7,7 @@
 //
 
 //#import "AtoZUmbrella.h"
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import "BaseModel.h"
 
 

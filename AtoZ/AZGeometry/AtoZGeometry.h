@@ -610,9 +610,9 @@ extern "C" {
 /*
 @protocol AZScalar <NSObject>
 @required 
-@property (RONLY) NSS *key1, *key2;
+@prop_RO NSS *key1, *key2;
 @concrete
-@property (RONLY)   CGF   min, max;
+@prop_RO   CGF   min, max;
 @end
 
 @interface AZPoint : NSObject <AZScalar>

@@ -7,7 +7,7 @@
 //
 
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @interface       MetalImageCell : NSImageCell             @end
 @interface       MetalImageView : NSImageView

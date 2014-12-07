@@ -7,7 +7,7 @@
 //#import <DrawKit/DrawKit.h>
 
 @interface StarLayer ()
-@property (RONLY) 		CALayer *root;
+@prop_RO 		CALayer *root;
 @property (STRNG) 	 	CALayer *star, *text;
 
 @end

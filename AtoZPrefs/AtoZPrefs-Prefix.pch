@@ -3,7 +3,7 @@
 //
 
 #ifdef __OBJC__
-	@import AppKit;
+	#import <AppKit/AppKit.h>
 	#import <PreferencePanes/PreferencePanes.h>
 	#import <Foundation/Foundation.h>
 	#import <AtoZ/AtoZ.h>

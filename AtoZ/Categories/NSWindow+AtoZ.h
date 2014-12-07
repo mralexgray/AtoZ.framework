@@ -184,8 +184,8 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
 
 @end
 //- (void) setFrame:(NSR)frame;
-//@property (RONLY) NSR   bounds;
-//@property (RONLY) CGF   originX, originY;
+//@prop_RO NSR   bounds;
+//@prop_RO CGF   originX, originY;
 // Size
 //@property (nonatomic) CGF width;
 //@property (nonatomic) CGF height;

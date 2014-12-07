@@ -3,7 +3,7 @@
 
 
 @interface NSData (AtoZ)
-@property (RONLY) NSS* UTF8String, *UTF16String;
+@prop_RO NSS* UTF8String, *UTF16String;
 @end
 
 @interface NSParagraphStyle (AtoZ)
@@ -24,9 +24,9 @@
 + (NSA*) digits;
 + (NSA*) lettersAndNumbers;
 
-@property (RONLY) BOOL isInteger;
+@prop_RO BOOL isInteger;
 @property   			NSRNG	subRange;
-@property (RONLY) NSRNG range;
+@prop_RO NSRNG range;
 
 - (void) openInTextMate;
 
@@ -40,7 +40,7 @@
 + (NSS*) stringFromArray:(NSA*)a withDelimeter:(NSS*)del last:(NSS*)last;
 
 #pragma mark - Parsing / Cleaning
-@property (RONLY) NSS * JSONRepresentation,
+@prop_RO NSS * JSONRepresentation,
 							 *	stringByDecodingXMLEntities,
 							 *	stringByCleaningJSONUnicode,
 							 *	stringByStrippingHTML,
@@ -56,7 +56,9 @@
 							 * MD5String,
                * humanReadableEncoding;
 
-@property (RONLY) NSData *UTF8Data;
+@prop_RO const char * ASCIIString;
+
+@prop_RO NSData *UTF8Data;
 
 - (NSS*) parseXMLTag:(NSS*) tag;
 //- (NSS*)decodeAllPercentEscapes;
@@ -102,7 +104,7 @@
     @"apple".wikiDescription ->
     Apple Inc. is an American multinational corporation that designs and sells consumer electronics, computer software, and personal computers. The company's best-known hardware products are the Macintosh line of computers, the iPod, the iPhone and the iPad.
 */
-@property (RONLY) NSS* wikiDescription;
+@prop_RO NSS* wikiDescription;
 
 /** @return A "random" word, like _dehydrogenate_ fetched from the kind folks at http://randomword.setgetgo.com/get.php */
 + (NSS*) randomWord;
@@ -167,14 +169,14 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 - (CGF)widthWithFont:(NSF *)font;
 - (NSR)frameWithFont:(NSF *)font;
 
-//@property (RONLY) NSC *colorValue;
+//@prop_RO NSC *colorValue;
 - (void)drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor:(NSC *)color;
 // new way
 - (void)drawInRect:(NSR)r withFont:(NSFont *)font andColor:(NSC *)color;
 //- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
 - (void)drawCenteredInRect:(NSR)rect withFont:(NSF *)font;
 
-@property (RONLY)	NSS * trim,				/*** Returns the string cleaned from leading and trailing whitespaces */
+@prop_RO	NSS * trim,				/*** Returns the string cleaned from leading and trailing whitespaces */
 							 * reversed,		/*** Returns the reverse version of the string */
 							 *	shifted,			/*** Returns the substring after the first character in this string */
 							 * popped,			/*** Returns the substring not containing the last character of this string */
@@ -182,9 +184,9 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 							 * camelized,		/*** Returns a CamelCase Version of this string */
 							 * hyphonized,
 							 * underscored;
-@property (RONLY) BOOL   isHexString,
+@prop_RO BOOL   isHexString,
                          isEmpty;		/*** Returns YES if this string is nil or contains nothing but whitespaces */
-@property (RONLY) NSUI   indentationLevel;									/*** Counts the whitespace chars that prefix this string */
+@prop_RO NSUI   indentationLevel;									/*** Counts the whitespace chars that prefix this string */
 - (NSUI)count:(NSS*)aString;														/*** Counts occurrences of a given string */
 - (NSUI)count:(NSS*)aString options:(NSStringCompareOptions)flags; 	/*** Cunts occurrences of a given string with sone compare options */
 
@@ -207,19 +209,19 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 /*** Returns the first NSRange of any matching substring in this string that is part of the strings set */
 - (NSRNG) rangeOfAny:(NSSet*)strings;
 /*** Returns this string splitted by lines. * Shortcut for componentsSeperatedByString:@"\n" */
-@property (RONLY) NSA * lines;
+@prop_RO NSA * lines;
 /*** Returns this string splitted by carriage return + newline. * Shortcut for componentsSeperatedByString:@"\r\n" */
-@property (RONLY) NSA *eolines;
+@prop_RO NSA *eolines;
 
 /*** Returns this string splitted by whitespaces.  Shortcut for componentsSeperatedByString:@" " Empty elements will not be part of the array */
-@property (RONLY) NSA * words;
-@property (RONLY) NSA * wordsWithRanges;
+@prop_RO NSA * words;
+@prop_RO NSA * wordsWithRanges;
 /*** Returns a set with all unique elements of this String, separated by whitespaces */
-@property (RONLY) NSSet *wordSet;
+@prop_RO NSSet *wordSet;
 
 - (NSA*) trimmedComponentsSeparatedByString:(NSS*) delimiter;
 
-@property (RONLY) NSA *decolonize, *splitByComma;
+@prop_RO NSA *decolonize, *splitByComma;
 
 - (NSS*) substringBefore:(NSS*)delimiter;
 - (NSS*)  substringAfter:(NSS*)delimiter;
@@ -228,16 +230,16 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 - (BOOL) splitAt:(NSS*)delimiter head:(NSS**)head tail:(NSS**)tail;
 
 // excuse the pun, but it divides the string into a head and body word, trimmed
-@property (RONLY)  NSA * decapitate;
+@prop_RO  NSA * decapitate;
 // TBD whether they belong here or elsewhere
-@property (RONLY)  NSP   pointValue;
-@property (RONLY) NSUI   minutesValue, secondsValue;
+@prop_RO  NSP   pointValue;
+@prop_RO NSUI   minutesValue, secondsValue;
 
-@property (RONLY) NSURL * url, * fileURL;
+@prop_RO NSURL * url, * fileURL;
 
-@property (RONLY) NSS * ucfirst, * lcfirst,  *fileContents;
+@prop_RO NSS * ucfirst, * lcfirst,  *fileContents;
 
-@property (RONLY) NSAS * attributedWithDefaults;
+@prop_RO NSAS * attributedWithDefaults;
 
 
 + (INST) stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
@@ -291,8 +293,8 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 - (void) drawInRect:(NSR)r withContrastingBackground:(NSC*)c;
 - (void) drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c;
 - (void) draw;
-@property (RONLY) NSFont *font;
-@property (RONLY) NSMD* attributes;
+@prop_RO NSFont *font;
+@prop_RO NSMD* attributes;
 + (NSD*) defaults;
 - (NSAS*) stringBySettingAttributes:(NSD*)attr;
 @end
@@ -424,9 +426,9 @@ extern int gNSStringGeometricsTypesetterBehavior;
 -  (NSS*) stringByReplacingPrefix:(NSS*) prefix withString:(NSS*) string;
 -  (NSS*) stringByReplacingSuffix:(NSS*) suffix withString:(NSS*) string;
 
-@property (RONLY) BOOL  isIntegerNumber, isFloatNumber;
-@property (RONLY) NSA *sentences;
-@property (RONLY) NSS *firstSentence;
+@prop_RO BOOL  isIntegerNumber, isFloatNumber;
+@prop_RO NSA *sentences;
+@prop_RO NSS *firstSentence;
 @end
 
 @interface NSMutableString (Extensions)
@@ -641,7 +643,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 @end
 
 @interface NSString (SNRAdditions)
-@property (RONLY) NSS * stringWithoutSpaces,  * stringByRemovingExtraneousWhitespace, * MD5, * URLEncodedString,
+@prop_RO NSS * stringWithoutSpaces,  * stringByRemovingExtraneousWhitespace, * MD5, * URLEncodedString,
                       * normalizedString,     * upperBoundsString,                    * spaceSeparatedComponents;
 
 - (NSS*)stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
@@ -678,7 +680,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 /** Count lines.
  * @returns The number of lines in the string.
  */
-@property (RONLY) NSI numberOfLines;
+@prop_RO NSI numberOfLines;
 
 /** Count occurrences of a character.
  * @param ch The character to search for.
@@ -701,12 +703,12 @@ extern int gNSStringGeometricsTypesetterBehavior;
 /**
  * @returns YES if the string is in uppercase.
  */
-@property (RONLY) BOOL isUppercase,
+@prop_RO BOOL isUppercase,
 
 /*** @returns YES if the string is in lowercase */
                         isLowercase;
 
-@property (RONLY) NSA * keyCodes;
+@prop_RO NSA * keyCodes;
 
 + (NSS*) visualStringWithKeySequence:(NSA*)keySequence;
 @end

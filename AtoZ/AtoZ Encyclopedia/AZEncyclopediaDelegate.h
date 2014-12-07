@@ -33,11 +33,11 @@
 @property (NATOM, ASS)   IBOutlet TransparentWindow *controlWindow;
 //@property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
 
-- (IBAction) addNote:(id)sender;
-- (IBAction) removeAllNotes:(id)sender;
-- (IBAction) goMouseTest:(id)sender;
-- (IBAction) reload:(id)sender;
-- (IBAction) moveThemAll:(id) sender;
+- (IBAction) addNote:_;
+                              - (IBAction) removeAllNotes:_;
+                              - (IBAction) goMouseTest:_;
+                              - (IBAction) reload:_;
+                              - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
 @property (NATOM, ASS) CGRect scaledUnit;
 @property (nonatomic, strong) IBOutlet iCarouselViewController *vc;
@@ -63,8 +63,8 @@
 
 @property (nonatomic, strong) IBOutlet AZToggleArrayView   *sortToggle;
 
-//-(IBAction)toggleShake:(id)sender;
-
+//-(IBAction)toggleShake:_;
+                              
 @end
 /*
 @class Cell;

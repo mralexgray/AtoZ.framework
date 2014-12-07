@@ -4,7 +4,7 @@
 #import <Zangetsu/Zangetsu.h>
 //#import "extobjc_OSX/extobjc.h"
 #import "AtoZUmbrella.h"
-#import "AtoZCategories.h"
+//#import "AtoZCategories.h"
 
 
 @protocol IBSingleton <NSObject> @optional - (void) setUp;
@@ -38,7 +38,7 @@
 @interface AZObject : NSObject <NSCoding, NSCopying> //,NSFastEnumeration>
 + (INST) instanceWithKeysAndObjects:(NSS*)key1,...;
 @property id representedObject;
-@property (RONLY) NSA *keys;
+@prop_RO NSA *keys;
 @end
 
 // Shared instance is the object modified after each key change

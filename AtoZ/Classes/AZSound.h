@@ -9,11 +9,12 @@
 @interface SoundManager (AtoZ)
 
 + (Sound*)    soundNamed:(NSS*)n;
-//+ (Sound*)   randomSound;
 + (NSA*)      soundPaths;
 + (void) playRandomSound;
 
 @end
+
+//+ (Sound*)   randomSound;
 
 /*
 @property (readonly, getter = isPlayingMusic) BOOL playingMusic;
@@ -83,7 +84,7 @@
 - (INST)   initWithContentsOfURL:(NSU*)url;
 
 @property (RONLY,CP)                    NSS * name;
-@property (RONLY)                       NSU * url;
+@prop_RO                       NSU * url;
 @property (RONLY,getter = isPlaying)   BOOL   playing;
 @property (NATOM,getter = isLooping)   BOOL   looping;
 @property (NATOM,CP) SoundCompletionHandler   completionHandler;

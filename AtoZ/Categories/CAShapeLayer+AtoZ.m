@@ -1,5 +1,5 @@
 
-@import QuartzCore;
+#import <QuartzCore/QuartzCore.h>
 
 #import "AtoZ.h"
 #import "CAShapeLayer+AtoZ.h"

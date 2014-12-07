@@ -1,4 +1,4 @@
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import <AtoZ/AtoZ.h>
 //#import "AZBeetlejuice.h"
 

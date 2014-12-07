@@ -31,7 +31,7 @@ JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS,  AssetTypeHTML5,
 									 		        active;
 @property (STR)				  NSB * bundle;
 @property				  AssetType 	assetType;
-@property (RONLY)				NSS * markup;
+@prop_RO				NSS * markup;
 + (instancetype) test;
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit;
 @end

@@ -19,7 +19,7 @@
 		XX(toEval);
 		[(WebView*)v evaluate:toEval];
 	}];
-	[_webView.mainFrame.frameView setAllowsScrolling: NO];
+	[_webView.mainFrame.frameView setAllowsScrolling: YES];
 
 	[_webView.windowScriptObject setValue:self forKey:@"ObjC"];
 	[_webView appendTag:@"section" attrs:@{@"class":@"example"} inner:

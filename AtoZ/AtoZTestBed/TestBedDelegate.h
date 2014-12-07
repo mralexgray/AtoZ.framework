@@ -12,15 +12,15 @@
 @property (USF) IBOutlet MenuAppController * menu;          // MENU BAR
 @property (USF) IBOutlet     AtoZColorWell * colorWell;
 
-- (IBAction)newTab:(id)sender;
-
+- (IBAction)newTab:_;
+                              
 @property    GeneralVC * genVC;
 @property         UIVC * uiVC;
 @property      ColorVC * colorVC;
 @property         FBVC * fbV;
 @property       TUIVVC * tuiVC;
 
-@property (RONLY) NSMA * windowControllers;
+@prop_RO NSMA * windowControllers;
 @property NST       	 * colorFade;
 
 @property (ASS) IBOutlet NSW * window;
@@ -30,25 +30,25 @@
 //@property (ASS) IBOutlet NSView		*scrollTestHost;
 //@property (ASS) IBOutlet CAScrollView*scrollTest;
 
-//- (IBAction) setViewFromPopUp:(id)sender;
-//- (IBAction) reZhuzhScrollLayer:(id)sender;
-/*
+//- (IBAction) setViewFromPopUp:_;
+                              //- (IBAction) reZhuzhScrollLayer:_;
+                              /*
 @property (STRNG) IBOutlet NSBUTT *holdOntoViews;
 
 @property (STRNG)	BLKVIEW  *host;
 @property (STRNG) CASCRLL  *scrlr;
 @property (NATOM) CAGL	   *hit;
 @property (NATOM) NSMD	   *model;
-@property (RONLY) NSRNG 	visible, front, back;
-@property (RONLY) NSS	   *fixState;
-@property (RONLY) ScrollFix scrollFix;
-@property (RONLY) NSS 		*visibleSubsString;
+@prop_RO NSRNG 	visible, front, back;
+@prop_RO NSS	   *fixState;
+@prop_RO ScrollFix scrollFix;
+@prop_RO NSS 		*visibleSubsString;
 @property (NATOM) CGF 		off;
 @property (NATOM)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
 @property (STRNG) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
 
-- (IBAction)scrollFromSegment:(id)sender;
-*/
+- (IBAction)scrollFromSegment:_;
+                              */
 //@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;
 //@property (weak) IBOutlet NSView	*scrollTest;
@@ -56,7 +56,7 @@
 //@property (nonatomic, strong) CAScrollLayer *scrollLayer;
 //@property (nonatomic, strong) CAL *scrollLayerContent;
 //
-//@property (RONLY) NSS* visiRect;
+//@prop_RO NSS* visiRect;
 
 //@property (weak) 		 id  					activeView;
 //@property (NATOM, STRNG) WeakMutableArray		*vcs;
@@ -82,15 +82,15 @@
 
 
 
-//-(IBAction)scrollLowerRight:(id)sender;
-//-(IBAction)scrollRight:(id)sender;
-//-(IBAction)scrollUp:(id)sender;
-//-(IBAction)scrollDown:(id)sender;
-//-(IBAction)scrollLeft:(id)sender;
-//-(IBAction)scrollUpperLeft:(id)sender;
-//-(IBAction)scrollUpperRight:(id)sender;
-//-(IBAction)scrollLowerLeft:(id)sender;
-//extern NSS* stringForScrollFix(ScrollFix val);
+//-(IBAction)scrollLowerRight:_;
+                              //-(IBAction)scrollRight:_;
+                              //-(IBAction)scrollUp:_;
+                              //-(IBAction)scrollDown:_;
+                              //-(IBAction)scrollLeft:_;
+                              //-(IBAction)scrollUpperLeft:_;
+                              //-(IBAction)scrollUpperRight:_;
+                              //-(IBAction)scrollLowerLeft:_;
+                              //extern NSS* stringForScrollFix(ScrollFix val);
 
 
 /*

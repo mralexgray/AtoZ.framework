@@ -51,83 +51,6 @@ Method GetImplementedInstanceMethod		  (Class aClass, SEL sel);
 void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task", ^{ performLongTask() } );
 
 
-// StringConsts.h
-#ifdef SYNTHESIZE_CONSTS
-# define STR_CONST(name, value) NSString* const name = @ value
-#else
-# define STR_CONST(name, value) extern NSString* const name
-#endif
-
-#define __VA_ARG_CT__(...) __VA_ARG_CT__IMPL(0, ## __VA_ARGS__, 5,4,3,2,1,0)
-#define __VA_ARG_CT__IMPL(_0,_1,_2,_3,_4,_5,N,...) N
-
-//#define __VA_ARG_CT__(...) (sizeof(#__VA_ARGS__) == sizeof("") ? 0 : VA_NUM_ARGS_IMPL(__VA_ARGS__, 5,4,3,2,1))
-
-
-#define VA_NUM_ARGS(...) VA_NUM_ARGS_IMPL(__VA_ARGS__, 9,8,7,6,5,4,3,2,1) 	 	// USAGE int i = VA_NUM_ARGS("sssss",5,3);  -> i = 3
-#define VA_NUM_ARGS_IMPL(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...) N
-
-//@interface NSIMG (SizeLike) <SizeLike> @end
-
-//#define    FORBIDDEN_CLASSES( ([NSA arrayWithObjects:__VA_ARGS__]contains           [NSException raise:@"We should never get here!" format:@"%@ should have implemented this:%@", self.className, AZSELSTR]
-#define  ASSERTSAME(A,B)      NSAssert(A == B, @"These values should be same, but they are %@ and %@", @(A), @(B))
-#define    CONFORMS(PROTO)    [self conformsToProtocol:@protocol(PROTO)]
-#define IF_CONFORMS(PROTO,X)  if(CONFORMS(PROTO)){ ({ X; }) }
-
-#define    GETALIASF(X)        return [self floatForKey:@#X]  // [self vFK:NSStringify(X)];    [value getValue: ptr];    (const char * typeCode, void * value); [self  X]
-#define    SETALIAS(X,V)      [self sV:V fK:@#X]
-
-//#define REFUSE_CLASSES(SPLIT)
-//	[NSException raise:@"NonConformantProtocolMethodFallThrough" format:@"This concrete protocol NEEDS YOU (%@) to
-
-#define YOU_DONT_BELONG return [NSException raise:@"ProtocolIsOverridingYourMethod" format:@"You already implement %@. why are you (%@) here?", AZSELSTR, self]
-
-#define DEMAND_CONFORMANCE	[NSException raise:@"NonConformantProtocolMethodFallThrough" format:@"This concrete protocol NEEDS YOU (%@) to implement this method,.. %@ elsewhere... for internal peace and traquility.",self.className, AZSELSTR]
-
-#ifndef AZO
-#define AZO AZOrient
-#endif
-//- (BOOL) isVertical;
-
-
-#define ISKINDA isKindOfClass                                 /*! @code  [@"d" ISKINDA:NSNumber.class]   -> NO     */
-#define ISA(OBJ,KLS) (BOOL)([((id)OBJ) ISKINDA:[KLS class]])	/*! @code  ISA(@"apple",NSString)          -> YES    */
-#define ISNOTA(OBJ,KLASS) (BOOL)(!ISA(((id)OBJ),KLASS))       /*! @code  ISA(@"apple",NSString)          -> YES    */
-#define AM_I_A(KLASS) ISA(self,KLASS)                         /*! @code  AM_I_A(NSString)                -> YES    */
-
-
-#define IS_NULL(X) (!X || [X isEqual:AZNULL])
-
-
-///#define ANYSUPERLAYERISA
-
-//OBJC_EXPORT  BOOL AZISAAnyOfThese(Class x, ...); // under construction
-
-//#define ISANYOF(OBJ,...) AZISAAnyOfThese([OBJ class],__VA_ARGS__,NULL) // under construction
-
-OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...); 
-
-#define EQUAL2ANYOF(OBJ,...) (BOOL)AZEqualToAnyObject(OBJ,__VA_ARGS__)
-
-#define ISIN(X,ARRAY) [ARRAY containsObject:X]
-
-#define IS_IN_STATIC_SPLIT(NEEDLE,...) ISIN(NEEDLE,SPLIT(__VA_ARGS__))
-
-// ({ AZSTATIC_OBJ(NSA,HAYSTACK,SPLIT(HAYSTACK)); [HAYSTACK containsObject:NEEDLE]; })
-
-#define ISACLASS(OBJ) class_isMetaClass(object_getClass(OBJ))
-
-/*! ALLARE - check that all NSArray objects are a certain class.. @code  id x = @[RED, GREEN, @1]; ALLARE(x,NSC)) ? [x ...] : nil;  */
-
-#define ALLARE(OBJS,KLS) ({ NSParameterAssert(ISA(OBJS,NSA)); [OBJS all:^BOOL(id obj) { return ISA(obj,KLS); }]; })
-
-//object_getClass([a class]))					// USAGE  ISACLASS(NSString)					-> YES
-
-// USAGE  IFKINDA( X, SomeClass, LOG_EXPR(((SomeClass*)X).someProperty) );
-#define IFKINDA(_obj_,_meta_,_method_)				  ({ if([_obj_ ISKINDA:[_meta_ class]]) _method_; })
-#define IFKINDAELSE(_obj_,_meta_,_method_,_else_) ({ if([_obj_ ISKINDA:[_meta_ class]]) _method_; else _else_; })
-#define IFNOT(_condition_,_action_)					  ({ if(!(_condition_)) _action__; })
-
 
 #define AZOL AZOutlineLayer
 
@@ -366,8 +289,9 @@ void AZSpinnerInViewWithColor(NSV * view, NSC * color);
 //{return degrees * M_PI / 180;};
 //CGFloat RAD2DEG(CGFloat radians) {return radians * 180 / M_PI;};
 
-NSS* StringFromCATransform3D(CATransform3D transform);
-NSS* prettyFloat(CGFloat f);
+
+OBJC_EXPORT NSS* StringFromCATransform3D (CATransform3D); /* HOT! */
+OBJC_EXPORT NSS* prettyFloat(CGFloat f);
 
 NS_INLINE void rebuildServicesMenu(void) {  NSUpdateDynamicServices(); printf("The services menu has been rebuilt. You must restart any active applications to see changes.\n"); }
 

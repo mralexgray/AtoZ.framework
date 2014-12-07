@@ -15,17 +15,17 @@
 
 @property (NATOM)  			NSSZ		unit;
 @property (NATOM) 		NSUI 		fixWatchdog;
-@property (RONLY)				NSA 		*allLayers;
+@prop_RO				NSA 		*allLayers;
 @property (NATOM) 	NSMA 		*layerQueue;
 @property (NATOM) 	CAL 		*hoveredLayer, *selectedLayer, *scrollLayer;
 @property (NATOM)  		AZOrient		oreo;
 
 @property (UNSF) id <CAScrollViewDelegate>  delegate;
-@property (RONLY) CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
-@property (RONLY) NSUI  sublayerCt;
+@prop_RO CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
+@prop_RO NSUI  sublayerCt;
 
-- (IBAction)toggleOrientation:(id)sender;
-
+- (IBAction)toggleOrientation:_;
+                              
 //@property (NATOM, ASS)	BOOL 	needsLayout;
 
 @end

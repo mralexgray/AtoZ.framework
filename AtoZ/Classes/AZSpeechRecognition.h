@@ -7,9 +7,9 @@
 
 AZPROP(NSString,whatever);
 
-- (IBAction) recognizerForLabel:(id)sender;
-- (IBAction) record:(id)sender;
-@end
+- (IBAction) recognizerForLabel:_;
+                              - (IBAction) record:_;
+                              @end
 
 
 typedef void (^SpeechToTextDone) 	(NSString *text);

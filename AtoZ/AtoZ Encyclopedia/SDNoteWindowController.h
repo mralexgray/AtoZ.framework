@@ -26,8 +26,8 @@
 	NSTrackingArea *buttonTrackingArea;
 }
 
-- (IBAction) deleteNote:(id)sender;
-
+- (IBAction) deleteNote:_;
+                              
 - (id) initWithDictionary:(NSDictionary*)dictionary;
 
 - (void) setTitle:(NSString*)title;

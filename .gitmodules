@@ -320,3 +320,12 @@
 [submodule "Frameworks/SoundManager"]
 	path = Frameworks/SoundManager
 	url = https://github.com/mralexgray/SoundManager.git
+[submodule "Frameworks/DateTools"]
+	path = Frameworks/DateTools
+	url = https://github.com/mralexgray/DateTools.git
+[submodule "AtoZ/Classes/Tesseract"]
+	path = AtoZ/Classes/Tesseract
+	url = https://github.com/jinahadam/SimpleTesseract.git
+[submodule "Frameworks/Butter"]
+	path = Frameworks/Butter
+	url = git@github.com:mralexgray/Butter.git

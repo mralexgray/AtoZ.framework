@@ -825,8 +825,9 @@ static char windowPosition;
 + (NSS*) autoDescribe {
 	return $(@"%@:%p::%@", self.class, self, [self autoDescribeWithClassType:[self class]]);
 }
-- (NSS*) autoDescribe {
-	Class clazz     = self.class;
+- (NSS*) autoDescription {
+
+  Class clazz     = self.class;
 	u_int count;
 	Ivar *ivars     = class_copyIvarList(clazz, &count);
 	NSMA *ivarArray = NSMA.new;
@@ -847,13 +848,13 @@ static char windowPosition;
 	NSMA *methodArray = NSMA.new;
 	for (int i = 0; i < count; i++) {
 		SEL selector = method_getName(methods[i]);
-		const char *methodName = sel_getName(selector);
-		[methodArray addObject:[NSS stringWithUTF8String:methodName]];
+//		const char *methodName = sel_getName(selector);
+    [methodArray addObject:NSStringFromSelector(selector)];//[NSS stringWithUTF8String:methodName]];
 	}
 	free(methods);
-	return $(@"%@",    @{      @"ivars" : [ivarArray formatAsListWithPadding:30],
-			@"properties": [propertyArray formatAsListWithPadding:30],
-			@"methods": [methodArray formatAsListWithPadding:30] });
+	return $(@"%@",    @{      @"ivars" : ivarArray, // formatAsListWithPadding:30],
+			@"properties": propertyArray, // formatAsListWithPadding:30],
+                             @"methods": methodArray }); // formatAsListWithPadding:30] });
 }
 - (DTA*) dataKey:(NSS*)def { id x = [self vFK:def];	return [x isKindOfClass:objc_lookUpClass("NSData")]       ? x : (id)nil; }
 - (NSS*)  strKey:(NSS*)def { id x = [self vFK:def];	return [x isKindOfClass:objc_lookUpClass("NSString")]     ? x : (id)nil; }

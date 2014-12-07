@@ -4,7 +4,7 @@
 //@property (NATOM)		       AZR * inFrame, * outFrame, * grabRect, * outerRect;
 //
 ////@property (NATOM) AZSlideState 	slideState; // !!!
-//@property (RONLY) OSCornerType 	outsideCorners;
+//@prop_RO OSCornerType 	outsideCorners;
 //@end
 
 #import "AtoZ.h"
@@ -171,8 +171,8 @@
 @interface AZWindowTabViewPrivate : NSView
 @property           CAL * contentLayer,
                         * tabLayer;
-@property (RONLY) NSIMG * indicator;
-@property (RONLY) 	NSR	  tabRect;
+@prop_RO NSIMG * indicator;
+@prop_RO 	NSR	  tabRect;
 @property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
 @end
 

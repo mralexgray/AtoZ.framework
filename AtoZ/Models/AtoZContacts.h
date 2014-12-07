@@ -22,8 +22,8 @@
                 * tel;
 @end
 
-@interface AtoZContacts : AtoZSingleton <AZDataSource> - (id) find:(id)sender;
-@end
+@interface AtoZContacts : AtoZSingleton <AZDataSource> - (id) find:_;
+                              @end
 
 @interface   AtoZContacts (Proxied)
 + (NSA*)	contactsInRange:(NSRange)r;

@@ -4,7 +4,7 @@
 //
 //  Created by Michael Ash on 10/15/08.
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import "AtoZ.h"
 @interface AZNotificationCenter : AZSingleton
 {

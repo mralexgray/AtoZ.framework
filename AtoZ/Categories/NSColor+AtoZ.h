@@ -58,16 +58,16 @@
 // ClassKeyGet NSC.class[@"red"]
 
 
-@property (RONLY)  	BOOL	 isBoring,   isExciting,
+@prop_RO  	BOOL	 isBoring,   isExciting,
                            isBright,   isDark,
                            isBlueish,  isRedish,   isGreenish,   isYellowish;
 
-@property (RONLY) 	 CGF	 luminance, relativeBrightness,
+@prop_RO 	 CGF	 luminance, relativeBrightness,
                            rgbWeight,	hsbWeight;
 
-@property (RONLY)	  CGCR 	 cgColor;
+@prop_RO	  CGCR 	 cgColor;
 
-@property (RONLY) 	 NSC * closestWebColor, * closestNamedColor,  * closestColorListColor,
+@prop_RO 	 NSC * closestWebColor, * closestNamedColor,  * closestColorListColor,
                          * lessOpaque,      * opaque,             * moreOpaque,
                          * darker,          * dark,               * muchDarker,
                          * deviceRGBColor,  * calibratedRGBColor,
@@ -84,9 +84,9 @@
 
 @property            NSS * name; // settable, but auto_gets
 
-@property (RONLY)    NSS * crayonName, * toHex;
+@prop_RO    NSS * crayonName, * toHex;
 
-@property (RONLY)	   NSG * gradient;
+@prop_RO	   NSG * gradient;
 
 + (NSA*) subtlePatterns;
 + (INST) subtlePattern;
@@ -260,23 +260,23 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 
 //  NSColor+HSVExtras.h MMPieChart Demo Created by Manuel de la Mata Sáez on 07/02/14.  Copyright (c) 2014 Manuel de la Mata Sáez. All rights reserved.
 
-typedef struct { int hueValue; int saturationValue; int brightnessValue; CGF hue; CGF saturation; CGF brightness; } HsvColor;
-typedef struct { int rVal; int gVal; int bVal; CGF r; CGF g; CGF b; } RgbColor;
+//typedef struct { int hueValue; int saturationValue; int brightnessValue; CGF hue; CGF saturation; CGF brightness; } HsvColor;
+//typedef struct { int rVal; int gVal; int bVal; CGF r; CGF g; CGF b; } RgbColor;
 
-@interface NSColor (HSVExtras)
-
-+ (HsvColor) hsvColorFromColor:(NSC*)c;
-+ (RgbColor) rgbColorFromColor:(NSC*)c;
-
-@prop_RO HsvColor hsvColor;
-@prop_RO RgbColor rgbColor;
-@prop_RO      CGF hue,
-                  saturation,
-                  brightness,
-                  value,
-                  red, green, blue, white, alpha;
-@end
-
+//@interface NSColor (HSVExtras)
+//
+//+ (HsvColor) hsvColorFromColor:(NSC*)c;
+//+ (RgbColor) rgbColorFromColor:(NSC*)c;
+//
+//@prop_RO HsvColor hsvColor;
+//@prop_RO RgbColor rgbColor;
+//@prop_RO      CGF hue,
+//                  saturation,
+//                  brightness,
+//                  value,
+//                  red, green, blue, white, alpha;
+//@end
+//
 //+  (NSA*) colorsInFrameworkListNamed:(NSString*)name;
 //+  (NSA*) colorListsInFramework;
 //+  (NSA*) allColors;			// NOT WORKING
@@ -284,7 +284,7 @@ typedef struct { int rVal; int gVal; int bVal; CGF r; CGF g; CGF b; } RgbColor;
 //+ (NSD*) colorsAndNames;
 //- (NSDictionary*)	closestColor;  //name, list, and color
 //+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
-//@property (RONLY)	BOOL isBasicallyWhite;
-//@property (RONLY)	BOOL isBasicallyBlack;
+//@prop_RO	BOOL isBasicallyWhite;
+//@prop_RO	BOOL isBasicallyBlack;
 //#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
 

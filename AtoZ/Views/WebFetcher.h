@@ -14,8 +14,8 @@ typedef NSRNG (*htmlProcessor)(NSData *arg, const char *classMatch);
 @property (NATOM) 		    NSERR   *error;
 @property (NATOM,CP) 			      NSS 	*errorMessage;
 @property (NATOM,CP)	 			      NSS 	*runMessage;	// debugging
-@property (RONLY)    NSURLC  	*connection;
-@property (RONLY)   NSMDATA 	*webData;
+@prop_RO    NSURLC  	*connection;
+@prop_RO   NSMDATA 	*webData;
 @property (NATOM) 		NSMURLREQ  	*request;	// superclass might want to fiddle with it
 @property (NATOM) 			     NSUI	 htmlStatus;
 #ifndef NDEBUG

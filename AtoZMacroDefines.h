@@ -2,10 +2,14 @@
 #ifndef AtoZ_MacroDefines
 #define AtoZ_MacroDefines
 
-@import Foundation;
-@import ObjectiveC;
-@import AppKit;
-//.NSColor;
+#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+
+#pragma mark - ATOZFRAMEWORK
+
+#import <JREnum.h>
+
+
 //@import AppKit.NSView;
 //@import AppKit.NSImage;
 //@import AppKit.NSImageView;
@@ -83,7 +87,18 @@
 #define   NATOM nonatomic
 #define   prop_ property
 
+#define   RO readonly
+#define   RW readwrite
+
+#ifndef   CCHAR
+#define 	CCHAR const char*
+#endif
+
 #define   prop_RW property (nonatomic,readwrite)
+
+
+
+#define PROP(...) property (__VA_ARGS__)
 
 #define   prop_NC property (nonatomic,copy)
 #define   prop_NA property (nonatomic)
@@ -210,7 +225,7 @@
 #define                                         AZVpoint(p) [NSVAL valueWithPoint: p]
 
 #define                                           MOUSEDRAG NSLeftMouseDraggedMask
-#define                                       AZFWORKBUNDLE [NSBundle bundleForClass:AtoZ.class]
+//#define                                       AZFWORKBUNDLE [NSBundle bundleForClass:AtoZ.class]
 #define iV integerValue
 #define uiV unsignedIntegerValue
 
@@ -254,6 +269,7 @@
 #define          NSPSC NSPersistentStoreCoordinator
 #define          NSINV NSInvocation
 #define          NSIMG NSImage
+#define          IMG NSIMG
 #define            NSB NSBundle
 #define         NSTXTV NSTextView
 #define           NSVT NSValueTransformer
@@ -479,6 +495,11 @@ q&AZ_arc__WEAK      ? weak    : assign
       EXTMixin(MixinObject, NSColor) // mix
       @implementation MixinObject @end // voila!
 */
+#define CLASS(X) interface X : NSO
+
+#define ENUM(x) JREnumDeclare(x)
+
+
 #define      AZIFACE(_name_,_super_)  AZIFACEDECL(_name_,_super_) @end
 #define    AZNSIFACE(_name_)          AZIFACE(_name_,NSObject)
 
@@ -551,9 +572,9 @@ q&AZ_arc__WEAK      ? weak    : assign
   - (BOOL) something { id x = FETCH; return x ? [x boolValue] : NO; }
 */
 
-FOUNDATION_STATIC_INLINE BOOL SameSEL(SEL a, SEL b) {
- return (BOOL)sel_isEqual(a, b);
-}
+//FOUNDATION_STATIC_INLINE BOOL SameSEL(SEL a, SEL b) {
+// return (BOOL)sel_isEqual(a, b);
+//}
 
 #define ASSIGN_WEAK(__self,sel,WK) ({ objc_setAssociatedObject(__self,@selector(sel),WK,OBJC_ASSOCIATION_ASSIGN); })
 #define ASSIGNBOOL(sel,VAL) objc_setAssociatedObject(self,sel, @(VAL),OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -752,7 +773,7 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 
 #define FUTURE NSDate.distantFuture
 
-#define   AZFWORKBUNDLE [NSBundle bundleForClass:AtoZ.class]
+#define   AZFWORKBUNDLE [NSBundle bundleForClass:NSClassFromString(@"AtoZ")]
 #define   AZFWRESOURCES  [AZFWORKBUNDLE resourcePath]
 #define       AZAPPBUNDLE  NSBundle.mainBundle
 #define     AZAPPINFO  [AZAPPBUNDLE infoDictionary]

@@ -41,8 +41,8 @@ BOOL layerIsGridCell( CALayer* layer );
 		 cellOffset:(CGPoint)cellOffset
 	backgroundColor:(CGColorRef)backgroundColor;
 
-@property (RONLY) unsigned rows, columns;	// Dimensions of the grid
-@property (RONLY) CGSize spacing;			// x,y spacing of GridCells
+@prop_RO unsigned rows, columns;	// Dimensions of the grid
+@prop_RO CGSize spacing;			// x,y spacing of GridCells
 @property CGColorRef lineColor;	  // Cell background color, line color (or nil)
 @property CGColorRef highlightColor;
 @property CGColorRef animateColor;
@@ -83,7 +83,7 @@ BOOL layerIsGridCell( CALayer* layer );
 @property (nonatomic) unsigned row, column;
 @property (nonatomic) BOOL dotted;
 @property (nonatomic) BOOL cross;
-@property (RONLY) GridCell *nw, *n, *ne, *e, *se, *s, *sw, *w; // Absolute directions (n = increasing row#)
+@prop_RO GridCell *nw, *n, *ne, *e, *se, *s, *sw, *w; // Absolute directions (n = increasing row#)
 
 - (CGPoint) getMidInLayer:(CALayer*)layer;
 

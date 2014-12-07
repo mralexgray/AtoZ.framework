@@ -2,7 +2,7 @@
 #import "AtoZUmbrella.h"
 
 @interface NSFont (AtoZ)
-@property (RONLY) CGF size;
+@prop_RO CGF size;
 - (NSFont*)fontWithSize:(CGFloat)fontSize;
 @end
 

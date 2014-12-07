@@ -9,7 +9,7 @@
 #if TARGET_OS_IPHONE
   #define UINSColor   UIColor
 #else
-  @import AppKit;
+  #import <AppKit/AppKit.h>
   #define UINSColor   NSColor
 #endif
 

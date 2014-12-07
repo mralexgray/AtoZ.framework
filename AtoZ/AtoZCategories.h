@@ -1,10 +1,6 @@
 
-//#define AtoZ_AtoZCategories_h
-//#define IMPORTMODULEHEADERSBECAUSEITWANTSTO
-//#endif /* AtoZ_AtoZCategories_h */
-//#endif /* IMPORTMODULEHEADERSBECAUSEITWANTSTO */
-//#ifndef AtoZ_AtoZCategories_h
-//#ifndef IMPORTMODULEHEADERSBECAUSEITWANTSTO
+#import "+.h"
+
 #import "AddressBookImageLoader.h"
 #import "AFNetworking.h"
 #import "AGNSSplitView.h"
@@ -72,7 +68,7 @@
 #import "AZIndexedObjects.h"
 #import "AZInfiniteCell.h"
 #import "AZInstantApp.h"
-#import "AZLassoLayer.h"
+//#import "AZLassoLayer.h"
 #import "AZLassoView.h"
 #import "AZLaunchServices.h"
 #import "AZLayer.h"
@@ -108,7 +104,7 @@
 #import "AZSourceList.h"
 #import "AZSpeechRecognition.h"
 #import "AZSpinnerLayer.h"
-#import "AZStopwatch.h"
+
 #import "AZSyntaxTheme.h"
 #import "AZSynthesize.h"
 #import "AZTalker.h"
@@ -139,6 +135,7 @@
 #import "CPAccelerationTimer.h"
 #import "CTBadge.h"
 #import "CTGradient.h"
+#import "DateTools.h"
 #import "DefinitionController.h"
 #import "DSObjectiveCSyntaxDefinition.h"
 #import "DSPodfileSyntaxDefinition.h"
@@ -176,7 +173,7 @@
 #import "NSBundle+AtoZ.h"
 #import "NSCell+AtoZ.h"
 #import "NSColor+AtoZ.h"
-#import "NSColor+RGBHex.h"
+//#import "NSColor+RGBHex.h"
 #import "NSDate+AtoZ.h"
 #import "NSDictionary+AtoZ.h"
 #import "NSDictionary+F.h"
@@ -243,89 +240,16 @@
 #import "StandardPaths.h"
 #import "StarLayer.h"
 #import "StickyNoteView.h"
-#import "SynthesizeSingleton.h"
+
 #import "Transition.h"
 #import "TransparentWindow.h"
 #import "TUIFastIndexPath.h"
-#import "TUITableView+Updating.h"
+//#import "TUITableView+Updating.h"
 #import "TUIView+Dimensions.h"
 #import "WebView+AtoZ.h"
 #import "XLDragDropView.h"
 #import <AtoZ/AtoZEmoji.h>
 
 
-/*	COLOR AND IMAGE CLASSES */
-/*	INACTIVE
-/*  FACEBOOK	*/
-/* COCOA CATEGORIES	*/ /* FOUNDATION  CATEGORIES */
-/* CONTROLS */
-/* CoreScroll */
-/* ESSENTIAL */
-/* FOUNDATION CLASSES */
-/* MODEL */
-/* old home of umbrellas */
-/* STACKEXCHANGE */
-/* WINDOWS */
-//	#import "AtoZModels.h"
-//	#import "AZFile.h"
-//	#import "AZPalette.h"
-//    static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-//    static const int ddLogLevel = LOG_LEVEL_WARN;
-//   CORE
-//  #else
-//  #endif
-//  #ifdef DEBUG
-//  #import "AZURLSnapshot.h"
-//  #import "NSTerminal.h"
-// <module-includes>:1:1: warning: umbrella header for module 'AtoZ' does not include header 'ASIDownloadCache.h' [-Wincomplete-umbrella]
-// COREDATA
-// END CORE
-// TwUI
-// UNUSED
-// Views
-//#import "AtoZGeometry.h"
-//#import "AtoZMacroDefines.h"
-//#import "AtoZNodeProtocol.h"
-//#import "AtoZTypes.h"
-//#import "AtoZUmbrella.h"
-//#import "AZBoxLayer.h"
-//#import "azCarousel.h"
-//#import "AZFileGridView.h"
-//#import "AZHTTPRouter.h"
-//#import "AZMatteButton.h"
-//#import "AZMatteFocusedGradientBox.h"
-//#import "AZMattePopUpButton.h"
-//#import "AZMattePopUpButtonView.h"
-//#import "AZMatteSegmentedControl.h"
-//#import "AZNotificationCenter.h"
-//#import "AZOverlay.h"
-//#import "AZToggleView.h"
-//#import "CKSingleton.h"
-//#import "ConciseKit.h"
-//#import "CTBlockDescription.h"  in autobox now
-//#import "DSURLDataSource.h"
-//#import "MondoSwitch.h"
-//#import "NSManagedObjectContext+EasyFetch.h"
-//#import "NSUserDefaults+AtoZ.h"
-//#import "PythonOperation.h"
-//#import "SNRHUDButtonCell.h"
-//#import "SNRHUDScrollView.h"
-//#import "SNRHUDSegmentedCell.h"
-//#import "SNRHUDTextFieldCell.h"
-//#import "SNRHUDTextView.h"
-//#import "SNRHUDWindow.h"
-//#import "TUICarouselNavigationController.h"
-//#import "TUINavigationController.h"
-//#import "TUIRefreshControl.h"
-//#import "TUITableOulineView.h"
-//#import <AtoZ
-//#import <AtoZUI/AtoZUI.h>
-//#import <MapKit/MapKit.h>
-//#import <NanoStore/NanoStore.h>
-//#import <RMKit/RMKit.h>
-//#import <XPCKit/XPCKit.h>
-//#import <Zangetsu/Zangetsu.h>
-////#import "AZStatusItemView.h"
-////#import "SNRHUDImageCell.h"
-////#import "SNRHUDKit.h"
-//Classes
+//#import "SimpleTesseract.h"
+

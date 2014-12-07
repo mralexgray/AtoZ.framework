@@ -21,7 +21,7 @@
 
 #ifdef UNIMPLENETED 
 + (INST) screnFrameUnderMenu;
-@property (RONLY) CGF 	area;
+@prop_RO CGF 	area;
 - (BOOL)     contains:(id)obj;
 //- (BOOL)    contaiNSP:(NSP)p;
 - (BOOL) containsRect:(NSR)r;

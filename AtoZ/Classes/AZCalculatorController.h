@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 #import "CalcModel.h"
 
@@ -18,14 +18,14 @@
 + (AZCalculatorController *)sharedCalc;
 + (NSString *)nibName;
 
-- (IBAction)add:(id)sender;
-//- (IBAction)subtract:(id)sender;
-//- (IBAction)multiply:(id)sender;
-//- (IBAction)divide:(id)sender;
-//- (IBAction)calculate:(id)sender;
-//- (IBAction)clear:(id)sender;
-- (IBAction)getValue:(id)sender;
-- (void) setLabel;
+- (IBAction)add:_;
+                              //- (IBAction)subtract:_;
+                              //- (IBAction)multiply:_;
+                              //- (IBAction)divide:_;
+                              //- (IBAction)calculate:_;
+                              //- (IBAction)clear:_;
+                              - (IBAction)getValue:_;
+                              - (void) setLabel;
 @property (assign) IBOutlet NSTextField *label;
 //NSString *labelValue;
 

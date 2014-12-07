@@ -19,9 +19,9 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) SDTitleFieldEditor *fieldEditor;
 
-- (IBAction) accept:(id)sender;
-- (IBAction) cancel:(id)sender;
-
+- (IBAction) accept:_;
+                              - (IBAction) cancel:_;
+                              
 //- (void) setTitle:(NSString*)title;
 - (void) setTitleFieldWidth:(float)width;
 

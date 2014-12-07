@@ -61,25 +61,25 @@
 
 - (NSP) layerPoint:(NSE*)e;
 
-@property (RONLY)  CAL * permaPresentation;
+@prop_RO  CAL * permaPresentation;
 @property         BOOL   animatesResize;
 @property          NSC * backgroundNSColor;
 
-@property (RONLY)  NSA * siblings;            // SUPER -> @[A,B,C]  B.siblings            = @[A,C]
-@property (RONLY) AZ01   siblingIndexParity;
-@property (RONLY)  NSI   siblingIndex,        // SUPER -> @[A,B,C]  B.siblingIndex        = 1
+@prop_RO  NSA * siblings;            // SUPER -> @[A,B,C]  B.siblings            = @[A,C]
+@prop_RO AZ01   siblingIndexParity;
+@prop_RO  NSI   siblingIndex,        // SUPER -> @[A,B,C]  B.siblingIndex        = 1
                          siblingIndexMax;     // SUPER -> @[A,B,C]  B.siblingIndexMax     = 2 (C)
-@property (RONLY) BOOL   siblingIndexIsEven;  // SUPER -> @[A,B,C]  B.siblingIndexIsEven  = NO
-@property (RONLY)  CAL * siblingNext,
+@prop_RO BOOL   siblingIndexIsEven;  // SUPER -> @[A,B,C]  B.siblingIndexIsEven  = NO
+@prop_RO  CAL * siblingNext,
                        * siblingPrev,
                        * hostLayer; // View's layer. Handles all events.
 @property (WK)     NSV * hostView;
 
-@property (RONLY)  NSA * sublayersRecursive,
+@prop_RO  NSA * sublayersRecursive,
                        * sublayersAscending,
                        * visibleSublayers;
-@property (RONLY)  CAL * lastSublayer;
-@property (RONLY)  NSR   actuallyVisibleRect;
+@prop_RO  CAL * lastSublayer;
+@prop_RO  NSR   actuallyVisibleRect;
 
 /*! @see setNeedsLayoutForKey: */
 @property          NSA * needsLayoutForKeys,
@@ -153,10 +153,10 @@
 - (void)         setAnchorPoint:(CGP)pt inRect:(NSR)r;
 - (void)         setAnchorPoint:(CGP)pt inView:(NSV*)v; //- (void) flipHorizontally;- (void) flipVertically;
 
-- (void) flipBackAtEdge:(AZA)pos;
-- (void) flipForwardAtEdge: (AZWindowPosition)position;
+- (void)    flipBackAtEdge:(AZA)pos;
+- (void) flipForwardAtEdge:(AZA)pos;
 
-- (void) flipForward:(BOOL)forward  atPosition:(AZWindowPosition)pos duration:(NSTI)time;
+- (void) flipForward:(BOOL)forward  atPosition:(AZA)pos duration:(NSTI)time;
 - (CAT3D) flipForward:(BOOL)forward  atPosition:(AZPOS)pos;
 
 + (CAT3D) flipAnimationPositioned:(AZPOS)pos;
@@ -226,7 +226,7 @@
 
 @interface CAL (SHouldBeInProtocol)
 @property          BOOL  isListItem;
-@property (RONLY)  NSS * sisterName;
+@prop_RO  NSS * sisterName;
 @end
 
 @interface CAL (SwizzledCanImplement)
@@ -237,7 +237,7 @@
 @interface CAL (AtoZDebug)
 + (NSW*) debugTest;
 @property         BOOL  debug;
-@property (RONLY)  NSS * infoString,
+@prop_RO  NSS * infoString,
                        * debugDescription,
                        * debugLayerTree;
                        
