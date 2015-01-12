@@ -1,51 +1,42 @@
-//
-//  NSBag.m
-//  AtoZ
-//
-//  Created by Alex Gray on 9/10/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
+
 #import "AtoZ.h"
 #import "NSBag.h"
 
-@implementation NSBag
-{
-	NSMutableDictionary *dict;
+@implementation NSBag { NSMutableDictionary *dict; } SYNTHESIZE_CLASS_FACTORY(bag)
+
+- init { 	return self = super.init ? dict = NSMD.new, self : nil;	}
+
+- (void) add:_ { NSParameterAssert(_); NSN*ct; dict[_] = @(((ct = dict[_]) ? ct.iV : 0) + 1); }
+
++ (NSBag *) bagWithObjects:_, ... {
+
+	NSBag *bag = self.bag; if (!_) return bag;
+
+  [bag add:_];
+
+	va_list objects;  va_start(objects,_);  id obj;
+
+	while (obj = va_arg(objects, id))	{		[bag add:obj]; }
+
+	va_end(objects);
+
+  return bag;
 }
 
-- (id) init { 	return self = [super init] ? dict = NSMD.new, self : nil;	}
-+ (instancetype) bag { 	return self.new; }
-- (void) add: (id) anObject {
+- (void) addObjects:_, ... {
 
-	NSNumber *num = dict[anObject];
-	NSNumber *newnum = @((num ? [num intValue] : 0) + 1);
-	if (anObject && newnum)	dict[anObject] = newnum;
-}
+	if (!_) return;
+	[self add:_];
 
-+ (NSBag *) bagWithObjects:(id)item,... {
-	NSBag *bag = self.bag;
-	if (!item) return bag;
-	[bag add:item];
-	va_list objects;	va_start(objects, item);	id obj = va_arg(objects, id);
-	while (obj)	{		[bag add:obj];						obj = va_arg(objects, id); }
-	va_end(objects);	return bag;
-}
+	va_list objects;	va_start(objects,_); id obj;
 
-- (void) addObjects:(id)item,...{
-	if (!item) return;
-	[self add:item];
-	va_list objects;
-	va_start(objects, item);
-	id obj = va_arg(objects, id);
-	while (obj)
-	{
-		[self add:obj];
-		obj = va_arg(objects, id);
-	}
+	while (obj = va_arg(objects, id)) [self add:obj];
+
 	va_end(objects);
 }
 
-- (void) remove: (id) anObject	{
+- (void) remove:anObject	{
 
 	NSNumber *num = dict[anObject];
 	if (!num) return;
@@ -53,17 +44,36 @@
 	dict[anObject] = @(num.iV - 1);
 }
 
-- (NSInteger) occurrencesOf: (id) anObject	{	return [dict[anObject] intValue]; }
-- (NSArray*)  objects	{	return dict.allKeys;	}
-- (NSA*) uniqueObjects {  return [self.objects reduce:@[] withBlock:^id(id sum, id obj) {
-	return sum = [sum containsObject:obj] ? sum : [sum arrayByAddingObject:obj];
+- (NSI) occurrencesOf:anObject	{	return [dict[anObject] intValue]; }
+- (NSA*)      objects	{	return [dict.allKeys reduce:@[].mC withBlock:^id(id sum, id obj) {
+
+    for ( int i = 0; i < [dict[obj] iV]; i++) [sum addObject:obj]; return sum;
+  }];
+}
+- (NSA*) uniqueObjects {
+
+  return [self.objects reduce:@[].mC withBlock:^id(id sum, id obj) {
+    [sum containsObject:obj] ?: [sum addObject:obj]; return sum;
 	}];
 }
-- (NSString*) description	{	return dict.description; }
 
+- (NSA*) sortedObjects {
+
+  return [self.uniqueObjects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+
+    NSUI a = [self occurrencesOf:obj1], b = [self occurrencesOf:obj2];
+
+    return  a > b ? (NSComparisonResult)NSOrderedAscending  :
+            a < b ? (NSComparisonResult)NSOrderedDescending : (NSComparisonResult)NSOrderedSame;
+
+  }];
+}
 + (instancetype) bagWithArray:(NSArray *)a {
 	NSBag *b = self.bag;
 	for (id x in a) [b add:x];
 	return b;
 }
+
+- (NSS*) description { return $(@"NSBag with %lu objects (%lu unique)", self.objects.count, self.uniqueObjects.count);  /* return dict.description; */ }
+
 @end

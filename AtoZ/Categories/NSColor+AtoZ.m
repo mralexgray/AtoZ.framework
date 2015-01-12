@@ -1029,10 +1029,10 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 @end
 @implementation NSCoder (AGCoder)
 
-- (void) encode:(id)me withKeys:(NSA*)ks {  [self encode:me withKeysForProps:[NSD dictionaryWithObjects:ks forKeys:ks]]; }
-- (void) encode:(id)me withKeysForProps:(NSD*)ksAndDs { [ksAndDs each:^(id key, id prop) { id x = [me vFK:key]; !x ?: [self encodeObject:x forKey:prop]; }]; }
-- (void) decode:(id)me withKeysForProps:(NSD*)ksAndDs { [ksAndDs each:^(id key, id prop) { id x = [self decodeObjectForKey:key]; !x ?: [me sV:x fK:prop]; }]; }
-- (void) decode:(id)me withKeys:(NSA*)ks { [self decode:me withKeysForProps:[NSD dictionaryWithObjects:ks forKeys:ks]]; }
+- (void) encode: me withKeys:(NSA*)ks {  [self encode:me withKeysForProps:[NSD dictionaryWithObjects:ks forKeys:ks]]; }
+- (void) encode: me withKeysForProps:(NSD*)ksAndDs { [ksAndDs each:^(id key, id prop) { id x = [me vFK:key]; !x ?: [self encodeObject:x forKey:prop]; }]; }
+- (void) decode: me withKeysForProps:(NSD*)ksAndDs { [ksAndDs each:^(id key, id prop) { id x = [self decodeObjectForKey:key]; !x ?: [me sV:x fK:prop]; }]; }
+- (void) decode: me withKeys:(NSA*)ks { [self decode:me withKeysForProps:[NSD dictionaryWithObjects:ks forKeys:ks]]; }
 + (void) encodeColor:(CGColorRef)theColor  withCoder:(NSCoder*)encoder withKey:(NSS*)theKey {
   if(theColor != nil) {
     const CGFloat* components = CGColorGetComponents(theColor);
@@ -1486,7 +1486,7 @@ foreach($s as $k => $v) { list($hue,$sat,$val) = $v; list($r,$g,$b) = hsvtorgb($
  _COLOR(9ACD32, YellowGreen);
  #undef _COLOR
  }
- - (id)init {
+ - init {
  if (instance != nil) {
  [NSException
  raise:NSInternalInconsistencyException

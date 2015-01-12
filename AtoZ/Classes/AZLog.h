@@ -144,9 +144,23 @@ CLANG_IGNORE(-Wunused-variable)
 static NSString *dLog = nil;
 CLANG_POP
 
-@interface          AZASLLogger : NSTreeController      // Watch ASL logg without blocking!  Via "watchlog"
+
+@interface AZASLEntry : NSObject
+
+@property (nonatomic) NSDate *timestamp;
+@property (nonatomic) NSString *host, *sender, *facility, *message, *messageId, *session;
+@property (nonatomic) int pid, uid, gid, level;
+
+@end
+
+@interface          AZASLLogger : NSObject <NSOutlineViewDataSource,NSOutlineViewDelegate>
+
 @property (NATOM)           NSW * show;        // NSOutlineView in a window.
-- (void)                  watch ; @end         // Starts it.
+@property NSMD* log;
+//NSTreeController      // Watch ASL logg without blocking!  Via "watchlog"
+//- (void)                  watch ;
+
+@end         // Starts it.
 
 
 

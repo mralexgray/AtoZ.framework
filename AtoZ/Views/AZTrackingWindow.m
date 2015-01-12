@@ -116,12 +116,12 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//		 }];
 		//		self.clippy = [CornerClipView initInWindow:self];
 		//		//		_clippy.wantsLayer = YES;
-		//		[[self contentView] addSubview:_clippy];
+		//		[(NSView*)[self contentView] addSubview:_clippy];
 		//		[_clippy setNeedsDisplay:YES];
 -(void) setShowsHandle:(BOOL)showsHandle {
 
 	if ( (showsHandle == NO) && (_handle)) [[_handle animator] setAlphaValue:0];
-	else {	 [[self contentView] addSubview:self.handle];
+	else {	 [(NSView*)[self contentView] addSubview:self.handle];
 		[[self.handle animator] setAlphaValue:1 ];
 	}
 	_showsHandle = showsHandle;
@@ -284,7 +284,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 		//		[[self animator] setFrame:self.visibleFrame display:YES animate:YES];
 		//	 	 [[_handle animator] setAlphaValue:0];
 		//	}
-		//	else {	 [[self contentView] addSubview:self.handle];
+		//	else {	 [(NSView*)[self contentView] addSubview:self.handle];
 		//		[[self.handle animator] setAlphaValue:1 ];
 		//	}
 		//

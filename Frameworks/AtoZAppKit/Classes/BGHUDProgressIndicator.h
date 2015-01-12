@@ -6,7 +6,7 @@
 //
 
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import "BGThemeManager.h"
 #import <Foundation/Foundation.h>
 

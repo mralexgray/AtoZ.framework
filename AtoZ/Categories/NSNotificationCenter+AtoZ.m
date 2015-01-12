@@ -40,7 +40,7 @@ void PostUserNote(NSString*note, ...){ azva_list_to_nsarray(note,vals);
 
 @implementation NSNotificationCenter (MainThread)
 
-- (void) removeObserver:(id)observer names:(NSA*)arrayOfNames object:(id)anObject{
+- (void) removeObserver: observer names:(NSA*)arrayOfNames object: anObject{
 
   for (id x in arrayOfNames) [self removeObserver:observer name:x object:anObject];
 }
@@ -49,13 +49,13 @@ void PostUserNote(NSString*note, ...){ azva_list_to_nsarray(note,vals);
 	[self performSelectorOnMainThread:@selector(postNotification:) withObject:notification waitUntilDone:YES];
 }
 
-- (void) postNotificationOnMainThreadName:(NSS*)aName object:(id)anObject
+- (void) postNotificationOnMainThreadName:(NSS*)aName object: anObject
 {
 	NSNotification *notification = [NSNotification notificationWithName:aName object:anObject];
 	[self postNotificationOnMainThread:notification];
 }
 
-- (void) postNotificationOnMainThreadName:(NSS*)aName object:(id)anObject userInfo:(NSD*)aUserInfo
+- (void) postNotificationOnMainThreadName:(NSS*)aName object: anObject userInfo:(NSD*)aUserInfo
 {
 	NSNotification *notification = [NSNotification notificationWithName:aName object:anObject userInfo:aUserInfo];
 	[self postNotificationOnMainThread:notification];

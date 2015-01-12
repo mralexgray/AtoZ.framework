@@ -4,7 +4,7 @@
 
 @interface AZDict : NSMutableDictionary
 
-- (void)setObject:(id)anObject forKey:(id)aKey;
+- (void)setObject: anObject forKey: aKey;
 
 @prop_NA BOOL sortByValues;
 @prop_RO NSUInteger count;
@@ -12,25 +12,25 @@
 
 //+ (instancetype) dictWithSortedDict:(NSD*)dict byValues:(BOOL)byV;
 
-//- (id)objectForKey:(id)aKey;
+//- (id)objectForKey: aKey;
 
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx;
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
-- (id)objectForKeyedSubscript:(id)key;
+- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx;
+- (void)setObject: obj forKeyedSubscript:(id <NSCopying>)key;
+- (id)objectForKeyedSubscript: key;
 
-- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex;
+- (void)insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
 - (id)keyAtIndex:(NSUInteger)anIndex;
 
 @end
 
 
 @class NSBag;
-@interface NSOrderedDictionary (AtoZ)
-- (void) forwardInvocation:(NSINV*)invocation;
-- (SIG*) methodSignatureForSelector:(SEL)sel;
-- (BOOL) respondsToSelector:(SEL)selector;
-@end
+//@interface NSOrderedDictionary (AtoZ)
+//- (void) forwardInvocation:(NSINV*)invocation;
+//- (SIG*) methodSignatureForSelector:(SEL)sel;
+//- (BOOL) respondsToSelector:(SEL)selector;
+//@end
 
 // Catchall, adds "accessor" methods to doctionaries!
 @interface NSDictionary (DynamicAccessors)
@@ -41,7 +41,7 @@
 
 - (void)setColor:(NSColor *)aColor forKey:(NSS*)aKey;
 - (NSColor *)colorForKey:(NSS*)aKey;
-- (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey;
+- (BOOL)setObjectOrNull: anObject forKey: aKey;
 @end
 
 /** http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
@@ -74,16 +74,16 @@
 } */
 
 @interface NSDictionary (objectForKeyList)
-- (id)objectForKeyList:(id)key, ...;
+- (id)objectForKeyList: key, ...;
 
-- (id)objectMatching:(id)match forKeyorKeyPath:(id)kp;
+- (id)objectMatching: match forKeyorKeyPath: kp;
 @end
 //	syntax of path similar to Java: record.array[N].item
 //	items are separated by . and array indices in []
 //	example: a.b[N][M].c.d
 @interface  NSMutableDictionary (GetObjectForKeyPath)
 - (id)objectForKeyPath:(NSS*)inKeyPath;
--(void)setObject:(id)inValue forKeyPath:(NSS*)inKeyPath;
+-(void)setObject: inValue forKeyPath:(NSS*)inKeyPath;
 @end
 
 @interface  NSObject  (BagofKeysValue)
@@ -92,14 +92,14 @@
 
 @interface NSDictionary (Types)
 
-- (NSS*)stringForKey:(id)key;
-- (NSS*)stringForKey:(id)key default:(NSS*)defaultValue;
+- (NSS*)stringForKey: key;
+- (NSS*)stringForKey: key default:(NSS*)defaultValue;
 
-- (NSN*)numberForKey:(id)key default:(NSN*)defaultValue;
-- (NSN*)numberForKey:(id)key;
+- (NSN*)numberForKey: key default:(NSN*)defaultValue;
+- (NSN*)numberForKey: key;
 
-- (NSA*)arrayForKey:(id)key default:(NSA*)defaultValue;
-- (NSA*)arrayForKey:(id)key;
+- (NSA*)arrayForKey: key default:(NSA*)defaultValue;
+- (NSA*)arrayForKey: key;
 
 @end 
 
@@ -150,12 +150,12 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 
 -  (id) recursiveObjectForKey:(NSS*)k; /* fierce */  //- (NSA*) recursiveObjectsForKey:(NSS*)key;
 
-- (NSD*) findDictionaryWithValue:(id)value;
-+ (NSD*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
-- (NSD*) dictionaryWithValue:(id)value forKeys:(NSA*)keys;
-- (NSD*) dictionaryWithValue:(id)value forKey:(id)key;
-- (NSD*) dictionaryWithoutKey:(id)key;
-- (NSD*) dictionaryWithKey:(id)newKey replacingKey:(id)oldKey;
+- (NSD*) findDictionaryWithValue: value;
++ (NSD*) dictionaryWithValue: value forKeys:(NSA*)keys;
+- (NSD*) dictionaryWithValue: value forKeys:(NSA*)keys;
+- (NSD*) dictionaryWithValue: value forKey: key;
+- (NSD*) dictionaryWithoutKey: key;
+- (NSD*) dictionaryWithKey: newKey replacingKey: oldKey;
 
 - (void) enumerateEachKeyAndObjectUsingBlock:(KeyValueIteratorBlock)block;
 
@@ -163,18 +163,18 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 @end
 
 @interface  NSArray (FindDictionary)
-- (id)findDictionaryWithValue:(id)value;
+- (id)findDictionaryWithValue: value;
 @end
 
 
 @interface NSDictionary (OFExtensions)
 /// Enumerate each key and object in the dictioanry.
 
-- (NSD*)dictionaryWithObject:(id)anObj forKey:(NSS*)key;
+- (NSD*)dictionaryWithObject: anObj forKey:(NSS*)key;
 //- (NSD*)dictionaryByAddingObjectsFromDictionary:(NSD*)otherDictionary;
 
 - (id)anyObject;
-- (NSS*)keyForObjectEqualTo:(id)anObj;
+- (NSS*)keyForObjectEqualTo: anObj;
 
 - (NSS*)stringForKey:(NSS*)key defaultValue:(NSS*)defaultValue;
 //- (NSS*)stringForKey:(NSS*)key;
@@ -211,7 +211,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (unsigned long long int)unsignedLongLongForKey:(NSS*)key defaultValue:(unsigned long long int)defaultValue;
 - (unsigned long long int)unsignedLongLongForKey:(NSS*)key;
 	// This seems more convenient than having to write your own if statement a zillion times
-//- (id)objectForKey:(NSS*)key defaultObject:(id)defaultObject;
+//- (id)objectForKey:(NSS*)key defaultObject: defaultObject;
 
 //- (NSMutableDictionary *)deepMutableCopy;// NS_RETURNS_RETAINED;
 
@@ -252,8 +252,8 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
  no object for the given key, or nil if you do not want any object
  added for missing objects.	*/
 
-- (NSCountedSet*)objectsInSubdictionariesForKey:(id)key
-								  defaultObject:(id)defaultObject;
+- (NSCountedSet*)objectsInSubdictionariesForKey: key
+								  defaultObject: defaultObject;
 @end
 @interface NSDictionary (SimpleMutations)
 /*!
@@ -272,8 +272,8 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
  @param	key  The key to be mutated.  May be nil; this method
  simply returns a copy of the receiver.
  @result   The new dictionary	*/
-- (NSDictionary*)dictionaryBySettingValue:(id)value
-								   forKey:(id)key ;
+- (NSDictionary*)dictionaryBySettingValue: value
+								   forKey: key ;
 
 /*!
  @brief	Returns a new dictionary, equal to the receiver
@@ -327,7 +327,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 @end
 
 //@interface OrderedDictionary : NSMutableDictionary
-//- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex;
+//- (void)insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
 //- (id)keyAtIndex:(NSUInteger)anIndex;
 //- (NSEnumerator *)reverseKeyEnumerator;
 //@end
@@ -347,7 +347,7 @@ extern const int jsonDoNotIndent;
 @interface NSDictionary (PrivateBSJSONAdditions)
 
 - (NSS*)jsonStringValueWithIndentLevel:(int)level;
-- (NSS*)jsonStringForValue:(id)value withIndentLevel:(int)level;
+- (NSS*)jsonStringForValue: value withIndentLevel:(int)level;
 - (NSS*)jsonStringForArray:(NSA*)array withIndentLevel:(int)level;
 - (NSS*)jsonStringForString:(NSS*)string;
 - (NSS*)jsonIndentStringForLevel:(int)level;

@@ -276,6 +276,7 @@
 #define            NSW NSWindow
 #define           NSMS NSMutableString
 #define          NSBIR NSBitmapImageRep
+#define          NSIR NSImageRep
 #define            NSC NSColor
 #define           NSOV NSOutlineView
 #define           NSOVD NSOutlineViewDelegate
@@ -609,7 +610,7 @@ q&AZ_arc__WEAK      ? weak    : assign
 #define AZWT    AZWindowTab
 //#define AZWTV   AZWindowTabViewPrivate
 
-#define NSOrderedDictionary M13OrderedDictionary
+//#define NSOrderedDictionary M13OrderedDictionary
 
 #define NSU NSURL
 #define NSET NSSet
@@ -705,6 +706,8 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define AZFRAME   @"frame"
 #define AZBOUNDS  @"bounds"
 
+#define AZDEFAULTFONT [AtoZ controlFont]
+
 #define            AZFONTMANAGER NSFontManager.sharedFontManager
 #define    NSZeroRange  NSMakeRange(0,0)
 
@@ -774,6 +777,7 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define FUTURE NSDate.distantFuture
 
 #define   AZFWORKBUNDLE [NSBundle bundleForClass:NSClassFromString(@"AtoZ")]
+#define   AZFWBUNDLE AZFWORKBUNDLE
 #define   AZFWRESOURCES  [AZFWORKBUNDLE resourcePath]
 #define       AZAPPBUNDLE  NSBundle.mainBundle
 #define     AZAPPINFO  [AZAPPBUNDLE infoDictionary]
@@ -1236,6 +1240,7 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 
 #define $IDX(X) [NSIS indexSetWithIndex:X]
 #define $idxsetrng(X) [NSIS indexSetWithIndexesInRange:X]
+#define $IDXRNG(L,X) [NSIS indexSetWithIndexesInRange:$NSRNG(L,X)]
 
 #define idxOf indexOfObject
 #define AZSELSTR NSStringFromSelector(_cmd)

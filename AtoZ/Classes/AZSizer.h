@@ -47,9 +47,10 @@ NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );
  		@param	spacingY  Spacing which will be applied vertitally between images, and at the bottom and top borders.
  		@param	vertically  YES to tile the given images from top to bottom, starting with the first image in the array at the top. NO to tile the given images from left to right, starting with the first image in the array at the left.	*/
 
-+ (NSIMG*) contactSheetWith:(NSA*)imgs   columns:(NSUI)cols;  // I guess this is natiral size?
++ (NSIMG*) contactSheetWith:(NSA*)imgs   columns:(NSUI)cols;                      // I guess this is natiral size?
 + (NSIMG*) contactSheetWith:(NSA*)imgs withSizer:(AZSizer*)s withName:(BOOL)name; // sortaconvenient..
 + (NSIMG*) contactSheetWith:(NSA*)imgs   inFrame:(NSR)rect;//  columns:(NSUI)cols;
++ (NSIMG*) contactSheetWith:(NSA*)imgs   inFrameWithNames:(NSR)rect;
 
 + (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols;
 + (NSIMG*) contactSheetWith:(NSA*)imgs sized:  (NSSZ)size spaced:(NSSZ)spacing columns:(NSUI)cols withName:(BOOL)name;

@@ -82,7 +82,7 @@ static NSColor *highlightColor;
 	highlightColor = [NSColor colorWithCalibratedRed:0.17 green:0.409 blue:0.793 alpha:1.0f];
 }
 
--(void)setObjectValue:(id)obj {
+-(void)setObjectValue: obj {
 	if (![obj ISADICT])
 		return;
 //	[self setCategory:[obj valueForKey:@"category"]];

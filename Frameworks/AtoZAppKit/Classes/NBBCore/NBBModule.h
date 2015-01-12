@@ -4,7 +4,7 @@
 
  */
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @interface NBBModule : NSWindowController
 @property(nonatomic, copy) NSString* identifier;

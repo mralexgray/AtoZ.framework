@@ -98,6 +98,7 @@ static char *TIMER_CONST;
 - (AZStopwatchItem*) stopWatch { return objc_getAssociatedObject(self,TIMER_CONST); }
 
 - (void) startTiming {
+
   AZStopwatchItem *s;
   objc_setAssociatedObject(self,TIMER_CONST,s=AZStopwatchItem.new,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   [s start];

@@ -66,8 +66,8 @@
 	NSMutableArray *array;
 }
 
-
-- (id)initWithObjects:(const id [])objects count:(NSUInteger)cnt {
+/*
+- initWithObjects:(const id [])objects count:(NSUInteger)cnt {
 	self = [super init];
 	if (self) {
 		array = [NSMutableArray.alloc initWithCapacity:cnt];
@@ -79,6 +79,7 @@
 	}
 	return self;
 }
+*/
 
 //- initWithCapacity:(NSUInteger)numItems {
 //	return [super initWithObjects:NULL count:numItems];

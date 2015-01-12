@@ -228,7 +228,7 @@ SYNTHESIZE_ASC_CAST(pathForRect, setPathForRect,PathBlock);
 	CTFontRef courierFont   = [self.class newFontWithAttributes:fontAttributes];
 	NSRNG rangeOfClassName  = [attrString.string rangeOfString:@"CATXTL"];
 	[attrString addAttribute:(NSS *)kCTFontAttributeName            value:(__bridge id)courierFont range:rangeOfClassName];
-	[attrString addAttribute:(NSS *)kCTForegroundColorAttributeName value:(id)cgRED                range:rangeOfClassName];
+	[attrString addAttribute:(NSS *)kCTForegroundColorAttributeName value: (id)cgRED                range:rangeOfClassName];
 	CFRelease(courierFont);
 	self.string             = attrString;
 	self.wrapped            = YES;

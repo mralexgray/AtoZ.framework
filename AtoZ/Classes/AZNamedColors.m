@@ -197,7 +197,7 @@
 + (NSString *)nameOfColor:(NSColor *)color {
 	return [self nameOfColor:color savingDistance:nil];
 }
-+ (NSString *)nameOfColor:(NSColor *)color savingDistance:(NSColor **)distance {
++ (NSString *)nameOfColor:(NSColor *)color savingDistance:(NSColor *__autoreleasing*)distance {
 	if (!color)
 		// failsave return
 		return nil;

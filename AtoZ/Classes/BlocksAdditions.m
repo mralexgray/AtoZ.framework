@@ -93,16 +93,26 @@ void Parallelized(int count, void (^block)(int i)) {
 
 - (void)do: (void (^)(id obj))block	{	if(!self || !self.count || !block) return; for(id x in self) block(x);	}
 
-- (NSA*) select:(BOOL(^)(id obj))block	{	NSMutableArray *new = [NSMutableArray array];
-	for(id obj in self)		if(block(obj))		[new addObject: obj];	return new;
+/*
+- (NSA*) select:(BOOL(^)(id obj))block	{
+
+  NSMutableArray *new = @[].mC;
+	for(id x in self)		if(block(x))		[new addObject: x];
+
+  return new;
 }
 
-- (NSArray*) map:(id (^)(id obj))block	{		NSMA *new = NSMA.new;
+- (NSArray*) map:(id (^)(id))block	{
+
+  AZLOGCMD;
+
+  NSMA *new = NSMA.new;
 
 	for(id obj in self)	{
-		id newObj = block(obj);		[new addObject: newObj ? newObj : [NSNull null]];
+		id newObj = nil;
+    if ((newObj = block(obj))) [new addObject:newObj];
 	}
-	return new;
+	return [new copy];
 }
-
+*/
 @end

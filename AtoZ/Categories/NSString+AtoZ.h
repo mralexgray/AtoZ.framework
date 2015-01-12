@@ -24,7 +24,8 @@
 + (NSA*) digits;
 + (NSA*) lettersAndNumbers;
 
-@prop_RO BOOL isInteger;
+@prop_RO BOOL isInteger, isValidURL;
+
 @property   			NSRNG	subRange;
 @prop_RO NSRNG range;
 
@@ -152,8 +153,8 @@
 - (unichar)lastCharacter;
 - (void) copyFileAtPathTo:(NSS*) path;
 
-- (CGF) pointSizeForFrame:(NSR)frame withFont:(id)font;
-+ (CGF) pointSizeForFrame:(NSR)frame withFont:(id)font forString:(NSS*) string;
+- (CGF) pointSizeForFrame:(NSR)frame withFont: font;
++ (CGF) pointSizeForFrame:(NSR)frame withFont: font forString:(NSS*) string;
 
 - (NSS*)stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix;
 - (NSS*) stringByReplacingAllOccurancesOfString:(NSS*) search withString:(NSS*) replacement;
@@ -213,6 +214,8 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 /*** Returns this string splitted by carriage return + newline. * Shortcut for componentsSeperatedByString:@"\r\n" */
 @prop_RO NSA *eolines;
 
+
+
 /*** Returns this string splitted by whitespaces.  Shortcut for componentsSeperatedByString:@" " Empty elements will not be part of the array */
 @prop_RO NSA * words;
 @prop_RO NSA * wordsWithRanges;
@@ -222,6 +225,8 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 - (NSA*) trimmedComponentsSeparatedByString:(NSS*) delimiter;
 
 @prop_RO NSA *decolonize, *splitByComma;
+
++ (instancetype) ISP;
 
 - (NSS*) substringBefore:(NSS*)delimiter;
 - (NSS*)  substringAfter:(NSS*)delimiter;
@@ -475,13 +480,13 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @details Implemented with [NSString initWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithFormat:
  */
-- (id)initWithInteger:(NSInteger)value;
+- initWithInteger:(NSInteger)value;
 
 /*!
  *  @brief Initialize an NSString object with concatnating given arguments.
  *  @details Appends all arguments to first string one by one by order.
  */
-- (id)initWithConcatnatingStrings:(NSS*)first, ...NS_REQUIRES_NIL_TERMINATION;
+- initWithConcatnatingStrings:(NSS*)first, ...NS_REQUIRES_NIL_TERMINATION;
 
 /*! @name Creating a String */
 
@@ -538,7 +543,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [stringWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
-- (NSS*)format:(id)first, ...;
+- (NSS*)format: first, ...;
 /*!
  *  @brief Returns a string made by using self as a format string template into which the remaining argument values are substituted.
  *  @param dummyLikeNil Do nothing. Value will be ignored. This is placeholder
@@ -549,7 +554,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [stringWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
-- (NSS*)format0:(id)dummyLikeNil, ...;
+- (NSS*)format0: dummyLikeNil, ...;
 
 /*! @name Range */
 

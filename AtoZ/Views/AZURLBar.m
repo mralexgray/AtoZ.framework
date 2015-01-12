@@ -603,7 +603,7 @@
 	}
 	return (NSString *)object;
 }
-- (BOOL)getObjectValue:(id *)object forString:(NSString *)string errorDescription:(NSString **)error
+- (BOOL)getObjectValue:(__autoreleasing id *)object forString:(NSString *)string errorDescription:(NSString *__autoreleasing*)error
 {
 	*object = string;
 	return YES;

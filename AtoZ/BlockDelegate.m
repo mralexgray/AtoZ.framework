@@ -2,6 +2,23 @@
 #import "AtoZ.h"
 #import "BlockDelegate.h"
 
+
+@implementation NSGC (State)
+
++ (void) swapToBitmapContext:(NSBIR*)bitmapRef do:(VBlk)shit {
+
+  [self swapContext:[self graphicsContextWithBitmapImageRep:bitmapRef] do:shit];
+}
++ (void) swapContext:(NSGraphicsContext*)ctx do:(VBlk)shit {
+
+  [self saveGraphicsState]; [self setCurrentContext:ctx]; shit(); [self restoreGraphicsState];
+}
++ (void) swapToContextRef:(CGContextRef)ctx do:(VBlk)shit {
+
+  [self swapContext:[self graphicsContextWithGraphicsPort:ctx flipped:NO] do:shit];
+}
+@end
+
 JREnumDefine(BlockDelegateType);
 JREnumDefine(NSOVBlockDelegate);
 
@@ -51,15 +68,15 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
 
     if (!x || !bdel) { NSLog(@"%@",@"delegate not set!    owner or bDelegaye was zilch!"); return (id)nil; }
 
-    if (t & (CABlockTypeDrawBlock|CABlockTypeAniComplete|CABlockTypeLayerAction) && !![x delegate])
-      NSLog(@"WARNING*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", x, [x delegate]);
+    if (t & (CABlockTypeDrawBlock|CABlockTypeAniComplete|CABlockTypeLayerAction) && !![(CAL*)x delegate])
+      NSLog(@"WARNING*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", x, [(CAL*)x delegate]);
 
     if (ISA(x,CAL)) bdel.layer = x; bdel.owner = x;  [bdel sV:blk fK:BlockDelegateTypeToString(t)];
     t & (CABlockTypeDrawBlock|CABlockTypeDrawInContext|CABlockTypeAniComplete|CABlockTypeLayerAction) ? ({
 
-      [x setDelegate:(id)bdel]; [x setNeedsDisplay]; NSAssert(!![x delegate], @"nil");
+      [(CAL*)x setDelegate:(id)bdel]; [x setNeedsDisplay]; NSAssert(!![(CAL*)x delegate], @"nil");
 
-    }) : t == CABlockTypeLayoutBlock ? ({ [x setLayoutManager:(id)bdel]; [x  setNeedsLayout];
+    }) : t == CABlockTypeLayoutBlock ? ({ [(CAL*)x setLayoutManager:(id)bdel]; [x  setNeedsLayout];
     }) : t ==  KVOChangeBlock ?
 
     [x az_overrideSelector:dCVfKSEL withBlock:(__bridge void*)^(id _self, NSS*k){
@@ -225,7 +242,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
 	id x = objc_msgSend(self,@selector(delegate));
 	if (!x) {
 		x = GenericDelegate.new;
-		[x setOwner:self];
+
+#pragma mark - Disabled for compiler's sake
+//		[x setOwner:self];
+
 		[self performSelectorWithoutWarnings:@selector(setDelegate:) withObject:x];
 	}
 	const char *types = @"v@:".UTF8String;

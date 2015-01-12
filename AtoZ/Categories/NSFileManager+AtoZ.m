@@ -159,7 +159,7 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 @implementation NSFileManager (OFSimpleExtensions)
 
-- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSError **)outError
+- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSERR*__autoreleasing*)outError
 {
 #ifdef MAXSYMLINKS
 	int links_followed = 0;
@@ -204,7 +204,7 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 	return [self directoryExistsAtPath:path traverseLink:NO];
 }
 
-- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSError **)outError;
+- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSERR*__autoreleasing*)outError;
 	// Creates any directories needed to be able to create a file at the specified path.  Returns NO on failure.
 {
 	NSArray *pathComponents = [path pathComponents];
@@ -215,7 +215,7 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 	return [self createPathComponents:[pathComponents subarrayWithRange:(NSRange){0, componentCount-1}] attributes:attributes error:outError];
 }
 
-- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSError **)outError
+- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSERR*__autoreleasing*)outError
 {
 	if ([attributes count] == 0)
 		attributes = nil;
@@ -289,7 +289,7 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 #pragma mark - Changing file access/update timestamps.
 
-- (BOOL)touchItemAtURL:(NSURL *)url error:(NSError **)outError;
+- (BOOL)touchItemAtURL:(NSURL *)url error:(NSERR*__autoreleasing*)outError;
 {
 	NSDictionary *attributes = @{NSFileModificationDate: [NSDate date]};
 	BOOL rc = [self setAttributes:attributes ofItemAtPath:[[url absoluteURL] path] error:outError];

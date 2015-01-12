@@ -17,6 +17,12 @@ static NSString * const kImageDataKey = @"image";
 @property (strong) ABPerson *ref;
 @end
 
+void x (){
+
+//  id z = [@[] filterOneBlockObject:^id(id object) {
+
+//  }
+}
 //- (id)initWithImage:(NSImage*)image imageID:(NSString*)imageID andImageSubtitle:(NSString*) subtitle   andPersonUID:(NSString*) pUID
 
 @implementation AZContact
@@ -34,7 +40,7 @@ static NSString * const kImageDataKey = @"image";
 - (void) 	  setImageSubtitle:	   ( NSString*) title {	_displayName = [title copy];	}
 - (NSIMG*)	  image 	 			  {	return _image 	= _image ?: [_ref imageData]
 														? [NSImage.alloc initWithData:_ref.imageData]
-														: NSIMG.monoIcons[@"67"];		}
+														: NSIMG.monoIcons[67];		}
 
 @end
 
@@ -44,7 +50,7 @@ static NSString * const kImageDataKey = @"image";
 + (AZAddressBook*)sharedInstance
 {
 	static  dispatch_once_t once;	static id sharedInstance;
-			dispatch_once( &once, ^{  		  sharedInstance = self.new; });	return sharedInstance;
+			dispatch_once( &once, ^{ sharedInstance = self.new; });	return sharedInstance;
 }
 
 - (NSArray*) searchAddressesFor:(NSArray*)properties withValue:(NSString*)search
@@ -68,9 +74,9 @@ static NSString * const kImageDataKey = @"image";
 //		self.imageArray = [[self searchAddressesFor:@[kABOrganizationProperty,
 //							  kABLastNameProperty,
 //							  kABFirstNameProperty]withValue:[sender stringValue]]
-		[[self.addressBook people] cw_mapArray:^id(ABPerson* person) {
+		[[self.addressBook people] mapM:^id(ABPerson* person) {
 			return [AZContact contactWithPerson:person];
-		}].mutableCopy;
+		}];
 //	NSLog(@"ContactsWithImages:%ld",  _contacts.count);
 //	}];
 //	[_imageBrowser performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];

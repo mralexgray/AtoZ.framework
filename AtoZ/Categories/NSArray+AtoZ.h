@@ -1,12 +1,11 @@
 
-#import "AtoZUmbrella.h"
-#import "AtoZTypes.h"
 //#import "KVOMap/KVOMap.h"
 
+#import "AtoZUmbrella.h"
 
 @interface AZSparseArray : NSO <FakeArray>
 
-+ (instancetype) arrayWithObjectsAndIndexes:(id) first,... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype) arrayWithObjectsAndIndexes:first,... NS_REQUIRES_NIL_TERMINATION;
 + (void) test;
 
 @end
@@ -34,29 +33,29 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 #define $AZKP(K,V) AZKPMake(K,V)
 
 /** Abbreviated, AZKP, these re good for returning a Key pair to a dictionary from an array block.  
-	  Designated init. + (instancetype) key:(id)k value:(id)v; */
+	  Designated init. + (instancetype) key: k value: v; */
 
 //GENERICSABLE(AZKeyPair)
 
-@interface AZKeyPair : NSO + (INST) key:(id)k value:(id)v; +(INST) withDuo:(NSA*)a;
+@interface AZKeyPair : NSO + (INST) key: k value: v; +(INST) withDuo:(NSA*)a;
 @property (copy) id key, value;
 @end
 
 @interface NSSet (AtoZ)
 - (id)filterOne:(BOOL (^)(id object))block;
-- (NSET*)  setByRemovingObject:(id)x;
+- (NSET*)  setByRemovingObject: x;
 @end
 @interface NSMutableArray (AtoZ)
-VOID(addObjectIfMissing:(id)x);
+VOID(addObjectIfMissing: x);
 VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 @end
 @interface NSArray (AtoZ)
 
-- (NSMA*) mapM:(BKTransformBlock)block;
+- (NSMA*) mapM:(id(^)(id))block;
 
 - (NSA*) arrayOfClass:(Class)oClass forKey:(NSS*)k;
 - (NSA*) arrayOfClass:(Class)oClass;
--   (id)       reduce:(id)initial 
+-   (id)       reduce: initial 
                  with:(AZIndexedAccumulationBlock)block;
 
 @prop_RO NSA* jumbled, *splitByParity;
@@ -117,7 +116,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*) withMaxItems:(NSUI) items;
 - (NSA*) withMinItems:(NSUI)items;
 - (NSA*) withMinItems:(NSUI)items usingFiller:(id) fill;
-- (void) setStringsToNilOnbehalfOf:(id)entity;  // FIX:  DOCUMENT!!
+- (void) setStringsToNilOnbehalfOf: entity;  // FIX:  DOCUMENT!!
 
 @prop_RO CSET * countedSet;
 @prop_RO  NSN * maxNumberInArray, * minNumberInArray;
@@ -169,36 +168,36 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 /** will not brick if not all obects have the key etc */
 - (NSA*)arrayWithObjectsMatchingKeyOrKeyPath:(NSS*)keyPath;
-- (NSA*) arrayBySettingValue:(id)v forObjectsKey:(NSS*)k;
+- (NSA*) arrayBySettingValue: v forObjectsKey:(NSS*)k;
 
 /**	Calls performSelector on all objects that can receive the selector in the array.
  * Makes an iterable copy of the array, making it possible for the selector to modify
  * the array. Contrast this with makeObjectsPerformSelector which does not allow side effects of
  * modifying the array.	*/
 - (void)perform:(SEL)sel;
-- (void)perform:(SEL)sel withObject:(id)p1;
-- (void)perform:(SEL)sel withObject:(id)p1 withObject:(id)p2;
-- (void)perform:(SEL)sel withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
+- (void)perform:(SEL)sel withObject: p1;
+- (void)perform:(SEL)sel withObject: p1 withObject: p2;
+- (void)perform:(SEL)sel withObject: p1 withObject: p2 withObject: p3;
 
 /**	Extensions to makeObjectsPerformSelector to provide support for more than one object
  * parameter.	*/
-- (void)makeObjectsPerformSelector:(SEL)s withObject:(id)o1 withObject:(id)o2;
-- (void)makeObjectsPerformSelector:(SEL)s withObject:(id)o1	withObject:(id)o2 withObject:(id)o3;
+- (void)makeObjectsPerformSelector:(SEL)s withObject: o1 withObject: o2;
+- (void)makeObjectsPerformSelector:(SEL)s withObject: o1	withObject: o2 withObject: o3;
 
 - (void)makeObjectsPerformSelector:(SEL)s withBool:(BOOL)b;
 
 /**	@return nil or an object that matches value with isEqual:	*/
--   (id)  objectWithValue:(id)v forKey:(id)k;
--   (id) objectsWithValue:(id)v forKey:(id)k;
+-   (id)  objectWithValue: v forKey: k;
+-   (id) objectsWithValue: v forKey: k;
 /**	@return the first object with the given class.	*/
 -   (id) objectWithClass:(Class)cls;
-/**	@param selector Required format: - (NSNumber*)method:(id)object;	*/
-- (BOOL) containsObject:(id)obj withSelector:(SEL)sel;
+/**	@param selector Required format: - (NSNumber*)method: object;	*/
+- (BOOL) containsObject: obj withSelector:(SEL)sel;
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
 - (NSA*) arrayPerformingSelector:(SEL)sel;
 
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
-- (NSA*)arrayPerformingSelector:(SEL)sel withObject:(id)obj;
+- (NSA*)arrayPerformingSelector:(SEL)sel withObject: obj;
 
 /*** Returns an array of the same size as the original one with the results of performing the block on each object */
 - (NSA*)arrayUsingBlock:(id(^)(id obj))blk;
@@ -212,10 +211,10 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (id)reduce:(id (^)(id a, id b))block;
 
 /*** Returns a subArray that does not contain the argument object */
-- (NSA*)arrayWithoutObject:(id)object;
+- (NSA*)arrayWithoutObject: object;
 
 /*** Returns a subArray that does not contain any of the passed arguments */
-- (NSA*)arrayWithoutObjects:(id)object,...;
+- (NSA*)arrayWithoutObjects: object,...;
 
 /*** Returns a subArray that does not contain any value that the passed NSArray contains */
 - (NSA*)arrayWithoutArray:(NSA*)value;
@@ -282,11 +281,11 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (id)normal:(NSI)index;
 
 /*** A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil */
-- (id)objectAtIndex:(NSUI)index fallback:(id)fallback;
+- (id)objectAtIndex:(NSUI)index fallback: fallback;
 /*** Will at least return nil in case the index does not fit the array */
 - (id)objectOrNilAtIndex:(NSUI)index;
 
-@prop_RO NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings;
+@prop_RO NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings, *alphaGrouped;
 @prop_RO IndexedKeyMap * alphaMap;
 @prop_RO  id   first, second, thrid, fourth, fifth, sixth, last, firstObject;
 
@@ -297,7 +296,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /*** Returns YES when this array contains all of the elements in enumerable */
 - (BOOL)               containsAll:(id<NSFastEnumeration>)enumerable;
 - (BOOL)     doesNotContainObjects:(id<NSFastEnumeration>)enumerable;
-- (BOOL)      doesNotContainObject:(id)object;
+- (BOOL)      doesNotContainObject: object;
 
 /*** Just a case study at the moment. Just another way of writing enumerateUsingBlock, but as it's written kvc conform the foreach macro can be used to write code like foreach (id o, array) {   ... } */
 - (void)         setAndExecuteEnumeratorBlock:(void(^)(id o, NSUI idx, BOOL*s))b;
@@ -366,7 +365,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /** Helper method for adding the given object to the end of the receiver.
  	Internally the method sends the receiver `addObject:`, but using this method makes usage of array as stack more obvious.
  	@param object The object to push to the end of the receiver.	*/
-- (void)push:(id)object;
+- (void)push: object;
 
 /** Helper method to removing the last object from the receiver. removes and returns the last object in the array
 	Internally the method sends the receiver `removeLastObject` and returns the removed object.
@@ -383,7 +382,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
                        * az_reverse,  // reverses the whole array
                        * shuffle;     // randomizes the order of the array
 
-- (void) moveObject:(id)obj toIndex:(NSUI)toIndex;
+- (void) moveObject: obj toIndex:(NSUI)toIndex;
 
 - (void) moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx;
 - (void) moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx withBlock:(void(^)(id,NSUInteger))block;
@@ -478,12 +477,12 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 //- (NSA*)     map:(SEL)sel; // Note also see: makeObjectsPeformSelector: withObject:. Map collects the results a la mapcar in Lisp
 - (NSA*) collect:(SEL)sel;
 - (NSA*)  reject:(SEL)sel;
-- (NSA*)     map:(SEL)sel withObject:(id)o;
-- (NSA*) collect:(SEL)sel withObject:(id)o;
-- (NSA*)  reject:(SEL)sel withObject:(id)o;
-- (NSA*)     map:(SEL)sel withObject:(id)o1 withObject:(id)o2;
-- (NSA*) collect:(SEL)sel withObject:(id)o1 withObject:(id)o2;
-- (NSA*)  reject:(SEL)sel withObject:(id)o1 withObject:(id)o2;
+- (NSA*)     map:(SEL)sel withObject: o;
+- (NSA*) collect:(SEL)sel withObject: o;
+- (NSA*)  reject:(SEL)sel withObject: o;
+- (NSA*)     map:(SEL)sel withObject: o1 withObject: o2;
+- (NSA*) collect:(SEL)sel withObject: o1 withObject: o2;
+- (NSA*)  reject:(SEL)sel withObject: o1 withObject: o2;
 @end
 
 @interface NSMutableArray (UtilityExtensions)
@@ -493,9 +492,9 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 @end
 
 @interface NSMutableArray (StackAndQueueExtensions) 
-- (NSMA*)  pushObject:(id)o;
-- (NSMA*)        push:(id)o; // aka pushObject
-- (NSMA*) pushObjects:(id)o,...;
+- (NSMA*)  pushObject: o;
+- (NSMA*)        push: o; // aka pushObject
+- (NSMA*) pushObjects: o,...;
 
 @prop_RO id popObject, pop, pullObject, pull; // With Synonyms for traditional use
 @end

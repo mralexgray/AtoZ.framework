@@ -16,10 +16,8 @@
 @interface AZContact : NSObject //<ABImageClient>
 + (instancetype)contactWithPerson:(ABPerson*)a;
 //- (id) initWithUid:(NSS*)uid;
-@property (nonatomic, strong) NSImage *image;
-@property (readonly) NSString *displayName;
-@property (readonly) NSString *personUID;
-@property (readonly) NSString *organization;
+@property (readonly) NSImage *image;
+@property (readonly) NSString *displayName, *personUID, *organization;
 @end;
 //
 //@property (nonatomic, copy) NSString *uid;

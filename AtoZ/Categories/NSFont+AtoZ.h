@@ -63,14 +63,14 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 - (NSS*) IRCHostname;
 - (NSS*) IRCRealname;
 - (BOOL) isMatchedByRegex:(NSS*) regex;
-- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(NSError **) error;
+- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(NSERR*__autoreleasing*) error;
 - (NSRange) rangeOfRegex:(NSS*) regex inRange:(NSRange) range;
-- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSError **) error;
+- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSERR*__autoreleasing*) error;
 - (NSS*) stringByMatching:(NSS*) regex capture:(NSInteger) capture;
-- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSError **) error;
-- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(NSError **) error;
+- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSERR*__autoreleasing*) error;
+- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(NSERR*__autoreleasing*) error;
 - (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement;
-- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(NSError **) error;
+- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(NSERR*__autoreleasing*) error;
 - (NSUInteger) levenshteinDistanceFromString:(NSS*) string;
 @end
 

@@ -3,11 +3,11 @@
 
 @concreteprotocol(NSOutlineViewDraggable)
 
-- (BOOL) outlineView:(NSOV*)ov          isItemExpandable:(id)x      { return NO; }
--  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem:(id)x      { return 0;  }
--   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem:(id)x      { return nil; }
+- (BOOL) outlineView:(NSOV*)ov          isItemExpandable: x      { return NO; }
+-  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem: x      { return 0;  }
+-   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem: x      { return nil; }
 -   (id) outlineView:(NSOV*)ov objectValueForTableColumn:(NSTC*)col 
-                                                  byItem:(id)x;     { return nil; }
+                                                  byItem: x;     { return nil; }
 @end
 
 @implementation NSOutlineView (AtoZ)
@@ -22,7 +22,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 
 @interface AZTreeNode ()
 @property (readwrite,assign,nonatomic) id parentNode;
-- (void)insertObject:(id)object inChildNodesAtIndex:(NSUInteger)index;
+- (void)insertObject: object inChildNodesAtIndex:(NSUInteger)index;
 @end
 
 @implementation AZTreeNode
@@ -42,7 +42,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 }
 
 #pragma mark NSCoding
-- (id)initWithCoder:(NSCoder*)cdr {
+- initWithCoder:(NSCoder*)cdr {
 	if (self != [super initWithCoder:cdr]) return nil;
 	for (id node in [cdr decodeObjectForKey:kAZTreeNodeChildNodesKey])
 		[self insertObject:node inChildNodesAtIndex:_childNodes.count];
@@ -79,10 +79,10 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return [_childNodes objectAtIndex:index];
 }
 
-- (void)addObjectToChildNodes:(id)object; {
+- (void)addObjectToChildNodes: object; {
 	[self insertObject:object inChildNodesAtIndex:[self countOfChildNodes]];
 }
-- (void)insertObject:(id)object inChildNodesAtIndex:(NSUInteger)index; {
+- (void)insertObject: object inChildNodesAtIndex:(NSUInteger)index; {
 	if (!_childNodes)
 		_childNodes = NSMutableArray.new;
 	
@@ -183,7 +183,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 			return  [node boolForKey:self.leafKeyPath] ? @[node] : [NSA arrayWithArrays:@[@[node],node.descendants]];
 	}]];
 }
-- (NSTreeNode*) treeNodeForObject:(id)object	{ 
+- (NSTreeNode*) treeNodeForObject: object	{ 
 	
 	return [self.flattenedNodes filterOne:^BOOL(NSTreeNode *node) { 	return node.representedObject == object; }];	
 }
@@ -400,7 +400,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return [[mutableArray copy] autorelease];	
 }
 
-- (NSTreeNode *)treeNodeForObject:(id)object;
+- (NSTreeNode *)treeNodeForObject: object;
 {
 	NSTreeNode *treeNode = nil;
 	for (NSTreeNode *node in [self flattenedNodes]) {
@@ -473,7 +473,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return retval.copy;
 }
 // returns the NSIndexPath for the real model object 'representedObject'
-- (NSIndexPath *)indexPathForRepresentedObject:(id)representedObject; {
+- (NSIndexPath *)indexPathForRepresentedObject: representedObject; {
 	for (NSTreeNode *node in [self treeNodes]) {
 		if ([representedObject isEqual:[node representedObject]])
 			return [node indexPath];
@@ -496,7 +496,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return indexPaths.copy;
 }
 // returns the corresponding NSTreeNode object for the real model object 'representedObject'
-- (NSTreeNode *)treeNodeForRepresentedObject:(id)representedObject; {
+- (NSTreeNode *)treeNodeForRepresentedObject: representedObject; {
 	for (NSTreeNode *node in [self treeNodes]) {
 		if ([representedObject isEqual:[node representedObject]])
 			return node;
@@ -527,7 +527,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	[self setSelectionIndexPaths:[treeNodes valueForKey:@"indexPath"]];
 }
 // selects the real model object 'representedObject'
-- (void)setSelectedRepresentedObject:(id)representedObject; {
+- (void)setSelectedRepresentedObject: representedObject; {
 	[self setSelectedRepresentedObjects:[NSArray arrayWithObject:representedObject]];
 }
 // selects an array of real model objects 'representedObjects'
@@ -554,7 +554,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	[self removeObjectsAtArrangedObjectIndexPaths:[treeNodes valueForKey:@"indexPath"]];
 }
 
-- (void)removeRepresentedObject:(id)representedObject; {
+- (void)removeRepresentedObject: representedObject; {
 	[self removeRepresentedObjects:[NSArray arrayWithObject:representedObject]];
 }
 

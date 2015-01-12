@@ -15,20 +15,20 @@
 @interface NSObject (AQProperties)
 
 - (INST) objectBySettingValuesWithDictionary:(NSD*)d;
-- (INST)                objectBySettingValue:(id)v 
+- (INST)                objectBySettingValue: v 
                                       forKey:(NSS*)k;
 - (INST)               objectBySettingValues:(NSA*)vals 
                                      forKeys:(NSA*)keys;
 - (INST)                objectByIncrementing:(NSS*)k 
                                           by:(NSN*)v;
 - (INST)        objectBySettingVariadicPairs:(NSA*)vsForKs;
-- (INST)                   withValuesForKeys:(id)v,...;
-- (INST)                              wVsfKs:(id)v,...;
+- (INST)                   withValuesForKeys: v,...;
+- (INST)                              wVsfKs: v,...;
 - (void)                    setValuesForKeys:(AZKP*)kp,...;
 - (void)                        incrementKey:(NSS*)k 
                                           by:(NSN*)v;
 
-- (void)  setKVs:(id)firstKey,... NS_REQUIRES_NIL_TERMINATION;
+- (void)  setKVs: firstKey,... NS_REQUIRES_NIL_TERMINATION;
 
 + (NSD*) classPropertiesAndTypes;
 + (NSA*) objcPropertiesWithoutSuperclass;

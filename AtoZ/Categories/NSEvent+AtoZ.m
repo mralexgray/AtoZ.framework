@@ -11,9 +11,9 @@ typedef BOOL(^AZVisualTestCase)(NSString *instruction, SEL selector,...);
 
 @synthesizeAssociation(NSTableView, doubleActionBlock);
 
-- (void) setDoubleAction:(SEL)method withTarget:(id)object { self.doubleAction = method;	self.target = object; }
+- (void) setDoubleAction:(SEL)method withTarget: object { self.doubleAction = method;	self.target = object; }
 
-- (void) setDoubleActionString:(NSS*)methodAsString withTarget:(id)object {	self.doubleAction = NSSelectorFromString(methodAsString); self.target = object;	}
+- (void) setDoubleActionString:(NSS*)methodAsString withTarget: object {	self.doubleAction = NSSelectorFromString(methodAsString); self.target = object;	}
 
 - (void) callDoubleActionBlock 								{ self.doubleActionBlock(); }
 
@@ -64,7 +64,7 @@ CLANG_POP
 
 @implementation NSControl (AtoZEvent)
 
-- (void) actionHandler:(id)e {    if (self.eventActionBlock) self.eventActionBlock([e ISKINDA:NSE.class] ? ((NSE*)e).type : (AZEvent)e, self); }
+- (void) actionHandler: e {    if (self.eventActionBlock) self.eventActionBlock([e ISKINDA:NSE.class] ? ((NSE*)e).type : (AZEvent)e, self); }
 
 - (void(^)(AZEvent,id))eventActionBlock { return objc_getAssociatedObject(self,_cmd); }
 
@@ -78,11 +78,11 @@ CLANG_POP
 //SYNTHESIZE_ASC_OBJ(	eventActionBlock, setEventActionBlock)
 
 
-- (void) setAction:(SEL)method withTarget:(id)object;			{
+- (void) setAction:(SEL)method withTarget: object;			{
 	self.action = method; 	self.target = object;
 }
 - (void) setActionString:(NSS*)methodAsString 
-				  withTarget:(id)object									{
+				  withTarget: object									{
 	self.action = NSSelectorFromString(methodAsString);	self.target = object;
 }
 

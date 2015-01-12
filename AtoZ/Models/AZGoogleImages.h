@@ -18,6 +18,6 @@
 +           (NSA*) urlsForQuery:(NSS*)query;
 
 
-+ (NSA*) imagesForQuery:(NSS*)q count:(NSUInteger)ct;
+//+ (NSA*) imagesForQuery:(NSS*)q count:(NSUInteger)ct; FIX!
 
 @end

@@ -31,7 +31,10 @@ AZPROP(AZHTMLParser,parser);
 - (NSURL*) url {  return  $URL($(@"http://images.google.com/images?q=%@&safe=off&start=%ld", 
 								  [self.query stringByReplacing:@" " with:@"+"].URLEncodedString , self.start)); 
 }
--   (void) loadMoreURLs { if (!_query) return; AZLOGCMD; [self startTiming];	
+-   (void) loadMoreURLs { if (!_query) return;
+
+  //AZLOGCMD;
+  [self startTiming];
 
 	NSERR *e = nil; _urls = _urls ?: NSMA.new; NSUI startCt = _urls.count;
 

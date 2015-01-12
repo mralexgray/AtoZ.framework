@@ -8,7 +8,7 @@
 // Special thanks to Matt Gemmell (http://mattgemmell.com/) for helping me solve the
 // transparent drawing issues.  Your awesome man!!!
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import "BGThemeManager.h"
 #import "AtoZAppKit.h"
 

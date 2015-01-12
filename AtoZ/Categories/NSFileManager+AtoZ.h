@@ -44,22 +44,22 @@ NSS *    NSBundleFolder (void);
 
 @interface NSFileManager (OFSimpleExtensions)
 
-- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSError **)outError;
+- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSERR*__autoreleasing*)outError;
 
 	// Directory manipulations
 
 - (BOOL)directoryExistsAtPath:(NSS*)path;
 - (BOOL)directoryExistsAtPath:(NSS*)path traverseLink:(BOOL)traverseLink;
 
-- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSError **)outError;
+- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSERR*__autoreleasing*)outError;
 	// Creates any directories needed to be able to create a file at the specified path.
 
 	// Creates any directories needed to be able to create a file at the specified path.  Returns NO on failure.
-- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSError **)outError;
+- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSERR*__autoreleasing*)outError;
 
 	// Changing file access/update timestamps.
 
-- (BOOL)touchItemAtURL:(NSURL *)url error:(NSError **)outError;
+- (BOOL)touchItemAtURL:(NSURL *)url error:(NSERR*__autoreleasing*)outError;
 
 #ifdef DEBUG
 - (void) logPropertiesOfTreeAtURL:(NSURL *)url;

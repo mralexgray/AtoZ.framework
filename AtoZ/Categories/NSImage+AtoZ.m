@@ -1,114 +1,57 @@
 
+//#import "AZHTMLParser.h" #import "HTMLNode.h" #import "AtoZCategories.h" @import ObjectiveC;
 
-@import ObjectiveC;
-//#import <AppKit/AppKit.h>
-//#import <Quartz/Quartz.h>
-#import <QuickLook/QuickLook.h>
 #import <SVGKit/SVGKit.h>
+#import <QuickLook/QuickLook.h>
 #import "AtoZ.h"
-//#import "AZHTMLParser.h"
-//#import "HTMLNode.h"
-//#import "AtoZCategories.h"
 #import "NSImage+AtoZ.h"
-
 
 NSIMG* AZIMGNamed(NSS *constName) {  return objc_msgSend(NSIMG.class, NSSelectorFromString(constName)); }
 
-NSString
-*const AZIMG_checkmark = @"checkmark",              *const AZIMG_addressBook = @"addressBook",
-*const AZIMG_paperclip = @"paperclip",              *const AZIMG_checkRound = @"checkRound",
-*const AZIMG_xCircle = @"xCircle",                  *const AZIMG_off = @"off",
-*const AZIMG_on = @"on",                            *const AZIMG_lightning = @"lightning",
-*const AZIMG_floppy = @"floppy",                    *const AZIMG_folder = @"folder",
-*const AZIMG_globe = @"globe",                      *const AZIMG_jewishHand = @"jewishHand",
-*const AZIMG_calendar = @"calendar",                *const AZIMG_cylinder = @"cylinder",
-*const AZIMG_document = @"document",                *const AZIMG_textDocument = @"textDocument",
-*const AZIMG_blinkingPlus = @"blinkingPlus",        *const AZIMG_blinkingMinus = @"blinkingMinus",
-*const AZIMG_printer = @"printer",                  *const AZIMG_lock = @"lock",
-*const AZIMG_magnifyingGlass = @"magnifyingGlass",  *const AZIMG_wavyDocument = @"wavyDocument",
-*const AZIMG_computerScreen = @"computerScreen",    *const AZIMG_foldedEdgeoc = @"foldedEdgeoc",
-*const AZIMG_volume = @"volume",                    *const AZIMG_starFilled = @"starFilled",
-*const AZIMG_starEmpty = @"starEmpty",              *const AZIMG_textsymbol = @"textsymbol",
-*const AZIMG_bold = @"bold",                        *const AZIMG_italic = @"italic",
-*const AZIMG_strikethrough = @"strikethrough",      *const AZIMG_trashcan = @"trashcan",
-*const AZIMG_tag = @"tag",                          *const AZIMG_envelope = @"envelope",
-*const AZIMG_plus = @"plus",                        *const AZIMG_minus = @"minus",
-*const AZIMG_recycle = @"recycle",                  *const AZIMG_umbrella = @"umbrella",
-*const AZIMG_XMark = @"XMark",                      *const AZIMG_roundX = @"roundX",
-*const AZIMG_roundCheck = @"roundCheck",            *const AZIMG_check = @"check",
-*const AZIMG_safari = @"safari",                    *const AZIMG_pointer = @"pointer",
-*const AZIMG_forbidden = @"forbidden",              *const AZIMG_forbiddenLight = @"forbiddenLight",
-*const AZIMG_atSymbol = @"atSymbol";
+NSString    *const AZIMG_checkmark = @"checkmark",              *const AZIMG_addressBook = @"addressBook",
+            *const AZIMG_paperclip = @"paperclip",              *const AZIMG_checkRound = @"checkRound",
+            *const AZIMG_xCircle = @"xCircle",                  *const AZIMG_off = @"off",
+            *const AZIMG_on = @"on",                            *const AZIMG_lightning = @"lightning",
+            *const AZIMG_floppy = @"floppy",                    *const AZIMG_folder = @"folder",
+            *const AZIMG_globe = @"globe",                      *const AZIMG_jewishHand = @"jewishHand",
+            *const AZIMG_calendar = @"calendar",                *const AZIMG_cylinder = @"cylinder",
+            *const AZIMG_document = @"document",                *const AZIMG_textDocument = @"textDocument",
+            *const AZIMG_blinkingPlus = @"blinkingPlus",        *const AZIMG_blinkingMinus = @"blinkingMinus",
+            *const AZIMG_printer = @"printer",                  *const AZIMG_lock = @"lock",
+            *const AZIMG_magnifyingGlass = @"magnifyingGlass",  *const AZIMG_wavyDocument = @"wavyDocument",
+            *const AZIMG_computerScreen = @"computerScreen",    *const AZIMG_foldedEdgeoc = @"foldedEdgeoc",
+            *const AZIMG_volume = @"volume",                    *const AZIMG_starFilled = @"starFilled",
+            *const AZIMG_starEmpty = @"starEmpty",              *const AZIMG_textsymbol = @"textsymbol",
+            *const AZIMG_bold = @"bold",                        *const AZIMG_italic = @"italic",
+            *const AZIMG_strikethrough = @"strikethrough",      *const AZIMG_trashcan = @"trashcan",
+            *const AZIMG_tag = @"tag",                          *const AZIMG_envelope = @"envelope",
+            *const AZIMG_plus = @"plus",                        *const AZIMG_minus = @"minus",
+            *const AZIMG_recycle = @"recycle",                  *const AZIMG_umbrella = @"umbrella",
+            *const AZIMG_XMark = @"XMark",                      *const AZIMG_roundX = @"roundX",
+            *const AZIMG_roundCheck = @"roundCheck",            *const AZIMG_check = @"check",
+            *const AZIMG_safari = @"safari",                    *const AZIMG_pointer = @"pointer",
+            *const AZIMG_forbidden = @"forbidden",              *const AZIMG_forbiddenLight = @"forbiddenLight",
+            *const AZIMG_atSymbol = @"atSymbol";
 
-@interface AZImageCache ()
-@property(assign, nonatomic) dispatch_queue_t queue;
-@end
 
-@implementation AZImageCache
-SYNTHESIZE_SINGLETON_FOR_CLASS(AZImageCache, sharedCache);
+static NSS *_systemIconsFolder;
+static NSA *_systemIcons;
 
-- (id)init { SUPERINIT;
-
-  _queue          = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-  _cacheDirectory = [AZCACHEDIR withPath:[APP_NAME withString:@"_ImageCache"]];
-  MAKEDIR_IFNEEDED(_cacheDirectory);
-  return self;
-}
-
-- (void)removeAllObjects {
-
-  [AZFILEMANAGER removeItemAtPath:_cacheDirectory error:nil];
-  MAKEDIR(_cacheDirectory);
-  [super removeAllObjects];
-}
-
-- (NSIMG *)imageForKey:(NSS *)key { if (![self hasPropertyForKVCKey:@"key"] || !key) return nil;
-
-  NSIMG *image = [self objectForKey:key]; return image ?: ({ NSS *path = [self pathForImage:image key:key];
-
-    if ((image = [NSIMG.alloc initWithContentsOfFile:path])) [self setObject:image forKey:key];  image;  });
-}
-
-+ (void)cacheImage:(NSIMG*)i { [i saveAs:[self.sharedCache pathForImage:i key:i.name ?: NSS.randomWord]]; }
-
-- (void)setImage:(NSIMG*)i forKey:(NSS*)k { IF_RETURNV(!i || !k);
-
-  [self setObject:i forKey:k];
-  dispatch_async(_queue, ^{ [i saveAs:[self pathForImage:i key:k]]; /* path */ });
-
-//  NSLog(@"%@", path); NSData *imageD = NSIMGPNGRepresentation(image);
-//  if (imageD) [imageData writeToFile:path atomically:NO];
-}
-
-#pragma mark - Private Methods
-
-- (NSS *)pathForImage:(NSIMG *)image key:(NSS *)key {
-
-  NSS *path = key;
-#if TARGET_OS_IPHONE
-  if (image.scale == 2.0f) path = [key stringByAppendingString:@"@2x"];
-#endif
-  return [_cacheDirectory withPath:[path withExtIfMissing:@"png"]];
-}
-
-@end
-
-//  AZFavIconOp
-
-static NSS *_systemIconsFolder = nil;
-static NSA *_systemIcons = nil;
 static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
   return (arr[(bit_num / 8)] & (1 << (bit_num % 8)));
 }
+
 typedef NS_ENUM(NSUI, pixelComponents) { red, green, blue, alpha };
-float distance(NSP aPoint) {
+
+CGF distance(NSP aPoint) {
   return sqrt(aPoint.x * aPoint.x +
               aPoint.y * aPoint.y); /* Stole this from some guy named
                                        Pythagoras..  Returns the distance of
                                        aPoint from the origin. */
 }
+
 static void BitmapReleaseCallback(void *info, const void *data, size_t size) {
-  __unused id bir = (__bridge_transfer NSBitmapImageRep *)info;
+  __unused id bir = (__bridge_transfer NSBIR*) info;
   //	DLog(@"%@", bir);
 }
 /*	 from http://developer.apple.com/technotes/tn2005/tn2143.html
@@ -137,7 +80,7 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 @end
 @implementation CIFilter (WithDefaults)
 
-+ (CIFilter *)filterWithDefaultsNamed:(NSString *)name {
++ (CIFilter*) filterWithDefaultsNamed:(NSString*) name {
 
   CIFilter *cc = [CIFilter filterWithName:name];
   [cc setDefaults];
@@ -150,9 +93,9 @@ NSData *PNGRepresentation(NSIMG *image) {
 #if TARGET_OS_IPHONE
   return UIImagePNGRepresentation(image);
 #else
-  NSBitmapImageRep *bitmapRep;
+  NSBIR *bitmapRep;
   [image lockFocus];
-  bitmapRep = [NSBitmapImageRep.alloc
+  bitmapRep = [NSBIR.alloc
       initWithFocusedViewRect:NSMakeRect(0, 0, image.size.width,
                                          image.size.height)];
   [image unlockFocus];
@@ -162,7 +105,7 @@ NSData *PNGRepresentation(NSIMG *image) {
 
 @implementation NSImage (AtoZDrawBlock)
 
-+ (NSImage *)imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock {
++ (NSImage*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock {
 
   if (NSEqualSizes(size, NSZeroSize))
     return self.new;
@@ -178,7 +121,7 @@ NSData *PNGRepresentation(NSIMG *image) {
 // associatedValueForKey:@"dBlock"];	d(); }
 //	[newer setAssociatedValue:drawBlock forKey:@"dBlock"];
 
-+ (NSIMG *)imageInFrame:(NSR)frame withBlock:(LockedFocusWithFrame)blk {
++ (NSIMG*) imageInFrame:(NSR)frame withBlock:(LockedFocusWithFrame)blk {
   NSR originRect = AZRectBy(frame.size.width, frame.size.height);
   NSSZ s = originRect.size;
   NSIMG *newImg =
@@ -195,6 +138,17 @@ NSData *PNGRepresentation(NSIMG *image) {
 
 @implementation NSImage (AtoZ)
 
++ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep {
+
+  if(!rep) return nil;
+
+  NSIMG*image = NSImage.new;
+  [image addRepresentation: rep];
+
+  return image;
+}
+
+
 
 + (NSIMG*) gravatarForEmail:(NSS*)e {
 
@@ -209,32 +163,29 @@ NSData *PNGRepresentation(NSIMG *image) {
 			result[8],  result[9],  result[10], result[11],	result[12], result[13], result[14], result[15]); //md5email
 
   return ((id)self)[gravatarEndPoint];
+  XX(gravatarEndPoint);
+//  return [self from:gravatarEndPoint];
 }
 
-//+ (id) objectForKeyedSubscript:(id)k { return [self imageNamed:k]; }
+//+ (id) objectForKeyedSubscript: k { return [self imageNamed:k]; }
 
 //- (CGF)width {	return self.size.width ;		}
-//
 //- (CGF)height {	return self.size.height ;	}
+//- (void)setWidth:(CGF)t {  self.scalesWhenResized = YES; [self setSize:AZSizeExceptWide(self.size, t)]; }
+//- (void)setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
 
-//- (void)setWidth:(CGF)t {  self.scalesWhenResized = YES; [self
-// setSize:AZSizeExceptWide(self.size, t)]; }
-//
-//- (void)setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self
-// setSize:AZSizeExceptHigh(self.size, t)]; }
-
-- (NSAS *)attributedString {
+-  (NSAS*) attributedString {
 
   NSTextAttachment *attachment = NSTextAttachment.new;
   attachment.attachmentCell = [NSTextAttachmentCell.alloc initImageCell:self];
   return [NSAttributedString attributedStringWithAttachment:attachment];
 }
 
-+ (NSIMG *)isometricShelfInRect:(NSR)rect {
++ (NSIMG*) isometricShelfInRect:(NSR)rect {
   return [self isometricShelfInRect:rect
                               color:[NSC r:0.58f g:0.81f b:0.782f a:1.0f]];
 }
-+ (NSIMG *)isometricShelfInRect:(NSR)rect color:(NSC *)c {
++ (NSIMG*) isometricShelfInRect:(NSR)rect color:(NSC*) c {
   return [self
         imageWithSize:(AZScaleRect(rect, .5)).size
       drawnUsingBlock:^{
@@ -274,13 +225,13 @@ NSData *PNGRepresentation(NSIMG *image) {
       }];
 }
 
-+ (NSIMG *)imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG * (^)(NSIMG *))block {
++ (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG * (^)(NSIMG *))block {
   NSIMG *newI = [self.alloc initWithSize:sz];
   newI = block(newI);
   return newI;
 }
 
-- (void)lockFocusBlock:(void (^)(NSIMG *))block {
+-   (void)    lockFocusBlock:(  void(^)(NSIMG*))block {
       [self lockFocus];
 //  [NSGraphicsContext state:^{
 
@@ -288,13 +239,13 @@ NSData *PNGRepresentation(NSIMG *image) {
       [self unlockFocus];
 //  }];
 }
-- (NSIMG *)lockFocusBlockOut:(NSIMG * (^)(NSIMG *))block {
+- (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block {
   [self lockFocus];
   NSIMG *i = block(self);
   [self unlockFocus];
   return i;
 }
-+ (NSIMG *)faviconForDomain:(NSS *)domainAsString {
++ (NSIMG*)  faviconForDomain:(NSS*)domainAsString     {
 
   static NSA *iconLocs = nil;
   static NSIMG *missing = nil;
@@ -327,14 +278,15 @@ NSData *PNGRepresentation(NSIMG *image) {
   NSLog(@"Favicon for %@: %@", domainAsString, theIcon ? @"FOUND" : @"MISSING");
   return theIcon ?: missing;
 }
-+ (NSIMG *)imageWithData:(NSData *)data {
++ (NSIMG*)     imageWithData:(DTA*)data               {
   return [NSImage.alloc initWithData:data];
 }
+
 // create a new "sphere" layer and add it to the container layer
 
-+ (NSIMG *)testGlowingSphereImageWithScaleFactor:(CGF)scale
-                                       coreColor:(NSC *)core
-                                       glowColor:(NSC *)glow {
++ (NSIMG*) testGlowingSphereImageWithScaleFactor:(CGF)scale
+                                       coreColor:(NSC*) core
+                                       glowColor:(NSC*) glow {
   NSLog(@"testing %@ with arguments 1.0 (scaleFactor), WHITE (coreColor)m and "
         @"RANDOMCOLOR (glowColor);",
         NSStringFromSelector(_cmd));
@@ -343,9 +295,9 @@ NSData *PNGRepresentation(NSIMG *image) {
                                           glowColor:RANDOMCOLOR];
 }
 
-+ (NSIMG *)glowingSphereImageWithScaleFactor:(CGF)scale
-                                   coreColor:(NSC *)core
-                                   glowColor:(NSC *)glow {
++ (NSIMG*) glowingSphereImageWithScaleFactor:(CGF)scale
+                                   coreColor:(NSC*) core
+                                   glowColor:(NSC*) glow {
 
   if (scale > 10.0 || scale < 0.5) {
     NSLog(@"%@: larger than 10.0 or less than 0.5 scale. returning nil.",
@@ -417,19 +369,19 @@ NSData *PNGRepresentation(NSIMG *image) {
   //	[solidCircle release]; [blurImage release]; autorelease];
 }
 
-+ (NSA *)randomWebImages:(NSUI)ct {
++ (NSA*) randomWebImages:(NSUI)ct {
   return [[@0 to:@(ct)]
       cw_mapArray:^id(id object) { return self.randomWebImage; }];
 }
 
-+ (NSIMG *)randomWebImage {
++ (NSIMG*) randomWebImage {
   return [self googleImages:NSS.randomUrbanD.word ct:1 eachBlock:nil];
 }
-+ (NSIMG *)googleImage:(NSS *)query {
++ (NSIMG*) googleImage:(NSS*) query {
   return [self googleImages:query ct:1 eachBlock:nil];
 }
 
-+ (NSIMG *)googleImages:(NSS *)query
++ (NSIMG*) googleImages:(NSS*) query
                      ct:(NSUI)ct
               eachBlock:(void (^)(NSIMG *results))block {
 
@@ -450,7 +402,7 @@ NSData *PNGRepresentation(NSIMG *image) {
 
   //	NSMA*images 	= NSMA.new;
   //	NSIMG *retVal 	= nil;
-  //	NSS*q 			= query ? [self googleImageURL:query) :
+  //	NSS*q 			= query ? [self googleImageURL:query :
   // fixForGoogle(NSS.randomUrbanD.word);
   //	for (int i = 0; i < ct; i++) {
   //		if (![queries[q] count]) runQuery(q);
@@ -480,7 +432,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
 
 */
 
-+ (void)loadImage:(NSURL *)url andDisplay:(void (^)(NSImage *i))b {
++ (void)loadImage:(NSURL*) url andDisplay:(void (^)(NSImage *i))b {
 
   //  __block NSImage *image = nil;
 
@@ -506,9 +458,9 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
   [self loadImage:@"http://mrgray.com/randomimage.php".url andDisplay:display];
 }
 
-//+ (NSIMG *)randomFunny { return ((id)self)[@"http://mrgray.com/randomimage.php"]; }
+//+ (NSIMG*) randomFunny { return ((id)self)[@"http://mrgray.com/randomimage.php"]; }
 
-+ (NSIMG *)randomFunnyImage {
++ (NSIMG*) randomFunnyImage {
   __block NSError *requestError;
 
   [AZStopwatch start:@"photoTimer"];
@@ -534,23 +486,27 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
   }];
   return webI;
 }
-//	__strong ASIHTTPRequest *requester						 = [ASIHTTPRequest.alloc
-// initWithURL:addy];
-//									 requester.completionBlock  =^(ASIHTTPRequest *request) {
-//			  requestError   = request.error;
-//		NSS *responsePage   = request.responseString.copy;
-//		NSLog(@"got response: %@", responsePage);
-//		AZHTMLParser 	*p =       [AZHTMLParser.alloc initWithString:responsePage
-// error:&requestError];
-//		NSS *imageurl 		=       [[p.body findChildWithAttribute:@"alt"
-// matchingName:@"Random Image" allowPartial:TRUE]getAttributeNamed:@"src"];
-//		NSLog(@"imageurl: %@", imageurl);
-//		webI = [self imageFromURL:imageurl];
-//	};
-//	requester.startSynchronous;
 
-//	wikiD = request.responseString.copy; requestError = [request error];	};
 /*
+
+	__strong ASIHTTPRequest *requester						 = [ASIHTTPRequest.alloc
+ initWithURL:addy];
+									 requester.completionBlock  =^(ASIHTTPRequest *request) {
+			  requestError   = request.error;
+		NSS *responsePage   = request.responseString.copy;
+		NSLog(@"got response: %@", responsePage);
+		AZHTMLParser 	*p =       [AZHTMLParser.alloc initWithString:responsePage
+ error:&requestError];
+		NSS *imageurl 		=       [[p.body findChildWithAttribute:@"alt"
+ matchingName:@"Random Image" allowPartial:TRUE]getAttributeNamed:@"src"];
+		NSLog(@"imageurl: %@", imageurl);
+		webI = [self imageFromURL:imageurl];
+	};
+	requester.startSynchronous;
+
+	wikiD = request.responseString.copy; requestError = [request error];	};
+
+
     AZHTMLParser *p		= [AZHTMLParser.alloc initWithString:wikiD error:nil];
     _rawResult = wikiD;
     NSString * stripped 	= [_rawResult stripHtml];
@@ -600,22 +556,17 @@ allowPartial:YES]
 + objectForKeyedSubscript:x {
 
   return ISA(x,NSURL) ?  [self from:[x URLString]] :
-         ISA(x,  NSS) ?  ^{
-
-  return [self imageNamed:x] ?: [self from:x]; }() : nil;
+         ISA(x,  NSS) ?  [x isValidURL] ? [self from:x] : [self imageNamed:x] : nil;
 }
 
-+ (NSIMG *)from:(NSS*)stringURL {
++ (NSIMG*) from:(NSS*)stringURL {
 
   NSData *d = [NSData dataWithContentsOfURL:stringURL.urlified];
-  return !d ? NSLog(@"failed to create image for url string:%@", stringURL),(id)nil : [self.alloc initWithData:d];
+  return d ? [self.alloc initWithData:d] : NSLog(@"failed to create image for url string:%@", stringURL), (id)nil;
 
-  //	url =  [url doesContain:@"http://"] || [url doesContain:@"http://"] ? url
-  //: $(@"http://%@", url);
-  //	return [NSImage.alloc initWithData: [NSData dataWithContentsOfURL: [NSURL
-  // URLWithString:url]]];
+  //	url =  [url doesContain:@"http://"] || [url doesContain:@"http://"] ? url: $(@"http://%@", url); return [NSImage.alloc initWithData: [NSData dataWithContentsOfURL: [NSURL URLWithString:url]]];
 }
-+ (NSIMG *)screenShot {
++ (NSIMG*) screenShot {
 
   return [NSIMG.alloc
       initWithCGImage:CGWindowListCreateImage(
@@ -626,7 +577,7 @@ allowPartial:YES]
 
 static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
 
-+ (NSA *)frameworkImagePaths {
++ (NSA*) frameworkImagePaths {
   return frameworkImagePaths_ =
              frameworkImagePaths_
                  ?: [NSA arrayWithArrays:
@@ -636,14 +587,14 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
                                                               inDirectory:@""];
                              }]];
 }
-+ (NSA *)frameworkImageNames {
++ (NSA*) frameworkImageNames {
   return frameworkImageNames_ =
              frameworkImageNames_
                  ?: [[NSIMG.frameworkImagePaths
                         mapSelector:@selector(lastPathComponent)]
                         mapSelector:@selector(stringByDeletingPathExtension)];
 }
-+ (NSA *)frameworkImages {
++ (NSA*) frameworkImages {
   //; error:nil] filter:^BOOL(id object) { return [(NSString*)object
   // contains:@".icn"] ? YES : NO;
   //	return [f arrayUsingBlock:^id(id obj) {	return [base
@@ -660,36 +611,36 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
         @"RANDOMCOLOR (glowColor);",                                           \
         NSStringFromSelector(_cmd));
 
-- (NSIMG *)testNamed:(NSS *)name {
+- (NSIMG*) testNamed:(NSS*) name {
 
   if (name)
     self.name = name;
   return self;
 }
-- (NSIMG *)named:(NSS *)name {
-  if (name)
-    self.name = name;
+- (NSIMG*) named:(NSS*)name {
+
+  if (name) self.name = [name copy];
   return self;
 }
 
 + (INST) withFile:x { return [self imageWithFile:x named:[x lastPathComponent]]; }
 
 + (instancetype)imageWithFile:(NSS*)file named:(NSS*)name {
-  return [self.alloc initWithFile:file named:name];
+  return [(NSIMG*)self.class.alloc initWithFile:file named:name];
 }
-- (instancetype)initWithFile:(NSS *)file named:(NSS *)name {
-  NSIMG *i = [self.class.alloc initWithContentsOfFile:file.stringByStandardizingPath];
+- (instancetype)initWithFile:(NSS*) file named:(NSS*) name {
+  NSIMG *i = [(__typeof(self))self.class.alloc initWithContentsOfFile:file.stringByStandardizingPath];
   if(name) [i setName:name];
   return i;
 }
-+ (instancetype)imageWithSize:(NSSZ)size named:(NSS *)name {
-  return [self.alloc initWithSize:size named:name];
++ (instancetype)imageWithSize:(NSSZ)size named:(NSS*) name {
+  return [NSIMG.alloc initWithSize:size named:name];
 }
 
-- (instancetype)initWithSize:(NSSZ)size named:(NSS *)name {
-  return [(NSIMG *)[self.class.alloc initWithSize:size] named:name];
+- (instancetype)initWithSize:(NSSZ)size named:(NSS*) name {
+  return [[NSIMG.alloc initWithSize:size] named:name];
 }
-+ (NSA *)systemIcons {
++ (NSA*) systemIcons {
   _systemIconsFolder = _systemIconsFolder ?: @"/System/Library/CoreServices/"
                            @"CoreTypes.bundle/Contents/" @"Resources/";
   return _systemIcons =
@@ -702,7 +653,7 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
                           return [NSIMG
                               imageWithFile:[_systemIconsFolder
                                                 stringByAppendingPathComponent:
-                                                    (NSString *)obj]
+                                                    (NSString*) obj]
                                       named:
                                           [obj stringByDeletingPathExtension]];
                         }]
@@ -711,54 +662,48 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
                             }];
                     }();
 }
-+ (NSA *)systemIconNames_ {
++ (NSA*) systemIconNames_ {
   static NSA *theNamesOfSystemIcons_ = nil;
   return theNamesOfSystemIcons_ =
              theNamesOfSystemIcons_
                  ?: [[AZFILEMANAGER contentsOfDirectoryAtPath:_systemIconsFolder
                                                         error:nil]
                         filter:^BOOL(id object) {
-                          return [(NSString *)object contains:@".icn"];
+                          return [(NSString*) object contains:@".icn"];
                         }];
 }
 
-+ (PDFDocument *)monoPDF {
-  static PDFDocument *doc = nil;
++ (PDFDocument*) monoPDF {
 
-  return doc = doc ?: [PDFDocument.alloc
-                          initWithURL:
-                              [NSURL fileURLWithPath:
-                                         [AZFWORKBUNDLE
-                                             pathForResource:@"PicolSingulario"
-                                                      ofType:@"pdf"]]];
+  AZSTATIC_OBJ(PDFDocument,doc, [PDFDocument.alloc initWithURL:[NSURL fileURLWithPath:[AZFWORKBUNDLE pathForResource:@"PicolSingulario" ofType:@"pdf"]]]);
+  return doc;
 }
 
-//+ (NSIMG*) monoIconNamed:(NSS*)name { return [self.monoIcons
-// filterOne:^BOOL(NSIMG*icon) { return SameS(icon.name, name); }]; }
-+ (NSIMG *)randomMonoIcon {
+//+ (NSIMG*) monoIconNamed:(NSS*)name { return [self.monoIcons filterOne:^BOOL(NSIMG*icon) { return SameS(icon.name, name); }]; }
 
-  //	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
-  // 	NSUI rand = RAND_INT_VAL(0, monoCt-1);
-  //	NSLog(@"randomMono:[%lu / %lu]", rand, monoCt );
-  //	return monosMade ? self.monoIcons[rand]
-  return self.monoIcons
-      .randomElement; //[self monoIconNamed:@(rand).stringValue];
-  //	 imageFromPDF:self.monoPDF page:rand size:AZSizeFromDim(256)
-  // named:AZString(rand)];
-}
++ (NSIMG*) randomMonoIcon {   return self.monoIcons.randomElement; }
 
-//+ (BOOL)resolveInstanceMethod:(SEL)aSEL {
-//
-//      if (aSEL == @selector(resolveThisMethodDynamically)) {
-//          class_addMethod([self class], aSEL, (IMP) dynamicMethodIMP, "v@:");
-//          return YES;
-//    }
-//    return [super resolveInstanceMethod:aSEL];
-//}
-
-//+ (id)valueForUndefinedKey:(NSS *)k { AZLOGCMD;
 /*
-+ (NSMethodSignature *)methodSignatureForSelector:(SEL)s {
+	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
+ 	NSUI rand = RAND_INT_VAL(0, monoCt-1);
+	NSLog(@"randomMono:[%lu / %lu]", rand, monoCt );
+	return monosMade ? self.monoIcons[rand]
+[self monoIconNamed:@(rand).stringValue];
+	 imageFromPDF:self.monoPDF page:rand size:AZSizeFromDim(256)
+ named:AZString(rand)];
+
++ (BOOL)resolveInstanceMethod:(SEL)aSEL {
+
+      if (aSEL == @selector(resolveThisMethodDynamically)) {
+          class_addMethod([self class], aSEL, (IMP) dynamicMethodIMP, "v@:");
+          return YES;
+    }
+    return [super resolveInstanceMethod:aSEL];
+}
+
++ (id)valueForUndefinedKey:(NSS*) k { AZLOGCMD;
+
++ (NSMethodSignature*) methodSignatureForSelector:(SEL)s {
 
   NSMethodSignature *sig = [super methodSignatureForSelector:s];
 
@@ -774,7 +719,7 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
         return sig;
     }
     
-    - (void)forwardInvocation:(NSInvocation *)inv
+    - (void)forwardInvocation:(NSInvocation*) inv
     {
         for(id obj in self)
             [inv invokeWithTarget:obj];
@@ -808,15 +753,19 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
 NSIMG* resolve(id self, SEL _cmd) {
     NSLog(@"crazyClassMethod has been added!");
 }
+
+#define ARRAYWITHOBJECTSATINDEXES(...)
 */
-//#define ARRAYWITHOBJECTSATINDEXES(...)
 
-+ (NSA *)monoIcons { AZSTATIC_OBJ(NSA, monos, ({
+static NSMutableIndexSet *namedMonos;
 
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{    IndexedKeyMap *map = IndexedKeyMap.new;
++ (NSA*) namedMonoIcons { return [self.monoIcons objectsAtIndexes:namedMonos]; }
 
-    map[43] = @"checkmark";       map[75] = @"paperclip";   map[44] = @"addressBook";
++ (NSA*) monoIcons { static NSA * monos;
+
+  return monos = monos ?: ({ namedMonos =  NSMutableIndexSet.new;
+
+/*    map[43] = @"checkmark";       map[75] = @"paperclip";   map[44] = @"addressBook";
     map[43] = @"checkRound";      map[76] = @"xCircle";     map[81] = @"off";
     map[82] = @"on";              map[109] = @"lightning";  map[111] = @"floppy";
     map[115] = @"folder";         map[131] = @"globe";            map[136] = @"jewishHand";
@@ -833,23 +782,69 @@ NSIMG* resolve(id self, SEL _cmd) {
     map[692] = @"safari";         map[693] = @"pointer";          map[695] = @"forbidden";
     map[648] = @"forbiddenLight"; map[640] = @"atSymbol";
 
-    PDFDocument * myPDF =self.monoPDF;
+  static dispatch_once_t onceToken;
+  NSMA *mono_temp = @[].mC;
 
-    monos = [[@0 to: @(myPDF.pageCount - 1)] map:^id(NSN* o){     //          NSString *name = match ? [match copy] : o.strV;
-          return [self imageFromPDF:myPDF page:o.iV size:AZSizeFromDim(256)
-                                      named:map[o.iV] ?:[@"AtoZMono-"withString:o.strV]];
-    }];
-  }); monos; })); return monos;
+  dispatch_once(&onceToken, ^{    // IndexedKeyMap *map = IndexedKeyMap.new;
+*/
+
+    id x = @{
+      @"43" : AZIMG_checkmark,       @"75"  : @"paperclip",           @"44" : AZIMG_addressBook, //      @(43) : AZIMG_checkRound,
+      @"76" : AZIMG_xCircle,         @"81"  : AZIMG_off,
+      @"82" : AZIMG_on,              @"109" : AZIMG_lightning,        @"111" : AZIMG_floppy,
+      @"115" : AZIMG_folder,         @"131" : AZIMG_globe,            @"136" : AZIMG_jewishHand,
+      @"140" : AZIMG_calendar,       @"189" : AZIMG_cylinder,         @"220" : AZIMG_document,
+      @"232" : AZIMG_textDocument,   @"261" : AZIMG_blinkingPlus,     @"262" : AZIMG_blinkingMinus,
+      @"266" : AZIMG_printer,        @"280" : AZIMG_lock,             @"279" : AZIMG_magnifyingGlass,
+      @"276" : AZIMG_wavyDocument,   @"278" : AZIMG_computerScreen,   @"273" : AZIMG_foldedEdgeoc,
+      @"320" : AZIMG_volume,         @"323" : AZIMG_starFilled,       @"324" : AZIMG_starEmpty,
+      @"332" : AZIMG_textsymbol,     @"337" : AZIMG_bold,             @"338" : AZIMG_italic,
+      @"339" : AZIMG_strikethrough,  @"345" : AZIMG_trashcan,         @"409" : AZIMG_tag,
+      @"422" : AZIMG_envelope,       @"488" : AZIMG_plus,             @"489" : AZIMG_minus,
+      @"608" : AZIMG_recycle,        @"621" : AZIMG_umbrella,         @"631" : AZIMG_XMark,
+      @"630" : AZIMG_roundX,         @"626" : AZIMG_roundCheck,       @"677" : AZIMG_check,
+      @"692" : AZIMG_safari,         @"693" : AZIMG_pointer,          @"695" : AZIMG_forbidden,
+      @"648" : AZIMG_forbiddenLight, @"640" : AZIMG_atSymbol };
+
+      PDFDocument * myPDF =self.monoPDF;
+
+      [@(myPDF.pageCount - 1) mapTimes:^id(NSNumber *o) {
+
+        id name;
+        NSN* adjusted = [o plus:@1];
+        BOOL hasName = (( name = [x objectForKey:[adjusted sVal]] ));
+        id z = [NSIMG imageFromPDF:myPDF page:o.iV size:AZSizeFromDim(256) named:[@"AtoZMono-" withString:name ?: [adjusted sVal]]];
+
+//          LOGCOLORS(@" Adding Index ", [o minus:@1], nil);
+        !hasName ?: [namedMonos addIndex:o.uIV];
+        return z;
+      }];
+    });
 }
+
+/*      [x enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        id c = [self imageFromPDF:myPDF page:[key uIV] size:AZSizeFromDim(256)
+                                        named:[@"AtoZMono-"withString:obj]];
+        if (c) [mono_temp addObject:c];
+      }];
+  [mono_temp copy];
+  });
+
+    [[@0 to: @(myPDF.pageCount - 1)] az_map:^id(NSN* o){     //          NSString *name = match ? [match copy] : o.strV;
+          return [self imageFromPDF:myPDF page:o.iV size:AZSizeFromDim(256)
+                                      named:@(o.iV] ?:[@"AtoZMono-"withString:o.strV]];
+    }];
+  }); monos; }));
+*/
 
 #pragma TODO - NEED to make this shit dynamic , keysubbed, etc.
 
 + (INST) missing { return [self imageNamed:@"missing.png"]; }
 
-+ (NSIMG *)imageFromPDF:(PDFDocument *)doc
++ (NSIMG*) imageFromPDF:(PDFDocument*) doc
                    page:(NSUI)page
                    size:(NSSZ)size
-                  named:(NSS *)name {
+                  named:(NSS*) name {
 
   NSIMG *render = [NSIMG imageWithSize:size named:name];
   [render addRepresentation:[NSPDFImageRep
@@ -860,27 +855,27 @@ NSIMG* resolve(id self, SEL _cmd) {
 /*+ (NSA*) iconStrings {		NSBundle *aBundle = [NSBundle bundleForClass:
  * [DummyClass class]];	return [aBundle pathsForResourcesOfType:@"pdf"
  * inDirectory:@"picol"]; NSLog(@"%@", imagePaths); } */
-+ (instancetype)systemIconNamed:(NSS *)name {
++ (instancetype)systemIconNamed:(NSS*) name {
   return [self.systemIcons filterOne:^BOOL(NSIMG *o) {
     return [o.name.lowercaseString contains:name.lowercaseString];
   }];
 }
-+ (instancetype)frameworkImageNamed:(NSS *)string {
++ (instancetype)frameworkImageNamed:(NSS*) string {
   return [self.class imageWithFileName:string inBundle:AZFWORKBUNDLE];
 }
 + (instancetype)randomIcon {
   return [self.class az_imageNamed:self.picolStrings.randomElement];
 }
-//+ (NSA *)iconsColoredWithColor:(NSC *)color;
+//+ (NSA*) iconsColoredWithColor:(NSC*) color;
 //{}
-+ (NSA *)picolStrings {
++ (NSA*) picolStrings {
   static NSA *picolStrings_ = nil;
 
   return picolStrings_ =
              picolStrings_
                  ?: [AZFILEMANAGER filesInFolder:[AZFWRESOURCES withPath:@"picol/"]];
 }
-+ (NSA *)icons {
++ (NSA*) icons {
   return [NSA arrayWithArrays:@[ self.monoIcons, self.systemIcons ]];
 }
 /*	return 	[[[NSImage picolStrings] map:^id(id obj) {		NSIMG*u =[[NSImage
@@ -891,7 +886,7 @@ stringByDeletingPathExtension]; return u;	}]filter:^BOOL(id object) {		return
 //	return  [[[self class] picolStrings] map:^id(id obj) {		NSIMG*i = [NSImage
 az_imageNamed:obj];		NSLog(@"loading %@  aka %@", [obj lastPathComponent], i);
 return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
-+ (NSIMG *)forFile:(AZFile *)file {
++ (NSIMG*) forFile:(AZFile*) file {
 
   NSSZ theSize = AZSizeFromDim(512);
   return [AZWORKSPACE iconForFile:file.path]
@@ -900,7 +895,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                  : [NSImage az_imageNamed:@"missing.png"];
 }
 
-+ (NSA *)randomImages:(NSUI)count {
++ (NSA*) randomImages:(NSUI)count {
   static NSA *randomImages_;
 
   randomImages_ =
@@ -908,22 +903,22 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
           ?: [NSA arrayWithArrays:@[ self.icons, self.frameworkImages ]];
   return [randomImages_ randomSubarrayWithSize:count];
 }
-+ (NSIMG *)blackBadgeForRect:(NSR)frame {
++ (NSIMG*) blackBadgeForRect:(NSR)frame {
   return [self badgeForRect:frame withColor:BLACK];
 }
-+ (NSIMG *)badgeForRect:(NSR)frame withColor:(NSC *)color {
++ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*) color {
   return [self badgeForRect:frame withColor:color stroked:nil];
 }
-+ (NSIMG *)badgeForRect:(NSR)frame
-              withColor:(NSC *)color
-                stroked:(NSC *)stroke {
++ (NSIMG*) badgeForRect:(NSR)frame
+              withColor:(NSC*) color
+                stroked:(NSC*) stroke {
   return
       [self badgeForRect:frame withColor:color stroked:stroke withString:nil];
 }
-+ (NSIMG *)badgeForRect:(NSR)frame
-              withColor:(NSC *)color
-                stroked:(NSC *)stroke
-             withString:(NSS *)string {
++ (NSIMG*) badgeForRect:(NSR)frame
+              withColor:(NSC*) color
+                stroked:(NSC*) stroke
+             withString:(NSS*) string {
 
   return [self badgeForRect:frame
                   withColor:color
@@ -931,10 +926,10 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                  withString:string
                 orDrawBlock:nil];
 }
-+ (NSIMG *)badgeForRect:(NSR)frame
-              withColor:(NSC *)color
-                stroked:(NSC *)stroke
-             withString:(NSS *)string
++ (NSIMG*) badgeForRect:(NSR)frame
+              withColor:(NSC*) color
+                stroked:(NSC*) stroke
+             withString:(NSS*) string
             orDrawBlock:(void (^)(NSR))drawBlock {
 
   //	[AtoZ sharedInstance];
@@ -996,10 +991,10 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
           operation:NSCompositeSourceOver
            fraction:1];
 }
-- (CAL *)imageLayerForRect:(NSR)rect {
+- (CAL*) imageLayerForRect:(NSR)rect {
   return ReturnImageLayer([CAL layerWithFrame:rect], self, 1);
 }
-+ (NSIMG *)imagesInQuadrants:(NSA *)images inRect:(NSR)frame {
++ (NSIMG*) imagesInQuadrants:(NSA*) images inRect:(NSR)frame {
   return [self imageWithSize:frame.size
              drawnUsingBlock:^{ [self drawInQuadrants:images inRect:frame]; }];
 }
@@ -1011,7 +1006,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
               rect,
               quad)]; /* alignRectInRect(AZRectFromDim(rect.size.width/2),rect,quad)];*/
 }
-+ (void)drawInQuadrants:(NSA *)images inRect:(NSR)frame {
++ (void)drawInQuadrants:(NSA*) images inRect:(NSR)frame {
 
   [[images subarrayToIndex:4] eachWithIndex:^(NSIMG *obj, NSI idx) {
       [obj drawInRect:quadrant(frame, idx)];
@@ -1019,11 +1014,11 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 }
 /*alignRectInRect( AZRectFromDim( frame.size.width/2 ), frame, (QUAD)idx);
  * NSRectFillWithColor(thisQ, RANDOMCOLOR); */
-- (NSIMG *)reflected:(float)amountFraction {
+- (NSIMG*) reflected:(float)amountFraction {
 
   return [self.class reflectedImage:self amountReflected:amountFraction];
 }
-+ (NSIMG *)reflectedImage:(NSIMG *)sourceImage amountReflected:(float)fraction {
++ (NSIMG*) reflectedImage:(NSIMG*) sourceImage amountReflected:(float)fraction {
   NSIMG *reflection = [NSIMG.alloc initWithSize:sourceImage.size];
   [reflection setFlipped:NO];
   NSRect reflectionRect = (NSRect) {0, 0, sourceImage.size.width,
@@ -1072,17 +1067,17 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   }
   return NSMakeSize(scaledWidth, scaledHeight);
 }
-- (NSIMG *)imageByScalingProportionallyToSize:(NSSZ)tSz {
+- (NSIMG*) imageByScalingProportionallyToSize:(NSSZ)tSz {
   return [self imageByScalingProportionallyToSize:tSz flipped:NO];
 }
-- (NSIMG *)imageByScalingProportionallyToSize:(NSSZ)tSz flipped:(BOOL)f {
+- (NSIMG*) imageByScalingProportionallyToSize:(NSSZ)tSz flipped:(BOOL)f {
 
   return [self imageByScalingProportionallyToSize:tSz
                                           flipped:f
                                          addFrame:NO
                                         addShadow:NO];
 }
-- (NSIMG *)imageByScalingProportionallyToSize:(NSSZ)tSz
+- (NSIMG*) imageByScalingProportionallyToSize:(NSSZ)tSz
                                       flipped:(BOOL)f
                                      addFrame:(BOOL)n
                                     addShadow:(BOOL)q {
@@ -1093,16 +1088,16 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                                         addShadow:q
                                          addSheen:YES];
 }
-- (NSIMG *)imageByScalingProportionallyToSize:(NSSZ)tSz
+- (NSIMG*) imageByScalingProportionallyToSize:(NSSZ)tSz
                                       flipped:(BOOL)f
                                      addFrame:(BOOL)n
                                     addShadow:(BOOL)q
                                      addSheen:(BOOL)s {
 
   NSIMG *sourceImage = self;
-  NSImageRep *rep = [sourceImage bestRepresentationForSize:tSz];
-  NSInteger pixelsWide = rep.pixelsWide;
-  NSInteger pixelsHigh = rep.pixelsHigh;
+  NSIR *rep = [sourceImage bestRepresentationForSize:tSz];
+  NSI pixelsWide = rep.pixelsWide;
+  NSI pixelsHigh = rep.pixelsHigh;
   sourceImage.size = NSMakeSize(pixelsWide, pixelsHigh);
   NSIMG *newImage = nil;
   if ([sourceImage isValid] == NO)
@@ -1261,7 +1256,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
   return newImage;
 }
-- (NSIMG *)imageByFillingVisibleAlphaWithColor:(NSC *)fillColor {
+- (NSIMG*) imageByFillingVisibleAlphaWithColor:(NSC*) fillColor {
 
   // convert source image to CIImage	NSData* sourceImageData = [self
   // TIFFRepresentation];
@@ -1280,7 +1275,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [finalImage addRepresentation:ciImageRep];
   return finalImage;
 }
-- (NSIMG *)blackWhite {
+- (NSIMG*) blackWhite {
 
   NSIMG *image = self.copy;
   [image lockFocus];
@@ -1302,7 +1297,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [image unlockFocus];
   return image;
 }
-+ (NSIMG *)offset:(NSIMG *)_image top:(CGF)top {
++ (NSIMG*) offset:(NSIMG *)_image top:(CGF)top {
 
   NSIMG *newImage = [NSImage.alloc
       initWithSize:NSMakeSize(_image.size.width, _image.size.height + top)];
@@ -1315,7 +1310,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [newImage unlockFocus];
   return newImage;
 }
-- (NSIMG *)inverted {
+- (NSIMG*) inverted {
 
   NSIMG *image = self.copy;
   [image lockFocus];
@@ -1331,7 +1326,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [image unlockFocus];
   return image;
 }
-- (NSIMG *)imageByConvertingToBlackAndWhite {
+- (NSIMG*) imageByConvertingToBlackAndWhite {
   // convert source image to CIImage
   NSData *sourceImageData = [self TIFFRepresentation];
   CIImage *imageToFill = [CIImage imageWithData:sourceImageData];
@@ -1353,14 +1348,14 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 }
 // this creates an image from the entire 'visible' rectangle of a view.  For
 // offscreen views this is the entire view.
-+ (NSIMG *)createImageFromView:(NSV *)view {
++ (NSIMG*) createImageFromView:(NSV*) view {
   NSR rect = view.bounds;
   return [self createImageFromSubView:view rect:rect];
 }
 // this creates an image from a subset of the view's visible rectangle
-+ (NSIMG *)createImageFromSubView:(NSV *)view rect:(NSR)rect {
++ (NSIMG*) createImageFromSubView:(NSV*) view rect:(NSR)rect {
   // first get teh properly setup bitmap for this view
-  NSBitmapImageRep *imageRep =
+  NSBIR *imageRep =
       [view bitmapImageRepForCachingDisplayInRect:rect];
   // now use that bitmap to store the desired view rectangle as bits
   [view cacheDisplayInRect:rect toBitmapImageRep:imageRep];
@@ -1369,7 +1364,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [image addRepresentation:imageRep];
   return image;
 }
-- (NSIMG *)maskWithColor:(NSC *)c {
+- (NSIMG*) maskWithColor:(NSC*) c {
 
   NSIMG *badgeImage = [NSImage.alloc initWithSize:self.size];
   //	[NSGraphicsContext saveGraphicsState];
@@ -1388,7 +1383,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [badgeImage unlockFocus];
   return badgeImage;
 }
-- (NSIMG *)scaleImageToFillSize:(NSSZ)targetSize {
+- (NSIMG*) scaleImageToFillSize:(NSSZ)targetSize {
   NSSZ sourceSize = self.size;
   NSRect sourceRect, destinationRect;
   sourceRect = destinationRect = NSZeroRect;
@@ -1415,10 +1410,10 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [final unlockFocus];
   return final;
 }
-- (NSIMG *)coloredWithColor:(NSC *)inColor {
+- (NSIMG*) coloredWithColor:(NSC*) inColor {
   return [self coloredWithColor:inColor composite:NSCompositeDestinationIn];
 }
-- (NSIMG *)coloredWithColor:(NSC *)inColor
+- (NSIMG*) coloredWithColor:(NSC*) inColor
                   composite:(NSCompositingOperation)comp {
   static __unused CGF kGradientShadowLevel = 0.25;
   static CGF kGradientAngle = 270.0;
@@ -1456,7 +1451,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
     return self;
 }
 
-+ (NSIMG *)imageWithFileName:(NSS *)fileName inBundle:(NSBundle *)aBundle {
++ (NSIMG*) imageWithFileName:(NSS*) fileName inBundle:(NSBundle*) aBundle {
   NSIMG *img = nil;
   if (aBundle != nil) {
     NSString *imagePath;
@@ -1467,12 +1462,12 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return img;
 }
 
-+ (NSIMG *)imageWithFileName:(NSS *)fileName inBundleForClass:(Class)aClass {
++ (NSIMG*) imageWithFileName:(NSS*) fileName inBundleForClass:(Class)aClass {
   return [self imageWithFileName:fileName
                         inBundle:[NSBundle bundleForClass:aClass]];
 }
 
-+ (NSIMG *)az_imageNamed:(NSS *)name {
++ (NSIMG*) az_imageNamed:(NSS*) name {
   NSIMG *i;
   return i = [NSIMG az_imageNamed:name]
                      ?: [NSIMG.alloc
@@ -1486,7 +1481,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 //	NSBundle *aBundle = [NSBundle bundleForClass: [self class]];
 //	return [self imageWithFileName: fileName inBundle: aBundle]; }
 
-+ (NSIMG *)swatchWithColors:(NSA*)cs size:(NSSZ)z oriented:(AZO)o {
++ (NSIMG*) swatchWithColors:(NSA*)cs size:(NSSZ)z oriented:(AZO)o {
 
 //  [NSC.randomColor
   //[AZSizer forQuantity:cs.count ofSize:z withColumns:isVertical(o) ? 1 : cs.count];
@@ -1500,7 +1495,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 }
 
 
-+ (NSIMG *)swatchWithColor:(NSC *)color size:(NSSZ)size {
++ (NSIMG*) swatchWithColor:(NSC*) color size:(NSSZ)size {
   NSIMG *image = [NSImage.alloc initWithSize:size];
   [image lockFocus];
   [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
@@ -1508,7 +1503,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return image;
 }
 
-+ (NSIMG *)swatchWithGradientColor:(NSC *)color size:(NSSZ)size {
++ (NSIMG*) swatchWithGradientColor:(NSC*) color size:(NSSZ)size {
   NSIMG *image = [NSImage.alloc initWithSize:size];
   [image lockFocus];
   NSGradient *fade =
@@ -1519,9 +1514,9 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return image;
 }
 
-- (NSIMG *)resizeWhenScaledImage { return [self setScalesWhenResized:YES], self; }
+- (NSIMG*) resizeWhenScaledImage { return [self setScalesWhenResized:YES], self; }
 
-+ (NSIMG *)prettyGradientImage {
++ (NSIMG*) prettyGradientImage {
 
   NSSZ gradientSize = AZSizeFromDim(256);
   NSImage *newImage =
@@ -1531,7 +1526,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
   int pixelsWide = gradientSize.width, pixelsHigh = gradientSize.height;
 
-  NSBIR *bitmapRep = [NSBitmapImageRep.alloc
+  NSBIR *bitmapRep = [NSBIR.alloc
       initWithBitmapDataPlanes:nil // Nil pointer makes the kit allocate the
                                    // pixel buffer for us.
                     pixelsWide:pixelsWide // The compiler will convert these to
@@ -1575,98 +1570,116 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return newImage;
 }
 
-- (NSC *)quantized {
+- (NSC*) quantized {
   NSA *q = self.quantize;
   return (q.count) ? q.first : CHECKERS;
 }
 
-- (NSA *)quantize { NSMA *catcher = objc_getAssociatedObject(self, _cmd);
+- (NSBIR*) quantizerRepresentation {
 
-  return catcher.count ? catcher : ({ NSBag *satchel = NSBag.bag;
+  return objc_getAssociatedObject(self, _cmd) ?: ({ id x;
 
-    NSIMG *cp = self.copy; cp.size = AZSizeFromDim(32);  NSBIR *imageRep = cp.bitmap;
-    [imageRep bitmapImageRepByRetaggingWithColorSpace:NSColorSpace.deviceRGBColorSpace];
+//    NSIMG *cp = [self scaleDown:AZSizeFromDim(16)];//scaledToMax:16];
+//    cp.size = AZSizeFromDim(16);
+//    NSBIR *imageRep = cp.bitmap;
+//    if (imageRep.colorSpace != NSColorSpace.deviceRGBColorSpace)
+//      [imageRep bitmapImageRepByRetaggingWithColorSpace:NSColorSpace.deviceRGBColorSpace];
 
+    objc_setAssociatedObject(self, _cmd, x = [self bitmapBy:16 y:16], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
-    IterateGridWithBlock($RNG(0, 32), $RNG(0, 32), ^(NSI i, NSI j) { NSC *thisPx;
+    x;
+
+  });
+}
+
+- (NSA*) quantize { return objc_getAssociatedObject(self, _cmd) ?: ({
+
+//    if ([[self.representations.firstObject colorSpac] )
+    NSBag *satchel = NSBag.bag;
+    NSBIR *imageRep = self.quantizerRepresentation;
+
+    IterateGridWithBlock($RNG(0, 16), $RNG(0, 16), ^(NSI i, NSI j) { NSC *thisPx;
 
       !(thisPx = [imageRep colorAtX:i y:j]).alphaComponent ?: [satchel add:thisPx];
 
     });
-    NSUI ctr = satchel.objects.count < 10 ? satchel.objects.count : 10;
-    for (int j = 0; j < ctr; j++)
-      for (int s = 0; s < [satchel occurrencesOf:satchel.objects[j]]; s++)
-        [catcher addObject:satchel.objects[j]];
 
-    objc_setAssociatedObject(self, _cmd, catcher, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    NSUI ctr = satchel.objects.count < 10 ? satchel.objects.count : 10;
+//
+//    for (int j = 0; j < ctr; j++)
+//      for (int s = 0; s < [satchel occurrencesOf:satchel.objects[j]]; s++)
+//        [savedQs addObject:satchel.objects[j]];
 
-    catcher;
+    objc_setAssociatedObject(self, _cmd, [satchel sortedObjects], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_getAssociatedObject(self, _cmd);
   });
 }
-    //	[imageRep bitmapImageRepByConvertingToColorSpace:NSColorSpace.deviceRGBColorSpace
-    // renderingIntent:NSColorRenderingIntentDefault];
- //	NSI width = 32, height = 32;				//
-                                        //[imageRep pixelsWide]; NSInteger height
-                                        //= 	[imageRep pixelsHigh];
 
-//	for (int i = 0; i < width; i++) {
-//		for (int j = 0; j < height; j++) {  				//	[self
-// setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
-//			NSC *thisPx = [imageRep colorAtX:i y:j];
-//			[thisPx alphaComponent] == 0 ?: [satchel add:thisPx];
-//		}
-//	}
-//	int counter = ( [satchel objects].count < 10 ? [satchel objects].count : 10
-//);
-//	for (int j = 0; j < counter; j++) {
-//		for (int s = 0; s < [satchel occurrencesOf:[satchel objects] [j]]; s++)
-//			[catcher addObject:[satchel objects][j]];
-//	}
-//		[NSGraphicsContext saveGraphicsState];
-//	NSIMG*quantized = self.copy;
-//	[self setSize:NSMakeSize(32, 32)];
-//	[anImage setSize:NSMakeSize(32, 32)];
-//	NSSZ size = [self size];
-//	NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
-//	[self lockFocus];
-//	NSBitmapImageRep *imageRep = [self bitmap];
-//	NSBitmapImageRep *imageRep = [NSBitmapImageRep.alloc
-// initWithFocusedViewRect:iconRect];
-//	[self unlockFocus];
-//	[nSImage imageNamed:NSImageNameHomeTemplate
-//	NSIMG*image = [NSImage.alloc initWithData:[rep
-// representationUsingType:NSPNGFileType properties:nil]];
-//	NSBitmapImageRep *imageRep = (NSBitmapImageRep*)[[image representations]
-// objectAtIndex:0];
-//	NSIMG*resizedIcon = [NSImage.alloc initWithIconRef:[self]];
-//	[resizedIcon lockFocus];
-//	[self drawInRect:resizedBounds fromRect:NSZeroRect operation:NSCompositeCopy
-// fraction:1.0];
-//	[resizedIcon unlockFocus];
+/*
+	[imageRep bitmapImageRepByConvertingToColorSpace:NSColorSpace.deviceRGBColorSpace
+ renderingIntent:NSColorRenderingIntentDefault];
+	NSI width = 32, height = 32;				//
+                      [imageRep pixelsWide]; NSI height
+                      = 	[imageRep pixelsHigh];
 
-//	NSBitmapImageRep* imageRep = [[resizedIcon representations]
-// objectAtIndex:0];
-//	NSBitmapImageRep *imageRep = nil;
-//	if (![firstRep isKindOfClass:[NSBitmapImageRep class]])	{
-//		NSRect resizedBounds = NSMakeRect(0,0,32,32);
-//		[self lockFocus];
-//		[self drawInRect:resizedBounds fromRect:NSZeroRect
-// operation:NSCompositeCopy fraction:1.0];
-//		imageRep = [NSBitmapImageRep imageRepWithData:[self TIFFRepresentation]];
-//		[self unlockFocus];
-//	} else imageRep = (NSBitmapImageRep *) firstRep;
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {  				//	[self
+ setColor:AGColorFromNSColor([imageRep colorAtX:i y:j])
+			NSC *thisPx = [imageRep colorAtX:i y:j];
+			[thisPx alphaComponent] == 0 ?: [satchel add:thisPx];
+		}
+	}
+	int counter = ( [satchel objects].count < 10 ? [satchel objects].count : 10
+);
+	for (int j = 0; j < counter; j++) {
+		for (int s = 0; s < [satchel occurrencesOf:[satchel objects] [j]]; s++)
+			[catcher addObject:[satchel objects][j]];
+	}
+		[NSGraphicsContext saveGraphicsState];
+	NSIMG*quantized = self.copy;
+	[self setSize:NSMakeSize(32, 32)];
+	[anImage setSize:NSMakeSize(32, 32)];
+	NSSZ size = [self size];
+	NSRect iconRect = NSMakeRect(0, 0, size.width, size.height);
+	[self lockFocus];
+	NSBIR *imageRep = [self bitmap];
+	NSBIR *imageRep = [NSBIR.alloc
+ initWithFocusedViewRect:iconRect];
+	[self unlockFocus];
+	[nSImage imageNamed:NSImageNameHomeTemplate
+	NSIMG*image = [NSImage.alloc initWithData:[rep
+ representationUsingType:NSPNGFileType properties:nil]];
+	NSBIR *imageRep = (NSBIR*)[[image representations]
+ objectAtIndex:0];
+	NSIMG*resizedIcon = [NSImage.alloc initWithIconRef:[self]];
+	[resizedIcon lockFocus];
+	[self drawInRect:resizedBounds fromRect:NSZeroRect operation:NSCompositeCopy
+ fraction:1.0];
+	[resizedIcon unlockFocus];
 
-//	NSBitmapImageRep *imageRep = (NSBitmapImageRep *)[self
-// smallestRepresentation];
-//	[NSGraphicsContext state:^{
-- (NSIMG *)generateQuantizedSwatch {
+	NSBIR* imageRep = [[resizedIcon representations]
+ objectAtIndex:0];
+	NSBIR *imageRep = nil;
+	if (![firstRep isKindOfClass:[NSBIR class]])	{
+		NSRect resizedBounds = NSMakeRect(0,0,32,32);
+		[self lockFocus];
+		[self drawInRect:resizedBounds fromRect:NSZeroRect
+ operation:NSCompositeCopy fraction:1.0];
+		imageRep = [NSBIR imageRepWithData:[self TIFFRepresentation]];
+		[self unlockFocus];
+	} else imageRep = (NSBIR *) firstRep;
+
+	NSBIR *imageRep = (NSBIR *)[self smallestRepresentation];
+*/
+
+- (NSIMG*) generateQuantizedSwatch {
 
   NSA *q = self.quantize;
   NSIMG *u = [NSIMG.alloc initWithSize:AZSizeFromPoint((NSPoint) {512, 256})];
   AZSizer *s = [AZSizer forQuantity:q.count inRect:AZRectFromDim(256)];
   [u lockFocus];
-  [s.rects eachWithIndex:^(id obj, NSInteger idx) {
-      [(NSC *)q[idx] set];
+  [s.rects eachWithIndex:^(id obj, NSI idx) {
+      [(NSC*) q[idx] set];
       NSRectFill([obj rectValue]);
   }];
   [[self scaledToMax:256] drawAtPoint:(NSPoint) { 256, 0 }
@@ -1677,7 +1690,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return u;
 }
 
-+ (NSIMG *)svg2png:(NSString *)inFile out:(NSString *)optionalOutFile;
++ (NSIMG*) svg2png:(NSString*) inFile out:(NSString*) optionalOutFile;
 {
   NSS *p = optionalOutFile ?: $(@"/tmp/atoztempimage.%@.png",
                                 [NSString newUniqueIdentifier]);
@@ -1687,8 +1700,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return [[NSIMG alloc] initWithContentsOfFile:p];
 }
 
-- (NSS *)saveToWeb;
-{
+- (NSS*) saveToWeb {
   NSS *localFix = @"/mg/";
   NSS *p = $(@"atoz/%@.png", self.name);
   NSS *websave = LogAndReturn($(@"%@%@", localFix, p));
@@ -1696,14 +1708,13 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return LogAndReturn($(@"http://mrgray.com/%@", p));
 }
 
-- (NSS *)asTempFile {
+- (NSS*) asTempFile {
   NSS *p = [AtoZ tempFilePathWithExtension:@"png"];
   [self saveAs:p];
   return p;
 }
 
-- (void)openInPreview;
-{
+- (void) openInPreview {
   NSS *p = [AtoZ tempFilePathWithExtension:@"png"];
   [self saveAs:p];
   if ([AZFILEMANAGER fileExistsAtPath:p])
@@ -1713,11 +1724,12 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   //		[AZWORKSPACE openFile:p withApplication:@"Preview"];
 }
 
-- (NSS *)htmlEncodedImg {
+- (NSS*) htmlEncodedImg {
 
   return $(@"<img style='width:%0.f px; height:%0.f px;' "
            @"src='%@' />", self.size.width, self.size.height, self.dataURL);
 }
+
 - (NSS*) dataURL { return $(@"data:image/png;base64,%@",[self base64EncodingWithFileType:NSPNGFileType]); }
 
 - (void)openQuantizedSwatch {
@@ -1728,6 +1740,53 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
      AZLOG(p);
      [AZWORKSPACE openFile:p withApplication:@"Preview"];
  }];
+}
+
++ (void) openQuantizeChartFor:(NSA*) images {
+  [AZStopwatch named:@"openQuantizedChart"
+               block:^{
+
+                   NSA *swatches = [images map:^id(id obj) {
+                     return [obj generateQuantizedSwatch];
+                   }];
+                   NSSZ single = [(NSIMG*) swatches[0] size];
+                   NSRect chartRect = [AZSizer rectForQuantity:swatches.count
+                                                        ofSize:single
+                                                   withColumns:4];
+                   // AZMakeRectFromSize((NSSZ){ single.width*4,
+                   // swatches.count/4 *single.height });
+                   AZSizer *s =
+                       [AZSizer forQuantity:swatches.count inRect:chartRect];
+                   AZLOG(AZStringFromRect(chartRect));
+                   NSIMG *locker = [[NSIMG alloc] initWithSize:chartRect.size];
+                   //		[NSGraphicsContext state:^{
+                   [locker lockFocus];
+                   [s.rects eachWithIndex:^(id obj, NSI idx) {
+                       [swatches[idx] drawAtPoint:[obj rectValue].origin
+                                         fromRect:NSZeroRect
+                                        operation:NSCompositeSourceOver
+                                         fraction:1];
+                   }];
+                   [locker unlockFocus];
+                   //		}];
+                   NSS *p = $(@"/tmp/quantization.%@.png",
+                              [NSString newUniqueIdentifier]);
+                   [locker saveAs:p];
+                   AZLOG(p);
+                   [AZWORKSPACE openFile:p withApplication:@"Preview"];
+               }];
+}
+
++ (NSIMG*) desktopImage {
+  return [NSImage.alloc
+      initWithContentsOfURL:
+          [[AZFILEMANAGER
+                contentsOfDirectoryAtURL:
+                    [NSURL fileURLWithPath:@"/Library/Desktop Pictures"
+                               isDirectory:YES]
+              includingPropertiesForKeys:nil
+                                 options:0
+                                   error:nil] randomElement]];
 }
 
 #ifdef RETARDO
@@ -1752,53 +1811,6 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 */
 #endif
 
-+ (void)openQuantizeChartFor:(NSA *)images {
-  [AZStopwatch named:@"openQuantizedChart"
-               block:^{
-
-                   NSA *swatches = [images map:^id(id obj) {
-                     return [obj generateQuantizedSwatch];
-                   }];
-                   NSSZ single = [(NSIMG *)swatches[0] size];
-                   NSRect chartRect = [AZSizer rectForQuantity:swatches.count
-                                                        ofSize:single
-                                                   withColumns:4];
-                   // AZMakeRectFromSize((NSSZ){ single.width*4,
-                   // swatches.count/4 *single.height });
-                   AZSizer *s =
-                       [AZSizer forQuantity:swatches.count inRect:chartRect];
-                   AZLOG(AZStringFromRect(chartRect));
-                   NSIMG *locker = [[NSIMG alloc] initWithSize:chartRect.size];
-                   //		[NSGraphicsContext state:^{
-                   [locker lockFocus];
-                   [s.rects eachWithIndex:^(id obj, NSInteger idx) {
-                       [swatches[idx] drawAtPoint:[obj rectValue].origin
-                                         fromRect:NSZeroRect
-                                        operation:NSCompositeSourceOver
-                                         fraction:1];
-                   }];
-                   [locker unlockFocus];
-                   //		}];
-                   NSS *p = $(@"/tmp/quantization.%@.png",
-                              [NSString newUniqueIdentifier]);
-                   [locker saveAs:p];
-                   AZLOG(p);
-                   [AZWORKSPACE openFile:p withApplication:@"Preview"];
-               }];
-}
-
-+ (NSIMG *)desktopImage;
-{
-  return [NSImage.alloc
-      initWithContentsOfURL:
-          [[AZFILEMANAGER
-                contentsOfDirectoryAtURL:
-                    [NSURL fileURLWithPath:@"/Library/Desktop Pictures"
-                               isDirectory:YES]
-              includingPropertiesForKeys:nil
-                                 options:0
-                                   error:nil] randomElement]];
-}
 - (void)drawFloatingRightInFrame:(NSRect)aFrame {
   NSRect r = aFrame;
 
@@ -1811,10 +1823,9 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
                operation:NSCompositeSourceOver];
 }
 
-// draws the passed image into the passed rect, centered and scaled
-// appropriately.
-// note that this method doesn't know anything about the current focus, so the
-// focus must be locked outside this method
+/*! draws the passed image into the passed rect, centered and scaled appropriately.
+    @note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
+ */
 - (void)drawCenteredinRect:(NSRect)inRect
                  operation:(NSCompositingOperation)op
                   fraction:(float)delta {
@@ -1842,7 +1853,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   [self drawInRect:drawnRect fromRect:srcRect operation:op fraction:delta];
 }
 
-- (NSIMG *)tintedImage {
+- (NSIMG*) tintedImage {
   NSIMG *tintImage = [NSImage.alloc initWithSize:[self size]];
 
   [tintImage lockFocus];
@@ -1865,7 +1876,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 
   return newImage;
 }
-- (NSIMG *)tintedWithColor:(NSC *)tint {
+- (NSIMG*) tintedWithColor:(NSC*) tint {
   if (tint == nil)
     return self;
   NSIMG *tintedImage = [NSImage.alloc initWithSize:self.size];
@@ -1906,7 +1917,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   return tintedImage;
 }
 
-- (NSIMG *)filteredMonochromeEdge {
+- (NSIMG*) filteredMonochromeEdge {
   NSSZ size = [self size];
   NSRect bounds = {NSZeroPoint, size};
   NSIMG *tintedImage = [NSImage.alloc initWithSize:size];
@@ -1934,7 +1945,9 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   //		return [self copy];
   //	}
 }
-- (NSBitmapImageRep *)bitmap {
+
+- (NSBIR*) bitmap {
+
   // returns a 32-bit bitmap rep of the receiver, whatever its original format.
   // The image rep is not added to the image.
   NSSZ size = [self size];
@@ -1942,8 +1955,8 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
                  ~0x0000000F; // 16-byte aligned
   int bps = 8, spp = 4, bpp = bps * spp;
   // NOTE: These settings affect how pixels are converted to NSColors
-  NSBitmapImageRep *imageRep =
-      [NSBitmapImageRep.alloc initWithBitmapDataPlanes:nil
+  NSBIR *imageRep =
+      [NSBIR.alloc initWithBitmapDataPlanes:nil
                                             pixelsWide:size.width
                                             pixelsHigh:size.height
                                          bitsPerSample:bps
@@ -1957,25 +1970,18 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   if (!imageRep)
     return nil;
 
-  NSGraphicsContext *imageContext =
-      [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
-
-  [NSGraphicsContext saveGraphicsState];
-  [NSGraphicsContext setCurrentContext:imageContext];
-  [self drawAtPoint:NSZeroPoint
-           fromRect:NSZeroRect
-          operation:NSCompositeCopy
-           fraction:1.0];
-  [NSGraphicsContext restoreGraphicsState];
+  [NSGC swapToBitmapContext:imageRep do:^{
+    [self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeCopy fraction:1.0];
+  }];
 
   return imageRep;
 }
 
-- (NSBitmapImageRep *)bitmapBy:(CGF)x y:(CGF)y {
+- (NSBIR*) bitmapBy:(CGF)x y:(CGF)y {
 
   // creating the rectangle that defines the bounds of our bitmap image
   NSRect offscreenRect = NSMakeRect(0.0, 0.0, x, y);
-  NSBitmapImageRep *offscreenRep = nil;
+  NSBIR *offscreenRep = nil;
   // creating the bitmap image
   offscreenRep =
       [NSBIR.alloc initWithBitmapDataPlanes:nil
@@ -2019,7 +2025,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
     16-byte aligned
     int bps=8, spp=4, bpp=bps*spp;
     // NOTE: These settings affect how pixels are converted to NSColors
-    NSBitmapImageRep *imageRep = [NSBitmapImageRep.alloc
+    NSBIR *imageRep = [NSBIR.alloc
     initWithBitmapDataPlanes:nil
                                        pixelsWide:size.width
                                        pixelsHigh:size.height
@@ -2047,7 +2053,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 }
 
 - (CGImageRef)cgImage {
-  NSBitmapImageRep *bm = [self bitmap]; // data provider will release this
+  NSBIR *bm = [self bitmap]; // data provider will release this
   int rowBytes, width, height;
 
   rowBytes = [bm bytesPerRow];
@@ -2055,7 +2061,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   height = [bm pixelsHigh];
 
   CGDataProviderRef provider =
-      CGDataProviderCreateWithData((__bridge void *)bm, [bm bitmapData],
+      CGDataProviderCreateWithData((__bridge void*) bm, [bm bitmapData],
                                    rowBytes * height, BitmapReleaseCallback);
   CGColorSpaceRef colorspace =
       CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
@@ -2079,7 +2085,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 
  I have not yet tested this with a non-square image.	*/
 
-- (NSIMG *)imageRotatedByDegrees:(CGF)degrees {
+- (NSIMG*) imageRotatedByDegrees:(CGF)degrees {
   NSSZ rotatedSize = NSMakeSize(self.size.height, self.size.width);
   NSIMG *rotatedImage = [NSImage.alloc initWithSize:rotatedSize];
 
@@ -2105,8 +2111,8 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   return rotatedImage;
 }
 
-- (NSIMG *)imageByScalingProportionallyToSize:(NSSZ)targetSize
-                                   background:(NSC *)bk {
+- (NSIMG*) imageByScalingProportionallyToSize:(NSSZ)targetSize
+                                   background:(NSC*) bk {
   NSIMG *sourceImage = self;
   NSIMG *newImage = nil;
 
@@ -2288,7 +2294,7 @@ scaledHeight)];
   [self drawInRect:dstRect fromRect:sourceRect operation:op fraction:delta];
 }
 
-- (NSIMG *)imageToFitSize:(NSSZ)size
+- (NSIMG*) imageToFitSize:(NSSZ)size
                    method:(AGImageResizingMethod)resizeMethod {
   NSIMG *result = [NSImage.alloc initWithSize:size];
 
@@ -2304,21 +2310,23 @@ scaledHeight)];
   return result;
 }
 
-- (NSIMG *)imageCroppedToFitSize:(NSSZ)size {
+- (NSIMG*) imageCroppedToFitSize:(NSSZ)size {
   return [self imageToFitSize:size method:AGImageResizeCrop];
 }
 
-- (NSIMG *)scaledToMax:(CGF)f {
+- (NSIMG*) scaledToMax:(CGF)f {
   return [self imageScaledToFitSize:AZSizeFromDim(f)];
 }
 
-- (NSIMG *)imageScaledToFitSize:(NSSZ)size {
-  if (NSEqualSizes(self.size, NSZeroSize))
-    return self;
+- (NSIMG*) imageScaledToFitSize:(NSSZ)size {
+
+  if (NSEqualSizes(self.size, NSZeroSize) || NSEqualSizes(self.size, size)) return self;
+
+  NSRect corrected = AZFitRectInRect(self.frame, AZRectFromSize(size),NO);
 
   return [self.class imageWithSize:size
                    drawnUsingBlock:^{
-                       [self drawInRect:AZRectFromSize(size)
+                       [self drawInRect:corrected
                                fromRect:NSZeroRect
                               operation:NSCompositeSourceOver
                                fraction:1];
@@ -2329,11 +2337,11 @@ scaledHeight)];
 //	[self setSize: size]; [scaled unlockFocus]; scaled.name  = self.name  ?:
 //@"scaled image"; return scaled;
 
-- (NSImageRep *)smallestRepresentation {
+- (NSIR*) smallestRepresentation {
   int area = 0;
-  NSImageRep *smallest = nil;
+  NSIR *smallest = nil;
 
-  for (NSImageRep *rep in [self representations]) {
+  for (NSIR *rep in [self representations]) {
     int a = [rep pixelsWide] * [rep pixelsHigh];
     if (a < area) {
       area = a;
@@ -2343,17 +2351,17 @@ scaledHeight)];
   return smallest;
 }
 - (NSSZ)sizeSmallestRepresentation {
-  NSImageRep *rep = [self smallestRepresentation];
+  NSIR *rep = [self smallestRepresentation];
   if (rep)
     return NSMakeSize([rep pixelsWide], [rep pixelsHigh]);
   else
     return [self size];
 }
-- (NSImageRep *)largestRepresentation {
+- (NSIR*) largestRepresentation {
   int area = 0;
-  NSImageRep *largest = nil;
+  NSIR *largest = nil;
 
-  for (NSImageRep *rep in [self representations]) {
+  for (NSIR *rep in [self representations]) {
     int a = [rep pixelsWide] * [rep pixelsHigh];
     if (a > area) {
       area = a;
@@ -2364,14 +2372,14 @@ scaledHeight)];
 }
 
 - (NSSZ)sizeLargestRepresentation {
-  NSImageRep *rep = [self largestRepresentation];
+  NSIR *rep = [self largestRepresentation];
   if (rep)
     return NSMakeSize([rep pixelsWide], [rep pixelsHigh]);
   else
     return [self size];
 }
 
-- (NSIMG *)rotated:(int)angle
+- (NSIMG*) rotated:(int)angle
 /*{
 if (angle == 0 || ![self isValid])
 return self;
@@ -2379,7 +2387,7 @@ return self;
 NSSZ beforeSize = [self size];
 
 NSSZ afterSize = (angle == 90 || angle == -90) ? NSMakeSize(beforeSize.height,
-beforeSize.width) : beforeSize;
+beforeSize.width : beforeSize;
 
 NSAffineTransform* trans = [NSAffineTransform transform];
 [trans translateXBy:afterSize.width * 0.5 yBy:afterSize.height * 0.5];
@@ -2408,7 +2416,7 @@ return [newImage autorelease];
   /**  Get the size of the original image in its raw bitmap format.  The
    * bestRepresentationForDevice: nil tells the NSImage to just give us the raw
    * image instead of it's wacky DPI-translated version.   */
-  //	 NSBitmapImageRep = [existingImage bitmap];
+  //	 NSBIR = [existingImage bitmap];
 
   existingSize.width =
       [[existingImage bestRepresentationForRect:AZMakeRectFromSize(existingSize)
@@ -2486,12 +2494,13 @@ return [newImage autorelease];
   return NSIntegralRect(finalRect);
 }
 
-- (CIImage *)toCIImage {
-  NSBitmapImageRep *bitmapimagerep = [self bitmap];
+- (CIImage*) toCIImage {
+  NSBIR *bitmapimagerep = [self bitmap];
   CIImage *im = [CIImage.alloc initWithBitmapImageRep:bitmapimagerep];
   return im;
 }
-- (NSIMG *)imageByRemovingTransparentAreasWithFinalRect:(NSRect *)outBox {
+
+- (NSIMG*) imageByRemovingTransparentAreasWithFinalRect:(NSRect*) outBox {
   NSRect oldRect = NSZeroRect;
   oldRect.size = [self size];
   *outBox = oldRect;
@@ -2567,11 +2576,11 @@ rightDone:
   return returnImg;
 }
 
-+ (NSIMG *)fromSVG:(NSS *)documentName withAlpha:(BOOL)hasAlpha {
++ (NSIMG*) fromSVG:(NSS*) documentName withAlpha:(BOOL)hasAlpha {
 
   SVGDocument *document = [SVGDocument documentNamed:documentName];
-  NSBitmapImageRep *rep =
-      [NSBitmapImageRep.alloc initWithBitmapDataPlanes:NULL
+  NSBIR *rep =
+      [NSBIR.alloc initWithBitmapDataPlanes:NULL
                                             pixelsWide:document.width
                                             pixelsHigh:document.height
                                          bitsPerSample:8
@@ -2592,7 +2601,7 @@ rightDone:
   CGContextTranslateCTM(context, 0.0f, -document.height);
   [[document layerTree] renderInContext:context];
   CGImageRef image = CGBitmapContextCreateImage(context);
-  NSBitmapImageRep *rendering = [NSBitmapImageRep.alloc initWithCGImage:image];
+  NSBIR *rendering = [NSBIR.alloc initWithCGImage:image];
   CGImageRelease(image);
   NSIMG *rendered = [NSImage.alloc initWithSize:[rendering size]];
   [rendered setScalesWhenResized:YES];
@@ -2600,7 +2609,7 @@ rightDone:
   return rendered;
 }
 
-+ (NSA *)systemImages {
++ (NSA*) systemImages {
   static NSA *_systemImages = nil;
   return _systemImages = _systemImages // This will only be true the first time
                                        // the method is called...
@@ -2684,12 +2693,12 @@ rightDone:
                                     }];
 }
 
-- (NSIMG *)addReflection:(CGF)percentage {
+- (NSIMG*) addReflection:(CGF)percentage {
   NSAssert(percentage > 0 && percentage <= 1.0,
            @"Please use percentage between 0 and 1");
   CGRect offscreenFrame =
       CGRectMake(0, 0, self.size.width, self.size.height * (1.0 + percentage));
-  NSBitmapImageRep *offscreen = [NSBitmapImageRep.alloc
+  NSBIR *offscreen = [NSBIR.alloc
       initWithBitmapDataPlanes:NULL
                     pixelsWide:offscreenFrame.size.width
                     pixelsHigh:offscreenFrame.size.height
@@ -2745,34 +2754,35 @@ rightDone:
 
   return imageWithReflection;
 }
-//+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image {
-//	NSIMG* newImage = nil;
-////#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-//	NSBitmapImageRep*	newRep = [[NSBitmapImageRep alloc]initWithCGImage:image];
-//	NSSZ imageSize;
-//	// Get the image dimensions.
-//	imageSize.height = CGImageGetHeight(image);
-//	imageSize.width = CGImageGetWidth(image);
-//	newImage = [NSImage.alloc initWithSize:imageSize];
-//	[newImage addRepresentation:newRep];
-////#else
-////	NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
-////	CGContextRef imageContext = nil;
-////	// Get the image dimensions.
-////	imageRect.size.height = CGImageGetHeight(image);
-////	imageRect.size.width = CGImageGetWidth(image);
-////	// Create a new image to receive the Quartz image data.
-////	newImage = [NSImage.alloc initWithSize:imageRect.size];
-////	[newImage lockFocus];
-////	// Get the Quartz context and draw.
-////	imageContext = (CGContextRef)[AZGRAPHICSCTXgraphicsPort];
-////	CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image);
-////	[newImage unlockFocus];
-////#endif
-//	return newImage;
-//}
 
-- (NSIMG *)etched {
+/*+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image {
+	NSIMG* newImage = nil;
+//#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+	NSBIR*	newRep = [[NSBIR alloc]initWithCGImage:image];
+	NSSZ imageSize;
+	// Get the image dimensions.
+	imageSize.height = CGImageGetHeight(image);
+	imageSize.width = CGImageGetWidth(image);
+	newImage = [NSImage.alloc initWithSize:imageSize];
+	[newImage addRepresentation:newRep];
+//#else
+//	NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
+//	CGContextRef imageContext = nil;
+//	// Get the image dimensions.
+//	imageRect.size.height = CGImageGetHeight(image);
+//	imageRect.size.width = CGImageGetWidth(image);
+//	// Create a new image to receive the Quartz image data.
+//	newImage = [NSImage.alloc initWithSize:imageRect.size];
+//	[newImage lockFocus];
+//	// Get the Quartz context and draw.
+//	imageContext = (CGContextRef)[AZGRAPHICSCTXgraphicsPort];
+//	CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image);
+//	[newImage unlockFocus];
+//#endif
+	return newImage;
+}*/
+
+- (NSIMG*) etched {
   NSIMG *etched = [NSIMG.alloc initWithSize:self.size];
   [etched lockFocus];
   [self drawEtchedInRect:AZRectFromSize(self.size)];
@@ -2780,7 +2790,7 @@ rightDone:
   return etched;
 }
 
-- (NSIMG *)alpha:(CGF)fraction {
+- (NSIMG*) alpha:(CGF)fraction {
   NSIMG *alpha = [NSIMG.alloc initWithSize:self.size];
   [alpha lockFocus];
   [self drawInRect:AZRectFromSize(self.size) fraction:fraction];
@@ -2873,7 +2883,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   return myContext;
 }
 
-- (NSIMG *)maskedWithColor:(NSC *)color {
+- (NSIMG*) maskedWithColor:(NSC*) color {
   NSIMG *image = self;
   CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
   CGContextRef c = MyCreateBitmapContext(image.size.width, image.size.height);
@@ -2894,7 +2904,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 #pragma mark CGImage to NSImage and vice versa
 
-+ (NSIMG *)imageFromCGImageRef:(CGImageRef)image {
++ (NSIMG*) imageFromCGImageRef:(CGImageRef)image {
   // #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5
   // This is 10.6 only
   NSIMG *newImage = [NSImage.alloc initWithCGImage:image size:NSZeroSize];
@@ -2942,25 +2952,25 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 #pragma mark Quicklook Preview
 
-+ (NSIMG *)imageWithPreviewOfFileAtPath:(NSS *)path
++ (NSIMG*) imageWithPreviewOfFileAtPath:(NSS*) path
                                  ofSize:(NSSZ)size
                                  asIcon:(BOOL)icon {
   NSURL *fileURL = [NSURL fileURLWithPath:path];
   if (!path || !fileURL)
     return nil;
-  NSDictionary *dict = @{(NSS *)kQLThumbnailOptionIconModeKey : @(icon)};
+  NSDictionary *dict = @{(NSS*) kQLThumbnailOptionIconModeKey : @(icon)};
   CGImageRef ref = QLThumbnailImageCreate(
       kCFAllocatorDefault, (__bridge CFURLRef)fileURL,
       CGSizeMake(size.width, size.height), (__bridge CFDictionaryRef)dict);
 
   if (ref != NULL) {
-    // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new
+    // Take advantage of NSBIR's -initWithCGImage: initializer, new
     // in Leopard,
     // which is a lot more efficient than copying pixel data into a brand new
     // NSImage.
     // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
-    NSBitmapImageRep *bitmapImageRep =
-        [NSBitmapImageRep.alloc initWithCGImage:ref];
+    NSBIR *bitmapImageRep =
+        [NSBIR.alloc initWithCGImage:ref];
     NSIMG *newImage = nil;
     if (bitmapImageRep) {
       newImage = [NSImage.alloc initWithSize:[bitmapImageRep size]];
@@ -2985,25 +2995,22 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 }
 
 #pragma mark Resizing Image
-+ (NSIMG *)resizedImage:(NSIMG *)sourceImage
-                   newSize:(NSSZ)size
-           lockAspectRatio:
-               (BOOL)lock // pass YES if you want to lock aspect ratio
-    lockAspectRatioByWidth:(BOOL)flag // pass YES to lock aspect ratio by width
-                                      // or passing NO to lock by height
+
++ (NSIMG*) resizedImage:(NSIMG*) sourceImage
+                newSize:(NSSZ)size
+        lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
+  lockAspectRatioByWidth:(BOOL)flag // pass YES to lock aspect ratio by width or passing NO to lock by height
 {
+
   NSSZ oldSize = [sourceImage size];
   CGF ratio = oldSize.width / oldSize.height;
-  // if new size is equal to or larger than the original image, we won't resize
-  // it
+  // if new size is equal to or larger than the original image, we won't resize it
   if (size.height >= oldSize.height || size.width >= oldSize.width)
     return sourceImage;
 
   if (lock) {
-    if (flag)
-      size.height = size.width / ratio;
-    else
-      size.width = size.height * ratio;
+    if (flag) size.height = size.width / ratio;
+    else      size.width = size.height * ratio;
   }
 
   NSIMG *resizedImage = [NSImage.alloc initWithSize:size];
@@ -3023,7 +3030,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 #pragma mark Cropping Image
 
-- (NSIMG *)croppedImage:(CGRect)bounds {
+- (NSIMG*) croppedImage:(CGRect)bounds {
   [self lockFocus];
   CGImageRef imageRef = CGImageCreateWithImageInRect([self cgImageRef], bounds);
   NSIMG *croppedImage = [NSImage imageFromCGImageRef:imageRef];
@@ -3034,8 +3041,8 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 #pragma mark Save Image
 
-- (BOOL)saveImage:(NSS *)path
-         fileName:(NSS *)name
+- (BOOL)saveImage:(NSS*) path
+         fileName:(NSS*) name
          fileType:(NSBitmapImageFileType)type {
   // deal with the file type and assign the filename suffix by the file type
   NSString *suffix;
@@ -3077,21 +3084,22 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   }
 
   NSString *destination = [path stringByAppendingPathComponent:filename];
-  NSBitmapImageRep *bmpImageRep =
-      [NSBitmapImageRep.alloc initWithData:[self TIFFRepresentation]];
+  NSBIR *bmpImageRep =
+      [NSBIR.alloc initWithData:[self TIFFRepresentation]];
   NSData *data = [bmpImageRep representationUsingType:type properties:nil];
 
   return [data writeToFile:destination atomically:NO];
 }
-- (BOOL)saveAs:(NSS *)path {
-  NSBitmapImageRep *bmpImageRep =
-      [NSBitmapImageRep.alloc initWithData:[self TIFFRepresentation]];
+
+- (BOOL)saveAs:(NSS*) path {
+  NSBIR *bmpImageRep =
+      [NSBIR.alloc initWithData:[self TIFFRepresentation]];
   NSData *data =
       [bmpImageRep representationUsingType:NSPNGFileType properties:nil];
   return [data writeToFile:path atomically:YES];
 }
 
-- (NSIMG *)scaleToFillSize:(NSSZ)targetSize {
+- (NSIMG*) scaleToFillSize:(NSSZ)targetSize {
   NSSZ sourceSize = self.size;
   NSRect sourceRect = NSZeroRect;
   if (sourceSize.height > sourceSize.width) {
@@ -3117,12 +3125,10 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 @end
 
 @implementation CIImage (ToNSImage)
-// While we're at it, let's get the conversion back to NSImage out of the way.
-// Here's a similar category method on CIImage. Well, two actually: one that
-// assumes you want the whole extent of the image; the other to grab just a
-// particular rectangle:
 
-- (NSIMG *)toNSImageFromRect:(CGRect)r {
+// While we're at it, let's get the conversion back to NSImage out of the way. Here's a similar category method on CIImage. Well, two actually: one that assumes you want the whole extent of the image; the other to grab just a particular rectangle:
+
+- (NSIMG*) toNSImageFromRect:(CGRect)r {
   NSIMG *image;
   NSCIImageRep *ir;
   ir = [NSCIImageRep imageRepWithCIImage:self];
@@ -3131,11 +3137,12 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   return image;
 }
 
-- (NSIMG *)toNSImage {
+- (NSIMG*) toNSImage {
 
   return [self toNSImageFromRect:[self extent]];
 }
-- (CIImage *)rotateDegrees:(float)aDegrees {
+
+- (CIImage*) rotateDegrees:(float)aDegrees {
   CIImage *im = self;
   if (aDegrees > 0.0 && aDegrees < 360.0) {
     CIFilter *f = [CIFilter filterWithName:@"CIAffineTransform"];
@@ -3155,10 +3162,12 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   }
   return im;
 }
+
 @end
+
 @implementation NSImage (CGImageConversion)
 
-- (NSBitmapImageRep *)bitmap {
+- (NSBIR*) bitmap   {
   // returns a 32-bit bitmap rep of the receiver, whatever its original format.
   // The image rep is not added to the image.
   NSSZ size = [self size];
@@ -3167,8 +3176,8 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   int bps = 8, spp = 4, bpp = bps * spp;
 
   // NOTE: These settings affect how pixels are converted to NSColors
-  NSBitmapImageRep *imageRep =
-      [NSBitmapImageRep.alloc initWithBitmapDataPlanes:nil
+  NSBIR *imageRep =
+      [NSBIR.alloc initWithBitmapDataPlanes:nil
                                             pixelsWide:size.width
                                             pixelsHigh:size.height
                                          bitsPerSample:bps
@@ -3197,8 +3206,8 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   return imageRep;
 }
 
-- (CGImageRef)cgImage {
-  NSBitmapImageRep *bm = [self bitmap]; // data provider will release this
+- (CGIREF) cgImage  {
+  NSBIR *bm = [self bitmap]; // data provider will release this
   int rowBytes, width, height;
 
   rowBytes = [bm bytesPerRow];
@@ -3206,7 +3215,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   height = [bm pixelsHigh];
 
   CGDataProviderRef provider =
-      CGDataProviderCreateWithData((__bridge void *)bm, [bm bitmapData],
+      CGDataProviderCreateWithData((__bridge void*) bm, [bm bitmapData],
                                    rowBytes * height, BitmapReleaseCallback);
   CGColorSpaceRef colorspace =
       CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
@@ -3226,19 +3235,22 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 @implementation NSImage (AtoZScaling)
 
-- (NSIMG *)imageByAdjustingHue:(float)hue {
+- (NSIMG*) imageByAdjustingHue:(float)hue {
   return self;
 }
-- (NSIMG *)imageByAdjustingHue:(float)hue saturation:(float)saturation {
+
+- (NSIMG*) imageByAdjustingHue:(float)hue saturation:(float)saturation {
   return self;
 }
+
 - (NSSZ)adjustSizeToDrawAtSize:(NSSZ)theSize {
-  NSImageRep *bestRep = [self bestRepresentationForSize:theSize];
+  NSIR *bestRep = [self bestRepresentationForSize:theSize];
   [self setSize:[bestRep size]];
   return [bestRep size];
 }
-- (NSImageRep *)bestRepresentationForSize:(NSSZ)theSize {
-  NSImageRep *bestRep = [self representationOfSize:theSize];
+
+- (NSIR*) bestRepresentationForSize:(NSSZ)theSize {
+  NSIR *bestRep = [self representationOfSize:theSize];
   //[self setCacheMode:NSImageCacheNever];
   if (bestRep) {
 
@@ -3253,7 +3265,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   // ***warning   * handle other sizes
   float repDistance = 65536.0;
   // ***warning   * this is totally not the highest, but hey...
-  NSImageRep *thisRep;
+  NSIR *thisRep;
   float thisDistance;
   int i;
   for (i = 0; i < (int)[reps count]; i++) {
@@ -3281,11 +3293,11 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   return nil;
 }
 
-- (NSImageRep *)representationOfSize:(NSSZ)theSize {
+- (NSIR*) representationOfSize:(NSSZ)theSize {
   NSA *reps = [self representations];
   int i;
   for (i = 0; i < (int)[reps count]; i++)
-    if (NSEqualSizes([(NSBitmapImageRep *)reps[i] size], theSize))
+    if (NSEqualSizes([(NSBIR*) reps[i] size], theSize))
       return reps[i];
   return nil;
 }
@@ -3299,6 +3311,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   [self setScalesWhenResized:NO];
   return YES;
 }
+
 - (BOOL)createRepresentationOfSize:(NSSZ)newSize {
   // ***warning   * !? should this be done on the main thread?
   //
@@ -3306,8 +3319,8 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   if ([self representationOfSize:newSize])
     return NO;
 
-  NSBitmapImageRep *bestRep =
-      (NSBitmapImageRep *)[self bestRepresentationForSize:newSize];
+  NSBIR *bestRep =
+      (NSBIR *)[self bestRepresentationForSize:newSize];
   if ([bestRep respondsToSelector:@selector(CGImage)]) {
     CGImageRef imageRef = [bestRep CGImage];
 
@@ -3328,8 +3341,8 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
     CGImageRef smallImage = CGBitmapContextCreateImage(smallContext);
     if (smallImage) {
-      NSBitmapImageRep *cgRep =
-          [NSBitmapImageRep.alloc initWithCGImage:smallImage];
+      NSBIR *cgRep =
+          [NSBIR.alloc initWithCGImage:smallImage];
       [self addRepresentation:cgRep];
     }
     CGImageRelease(smallImage);
@@ -3341,7 +3354,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   //
   //  {
   //	NSDate *date = [NSDate date];
-  //	NSData *data = [(NSBitmapImageRep *)bestRep TIFFRepresentation];
+  //	NSData *data = [(NSBIR*) bestRep TIFFRepresentation];
   //
   //	CGDataProviderRef provider =
   // CGDataProviderCreateWithCFData((CFDataRef)data);
@@ -3361,7 +3374,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   //(CFDictionaryRef)thumbOpts);
   //	if (isrc) CFRelease(isrc);
   //
-  //	NSBitmapImageRep *cgRep = [[NSBitmapImageRep.alloc
+  //	NSBIR *cgRep = [[NSBIR.alloc
   // initWithCGImage:thumbnail] autorelease];
   //	CGImageRelease(thumbnail);
   //	NSLog(@"time1 %f", -[date timeIntervalSinceNow]);
@@ -3380,7 +3393,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   //	NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]),
   // rectFromSize(newSize), NO);
   //	[bestRep drawInRect:drawRect];
-  //	NSBitmapImageRep* nsRep = [[NSBitmapImageRep.alloc
+  //	NSBIR* nsRep = [[NSBIR.alloc
   // initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)]
   // autorelease];
   //	[scaledImage unlockFocus];
@@ -3399,7 +3412,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 - (void)removeRepresentationsLargerThanSize:(NSSZ)size {
   NSEnumerator *e = [[self representations] reverseObjectEnumerator];
-  NSImageRep *thisRep;
+  NSIR *thisRep;
   while ((thisRep = [e nextObject])) {
     if ([thisRep size].width > size.width &&
         [thisRep size].height > size.height)
@@ -3407,7 +3420,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   }
 }
 
-- (NSIMG *)duplicateOfSize:(NSSZ)newSize {
+- (NSIMG*) duplicateOfSize:(NSSZ)newSize {
   NSIMG *dup = [self copy];
   [dup shrinkToSize:newSize];
   [dup setFlipped:NO];
@@ -3424,10 +3437,11 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 @end
 
 @implementation NSImage (AtoZTrim)
-- (NSRect)usedRect {
+
+- (NSRect) usedRect {
 
   NSData *tiffData = [self TIFFRepresentation];
-  NSBitmapImageRep *bitmap = [NSBitmapImageRep.alloc initWithData:tiffData];
+  NSBIR *bitmap = [NSBIR.alloc initWithData:tiffData];
 
   if (![bitmap hasAlpha])
     return NSMakeRect(0, 0, [bitmap size].height, [bitmap size].width);
@@ -3463,7 +3477,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
                     maxY - minY + 1);
 }
 
-- (NSIMG *)scaleImageToSize:(NSSZ)newSize
+- (NSIMG*) scaleImageToSize:(NSSZ)newSize
                        trim:(BOOL)trim
                      expand:(BOOL)expand
                     scaleUp:(BOOL)scaleUp {
@@ -3495,11 +3509,13 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 @end
 
 @implementation NSImage (AtoZAverage)
-- (NSC *)averageColor {
-  NSBitmapImageRep *rep = [self representations][0];
-  //	 filterOne:<#^BOOL(id object)block#>: (NSBitmapImageRep *)[self
+
+- (NSC*) averageColor {
+
+  NSBIR *rep = [self representations][0];
+  //	 filterOne:<#^BOOL(id object)block#>: (NSBIR *)[self
   // bestRepresentationForDevice:nil];
-  if (![rep isKindOfClass:[NSBitmapImageRep class]])
+  if (![rep isKindOfClass:[NSBIR class]])
     return nil;
   unsigned char *pixels = [rep bitmapData];
 
@@ -3541,7 +3557,7 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
   return retVal;
 }
 
-+ (NSIMG *)maskImage:(NSIMG *)image withMask:(NSIMG *)maskImage {
++ (NSIMG*) maskImage:(NSIMG*) image withMask:(NSIMG*) maskImage {
   CGImageRef maskRef = [maskImage cgImageRef];
   CGImageRef mask = CGImageMaskCreate(
       CGImageGetWidth(maskRef), CGImageGetHeight(maskRef),
@@ -3576,9 +3592,9 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 //#define LEOPARD 0x1050
 //#define TIGER   0x1040
 
-//@implementation NSBitmapImageRep (GrabWindow)
+//@implementation NSBIR (GrabWindow)
 
-//+ (NSBitmapImageRep *)bitmapRepWithScreenShotInRect:(NSRect)cocoaRect
+//+ (NSBIR*) bitmapRepWithScreenShotInRect:(NSRect)cocoaRect
 //{
 //	NSIMG*image = [NSImage imageWithScreenShotInRect: cocoaRect];
 //	// convert it to a bitmap rep and return
@@ -3807,8 +3823,8 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf",
   NSView *grabContentView = [grabWindow contentView];
 
   [grabContentView lockFocus];
-  NSBitmapImageRep *screenRep;
-  screenRep = [NSBitmapImageRep.alloc initWithFocusedViewRect: frame];
+  NSBIR *screenRep;
+  screenRep = [NSBIR.alloc initWithFocusedViewRect: frame];
   [grabContentView unlockFocus];
 
   NSIMG*screenImage = [NSImage.alloc initWithSize: frame.size];
@@ -3834,7 +3850,7 @@ styleMask:NSBorderlessWindowMask
   [window orderFront:self];
   [window setContentView:[NSView.alloc initWithFrame:rect]];
   [[window contentView] lockFocus];
-  NSBitmapImageRep *rep = [NSBitmapImageRep.alloc
+  NSBIR *rep = [NSBIR.alloc
 initWithFocusedViewRect:[[window contentView] bounds]];
   [[window contentView] unlockFocus];
   [window orderOut:self];
@@ -3848,15 +3864,6 @@ initWithFocusedViewRect:[[window contentView] bounds]];
 }
 */
 /*
-+ (NSIMG*)imageWithBitmapRep: (NSBitmapImageRep*)rep {
-  NSIMG*image = nil;
-  if(!rep) return image;
-
-  image = NSImage.new;
-  [image addRepresentation: rep];
-
-  return image;// autorelease];
-}
 
 + (NSIMG*)imageWithCGContextCaptureWindow: (int)wid {
 
@@ -3902,7 +3909,7 @@ NSMaxY(cocoaRect));
   // First lock the PicHandle so it doesn't move in memory while we copy
   HLock((Handle)picHandle);
 
-  NSImageRep *pictImageRep = [NSPICTImageRep imageRepWithData:[NSData
+  NSIR *pictImageRep = [NSPICTImageRep imageRepWithData:[NSData
 dataWithBytes:(*picHandle)
                                          length:GetHandleSize((Handle)picHandle)]];
   HUnlock((Handle)picHandle);
@@ -3916,7 +3923,7 @@ dataWithBytes:(*picHandle)
   return image;// autorelease];
 }
 */
-+ (NSIMG *)imageBelowWindow:(NSWindow *)window {
++ (NSIMG*) imageBelowWindow:(NSWindow*) window {
 
   // Get the CGWindowID of supplied window
   CGWindowID windowID = [window windowNumber];
@@ -3938,7 +3945,7 @@ dataWithBytes:(*picHandle)
   }
 
   // Create a bitmap rep from the window and convert to NSImage...
-  //	NSBitmapImageRep *bitmapRep = [[[NSBitmapImageRep] alloc] initWithCGImage:
+  //	NSBIR *bitmapRep = [[[NSBIR] alloc] initWithCGImage:
   // capturedImage];
   NSIMG *image =
       [NSImage imageFromCGImageRef:capturedImage]; // [NSImage]alloc] init];
@@ -3968,7 +3975,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 //	[someNSImage addPerspectiveMatrix: matrix];
 
 @implementation NSImage (Matrix)
-- (NSIMG *)addPerspectiveMatrix:(CIPerspectiveMatrix)matrix { // 8PointMatrix
+- (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix { // 8PointMatrix
 
   CIImage *cImg =
       [self toCIImage]; //  [CIImage.alloc initWithCGImage: screenie];
@@ -3983,10 +3990,10 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 }
 @end
 @implementation CIFilter (Subscript)
-- (id)objectForKeyedSubscript:(NSS *)key {
+- (id)objectForKeyedSubscript:(NSS*) key {
   return [self valueForKey:key];
 }
-- (void)setObject:(id)object forKeyedSubscript:(NSS *)key {
+- (void)setObject: object forKeyedSubscript:(NSS*) key {
   isEmpty(object) ? [self setValue:@"" forKey:key]
                   : [self setValue:object forKey:key];
 }
@@ -3994,7 +4001,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 @implementation NSImageView (AtoZ)
 
-+ (NSIV *)imageViewWithImage:(NSIMG *)img {
++ (NSIV*) imageViewWithImage:(NSIMG*) img {
   NSImageView *i = [[NSImageView alloc] initWithFrame:AZRectFromDim(100)];
   i.autoresizesSubviews = YES;
   i.arMASK = NSSIZEABLE;
@@ -4002,7 +4009,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   i.imageScaling = NSImageScaleProportionallyUpOrDown;
   return i;
 }
-+ (void)addImageViewWithImage:(NSIMG *)img toView:(NSV *)v;
++ (void)addImageViewWithImage:(NSIMG*) img toView:(NSV*) v;
 {
   NSIV *u = [self imageViewWithImage:img];
   [u setFrame:v.bounds];
@@ -4014,7 +4021,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 /* Create an NSImage from with the contents of the url of the specified width.
  * The height of the resulting NSImage maintains the proportions in source.	*/
-+ (id)thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGF)width {
++ (id)thumbnailImageWithContentsOfURL:(NSURL*) url width:(CGF)width {
   NSIMG *thumbnailImage = nil;
   NSIMG *image = [NSImage.alloc initWithContentsOfURL:url];
   if (image != nil) {
@@ -4163,7 +4170,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return drawRect;
 }
 
-- (NSImage *)imageFilledWithColor:(NSColor *)color atSize:(NSSize)targetSize {
+- (NSImage*) imageFilledWithColor:(NSColor*) color atSize:(NSSize)targetSize {
   if (NSEqualSizes(targetSize, NSZeroSize))
     targetSize = [self size];
 
@@ -4184,7 +4191,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return maskedImage;
 }
 
-- (NSImage *)imageMaskedByImage:(NSImage *)image atSize:(NSSize)targetSize {
+- (NSImage*) imageMaskedByImage:(NSImage*) image atSize:(NSSize)targetSize {
   if (NSEqualSizes(targetSize, NSZeroSize))
     targetSize = [self size];
 
@@ -4205,9 +4212,9 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 }
 
 - (void)drawInRect:(NSRect)drawRect
-      withGradient:(NSGradient *)gradient
-        dropShadow:(NSShadow *)dropShadow
-       innerShadow:(NSShadow *)innerShadow
+      withGradient:(NSGradient*) gradient
+        dropShadow:(NSShadow*) dropShadow
+       innerShadow:(NSShadow*) innerShadow
     respectFlipped:(BOOL)respectContextIsFlipped {
   NSAssert(self.isTemplate, @"drawInRect:withGradient:dropShadow:innerShadow: "
            @"can only be used with template images.");
@@ -4414,7 +4421,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   }
 }
 
-- (NSImage *)imageByScalingToSize:(NSSize)size {
+- (NSImage*) imageByScalingToSize:(NSSize)size {
   return ([self imageByScalingToSize:size
                             fraction:1.0f
                            flipImage:NO
@@ -4422,7 +4429,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                       allowAnimation:YES]);
 }
 
-- (NSImage *)imageByFadingToFraction:(CGFloat)delta {
+- (NSImage*) imageByFadingToFraction:(CGFloat)delta {
   return [self imageByScalingToSize:[self size]
                            fraction:delta
                           flipImage:NO
@@ -4430,7 +4437,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                      allowAnimation:YES];
 }
 
-- (NSImage *)imageByScalingToSize:(NSSize)size fraction:(CGFloat)delta {
+- (NSImage*) imageByScalingToSize:(NSSize)size fraction:(CGFloat)delta {
   return [self imageByScalingToSize:size
                            fraction:delta
                           flipImage:NO
@@ -4438,7 +4445,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                      allowAnimation:YES];
 }
 
-- (NSImage *)imageByScalingForMenuItem {
+- (NSImage*) imageByScalingForMenuItem {
   return [self imageByScalingToSize:NSMakeSize(16, 16)
                            fraction:1.0f
                           flipImage:NO
@@ -4446,7 +4453,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                      allowAnimation:NO];
 }
 
-- (NSImage *)imageByScalingToSize:(NSSize)size
+- (NSImage*) imageByScalingToSize:(NSSize)size
                          fraction:(CGFloat)delta
                         flipImage:(BOOL)flipImage
                    proportionally:(BOOL)proportionally
@@ -4482,7 +4489,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
       [newImage setFlipped:YES];
     }
 
-    NSImageRep *bestRep;
+    NSIR *bestRep;
 
     if (allowAnimation &&
         (bestRep =
@@ -4490,15 +4497,15 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                                                         self.size.height)
                                      context:nil
                                        hints:nil]) &&
-        [bestRep isKindOfClass:[NSBitmapImageRep class]] && (delta == 1.0) &&
-        ([[(NSBitmapImageRep *)bestRep
+        [bestRep isKindOfClass:[NSBIR class]] && (delta == 1.0) &&
+        ([[(NSBIR*) bestRep
              valueForProperty:NSImageFrameCount] intValue] > 1)) {
 
       // We've got an animating file, and the current alpha is fine.  Just copy
       // the representation.
       NSMutableData *GIFRepresentationData = nil;
 
-      unsigned frameCount = [[(NSBitmapImageRep *)bestRep
+      unsigned frameCount = [[(NSBIR*) bestRep
           valueForProperty:NSImageFrameCount] intValue];
 
       if (!frameCount) {
@@ -4509,7 +4516,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
       for (unsigned i = 0; i < frameCount; i++) {
         // Set current frame
-        [(NSBitmapImageRep *)bestRep
+        [(NSBIR*) bestRep
             setProperty:NSImageCurrentFrame
               withValue:[NSNumber numberWithUnsignedInt:i]];
 
@@ -4524,24 +4531,24 @@ CGImageRef CreateCGImageFromData(NSData *data) {
         [newImage unlockFocus];
 
         // Add frame representation
-        [images addObject:[NSBitmapImageRep
+        [images addObject:[NSBIR
                               imageRepWithData:[newImage TIFFRepresentation]]];
       }
 
       GIFRepresentationData = [NSMutableData
           dataWithData:
-              [NSBitmapImageRep
+              [NSBIR
                   representationOfImageRepsInArray:images
                                          usingType:NSGIFFileType
                                         properties:
                                             [self
                                                 GIFPropertiesForRepresentation:
-                                                    (NSBitmapImageRep *)
+                                                    (NSBIR *)
                                                 bestRep]]];
 
       // Write GIF Extension Blocks
       [self writeGIFExtensionBlocksInData:GIFRepresentationData
-                         forRepresenation:(NSBitmapImageRep *)bestRep];
+                         forRepresenation:(NSBIR*) bestRep];
 
       // You must release before you re-allocate. The data is retained in an
       // autorelease loop in the images array.
@@ -4567,7 +4574,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   }
 }
 
-- (NSImage *)imageByFittingInSize:(NSSize)size {
+- (NSImage*) imageByFittingInSize:(NSSize)size {
   return ([self imageByFittingInSize:size
                             fraction:1.0f
                            flipImage:NO
@@ -4575,7 +4582,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                       allowAnimation:YES]);
 }
 
-- (NSImage *)imageByFittingInSize:(NSSize)size
+- (NSImage*) imageByFittingInSize:(NSSize)size
                          fraction:(CGFloat)delta
                         flipImage:(BOOL)flipImage
                    proportionally:(BOOL)proportionally
@@ -4632,7 +4639,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
       [newImage setFlipped:YES];
     }
 
-    NSImageRep *bestRep;
+    NSIR *bestRep;
 
     if (allowAnimation &&
         (bestRep =
@@ -4640,15 +4647,15 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                                                         self.size.height)
                                      context:nil
                                        hints:nil]) &&
-        [bestRep isKindOfClass:[NSBitmapImageRep class]] && (delta == 1.0) &&
-        ([[(NSBitmapImageRep *)bestRep
+        [bestRep isKindOfClass:[NSBIR class]] && (delta == 1.0) &&
+        ([[(NSBIR*) bestRep
              valueForProperty:NSImageFrameCount] intValue] > 1)) {
 
       // We've got an animating file, and the current alpha is fine.  Just copy
       // the representation.
       NSMutableData *GIFRepresentationData = nil;
 
-      unsigned frameCount = [[(NSBitmapImageRep *)bestRep
+      unsigned frameCount = [[(NSBIR*) bestRep
           valueForProperty:NSImageFrameCount] intValue];
 
       if (!frameCount) {
@@ -4659,7 +4666,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
       for (unsigned i = 0; i < frameCount; i++) {
         // Set current frame
-        [(NSBitmapImageRep *)bestRep
+        [(NSBIR*) bestRep
             setProperty:NSImageCurrentFrame
               withValue:[NSNumber numberWithUnsignedInt:i]];
 
@@ -4685,24 +4692,24 @@ CGImageRef CreateCGImageFromData(NSData *data) {
         [newImage unlockFocus];
 
         // Add frame representation
-        [images addObject:[NSBitmapImageRep
+        [images addObject:[NSBIR
                               imageRepWithData:[newImage TIFFRepresentation]]];
       }
 
       GIFRepresentationData = [NSMutableData
           dataWithData:
-              [NSBitmapImageRep
+              [NSBIR
                   representationOfImageRepsInArray:images
                                          usingType:NSGIFFileType
                                         properties:
                                             [self
                                                 GIFPropertiesForRepresentation:
-                                                    (NSBitmapImageRep *)
+                                                    (NSBIR *)
                                                 bestRep]]];
 
       // Write GIF Extension Blocks
       [self writeGIFExtensionBlocksInData:GIFRepresentationData
-                         forRepresenation:(NSBitmapImageRep *)bestRep];
+                         forRepresenation:(NSBIR*) bestRep];
 
       // Release before you re-allocate.
       //			[newImage release];
@@ -4917,13 +4924,13 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 @interface NSImage (AIImageAdditions_PRIVATE)
 
-- (NSBitmapImageRep *)bitmapRep;
+- (NSBIR*) bitmapRep;
 
 @end
 
 @implementation NSImage (AIImageAdditions)
 
-+ (NSImage *)imageNamed:(NSString *)name
++ (NSImage*) imageNamed:(NSString*) name
                forClass:(Class)inClass
              loadLazily:(BOOL)flag {
   NSBundle *ownerBundle;
@@ -4946,11 +4953,11 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 }
 
 // Returns an image from the owners bundle with the specified name
-+ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass {
++ (NSImage*) imageNamed:(NSString*) name forClass:(Class)inClass {
   return [self imageNamed:name forClass:inClass loadLazily:NO];
 }
 
-+ (NSImage *)imageForSSL {
++ (NSImage*) imageForSSL {
   static NSImage *SSLIcon = nil;
 
   if (!SSLIcon) {
@@ -4971,29 +4978,29 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return SSLIcon;
 }
 
-+ (AIBitmapImageFileType)fileTypeOfData:(NSData *)inData {
++ (AIBitmapImageFileType)fileTypeOfData:(NSData*) inData {
   const char *data = [inData bytes];
   NSUInteger len = [inData length];
   AIBitmapImageFileType fileType = AIUnknownFileType;
 
   if (len >= 4) {
-    if (!strncmp((char *)data, "GIF8", 4))
+    if (!strncmp((char*) data, "GIF8", 4))
       fileType = AIGIFFileType;
-    else if (!strncmp((char *)data, "\xff\xd8\xff",
+    else if (!strncmp((char*) data, "\xff\xd8\xff",
                       3)) /* 4th may be e0 through ef */
       fileType = AIJPEGFileType;
-    else if (!strncmp((char *)data, "\x89PNG", 4))
+    else if (!strncmp((char*) data, "\x89PNG", 4))
       fileType = AIPNGFileType;
-    else if (!strncmp((char *)data, "MM", 2) || !strncmp((char *)data, "II", 2))
+    else if (!strncmp((char*) data, "MM", 2) || !strncmp((char*) data, "II", 2))
       fileType = AITIFFFileType;
-    else if (!strncmp((char *)data, "BM", 2))
+    else if (!strncmp((char*) data, "BM", 2))
       fileType = AIBMPFileType;
   }
 
   return fileType;
 }
 
-+ (NSString *)extensionForBitmapImageFileType:
++ (NSString*) extensionForBitmapImageFileType:
                   (AIBitmapImageFileType)inFileType {
   NSString *extension = nil;
 
@@ -5025,9 +5032,9 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 // Create and return an opaque bitmap image rep, replacing transparency with
 // [NSColor whiteColor]
-- (NSBitmapImageRep *)opaqueBitmapImageRep {
+- (NSBIR*) opaqueBitmapImageRep {
   NSImage *tempImage = nil;
-  NSBitmapImageRep *imageRep = nil;
+  NSBIR *imageRep = nil;
   NSSize size = [self size];
 
   // Work with a temporary image so we don't modify self
@@ -5046,17 +5053,17 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   // We're done drawing
   [tempImage unlockFocus];
 
-  // Find an NSBitmapImageRep from the temporary image
-  for (NSImageRep *rep in tempImage.representations) {
-    if ([rep isKindOfClass:[NSBitmapImageRep class]]) {
-      imageRep = (NSBitmapImageRep *)rep;
+  // Find an NSBIR from the temporary image
+  for (NSIR *rep in tempImage.representations) {
+    if ([rep isKindOfClass:[NSBIR class]]) {
+      imageRep = (NSBIR*) rep;
     }
   }
 
   // Make one if necessary
   if (!imageRep) {
     imageRep =
-        [NSBitmapImageRep imageRepWithData:[tempImage TIFFRepresentation]];
+        [NSBIR imageRepWithData:[tempImage TIFFRepresentation]];
   }
 
   // 10.6 behavior: Drawing into a new image copies the display's color profile
@@ -5067,22 +5074,22 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return imageRep;
 }
 
-- (NSBitmapImageRep *)largestBitmapImageRep {
+- (NSBIR*) largestBitmapImageRep {
   // Find the biggest image
-  NSBitmapImageRep *bestRep = nil;
-  Class NSBitmapImageRepClass = [NSBitmapImageRep class];
+  NSBIR *bestRep = nil;
+  Class NSBIRClass = [NSBIR class];
   CGFloat maxWidth = 0.0f;
 
-  for (NSImageRep *rep in [self representations]) {
-    if ([rep isKindOfClass:NSBitmapImageRepClass]) {
+  for (NSIR *rep in [self representations]) {
+    if ([rep isKindOfClass:NSBIRClass]) {
       CGFloat thisWidth = [rep size].width;
 
       if (thisWidth >= maxWidth) {
-        // Cast explanation: GCC warns about us returning an NSImageRep here,
-        // presumably because it could be some other kind of NSImageRep if we
+        // Cast explanation: GCC warns about us returning an NSIR here,
+        // presumably because it could be some other kind of NSIR if we
         // don't check the class.
         // Fortunately, we have such a check. This cast silences the warning.
-        bestRep = (NSBitmapImageRep *)rep;
+        bestRep = (NSBIR*) rep;
         maxWidth = thisWidth;
       }
     }
@@ -5090,17 +5097,17 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
   // We don't already have one, so forge one from our TIFF representation.
   if (!bestRep) {
-    bestRep = [NSBitmapImageRep imageRepWithData:[self TIFFRepresentation]];
+    bestRep = [NSBIR imageRepWithData:[self TIFFRepresentation]];
   }
 
   return bestRep;
 }
 
-- (NSData *)JPEGRepresentation {
+- (NSData*) JPEGRepresentation {
   return [self JPEGRepresentationWithCompressionFactor:1.0f];
 }
 
-- (NSData *)JPEGRepresentationWithCompressionFactor:(float)compressionFactor {
+- (NSData*) JPEGRepresentationWithCompressionFactor:(float)compressionFactor {
   /* JPEG does not support transparency, but NSImage does. We need to create a
    * non-transparent NSImage
    * before creating our representation or transparent parts will become black.
@@ -5115,13 +5122,13 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                                                     compressionFactor]
                                          forKey:NSImageCompressionFactor]]);
 }
-- (NSData *)JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize {
+- (NSData*) JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize {
   /* JPEG does not support transparency, but NSImage does. We need to create a
    * non-transparent NSImage
    * before creating our representation or transparent parts will become black.
    * White is preferable.
    */
-  NSBitmapImageRep *opaqueBitmapImageRep = [self opaqueBitmapImageRep];
+  NSBIR *opaqueBitmapImageRep = [self opaqueBitmapImageRep];
   NSData *data = nil;
 
   for (float compressionFactor = 0.99f; compressionFactor > 0.4f;
@@ -5143,22 +5150,22 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return data;
 }
 
-- (NSData *)PNGRepresentation {
+- (NSData*) PNGRepresentation {
   /* PNG is easy; it supports everything TIFF does, and NSImage's PNG support is
    * great. */
-  NSBitmapImageRep *bitmapRep = [self largestBitmapImageRep];
+  NSBIR *bitmapRep = [self largestBitmapImageRep];
 
   return ([bitmapRep representationUsingType:NSPNGFileType properties:nil]);
 }
 
-- (NSData *)GIFRepresentation {
+- (NSData*) GIFRepresentation {
   // GIF requires special treatment, as Apple doesn't allow you to save
   // animations.
 
   NSMutableData *GIFRepresentation = nil;
-  NSBitmapImageRep *bitmap = [[self representations] objectAtIndex:0];
+  NSBIR *bitmap = [[self representations] objectAtIndex:0];
 
-  if (bitmap && [bitmap isKindOfClass:[NSBitmapImageRep class]]) {
+  if (bitmap && [bitmap isKindOfClass:[NSBIR class]]) {
     unsigned frameCount =
         [[bitmap valueForProperty:NSImageFrameCount] intValue];
 
@@ -5176,7 +5183,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
         [bitmap setProperty:NSImageCurrentFrame
                   withValue:[NSNumber numberWithUnsignedInt:i]];
         // Add frame representation
-        [images addObject:[NSBitmapImageRep
+        [images addObject:[NSBIR
                               imageRepWithData:
                                   [bitmap representationUsingType:NSGIFFileType
                                                        properties:nil]]];
@@ -5184,7 +5191,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
       GIFRepresentation = [NSMutableData
           dataWithData:
-              [NSBitmapImageRep
+              [NSBIR
                   representationOfImageRepsInArray:images
                                          usingType:NSGIFFileType
                                         properties:
@@ -5201,7 +5208,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return GIFRepresentation;
 }
 
-- (NSData *)BMPRepresentation {
+- (NSData*) BMPRepresentation {
   /* BMP does not support transparency, but NSImage does. We need to create a
    * non-transparent NSImage
    * before creating our representation or transparent parts will become black.
@@ -5216,12 +5223,12 @@ CGImageRef CreateCGImageFromData(NSData *data) {
  * @brief Returns a GIF representation for GIFs, and PNG represenation for all
  * other types
  */
-- (NSData *)bestRepresentationByType {
+- (NSData*) bestRepresentationByType {
   NSData *data = nil;
-  NSBitmapImageRep *bitmap = nil;
+  NSBIR *bitmap = nil;
 
   if ((bitmap = [[self representations] objectAtIndex:0]) &&
-      [bitmap isKindOfClass:[NSBitmapImageRep class]] &&
+      [bitmap isKindOfClass:[NSBIR class]] &&
       ([[bitmap valueForProperty:NSImageFrameCount] intValue] > 1)) {
     data = [self GIFRepresentation];
   } else {
@@ -5231,13 +5238,13 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return data;
 }
 
-- (NSBitmapImageRep *)getBitmap {
+- (NSBIR*) getBitmap {
   [self lockFocus];
 
   NSSize size = [self size];
   NSRect rect = NSMakeRect(0.0f, 0.0f, size.width, size.height);
-  NSBitmapImageRep *bm =
-      [NSBitmapImageRep.alloc initWithFocusedViewRect:rect];
+  NSBIR *bm =
+      [NSBIR.alloc initWithFocusedViewRect:rect];
 
   [self unlockFocus];
 
@@ -5254,9 +5261,9 @@ CGImageRef CreateCGImageFromData(NSData *data) {
  *
  * @return the NSData representation using fileType
  */
-- (NSData *)representationWithFileType:(NSBitmapImageFileType)fileType
+- (NSData*) representationWithFileType:(NSBitmapImageFileType)fileType
                        maximumFileSize:(NSUInteger)maximumSize {
-  NSBitmapImageRep *imageRep = [self largestBitmapImageRep];
+  NSBIR *imageRep = [self largestBitmapImageRep];
 
   // If no rep is found, return nil.
   if (!imageRep)
@@ -5278,7 +5285,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
     NSUInteger height = ((CGFloat)imageRep.pixelsWide - 100.0f) * ratio;
 
     // Create a new rep with the lowered size
-    NSBitmapImageRep *newImageRep = [NSBitmapImageRep.alloc
+    NSBIR *newImageRep = [NSBIR.alloc
         initWithBitmapDataPlanes:NULL
                       pixelsWide:width
                       pixelsHigh:height
@@ -5308,8 +5315,8 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return data;
 }
 
-- (void)writeGIFExtensionBlocksInData:(NSMutableData *)data
-                     forRepresenation:(NSBitmapImageRep *)bitmap {
+- (void)writeGIFExtensionBlocksInData:(NSMutableData*) data
+                     forRepresenation:(NSBIR*) bitmap {
   // GIF Application Extension Block - 0x21FF0B
   const char *GIFApplicationExtensionBlock = "\x21\xFF\x0B\x4E\x45\x54\x53\x43"
                                              "\x41\x50\x45\x32\x2E\x30\x03\x01"
@@ -5357,7 +5364,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   }
 }
 
-- (NSDictionary *)GIFPropertiesForRepresentation:(NSBitmapImageRep *)bitmap {
+- (NSDictionary*) GIFPropertiesForRepresentation:(NSBIR*) bitmap {
   NSNumber *frameCount = [bitmap valueForProperty:NSImageFrameCount];
 
   if (!frameCount) {
@@ -5388,25 +5395,25 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 @implementation NSImage (QuickLook)
 
-+ (NSImage *)imageWithPreviewOfFileAtPath:(NSString *)path
++ (NSImage*) imageWithPreviewOfFileAtPath:(NSString*) path
                                    ofSize:(NSSize)size
                                    asIcon:(BOOL)asIcon {
 
   NSURL *fileURL = [NSURL fileURLWithPath:path];
   if (!path || !fileURL)
     return nil;
-  NSDictionary *dict = @{(NSS *)kQLThumbnailOptionIconModeKey : @(asIcon)};
+  NSDictionary *dict = @{(NSS*) kQLThumbnailOptionIconModeKey : @(asIcon)};
   CGImageRef ref = QLThumbnailImageCreate(
       kCFAllocatorDefault, (__bridge CFURLRef)fileURL,
       CGSizeMake(size.width, size.height), (__bridge CFDictionaryRef)dict);
   if (ref != NULL) {
-    // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new
+    // Take advantage of NSBIR's -initWithCGImage: initializer, new
     // in Leopard,
     // which is a lot more efficient than copying pixel data into a brand new
     // NSImage.
     // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
-    NSBitmapImageRep *bitmapImageRep =
-        [NSBitmapImageRep.alloc initWithCGImage:ref];
+    NSBIR *bitmapImageRep =
+        [NSBIR.alloc initWithCGImage:ref];
     NSImage *newImage = nil;
     if (bitmapImageRep) {
       newImage = [NSImage.alloc initWithSize:[bitmapImageRep size]];
@@ -5433,40 +5440,40 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 NSS *kXML_Base64ReferenceAttribute = @"xlink:href=\"data:;base64,";
 
-+ (NSIMG *)imageWithBase64EncodedString:(NSS *)inString {
++ (NSIMG*) imageWithBase64EncodedString:(NSS*) inString {
   return [self.alloc initWithBase64EncodedString:inString];
 }
-- (id)initWithBase64EncodedString:(NSS *)inBase64String {
+- initWithBase64EncodedString:(NSS*) inBase64String {
   if (!inBase64String)
     return nil;
 
   NSSize tempSize = {100, 100};
   NSData *data = nil;
-  NSImageRep *imageRep = nil;
+  NSIR *imageRep = nil;
   if (!(self = [self initWithSize:tempSize]))
     return nil;
   // Now, interpret the inBase64String.
   return (data = [NSData dataWithBase64String:inBase64String]) ?
          // Create an image representation from the data.
-         (imageRep = [NSBitmapImageRep imageRepWithData:data])
+         (imageRep = [NSBIR imageRepWithData:data])
          ?
          // Set the real size of the image and add the representation.
          [self setSize:imageRep.size],
          [self addRepresentation:imageRep], self : nil : nil;
 }
-- (NSString *)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType {
-  __block NSBitmapImageRep *imageRep = nil;
+- (NSString*) base64EncodingWithFileType:(NSBitmapImageFileType)inFileType {
+  __block NSBIR *imageRep = nil;
   NSData *t_filetype_data = nil;
-  // Look for an existing representation in the NSBitmapImageRep class.
+  // Look for an existing representation in the NSBIR class.
   [self.representations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
                                                      BOOL *stop) {
-      imageRep = [obj isKindOfClass:NSBitmapImageRep.class] ? obj : imageRep;
+      imageRep = [obj isKindOfClass:NSBIR.class] ? obj : imageRep;
       if (imageRep)
         *stop = YES;
   }];
   imageRep =
-      imageRep ?: [NSBitmapImageRep imageRepWithData:self.TIFFRepresentation];
-  // Need to make a NSBitmapImageRep for so we can get whatever the caller wants
+      imageRep ?: [NSBIR imageRepWithData:self.TIFFRepresentation];
+  // Need to make a NSBIR for so we can get whatever the caller wants
   // later.
   imageRep ? [self addRepresentation:imageRep] : nil;
   // Get the image data as whatever type the caller wants.
@@ -5477,6 +5484,60 @@ NSS *kXML_Base64ReferenceAttribute = @"xlink:href=\"data:;base64,";
   // Now, convert the t_filetype_data into Base64 encoding.
   return t_filetype_data ? [t_filetype_data base64String]
                          : nil; // base64EncodingWithLineLength:120] : nil;
+}
+
+@end
+
+//  AZFavIconOp
+
+@interface AZImageCache () @property(assign) dispatch_queue_t queue; @end
+
+@implementation AZImageCache
+
+SYNTHESIZE_SINGLETON_FOR_CLASS(AZImageCache, sharedCache);
+
+- init { SUPERINIT;
+
+  _queue          = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+  _cacheDirectory = [AZCACHEDIR withPath:[APP_NAME withString:@"_ImageCache"]];
+  MAKEDIR_IFNEEDED(_cacheDirectory);
+  return self;
+}
+
+- (void) removeAllObjects {
+
+  [AZFILEMANAGER removeItemAtPath:_cacheDirectory error:nil];
+  MAKEDIR(_cacheDirectory);
+  [super removeAllObjects];
+}
+
+- (NSIMG*) imageForKey:(NSS*) key { if (![self hasPropertyForKVCKey:@"key"] || !key) return nil;
+
+  NSIMG *image = [self objectForKey:key]; return image ?: ({ NSS *path = [self pathForImage:image key:key];
+
+    if ((image = [NSIMG.alloc initWithContentsOfFile:path])) [self setObject:image forKey:key];  image;  });
+}
+
++ (void) cacheImage:(NSIMG*)i { [i saveAs:[self.sharedCache pathForImage:i key:i.name ?: NSS.randomWord]]; }
+
+- (void) setImage:(NSIMG*)i forKey:(NSS*)k { IF_RETURNV(!i || !k);
+
+  [self setObject:i forKey:k];
+  dispatch_async(_queue, ^{ [i saveAs:[self pathForImage:i key:k]]; /* path */ });
+
+//  NSLog(@"%@", path); NSData *imageD = NSIMGPNGRepresentation(image);
+//  if (imageD) [imageData writeToFile:path atomically:NO];
+}
+
+#pragma mark - Private Methods
+
+- (NSS*) pathForImage:(NSIMG*) image key:(NSS*) key {
+
+  NSS *path = key;
+#if TARGET_OS_IPHONE
+  if (image.scale == 2.0f) path = [key stringByAppendingString:@"@2x"];
+#endif
+  return [_cacheDirectory withPath:[path withExtIfMissing:@"png"]];
 }
 
 @end

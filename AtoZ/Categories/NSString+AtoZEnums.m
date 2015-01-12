@@ -11,7 +11,7 @@
 		[@[@"name", @"eProperties"] do:^(id o){ [aCoder encodeObject:[self vFK:o] forKey:o]; }]; 
 		[aCoder encodeInt:_ordinal forKey:@"ordinal"]; 
 }
-- (id)initWithCoder:(NSCoder *)aDecoder	{	if (self != [super initWithCoder:aDecoder] ) return nil;
+- initWithCoder:(NSCoder *)aDecoder	{	if (self != [super initWithCoder:aDecoder] ) return nil;
 	
 	// see if the enum name exists - it should
 	NSString *ename = [aDecoder decodeObjectForKey:@"name"];
@@ -68,19 +68,16 @@
     return [_name hash]; // use the hash of the string, that way "if two objects are
     // equal (as determined by the isEqual: method) they must have the same hash value"
 }
-- (BOOL) isEqual:(id)x {
+- (BOOL) isEqual: x {
 	return x == self ?: ISA(x,self.class) || ISA(self,[x class]) ? [_name isEqualToString:[x vFK:@"name"]] : NO;
 }
 
 #pragma mark Accessing
-static NSInteger sortByOrdinal(id left, id right, void *ctx)
-{
-    return [left ordinal] - [right ordinal];
-}
+static NSInteger sortByOrdinal(id left, id right, void *ctx) { return [left ordinal] - [right ordinal]; }
+
 static NSMutableDictionary *gAllEnums = nil;
-+ (NSArray *) allEnums
-{
-    // use the class as a key for what enum list we want - it's expensive to build on the fly
+
++ (NSArray *) allEnums {    // use the class as a key for what enum list we want - it's expensive to build on the fly
     if (!gAllEnums) 	gAllEnums = NSMutableDictionary.new;
     NSMutableArray *retval = [gAllEnums objectForKey:self]; 
     if (retval)	return retval;
@@ -324,7 +321,7 @@ static BOOL getPropertyInfo(Class cls, NSString *propertyName, Class *propertyCl
     [aCoder encodeObject:_properties forKey:@"properties"];
     [aCoder encodeInt:_ordinal forKey:@"ordinal"];
 }
-- (id)initWithCoder: (NSCoder*)aDecoder		{
+- initWithCoder: (NSCoder*)aDecoder		{
 	if (!(self = super.init)) return nil;
 	// see if the enum name exists - it should
 	NSS *ename 	= [aDecoder decodeObjectForKey:@"name"];

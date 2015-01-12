@@ -32,7 +32,7 @@ typedef void (^animationCompletionBlock)(void);
 @interface AZDynamicTabLayer : CAL <AZSemiResponder>
 
 @prop_NA     NSA 					*palette;
-@prop_NA NSOrderedDictionary 		*tabs;
+@prop_NA id /* NSOrderedDictionary*/ 	tabs;
 @prop_NA  AZSizer 				*sizer;
 // @property (ASS,   NATOM) AZRange 					 range;
 @prop_NA AZOrient				 orient;

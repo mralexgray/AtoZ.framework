@@ -192,7 +192,7 @@ NSEC_PER_SEC), dispatch_get_main_queue(), ^{
   t.subtype = [AZTransitionSubtypes randomElement];
   return t;
 }
-+ (NSA *)transitionsFor:(id)targetView {
++ (NSA *)transitionsFor: targetView {
 
   NSRect rect = [targetView bounds];
   CIImage *inputMaskImage, *inputShadingImage;
@@ -299,7 +299,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 
 // void disableCA(){
 //	[CATransaction flush];	[CATransaction begin];	[CATransaction
-//setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+//setValue: kCFBooleanTrue forKey:kCATransactionDisableActions];
 //}
 //@implementation CATransaction (AtoZ)   SEE CAANIMATION + ATOZ
 //+ (void) immediatelyWithCompletion:(void (^)())completion transaction:(void
@@ -313,8 +313,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 @implementation CABA (AtoZ)
 
 + (CABA *)animationWithKeyPath:(NSS *)path
-                          from:(id)v1
-                            to:(id)v2
+                          from: v1
+                            to: v2
                       duration:(NSTI)time
                         repeat:(CGF)ct {
   CABA *new = [self animationWithKeyPath : path];
@@ -345,8 +345,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 }
 + (CABA *)groupAnimationWithKP:(NSS *)path
                          begin:(NSTI)start
-                    fromOption:(id)from
-                            to:(id)to
+                    fromOption: from
+                            to: to
                         andSet:(CAL *)set {
 
   CABA *a = [self animationWithKeyPath:path];
@@ -363,8 +363,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 }
 + (CABA *)withKP:(NSS *)path
         duration:(NSTI)interval
-      fromOption:(id)from
-              to:(id)to
+      fromOption: from
+              to: to
           andSet:(CAL *)set {
 
   CABA *a = [self animationWithKeyPath:path];
@@ -444,8 +444,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 }
 + (CABA *)kP:(NSS *)path
            t:(NSTI)interval
-           f:(id)from
-           t:(id)to
+           f: from
+           t: to
       andSet:(CAL *)set {
 
   CABA *a = [CABA animationWithKeyPath:path];
@@ -979,7 +979,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
   return shakeAnim;
 }
 
-- (IBAction)shakeBabyShake:(id)sender;
+- (IBAction)shakeBabyShake: sender;
 {
   NSString *key = @"frameOrigin";
   if ([NSWindow defaultAnimationForKey:key] == nil) {
@@ -1189,7 +1189,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  @synthesize completion=_completion;
  @synthesize start=_start;
 
- - (id)init
+ - init
  {
  self = [super init];
  if (self) {
@@ -1275,7 +1275,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  */
 /*   example of blocks category below
 
- - (void)runAnimation:(id)unused
+ - (void)runAnimation: unused
  {
  // Create a shaking animation that rotates a bit counter clockwisely and then
  rotates another

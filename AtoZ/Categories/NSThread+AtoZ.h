@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZUmbrella.h"
+#import "AtoZMacroDefines.h"
 
 @interface NSBlockOperation(Completion)
 - (void) setCompletionBlockInCurrentThread:(void (^)(void))block;

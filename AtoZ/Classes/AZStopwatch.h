@@ -26,7 +26,7 @@
 @property (nonatomic) NSS *name;
 @property (nonatomic) NSDate *started, *stopped;
 
-//+ (void) timeBlocks:(id)blocks,...;
+//+ (void) timeBlocks: blocks,...;
 
 + (INST) named:(NSS*)name;
 - (void) start;

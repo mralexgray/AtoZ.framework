@@ -84,12 +84,12 @@ const char * property_getRetentionMethod (objc_property_t property) {
 
 - (INST)    objectBySettingValuesWithDictionary:(NSD*)d   { [self sVs:d.allValues fKs:d.allKeys]; return self; }
 - (INST) objectBySettingValues:(NSA*)vs forKeys:(NSA*)ks  { [self sVs:vs fKs:ks];                 return self; }
-- (INST)  objectBySettingValue:(id)v     forKey:(NSS*)k   { if ([self canSetValueForKey:k]) [self sV:v fK:k]; else self[k] = v; return self; }
+- (INST)  objectBySettingValue: v     forKey:(NSS*)k   { if ([self canSetValueForKey:k]) [self sV:v fK:k]; else self[k] = v; return self; }
 
 - (void)         incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
 - (INST) objectByIncrementing:(NSS*)k by:(NSN*)v { [self incrementKey:k by:v]; return self; }
 
-- (void)  setKVs:(id)firstKey,... { id item = nil, key = firstKey; va_list list; va_start(list, firstKey);
+- (void)  setKVs: firstKey,... { id item = nil, key = firstKey; va_list list; va_start(list, firstKey);
 
   while (!!key && (item = va_arg(list, id))) { [self sV:item fK:key]; key = va_arg(list, id); } va_end(list);
 }
@@ -97,8 +97,8 @@ const char * property_getRetentionMethod (objc_property_t property) {
 
   [keyVals do:^(AZKP* obj) { [self sV:obj.value fK:obj.key]; }];
 }
-- (INST) withValuesForKeys:(id)v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
-- (INST)            wVsfKs:(id)v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
+- (INST) withValuesForKeys: v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
+- (INST)            wVsfKs: v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
 
 - (INST) objectBySettingVariadicPairs:(NSA*)vsForKs { AZBlockSelf(x); [vsForKs eachWithVariadicPairs:^(id a,id b){ [x setValue:a forKey:b]; }]; return x; }
 

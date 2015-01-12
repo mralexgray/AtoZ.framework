@@ -24,8 +24,15 @@ int main() { @autoreleasepool { static RoutingHTTPServer  *http;
     [res respondWithString:[NetworkHelpers createindexForDir:@"/"]];
    }];
 
-  [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
+//  [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
 
+ [http get:@"/js/:path" handler:^(RouteRequest *req, RouteResponse *res) {
+
+    NSS *path = [@"/js/" stringByAppendingString:req.params[@"path"]].stringByStandardizingPath;
+    NSLog(@"Looking for %@", path);
+    if ([FM fileExistsAtPath:path])
+      [res respondWithFile:path];
+   }];
 
   WSDelegate *d =  WSDelegate.new;
   [d setDidOpenBlock:^(WebSocket *ws) {

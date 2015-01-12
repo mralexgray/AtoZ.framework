@@ -10,7 +10,7 @@
 
 @implementation NSShadow (AtoZ)
 
-- (id)initWithColor:(NSColor *)color offset:(NSSize)offset blurRadius:(CGFloat)blur
+- initWithColor:(NSColor *)color offset:(NSSize)offset blurRadius:(CGFloat)blur
 {
 self = [self init];
 

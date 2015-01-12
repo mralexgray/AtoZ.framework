@@ -1,0 +1,27 @@
+
+framework module AtoZ {
+
+  //umbrella "Headers"
+  umbrella header "AtoZ.h"
+  exclude header "DrawKit/DKDrawableContainerProtocol.h"
+  export *
+  module * {
+    export *
+  }
+  explicit module AtoZCategories {
+    header "AtoZCategories.h"
+    export *
+  }
+}
+
+
+//  umbrella header "AtoZ.h"
+//  framework module AtoZAutoBox {
+//    umbrella header "/Volumes/4X4/DerivedData/AtoZ/Products/Debug/include/AtoZAutoBox/AtoZAutoBox.h"
+//    export *
+//    module * { export * }
+//  }
+ //[system] {// [system]
+//  umbrella "Headers"
+//  exclude header "ffi/ffi_x86_64.h"
+//  exclude header "ffi/ffi.h"

@@ -20,7 +20,7 @@
 -(EL*) head	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"head"];	}
 -(EL*) body	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"body"];	}
 
--         initWithString:(NSS*)str error:(NSERR**)e  {
+-         initWithString:(NSS*)str error:(__autoreleasing NSERR**)e  {
 
   if (!(self = super.init)) return nil;	_docPtr = NULL;
 
@@ -37,7 +37,7 @@
 	else *e = e ? [NSERR errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil] : *e;
 	return self;
 }
--           initWithData:(DTA*)dta error:(NSERR**)e  { if (!(self = [super init])) return nil;
+-           initWithData:(DTA*)dta error:(NSERR*__autoreleasing*)e  { if (!(self = [super init])) return nil;
 
   _docPtr = NULL;
 
@@ -50,7 +50,7 @@
 	else	*e = e ? [NSError errorWithDomain:@"HTMLParserdomain" code:1 userInfo:nil] : *e;
 	return self;
 }
--  initWithContentsOfURL:(NSURL*)u error:(NSERR**)e  {
+-  initWithContentsOfURL:(NSURL*)u error:(NSERR*__autoreleasing*)e  {
 
 	NSData * _data = [NSData.alloc initWithContentsOfURL:u options:0 error:e];
 	if (_data == nil || *e) return nil;

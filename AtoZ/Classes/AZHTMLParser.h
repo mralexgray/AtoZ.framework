@@ -7,9 +7,9 @@
 @class           HTMLNode ;
 @interface 	 AZHTMLParser : NSObject
 
-- initWithContentsOfURL:(NSU*)u error:(NSERR**)e;
--          initWithData:(DTA*)d error:(NSERR**)e;
--        initWithString:(NSS*)s error:(NSERR**)e;
+- initWithContentsOfURL:(NSU*)u error:(NSERR*__autoreleasing*)e;
+-          initWithData:(DTA*)d error:(NSERR*__autoreleasing*)e;
+-        initWithString:(NSS*)s error:(NSERR*__autoreleasing*)e;
 
 @prop_RO HTMLNode * doc,		// Returns the doc  tag
                   * body,	//	Returns the body tag

@@ -22,7 +22,7 @@
 @interface NSColor (AIColorAdditions)
 
 #pragma mark -  Comparison
-- (BOOL)equalToRGBColor:(id)arg1;
+- (BOOL)equalToRGBColor: arg1;
 
 #pragma mark -  DarknessAndContrast
 - contrastingColor;
@@ -49,13 +49,13 @@
 + (INST) randomColor;
 
 #pragma mark - ObjectColor
-+ representedColorForObject:(id)arg1 withValidColors:(id)arg2;
++ representedColorForObject: arg1 withValidColors: arg2;
 
 #pragma mark - ColorspaceEquality
 
-- (BOOL)isEqualToColor:(id)arg1 colorSpace:(id)arg2;
+- (BOOL)isEqualToColor: arg1 colorSpace: arg2;
 
 #pragma mark - CSSRGB
-+ (INST) colorWithCSSRGB:(id)arg1;
++ (INST) colorWithCSSRGB: arg1;
 
 @end

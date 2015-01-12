@@ -4,7 +4,7 @@
 
 @interface            Lasso : NSObject
 
-+ (void) rope:(id)layer; // Howdy cowboy.  Rope yur layer, pardner. AUtoEnables!
++ (void) rope: layer; // Howdy cowboy.  Rope yur layer, pardner. AUtoEnables!
 + (void) setFree; // aka UNrope. willhappen regardless if it needs to go elsewhere.
 
 +   (id) hit; //hit test the location, and rope!

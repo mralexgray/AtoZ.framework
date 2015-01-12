@@ -10,11 +10,11 @@
 
 @protocol NSOutlineViewDraggable
 @concrete
-- (BOOL) outlineView:(NSOV*)ov          isItemExpandable:(id)x;
--  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem:(id)x;
--   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem:(id)x;
+- (BOOL) outlineView:(NSOV*)ov          isItemExpandable: x;
+-  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem: x;
+-   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem: x;
 -   (id) outlineView:(NSOV*)ov objectValueForTableColumn:(NSTC*)col
-                                                  byItem:(id)x;
+                                                  byItem: x;
 @end
 
 @interface NSOutlineView (AtoZ)
@@ -59,15 +59,13 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 @end
 
 @interface NSTreeController (ESExtensions)
-- (NSA*) 			 			  rootNodes;
-- (void) 						 selectNone;
-- (NSA*)						flattenedNodes;
-- (NSA*)              flattenedContent;
-- (void)     selectParentFromSelection;
-- (NSIndexPath*) indexPathForInsertion;
--  (NSTN*) 		         nodeAtIndexPath:(NSIndexPath*)indexPath;
--  (NSTN*)     		 nextSiblingOfNode:(NSTN*)node;
--  (NSTN*) nextSiblingOfNodeAtIndexPath:(NSIndexPath *)indexPath;
+@prop_RO NSA * rootNodes, *flattenedNodes, *flattenedContent;
+- (void) selectNone;
+- (void) selectParentFromSelection;
+- (NSIP*) indexPathForInsertion;
+- (NSTN*) 		         nodeAtIndexPath:(NSIndexPath*)indexPath;
+- (NSTN*)     		 nextSiblingOfNode:(NSTN*)node;
+- (NSTN*) nextSiblingOfNodeAtIndexPath:(NSIndexPath *)indexPath;
 //+ (instancetype)        instanceWithRootNodes:(NSA*)nodes;
 @end
 
@@ -88,12 +86,12 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 
 - (void)			 	 setSelectedTreeNode:(NSTN*)node;
 - (void)				setSelectedTreeNodes:(NSA*)nodes;
-- (void)  setSelectedRepresentedObject:(id)obj;
+- (void)  setSelectedRepresentedObject: obj;
 - (void) setSelectedRepresentedObjects:(NSA*)objs;
 /*
 - (void)removeSelectedNodes;
 - (void)removeTreeNodes:(NSArray *)treeNodes;
-- (void)removeRepresentedObject:(id)representedObject;
+- (void)removeRepresentedObject: representedObject;
 - (void)removeRepresentedObjects:(NSArray *)representedObjects;
 */
 @end

@@ -7,7 +7,7 @@
 //
 
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import "BGThemeManager.h"
 #import "BGHUDTabViewItem.h"
 

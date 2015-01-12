@@ -30,7 +30,7 @@ return  ISA(object,NSS)
 
   [super forwardingTargetForSelector:s];
 }
-- (id)init
+- init
 {
   if (!(self = super.init)) return nil;
   dictionary = NSMutableDictionary.new;
@@ -43,14 +43,14 @@ return  ISA(object,NSS)
     return [self mutableCopy];
 }
 
-- (void)setObject:(id)anObject forKey:(id)aKey
+- (void)setObject: anObject forKey: aKey
 {
     if (![keyset containsObject:aKey])
         [keyset addObject:aKey];
     [dictionary setObject:anObject forKey:aKey];
 }
 
-- (void)removeObjectForKey:(id)aKey
+- (void)removeObjectForKey: aKey
 {
     [dictionary removeObjectForKey:aKey];
     [keyset removeObject:aKey];
@@ -65,7 +65,7 @@ return  ISA(object,NSS)
 //    return [dictionary count];
 //}
 //
-//- (id)objectForKey:(id)aKey
+//- (id)objectForKey: aKey
 //{
 //    return [dictionary objectForKey:aKey];
 //}
@@ -80,7 +80,7 @@ return  ISA(object,NSS)
 //    return [keyset reverseObjectEnumerator];
 //}
 
-- (void)insertObject:(id)anObject forKey:(id)aKey atIndex:(NSUInteger)anIndex
+- (void)insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex
 {
     if ([dictionary objectForKey:aKey])
     {
@@ -109,7 +109,7 @@ return  ISA(object,NSS)
     return [dictionary objectForKey:key];
 }
 
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx
+- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx
 {
     //NSAssert (idx <= keyset.count -1, @"index %ld is beyond max range %ld", idx, keyset.count - 1);
 
@@ -117,17 +117,17 @@ return  ISA(object,NSS)
     [dictionary setObject:obj forKey:key];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key
+- (void)setObject: obj forKeyedSubscript:(id <NSCopying>)key
 {
     [self setObject:obj forKey:key];
 }
 
-- (id)objectForKeyedSubscript:(id)key
+- (id)objectForKeyedSubscript: key
 {
     return [dictionary objectForKey:key];
 }
 
-- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level
+- (NSString *)descriptionWithLocale: locale indent:(NSUInteger)level
 {
     NSMutableString *indentString = [NSMutableString string];
     NSUInteger i, count = level;
@@ -151,7 +151,7 @@ return  ISA(object,NSS)
 
 @end
 
-
+/**
 @implementation NSOrderedDictionary (AtoZ)
 
 - (void) forwardInvocation:(NSINV*)invocation 		{  // FIERCE
@@ -189,12 +189,13 @@ return  ISA(object,NSS)
 	 			||    [NSD resolveInstanceMethod:selector] 	 	  || 		[super  respondsToSelector:selector];
 
 //	 [super respondsToSelector:selector] || [self.defaultCollection respondsToSelector:selector];
-}	/* All methods above are fierce Posing classes */
+}	/// All methods above are fierce Posing classes
 @end
+*/
 
 @implementation NSMutableDictionary (AtoZ)
 //Returns NO if `anObject` is nil; can be used by the sender of the message or ignored if it is irrelevant.
-- (BOOL)setObjectOrNull:(id)anObject forKey:(id)aKey	{
+- (BOOL)setObjectOrNull: anObject forKey: aKey	{
 	if(anObject!=nil) {		[self setObject:anObject forKey:aKey]; 		return YES; }
 	else {					[self setObject:[NSNull null] forKey:aKey];	return NO;	}
 }
@@ -212,7 +213,7 @@ return  ISA(object,NSS)
 
 //		http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
 @implementation NSDictionary (objectForKeyList)
-- (id)objectForKeyList:(id)key, ...
+- (id)objectForKeyList: key, ...
 {
   id object = self;
   va_list ap;
@@ -224,7 +225,7 @@ return  ISA(object,NSS)
   return object;
 }
 
-- (id)objectMatching:(id)match forKeyorKeyPath:(id)kp {
+- (id)objectMatching: match forKeyorKeyPath: kp {
 
 	return [self.allValues filterOne:^BOOL(id object) {
 		return [object valueForKeyOrKeyPath:kp] == match;
@@ -264,7 +265,7 @@ return  ISA(object,NSS)
 	}
 	return curContainer	;
 }
--(void)setObject:(id)inValue forKeyPath:(NSS*)inKeyPath	{
+-(void)setObject: inValue forKeyPath:(NSS*)inKeyPath	{
 
 	NSA	*components = [inKeyPath componentsSeparatedByString:@"."], *indices;
 	int		i, j, n = [components count], m, index;
@@ -344,7 +345,7 @@ return  ISA(object,NSS)
 }
 @end
 @implementation NSArray (FindDictionary)
-- (id)findDictionaryWithValue:(id)value	{	__block id match = nil;
+- (id)findDictionaryWithValue: value	{	__block id match = nil;
 
 	[self enumerateObjectsUsingBlock:^(NSO *obj, NSUI idx, BOOL *stop) {
   
@@ -405,26 +406,26 @@ return  ISA(object,NSS)
 */
 
 @implementation NSDictionary (Types)
-- (id)objectForKey:(id)key ofType:(Class)type default:(id)defaultValue;	{
+- (id)objectForKey: key ofType:(Class)type default: defaultValue;	{
   id value = [self objectForKey:key];
   return [value isKindOfClass:type] ? value : defaultValue;
 }
-- (NSS*)stringForKey:(id)key default:(NSS*)defaultValue	{
+- (NSS*)stringForKey: key default:(NSS*)defaultValue	{
   return [self objectForKey:key ofType:NSString.class default:defaultValue];
 }
-- (NSS*)stringForKey:(id)key;	{
+- (NSS*)stringForKey: key;	{
   return [self stringForKey:key default:@""];
 }
-- (NSN*)numberForKey:(id)key default:(NSN*)defaultValue;	{
+- (NSN*)numberForKey: key default:(NSN*)defaultValue;	{
   return [self objectForKey:key ofType:[NSNumber class] default:defaultValue];
 }
-- (NSN*)numberForKey:(id)key;	{
+- (NSN*)numberForKey: key;	{
   return [self numberForKey:key default:nil];
 }
-- (NSA*)arrayForKey:(id)key default:(NSA*)defaultValue;	{
+- (NSA*)arrayForKey: key default:(NSA*)defaultValue;	{
   return [self objectForKey:key ofType:[NSArray class] default:defaultValue];
 }
-- (NSA*)arrayForKey:(id)key;	{
+- (NSA*)arrayForKey: key;	{
   return [self arrayForKey:key default:[NSArray array]];
 }
 @end
@@ -537,7 +538,7 @@ return  ISA(object,NSS)
 	}];
 }
 
-//- (id) key:(id)x {
+//- (id) key: x {
 //
 //	if([self.allKeys containsObject:key]) {
 //		// this dictionary contains the key, return the value
@@ -628,7 +629,7 @@ return  ISA(object,NSS)
 //
 
 
-- (NSD*)findDictionaryWithValue:(id)value	{ __block id match = nil;
+- (NSD*)findDictionaryWithValue: value	{ __block id match = nil;
 
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 		*stop = (!!(match = [obj isEqual:value] ? self  :	ISA(obj,NSA) || ISA(obj,self.class)	? [obj findDictionaryWithValue:value] : nil));
@@ -637,29 +638,29 @@ return  ISA(object,NSS)
 }
 // NSDictionary *resultDict = [self findDictionaryForValue:@"i'm an id" inArray:array];
 
-+ (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys	{
++ (NSDictionary*) dictionaryWithValue: value forKeys:(NSA*)keys	{
 	__block NSMutableDictionary *dict = [NSMutableDictionary new];
 	[keys do:^(id obj) { dict[obj] = value; }];
 	return dict;
 }
-- (NSDictionary*) dictionaryWithValue:(id)value forKeys:(NSA*)keys	{
+- (NSDictionary*) dictionaryWithValue: value forKeys:(NSA*)keys	{
 	__block NSMutableDictionary *dict = self.mutableCopy;
 	[keys do:^(id obj) { dict[obj] = value; }];
 	return dict;
 }
-- (NSDictionary*) dictionaryWithValue:(id)value forKey:(id)key	{
+- (NSDictionary*) dictionaryWithValue: value forKey: key	{
 	// Would be nice to make our own dictionary subclass that made this
 	// more efficient.
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self];
 	[dict setValue:value forKey:key];
 	return dict;
 }
-- (NSDictionary*) dictionaryWithoutKey:(id)key	{
+- (NSDictionary*) dictionaryWithoutKey: key	{
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self];
 	[dict removeObjectForKey:key];
 	return dict;
 }
-- (NSDictionary*) dictionaryWithKey:(id)newKey replacingKey:(id)oldKey;	{
+- (NSDictionary*) dictionaryWithKey: newKey replacingKey: oldKey;	{
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:self];
 	id value = dict[oldKey];
 	if (value != nil) {
@@ -682,7 +683,7 @@ return  ISA(object,NSS)
 	}];
 }
 /*
-- (void) obtainKeyPaths:(id)val intoArray:(NSMutableArray*)arr withString:(NSString*)s {
+- (void) obtainKeyPaths: val intoArray:(NSMutableArray*)arr withString:(NSString*)s {
     if ([val isKindOfClass:[NSDictionary class]]) {
         for (id aKey in [val allKeys]) {
             NSString* path = 
@@ -788,7 +789,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	return nil;
 }
 /*" Returns an object which is a shallow copy of the receiver except that the given key now maps to anObj. anObj may be nil in order to remove the given key from the dictionary. "*/
-- (NSD*)dictionaryWithObject:(id)anObj forKey:(NSS*)key;	{
+- (NSD*)dictionaryWithObject: anObj forKey:(NSS*)key;	{
 	NSUInteger keyCount = [self count];
 	if (keyCount == 0 || (keyCount == 1 && self[key] != nil))
 		return anObj ? @{key: anObj} : @{};
@@ -884,7 +885,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 //nochange_noalloc:
 //	return [NSDictionary dictionaryWithDictionary:self];
 //}
-- (NSS*) keyForObjectEqualTo:(id)anObject;	{
+- (NSS*) keyForObjectEqualTo: anObject;	{
 
   NSD *x = [self findDictionaryWithValue:anObject]; return x ? [x keyForObjectIdenticalTo:anObject] : nil;
 //		if ( isEqual:anObject])//			return key;//	return nil;
@@ -1016,7 +1017,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	return [self integerForKey:key defaultValue:0];
 }
 /* COnflicts cocoatechcore
-- (id)objectForKey:(NSS*)key defaultObject:(id)defaultObject;	{
+- (id)objectForKey:(NSS*)key defaultObject: defaultObject;	{
 	id value = self[key];
 	if (value)
 		return value;
@@ -1044,7 +1045,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 */
 @end
 @implementation NSDictionary (OFDeprecatedExtensions)
-- (id)valueForKey:(NSS*)key defaultValue:(id)defaultValue;	{
+- (id)valueForKey:(NSS*)key defaultValue: defaultValue;	{
 	return [self objectForKey:key defaultObject:defaultValue];
 }
 @end
@@ -1068,7 +1069,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 @end
 
 @implementation NSArray (Subdictionaries)
-//- (NSBag*) ojectsInSubdictionariesForKey:(id)key
+//- (NSBag*) ojectsInSubdictionariesForKey: key
 //{
 //	__block NSBag* objects = [NSBag bag];
 //	[self eac
@@ -1090,8 +1091,8 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 //}
 @end
 @implementation NSDictionary (Subdictionaries)
-- (NSCountedSet*)objectsInSubdictionariesForKey:(id)key
-								  defaultObject:(id)defaultObject {
+- (NSCountedSet*)objectsInSubdictionariesForKey: key
+								  defaultObject: defaultObject {
 	NSCountedSet* objects = [NSCountedSet set] ;
 	for (NSDictionary* subdictionary in [self allValues]) {
 		id object = [subdictionary objectForKey:key] ;
@@ -1106,8 +1107,8 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 }
 @end
 @implementation NSDictionary (SimpleMutations)
-- (NSDictionary*)dictionaryBySettingValue:(id)value
-								   forKey:(id)key {
+- (NSDictionary*)dictionaryBySettingValue: value
+								   forKey: key {
 	if (!key) {
 		return [NSDictionary dictionaryWithDictionary:self] ;
 	}
@@ -1246,7 +1247,7 @@ const int jsonDoNotIndent = -1;
 	
 	return jsonString;// autorelease];
 }
-- (NSS*)jsonStringForValue:(id)value withIndentLevel:(int)level	{	
+- (NSS*)jsonStringForValue: value withIndentLevel:(int)level	{	
 	NSString *jsonString;
 	if ([value respondsToSelector:@selector(characterAtIndex:)]) // String
 		jsonString = [self jsonStringForString:(NSS*)value];
@@ -1362,8 +1363,10 @@ NSString *jsonStringEscapedSlashString = @"\\\\";
 NSString *jsonTrueString = @"true";
 NSString *jsonFalseString = @"false";
 NSString *jsonNullString = @"null";
+
 @implementation NSScanner (PrivateBSJSONAdditions)
-- (BOOL)scanJSONObject:(NSDictionary **)dictionary	{
+
+- (BOOL)scanJSONObject:(NSDictionary *__autoreleasing*)dictionary	{
 	//[self setCharactersToBeSkipped:nil];
 	
 	BOOL result = NO;
@@ -1395,7 +1398,8 @@ NSString *jsonNullString = @"null";
 	}
 	return result;
 }
-- (BOOL)scanJSONArray:(NSArray **)array	{
+- (BOOL) scanJSONArray:(NSArray*__autoreleasing*)array	{
+
 	BOOL result = NO;
 	NSMutableArray *values = NSMutableArray.new;
 	[self scanJSONArrayStartString];
@@ -1404,9 +1408,9 @@ NSString *jsonNullString = @"null";
 	while ([self scanJSONValue:&value]) {
 		[values addObject:value];
 		[self scanJSONWhiteSpace];
-		if ([[[self string] substringWithRange:NSMakeRange([self scanLocation], 1)] isEqualToString:jsonValueSeparatorString]) {
+		if ([[self.string substringWithRange:NSMakeRange(self.scanLocation, 1)]
+                         isEqualToString:jsonValueSeparatorString])
 			[self scanJSONValueSeparator];
-		}
 	}
 	if ([self scanJSONArrayEndString]) {
 		result = YES;
@@ -1415,7 +1419,7 @@ NSString *jsonNullString = @"null";
 	
 	return result;
 }
-- (BOOL)scanJSONString:(NSString **)string	{
+- (BOOL)scanJSONString:(NSString *__autoreleasing*)string	{
 	BOOL result = NO;
 	if ([self scanJSONStringDelimiterString]) {
 		NSMutableString *chars = NSMutableString.new;
@@ -1528,7 +1532,7 @@ NSString *jsonNullString = @"null";
 	
 	return result;
 }
-- (BOOL)scanJSONValue:(id *)value	{
+- (BOOL)scanJSONValue:(__autoreleasing id *)value	{
 	BOOL result = NO;
 	
 	[self scanJSONWhiteSpace];
@@ -1561,7 +1565,7 @@ NSString *jsonNullString = @"null";
 	}
 	return result;
 }
-- (BOOL)scanJSONNumber:(NSNumber **)number	{
+- (BOOL)scanJSONNumber:(NSNumber *__autoreleasing*)number	{
 	NSDecimal decimal;
 	BOOL result = [self scanDecimal:&decimal];
 	*number = [NSDecimalNumber decimalNumberWithDecimal:decimal];

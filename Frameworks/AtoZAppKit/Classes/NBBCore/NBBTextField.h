@@ -4,7 +4,7 @@
 
  */
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 #import "NBBThemable.h"
 
 @interface NBBTextField : NSTextField <NBBThemable>

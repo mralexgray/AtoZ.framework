@@ -34,7 +34,7 @@
 //
 // returns the initialized output reader
 //
-- (id)initWithTask:(NSTask *)aTask
+- initWithTask:(NSTask *)aTask
 {
 	self = [super init];
 	if (self != nil)
@@ -189,7 +189,7 @@
 //
 // Runs the current event loop until the terminated notification is received
 //
-- (void)launchTaskAndRunAsynchronousForObject:(id)receiver selector:(SEL)selector
+- (void)launchTaskAndRunAsynchronousForObject: receiver selector:(SEL)selector
 {
 	[task launch];
 	
@@ -234,7 +234,7 @@
 //
 + (NSS*)stringByLaunchingPath:(NSS*)processPath
 	withArguments:(NSA*)arguments
-	error:(NSError **)error
+	error:(NSERR*__autoreleasing*)error
 {
 	NSTask *task = NSTask.new;
 	
@@ -322,7 +322,7 @@
 + (NSS*)stringByLaunchingPath:(NSS*)processPath
 	withArguments:(NSA*)arguments
 	authorization:(SFAuthorization *)authorization
-	error:(NSError **)error
+	error:(NSERR*__autoreleasing*)error
 {
 	//
 	// Create a nil terminated C array of pointers to UTF8Strings for use as the
@@ -418,7 +418,7 @@
 @implementation NSTask (CXAdditions)
 
 // helper method called in its own thread and writes data to a file descriptor
-+ (void)writeDataToFileHandleAndClose:(id)someArguments
++ (void)writeDataToFileHandleAndClose: someArguments
 {
 //	NSAutoreleasePool*	pool	= [NSAutoreleasePool new];
 	@autoreleasepool {
@@ -436,9 +436,9 @@
 
 // Return a task (not yet launched) and optionally allocate stdout/stdin/stderr streams for communication with it
 + (NSTask *) taskWithArguments:(NSA*)args
-								 input:(NSFileHandle **)outWriteHandle
-								output:(NSFileHandle **)outReadHandle
-								 error:(NSFileHandle **)outErrorHandle
+								 input:(NSFileHandle *__autoreleasing*)outWriteHandle
+								output:(NSFileHandle *__autoreleasing*)outReadHandle
+								 error:(NSFileHandle *__autoreleasing*)outErrorHandle
 {
 	NSTask *task = NSTask.new;
 
@@ -477,9 +477,9 @@
 
 // Atomically execute the task and return output as data
 + (int) executeTaskWithArguments:(NSA*)args
-									input:(id)inputDataOrString
-							 outputData:(NSData **)outputData
-							errorString:(NSString **)errorString;
+									input: inputDataOrString
+							 outputData:(NSData *__autoreleasing*)outputData
+							errorString:(NSString *__autoreleasing*)errorString;
 {
 
 	NSFileHandle *		outputFile	= nil;
@@ -528,9 +528,9 @@
 }
 
 + (int) executeTaskWithArguments:(NSA*)args
-									input:(id)inputDataOrString
-						  outputString:(NSString **)outputString
-							errorString:(NSString **)errorString;
+									input: inputDataOrString
+						  outputString:(NSString *__autoreleasing*)outputString
+							errorString:(NSString *__autoreleasing*)errorString;
 {
 	NSData *	outputData;
 	int			terminationStatus;

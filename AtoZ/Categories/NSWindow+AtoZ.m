@@ -51,7 +51,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 	[NSThread detachNewThreadSelector:@selector(windowMoves:) toTarget:(NSWindow*)((NSNotification*)note).object withObject:note];
 	// creating a new thread that is doing the monitoring of mouse movement
 }
-- (void) windowMoves:(id)note		{   @autoreleasepool {        // remember, we are in a new thread!
+- (void) windowMoves: note		{   @autoreleasepool {        // remember, we are in a new thread!
 		NSRect startFrame = self.frame;                           // where was the window prior to dragging
 		gWindowTrackingCurrentWindowOrigin = startFrame.origin;		// where is it now
 		while (gWindowTracking) {                                 // polling for the mouse position until gWindowTracking is NO (see windowMoved:)
@@ -64,7 +64,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 		}
 	}	// thread is dying, so we clean up
 }
-- (void) windowMoved:(id)note		{						// to be performed on the main thread
+- (void) windowMoved: note		{						// to be performed on the main thread
 
 	if (!NSEqualPoints(gWindowTrackingCurrentWindowOrigin, _frame.origin)) {
 		// _frame is the private variable of an NSWindow, we have full access (category!)
@@ -212,7 +212,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 
   return [self.class.alloc initWithContentRect:r styleMask:m backing:NSBackingStoreBuffered defer:NO];
 }
-//  - (id)initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
+//  - initWithContentRect:(NSR)r styleMask:(NSUI)m backing:(NSBackingStoreType)b defer:(BOOL)d {
 //  return self = [super initWithContentRect:r styleMask:m backing:b defer:d] ? ({
 
 + desktopWindow  { NSW *x; return x = [super.alloc initWithContentRect:NSZeroRect styleMask:0|1|2|8 backing:2 defer:NO] ? ({
@@ -382,7 +382,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 	[[(NSV*)self.contentView superview] addSubview:viewToAdd];
 }
 - (CGF) heightOfTitleBar 				{
-	NSRect outerFrame = [[[self contentView] superview] frame];
+	NSRect outerFrame = [[(NSView*)[self contentView] superview] frame];
 	NSRect innerFrame = [[self contentView] frame];
 	
 	

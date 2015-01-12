@@ -12,7 +12,7 @@ APPKIT_EXTERN NSString  *const AZIMG_checkmark,       *const AZIMG_addressBook, 
                         *const AZIMG_textDocument,    *const AZIMG_blinkingPlus,    *const AZIMG_blinkingMinus,
                         *const AZIMG_printer,         *const AZIMG_lock,            *const AZIMG_magnifyingGlass,
                         *const AZIMG_wavyDocument,    *const AZIMG_computerScreen,  *const AZIMG_foldedEdgeoc,
-                        *const AZIMG_volume,          *const AZIMG_starFilled,      *const AZIMG_starEMpty,
+                        *const AZIMG_volume,          *const AZIMG_starFilled,      *const AZIMG_starEmpty,
                         *const AZIMG_textsymbol,      *const AZIMG_bold,            *const AZIMG_italic,
                         *const AZIMG_strikethrough,   *const AZIMG_trashcan,        *const AZIMG_tag,
                         *const AZIMG_envelope,        *const AZIMG_plus,            *const AZIMG_minus,
@@ -52,11 +52,12 @@ AZPROP(NSString,cacheDirectory);
 -   (void) removeAllObjects;													//  builklt-in method
 @end
 
-static inline int 	get_bit							( unsigned char *arr, unsigned long bit_num);
-CGImageRef  			CreateCGImageFromData		( NSData * data );
-float 			  		distance							( NSP    aPoint );				// Just one function to declare...
+static inline int               get_bit ( unsigned char *arr, unsigned long bit_num);
+CGImageRef  			CreateCGImageFromData	( DTA * data );
+CGF                            distance	( NSP aPoint );				// Just one function to declare...
 
 typedef void(^NSImageDrawer)(void);
+
 typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 extern NSData *PNGRepresentation(NSIMG *image);
@@ -73,6 +74,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 @interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
 
++ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
 
 + (NSIMG*) gravatarForEmail:(NSS*)e;
 
@@ -82,7 +84,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
                   named:(NSS *)name;
 +(INST)missing;
 
-//+ (id) objectForKeyedSubscript:(id)k;
+//+ (id) objectForKeyedSubscript: k;
 //@property (NATOM) CGF width, height;
 @prop_RO NSAS *attributedString;
 
@@ -128,7 +130,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 //+ (NSIMG*) monoIconNamed:(NSS*)name;
 + (NSIMG*) randomMonoIcon;
 + (NSA*)   monoIcons;
-
++ (NSA*)   namedMonoIcons;
 + (NSIMG*) randomIcon;
 + (NSIMG*) forFile:(AZFile*)file;
 
@@ -173,8 +175,12 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 - (NSIMG*) resizeWhenScaledImage;
 + (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
-- (NSC*) 	  quantized;
+
+@prop_RO NSC * quantized;
+@prop_RO NSBIR * quantizerRepresentation;
+
 - (NSA*)   quantize;
+
 + (NSIMG*) desktopImage;
 - (void) openInPreview;
 
@@ -374,7 +380,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 @interface CIFilter (Subscript)
 - (id)objectForKeyedSubscript:(NSS*)key;
-- (void)setObject:(id)object forKeyedSubscript:(NSS*)key;
+- (void)setObject: object forKeyedSubscript:(NSS*)key;
 @end
 
 @interface CIFilter (WithDefaults)
@@ -589,7 +595,7 @@ extern NSString *kXML_Base64ReferenceAttribute;
 				This method returns self as a convenience.
 	@param	inBase64String	An NSString object that contains only Base 64 encoded image data.
 	@result	This method returns self.	*/
-- (id)initWithBase64EncodedString:(NSS*)inBase64String;
+- initWithBase64EncodedString:(NSS*)inBase64String;
 /*!	@function	-base64EncodingWithFileType:
 	@discussion	This method returns a Base 64 encoded string representation of the NSImage object.
 	@param	inFileType	The image is first converted to this file type, then encoded in Base 64.

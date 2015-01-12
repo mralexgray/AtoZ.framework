@@ -96,7 +96,7 @@
         [self _updateBackground];
         
         // Add view as subview of our contentView.
-        [[self contentView] addSubview:_view];
+        [(NSView*)[self contentView] addSubview:_view];
         
         // Subscribe to notifications for when we change size.
         [[NSNotificationCenter defaultCenter] addObserver:self 

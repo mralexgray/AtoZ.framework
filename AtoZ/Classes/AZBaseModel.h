@@ -10,8 +10,8 @@ typedef BOOL(^IsDocumentEdited)(id _self);
 @end
 
 #define OUTERROR  if ( outErr != NULL ) *outErr = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL]
-#define DATAOFTYPE(...) - (DTA*) dataOfType:(NSS*)t error:(NSERR**) outErr{ OUTERROR;  __VA_ARGS__  }
-#define READFROMDATA(...) - (BOOL) readFromData:(DTA*)d ofType:(NSS*)type error:(NSERR**)outErr { OUTERROR; __VA_ARGS__  }
+#define DATAOFTYPE(...) - (DTA*) dataOfType:(NSS*)t error:(NSERR*__autoreleasing*) outErr{ OUTERROR;  __VA_ARGS__  }
+#define READFROMDATA(...) - (BOOL) readFromData:(DTA*)d ofType:(NSS*)type error:(NSERR*__autoreleasing*)outErr { OUTERROR; __VA_ARGS__  }
 
 @protocol AutoCopying <NSCopying>
 @end

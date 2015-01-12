@@ -512,8 +512,8 @@ __attribute__((constructor)) static void setupLogger() {
 }
 + (NSS*) randomFontName {	return AtoZ.sharedInstance.fonts.randomElement;	}
 + (CGFontRef) cfFont    { return (__bridge CGFontRef)self.controlFont; }
-+ (NSF*) controlFont    {	return [self font:@"UbuntuMono-Bold" size:14];	}
-+ (NSA*) globalPalette  { AZSTATIC_OBJ(NSA,gPal,RANDOMPAL); return gPal; }
++ (NSF*) controlFont    {	AZSTATIC_OBJ(NSF, def, [self font:@"UbuntuMono-Bold" size:14] ?: [NSFont systemFontOfSize:14]); return def;	}
++ (NSA*) globalPalette  { AZSTATIC_OBJ(NSA, gPal, RANDOMPAL); return gPal; }
 
 - (NSS*) description            {	return [[self.propertiesPlease valueForKey:@"description"] componentsJoinedByString:@""];	}
 - (NSW*) azWindow               { return _azWindow = _azWindow ?: ({

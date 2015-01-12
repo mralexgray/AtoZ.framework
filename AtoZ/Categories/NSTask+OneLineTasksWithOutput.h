@@ -19,7 +19,7 @@
 
 + (NSS*)stringByLaunchingPath:(NSS*)p withArguments:(NSA*)a error:(NSError**)e;
 + (NSS*)stringByLaunchingPath:(NSS*)p withArguments:(NSA*)a authorization:(SFAuthorization*)auth
-																																		error:(NSError **)error;
+																																		error:(NSERR*__autoreleasing*)error;
 //- (void)launchTaskAndRunSynchronous;
 @end
 
@@ -41,13 +41,13 @@
 
 // Atomically execute the task and return output as data
 + (int) executeTaskWithArguments:(NSA*)args
-									input:(id)inputDataOrString
+									input: inputDataOrString
 							 outputData:(NSData **)outputData
 							errorString:(NSString **)errorString;
 
 // Atomically execute the task and return output as string
 + (int) executeTaskWithArguments:(NSA*)args
-									input:(id)inputDataOrString
+									input: inputDataOrString
 						  outputString:(NSString **)outputString
 							errorString:(NSString **)errorString;
 

@@ -1,0 +1,9 @@
+
+
+explicit module AtoZ.DrawKit {
+  exclude header "DrawKit/DKDrawableContainerProtocol.h"
+}
+
+explicit module AtoZ.ffi {
+  exclude header "ffi.h"
+}

@@ -261,7 +261,7 @@
 			[@[ @"NSNormalWindowLevel",             @"NSFloatingWindowLevel",       @"NSMainMenuWindowLevel",       @"NSStatusWindowLevel",
 				 @"NSModalPanelWindowLevel",    @"NSPopUpMenuWindowLevel", @"NSScreenSaverWindowLevel"] cw_mapArray : ^id (id obj) {
 
-				NSMenuI *n = [NSMenuI.alloc initWithTitle:obj action:@selector(setWindowLevel:) keyEquivalent:@""];
+				NSMenuI *n = [NSMenuI.alloc initWithTitle:obj action:NSSelectorFromString(@"setWindowLevel:") keyEquivalent:@""];
 						   n.representedObject     = self;
 					 		n.tag = [obj intValue];
 				return n; }],

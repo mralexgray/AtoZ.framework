@@ -167,10 +167,10 @@ typedef void(^colorFadeBlock)(NSC*c);
 @end
 
 @interface NSCoder (AGCoder)	 //(TDBindings)
-- (void) encode:(id)me withKeys:(NSA*)ks;
-- (void) encode:(id)me withKeysForProps:(NSD*)ksAndDs;
-- (void) decode:(id)me withKeysForProps:(NSD*)ksAndDs;
-- (void) decode:(id)me withKeys:(NSA*)ks;
+- (void) encode: me withKeys:(NSA*)ks;
+- (void) encode: me withKeysForProps:(NSD*)ksAndDs;
+- (void) decode: me withKeysForProps:(NSD*)ksAndDs;
+- (void) decode: me withKeys:(NSA*)ks;
 
 + (void) encodeColor:(CGCLRREF)cgC withCoder:(NSCoder*)e withKey:(NSS*)k;
 @end

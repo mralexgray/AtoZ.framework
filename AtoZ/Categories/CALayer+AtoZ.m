@@ -301,7 +301,7 @@ SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self
 - (void) insertSublayerImmediately:(CAL *)sub atIndex:(NSUI)idx {
 	[CATransaction immediately:^{   [self insertSublayer:sub atIndex:idx];  }];
 }
-- (void) setValueImmediately:(id)v forKey:(id)key {
+- (void) setValueImmediately: v forKey: key {
 	[CATRANNY immediately:^{ [self setValue:v forKey:key];  }];
 }
 - (void) setFrameImmediately:(NSR)r {	[CATRANNY immediately:^{ [self setValue:AZVrect(r) forKey:@"frame"];  }]; }
@@ -325,7 +325,7 @@ SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self
 	[self removeFromSuperlayer];
 	[self.superlayer addSublayer:self];
 }
-- (void) setValue:(id)value forKeyPath:(NSS*)keyPath
+- (void) setValue: value forKeyPath:(NSS*)keyPath
         duration:(CFTI)duration  delay:(CFTI)delay {
 	[CATransaction immediately:^{
 	[self setValue:value forKeyPath:keyPath];
@@ -1287,8 +1287,8 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(noHit, setNoHit, BOOL);
 
 + (INST) layerWithFrame:(NSR)f mask:(CAMASK)m { CAL* x = [self layerWithFrame:f]; [x setAutoresizingMask:m]; return x;      }
 + (INST) layerWithFrame:(NSR)f                { CAL* l = self.class.layer; l.frame = f; return l;    }
-+ (INST) layerWithValue:(id)v forKey:(NSS*)k  { return [self.class.layer objectBySettingValue:v forKey:k];                  }
-+ (INST) layerWithValuesForKeys:(id)x,...     { azva_list_to_nsarray(x, vals); return [self.class.new objectBySettingVariadicPairs:vals]; }
++ (INST) layerWithValue: v forKey:(NSS*)k  { return [self.class.layer objectBySettingValue:v forKey:k];                  }
++ (INST) layerWithValuesForKeys: x,...     { azva_list_to_nsarray(x, vals); return [self.class.new objectBySettingVariadicPairs:vals]; }
 
 // create a new "sphere" layer and add it to the container layer
 + (CAGL*) gradientWithColor:(NSC*)c {
@@ -1906,7 +1906,7 @@ static const char *kRenderAsciiBlockKey = "-";
 - (CAL*) hitEvent:(NSEvent*) forClass @dynamic permaPresentation;
 	return [[self associatedValueForKey:@"_selected" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
 	return [[self associatedValueForKey:@"_hovered" orSetTo:@NO policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC]boolValue];
-- (id)initWithFrame:(CGRect)newFrame    { 	return self = [super init] ? self.frame = newFrame, self : nil;  }
+- initWithFrame:(CGRect)newFrame    { 	return self = [super init] ? self.frame = newFrame, self : nil;  }
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey { return [@[@"sublayers", @"siblings", @"siblingIndex", @"siblingIndexMax"]containsObject:theKey]
 	 ?: [super automaticallyNotifiesObserversForKey:theKey]; }
 	return [@[@"siblingIndex", @"siblingIndexMax",@"siblings", @"sublayers"]containsObject:key] ?: [super automaticallyNotifiesObserversForKey:key]; }
@@ -2341,7 +2341,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(debug,setDebug, BOOL, ^{}, ^{
     positn.loM                  = AZLAYOUTMGR;
     positn.sublayers            = @[pT = [CATXTL noHitLayerWithFrame:positn.bounds]];
     [({ @[pT,aT]; }) do:^(id o) {
-      [o setValuesForKeysWithDictionary:({ @{@"fontSize":@14,@"font":@"UbuntuMono-Bold", @"foregroundColor":(id)cgWHITE, @"alignmentMode": @"center", @"string":@"n/a" }; })];
+      [o setValuesForKeysWithDictionary:({ @{@"fontSize":@14,@"font":@"UbuntuMono-Bold", @"foregroundColor": (id)cgWHITE, @"alignmentMode": @"center", @"string":@"n/a" }; })];
       [o addConstraintsWithMaskRelSuper:AZConstraintMaskMidX|AZConstraintMaskMidY];
       [o b:@"string" tO:self wKP:@"stblingIndex" s:@selector(stringValue)];
     }];

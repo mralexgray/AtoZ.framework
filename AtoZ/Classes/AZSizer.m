@@ -435,6 +435,7 @@
  }
  
  @end	*/
+
 NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
 
   __block NSR frame = NSZeroRect; __block __unused NSUI col; __block CGF rowWidth = 0, rowHeight = 0;
@@ -460,18 +461,15 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
 @implementation NSImage (Merge)
 
 
-//- (void)contactSheetWith:(NSA*)images inRect:(NSR)rect cols:(NSUI)cols
-// callback:(void (^)(NSImage *))callback  {
-//
-//	[NSThread performBlockInBackground:^{
-//		AZSizer *d = [AZSizer for]
-//		NSIMG* image =	[NSImage contactSheetWith:images inFrame:rect
-// columns:cols];
+//- (void)contactSheetWith:(NSA*)images inRect:(NSR)rect cols:(NSUI)cols callback:(void (^)(NSImage *))callback  {
+//	[NSThread performBlockInBackground:^{ AZSizer *d = [AZSizer for]
+//		NSIMG* image =	[NSImage contactSheetWith:images inFrame:rect columns:cols];
 //		[NSThread.mainThread performBlock:^{	callback(image); }];
 //	}];
 //}
 
-+ (NSIMG *)contactSheetWith:(NSA *)imgs columns:(NSUI)c {
++ (NSIMG*) contactSheetWith:(NSA*)imgs
+                    columns:(NSUI)c {
 
   AZSizer *s = [AZSizer forQuantity:imgs.count
                              inRect:AZRectForItemsWithColumns(imgs, c)];
@@ -483,7 +481,8 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
                                      //	return  [self contactSheetWith:imgs
   // inFrame:AZRectForItemsWithColumns(imgs,c) columns:c]; }
 }
-+ (NSIMG *)contactSheetWith:(NSA *)images
+
++ (NSIMG*) contactSheetWith:(NSA*)images
                     inFrame:(NSR)rect { // columns:(NSUI)cols	{
 
   AZSizer *s = [AZSizer forQuantity:images.count inRect:rect];
@@ -529,12 +528,11 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
   */
 }
 
-+ (NSIMG *)contactSheetWith:(NSA *)images
++ (NSIMG*) contactSheetWith:(NSA *)images
                       sized:(NSSZ)size
                      spaced:(NSSZ)spacing
                     columns:(NSUI)cols
-                   withName:(BOOL)name; // wors perfectly
-{
+                   withName:(BOOL)name {
   NSSZ sizeAndPhoto = AZAddSizes(spacing, size);
   sizeAndPhoto.height += name ? 18 : 0;
   AZSizer *s =
@@ -542,47 +540,52 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
   return [self contactSheetWith:images
                       withSizer:s
                        withName:name]; // wors perfectly
-}
-+ (NSIMG *)contactSheetWith:(NSA *)images
-                  withSizer:(AZSizer *)s
-                   withName:(BOOL)name; // wors perfectly
-{
-  __block NSIMG *contact;
-  [AZStopwatch named:$(@"ContactSheetWith%ldImages", images.count)
-               block:^{
-                   NSA *rects = s.rects.copy;
-                   contact = [[NSIMG alloc] initWithSize:s.outerFrame.size];
-                   [contact lockFocus];
-                   [images eachWithIndex:^(NSIMG *obj, NSInteger idx) {
-                       NSR theR = [[rects normal:idx] rectValue];
-                       [[obj scaledToMax:AZMaxDim(s.size)]
-                           drawCenteredinRect:theR
-                                    operation:NSCompositeSourceOver
-                                     fraction:1];
-                       if (name) {
-                         NSR nameRect = AZRectOffset(
-                             AZRectFromDim(AZMinDim(theR.size) * .25),
-                             theR.origin);
-                         NSRectFillWithColor(nameRect, RED);
-                         [obj.name drawInRect:nameRect
-                                withFontNamed:@"Ubuntu Mono Bold"
-                                     andColor:WHITE]; //:nameRect
-                                                      ///*NSMakeRect(2, 2,
-                         // sizeAndPhoto.width - 4,
-                         // 14)*/ withFont:font
-                         // andColor:WHITE];
-                       }
-                   }];
-                   [contact unlockFocus];
-               }];
-  return contact;
-}
+} // wors perfectly
 
-+ (NSIMG *)contactSheetWith:(NSA *)images
++ (NSIMG*) contactSheetWith:(NSA *)images
+                  withSizer:(AZSizer *)s
+                   withName:(BOOL)name {
+
+  __block NSIMG *contact;
+
+  [AZStopwatch named:$(@"ContactSheetWith%ldImages", images.count) block:^{
+
+
+     contact = [NSIMG.alloc initWithSize:s.outerFrame.size];
+     [contact lockFocus];
+
+     [images eachWithIndex:^(NSIMG *obj, NSI idx) {
+
+        NSR theR = [[s.rects normal:idx] rectValue];
+
+        [[obj scaledToMax:AZMaxDim(s.size)] drawCenteredinRect:theR operation:NSCompositeSourceOver fraction:1];
+
+        if (!name) return;
+
+        NSSZ z = [obj.name sizeWithAttributes:@{NSFontAttributeName:AZDEFAULTFONT}];
+
+        NSR nameRect = (NSR) { theR.origin, z.width < theR.size.width ? z.width : theR.size.width, 16 };  //AZRectOffset( AZRectFromDim(AZMinDim(theR.size) * .25), theR.origin);
+
+         NSRectFillWithColor(nameRect, RED);
+
+         [obj.name drawInRect:nameRect withFontNamed:@"UbuntuMono-Bold" andColor:WHITE];        //:nameRect  *NSMakeRect(2, 2, sizeAndPhoto.width - 4, 14)*/ withFont:font andColor:WHITE];
+     }];
+
+     [contact unlockFocus];
+
+  }];
+
+  return contact;
+
+}  // wors perfectly
+
++ (NSIMG*) contactSheetWith:(NSA*)imgs
+          inFrameWithNames:(NSR)rect { return [self contactSheetWith:imgs withSizer:[AZSizer forQuantity:imgs.count inRect:rect] withName:YES]; }
+
++ (NSIMG*) contactSheetWith:(NSA *)images
                       sized:(NSSZ)size
                      spaced:(NSSZ)spacing
-                    columns:(NSUI)cols;
-{
+                    columns:(NSUI)cols {
   return [self contactSheetWith:images
                           sized:size
                          spaced:spacing
@@ -590,7 +593,7 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
                        withName:NO];
 }
 
-+ (NSIMG *)imageByTilingImages:(NSA *)imgs
++ (NSIMG*) imageByTilingImages:(NSA *)imgs
                       spacingX:(CGF)x
                       spacingY:(CGF)y
                     vertically:(BOOL)v {
@@ -637,7 +640,7 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
   return mergedImage;
 }
 
-- (NSIMG *)imageBorderedWithInset:(CGFloat)inset {
+- (NSIMG*)  imageBorderedWithInset:(CGF)inset {
   NSIMG *image = [NSImage.alloc initWithSize:[self size]];
 
   [image lockFocus];
@@ -667,7 +670,7 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
   return image;
 }
 
-- (NSIMG *)imageBorderedWithOutset:(CGFloat)outset {
+- (NSIMG*) imageBorderedWithOutset:(CGF)outset {
   NSSize newSize = NSMakeSize([self size].width + 2 * outset,
                               [self size].height + 2 * outset);
   NSIMG *image = [NSImage.alloc initWithSize:newSize];
@@ -694,5 +697,6 @@ NSR AZRectForItemsWithColumns(NSA *items, NSUI cols) {
   [image unlockFocus];
   return image;
 }
+
 @end
 

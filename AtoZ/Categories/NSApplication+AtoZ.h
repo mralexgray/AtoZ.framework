@@ -14,14 +14,14 @@
 
 - (NSMI*) selectedItem;
 -  (void) selectItem:(NSMI*)menuItem;
-- (NSMI*) selectItemWithRepresentedObject:(id)representedObject;
+- (NSMI*) selectItemWithRepresentedObject: representedObject;
 - (void) seselectItem;
-- (NSMenuItem *)addItemWithTitle:(NSString *)aString target:(id)target action:(SEL)aSelector tag:(NSInteger)tag;
-- (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject:(id)representedObject target:(id)target action:(SEL)aSelector;
+- (NSMenuItem *)addItemWithTitle:(NSString *)aString target: target action:(SEL)aSelector tag:(NSInteger)tag;
+- (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject: representedObject target: target action:(SEL)aSelector;
 @end
 @interface NSMenuItem (AtoZ)
 
-- (id)initWithTitle:(NSString*)aString target:(id)target action:(SEL)aSelector keyEquivalent:(NSString*)keyEquivalent representedObject:(id)representedObject;
+- initWithTitle:(NSString*)aString target: target action:(SEL)aSelector keyEquivalent:(NSString*)keyEquivalent representedObject: representedObject;
 
 @end
 

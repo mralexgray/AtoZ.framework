@@ -14,8 +14,8 @@
 @end
 
 @interface NSControl (AtoZEvent)
-- (void) setAction:(SEL)method withTarget:(id)object;
-- (void) setActionString:(NSS*)methodasString withTarget:(id)object;
+- (void) setAction:(SEL)method withTarget: object;
+- (void) setActionString:(NSS*)methodasString withTarget: object;
 @property (copy) void(^eventActionBlock)(AZEvent e,id sender);
 @end
 
@@ -49,8 +49,8 @@
 
 @interface NSTV (TargetAction)
 @property (readwrite, nonatomic, copy) NSControlVoidActionBlock doubleActionBlock;
-- (void) setDoubleAction:(SEL)method withTarget:(id)object;
-- (void) setDoubleActionString:(NSS*)methodasString withTarget:(id)object;
+- (void) setDoubleAction:(SEL)method withTarget: object;
+- (void) setDoubleActionString:(NSS*)methodasString withTarget: object;
 //- (void) setDoubleActionBlock:(NSControlVoidActionBlock)block;
 
 @end

@@ -12,13 +12,15 @@
 
 + (instancetype) bagWithArray:(NSA*)a;
 + (instancetype) bag;
-+ (instancetype) bagWithObjects:(id) anObject,...;
-- (void)  add: 			  (id) anObject;
-- (void)  addObjects:	  (id)item,...;
-- (void)  remove: 		  (id) anObject;
-- (NSI)   occurrencesOf:  (id) anObject;
++ (instancetype) bagWithObjects:_, ...;
 
-@property (readonly) NSA * objects;
-@property (readonly) NSA * uniqueObjects;
+- (void)           add:_;
+- (void)    addObjects:_, ...;
+
+- (void)        remove:_;
+-  (NSI) occurrencesOf:_;
+
+@prop_RO NSA * objects, * uniqueObjects, * sortedObjects;
+
 @end
 

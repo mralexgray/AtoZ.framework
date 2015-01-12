@@ -43,7 +43,7 @@
 @end
 
 @interface NSObject (ClassAssociatedReferences)
-+ (void)		setValue:(id)value forKey:(NSS*)key;
++ (void)		setValue: value forKey:(NSS*)key;
 +   valueForKey:(NSS*)key;
 @end
 
@@ -77,7 +77,7 @@ IMP impOfCallingMethod(id lookupObject, SEL selector);
 
 @interface 				 NSObject   (AddMethod)
 + (BOOL)   addMethodFromString :	(NSS*)s withArgs:(NSA*)a;  //NEEDSWORK NSMethodSignature
-+ (BOOL)  addMethodForSelector : (SEL)selector typed:(const char*)types implementation:(id)blockPtr;
++ (BOOL)  addMethodForSelector : (SEL)selector typed:(const char*)types implementation: blockPtr;
 - (NSA*)  methodSignatureArray : (SEL)selector;
 + (NSA*)  methodSignatureArray : (SEL)selector;
 - (NSA*) methodSignatureString : (SEL)selector;
@@ -112,14 +112,14 @@ typedef void(^bSelf)(id _self);
 
 @interface NSObject (AtoZ)
 
-- (void)  setYesForKey:(id)k;
+- (void)  setYesForKey: k;
 - (void)  setYesForKeys:(NSA*)ks;
-- (void)  setNoForKey:(id)k;
+- (void)  setNoForKey: k;
 - (void)  setNoForKeys:(NSA*)ks;
 
 
-- (void) sV:(id)v fK:(id)k;  // setValue:forKey:
-- (void) sV:(id)v fKP:(id)k; // setValue:forKeyPath:
+- (void) sV: v fK: k;  // setValue:forKey:
+- (void) sV: v fKP: k; // setValue:forKeyPath:
 
 - (void)  blockSelf:(bSelf)block;
 - (void) triggerKVO:(NSS*)k 
@@ -134,7 +134,7 @@ typedef void(^bSelf)(id _self);
 
 - (void)sVs:(NSA*)v fKs:(NSA*)k;
 -(void) setValues:(NSA*)x forKeys:(NSA*)ks;
--(void) setValue:(id)x forKeys:(NSA*)ks;
+-(void) setValue: x forKeys:(NSA*)ks;
 
 @property (readonly) NSS * uuid; // Associated with custom getter
 @property (strong) 	NSMA		* propertiesThatHaveBeenSet;
@@ -169,11 +169,11 @@ typedef void(^bSelf)(id _self);
 	-> Apple is Whatever!	-> Apple is Sexy	-> Apple is fruitful */
 - (void) performBlockEachVararg:(void(^)(NSO*_self,id obj))block, ... NS_REQUIRES_NIL_TERMINATION;
 
-- (void) bind:(NSA*)paths toObject:(id)o withKeyPaths:(NSA*)objKps;
-- (void) bindToObject:(id)o withKeyPaths:(NSA*)objKps;
-- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp o:(NSD*)opt;
-- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp t:(TransformBlock)b;
-- (void)    b:(NSS*)b tO:(id)o wKP:(NSS*)kp s:(SEL)select;
+- (void) bind:(NSA*)paths toObject: o withKeyPaths:(NSA*)objKps;
+- (void) bindToObject: o withKeyPaths:(NSA*)objKps;
+- (void)    b:(NSS*)b tO: o wKP:(NSS*)kp o:(NSD*)opt;
+- (void)    b:(NSS*)b tO: o wKP:(NSS*)kp t:(TransformBlock)b;
+- (void)    b:(NSS*)b tO: o wKP:(NSS*)kp s:(SEL)select;
 
 /*! @discussion let's try and make these binding types assignable with a single method. 
     @param b First kepypath, aka the "binding"
@@ -182,13 +182,13 @@ typedef void(^bSelf)(id _self);
     @param bType The binding type, an enum.
     @code [self b:@"lineWidth" to:@"dynamicStroke" using:@1 type:BindTypeIfNil];
 */
-- (void)    b:(NSS*)b to:(NSS*)kp using:(id)wild type:(BindType)bType;
+- (void)    b:(NSS*)b to:(NSS*)kp using: wild type:(BindType)bType;
 
-- (void)    b:(NSS*)b       tO:(id)o                      wKP:(NSS*)kp         n:(id)nilV;
+- (void)    b:(NSS*)b       tO: o                      wKP:(NSS*)kp         n: nilV;
 
-- (void)    b:(NSS*)b tO:(id)o;
-- (void)    bindKeys:(NSA*)b tO:(id)o;
-- (void) bindFrameToBoundsOf:(id)obj;
+- (void)    b:(NSS*)b tO: o;
+- (void)    bindKeys:(NSA*)b tO: o;
+- (void) bindFrameToBoundsOf: obj;
 - (void)    b:(NSS*)b toKP:(NSS*)selfkp;
 /*
 -(void)mouseDown:(NSEvent*)theEvent;	{
@@ -196,21 +196,21 @@ typedef void(^bSelf)(id _self);
     self.color = newColor;
     [self propagateValue:newColor forBinding:@"color"];	} */
 	 
--(void) propagateValue:(id)value forBinding:(NSString*)binding;
+-(void) propagateValue: value forBinding:(NSString*)binding;
 
 // Calls -[NSObject bind:binding toObject:object withKeyPath:keyPath options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil]]
-- (void)bind:(NSS*)b toObject:(id)x withKeyPathUsingDefaults:(NSS*)kp;
+- (void)bind:(NSS*)b toObject: x withKeyPathUsingDefaults:(NSS*)kp;
 
 // Calls -[NSO bind:b toObject:o withKeyPath:kp options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
-- (void)bind:(NSS*)b toObject:(id)x withKeyPath:(NSString *)kp nilValue:(id)nilValue;
+- (void)bind:(NSS*)b toObject: x withKeyPath:(NSString *)kp nilValue: nilValue;
 
 // Same as `-[NSObject bind:toObject:withKeyPath:] but also transforms values using the given transform block.
-- (void)bind:(NSS*)b toObject:(id)x withKeyPath:(NSS*)kp transform:(TransformBlock)transformBlock;
+- (void)bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp transform:(TransformBlock)transformBlock;
 
 // Same as `-[NSObject bind:toObject:withKeyPath:] but the value is transformed by negating it.
-- (void)bind:(NSS*)b toObject:(id)x withNegatedKeyPath:(NSS*)kp;
+- (void)bind:(NSS*)b toObject: x withNegatedKeyPath:(NSS*)kp;
 
-- (void)bind:(NSS*)b toObject:(id)x withKeyPath:(NSS*)kp selector:(SEL)select;
+- (void)bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp selector:(SEL)select;
 
 
 
@@ -228,7 +228,7 @@ typedef void(^bSelf)(id _self);
 
 - (NSURL*)urlified;
 
-//-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+//-(void) propagateValue: value forBinding:(NSString*)binding;
 
 //-(void) 	DDLogError;
 //-(void) 	DDLogWarn;
@@ -240,8 +240,8 @@ typedef void(^bSelf)(id _self);
 - performString:(NSS*)string;
 - performString:(NSS*)string withObject:obj;
 
-//- (id)performSelectorARC:(SEL)selector withObject:(id)obj;
-//- (id)performSelectorARC:(SEL)selector withObject:(id)one withObject:(id)two;
+//- (id)performSelectorARC:(SEL)selector withObject: obj;
+//- (id)performSelectorARC:(SEL)selector withObject: one withObject: two;
 
 //- (NSS*) instanceMethods;
 //- (NSA*) instanceMethodArray;
@@ -264,14 +264,14 @@ typedef void(^bSelf)(id _self);
 @property (readonly) BOOL isaBlock;
 @property (readonly) NSS* blockDescription;
 @property (readonly) NSMethodSignature * blockSignature;
-- (BOOL) isKindOfBlock:(id)anotherBlock;
+- (BOOL) isKindOfBlock: anotherBlock;
 
 /* USAGE:
 -(void)mouseDown:(NSEvent*)theEvent {
 	NSColor* newColor = //mouse down changes the color somehow (view-driven change)
 	self.color = newColor;
 	[self propagateValue:newColor forBinding:@"color"];  } */
-//-(void) propagateValue:(id)value forBinding:(NSString*)binding;
+//-(void) propagateValue: value forBinding:(NSString*)binding;
 //- (NSA*) settableKeys;
 //- (NSA*) keysWorthReading;
 //-(void) setWithDictionary:(NSD*)dic;
@@ -291,13 +291,13 @@ typedef void (^caseBlock)();
 
 /* DISABLED
 	// To add array style subscripting:
-- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx; // setter
+- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx; // setter
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 
 */
 	// To add dictionary style subscripting
-//- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key; // setter
-//- (id)objectForKeyedSubscript:(id)key;						   // getter
+//- (void)setObject: obj forKeyedSubscript:(id <NSCopying>)key; // setter
+//- (id)objectForKeyedSubscript: key;						   // getter
 //- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay; // conflict BlocksKit
 
 - (void)fireBlockAfterDelay:(void (^)(void))block;
@@ -424,20 +424,20 @@ typedef void (^caseBlock)();
 
 
 /**	Additional performSelector signatures that support up to 7 arguments.	*/
-- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3;
-- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
-		   withObject:(id)p4;
-- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
-		   withObject:(id)p4 withObject:(id)p5;
-- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
-		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6;
-- (id)performSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3
-		   withObject:(id)p4 withObject:(id)p5 withObject:(id)p6 withObject:(id)p7;
+- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3;
+- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+		   withObject: p4;
+- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+		   withObject: p4 withObject: p5;
+- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+		   withObject: p4 withObject: p5 withObject: p6;
+- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+		   withObject: p4 withObject: p5 withObject: p6 withObject: p7;
 
 
 - (NSS*)segmentLabel;
 
-- responds:(NSS*)selStr do:(id)doBlock;
+- responds:(NSS*)selStr do: doBlock;
 
 BOOL respondsTo(id obj, SEL selector);
 BOOL respondsToString(id obj,NSS* string);
@@ -446,8 +446,8 @@ BOOL respondsToString(id obj,NSS* string);
 -(NSS*) firstResponsiveString:(NSA*)selectors;
 
 - (BOOL) respondsToString:(NSS*)string;
-- respondsToStringThenDo: (NSS*)string withObject:(id)obj withObject:(id)objtwo;
-- respondsToStringThenDo: (NSS*)string withObject:(id)obj;
+- respondsToStringThenDo: (NSS*)string withObject: obj withObject: objtwo;
+- respondsToStringThenDo: (NSS*)string withObject: obj;
 - respondsToStringThenDo: (NSS*)string;
 
 - (IBAction)increment:_;
@@ -506,8 +506,8 @@ _Pragma("clang diagnostic pop") \
 - performSelectorIfResponds:(SEL)sel;
 - performSelectorWithoutWarnings:(SEL)aSelector;
 
-- performSelectorWithoutWarnings:(SEL) aSelector withObject:(id)obj;
-- performSelectorWithoutWarnings:(SEL)aSelector withObject:(id)obj withObject:(id)obj2;
+- performSelectorWithoutWarnings:(SEL) aSelector withObject: obj;
+- performSelectorWithoutWarnings:(SEL)aSelector withObject: obj withObject: obj2;
 //- (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
 - (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
 - (void) addObserver:	(NSObject*) observer 
@@ -574,9 +574,9 @@ _Pragma("clang diagnostic pop") \
 /*
 @interface NSObject (NoodlePerformWhenIdle)
 
-- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay;
+- (void)performSelector:(SEL)aSelector withObject: anArgument afterSystemIdleTime:(NSTimeInterval)delay;
 
-- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime;
+- (void)performSelector:(SEL)aSelector withObject: anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime;
 
 @end
 */
@@ -649,7 +649,7 @@ _Pragma("clang diagnostic pop") \
 //typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
 //@interface NSObject (NSObject_KVOBlock)
 //- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
-//- (void)removeKVOBlockForToken:(id)inToken;
+//- (void)removeKVOBlockForToken: inToken;
 ///// One shot blocks remove themselves after they've been fired once.
 //- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
 //- (void)KVODump;
@@ -684,9 +684,9 @@ _Pragma("clang diagnostic pop") \
 -    (void) setSelector:(SEL)s forKey : (NSS*)key;
 
 
-- mutableArrayValueForKeyOrKeyPath:(id)keyOrKeyPath;
-- valueForKeyOrKeyPath:(id)keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
-- valueForKeyOrKeyPath:(id)keyOrKeyPath;  //AZAddition
+- mutableArrayValueForKeyOrKeyPath: keyOrKeyPath;
+- valueForKeyOrKeyPath: keyOrKeyPath transform:(THBinderTransformationBlock)tBlock;
+- valueForKeyOrKeyPath: keyOrKeyPath;  //AZAddition
 - valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto;  //AZAddition
 - valueForKey:(NSS*)key assertingClass:(Class)klass;
 - valueForKey:(NSS*)key assertingRespondsToSelector:(SEL)theSelector;

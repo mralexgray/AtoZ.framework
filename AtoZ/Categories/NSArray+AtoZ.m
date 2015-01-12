@@ -49,7 +49,7 @@
 
 #pragma mark -  FakeArray
 
-- (int) indexOfObject:(id)x { return [_storage keyForObjectEqualTo:x].intValue; }
+- (int) indexOfObject: x { return [_storage keyForObjectEqualTo:x].intValue; }
 
 + (void) test {
 
@@ -137,17 +137,17 @@
 
 //#pragma mark - NSMutableArray primitive methods
 // 
-//- (void)insertObject:(id)o atIndex:(NSUInteger)x {
+//- (void)insertObject: o atIndex:(NSUInteger)x {
 //
 //  if (x >= _storage.count) [_storage setCount:x];
 //  [_storage insertPointer:(__bridge void *)o atIndex:x];
 //}
 // 
 //- (void)removeObjectAtIndex:(NSUInteger)x {[_storage removePointerAtIndex:x]; }
-//- (void)addObject:(id)o { [_storage addPointer:(__bridge void *)o]; }
+//- (void)addObject: o { [_storage addPointer:(__bridge void *)o]; }
 //- (void)removeLastObject { [_storage removePointerAtIndex:_storage.count]; }
 //
-//- (void)replaceObjectAtIndex:(NSUInteger)x withObject:(id)o {
+//- (void)replaceObjectAtIndex:(NSUInteger)x withObject: o {
 //
 //  if (x >= _storage.count) [_storage setCount:x];
 //  [_storage replacePointerAtIndex:x withPointer:(__bridge void *)o];
@@ -156,7 +156,7 @@
 #pragma mark - Subscript Overrides
  
 // Avoids NSRangeException thrown in setObject:atIndex: (Private?)
-//- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx {
+//- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx {
 //  [self replaceObjectAtIndex:idx withObject:obj];
 //}
 //// Don't need to override but it's nice to be sure
@@ -201,14 +201,14 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
   [self.allObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {  if (block(obj)) x = obj;  if (x != nil) *stop = YES;  }];
   return x;
 }
-- (INST)  setByRemovingObject:(id)x {
+- (INST)  setByRemovingObject: x {
 
   return ![self containsObject:x] ? self : ({ NSMSET *s = self.mutableCopy; [s removeObject:x]; s; });
 }
 @end
 @implementation NSMutableArray (AtoZ)
 
-VOID(addObjectIfMissing:(id)x{ [self containsObject:x] ?: [self addObject:x]; });
+VOID(addObjectIfMissing: x{ [self containsObject:x] ?: [self addObject:x]; });
 VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObjectIfMissing:z]; });
 @end
 
@@ -217,9 +217,10 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
 - (NSA*) unionOfObjects { return [self valueForKeyPath:@"@unionOfObjects"]; }
 
 - (NSA*) alphaGrouped         { return [self alphaMapValuesOnly:YES]; }
+
 - (IndexedKeyMap*) alphaMap   { return [self alphaMapValuesOnly:NO]; }
 
-- (id) alphaMapValuesOnly:(BOOL)only {
+- alphaMapValuesOnly:(BOOL)only {
 
   IndexedKeyMap *map = [IndexedKeyMap mapWithKeys:NSS.lettersAndNumbers forAlloced:NSMA.class];
   [self.alphabetized do:^(id obj) {
@@ -230,19 +231,32 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
   return only ? map.allValues : map;
 
 }
-- (NSMA*) mapM:(BKTransformBlock)block { return [self map:block].mC; }
+- (NSMA*) mapM:(id(^)(id))block { return [self map:block].mC; }
 
--    (id) reduce:(id)initial with:(AZIndexedAccumulationBlock)block {	NSParameterAssert(block != nil); __block id result = initial;
+//  AZLOGCMD;
+
+//  id x = [(NSA*)self map:block];
+//  return x && ISA(x,NSA) ? [x mutableCopy] : NSLog(@"couldn't mutable map!"), nil;
+
+
+- reduce:initial with:(AZIndexedAccumulationBlock)block {
+
+  NSParameterAssert(block != nil);
+  __block id result = initial;
 	[self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { result = block(result, obj, idx); }];
 	return result;
 }
--  (NSA*) alphabetized { return [self.mutableCopy alphabetize].copy; }
+
+-  (NSA*) alphabetized { return [self.mutableCopy alphabetize].copy; } /*! AOK */
 
 +  (NSA*) arrayWithCopies:(NSUI)copies of:(id<NSCopying>)obj {
+
   NSAssert([(NSO*)obj conformsToProtocol:@protocol(NSCopying)], @"only NSCopying items may pass!");
   return [@(copies) mapTimes:^id(NSN*num) { return [(NSO<NSCopying>*)obj copy]; }];
 }
+
 -  (NST*) enumerateWithInterval:(NSTI)time repeat:(BOOL)repeat usingBlock:(AZObjIdxStopBlock)block {
+
   __block NSUInteger idx = 0;
   __block BOOL stop = NO;
   __block NST *t = [NSTimer scheduledTimerWithTimeInterval:time block:^(NSTimer *timer) {
@@ -359,7 +373,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
   return array.copy;
 }
 @dynamic trimmedStrings;
-- (NSA*) withMinItems:(NSUI)items usingFiller:(id)fill  {
+- (NSA*) withMinItems:(NSUI)items usingFiller: fill  {
   if (self.count >= items) return self;
   NSMA *upgrade = [NSMA arrayWithArray:self];
   for (NSUI i = self.count; i < items; i++) {
@@ -383,7 +397,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
 - (NSA*) withMaxItems:(NSUI)items                       {
   return self.count <= items ? self : [self subarrayToIndex:items];
 }
-- (void) setStringsToNilOnbehalfOf:(id)entity {
+- (void) setStringsToNilOnbehalfOf: entity {
   [self each:^(id obj) { [entity setValue:nil forKey:obj]; }];
 }
 - (NSA*) sorted { return self.descending; }
@@ -477,7 +491,7 @@ NSA* SortersForKeysAsc(NSString*sort, BOOL order, ...) {
 	}
 	return re;
 }
-- (NSA*)arrayPerformingSelector:(SEL)selector withObject:(id)object {
+- (NSA*)arrayPerformingSelector:(SEL)selector withObject: object {
 	NSMA*re = [NSMA arrayWithCapacity:self.count];
 	for (id o in self) {
 		id v = [o performSelectorWithoutWarnings:selector withObject:object];
@@ -585,7 +599,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   //    [copy release];
 }
-- (void)perform:(SEL)selector withObject:(id)p1 {
+- (void)perform:(SEL)selector withObject: p1 {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -595,7 +609,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   //    [copy release];
 }
-- (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2 {
+- (void)perform:(SEL)selector withObject: p1 withObject: p2 {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -607,7 +621,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
   }
 }
-- (void)perform:(SEL)selector withObject:(id)p1 withObject:(id)p2 withObject:(id)p3 {
+- (void)perform:(SEL)selector withObject: p1 withObject: p2 withObject: p3 {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -616,7 +630,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
   }
 }
-- (void)makeObjectsPerformSelector:(SEL)selector withObject:(id)p1 withObject:(id)p2 {
+- (void)makeObjectsPerformSelector:(SEL)selector withObject: p1 withObject: p2 {
   for (id delegate in self) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -625,9 +639,9 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
 }
 - (void)makeObjectsPerformSelector:(SEL)selector
-                        withObject:(id)p1
-                        withObject:(id)p2
-                        withObject:(id)p3 {
+                        withObject: p1
+                        withObject: p2
+                        withObject: p3 {
   for (id delegate in self) {
     [delegate performSelector:selector withObject:p1 withObject:p2 withObject:p3];
   }
@@ -641,7 +655,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     free(p);
   }
 }
-- (id) objectsWithValue:(id)value forKey:(id)key	{
+- (id) objectsWithValue: value forKey: key	{
 	NSMA *subsample = NSMA.new;
   for (id object in self) {
     id propertyValue = [object vFK:key];
@@ -649,7 +663,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return subsample.count ? subsample : nil;
 }
-- (id)objectWithValue:(id)value forKey:(id)key {
+- (id)objectWithValue: value forKey: key {
   for (id object in self) {
     id propertyValue = [object vFK:key];
     if ([propertyValue isEqual:value]) {
@@ -666,7 +680,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return nil;
 }
-- (BOOL)containsObject:(id)object withSelector:(SEL)selector {
+- (BOOL)containsObject: object withSelector:(SEL)selector {
   for (id item in self) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -677,7 +691,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return NO;
 }
-- (NSA*) arrayBySettingValue:(id)v forObjectsKey:(NSS*)k { if (!v) return self;
+- (NSA*) arrayBySettingValue: v forObjectsKey:(NSS*)k { if (!v) return self;
   for (id x in self) x[k] = v;
   return self;
 }
@@ -704,10 +718,10 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return re;
 }
-- (NSA*) arrayWithoutObject:(id)object {
+- (NSA*) arrayWithoutObject: object {
   return [self arrayWithoutSet:NSSET(object)];
 }
-- (NSA*) arrayWithoutObjects:(id)object, ...
+- (NSA*) arrayWithoutObjects: object, ...
 {
   NSSet *s = NSSet.set;
   va_list args;
@@ -990,7 +1004,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return YES;  // it ain't in there, return TRUE;
 }
-- (BOOL)doesNotContainObject:(id)object {
+- (BOOL)doesNotContainObject: object {
   if ([self containsObject:object]) return NO; return YES;
 }
 // will always return nil
@@ -1259,7 +1273,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 -  (void)  addRect:(NSR)r { [self addObject:AZVrect(r)]; }
 -    (id) advance         {	id first = self.firstObject;	[self firstToLast];	return first; }
 -    (id)    last         { return self.lastObject; }
--  (void) setLast:(id)x   { if (x) [self triggerKVO:@"last" block:^(id _self) { [_self addObject:x]; }]; }
+-  (void) setLast: x   { if (x) [self triggerKVO:@"last" block:^(id _self) { [_self addObject:x]; }]; }
 -    (id)       first     { return self.firstObject; }
 -  (void) firstToLast     {
 
@@ -1271,7 +1285,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   if (self.count == 0) return;      //there is no object to move, return
   [self moveObjectAtIndex:self.count - 1 toIndex:0];
 }
--  (void) setFirst:(id)x  { !x ?: [self triggerKVO:@"first" block:^(id _) { [_ insertObject:x atIndex:0]; }]; }
+-  (void) setFirst: x  { !x ?: [self triggerKVO:@"first" block:^(id _) { [_ insertObject:x atIndex:0]; }]; }
 -  (void) removeFirstObject {
   [self shift];
 }
@@ -1287,11 +1301,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   [self removeLastObject];
   return o;
 }
--  (void) shove:(id)x   {  [self insertObject:x atIndex:0]; }
+-  (void) shove: x   {  [self insertObject:x atIndex:0]; }
 -    (id) peek          {
   return self.lastObject;
 }
--  (void) push:(id)obj  { [self addObject:obj]; }
+-  (void) push: obj  { [self addObject:obj]; }
 - (NSMA*) sort          { [self sortUsingSelector:@selector(compare:)]; return self; }
 - (NSMA*) az_reverse    { @synchronized(self) {
     for (NSUI i = 0; i < floor(self.count / 2); i++) 
@@ -1308,7 +1322,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return self;
 }
--  (void) moveObject:(id)obj toIndex:(NSUI)toIndex { if (!obj) return;
+-  (void) moveObject: obj toIndex:(NSUI)toIndex { if (!obj) return;
 	[self containsObject:obj] 	? 	[self moveObjectAtIndex:[self indexOfObject:obj] toIndex:toIndex]
   :	[self insertObject:obj atIndex:toIndex];
 }
@@ -1431,7 +1445,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 + (INST) withDuo:(NSA*)a { NSParameterAssert(isEven(a.count));  return [self key:a[0] value:a[1]]; }
 
-+ (INST) key:(id)k value:(id)v {  AZKeyPair *kp = self.new; kp.key = k; kp.value = v; return kp; }
++ (INST) key: k value: v {  AZKeyPair *kp = self.new; kp.key = k; kp.value = v; return kp; }
 @end
 #pragma mark UtilityExtensions
 @implementation NSArray (UtilityExtensions)
@@ -1465,7 +1479,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   return [copy uniqueMembers];
 }
 // A la LISP, will return an array populated with values
-- (NSA*) map:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (NSA*) map:(SEL)selector withObject: object1 withObject: object2 {
   NSMA*results = NSMA.new;
   for (id eachitem in self) {
     if (![eachitem respondsToSelector:selector]) {
@@ -1478,14 +1492,15 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return results;
 }
-- (NSA*) map:(SEL)selector withObject:(id)object1 {
+- (NSA*) map:(SEL)selector withObject: object1 {
   return [self map:selector withObject:object1 withObject:nil];
 }
-- (NSA*) map:(SEL)selector {
-  return [self map:selector withObject:nil];
-}
+//- (NSA*) map:(SEL)selector {
+//  return [self map:selector withObject:nil];
+//}
+
 // NOTE: Selector must return BOOL
-- (NSA*) collect:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (NSA*) collect:(SEL)selector withObject: object1 withObject: object2 {
   NSMA*riz = NSMA.new;
   for (id eachitem in self) {
     BOOL yorn;
@@ -1497,14 +1512,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return riz;
 }
-- (NSA*) collect:(SEL)selector withObject:(id)object1 {
+- (NSA*) collect:(SEL)selector withObject: object1 {
   return [self collect:selector withObject:object1 withObject:nil];
 }
 - (NSA*) collect:(SEL)selector {
   return [self collect:selector withObject:nil withObject:nil];
 }
 // NOTE: Selector must return BOOL
-- (NSA*) reject:(SEL)selector withObject:(id)object1 withObject:(id)object2 {
+- (NSA*) reject:(SEL)selector withObject: object1 withObject: object2 {
   NSMA*riz = NSMA.new;
   for (id eachitem in self) {
     BOOL yorn;
@@ -1516,7 +1531,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return riz;
 }
-- (NSA*) reject:(SEL)selector withObject:(id)object1 {
+- (NSA*) reject:(SEL)selector withObject: object1 {
   return [self reject:selector withObject:object1 withObject:nil];
 }
 - (NSA*) reject:(SEL)selector {
@@ -1560,11 +1575,11 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   [self removeLastObject];
   return lastObject;
 }
-- (NSMA*) pushObject:(id)object       {
+- (NSMA*) pushObject: object       {
   [self addObject:object];
   return self;
 }
-- (NSMA*) pushObjects:(id)object, ... {  if (!object) return self;  id obj = object;
+- (NSMA*) pushObjects: object, ... {  if (!object) return self;  id obj = object;
   va_list objects; va_start(objects, object);
   do {
     [self addObject:obj]; obj = va_arg(objects, id);
@@ -1576,7 +1591,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   [self removeObjectAtIndex:0];
   return firstObject;
 }
-- (NSMA*) push:(id)object {
+- (NSMA*) push: object {
   return [self pushObject:object];
 }
 -    (id) pop             {

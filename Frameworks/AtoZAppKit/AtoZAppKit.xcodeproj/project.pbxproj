@@ -735,10 +735,7 @@
 			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources/AtoZAppKit-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
@@ -751,10 +748,7 @@
 			baseConfigurationReference = 7BCDC11C182A414600C9AE23 /* Mac-Framework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources/AtoZAppKit-Prefix.pch";
 				INFOPLIST_FILE = "Resources/AtoZAppKitFramework-Info.plist";
 				PRODUCT_NAME = AtoZAppKit;
@@ -769,7 +763,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = PARTOF_AtoZ;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INSTALL_PATH = "@rpath";
+				INSTALL_PATH = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 			};
@@ -783,7 +777,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = PARTOF_AtoZ;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INSTALL_PATH = "@rpath";
+				INSTALL_PATH = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 			};
 			name = Release;

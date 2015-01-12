@@ -294,16 +294,16 @@
 
 @implementation AZInvocationGrabber
 
--									(id) initWithTarget:(id)target						{ _target = target;													return self;	}
+-									(id) initWithTarget: target						{ _target = target;													return self;	}
 - (NSMethodSignature*) methodSignatureForSelector:(SEL)sel	{ return   [self.target methodSignatureForSelector:sel];	}
 -               (void) forwardInvocation:(NSInvocation*)inv {	[inv setTarget:self.target];    self.invocation = inv;	}
 @end
 @implementation NSInvocation (jr_block)
 
-+ (NSInvocation *)createInvocationOnTarget:(id)target selector:(SEL)selector {
++ (NSInvocation *)createInvocationOnTarget: target selector:(SEL)selector {
 	return [self createInvocationOnTarget:target selector:selector withArguments:nil];	}
  
-+ (NSInvocation *)createInvocationOnTarget:(id)target selector:(SEL)selector withArguments:(id)arg1, ... {
++ (NSInvocation *)createInvocationOnTarget: target selector:(SEL)selector withArguments: arg1, ... {
 
 	NSMethodSignature *sig						= [target methodSignatureForSelector:selector];
 	__block NSInvocation *invocation 	= [NSInvocation invocationWithMethodSignature:sig];
@@ -317,7 +317,7 @@
 	}
 	return [invocation copy];
 }
-+ (id)invocationWithTarget:(id)target block:(void(^)(id target))block {
++ (id)invocationWithTarget: target block:(void(^)(id target))block {
 
     AZInvocationGrabber *grabber = [AZInvocationGrabber.alloc initWithTarget:target];
     block(grabber);    return grabber.invocation;
@@ -723,11 +723,11 @@
 }
 // Perform the selector if possible, returning any return value. Otherwise return nil.
 CLANG_IGNORE(-Warc-performSelector-leaks)
-- (id) tryPerformSelector:(SEL)sel withObject:(id)x1 withObject:(id)x2 {
+- (id) tryPerformSelector:(SEL)sel withObject: x1 withObject: x2 {
 	return [self respondsToSelector:sel] ? [self performSelector:sel withObject:x1 withObject:x2] : nil;
 }
 CLANG_POP
-- (id) tryPerformSelector:(SEL)sel withObject:(id)x	{ return [self tryPerformSelector:sel withObject:x withObject:nil]; }
+- (id) tryPerformSelector:(SEL)sel withObject: x	{ return [self tryPerformSelector:sel withObject:x withObject:nil]; }
 - (id) tryPerformSelector:(SEL)sel 									{ return [self tryPerformSelector:sel withObject:nil withObject:nil];     }
 
 

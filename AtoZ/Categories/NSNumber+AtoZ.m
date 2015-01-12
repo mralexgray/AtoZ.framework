@@ -79,20 +79,20 @@
 
 - (NSN*) dividedBy:(CGF)f {  return @(self.fV / f); }
 
-- (NSN*)plus:(NSN*)toAdd { return [self basicMathWith:toAdd add:YES]; }
+- (NSN*) plus:(NSN*)toAdd { return [self basicMathWith:toAdd add:YES]; }
 
-- (NSN*)minus:(NSN*)toSub { return [self basicMathWith:toSub add:NO]; }
+- (NSN*) minus:(NSN*)toSub { return [self basicMathWith:toSub add:NO]; }
 
 - (NSN*) basicMathWith:(NSN*)arg add:(BOOL)add {  /*	!! @YES = 1, @NO = 0  !! */
 
 //	[@4.999 objCType] = d; [@YES objCType] = c; [@0 objCType] = i; [[NSN numberWithUnsignedInteger:66] objCType] = q
 
-	return 	strcmp("d", self.objCType) ?  @(self.doubleValue          + add ? arg.doubleValue : -arg.doubleValue           ):
-          strcmp("c", self.objCType) ?	@(self.charValue      			+ add ? arg.charValue    : -arg.charValue):
-          strcmp("i", self.objCType) ?	@(self.integerValue   			+ add ? arg.integerValue : -arg.integerValue          ):
-          strcmp("q", self.objCType) ?	@(self.unsignedIntegerValue + add ? arg.unsignedIntegerValue : -arg.unsignedIntegerValue  ):
-          strcmp("f", self.objCType) ?	@(self.floatValue   				+ add ? arg.floatValue : -arg.floatValue            ):
-                                        @(self.longLongValue				+ add ? arg.longLongValue : -arg.longLongValue         );
+	return 	!strcmp("d", self.objCType) ?  @(self.doubleValue    + (add ? arg.doubleValue   : -arg.doubleValue   )):
+          !strcmp("c", self.objCType) ?	@(self.charValue      + (add ? arg.charValue     : -arg.charValue      )):
+          !strcmp("i", self.objCType) ?	@(self.iV             + (add ? arg.iV            : -arg.iV             )):
+          !strcmp("q", self.objCType) ?	@(self.uIV            + (add ? arg.uIV           : -arg.uIV            )):
+          !strcmp("f", self.objCType) ?	@(self.fV             + (add ? arg.fV            : -arg.fV            ) ):
+                                        @(self.longLongValue  + (add ? arg.longLongValue : -arg.longLongValue)  );
 }
 - (NSN*)plusF:(CGF)toAdd  { return @(self.fV + toAdd); }
 - (NSN*)minusF:(CGF)toSub { return @(self.fV - toSub); }

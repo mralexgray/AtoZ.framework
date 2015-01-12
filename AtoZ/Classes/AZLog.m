@@ -334,37 +334,124 @@ JREnum(zLoggingTo,
 @end
 
 
-///           @implementation SysLogger ******************************
 
 
-static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVEL_NOTICE
+@implementation AZASLEntry @end
+
+@implementation AZASLLogger
+
+//- (Class) objectClass { return NSTN.class; }
+
+- init		{	return self = super.init ? _log = @{}.mC, [self startLogging], self : nil; } // )) self.objectClass = NSTN.class; self.selectsInsertedObjects = YES; [self log]; return self; }
+
+- (void) ConfigureQuery:(aslmsg)query { const char param[] = "5";	// ASL_LEVEL_NOTICE
+
   asl_set_query(query, ASL_KEY_LEVEL, param, ASL_QUERY_OP_LESS_EQUAL | ASL_QUERY_OP_NUMERIC);
 }
-@implementation AZASLLogger
-- (NSW*) show   { _show = [NSWindow.alloc initWithContentRect:NSInsetRect(NSScreen.mainScreen.frame,200,200) styleMask:0|1|2|8 backing:0 defer:NO];
-  _show.level = NSScreenSaverWindowLevel;
-  NSScrollView *v;  _show.contentView = v = [NSScrollView.alloc initWithFrame:[_show.contentView bounds]];
-  NSOutlineView *o; v.documentView = o = [NSOutlineView.alloc initWithFrame:v.bounds];
-  NSTableColumn *t; [o addTableColumn:t=[NSTableColumn.alloc initWithIdentifier:@"value"]];
-  [t bind:NSValueBinding toObject:self withKeyPath:@"arrangedObjects.representedObject" options:nil];
-  [_show makeKeyAndOrderFront:nil]; return _show;
-}
--   (id) init		{	if (!(self = super.init)) return nil; self.childrenKeyPath = @"childNodes"; self.content = @[[NSTreeNode treeNodeWithRepresentedObject:@"LOGS"]].mutableCopy;  return self; }
-- (void) watch	{
 
-		/* We use ASL_KEY_MSG_ID to see each message once, but there's no obvious way to get the "next" ID. To bootstrap the process, we'll
-     search by timestamp until we've seen a message. */
+- (void) MessageRecieved:(aslmsg)msg {
+
+  const char  * sender  = asl_get(msg, ASL_KEY_SENDER),
+              * message = asl_get(msg, ASL_KEY_MSG);
+
+  printf("%s: %s\n", sender, message);
+
+  NSString *ssender = $(@"%s",sender);
+
+  AZASLEntry *n =  AZASLEntry.new;
+
+  [n setValuesForKeysWithDictionary:@{@"sender":ssender, @"message":$(@"%s", message)}];
+
+  NSMA *senderEntry = _log[ssender] ?: (_log[ssender] = @[].mC);
+
+  [senderEntry addObject:n];
+
+//  [self addObject:@{ @"title": @"BOOKS", @"isLeaf": @(NO), @"children":@[
+//                                        [Book bookWithTitle:@"Pride and Prejudice"    andAuthor:@"Jane Austen"],
+//                                        [Book bookWithTitle:@"To Kill a Mockingbird"  andAuthor:@"Harper Lee"],
+//                                        [Book bookWithTitle:@"The Catcher in the Rye" andAuthor:@"J.D. Salinger"]].mutableCopy }.mutableCopy];
+
+//  NSTN *node  = [self.content filteredArrayUsingBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+//
+//    return [[evaluatedObject representedObject] isEqualToString:ssender];
+//
+//  }].firstObject;
+//
+//  if (!node) [self addObject: node = [NSTN treeNodeWithRepresentedObject:ssender]];
+//
+//  [node.mutableChildNodes addObject:n];
+
+//  }
+}
+    ////[NSString stringWithFormat:@"%s: %s\n", sender, message]];
+
+
+- (void) startLogging    {
+
+    /*
+     We use ASL_KEY_MSG_ID to see each message once, but there's no
+     obvious way to get the "next" ID. To bootstrap the process, we'll
+     search by timestamp until we've seen a message.
+     */
+
+    struct timeval timeval = { .tv_sec = 0 };
+    gettimeofday(&timeval, NULL);
+    unsigned long long startTime = timeval.tv_sec;
+    __block unsigned long long lastSeenID = 0;
+
+/*!
+     syslogd posts kNotifyASLDBUpdate (com.apple.system.logger.message) through the notify API when it saves messages to the ASL database.
+     There is some coalescing - currently it is sent at most twice per second - but there is no documented guarantee about this. In any case, there may be multiple messages per notification.
+     Notify notifications don't carry any payload, so we need to search for the messages.
+*/
+    int notifyToken;	// Can be used to unregister with notify_cancel().
+    notify_register_dispatch(kNotifyASLDBUpdate, &notifyToken, dispatch_get_main_queue(), ^(int token) {
+        // At least one message has been posted; build a search query.
+      @autoreleasepool
+      {
+        aslmsg query = asl_new(ASL_TYPE_QUERY);
+        char stringValue[64];
+        if (lastSeenID > 0)
+        {
+          snprintf(stringValue, sizeof stringValue, "%llu", lastSeenID);
+          asl_set_query(query, ASL_KEY_MSG_ID, stringValue, ASL_QUERY_OP_GREATER | ASL_QUERY_OP_NUMERIC);
+        }
+        else
+        {
+          snprintf(stringValue, sizeof stringValue, "%llu", startTime);
+          asl_set_query(query, ASL_KEY_TIME, stringValue, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
+        }
+        [self ConfigureQuery:query];
+
+          // Iterate over new messages.
+        aslmsg msg;
+        aslresponse response = asl_search(NULL, query);
+        while ((msg = aslresponse_next(response)))
+        {
+            // Do stuff.
+          [self MessageRecieved:msg];
+
+            // Keep track of which messages we've seen.
+          lastSeenID = atoll(asl_get(msg, ASL_KEY_MSG_ID));
+        }
+        aslresponse_free(response);
+      }
+    });
+
+}
+- (void) watch	{
+/*
+  /// We use ASL_KEY_MSG_ID to see each message once, but there's no obvious way to get the "next" ID. To bootstrap the process, we'll search by timestamp until we've seen a message.
 
   struct timeval						  timeval	= { .tv_sec = 0 };		gettimeofday(&timeval, NULL);
   unsigned long long			  startTime	= timeval.tv_sec;
 		__block unsigned long long lastSeenID = 0;
 
-		/* syslogd posts kNotifyASLDBUpdate (com.apple.system.logger.message) through the notify API when it saves messages to the ASL database.
-     There is some coalescing - currently it is sent at most twice per second - but there is no documented guarantee about this. In any
-     case, there may be multiple messages per notification.
+		// syslogd posts kNotifyASLDBUpdate (com.apple.system.logger.message) through the notify API when it saves messages to the ASL database.
+    // There is some coalescing - currently it is sent at most twice per second - but there is no documented guarantee about this. In any case, there may be multiple messages per notification.
 
-     Notify notifications don't carry any payload, so we need to search for the messages.
-     */
+    // Notify notifications don't carry any payload, so we need to search for the messages.
+
 
   int notifyToken;	// Can be used to unregister with notify_cancel().
 
@@ -376,7 +463,7 @@ static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVE
 				lastSeenID	? asl_set_query(query, ASL_KEY_MSG_ID, stringValue, ASL_QUERY_OP_GREATER			 | ASL_QUERY_OP_NUMERIC)
     : asl_set_query(query, ASL_KEY_TIME,	 stringValue, ASL_QUERY_OP_GREATER_EQUAL | ASL_QUERY_OP_NUMERIC);
 
-				ConfigureQuery(query); aslmsg msg;		// Iterate over new messages.
+				[self ConfigureQuery:query]; aslmsg msg;		// Iterate over new messages.
 				aslresponse response = asl_search(NULL, query);
 
 				NSString *lastSender = nil, *newSender = nil;		NSTreeNode *node;
@@ -402,13 +489,138 @@ static void ConfigureQuery(aslmsg query)	{	const char param[] = "7";	// ASL_LEVE
     aslresponse_free(response);
 		}
   });
+  */
 }
-@end
-//  EOF
 
+- (NSW*) show   {
+
+  _show = [NSWindow.alloc initWithContentRect:NSInsetRect(NSScreen.mainScreen.frame,200,200) styleMask:0|1|2|8 backing:0 defer:NO];
+  _show.level = NSScreenSaverWindowLevel;
+  NSScrollView *v;  _show.contentView = v = [NSScrollView.alloc initWithFrame:[_show.contentView bounds]];
+  NSOutlineView *o; v.documentView = o = [NSOutlineView.alloc initWithFrame:v.bounds];
+  NSTableColumn *t; [o addTableColumn:t=[NSTableColumn.alloc initWithIdentifier:@"value"]];
+  [t bind:NSValueBinding toObject:self withKeyPath:@"arrangedObjects.representedObject" options:nil];
+  [_show makeKeyAndOrderFront:nil]; return _show;
+}
+
+#pragma mark - NSOutlineViewDelegate
+
+OVMETHOD (BOOL)      isGroupItem:item { return ISA(item,NSTN); }
+
+OVMETHOD (BOOL) shouldSelectItem:item { return !ISA(item,NSTN); }
+
+OVMETHOD (NSView*) viewForTableColumn:(NSTableColumn*)t item:item  {
+
+  return ISA(item,NSTN)       ? !ISA(((NSTN*)item).representedObject,AZASLEntry) ? [o makeViewWithIdentifier:@"HeaderCell" owner:self]
+       : ISA(item,AZASLEntry) ? [o makeViewWithIdentifier:@"DataCell"   owner:self] : nil : nil;
+}
+
+@end
 
 /*
+-   (id) init		{	if (!(self = super.init)) return nil; self.childrenKeyPath = @"childNodes"; self.content = @[[NSTreeNode treeNodeWithRepresentedObject:@"LOGS"]].mutableCopy;  return self; }
 
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item
+{        
+  return [item isFolder]
+}
+
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
+{    
+    if (item==nil)
+    {
+        // Root
+        return [[filePath folderContentsWithPathAndBackIgnoringHidden] count];
+    }
+    else
+    {        
+        if ([item isFolder])
+        {
+            return [[item folderContentsWithPathAndBackIgnoringHidden] count];
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
+{
+    if (item == nil)
+    { 
+        // Root
+        return [[filePath folderContentsWithPathAndBackIgnoringHidden] objectAtIndex:index];
+    }
+
+    if ([item isFolder])
+    {
+        return [[item folderContentsWithPathAndBackIgnoringHidden] objectAtIndex:index];
+    }
+
+    // File
+    return nil;
+}
+
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)theColumn byItem:(id)item
+{          
+    if ([[theColumn identifier] isEqualToString:@"NameColumn"])
+    {
+        return [item lastPathComponent];
+    }
+    else if ([[theColumn identifier] isEqualToString:@"SizeColumn"])
+    {
+        if ([item isFolder]) return @"--";
+        else return [NSString stringWithFormat:@"%d",[item getFileSize]];
+    }
+    else if ([[theColumn identifier] isEqualToString:@"ModifiedColumn"])
+    {
+        if ([item isFolder]) return @"";
+        else return [NSString stringWithFormat:@"%@",[item getDateModified]];
+    }
+
+    // Never reaches here
+    return nil;
+}
+
+
+OVMETHOD(BOOL) isItemExpandable:_ { return ISA(_,NSD); }
+
+OVMETHOD(NSI) numberOfChildrenOfItem:_ {
+
+
+    return !_ ? senders.count :  // item is nil when the outline view wants to inquire for root level items
+    }   
+
+    if ([item isKindOfClass:[NSDictionary class]]) {
+        return [[item objectForKey:@"children"] count];
+    }
+
+    return 0;
+}
+
+OVMETHOD(id) child:(NSI)i ofItem:_ {
+
+    return !_ ? senders.allValues[i] //item is nil when the outline view wants to inquire for root level items
+
+
+
+    if ([item isKindOfClass:[NSDictionary class]]) {
+        return [[item objectForKey:@"children"] objectAtIndex:index];
+    }     
+
+    return nil;
+}
+
+OVMETHOD(id) objectValueForTableColumn:(NSTC*)c byItem:_ {
+
+    return [c.identifier isEqualToString:@"children"] ? ISA(_,NSD) ? $(@"%lu kids", [_[@"children"] count])
+                                                                   : _ : ISA(_,NSD) ? _[@"parent"] : nil;
+}
+*/
+
+/*
  e != LogEnvXcodeColor ? [words componentsJoinedByString:@" "].UTF8String :
  [(NSA*)it each:^(id obj) {
  [obj ISKINDA:NSC.class] ? [colors addObject:[obj copy]] :

@@ -124,7 +124,7 @@
 
 - (BOOL) az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB;
 
-//- (BOOL) conformToProtocol:(id)nameOrProtocol;
+//- (BOOL) conformToProtocol: nameOrProtocol;
 /*! Dynamically overrides the specified method on this particular instance.
   @param selector the @selector to override   
   @param block The block's parameters and return type must match those of the method you are overriding. 

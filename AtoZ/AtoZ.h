@@ -38,7 +38,6 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import AtoZAppKit;
 @import AtoZBezierPath;
 @import BWTK;
-@import BlocksKit;
 @import BlocksKit.A2DynamicDelegate;
 @import CFAAction;
 @import CocoaPuffs;
@@ -56,6 +55,8 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import RoutingHTTPServer;
 
 #import "AtoZCategories.h"
+
+@import BlocksKit;
 
 /*
 #import <AtoZAppKit/AtoZAppKit.h>

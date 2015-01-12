@@ -160,7 +160,7 @@ SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(needsDisplayForKeys, setNeedsDisplayForKeys, ^{}
 //	}
 //	return objc_getAssociatedObject(self, _cmd); 
 //}
-//- (void) setBackground:(id)bg 	{ 
+//- (void) setBackground: bg 	{ 
 //
 //  IF_ICAN_THEN(background,({ 
 //    
@@ -603,7 +603,7 @@ static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
 	//	NSLog(@"setup hosting layer:%@ in view: %@.  do not addsubviews to this view.  go crazy with layers.", layer.debugDescription, self);
 }
 - (id)firstSubview { return self.subviews.count ? self.subviews.first : nil; }
-- (void) setFirstSubview:(id)firstSubview {
+- (void) setFirstSubview: firstSubview {
   NSParameterAssert(ISA(firstSubview,NSV));
   self.subviews = [@[firstSubview] arrayByAddingAbsentObjectsFromArray:self.subviews];
 }

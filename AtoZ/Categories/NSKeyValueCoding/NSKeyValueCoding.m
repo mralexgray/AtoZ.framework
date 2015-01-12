@@ -349,7 +349,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 
-- (BOOL)validateValue:(id *)ioValue forKey:(NSS*)key error:(NSError **)outError
+- (BOOL)validateValue:(id *)ioValue forKey:(NSS*)key error:(NSERR*__autoreleasing*)outError
 {
 	SEL sel=NSSelectorFromString([NSString stringWithFormat:@"validate%@:error:", [key capitalizedString]]);
 	if([self respondsToSelector:sel])
@@ -410,7 +410,7 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
    }
 }
 
-- (BOOL)validateValue:(id *)ioValue forKeyPath:(NSS*)keyPath error:(NSError **)outError
+- (BOOL)validateValue:(id *)ioValue forKeyPath:(NSS*)keyPath error:(NSERR*__autoreleasing*)outError
 {
 	id array=[[[keyPath componentsSeparatedByString:@"."] mutableCopy] autorelease];
 	id lastPathComponent=[array lastObject];

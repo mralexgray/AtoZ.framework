@@ -175,7 +175,7 @@
 //}
 
 
-- (void) swizzledInsert:(id) text; {	[self autoScrollText:text];	}
+- (void) swizzledInsert: text; {	[self autoScrollText:text];	}
 
 -	(void) autoScrollText:(id) text	{
 
@@ -222,7 +222,7 @@
 	return  anAtv;
 }
 
-- (IBAction)increaseFontSize:(id)sender
+- (IBAction)increaseFontSize: sender
 {
 	NSTextStorage *textStorage = [self textStorage];
 	[textStorage beginEditing];
@@ -272,12 +272,12 @@
 	[self didChangeText];
 }
 
--  (IBAction)decrementFontSize:(id)sender;
+-  (IBAction)decrementFontSize: sender;
 {
 	[self changeFontSize:-1.0];
 }
 
--  (IBAction)incrementFontSize:(id)sender;
+-  (IBAction)incrementFontSize: sender;
 {
 	[self changeFontSize:1.0];
 }

@@ -3,7 +3,7 @@
  * Copyright (C) 2012 Brad Allred
  */
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @class NBBTheme;
 @protocol NBBThemable <NSObject>

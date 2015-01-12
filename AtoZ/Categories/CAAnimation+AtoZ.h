@@ -39,13 +39,13 @@ typedef void (^AZCAAnimationCompletionBlock)();
 @interface CABA (AtoZ)
 + (CABA*)             dashPhaseAnimation;
 
-+ (CABA*) animationWithKeyPath:(NSS*)path from:(id)v1        to:(id)v2
++ (CABA*) animationWithKeyPath:(NSS*)path from: v1        to: v2
                                       duration:(NSTI)time repeat:(CGF)ct;
 
 + (CABA*) dashPhaseAnimationForPerimeter:(CGF)phase;
-+ (CABA*)           groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption:(id)from to:(id)to andSet:(CAL*)set;
++ (CABA*)           groupAnimationWithKP:(NSS*)path begin:(NSTI)start fromOption: from to: to andSet:(CAL*)set;
 
-+ (CABA*) withKP:(NSS*)path duration:(NSTI)interval fromOption:(id)from to:(id)to andSet:(CAL*)set;
++ (CABA*) withKP:(NSS*)path duration:(NSTI)interval fromOption: from to: to andSet:(CAL*)set;
 @end
 
 @interface CAA (AtoZ)
@@ -98,7 +98,7 @@ typedef void (^AZCAAnimationCompletionBlock)();
 @interface CATransition (AtoZ)
 + (INST) transitionOfType:(NSS*)type;
 + (CATransition*) randomTransition;
-+ (NSA*)transitionsFor:(id)targetView;
++ (NSA*)transitionsFor: targetView;
 @end
 
 

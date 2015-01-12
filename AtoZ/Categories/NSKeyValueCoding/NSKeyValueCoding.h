@@ -17,12 +17,12 @@ FOUNDATION_EXPORT NSString * const NSUndefinedKeyException;
 // primitive methods
 -(id)valueForKey:(NSString*)key;
 -(void)setValue:(id)value forKey:(NSS*)key;
--(BOOL)validateValue:(id *)ioValue forKey:(NSS*)key error:(NSError **)outError;
+-(BOOL)validateValue:(id *)ioValue forKey:(NSS*)key error:(NSERR*__autoreleasing*)outError;
 
 // key path methods
 -(id)valueForKeyPath:(NSString*)keyPath;
 -(void)setValue:(id)value forKeyPath:(NSS*)keyPath;
--(BOOL)validateValue:(id *)ioValue forKeyPath:(NSS*)keyPath error:(NSError **)outError;
+-(BOOL)validateValue:(id *)ioValue forKeyPath:(NSS*)keyPath error:(NSERR*__autoreleasing*)outError;
 
 // dictionary methods
 -(NSD*)dictionaryWithValuesForKeys:(NSA*)keys;

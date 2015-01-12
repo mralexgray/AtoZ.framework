@@ -21,8 +21,8 @@
 + (instancetype) noHitLayerWithFrame:(NSR)r mask:(NSUI)m;
 + (INST) layerWithFrame:(CGRect)f mask:(enum CAAutoresizingMask)m;
 + (INST) layerWithFrame: (CGR)frame;
-+ (INST) layerWithValue:(id)v forKey:(NSS*)k;
-+ (INST) layerWithValuesForKeys:(id)firstVal, ...;
++ (INST) layerWithValue: v forKey:(NSS*)k;
++ (INST) layerWithValuesForKeys: firstVal, ...;
 //+ (CAShapeLayer*)lassoLayerForLayer:(CAL*)layer;
 + (INST) layerNamed:(NSS*)name;
 + (INST) withName:(NSS*)name inFrame:(NSR)r colored:(NSC*)c
@@ -123,14 +123,14 @@
 - (void) addSublayersImmediately:(NSA*)subArray;
 - (void) insertSublayerImmediately:(CAL*)sub atIndex:(NSUI)idx;
 
-- (void) setValueImmediately:(id)v forKey:(id)key;
+- (void) setValueImmediately: v forKey: key;
 - (void) setFrameImmediately:(NSR)r;
 
 - (AZStatus) toggleSpin;
 @property AZStatus spinning;
 
 - (void) moveToFront;
-- (void) setValue:(id)v forKeyPath:(NSS*)kp duration:(CFTimeInterval)t delay:(CFTI)d;
+- (void) setValue: v forKeyPath:(NSS*)kp duration:(CFTimeInterval)t delay:(CFTI)d;
 
 - (void) animateXThenYToFrame:(NSR)toR duration:(NSUI)t;
 - (void) blinkLayerWithColor:(NSC*)c;  /* AOK! */

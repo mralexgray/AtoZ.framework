@@ -68,8 +68,8 @@ void Parallelized(int count, void (^block)(int i));
 @interface NSArray (CollectionsAdditions)
 
 - (void)    do:(void(^)(id obj))b;
-- (NSA*)select:(BOOL(^)(id obj))b;
-- (NSA*)   map:(  id(^)(id obj))b;
+//- (NSA*)select:(BOOL(^)(id obj))b;
+//- (NSA*)   map:(  id(^)(id obj))b;
 
 /*
 	NSArray *testArray = @[@"1", @"2", @"3"];

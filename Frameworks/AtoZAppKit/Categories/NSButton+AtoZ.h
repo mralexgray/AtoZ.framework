@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 mrgray.com. All rights reserved.
 //
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 @interface NSButton (AtoZ)
 

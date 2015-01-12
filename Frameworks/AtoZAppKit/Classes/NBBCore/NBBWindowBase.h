@@ -4,7 +4,7 @@
 
  */
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 #import "NBBTheme.h"
 

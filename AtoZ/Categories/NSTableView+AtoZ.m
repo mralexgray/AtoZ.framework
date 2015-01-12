@@ -42,7 +42,7 @@
 //
 //@implementation NoodleIPhoneTableView
 //
-//- (id)initWithFrame:(NSRect)frameRect
+//- initWithFrame:(NSRect)frameRect
 //{
 //	if (self != [super initWithFrame:frameRect]) return nil;
 //	[self setGridColor:[NSC colorWithCalibratedWhite:0.849 alpha:1.0]];
@@ -50,7 +50,7 @@
 //	return self;
 //}
 //
-//- (id)initWithCoder:(NSCoder *)decoder
+//- initWithCoder:(NSCoder *)decoder
 //{
 //	if (!(self = [super initWithCoder:decoder])) return nil;
 //	[self setGridColor:[NSC colorWithCalibratedWhite:0.849 alpha:1.0]];
@@ -207,7 +207,7 @@
 //	}
 //}
 //
-//- (IBAction)scrollToStickyRow:(id)sender
+//- (IBAction)scrollToStickyRow: sender
 //{
 //	NSInteger		row;
 //
@@ -712,7 +712,7 @@
 //	}
 //}
 //
-//- (id)initWithCoder:(NSCoder *)decoder
+//- initWithCoder:(NSCoder *)decoder
 //{
 //	if ((self = [super initWithCoder:decoder]) != nil)
 //	{
@@ -771,7 +771,7 @@
 //	}
 //}
 //
-//- (id)initWithCoder:(NSCoder *)decoder
+//- initWithCoder:(NSCoder *)decoder
 //{
 //	if ((self = [super initWithCoder:decoder]) != nil)
 //	{

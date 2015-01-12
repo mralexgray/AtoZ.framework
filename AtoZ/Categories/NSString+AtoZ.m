@@ -75,13 +75,15 @@ NSString *stringForBrightness( CGF brightness )	{	return
 - (NSS*) getCharsFound 															{	return [strings componentsJoinedByString:@""];	}
 @end
 
-@interface      NSA (ToAlpabetDictionary) - (NSOrderedDictionary*) mapToDictionaryByLetter; @end
-@implementation NSA (ToAlpabetDictionary) - (NSOrderedDictionary*) mapToDictionaryByLetter{
+@interface      NSA (ToAlpabetDictionary) - (OrderedDictionary*) mapToDictionaryByLetter; @end
+@implementation NSA (ToAlpabetDictionary) - (OrderedDictionary*) mapToDictionaryByLetter{
 
-  return [self reduce:NSMutableOrderedDictionary.new withBlock:^id(NSMD * d, id aVal) {
+  return [self reduce:MutableOrderedDictionary.new withBlock:^id(NSMD * d, id aVal) {
 
     if (!ISA(aVal,NSS)) return d;
+
     [(d[[aVal firstLetter]] = d[[aVal firstLetter]] ?: @[].mutableCopy) addObject:aVal];
+    
     return d;
   }];
 }
@@ -89,6 +91,22 @@ NSString *stringForBrightness( CGF brightness )	{	return
 
 
 @implementation NSString (AtoZ)
+
+- (BOOL) isValidURL {
+
+    if (!self) return NO;
+
+    NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+
+    NSRange urlStringRange = NSMakeRange(0, [self length]);
+    NSMatchingOptions matchingOptions = 0;
+
+    if ([linkDetector numberOfMatchesInString:self options:matchingOptions range:urlStringRange] != 1) return NO;
+
+    NSTextCheckingResult *checkingResult = [linkDetector firstMatchInString:self options:matchingOptions range:urlStringRange];
+
+    return checkingResult.resultType == NSTextCheckingTypeLink && NSEqualRanges(checkingResult.range, urlStringRange);
+}
 
 - (const char *) ASCIIString { return [self cStringUsingEncoding:NSASCIIStringEncoding]; }
 
@@ -434,7 +452,7 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
 	return propers = propers ?: [[[self stringWithContentsOfFile:names usedEncoding:NULL error:NULL] componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet] arrayWithoutObject:@""];  // sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]
 }
 
-+ (NSOrderedDictionary*) properNamesByLetter { return self.properNames.mapToDictionaryByLetter; }
++ (OrderedDictionary*) properNamesByLetter { return self.properNames.mapToDictionaryByLetter; }
 
 + (void) randomUrabanDBlock:(void(^)(AZDefinition*d))block {
 
@@ -670,10 +688,10 @@ finish:
 - (void)copyFileAtPathTo:(NSS*)path 	{
 	if ([[NSFileManager defaultManager] isReadableFileAtPath:self]) [[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
 }
-- (CGF)pointSizeForFrame:(NSR)frame withFont:(id)font											{
+- (CGF)pointSizeForFrame:(NSR)frame withFont: font											{
 	return [[self class] pointSizeForFrame:frame withFont:font forString:self];
 }
-+ (CGF)pointSizeForFrame:(NSR)frame withFont:(id)font forString:(NSS*)string			{
++ (CGF)pointSizeForFrame:(NSR)frame withFont: font forString:(NSS*)string			{
 
 	if (AZIsZeroSize(frame.size)) return 0;
 	NSFont *displayFont = nil;	NSSZ stringSize = NSZeroSize;	NSUI fontLoop = 0;	NSMD *fontAttributes = NSMD.new;
@@ -968,6 +986,12 @@ finish:
 	return re;
 }
 
++ (instancetype)  ISP {
+
+  id x = [NET curl:@"whoismyisp.org"];
+  return [[x substringAfter:@"Your Internet Service Provider (ISP) is '"] substringBefore:@"'"];
+}
+
 
 - (NSA*)words {
 	NSMutableArray *re = NSMutableArray.array;
@@ -982,6 +1006,7 @@ finish:
 }
 
 - (NSA*)trimmedComponentsSeparatedByString:(NSS*)separator {
+
 	NSMutableArray *re = NSMutableArray.array;
 	for (__strong NSString *s in [self componentsSeparatedByString : separator]) {
 		s = s.trim;     if (!s.isEmpty) [re addObject:s];
@@ -1016,7 +1041,7 @@ finish:
                                                       [self substringFromIndex:index.location + index.length]];
 }
 
-- (BOOL)splitAt:(NSS*)delimiter head:(NSString **)head tail:(NSString **)tail {
+- (BOOL)splitAt:(NSS*)delimiter head:(NSString *__autoreleasing*)head tail:(NSString *__autoreleasing*)tail {
 	NSRange index = [self rangeOfString:delimiter];
 	if (index.location == NSNotFound) return NO;
 	NSString *copy = self.copy;
@@ -1507,7 +1532,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
  // KVC compliance stuff: This was needed for NSTreeController.  Not needed for the iPhone version.
  //- (void) setSubclassNames:(NSA*) names { NSLog(@"Can't set subclass names!"); }
  //- (id) valueForUndefinedKey:(NSS*) key { return self; }
- //- (void) setValue:(id)value forUndefinedKey:(NSS*)key { NSLog(@"unknown key:%@", key); }
+ //- (void) setValue: value forUndefinedKey:(NSS*)key { NSLog(@"unknown key:%@", key); }
  @end
  */
 
@@ -2106,7 +2131,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 @end
 @implementation NSString (Creations)
-- (id)initWithInteger:(NSI)value {
+- initWithInteger:(NSI)value {
 #ifdef __LP64__
 #define __NSINTEGER_FORMAT @"%ld"
 #else
@@ -2135,7 +2160,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	return [self.alloc initWithData:data encoding:encoding];
 }
 
-- (id)initWithConcatnatingStrings:(NSS*)first, ...{
+- initWithConcatnatingStrings:(NSS*)first, ...{
 	NSMutableArray *array = [NSMutableArray array];
 	va_list args;
 	va_start(args, first);
@@ -2164,7 +2189,7 @@ static void _ScanSentence(NSScanner *scanner) {
 }
 
 // slow! proof of concept
-- (NSS*)format:(id)first, ...{
+- (NSS*)format: first, ...{
 
 	NSUI len = self.length,index = 0;
 	BOOL passed = NO;
@@ -2185,7 +2210,7 @@ static void _ScanSentence(NSScanner *scanner) {
 		result;
 	});
 }
-- (NSS*)format0:(id)dummy, ...{
+- (NSS*)format0: dummy, ...{
 	va_list args;
 	va_start(args, dummy);
 	NSString *result = [NSString stringWithFormat:self arguments:args];
@@ -2245,7 +2270,7 @@ static void _ScanSentence(NSScanner *scanner) {
 @end
 
 @implementation NSMutableString (Shortcuts)
-- (id)initWithConcatnatingStrings:(NSS*)first, ...{
+- initWithConcatnatingStrings:(NSS*)first, ...{
 	self = [self initWithString:first];
 	if (self != nil) {
 		va_list args;
@@ -2892,7 +2917,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	return gotChar ? YES : NO;
 }
 - (BOOL)scanUpToUnescapedCharacterFromSet:(NSCharacterSet *)toCharSet
-                               intoString:(NSString **)string
+                               intoString:(NSString *__autoreleasing*)string
                              stripEscapes:(BOOL)stripEscapes				{
 	NSMutableString *s = [NSMutableString string];
 	BOOL ret = [self scanUpToUnescapedCharacterFromSet:toCharSet appendToString:s stripEscapes:stripEscapes];
@@ -2901,18 +2926,18 @@ static void _ScanSentence(NSScanner *scanner) {
 	return ret;
 }
 - (BOOL)scanUpToUnescapedCharacter:(unichar)toChar
-                        intoString:(NSString **)string
+                        intoString:(NSString *__autoreleasing*)string
                       stripEscapes:(BOOL)stripEscapes							{
 	return [self scanUpToUnescapedCharacterFromSet:[NSCharacterSet characterSetWithRange:NSMakeRange(toChar, 1)]
                                       intoString:string
                                     stripEscapes:stripEscapes];
 }
 - (BOOL)scanUpToUnescapedCharacter:(unichar)toChar
-                        intoString:(NSString **)string						{
+                        intoString:(NSString *__autoreleasing*)string						{
 	/* TextMate bundle commands want backslash escapes intact. sh unescapes. */
 	return [self scanUpToUnescapedCharacter:toChar intoString:string stripEscapes:NO];
 }
-- (BOOL)scanShellVariableIntoString:(NSString **)intoString					{
+- (BOOL)scanShellVariableIntoString:(NSString *__autoreleasing*)intoString					{
 	NSUInteger startLocation = [self scanLocation];
 
 	BOOL initial = YES;

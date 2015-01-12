@@ -13,7 +13,7 @@ AZPROPERTY( dispatch_once_t, 	ASS, 	cancelPred );
 
 @implementation AZObserverTrampoline
 
-- (AZObserverTrampoline*) initObservingObject:(id)obj keyPath:(NSS*)kp onQueue:(NSOQ*)q task:(AZBlockTask)tsk {
+- (AZObserverTrampoline*) initObservingObject: obj keyPath:(NSS*)kp onQueue:(NSOQ*)q task:(AZBlockTask)tsk {
 
 	return self 				= super.init ?
 	_task 						= [tsk copy],
@@ -24,7 +24,7 @@ AZPROPERTY( dispatch_once_t, 	ASS, 	cancelPred );
 	[_observee addObserver:self forKeyPath:_keyPath options:0 context:(__bridge void*)AZObserverTrampolineContext],
 	self : nil;
 }
-- (void) observeValueForKeyPath:(NSS*)kp ofObject:(id)o change:(NSD*)c context:(void*)x {
+- (void) observeValueForKeyPath:(NSS*)kp ofObject: o change:(NSD*)c context:(void*)x {
 
 	c = [c ?: @{} dictionaryByAddingEntriesFromDictionary:@{@"keyPath":_keyPath.copy}];
 	if (x == (__bridge const void*)AZObserverTrampolineContext)

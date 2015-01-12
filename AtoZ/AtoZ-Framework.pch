@@ -1,9 +1,11 @@
 
+#define JATEMPLATE_SYNTAX_WARNINGS 1
 
 #ifdef __OBJC__
 
+
 #import <AppKit/AppKit.h>
-#import <WebKit/WebKit.h>
+//#import <WebKit/WebKit.h>
 
 //  #import <BlocksKit/BlocksKit.h>
 //  #import <CocoaPuffs/CocoaPuffs.h>
@@ -15,29 +17,31 @@
 #import <KVOMap/KVOMap.h>
 #import <AtoZAutoBox/AtoZAutoBox.h>
 
-#import <Zangetsu/Zangetsu.h>
+//#import <Zangetsu/Zangetsu.h>
 #import <FunSize/FunSize.h>
 #import "F.h"
 
-//#import <ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h>
-//#import <AtoZAutoBox/AtoZAutoBox.h>
-#import <AtoZAppKit/AtoZAppKit.h>
-#import <AtoZBezierPath/AtoZBezierPath.h>
-#import <BlocksKit/A2DynamicDelegate.h>
-#import <BlocksKit/BlocksKit.h>
-//#import <BWTK/BWToolkitFramework.h>
-#import <CFAAction/CFAAction.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <CocoatechCore/CocoatechCore.h>
-#import <DrawKit/DrawKit.h>
-#import <KSHTMLWriter/KSHTMLWriter.h>
-#import <MenuApp/MenuApp.h>
-//#import <NMSSH/NMSSH.h>
-#import <NoodleKit/NoodleKit.h>
-#import <PhFacebook/PhFacebook.h>
-#import <Rebel/Rebel.h>
-//#import <TwUI/TwUI.h>
-#import <UAGithubEngine/UAGithubEngine.h>
-#import <UIKit/UIKit.h>
+#import "BlocksAdditions.h"
+
+//#import <AtoZAppKit/AtoZAppKit.h>
+//#import <AtoZBezierPath/AtoZBezierPath.h>
+//#import <BlocksKit/A2DynamicDelegate.h>
+//#import <BlocksKit/BlocksKit.h>
+//#import <CFAAction/CFAAction.h>
+//#import <CocoaPuffs/CocoaPuffs.h>
+//#import <CocoatechCore/CocoatechCore.h>
+//#import <DrawKit/DrawKit.h>
+//#import <KSHTMLWriter/KSHTMLWriter.h>
+//#import <NoodleKit/NoodleKit.h>
+//#import <Rebel/Rebel.h>
+//#import <UIKit/UIKit.h>
 
 #endif
+  //#import <ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h>
+  //#import <AtoZAutoBox/AtoZAutoBox.h>
+  //#import <BWTK/BWToolkitFramework.h>
+  //#import <MenuApp/MenuApp.h>
+  //#import <NMSSH/NMSSH.h>
+  //#import <PhFacebook/PhFacebook.h>
+  //#import <TwUI/TwUI.h>
+  //#import <UAGithubEngine/UAGithubEngine.h>

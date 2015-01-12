@@ -778,7 +778,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 - (BOOL) isMatchedByRegex:(NSS*) regex {
 	return [self isMatchedByRegex:regex options:0 inRange:NSMakeRange(0, self.length) error:nil];
 }
-- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(NSError **) error {
+- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(NSERR*__autoreleasing*) error {
 	NSRegularExpression *regularExpression = [NSRegularExpression cachedRegularExpressionWithPattern:regex options:options error:error];
 	NSRange foundRange = [regularExpression rangeOfFirstMatchInString:self options:NSMatchingReportCompletion range:range];
 	return foundRange.location != NSNotFound;
@@ -786,7 +786,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 - (NSRange) rangeOfRegex:(NSS*) regex inRange:(NSRange) range {
 	return [self rangeOfRegex:regex options:0 inRange:range capture:0 error:nil];
 }
-- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSError **) error {
+- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSERR*__autoreleasing*) error {
 	NSRegularExpression *regularExpression = [NSRegularExpression cachedRegularExpressionWithPattern:regex options:options error:error];	
 	NSTextCheckingResult *result = [regularExpression firstMatchInString:self options:NSMatchingReportCompletion range:range];
 
@@ -798,7 +798,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 - (NSS*) stringByMatching:(NSS*) regex capture:(NSInteger) capture {
 	return [self stringByMatching:regex options:0 inRange:NSMakeRange(0, self.length) capture:capture error:nil];
 }
-- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSError **) error {
+- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSERR*__autoreleasing*) error {
 	NSRegularExpression *regularExpression = [NSRegularExpression cachedRegularExpressionWithPattern:regex options:options error:error];
 	NSTextCheckingResult *result = [regularExpression firstMatchInString:self options:NSMatchingReportCompletion range:range];
 
@@ -809,7 +809,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 
 	return [self substringWithRange:resultRange];
 }
-- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(NSError **) error {
+- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(NSERR*__autoreleasing*) error {
 	NSRegularExpression *regularExpression = [NSRegularExpression cachedRegularExpressionWithPattern:regex options:options error:error];
 	NSTextCheckingResult *result = [regularExpression firstMatchInString:self options:NSMatchingReportCompletion range:range];
 
@@ -826,7 +826,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 - (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement {
 	return [self stringByReplacingOccurrencesOfRegex:regex withString:replacement options:0 range:NSMakeRange(0, self.length) error:nil];
 }
-- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(NSError **) error {
+- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(NSERR*__autoreleasing*) error {
 	NSRegularExpression *regularExpression = [NSRegularExpression cachedRegularExpressionWithPattern:regex options:options error:error];
 	NSMutableString *replacementString = [self mutableCopy];
 
@@ -929,7 +929,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 @end
 
 @implementation NSScanner (NSScannerAdditions)
-- (BOOL) scanCharactersFromSet:(NSCharacterSet *) scanSet maxLength:(NSUInteger) maxLength intoString:(NSS**) stringValue {
+- (BOOL) scanCharactersFromSet:(NSCharacterSet *) scanSet maxLength:(NSUInteger) maxLength intoString:(NSS*__autoreleasing*) stringValue {
 	if( ! [self isAtEnd] ) {
 		NSUInteger location = [self scanLocation];
 		NSS*source = [self string];

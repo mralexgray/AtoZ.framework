@@ -9,7 +9,7 @@
 // made from a format NSString and variable arguments.
 //
 - (NSSet *)fetchObjectsForEntityName:(NSS*)newEntityName
-					   withPredicate:(id)stringOrPredicate, ...
+					   withPredicate: stringOrPredicate, ...
 {
   NSEntityDescription *entity = [NSEntityDescription
 								 entityForName:newEntityName inManagedObjectContext:self];

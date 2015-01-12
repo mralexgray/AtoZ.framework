@@ -4,7 +4,7 @@
 
  */
 
-@import AppKit;
+#import <AppKit/AppKit.h>
 
 #ifdef PARTOF_AtoZ
 #import "NBBModule.h"

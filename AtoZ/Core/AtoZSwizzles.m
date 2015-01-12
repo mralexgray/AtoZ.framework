@@ -56,9 +56,7 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 @implementation NSO (ConciseKitSwizzle)
 
 + (BOOL)      swizzleMethod:(SEL)sel1 with:(SEL)sel2                              { return [self swizzleMethod:sel1 in:self with:sel2 in:self]; }
-+ (BOOL)      swizzleMethod:(SEL)sel1 with:(SEL)sel2                in:(Class)k1  {
-  return [self swizzleMethod:sel1 in:k1 with:sel2 in:k1];
-}
++ (BOOL)      swizzleMethod:(SEL)sel1 with:(SEL)sel2                in:(Class)k1  { return [self swizzleMethod:sel1 in:k1 with:sel2 in:k1]; }
 + (BOOL)      swizzleMethod:(SEL)sel1   in:(Class)k1 with:(SEL)sel2 in:(Class)k2  {
   Method originalMethod = class_getInstanceMethod(k1, sel1);
   Method anotherMethod  = class_getInstanceMethod(k2, sel2);
@@ -110,7 +108,8 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
   }
 }
 
-- (NSS*)swizzleNSValueDescription {
+- (NSS*) swizzleNSValueDescription {
+
   NSValue *_ = (id)self;
 
   if (strcmp([_ objCType],@encode(AZPOS)) == 0 ) {
@@ -119,7 +118,7 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
     return AZPositionToString(pos);
   }
   NSA *raw = _.swizzleNSValueDescription.words;
-  NSA*left = [NSA arrayWithArrays:[raw map:^id(id obj) {
+  NSA*left = [NSA arrayWithArrays:[(NSA*)raw map:^id(id obj) {
     return [obj rangeOfString:@"{"].location != NSNotFound ? [obj split:@"{"] : @[obj]; }]];
   NSA*right = [NSA arrayWithArrays:[left map:^id(id obj) {
     return [obj rangeOfString:@"}"].location != NSNotFound ? [obj split:@"}"] : @[obj]; }]];
@@ -133,20 +132,12 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 }
 
 // TEMPORARY SWIZ
-+ (void)swizzle:(SEL)oMeth toMethod:(SEL)newMeth forBlock:(void(^)(void))swizzledBlock
-{
-  if (!swizzledBlock)
-    return;
++ (void)swizzle:(SEL)oMeth toMethod:(SEL)newMeth forBlock:(void(^)(void))swizzledBlock {
 
-  @try
-  {
-    [self swizzleMethod:oMeth with:newMeth in:self.class];
-    swizzledBlock();
-  }
-  @finally
-  {
-    [self swizzleMethod:newMeth with:oMeth in:self.class];
-  }
+  if (!swizzledBlock) return;
+
+  @try      { [self swizzleMethod:oMeth with:newMeth in:self.class]; swizzledBlock(); }
+  @finally  { [self swizzleMethod:newMeth with:oMeth in:self.class];                  }
 }
 
 
@@ -220,19 +211,24 @@ __attribute__((constructor)) static void do_the_swizzles() {
 }
 
 @implementation NSD (AtoZSwizzles)
-- (NSS*) swizzleDescription                 {	AZSWIZ //	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
+
+- (NSS*) swizzleDescription {	AZSWIZ //	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
   return !AZLogDictsASXML ? self.swizzleDescription
   : [[NSS stringWithData:[AZXMLWriter dataWithPropertyList:(NSD*)self]
                 encoding:NSUTF8StringEncoding]
      substringBetweenPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"
      andSuffix:@"</plist>"];
 }
+
 @end
+
 @implementation NSView (AtoZSwizzles)
-- (void) swizzleDidMoveToWindow             { AZSWIZ	[self swizzleDidMoveToWindow];
+
+- (void) swizzleDidMoveToWindow { AZSWIZ	[self swizzleDidMoveToWindow];
   [AZNOTCENTER postNotificationName:NSViewDidMoveToWindowNotification object:self userInfo:@{@"window":self.window}];
 }
-- (void) swizzleSetWantsLayer:(BOOL)b       { // AZSWIZ // IF_RETURN(b && self.layer != nil);
+
+- (void) swizzleSetWantsLayer:(BOOL)b { // AZSWIZ // IF_RETURN(b && self.layer != nil);
 
   if (self.wantsLayer == b && self.layer) { self.layer.hostView =self; return; }
   [self swizzleSetWantsLayer:b];
@@ -243,10 +239,12 @@ __attribute__((constructor)) static void do_the_swizzles() {
     //    if (!self.layer.name) self.layer.name = @"hostLayer";
   }
 }
+
 @end
 
 @implementation CAL (AtoZSwizzles)
-- (NSS*)        swizzleDescription          { AZSWIZ NSA*sclasses = self.superclassesAsStrings;
+
+- (NSS*) swizzleDescription { AZSWIZ NSA*sclasses = self.superclassesAsStrings;
 
   return JATExpand(@"{0} #{1} of {2}! {3} f:{4} b:{5}", AZCLSSTR,
                    self.siblingIndex,
@@ -257,15 +255,10 @@ __attribute__((constructor)) static void do_the_swizzles() {
                    sclasses.count > 1 ? [zSPC withString:[sclasses componentsJoinedByString:@" -> "]] : zNIL);//, nil);
   //                                          AZAlignToString(self.alignment));
 }
-- (BOOL)      swizzleContainsPoint:(NSP)p   { return self.noHit ? NO : [self swizzleContainsPoint:p]; }
 
-/* NOTE TO SELF Wednesday, June 4, 2014 at 7:15:38 AM  This is toobroad. */
-/*+ (BOOL) swizzleNeedsDisplayForKey:(NSS*)k  { AZSWIZ
- return [@[@"hovered", @"backgroundNSColor", @"expanded",
- @"siblingIndex", @"selected"] containsObject:k] ?: [self swizzleNeedsDisplayForKey:k];
- }
- */
-- (void)        swizzleAddSublayer:(CAL*)c  {   if (!c) return; AZBlockSelf(newSuper);
+- (BOOL) swizzleContainsPoint:(NSP)p   { return self.noHit ? NO : [self swizzleContainsPoint:p]; }
+
+- (void)   swizzleAddSublayer:(CAL*)c  {   if (!c) return; AZBlockSelf(newSuper);
 
   [c triggerKVO:@"superlayer" block:^(id _self) { [newSuper swizzleAddSublayer:_self]; }];
 
@@ -280,20 +273,22 @@ __attribute__((constructor)) static void do_the_swizzles() {
   objc_msgSend(c, @selector(didMoveToSuperlayer));//  [c performSelectorIfResponds:];
 
 }
-- (id) swizzleHitTest:(NSP)p { CAL*x = [self swizzleHitTest:p] ?: nil;
+
+- swizzleHitTest:(NSP)p { CAL*x = [self swizzleHitTest:p] ?: nil;
 
   return !x ? nil :x.onHit ? x.onHit(x) : nil, x;
 }
 
+/* NOTE TO SELF Wednesday, June 4, 2014 at 7:15:38 AM  This is toobroad. */
+/*+ (BOOL) swizzleNeedsDisplayForKey:(NSS*)k  { AZSWIZ
+ return [@[@"hovered", @"backgroundNSColor", @"expanded",
+ @"siblingIndex", @"selected"] containsObject:k] ?: [self swizzleNeedsDisplayForKey:k];
+ }
+ */
+
 @end
 
 @implementation NSIMG (AtoZSwizzles)
-
-+ (void) load {
-
-  [NSO swizzleClassMethod:@selector(imageNamed:)                in:NSIMG.class
-                     with:@selector(swizzledImageNamed:)        in:NSIMG.class];
-}
 
 + (NSIMG*) swizzledImageNamed:(NSS*)name 	{   AZSTATIC_OBJ(NSMD,nameToImageDict,NSMD.new);
 
@@ -328,15 +323,17 @@ __attribute__((constructor)) static void do_the_swizzles() {
 
   return image;
 }
+
 @end
 
-
 #pragma mark - NSMENUITEM IS SWIZZED OUT IN NSMENU>DARK
-
 
 @implementation AtoZ (AtoZSwizzles)
 
 + (void) load { //AZLOGCMD;
+
+  [NSO swizzleClassMethod:@selector(imageNamed:)                in:NSIMG.class
+                     with:@selector(swizzledImageNamed:)        in:NSIMG.class];
 
   [self swizzleMethod:@selector(description)                   in:NSC.class
                  with:@selector(swizzleColorDescription)          in:self];
@@ -371,7 +368,7 @@ __attribute__((constructor)) static void do_the_swizzles() {
   return [@"\e[38;5;${value}m for foreground colors" withString:@"not done"];
 
 }
--(NSS*)swizzleJSONDescription { //	[self swizzleDescription];
+- (NSS*) swizzleJSONDescription { //	[self swizzleDescription];
 
   return [[AZXMLWriter dataWithPropertyList:(NSJSONSerialization*)self].UTF8String
           substringBetweenPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"
@@ -380,13 +377,7 @@ __attribute__((constructor)) static void do_the_swizzles() {
 
 @end
 
-@implementation NSNumber (AtoZSwizzles) + (void)load {
-
-  //  NSClassFromString(@"__NSCFNumber")
-  //  [$ swizzleMethod:d in:NSN.class with:swizzleD in:NSN.class];
-
-
-}
+@implementation NSNumber (AtoZSwizzles)
 
 - (NSS*) swizzleDescription {
 

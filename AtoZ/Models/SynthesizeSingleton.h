@@ -20,6 +20,10 @@
 	dispatch_once(&onceToken, ^{ accessorname = classname.new; });		\
 	return accessorname; 															\
 }
+
+#define SYNTHESIZE_CLASS_FACTORY(accessorname) 		\
++ (instancetype) accessorname { return [self.class new]; }
+
 /*
 #else
 #define SYNTHESIZE_SINGLETON_FOR_CLASS(classname, accessorname) \

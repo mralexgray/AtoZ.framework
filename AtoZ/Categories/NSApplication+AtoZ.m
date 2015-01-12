@@ -51,7 +51,7 @@ void SetDockIconImage(NSImage*i) { NSDockTile *dock = NSApplication.sharedApplic
 	}
 }
 
-- (NSMI*) selectItemWithRepresentedObject:(id)representedObject {
+- (NSMI*) selectItemWithRepresentedObject: representedObject {
 	NSMenuItem *selectedItem = nil;
 	for (NSMenuItem *item in [self itemArray])
 	{

@@ -3,6 +3,12 @@
 
 #import "AtoZUmbrella.h"
 
+@interface NSGC (State)
++ (void) swapToBitmapContext:(NSBIR*)bitmapRef       do:(VBlk)shit;
++ (void)         swapContext:(NSGraphicsContext*)ctx do:(VBlk)shit;
++ (void)     swapToContextRef:(CGContextRef)ctx      do:(VBlk)shit;
+@end
+
 JREnumDeclare( BlockDelegateType,	
   UndefinedBlockDelegate    = 0x00000000,
   CABlockTypeDrawBlock      = 0x00000001, 

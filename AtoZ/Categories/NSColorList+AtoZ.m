@@ -5,9 +5,9 @@
 @implementation NSColorList (AtoZ) static NSMD *palettesD;
 
 #pragma mark - ClassKeyGet Protocol
-+ (id) objectForKeyedSubscript:(id)x  { return [self colorListNamed:x] ?: [self.class colorListInFrameworkWithFileName:x] ?: nil; }
++ (id) objectForKeyedSubscript: x  { return [self colorListNamed:x] ?: [self.class colorListInFrameworkWithFileName:x] ?: nil; }
 #pragma mark - KeyGet Protocol
-- (id) objectForKeyedSubscript:(id)x {  NSC * calore = [self colorWithKey:x];
+- (id) objectForKeyedSubscript: x {  NSC * calore = [self colorWithKey:x];
 
     return !calore ? nil : ({
     calore = [calore deviceRGBColor];    //  NSLog(@"named:%@...%@", c, c.name);
@@ -313,7 +313,7 @@ scanFailed:
 }
 
 #pragma mark - ObjectColor)
-+ (NSS*) representedColorForObject:(id)anObject withValidColors:(NSA*)validColors {
++ (NSS*) representedColorForObject: anObject withValidColors:(NSA*)validColors {
   NSArray *validColorsArray = validColors;
   if (!validColorsArray || [validColorsArray count] == 0) {
 //    if (!defaultValidColors) {

@@ -127,7 +127,7 @@
 	[self addObserver:self forKeyPath:@"offset"options:0 context:NULL];
 
 	self.palette 		= [[NSC randomPalette]withMinItems:RAND_INT_VAL(24, 56)];
-	self.tabs  			= [NSOrderedDictionary	 new];
+	self.tabs  			= [OrderedDictionary new];
 	//	self.layoutManager 	= self;
 
 	NSSZ __unused unitSize 		= self.sizer.size;
