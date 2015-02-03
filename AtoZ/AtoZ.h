@@ -4,25 +4,25 @@
 
 
                                                                                    #define AtoZLOGO @"\
-																																																			\
-							db            ,d                     888888888888																				\
-						 d88b           88                              ,88																				\
-            d8'`8b        MM88MMM                         ,88^ 																				\
-           d8'  `8b         88        ,adPPYba,         ,88^   																				\
-          d8YaaaaY8b        88       a8'     '8a      ,88^      																  		\
-         d8""""""""8b       88       8b       d8    ,88^       																				\
-        d8'        `8b      88       '8a,   ,a8'   88^         																				\
-       d8'          `8b     'Y888     `^YbbdP^'    888888888888																				\
-																																																		  \
-			     _    _     _           _            _    _																									\
-          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/																				 		\
-					|    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\																				   	\
-																																																			"
+                                                                                                      \
+              db            ,d                     888888888888                                       \
+             d88b           88                              ,88                                       \
+            d8'`8b        MM88MMM                         ,88^                                        \
+           d8'  `8b         88        ,adPPYba,         ,88^                                          \
+          d8YaaaaY8b        88       a8'     '8a      ,88^                                            \
+         d8""""""""8b       88       8b       d8    ,88^                                              \
+        d8'        `8b      88       '8a,   ,a8'   88^                                                \
+       d8'          `8b     'Y888     `^YbbdP^'    888888888888                                       \
+                                                                                                      \
+           _    _     _           _            _    _                                                 \
+          |_   |_)   /_\   |\/|  |_  |  |  |  / \  |_)  |/                                            \
+          |    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\                                            \
+                                                                                                      "
                                                                                   #define AZWELCOME @"\
                                                                                                       \
 Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать! Willkommen! 接 待! Bonjour!                 \
                                                                                                       \
-             𝗔𝗍𝗈𝗭•𝖿𝗋𝖺𝗆𝖾𝗐𝗈𝗋𝗄! © ⅯⅯⅯⅩⅠⅤ ! 𝗀𝗂𝗍𝗁𝗎𝖻.𝖼𝗈𝗆/𝗺𝗿𝗮𝗹𝗲𝘅𝗴𝗿𝗮𝘆"
+             헔헍허헭•햿헋햺헆햾헐허헋헄! © ⅯⅯⅯⅩⅠⅤ ! 헀헂헍헁헎햻.햼허헆/헺헿헮헹헲혅헴헿헮혆"
 
 #ifdef __cplusplus
   #define AtoZ_EXTERN extern "C" __attribute__((visibility ("default")))
@@ -222,14 +222,14 @@ extern NSS *const AtoZSharedInstanceUpdated,
   @discussion (I actually added this to my application delegate and implemented application:delegateHandlesKey:)
               Now you are ready to bind class methods to the Application object, even in the interface builder,
               with the keyPath @"classProxy.CharacterSet.allCharacterSets". */
-              
+
 AZNSIFACE(AZClassProxy)
 
 /*! Naive example: @c
 
- [[NSBundle bundleWithPath:[[NSString stringWithUTF8String:getenv("AZBUILD")] 
+ [[NSBundle bundleWithPath:[[NSString stringWithUTF8String:getenv("AZBUILD")]
                             stringByAppendingPathComponent:@"AtoZ.framework"]] load];
-                            
+
   NSLog(@"%@", objc_msgSend([NSString class], NSSelectorFromString(@"dicksonisms")));
   NSLog(@"%@", objc_msgSend([[@"" valueForKey:@"classProxy"] valueForKey:@"NSString"], NSSelectorFromString(@"dicksonisms")));
 */
@@ -240,10 +240,10 @@ AZNSIFACE(AZClassProxy)
 @end
 
 #define NSCDR NSCoder
-#define CPROXY(x) 	[[@"a" valueForKey:@"classProxy"] valueForKey:@#x]
+#define CPROXY(x)   [[@"a" valueForKey:@"classProxy"] valueForKey:@#x]
 #define MASCOLORE(x) [x setValue:[CXPROXY(@"NSColor") valueForKey:@"randomColor"] forKey:@"logForeground"]
 
-#define NSPRINT(x) 	[[[@"a" valueForKey:@"classProxy"] valueForKey:@"NSTerminal"]performSelectorWithoutWarnings:NSSelectorFromString(@"printString:") withObject:[x valueForKey:@"colorLogString"]]
+#define NSPRINT(x)  [[[@"a" valueForKey:@"classProxy"] valueForKey:@"NSTerminal"]performSelectorWithoutWarnings:NSSelectorFromString(@"printString:") withObject:[x valueForKey:@"colorLogString"]]
 
 
 #define TestVarArgs(fmt...) [AtoZ sendArrayTo:$SEL(@"testVarargs:") inClass:AtoZ.class withVarargs:fmt]
@@ -256,7 +256,7 @@ AZNSIFACE(AZClassProxy)
 
 // extobjc EXTENSIONS
 
-//#define synthesizeAssociations(...) ({ int x = metamacro_argcount(__VA_ARGS__); metamacro_tail( 
+//#define synthesizeAssociations(...) ({ int x = metamacro_argcount(__VA_ARGS__); metamacro_tail(
 //int sum = firstNum, number;   va_start (args, firstNum);
 //    while (1) if (!(number = va_arg (args, int))) break; else sum += number;
 //    va_end (args);   return (sum);
@@ -272,7 +272,7 @@ AZNSIFACE(AZClassProxy)
 
 @interface AtoZ : BaseModel <DDLogFormatter>
 
-@prop_RO	LogEnv   logEnv;
+@prop_RO  LogEnv   logEnv;
 
 + (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l;
 
@@ -283,48 +283,48 @@ AZNSIFACE(AZClassProxy)
 @property AZLiveReload *reloader;
 
 /*!
- *	@method isAtoZRunning
- *	@abstract Detects whether AtoZHelper is currently running.
- *	@discussion Cycles through the process list to find whether AtoZHelper is running and returns its findings.
- *	@result Returns YES if AtoZHelper is running, NO otherwise.
+ *  @method isAtoZRunning
+ *  @abstract Detects whether AtoZHelper is currently running.
+ *  @discussion Cycles through the process list to find whether AtoZHelper is running and returns its findings.
+ *  @result Returns YES if AtoZHelper is running, NO otherwise.
  */
 //+ (BOOL) isAtoZRunning;
 
-/*	@method setAtoZDelegate:
-	@abstract Set the object which will be responsible for providing and receiving Growl information.
-	@discussion 
-	This must be called before using AtoZApplicationBridge. The methods in the GrowlApplicationBridgeDelegate protocol are required and return the basic information needed to register with Growl. The methods in the GrowlApplicationBridgeDelegate_InformalProtocol informal protocol are individually optional.  They provide a greater degree of interaction between the application and growl such as informing the application when one of its Growl notifications is clicked by the user. The methods in the GrowlApplicationBridgeDelegate_Installation_InformalProtocol informal protocol are individually optional and are only applicable when using the Growl-WithInstaller.framework which allows for automated Growl installation.
-	When this method is called, data will be collected from inDelegate, Growl will be launched if it is not already running, and the application will be registered with Growl.
-	If using the Growl-WithInstaller framework, if Growl is already installed but this copy of the framework has an updated version of Growl, the user will be prompted to update automatically.
-	@param inDelegate The delegate for the GrowlApplicationBridge. It must conform to the GrowlApplicationBridgeDelegate protocol.	*/
+/*  @method setAtoZDelegate:
+  @abstract Set the object which will be responsible for providing and receiving Growl information.
+  @discussion
+  This must be called before using AtoZApplicationBridge. The methods in the GrowlApplicationBridgeDelegate protocol are required and return the basic information needed to register with Growl. The methods in the GrowlApplicationBridgeDelegate_InformalProtocol informal protocol are individually optional.  They provide a greater degree of interaction between the application and growl such as informing the application when one of its Growl notifications is clicked by the user. The methods in the GrowlApplicationBridgeDelegate_Installation_InformalProtocol informal protocol are individually optional and are only applicable when using the Growl-WithInstaller.framework which allows for automated Growl installation.
+  When this method is called, data will be collected from inDelegate, Growl will be launched if it is not already running, and the application will be registered with Growl.
+  If using the Growl-WithInstaller framework, if Growl is already installed but this copy of the framework has an updated version of Growl, the user will be prompted to update automatically.
+  @param inDelegate The delegate for the GrowlApplicationBridge. It must conform to the GrowlApplicationBridgeDelegate protocol.  */
 
 #define AZDELEGATE NSObject<AtoZDelegate>
 /*!@method growlDelegate
-	@abstract Return the object responsible for providing and receiving Growl information.
-	@discussion See setGrowlDelegate: for details.
-	@result The Growl delegate.	*/
-//@property (weak) 	AZDELEGATE	* atozDelegate;
+  @abstract Return the object responsible for providing and receiving Growl information.
+  @discussion See setGrowlDelegate: for details.
+  @result The Growl delegate. */
+//@property (weak)  AZDELEGATE  * atozDelegate;
 //+ (AZDELEGATE*)delegate;
 //@property (readonly) NSMA *delegates;
 //+ (NSMA*) delegates;
 
-@prop_NA MASShortcutView	* azHotKeyView;
-@prop_NA MASShortcut 		* azHotKey;
-@prop_NA 		BOOL 					  azHotKeyEnabled;
+@prop_NA MASShortcutView  * azHotKeyView;
+@prop_NA MASShortcut    * azHotKey;
+@prop_NA    BOOL            azHotKeyEnabled;
 
 @prop_NA  NSW * azWindow;
 @prop_NA  NSC * logColor;
-@prop_NA	NSA * fonts,          /// 13 font... names.
+@prop_NA  NSA * fonts,          /// 13 font... names.
               * cachedImages;   /// nil.
 @prop_RO  NSB * bundle;
-@prop_RO BOOL 	inTTY,          /// Seems accurate..
+@prop_RO BOOL   inTTY,          /// Seems accurate..
                         inXcode;
 
 @prop_RO NSOS * sharedStack;
 @prop_RO NSOQ * sharedQ,
               * sharedSQ;
 
-@prop_AS IBO 	NSTXTV * stdOutView;
+@prop_AS IBO  NSTXTV * stdOutView;
 
 @prop_ AZBonjourBlock *bonjourBlock;
 
@@ -359,7 +359,7 @@ AZNSIFACE(AZClassProxy)
 -   (NSP) convertToScreenFromLocalPoint: (NSP) point relativeToView: (NSV*) view;
 -  (void) moveMouseToScreenPoint: (NSP) point;
 -  (void) handleMouseEvent: (NSEventMask)event inView: (NSV*)view withBlock: (void (^)())block;
-+  (NSS*) stringForType:		(id)type;
++  (NSS*) stringForType:    (id)type;
 +  (NSS*) version;
 +  (NSB*) bundle;
 +  (NSS*) resources;
@@ -371,8 +371,8 @@ AZNSIFACE(AZClassProxy)
 
 +  (void) testVarargs: (NSA*)args;
 
-/* USAGE:	AZVA_ArrayBlock varargB = ^(NSA* enumerator){ NSLog(@"what a value!: %@", enumerator); };
-				[AtoZ varargBlock:varargB withVarargs:@"vageen",@2, GREEN, nil];
+/* USAGE: AZVA_ArrayBlock varargB = ^(NSA* enumerator){ NSLog(@"what a value!: %@", enumerator); };
+        [AtoZ varargBlock:varargB withVarargs:@"vageen",@2, GREEN, nil];
 */
 +  (void)  varargBlock:(void(^)(NSA*enumerator))block withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
 +  (void)  sendArrayTo:(SEL)method inClass:(Class)klass withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
@@ -383,7 +383,7 @@ AZNSIFACE(AZClassProxy)
 +  (NSA*) processes;
 
 #ifdef GROWL_ENABLED
-- (BOOL) registerGrowl;	<GrowlApplicationBridgeDelegate>
+- (BOOL) registerGrowl; <GrowlApplicationBridgeDelegate>
 #endif
 
 
@@ -408,15 +408,15 @@ AZNSIFACE(AZClassProxy)
 
 + (void) say:(NSS*)thing;
 
-+  (CGF) clamp: 			(CGF)value	   from:(CGF)minimum to:(CGF)maximum;
-+  (CGF) scaleForSize:	(CGS)size	  inRect:(CGR)rect;
-+  (CGR) centerSize:		(CGS)size	  inRect:(CGR)rect;
-+  (CGP) centerOfRect:	(CGR)rect;
++  (CGF) clamp:       (CGF)value     from:(CGF)minimum to:(CGF)maximum;
++  (CGF) scaleForSize:  (CGS)size   inRect:(CGR)rect;
++  (CGR) centerSize:    (CGS)size   inRect:(CGR)rect;
++  (CGP) centerOfRect:  (CGR)rect;
 +  (NSR) rectFromPointA:(NSP)pointA andPointB:(NSP)pointB;
-+ (void) printRect:		(NSR)toPrint;
-+ (void) printCGRect:	(CGR)cgRect;
-+ (void) printPoint:		(NSP)toPrint;
-+ (void) printCGPoint:	(CGP)cgPoint;
++ (void) printRect:   (NSR)toPrint;
++ (void) printCGRect: (CGR)cgRect;
++ (void) printPoint:    (NSP)toPrint;
++ (void) printCGPoint:  (CGP)cgPoint;
 + (void) printTransform:(CGAffineTransform)t;
 
 + (NSImage*)cropImage:(NSImage*)sourceImage withRect:(NSRect)sourceRect;
@@ -424,9 +424,9 @@ AZNSIFACE(AZClassProxy)
 @end
 
 @interface JustABox : NSView
-@property (ASS) 		BOOL 	selected;
+@property (ASS)     BOOL  selected;
 @property (RDWRT,CP) CASHL *shapeLayer;
-@property (RDWRT,CP) NSC 	*save, *color;
+@property (RDWRT,CP) NSC  *save, *color;
 @end
 
 @interface CAAnimation (NSViewFlipper)
@@ -434,14 +434,14 @@ AZNSIFACE(AZClassProxy)
 @end
 
 @interface NSViewFlipperController : NSObject {
-	NSView *hostView, *frontView, *backView, *topView, *bottomView;
-	CALayer *topLayer, *bottomLayer;
-	NSTimeInterval duration;
-	BOOL isFlipped;
+  NSView *hostView, *frontView, *backView, *topView, *bottomView;
+  CALayer *topLayer, *bottomLayer;
+  NSTimeInterval duration;
+  BOOL isFlipped;
 }
-@property (RONLY) 	BOOL isFlipped;
-@property (ASS)		NSTI duration;
-@property (WK,RONLY)	NSView *visibleView;
+@property (RONLY)   BOOL isFlipped;
+@property (ASS)   NSTI duration;
+@property (WK,RONLY)  NSView *visibleView;
 -  (id) initWithHostView:(NSV*)newHost frontView:(NSV*)newFrontView backView:(NSV*)newBackView;
 -(void) flip;
 @end
@@ -456,16 +456,16 @@ AZNSIFACE(AZClassProxy)
  1. Parsing data from source files: This is the initial phase where input directories and files are parsed into a memory representation (i.e. objects) suitable for subsequent handling. This is where the source code files are  parsed and validated for possible file or object-level incosistencies. This step is driven by `GBParser` class.
  2. Post-processing of the data parsed in the previous step: At this phase, we already have in-memory representation of all source code objects, so we can post-process and validate things such as links to other objects etc. We can also update in-memory representation with this data and therefore prepare everything for the final phase. This step is driven by `GBProcessor` class.
  3. Generating output: This is the final phase where we use in-memory data to generate output. This step is driven by `GBGenerator` class.
- @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.	*/
+ @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.  */
 
-/*  xcode shortcuts  @property (nonatomic, assign) <\#type\#> <\#name\#>;	*/
+/*  xcode shortcuts  @property (nonatomic, assign) <\#type\#> <\#name\#>; */
 
 /*
  @class AZTaskResponder;
  typedef void (^asyncTaskCallback)(AZTaskResponder *response);
  @interface AZTaskResponder: BaseModel
- @property (copy) BKReturnBlock 		returnBlock;
- @property (copy) asyncTaskCallback 	asyncTask;
+ @property (copy) BKReturnBlock     returnBlock;
+ @property (copy) asyncTaskCallback   asyncTask;
  @property (NATOM,STRNG) id response;
  //Atoz
  + (void) aSyncTask:(asyncTaskCallback)handler;
@@ -479,7 +479,7 @@ AZNSIFACE(AZClassProxy)
  You can use it as
 
  FilterBlock fb1 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"YES"]) { NSLog(@"You did it");  *stop = YES;} return element;};
- FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");		*stop = YES;} return element;};
+ FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");   *stop = YES;} return element;};
 
  NSArray *filter = @[ fb1, fb2 ];
  NSArray *inputArray = @[@"NO",@"YES"];
@@ -545,51 +545,51 @@ AZNSIFACE(AZClassProxy)
 //  https://gist.github.com/1563325
 //
 /*
-	#import <Availability.h>
-	#undef ah_retain
-	#undef ah_dealloc
-	#undef ah_autorelease autorelease
-	#undef ah_dealloc dealloc
-	#if __has_feature(objc_arc)
-		#define ah_retain self
-		#define ah_release self
-		#define ah_autorelease self
-		#define ah_dealloc self
-	#else
-		#define ah_retain retain
-		#define ah_release release
-		#define ah_autorelease autorelease
-		#define ah_dealloc dealloc
-		#undef __bridge
-		#define __bridge
-		#undef __bridge_transfer
-		#define __bridge_transfer
-	#endif
+  #import <Availability.h>
+  #undef ah_retain
+  #undef ah_dealloc
+  #undef ah_autorelease autorelease
+  #undef ah_dealloc dealloc
+  #if __has_feature(objc_arc)
+    #define ah_retain self
+    #define ah_release self
+    #define ah_autorelease self
+    #define ah_dealloc self
+  #else
+    #define ah_retain retain
+    #define ah_release release
+    #define ah_autorelease autorelease
+    #define ah_dealloc dealloc
+    #undef __bridge
+    #define __bridge
+    #undef __bridge_transfer
+    #define __bridge_transfer
+  #endif
 
-	//  Weak reference support
+  //  Weak reference support
 
-	#import <Availability.h>
-	#if !__has_feature(objc_arc_weak)
-		#undef ah_weak
-		#define ah_weak unsafe_unretained
-		#undef __ah_weak
-		#define __ah_weak __unsafe_unretained
-	#endif
+  #import <Availability.h>
+  #if !__has_feature(objc_arc_weak)
+    #undef ah_weak
+    #define ah_weak unsafe_unretained
+    #undef __ah_weak
+    #define __ah_weak __unsafe_unretained
+  #endif
 
-	//  Weak delegate support
+  //  Weak delegate support
 
-	#import <Availability.h>
-	#undef ah_weak_delegate
-	#undef __ah_weak_delegate
-	#if __has_feature(objc_arc_weak) && \
-		(!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
-		__MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
-		#define ah_weak_delegate weak
-		#define __ah_weak_delegate __weak
-	#else
-		#define ah_weak_delegate unsafe_unretained
-		#define __ah_weak_delegate __unsafe_unretained
-	#endif
+  #import <Availability.h>
+  #undef ah_weak_delegate
+  #undef __ah_weak_delegate
+  #if __has_feature(objc_arc_weak) && \
+    (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
+    __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+    #define ah_weak_delegate weak
+    #define __ah_weak_delegate __weak
+  #else
+    #define ah_weak_delegate unsafe_unretained
+    #define __ah_weak_delegate __unsafe_unretained
+  #endif
 
 //  ARC Helper ends
 */
@@ -649,59 +649,59 @@ AZNSIFACE(AZClassProxy)
 
 
 /*
-	#if __has_feature(objc_arc)											// ARC Helper Version 2.2
-		#define ah_retain 		self
-		#define ah_release 		self
-		#define ah_autorelease 	self
-//		#define release 			self										// Is this right?  Why's mine different?
-	//	#define autorelease 		self										// But shit hits fan without.
-		#define ah_dealloc 		self
-	#else
-		#define ah_retain 		retain
-		#define ah_release 		release
-		#define ah_autorelease 	autorelease
-		#define ah_dealloc 		dealloc
-		#undef 	__bridge
-		#define  __bridge
-		#undef   __bridge_transfer
-		#define  __bridge_transfer
-	#endif
-	#if !__has_feature(objc_arc_weak)									// Weak reference support
-		#undef 	  ah_weak
-		#define 	  ah_weak   unsafe_unretained
-		#undef 	__ah_weak
-		#define 	__ah_weak __unsafe_unretained
-	#endif
-	#undef ah_weak_delegate													// Weak delegate support
-	#undef __ah_weak_delegate
-	#if	__has_feature(objc_arc_weak) && (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
-		#define   ah_weak_delegate weak
-		#define __ah_weak_delegate __weak
-	#else
-		#define   ah_weak_delegate   unsafe_unretained
-		#define __ah_weak_delegate __unsafe_unretained
-	#endif																		// ARC Helper ends
+  #if __has_feature(objc_arc)                     // ARC Helper Version 2.2
+    #define ah_retain     self
+    #define ah_release    self
+    #define ah_autorelease  self
+//    #define release       self                    // Is this right?  Why's mine different?
+  //  #define autorelease     self                    // But shit hits fan without.
+    #define ah_dealloc    self
+  #else
+    #define ah_retain     retain
+    #define ah_release    release
+    #define ah_autorelease  autorelease
+    #define ah_dealloc    dealloc
+    #undef  __bridge
+    #define  __bridge
+    #undef   __bridge_transfer
+    #define  __bridge_transfer
+  #endif
+  #if !__has_feature(objc_arc_weak)                 // Weak reference support
+    #undef    ah_weak
+    #define     ah_weak   unsafe_unretained
+    #undef  __ah_weak
+    #define   __ah_weak __unsafe_unretained
+  #endif
+  #undef ah_weak_delegate                         // Weak delegate support
+  #undef __ah_weak_delegate
+  #if __has_feature(objc_arc_weak) && (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+    #define   ah_weak_delegate weak
+    #define __ah_weak_delegate __weak
+  #else
+    #define   ah_weak_delegate   unsafe_unretained
+    #define __ah_weak_delegate __unsafe_unretained
+  #endif                                    // ARC Helper ends
 
 
-	//  ARC Helper Version 1.3.1 Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design Distributed under the permissive zlib license  Get the latest version from here: https://gist.github.com/1563325
-	#ifndef AH_RETAIN
-		#if __has_feature(objc_arc)
-			#define AH_RETAIN(x) (x)
-			#define AH_RELEASE(x) (void)(x)
-			#define AH_AUTORELEASE(x) (x)
-			#define AH_SUPER_DEALLOC (void)(0)
-			#define __AH_BRIDGE __bridge
-		#else
-			#define __AH_WEAK
-			#define AH_WEAK assign
-			#define AH_RETAIN(x) [(x) retain]
-			#define AH_RELEASE(x) [(x) release]
-			#define AH_AUTORELEASE(x) [(x) autorelease]
-			#define AH_SUPER_DEALLOC [super dealloc]
-			#define __AH_BRIDGE
-		#endif
-	#endif
-	
+  //  ARC Helper Version 1.3.1 Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design Distributed under the permissive zlib license  Get the latest version from here: https://gist.github.com/1563325
+  #ifndef AH_RETAIN
+    #if __has_feature(objc_arc)
+      #define AH_RETAIN(x) (x)
+      #define AH_RELEASE(x) (void)(x)
+      #define AH_AUTORELEASE(x) (x)
+      #define AH_SUPER_DEALLOC (void)(0)
+      #define __AH_BRIDGE __bridge
+    #else
+      #define __AH_WEAK
+      #define AH_WEAK assign
+      #define AH_RETAIN(x) [(x) retain]
+      #define AH_RELEASE(x) [(x) release]
+      #define AH_AUTORELEASE(x) [(x) autorelease]
+      #define AH_SUPER_DEALLOC [super dealloc]
+      #define __AH_BRIDGE
+    #endif
+  #endif
+
 */
 /*
 #import <pwd.h>
@@ -747,12 +747,12 @@ AZNSIFACE(AZClassProxy)
 #import <AudioToolbox/AudioToolbox.h>
 */
 
-//	#import <extobjc_OSX/e.h>
-//	#import "extobjc_OSX/extobjc.h"
-//	#import <extobjc/metamacros.h>
-//	#import "GCDAsyncSocket.h"
-//	#import "GCDAsyncSocket+AtoZ.h"
-//	#import "AtoZAutoBox/NSObject+DynamicProperties.h"
+//  #import <extobjc_OSX/e.h>
+//  #import "extobjc_OSX/extobjc.h"
+//  #import <extobjc/metamacros.h>
+//  #import "GCDAsyncSocket.h"
+//  #import "GCDAsyncSocket+AtoZ.h"
+//  #import "AtoZAutoBox/NSObject+DynamicProperties.h"
 
 //#import <AIUtilities/AIUtilities.h>
 //#import "extobjc_OSX/extobjc.h"
@@ -770,7 +770,7 @@ AZNSIFACE(AZClassProxy)
 //#import "KVOMap/DCPropertyAggregator.h"
 //#import "KVOMap/DCValueConverter.h"
 
-//#endif 
+//#endif
 
 
 
@@ -778,13 +778,13 @@ AZNSIFACE(AZClassProxy)
 
 /*!  PropertyMacros.h
 
-  Created by Nicolas Bouilleaud on 12/04/12, 
+  Created by Nicolas Bouilleaud on 12/04/12,
    using ideas by Uli Kusterer (http://orangejuiceliberationfront.com/safe-key-value-coding/)
    Laurent Deniau (https://groups.google.com/forum/?fromgroups#!topic/comp.std.c/d-6Mj5Lko_s)
    and Nick Forge (http://forgecode.net/2011/11/compile-time-checking-of-kvc-keys/)
 
 
-  Usage : 
+  Usage :
    $keypath(foo)                    -> @"foo"
    $keypath(foo,bar)                -> @"foo.bar"
    $keypath(foo,inexistentkey)        -> compilation error: undeclared selector 'inexistentkey'
@@ -792,10 +792,10 @@ AZNSIFACE(AZClassProxy)
  @note Be sure to set -Wundeclared-selector.
 */
 
-#define PP_RSEQ_N()                                 9,8,7,6,5,4,3,2,1,0 
-#define PP_ARG_N(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...)  N 
-#define PP_NARG_(...)                               PP_ARG_N(__VA_ARGS__) 
-#define PP_NARG(...)                                PP_NARG_(__VA_ARGS__,PP_RSEQ_N()) 
+#define PP_RSEQ_N()                                 9,8,7,6,5,4,3,2,1,0
+#define PP_ARG_N(_1,_2,_3,_4,_5,_6,_7,_8,_9,N,...)  N
+#define PP_NARG_(...)                               PP_ARG_N(__VA_ARGS__)
+#define PP_NARG(...)                                PP_NARG_(__VA_ARGS__,PP_RSEQ_N())
 
 #define KVCCHECK(p)                                 NSStringFromSelector(@selector(p))
 
