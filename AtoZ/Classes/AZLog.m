@@ -505,14 +505,14 @@ JREnum(zLoggingTo,
 
 #pragma mark - NSOutlineViewDelegate
 
-OVMETHOD (BOOL)      isGroupItem:item { return ISA(item,NSTN); }
+OVMETHOD (BOOL)      isGroupItem:item                 { return ISA(item,NSTN); }
 
-OVMETHOD (BOOL) shouldSelectItem:item { return !ISA(item,NSTN); }
+OVMETHOD (BOOL) shouldSelectItem:item                 { return !ISA(item,NSTN); }
 
-OVMETHOD (NSView*) viewForTableColumn:(NSTableColumn*)t item:item  {
+OVMETHOD (NSV*) viewForTableColumn:(NSTC*)t item:item {
 
-  return ISA(item,NSTN)       ? !ISA(((NSTN*)item).representedObject,AZASLEntry) ? [o makeViewWithIdentifier:@"HeaderCell" owner:self]
-       : ISA(item,AZASLEntry) ? [o makeViewWithIdentifier:@"DataCell"   owner:self] : nil : nil;
+  return ISA(item,NSTN)       ? !ISA(((NSTN*)item).representedObject,AZASLEntry) ? [ov makeViewWithIdentifier:@"HeaderCell" owner:self]
+       : ISA(item,AZASLEntry) ? [ov makeViewWithIdentifier:@"DataCell"   owner:self] : nil : nil;
 }
 
 @end

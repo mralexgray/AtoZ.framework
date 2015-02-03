@@ -1,28 +1,26 @@
 
-#define JATEMPLATE_SYNTAX_WARNINGS 1
+//#define JATEMPLATE_SYNTAX_WARNINGS 1
 
 #ifdef __OBJC__
 
 
-#import <AppKit/AppKit.h>
-//#import <WebKit/WebKit.h>
-
-//  #import <BlocksKit/BlocksKit.h>
-//  #import <CocoaPuffs/CocoaPuffs.h>
-//  #import <FunSize/FunSize.h>
-//  #import <NoodleKit/NoodleKit.h>
-//  #import <Zangetsu/Zangetsu.h>
-#define autorelease self
-
-#import <KVOMap/KVOMap.h>
-#import <AtoZAutoBox/AtoZAutoBox.h>
+//#import <AppKit/AppKit.h>
+////#import <WebKit/WebKit.h>
+//
+////  #import <BlocksKit/BlocksKit.h>
+////  #import <CocoaPuffs/CocoaPuffs.h>
+////  #import <FunSize/FunSize.h>
+////  #import <NoodleKit/NoodleKit.h>
+////  #import <Zangetsu/Zangetsu.h>
+//#define autorelease self
+//
+//#import <KVOMap/KVOMap.h>
+//#import <AtoZAutoBox/AtoZAutoBox.h>
+//#import <FunSize/FunSize.h>
+//#import "F.h"
+//#import "BlocksAdditions.h"
 
 //#import <Zangetsu/Zangetsu.h>
-#import <FunSize/FunSize.h>
-#import "F.h"
-
-#import "BlocksAdditions.h"
-
 //#import <AtoZAppKit/AtoZAppKit.h>
 //#import <AtoZBezierPath/AtoZBezierPath.h>
 //#import <BlocksKit/A2DynamicDelegate.h>

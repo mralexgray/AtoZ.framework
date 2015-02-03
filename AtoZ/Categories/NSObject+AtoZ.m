@@ -2525,7 +2525,8 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 -    (void) setSelector:(SEL)s forKey : (NSS*)key { [self setValue:[NSValue valueWithPointer:s] forKey:key]; }
 
-id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
+id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp) {
+
 	return [kp isIntegerNumber] && [object isKindOfClass:NSA.class] ?	[(NSA*)object normal:kp.integerValue] : nil;
 };
 
@@ -2537,7 +2538,8 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 //    }
 //  
 //}
--   (id) mutableArrayValueForKeyOrKeyPath: keyOrKeyPath {
+- mutableArrayValueForKeyOrKeyPath:keyOrKeyPath {
+
 	if ( !keyOrKeyPath || ![keyOrKeyPath  ISKINDA:NSS.class] ) 	return  nil;  // Bail if not a string. Key...? or key..path!???
 	if ( [keyOrKeyPath containsString:@"."] ) { __block id result = self;  // NSLog(@"serching for KP components: %@", components);
 
@@ -2553,7 +2555,7 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
 
 }
--   (id) valueForKeyOrKeyPath: keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
+- valueForKeyOrKeyPath:keyOrKeyPath transform:(THBinderTransformationBlock)transformationBlock	{
 
 	if (! [keyOrKeyPath ISKINDA:NSS.class] ) return nil;
 
@@ -2576,7 +2578,7 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 		 return transformationBlock(object);
 	}] : transformationBlock(foundvalue);
 }
--   (id) valueForKeyOrKeyPath: keyOrKeyPath  {
+- valueForKeyOrKeyPath: keyOrKeyPath  {
 
 	if ( ![keyOrKeyPath  ISKINDA:NSS.class] ) 					return  nil;  // Bail if not a string. Key...? or key..path!???
 	if ( [keyOrKeyPath containsString:@"."] ) { __block id result = self;  // NSLog(@"serching for KP components: %@", components);
@@ -2597,13 +2599,15 @@ id (^integerKeyValue)(id,NSS*) = ^id(id object, NSString*kp){
 	 : [self performSelectorWithoutWarnings:[self getterForPropertyNamed:keyOrKeyPath]] ?: nil;
 	
 }
--   (id) valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto {
+- valueForKey:(NSS*)key assertingProtocol:(Protocol*)proto {
 	id value = [self vFK:key];
 	if (!value || value == [NSNull null]) return nil;
 	NSAssert1([value conformsToProtocol:proto], @"AZCoding expects an object conforming to prootcol %@", NSStringFromProtocol(proto));
 	return [value conformsToProtocol:proto] ? value : nil;
 }
--   (id) valueForKey:(NSS*)key assertingClass:(Class)theClass {
+
+- valueForKey:(NSS*)key assertingClass:(Class)theClass {
+
 	id value = [self valueForKey:key];
 	if (!value || value == [NSNull null]) return nil;
 	NSAssert2([value isKindOfClass:theClass], @"FOOCoding expects an object of class %@, but class of return value is %@", NSStringFromClass(theClass), NSStringFromClass([value class]));

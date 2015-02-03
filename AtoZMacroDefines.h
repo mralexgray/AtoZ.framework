@@ -303,7 +303,6 @@
 
 #define NSCSRGB NSColorSpace.genericRGBColorSpace
 
-#define OVMETHOD(X) - (X) outlineView:(NSOV*)o
 
 #define NSURLREQFMT(CACHE,TO,...)\
 [NSURLREQ requestWithURL:\
@@ -803,9 +802,9 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 
 #define  AZ_SET_DEFAULT(KEY,VAL)   [AZUSERDEFS setPersistentDomain:[AZ_DEFAULTS dictionaryWithValue:VAL forKey:KEY]  forName:AZ_DEFS_DOMAIN]
 
-#define AZSTATIC_OBJ(_KLASS,_NAME,_VAL) \
+#define AZSTATIC_OBJ(_KLASS,_NAME,...) \
 \
-  static _KLASS *_NAME; _NAME = _NAME ?: ({ _VAL; })
+  static _KLASS *_NAME; _NAME = _NAME ?: ({ __VA_ARGS__; });
 
 #define AZSTATIC_OBJBLK(_KLASS,_NAME,_VALBLK) \
 \

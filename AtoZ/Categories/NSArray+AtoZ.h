@@ -276,14 +276,14 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /*** Returns a shuffeled version of this array */
 @prop_RO NSArray *shuffeled;
 /*** A failsave version of objectAtIndex When the given index is outside the bounds of the array it will be projected onto the bounds of the array Just imagine the array to be a ring  that will have its first and last element connected to each other */
-- (id)objectAtNormalizedIndex:(NSI)index;
+- objectAtNormalizedIndex:(NSI)index;
 - (NSUI) normalizedIndex:(NSI)index;  // Gives the normalized index for an out of range index.
-- (id)normal:(NSI)index;
+- normal:(NSI)index;
 
 /*** A failsave version of objectAtIndex that will return the fallback value in case an error occurrs or the value is nil */
-- (id)objectAtIndex:(NSUI)index fallback: fallback;
+- objectAtIndex:(NSUI)index fallback: fallback;
 /*** Will at least return nil in case the index does not fit the array */
-- (id)objectOrNilAtIndex:(NSUI)index;
+- objectOrNilAtIndex:(NSUI)index;
 
 @prop_RO NSA * alphabetized, * sum, * uniqueObjects, * uniqueStrings, *alphaGrouped;
 @prop_RO IndexedKeyMap * alphaMap;
@@ -302,8 +302,8 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (void)         setAndExecuteEnumeratorBlock:(void(^)(id o, NSUI idx, BOOL*s))b;
 
 - (NSA*)                    objectsWithFormat:(NSS*)format, ...;
--   (id)                firstObjectWithFormat:(NSS*)format, ...;
--   (id)                   firstObjectOfClass:(Class)k;
+-                   firstObjectWithFormat:(NSS*)format, ...;
+-                      firstObjectOfClass:(Class)k;
 - (NSA*)              filteredArrayUsingBlock:(BOOL(^)(id evaluatedObject, NSDictionary *bindings))block;
 - (NSA*)     uniqueObjectsSortedUsingSelector:(SEL)comparator;
 - (void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id k, id o))b;

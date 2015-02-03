@@ -6,6 +6,8 @@
 
 #pragma mark - NSOutlineView Hacks for Drag and Drop
 
+#define OVMETHOD(returnTYPE) - (returnTYPE) outlineView:(NSOV*)ov
+
 // fot other stuff dealing with NSTreeController see http://theocacao.com/document.page/130
 
 @protocol NSOutlineViewDraggable

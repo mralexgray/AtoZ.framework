@@ -51,6 +51,7 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
    }
    */
 }
+
 @end
 
 @implementation NSO (ConciseKitSwizzle)
@@ -97,9 +98,9 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
   return YES;
 }
 
-+ (void)waitUntil:(BOOL (^)(void))cond {  [self waitUntil:cond timeOut:10.0 interval:0.1];}
-+ (void)waitUntil:(BOOL (^)(void))cond timeOut:(NSTimeInterval)to { [self waitUntil:cond timeOut:to interval:0.1]; }
-+ (void)waitUntil:(BOOL (^)(void))cond timeOut:(NSTimeInterval)to interval:(NSTimeInterval)interval {
++ (void) waitUntil:(BOOL(^)(void))cond {  [self waitUntil:cond timeOut:10.0 interval:0.1];}
++ (void) waitUntil:(BOOL(^)(void))cond timeOut:(NSTimeInterval)to { [self waitUntil:cond timeOut:to interval:0.1]; }
++ (void) waitUntil:(BOOL(^)(void))cond timeOut:(NSTimeInterval)to interval:(NSTimeInterval)interval {
   NSTimeInterval sleptSoFar=0;
   while(1) {
     if(cond() || (sleptSoFar >= to)) return;
@@ -131,15 +132,13 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
   }]componentsJoinedByString:@" "];//];
 }
 
-// TEMPORARY SWIZ
-+ (void)swizzle:(SEL)oMeth toMethod:(SEL)newMeth forBlock:(void(^)(void))swizzledBlock {
++ (void) swizzle:(SEL)oMeth toMethod:(SEL)newMeth forBlock:(void(^)(void))swizzledBlock {
 
   if (!swizzledBlock) return;
 
   @try      { [self swizzleMethod:oMeth with:newMeth in:self.class]; swizzledBlock(); }
   @finally  { [self swizzleMethod:newMeth with:oMeth in:self.class];                  }
-}
-
+} // TEMPORARY SWIZ
 
 /*!  AG says: This compensates for NSObject's inability to set a selector for a key...
     Implementations of shadyValueForKey: and shadySetValue:forKey: Adapted from Mike Ash's "Let's Build KVC" article
@@ -159,7 +158,8 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
   // We will have swapped implementations here, so this call's NSObject's valueForKey: method
   return [self shadyValueForKey:key];
 }
-- (void)   shadySetValue:(id)value
+
+- (void)   shadySetValue:value
                   forKey:(NSS*)key {
 
   NSString * capitalizedKey = [[key substringToIndex:1].uppercaseString stringByAppendingString:[key substringFromIndex:1]];
@@ -184,10 +184,11 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 __attribute__((constructor)) static void do_the_swizzles() {
 
 
-  [NSO swizzleMethod:@selector(valueForKey:)
-                with:@selector(shadyValueForKey:)];
-  [NSO swizzleMethod:@selector(setValue:forKey:)
-                with:@selector(shadySetValue:forKey:)];
+//  [NSO swizzleMethod:@selector(valueForKey:)
+//                with:@selector(shadyValueForKey:)];
+//
+//  [NSO swizzleMethod:@selector(setValue:forKey:)
+//                with:@selector(shadySetValue:forKey:)];
 
 
   [NSO swizzleMethod:@selector(colorWithKey:)
@@ -199,14 +200,15 @@ __attribute__((constructor)) static void do_the_swizzles() {
                   in:objc_getClass("NSConcreteValue")
                 with:@selector(swizzleNSValueDescription)
                   in:NSO.class];
-  //  [NSWC swizzleMethod:@selector(init)             { return [super initWithWindowNibName:NSStringFromClass([self class])]; }
-  //  [$ swizzleMethod:d with:@selector(swizzleDescription) in:self.class];
 
-  //	[$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
-  //	[$ swizzleMethod:@selector(hitTest:) with:@selector(swizzleHitTest:) in:CAL.class];
-  //	[$ swizzleMethod:@selector(needsDisplayForKey:) with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
-  //	[$ swizzleClassMethod:@selector(defaultActionForKey:) with:@selector(swizzleDefaultActionForKey:) in:CAL.class];
-  //	[$ swizzleClassMethod:@selector(initWithLayer:) with:@selector(swizzleInitWithLayer:) in:CAL.class];
+//  [NSWC swizzleMethod:@selector(init)             { return [super initWithWindowNibName:NSStringFromClass([self class])]; }
+//  [$ swizzleMethod:d with:@selector(swizzleDescription) in:self.class];
+
+//  [$ swizzleMethod:@selector(actionForKey:) with:@selector(swizzleActionForKey:) in:self.class];
+//  [$ swizzleMethod:@selector(hitTest:) with:@selector(swizzleHitTest:) in:CAL.class];
+//  [$ swizzleMethod:@selector(needsDisplayForKey:) with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
+//  [$ swizzleClassMethod:@selector(defaultActionForKey:) with:@selector(swizzleDefaultActionForKey:) in:CAL.class];
+//  [$ swizzleClassMethod:@selector(initWithLayer:) with:@selector(swizzleInitWithLayer:) in:CAL.class];
 
 }
 
@@ -256,9 +258,9 @@ __attribute__((constructor)) static void do_the_swizzles() {
   //                                          AZAlignToString(self.alignment));
 }
 
-- (BOOL) swizzleContainsPoint:(NSP)p   { return self.noHit ? NO : [self swizzleContainsPoint:p]; }
+- (BOOL) swizzleContainsPoint:(NSP)p { return self.noHit ? NO : [self swizzleContainsPoint:p]; }
 
-- (void)   swizzleAddSublayer:(CAL*)c  {   if (!c) return; AZBlockSelf(newSuper);
+- (void) swizzleAddSublayer:(CAL*)c {   if (!c) return; AZBlockSelf(newSuper);
 
   [c triggerKVO:@"superlayer" block:^(id _self) { [newSuper swizzleAddSublayer:_self]; }];
 
@@ -290,7 +292,7 @@ __attribute__((constructor)) static void do_the_swizzles() {
 
 @implementation NSIMG (AtoZSwizzles)
 
-+ (NSIMG*) swizzledImageNamed:(NSS*)name 	{   AZSTATIC_OBJ(NSMD,nameToImageDict,NSMD.new);
++ (NSIMG*) swizzledImageNamed:(NSS*)name {   AZSTATIC_OBJ(NSMD,nameToImageDict,NSMD.new);
 
   if (!name || !name.length) return nil;								// there is no unnamed image...
 
@@ -368,11 +370,14 @@ __attribute__((constructor)) static void do_the_swizzles() {
   return [@"\e[38;5;${value}m for foreground colors" withString:@"not done"];
 
 }
-- (NSS*) swizzleJSONDescription { //	[self swizzleDescription];
+
+- (NSS*) swizzleJSONDescription {
+
+  //	[self swizzleDescription];
 
   return [[AZXMLWriter dataWithPropertyList:(NSJSONSerialization*)self].UTF8String
-          substringBetweenPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"
-          andSuffix:@"</plist>"];
+                     substringBetweenPrefix:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">"
+                                  andSuffix:@"</plist>"];
 }
 
 @end
@@ -385,7 +390,7 @@ __attribute__((constructor)) static void do_the_swizzles() {
   [self isEqualToNumber:@YES] || [self isEqualToNumber:@NO] ? StringFromBOOL(self.boolValue) : [self swizzleDescription];
 }
 
-- (NSS*)typeFormedDescription {
+- (NSS*) typeFormedDescription {
   if ([self.className isEqualToString:@"__NSCFNumber"]) {
     NSString *defaultDescription = [self description];
     if (strcmp(self.objCType, @encode(float)) == 0 || strcmp(self.objCType, @encode(double)) == 0) {

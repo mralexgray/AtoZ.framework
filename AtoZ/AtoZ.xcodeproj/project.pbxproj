@@ -4479,7 +4479,7 @@
 		7B4CCE0A191885AC0063D9BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7B4CCE0F191885AD0063D9BF /* libAtoZAutoBox.a */,
+				7B4CCE0F191885AD0063D9BF /* libAtoZAutoBoxLib.a */,
 				7B4CCE11191885AD0063D9BF /* AtoZAutoBoxTests.xctest */,
 				7BA3A2D219CDFB4A00A2A470 /* AtoZAutoBox.framework */,
 				7BA3A2D419CDFB4A00A2A470 /* AtoZAutoBoxTests.xctest */,
@@ -7089,10 +7089,10 @@
 			remoteRef = 7B4C248B1983269700DC62BA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7B4CCE0F191885AD0063D9BF /* libAtoZAutoBox.a */ = {
+		7B4CCE0F191885AD0063D9BF /* libAtoZAutoBoxLib.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libAtoZAutoBox.a;
+			path = libAtoZAutoBoxLib.a;
 			remoteRef = 7B4CCE0E191885AD0063D9BF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -8790,15 +8790,10 @@
 				CLANG_ANALYZER_OBJC_ATSYNC = YES;
 				CLANG_ANALYZER_OBJC_COLLECTIONS = YES;
 				CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = YES;
 				CODE_SIGN_IDENTITY = "";
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
 				HEADER_SEARCH_PATHS = (

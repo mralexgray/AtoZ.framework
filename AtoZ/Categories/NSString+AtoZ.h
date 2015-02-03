@@ -240,7 +240,7 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 @prop_RO  NSP   pointValue;
 @prop_RO NSUI   minutesValue, secondsValue;
 
-@prop_RO NSURL * url, * fileURL;
+@prop_ (RO,CP) NSURL * url, * fileURL;
 
 @prop_RO NSS * ucfirst, * lcfirst,  *fileContents;
 

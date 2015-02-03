@@ -2,16 +2,28 @@
 #ifndef AtoZ_Umbrella
 #define AtoZ_Umbrella
 
+#define JATEMPLATE_SYNTAX_WARNINGS 1
 
 @import AppKit;
 @import ObjectiveC;
 @import QuartzCore;
+
+#define autorelease self
+
+#import <KVOMap/KVOMap.h>
+#import <AtoZAutoBox/AtoZAutoBox.h>
+#import <FunSize/FunSize.h>
+#import <AtoZ/F.h>
+//#import "F.h"
+#import "BlocksAdditions.h"
+
+
 //#import <WebKit/WebKit.h>
 //#import <SystemConfiguration/SystemConfiguration.h>
 
 #import <ExtObjC/ExtObjC.h>
 #import <Zangetsu/Zangetsu.h>
-#import <KVOMap/KVOMap.h>
+//#import <KVOMap/KVOMap.h>
 #import <AtoZAutoBox/AtoZAutoBox.h>
 #import "M13OrderedDictionary.h"
 

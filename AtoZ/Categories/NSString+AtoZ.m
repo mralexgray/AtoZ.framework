@@ -1075,8 +1075,10 @@ finish:
 	return [self intValue];
 }
 
-- (NSURL *)url {
-	return [NSURL URLWithString:self];
+- (NSURL *)url { //static NSURL *_url;
+
+	return // [self willChangeValueForKey:@"url"], _url =
+          [[NSURL URLWithString:self] copy];//, [self didChangeValueForKey:@"url"], _url;
 }
 
 - (NSURL *)fileURL {
