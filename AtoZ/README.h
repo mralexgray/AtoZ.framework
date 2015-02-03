@@ -1,25 +1,11 @@
 
-/*! @discussion
-  
-  The DTFWYWTPL * The DO THE FUCK WHAT YOU WANT TO PUBLIC LICENSE, Version 2, Modified, ® 2013 Alex Gray, lol.
-
-    You are permitted to copy and distribute verbatim (or modified), copies of this license document.
-    As for the software, all rules and stipulations of the DO THE FUCK WHAT YOU WANT TO PUBLIC LICENSE apply, now and in perpetuity.
-
-    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTING, MODIFYING, SLICING AND DICING:
-
-    0.	You just DO WHAT THE FUCK YOU WANT TO DO, baby.
-		1.  Stay sexy.
-
+/*!
   
 @note Important ENV VARS ->    OBJC_PRINT_REPLACED_METHODS   -> figure out which categories are stepping on who's toes! 
 
 REFERECES
 
 VARIADICS ->        /AtoZ.framework/Frameworks/Zangetsu/External/extobjc/Tests/EXTVarargsTest.m
-
-
-
 
 
  zero (0) == FALSE  == NO

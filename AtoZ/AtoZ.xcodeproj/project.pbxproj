@@ -2154,6 +2154,7 @@
 		7B06BBD21761EBB1003A9C7E /* AZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZColor.m; path = Models/AZColor.m; sourceTree = SOURCE_ROOT; };
 		7B0838E8172F247100301FB2 /* NSTextView+SyntaxColoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextView+SyntaxColoring.h"; path = "../NSTextView+SyntaxColoring.h"; sourceTree = "<group>"; };
 		7B0838E9172F247100301FB2 /* NSTextView+SyntaxColoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+SyntaxColoring.m"; sourceTree = "<group>"; };
+		7B08CEA21A805A3000677E39 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
 		7B091A2E15A8448E00821FFD /* AZHoverButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHoverButton.h; sourceTree = "<group>"; };
 		7B091A2F15A8448E00821FFD /* AZHoverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHoverButton.m; sourceTree = "<group>"; };
 		7B091A3715A845A700821FFD /* NSShadow+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSShadow+AtoZ.h"; path = "../NSShadow+AtoZ.h"; sourceTree = "<group>"; };
@@ -4546,6 +4547,7 @@
 				7BAF2F0315E87BB100099C9A /* Growl Registration Ticket.growlRegDict */,
 				7BE2A4F21611571E003D6B92 /* Images */,
 				7BD011F515CB7E9300B96BAC /* README.md */,
+				7B08CEA21A805A3000677E39 /* LICENSE */,
 				7B6B382715F52C9100DC4D51 /* fonts */,
 				7B583065159BDAF40039CEED /* atoz.icns */,
 				7B583068159BDAF40039CEED /* AppledocSettings.plist */,

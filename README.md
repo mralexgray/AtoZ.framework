@@ -19,7 +19,9 @@
            |    | \  /   \  |  |  |_   \/ \/   \_/  | \  |\
 
 
- 
+@note Please see README.h
+@note Please see LICENSE, as it is NOT included in every file. (Because doing that is obnoxious)
+
 
 | Left align | Center align       |         Right align    |
 |:-----------|:------------------:|-----------------------:|
