@@ -9,7 +9,7 @@
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
-		<key>AtoZ.xcscheme</key>
+		<key>AtoZ.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
@@ -64,12 +64,12 @@
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>Frameworks.xcscheme</key>
+		<key>Frameworks.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>Libs.xcscheme</key>
+		<key>Libs.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>4</integer>
@@ -89,7 +89,7 @@
 			<key>orderHint</key>
 			<integer>21</integer>
 		</dict>
-		<key>StaticFrameworks.xcscheme</key>
+		<key>StaticFrameworks.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>

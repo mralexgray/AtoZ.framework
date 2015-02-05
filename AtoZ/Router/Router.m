@@ -1,19 +1,23 @@
 
-#import <AtoZ/AtoZ.h>
+@import AtoZ;
 
-int main() { @autoreleasepool { static RoutingHTTPServer  *http;
+static RoutingHTTPServer  *http;
 
-  XX([NET localeOfIP:NET.externalIP].autoDescribe);
+int main() { @autoreleasepool {
 
-  http = RoutingHTTPServer.new;
+  XX([[Locale localeOfIP:NET.externalIP] autoDescribe]);
 
-  http.port = 22080;
+  http              = RoutingHTTPServer.new;
+  http.port         = 22080;
+  http.name         = @"RouttingHTTPServer \"Router\"";
+  http.bonjourBlock = ^(HTTPServer* _http) { [(RoutingHTTPServer*)_http openInBrowser]; };
 
   [http get:@"/index.html" handler:^(RouteRequest *req, RouteResponse *res) {
 
-//    NSLog(@"%@", req.message.allHeaderFields);
-//    NSLog(@"%@", res.connection.asyncSocket.autoDescribe);
-//    NSLog(@"%@", res.connection.asyncSocket.connectedHost);
+    NSLog(@"req.message.allHeaderFields: %@\nres.connection.asyncSocket: %@\nres.connection.asyncSocket.connectedHost: %@",
+              req.message.allHeaderFields,
+              res.connection.asyncSocket.autoDescribe,
+              res.connection.asyncSocket.connectedHost);
 
     [res respondWithFile:@"/Volumes/2T/ServiceData/www/Alex.Gray.Resume.pdf"];
     //[res setHeader:@"Location" value:@"http://google.com/"];
@@ -26,13 +30,17 @@ int main() { @autoreleasepool { static RoutingHTTPServer  *http;
 
 //  [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
 
- [http get:@"/js/:path" handler:^(RouteRequest *req, RouteResponse *res) {
+  [http get:@"/js/:path" handler:^(RouteRequest *req, RouteResponse *res) {
 
-    NSS *path = [@"/js/" stringByAppendingString:req.params[@"path"]].stringByStandardizingPath;
-    NSLog(@"Looking for %@", path);
+    id jspath = req.params[@"path"];
+    id path = [res.connection.config.server.documentRoot stringByAppendingFormat:@"/js/%@",jspath];
+
+//    NSS *path = [@"/js".stringByResolvingSymlinksInPath stringByAppendingFormat:@"/%@",req.params[@"path"]];
+
+    NSLog(@"Looking for %@",path);
     if ([FM fileExistsAtPath:path])
       [res respondWithFile:path];
-   }];
+  }];
 
   WSDelegate *d =  WSDelegate.new;
   [d setDidOpenBlock:^(WebSocket *ws) {
@@ -69,9 +77,6 @@ int main() { @autoreleasepool { static RoutingHTTPServer  *http;
       [res respondBySwappingDelimited:@"%%"
               with:replacementDict];
 	}];
-  http.name         = @"mrgray.com";
-  http.port         = 22080;
-  http.bonjourBlock = ^(HTTPServer* _http) { [(RoutingHTTPServer*)_http openInBrowser]; };
 
   [http start:nil];
 

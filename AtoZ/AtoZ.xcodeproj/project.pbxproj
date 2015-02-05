@@ -1475,6 +1475,13 @@
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
 		};
+		7B6FC93A1A8268D700C79157 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B94F55D189C7365002C55CD /* RoutingHTTPServer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 270B11B11628E676005A82FA;
+			remoteInfo = RoutingHTTPServerOSX;
+		};
 		7B72870C1731E75A005BCA03 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
@@ -6559,6 +6566,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7B6FC93B1A8268D700C79157 /* PBXTargetDependency */,
 			);
 			name = Router;
 			productName = Router;
@@ -8267,6 +8275,11 @@
 			isa = PBXTargetDependency;
 			target = 7B311950159B6D9E002134C4 /* AtoZ */;
 			targetProxy = 7B644DC11816B5A10036D205 /* PBXContainerItemProxy */;
+		};
+		7B6FC93B1A8268D700C79157 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RoutingHTTPServerOSX;
+			targetProxy = 7B6FC93A1A8268D700C79157 /* PBXContainerItemProxy */;
 		};
 		7B72870D1731E75A005BCA03 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

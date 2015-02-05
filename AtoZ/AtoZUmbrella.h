@@ -8,6 +8,8 @@
 @import ObjectiveC;
 @import QuartzCore;
 
+@import RoutingHTTPServer;
+
 #define autorelease self
 
 #import <KVOMap/KVOMap.h>
