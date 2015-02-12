@@ -9,6 +9,9 @@
 
 #import <JREnum.h>
 
+#define APPLE_MAIN int main(int argc, char **argv, char **envp, char **apple)
+#define APPLEMAIN(...) APPLE_MAIN { ({ __VA_ARGS__; }); }
+
 
 //@import AppKit.NSView;
 //@import AppKit.NSImage;
@@ -106,6 +109,8 @@
 #define   prop_CP  property (CP)
 #define   prop_AS  property (ASS)
 #define   prop_WK  property (WK)
+#define   prop_RC  property (RO,CP)
+
 #define   ASSGN assign
 #define   RDWRT readwrite
 #define     ASS assign

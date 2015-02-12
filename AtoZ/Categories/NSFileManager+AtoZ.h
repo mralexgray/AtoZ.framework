@@ -15,6 +15,10 @@ NSS *    NSBundleFolder (void);
 
 @interface NSFileManager (AtoZ)
 
+- tagForFileAtPath:pathorurl;
+- (void) setTag:(NSUInteger)t forFileAtPath:pathorurl;
+
+
 - (NSA*)    pathsOfContentsOfDirectory:(NSS*)dir;
 
 - (NSA*) arrayWithFilesMatchingPattern:(NSS*)pattern inDirectory:(NSS*)dir;

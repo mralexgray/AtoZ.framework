@@ -1,5 +1,7 @@
 
 /*! @abstract This class allows you to deal with some LaunchServices functions (such a Shared Lists, files types and extension information) via ligth-weight API. You can find the list of all availabe Shared Lists below:
+  
+  @see NSBundle+AtoZ.h!
 */
 
 #import "AtoZUmbrella.h"
@@ -13,39 +15,73 @@ JREnumDeclare(AZItemsViewFormat, AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNa
 
 AZNSIFACEDECL(AZLaunchServices)
 
-/* Convenience */
-+ (NSA*) allApplications; // formatted as AZItemsAsNames
-
-/* Shared lists */
-+ (NSA*)    allItemsFromList:(CFStringRef)list_name;
-+ (BOOL)      addItemWithURL:(NSURL*)url
-                      toList:(CFStringRef)list_name;
-+ (BOOL) removeItemWithIndex:(NSInteger)index
-                    fromList:(CFStringRef)list_name;
-+ (BOOL)   removeItemWithURL:(NSURL*)url
-                    fromList:(CFStringRef)list_name;
-+ (BOOL)           clearList:(CFStringRef)list_name;
++ (NSA*) allApplications; // Conveniencem all apps formatted as AZItemsAsNames
 
 /* Application abilities */
-+ (NSA*)            allApplicationsFormattedAs:(AZItemsViewFormat)response_format;
-+ (NSA*)allApplicationsAbleToOpenFileExtension:(NSS*)ext
-                                responseFormat:(AZItemsViewFormat)response_format;
+
++ (NSA*)               allApplicationsFormattedAs:(AZItemsViewFormat)_;
+
++ (NSA*)   allApplicationsAbleToOpenFileExtension:(NSS*)ext
+                                   responseFormat:(AZItemsViewFormat)_;
 
 + (NSA*)      allAvailableFileTypesForApplication:(NSS*)full_path;
+
 + (NSA*)      allAvailableMIMETypesForApplication:(NSS*)full_path;
+
 + (NSA*) allAvailableFileExtensionsForApplication:(NSS*)full_path;
 
 /* General file info - MIME type, preferred extension and human-readable type*/
+
 + (NSS*)          humanReadableTypeForFile:(NSS*)full_path;
+
 + (NSS*)                   mimeTypeForFile:(NSS*)full_path;
+
 + (NSS*) preferredFileExtensionForMIMEType:(NSS*)mime_type;
 
 + (NSA*)           allAvailableFileExtensionsForUTI:(NSS*)file_type;
+
 + (NSA*)      allAvailableFileExtensionsForMIMEType:(NSS*)mime_type;
+
 + (NSA*)    allAvailableFileExtensionsForPboardType:(NSS*)pboard_type;
+
 + (NSA*) allAvailableFileExtensionsForFileExtension:(NSS*)extension;
 
+/* Shared lists */
+
++ (NSA*)    allItemsFromList:(CFStringRef)list_name;
+
++ (BOOL)      addItemWithURL:(NSURL*)url
+                      toList:(CFStringRef)list_name;
+
++ (BOOL) removeItemWithIndex:(NSInteger)index
+                    fromList:(CFStringRef)list_name;
+
++ (BOOL)   removeItemWithURL:(NSURL*)url
+                    fromList:(CFStringRef)list_name;
+
++ (BOOL)           clearList:(CFStringRef)list_name;
+
 @end	
+
+/*!
+ @brief	Methods which Apple should have provided in NSWorkspace	*/
+@interface NSWorkspace (AppleShoulda)
+
+@prop_RC NSString * appSupportSubdirectory;
+
+- (void) registerDefaultsFromMainBundleFile:(NSString*)defaultsFilename;
+
+/*! [NSWorkspace appNameForBundleIdentifier:@"org.mgorbach.macfusion2"] = Macfusiob */
+
++ (NSString*) appNameForBundleIdentifier:(NSString*)bundleIdentifier ;
+
+/*! [NSWorkspace bundleIdentifierForAppName:@"Macfusion"] = org.mgorbach.macfusion2 */
+
++ (NSString*) bundleIdentifierForAppName:(NSString*)appName ;
+
+
+@end
+
 
 @interface AZLaunchServicesListItem : NSObject
 @prop_NA NSString *name;
@@ -53,14 +89,18 @@ AZNSIFACEDECL(AZLaunchServices)
 @prop_NA NSImage *icon;
 @end
 
-//
-//  AZLaunchServices.h
-//  AtoZ
-//
-//  Created by Alex Gray on 8/17/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
 /*
+//- (NSString*) appName;
+//- (NSString*) appDisplayName;
+//- (NSString*) appVersion;
+
+
+   AZLaunchServices.h
+   AtoZ
+ 
+   Created by Alex Gray on 8/17/12.
+   Copyright (c) 2012 mrgray.com, inc. All rights reserved.
+ 
  EBLaunchServices.h
  Copyright (c) eric_bro, 2012 (eric.broska@me.com)
 

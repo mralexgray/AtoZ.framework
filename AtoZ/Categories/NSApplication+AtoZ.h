@@ -52,23 +52,6 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 @end
 
 
-/*!
- @brief	Methods which Apple should have provided in NSWorkspace	*/
-@interface NSWorkspace (AppleShoulda)
-
-//- (NSString*) appName;
-//- (NSString*) appDisplayName;
-//- (NSString*) appVersion;
-- (NSString*) appSupportSubdirectory;
-
-- (void) registerDefaultsFromMainBundleFile:(NSString*)defaultsFilename;
-
-+ (NSString*)appNameForBundleIdentifier:(NSString*)bundleIdentifier ;
-
-+ (NSString*)bundleIdentifierForAppName:(NSString*)appName ;
-
-
-@end
 
 @interface NSWorkspace (SystemInfo)
 

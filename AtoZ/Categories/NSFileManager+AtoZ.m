@@ -23,6 +23,37 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 @implementation NSFileManager (AtoZ)
 
+- tagForFileAtPath:pathorurl {
+
+  NSURL * fileURL = ISA(pathorurl, NSURL) ? pathorurl : [NSURL fileURLWithPath:pathorurl];
+
+  id labelValue = nil;
+  NSError* error;
+  if([fileURL getResourceValue:&labelValue forKey:NSURLLabelNumberKey error:&error])
+
+  {
+//    NSLog(@"The label value is %@",labelValue);
+  }
+  else
+  {
+    NSLog(@"An error occurred: %@",[error localizedDescription]);
+  }
+  return labelValue;
+
+}
+
+- (void) setTag:(NSUInteger)t forFileAtPath:pathorurl {
+
+  NSURL * fileURL = ISA(pathorurl, NSURL) ? pathorurl : [NSURL fileURLWithPath:pathorurl];
+
+ // NSURLLabelNumberKey values are:
+  //  0 none, 1 grey, 2 green, 3 purple, 4 blue, 5 yellow, 6 red, 7 orange
+
+
+  [fileURL setResourceValue:@(MIN(t,7)) forKey:NSURLLabelNumberKey error:nil];
+
+}
+
 - (NSA*) pathsOfContentsOfDirectory:(NSS*) dir {
 
 	return [[AZFILEMANAGER contentsOfDirectoryAtPath:dir.stringByStandardizingPath error:nil] map:^id(id obj) {

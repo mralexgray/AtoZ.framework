@@ -329,3 +329,6 @@
 [submodule "Frameworks/Butter"]
 	path = Frameworks/Butter
 	url = git@github.com:mralexgray/Butter.git
+[submodule "AtoZ/AtoZTouch/modules/JTGestureBasedTableView"]
+	path = AtoZ/AtoZTouch/modules/JTGestureBasedTableView
+	url = git@github.com:mralexgray/JTGestureBasedTableViewDemo.git

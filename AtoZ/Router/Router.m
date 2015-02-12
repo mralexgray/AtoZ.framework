@@ -1,5 +1,5 @@
 
-@import AtoZ;
+#import <AtoZ/AtoZ.h>
 
 static RoutingHTTPServer  *http;
 
@@ -24,9 +24,12 @@ int main() { @autoreleasepool {
 
   }];
 
-  [http get:@"/dir" handler:^(RouteRequest *req, RouteResponse *res) {
-    [res respondWithString:[NetworkHelpers createindexForDir:@"/"]];
-   }];
+  [http get:@"/dir/:path" handler:^(RouteRequest *req, RouteResponse *res) {
+
+    id x = [@"/" stringByAppendingString:req.params[@"path"]];
+    NSLog(@"Reguesting path:%@", x);
+    [res respondWithString:[NetworkHelpers createindexForDir:x]];
+  }];
 
 //  [FSWalker serveFilesForURI:@"/js" withPath:@"/js" onRouter:http];
 

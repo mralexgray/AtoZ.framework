@@ -1,10 +1,6 @@
-//
-//  AZLaunchServices.m
-//  AtoZ
-//
+
 //  Created by Alex Gray on 8/17/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//
+
 @import CoreServices;
 #import "AtoZ.h"
 #import "AZLaunchServices.h"
@@ -22,25 +18,19 @@ NSString * CoercePlist (NSString* path) {
 }
 /* Private prototype from the LaunchServices framework */
 OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
-typedef  id (^AZMappingBlock)(id obj);
 
 @implementation AZLaunchServicesListItem @end
-
-//@interface AZLaunchServices (Private)
-//+ (NSA*)mappingArray:(NSA*)array usingBlock:(AZMappingBlock)block;
-//+ (NSInteger)indexOfItemWithURL:(NSURL*)url inList:(CFStringRef)list_name;
-//+ (NSA*)prepareArray:(NSA*)array withFormat:(AZItemsViewFormat)format;
-//@end
 
 @implementation AZLaunchServices
 
 #pragma mark Shared Lists
 
-+ (NSA*)allItemsFromList:(CFStringRef)list_name {
++ (NSA*) allItemsFromList:(CFStringRef)list_name {
+
 	LSSharedFileListRef list = LSSharedFileListCreate(NULL, (CFStringRef)list_name, NULL);
 	NSA*tmp = (NSA*)LSSharedFileListCopySnapshot(list, NULL);
 	CFRelease(list);
-	id value = [AZLaunchServices mappingArray: tmp usingBlock:^id(id obj) {
+	id value = [tmp map:^id(id obj) {
 		AZLaunchServicesListItem *item =AZLaunchServicesListItem.new;
 		[item setName: [(NSS*)LSSharedFileListItemCopyDisplayName((LSSharedFileListItemRef)obj) autorelease]];
 		NSURL *url = nil;
@@ -54,7 +44,7 @@ typedef  id (^AZMappingBlock)(id obj);
 	return (value);
 }
 
-+ (BOOL)addItemWithURL:(NSURL*)url toList:(CFStringRef)list_name {
++ (BOOL) addItemWithURL:(NSURL*)url toList:(CFStringRef)list_name {
 	LSSharedFileListRef list = LSSharedFileListCreate(NULL, (CFStringRef)list_name, NULL);
 	if (!list) return NO;
 	LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(list,
@@ -66,7 +56,7 @@ typedef  id (^AZMappingBlock)(id obj);
 	return item ? (CFRelease(item), YES) : NO;
 }
 
-+ (BOOL)removeItemWithIndex:(NSInteger)index fromList:(CFStringRef)list_name {
++ (BOOL) removeItemWithIndex:(NSInteger)index fromList:(CFStringRef)list_name {
 	if (index == -1) return NO;
 	LSSharedFileListRef list = LSSharedFileListCreate(NULL, (CFStringRef)list_name, NULL);
 	LSSharedFileListItemRef item_to_remove = (LSSharedFileListItemRef)((NSA*)LSSharedFileListCopySnapshot(list, NULL))[index];
@@ -76,7 +66,7 @@ typedef  id (^AZMappingBlock)(id obj);
 	return (YES);
 }
 
-+ (BOOL)removeItemWithURL:(NSURL*)url fromList:(CFStringRef)list_name {
++ (BOOL) removeItemWithURL:(NSURL*)url fromList:(CFStringRef)list_name {
 	return [AZLaunchServices removeItemWithIndex:
 			[AZLaunchServices indexOfItemWithURL: url inList: (CFStringRef)list_name]
 										fromList: list_name];
@@ -87,20 +77,21 @@ typedef  id (^AZMappingBlock)(id obj);
 	BOOL isok = (LSSharedFileListRemoveAllItems(list) == noErr);
 	return (CFRelease(list), isok);
 }
+
 #pragma mark Applications
 
-+ (NSA*)allApplications { return [self allApplicationsFormattedAs:AZItemsAsNames]; }
++ (NSA*) allApplications { return [self allApplicationsFormattedAs:AZItemsAsNames]; }
 
-+ (NSA*)allApplicationsFormattedAs:(AZItemsViewFormat)response_format {
++ (NSA*) allApplicationsFormattedAs:(AZItemsViewFormat)response_format {
 
-	NSA*tmp = nil;
-	_LSCopyAllApplicationURLs((CFArrayRef*)&tmp);
-	return [AZLaunchServices prepareArray: [tmp autorelease] withFormat: response_format];
+	static NSA * apps = nil;
+  if (![apps count]) _LSCopyAllApplicationURLs((CFArrayRef*)&apps);
+	return [AZLaunchServices prepareArray:apps withFormat: response_format];
 
 }
 
-+ (NSA*)allApplicationsAbleToOpenFileExtension:(NSS*)extension
-                                     responseFormat:(AZItemsViewFormat)response_format
++ (NSA*) allApplicationsAbleToOpenFileExtension:(NSS*)extension
+                                 responseFormat:(AZItemsViewFormat)response_format
 {
 	CFStringRef uttype = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
 															   (CFStringRef)extension, NULL);
@@ -110,17 +101,18 @@ typedef  id (^AZMappingBlock)(id obj);
 	return [AZLaunchServices prepareArray: [(NSA*)bundles autorelease]
 							   withFormat: response_format];
 }
-+ (NSA*)allAvailableFileTypesForApplication:(NSS*)full_path
++ (NSA*) allAvailableFileTypesForApplication:(NSS*)full_path
 {
+
+
 	NSA*all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
 	if ( ! all_doc_types) return nil;
 
-	return [AZLaunchServices mappingArray: all_doc_types
-							   usingBlock:^id(NSDictionary * obj) {
+	return [all_doc_types map:^id(NSDictionary * obj){
 								   /* Use 0 as index because it's highest level of file types' hierarchy */
-								   id tmp =  obj[@"LSItemContentTypes"][0];
-								   return tmp;
-							   }];
+								   return obj[@"LSItemContentTypes"][0];
+
+	}];
 }
 
 /* Return only MIMEs defined in LaunchService database */
@@ -129,7 +121,7 @@ typedef  id (^AZMappingBlock)(id obj);
 	NSA*all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
 	if ( ! all_doc_types) return nil;
 
-	return [AZLaunchServices mappingArray: all_doc_types usingBlock:^id(id obj) {
+	return [all_doc_types map:^id(id obj) {
 
 		NSA* tmp_array = obj[@"LSItemContentTypes"];
 		/* If we can't recognize a MIME type for some file type - take a look on it' parent type */
@@ -232,45 +224,129 @@ typedef  id (^AZMappingBlock)(id obj);
 
 #pragma mark Private
 
-+ (NSA*)prepareArray:(NSA*)array withFormat:(/*enum */AZItemsViewFormat)format { return
++ (NSA*) prepareArray:(NSA*)array withFormat:(/*enum */AZItemsViewFormat)format {
 
-  format == AZItemsAsPaths ? [AZLaunchServices mappingArray: array usingBlock:^id(id obj) {
+  return  // [AZLaunchServices mappingArray:array usingBlock:^id(id obj) {
 
-				id path = [AZWORKSPACE absolutePathForAppBundleWithIdentifier: obj];
-				return path;;
-  }]
-: format == AZItemsAsNames ? [AZLaunchServices mappingArray: array usingBlock:^id(id obj) {
-        return [AZFILEMANAGER displayNameAtPath:
-						   [AZWORKSPACE absolutePathForAppBundleWithIdentifier: obj]]; // name
-  }] : array;
+    [array map:^id(id obj){
+
+      return format == AZItemsAsPaths ?
+
+      ISA(obj, NSURL) ? [(NSURL*)obj path] : @"poop" : // [AZWORKSPACE absolutePathForAppBundleWithIdentifier: obj] :
+
+           format == AZItemsAsNames ?
+
+      [AZFILEMANAGER displayNameAtPath: ISA(obj, NSURL) ? [obj path] :
+						   [AZWORKSPACE absolutePathForAppBundleWithIdentifier:obj]] // name
+
+    : obj; }];
 }
 
 + (NSInteger)indexOfItemWithURL:(NSURL*)url inList:(CFStringRef)list_name {
+
 	NSA*tmp = [AZLaunchServices allItemsFromList: list_name];
 	NSInteger __unused idx = -1;
 	return [tmp indexOfObjectPassingTest: ^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return [[(AZLaunchServicesListItem*)obj url] isEqualTo: url];
 	}]; // idx
 }
+
 /* Going throw an array's elements doing something with them, and create items for a new array */
 
-+ (NSA*)mappingArray:(NSA*)array usingBlock:(AZMappingBlock)block {
+//+ (NSA*)mappingArray:(NSA*)array usingBlock:(AZMappingBlock)block {
+//
+//	NSUInteger count = array.count;
+//	id *objects = malloc(sizeof(objects)*count);
+//
+//	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//
+//		objects[idx] = [block(obj) retain];
+//		if ( ! objects[idx]) objects[idx] = AZNULL;
+//
+//	}];
+//	NSMutableArray *return_value = [NSArray arrayWithObjects: objects count: count].mC;
+//	[return_value removeObjectsAtIndexes:
+//	 [return_value indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+//		return [obj isEqualTo: [NSNull null]];
+//	}]];
+//
+//	for (NSUInteger i = 0; i < count; i++) [objects[i] release];
+//	free(objects);
+//	return (return_value);
+//}
 
-	NSUInteger count = array.count;
-	id *objects = malloc(sizeof(objects)*count);
-	[array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		objects[idx] = [block(obj) retain];
-		if ( ! objects[idx]) objects[idx] = AZNULL;
-	}];
-	NSMutableArray *return_value = [NSArray arrayWithObjects: objects count: count].mC;
-	[return_value removeObjectsAtIndexes:
-	 [return_value indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-		return [obj isEqualTo: [NSNull null]];
-	}]];
+@end
 
-	for (NSUInteger i = 0; i < count; i++) [objects[i] release];
-	free(objects);
-	return (return_value);
+
+@implementation NSWorkspace (AppleShoulda)
+
+
+//- (NSString*) appName {
+//	if (SDInfoPlistValueForKey(@"CFBundleName"))
+//		return SDInfoPlistValueForKey(@"CFBundleName");
+//	else
+//		return [[[NSFileManager defaultManager] displayNameAtPath:[[NSBundle mainBundle] bundlePath]] stringByDeletingPathExtension];
+//}
+
+//- (NSString*) appDisplayName {
+//	if (SDInfoPlistValueForKey(@"CFBundleDisplayName"))
+//		return SDInfoPlistValueForKey(@"CFBundleDisplayName");
+//	else
+//		return [NSApp appName];
+//}
+//
+//- (NSString*) appVersion {
+//	return SDInfoPlistValueForKey(@"CFBundleVersion");
+//}
+
+- (NSString*) appSupportSubdirectory {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *appSupportSubdirectory = [paths.firstObject stringByAppendingPathComponent:APP_NAME];//[NSApp appDisplayName]];
+
+	NSError *error = nil;
+	[AZFILEMANAGER createDirectoryAtPath:appSupportSubdirectory withIntermediateDirectories:YES attributes:nil error:&error];
+  return error ? [NSException raise:@"SDCannotCreateDir" format:@"Cannot create folder [%@]", appSupportSubdirectory], nil :appSupportSubdirectory;
+}
+
+- (void) registerDefaultsFromMainBundleFile:(NSString*)defaultsFilename {
+
+	[AZUSERDEFS registerDefaults:[NSD dictionaryWithContentsOfFile:
+                            [NSBundle.mainBundle pathForResource:defaultsFilename.stringByDeletingPathExtension
+                                                          ofType:defaultsFilename.pathExtension]]];
+}
+
+
++ (NSString*)appNameForBundleIdentifier:(NSString*)bundleIdentifier { NSString* path; NSBundle* bundle;
+
+
+  return (path = [AZWORKSPACE absolutePathForAppBundleWithIdentifier:bundleIdentifier]) ?
+       (bundle = [NSBundle bundleWithPath:path]) ? ({
+	// Added in BookMacster version 1.3.22
+
+    NSString* appName = nil;
+    if (![(appName = [bundle objectForInfoDictionaryKey:@"CFBundleName"]) length]) {
+
+			NSLog(@"Warning 562-0981.  No CFBundleName in %@", bundleIdentifier) ;
+
+			if (!(appName = [bundle objectForInfoDictionaryKey:@"CFBundleExecutable"]).length) {
+
+				NSLog(@"Warning 562-0982.  No CFBundleExecutable in %@", bundleIdentifier) ;
+				appName = bundleIdentifier.lastPathComponent ;
+			}
+		}
+    appName; }) : nil : nil;
+}
+
++ (NSString*)bundleIdentifierForAppName:(NSString*)appName  {	NSString* path; NSBundle* bundle;
+
+  return (path = [AZWORKSPACE fullPathForApplication:appName]) ?
+       (bundle = [NSBundle bundleWithPath:path] ) ? [bundle bundleIdentifier] : nil : nil;
 }
 
 @end
+
+//@interface AZLaunchServices (Private)
+//+ (NSA*)mappingArray:(NSA*)array usingBlock:(AZMappingBlock)block;
+//+ (NSInteger)indexOfItemWithURL:(NSURL*)url inList:(CFStringRef)list_name;
+//+ (NSA*)prepareArray:(NSA*)array withFormat:(AZItemsViewFormat)format;
+//@end

@@ -27,6 +27,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 7BCAD9111944BFC2005E6C4D /* Build configuration list for PBXAggregateTarget "Deps" */;
 			buildPhases = (
+				7B4804FF1A8BB9E500D63860 /* ShellScript */,
 			);
 			dependencies = (
 				7BCAD9621944CF4C005E6C4D /* PBXTargetDependency */,
@@ -184,6 +185,12 @@
 		7B23C36615CE98AF00DD1A9C /* AZLogConsole.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B23C36315CE98AF00DD1A9C /* AZLogConsole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B23C37B15CF2E8200DD1A9C /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B23C37A15CF2E8200DD1A9C /* 2.jpg */; };
 		7B23C37D15CF318500DD1A9C /* missingdial.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B23C37C15CF318500DD1A9C /* missingdial.png */; };
+		7B2453EA1A83F3BA008EB1AC /* AtoZTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2453DF1A83F3B7008EB1AC /* AtoZTouch.framework */; };
+		7B2453F11A83F3BB008EB1AC /* AtoZTouchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2453F01A83F3BB008EB1AC /* AtoZTouchTests.m */; };
+		7B2453F71A83F44C008EB1AC /* AZTMacroDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2453F61A83F44C008EB1AC /* AZTMacroDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2453F91A83F4BE008EB1AC /* AtoZTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2453F81A83F4BE008EB1AC /* AtoZTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2453FC1A840165008EB1AC /* AtoZ+UITableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2453FA1A840165008EB1AC /* AtoZ+UITableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2453FD1A840165008EB1AC /* AtoZ+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2453FB1A840165008EB1AC /* AtoZ+UITableView.m */; };
 		7B24E98E15A12D2100A9D87A /* AZGrid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E97F15A12D2100A9D87A /* AZGrid.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B24E98F15A12D2100A9D87A /* AZGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24E98015A12D2100A9D87A /* AZGrid.m */; };
 		7B24E99015A12D2100A9D87A /* AZMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24E98115A12D2100A9D87A /* AZMatrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -410,9 +417,6 @@
 		7B389829190B195E003DC627 /* MetalUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBCBAD916713F4500681F2B /* MetalUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B38982A190B19FE003DC627 /* AtoZWebSnapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBCBACC16713DD600681F2B /* AtoZWebSnapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B38982B190B1A6C003DC627 /* MetalUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBCBADA16713F4500681F2B /* MetalUI.m */; };
-		7B39615F15F04FD80065813F /* AtoZTouch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B39615E15F04FD80065813F /* AtoZTouch.h */; };
-		7B39616115F04FD80065813F /* AtoZTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B39616015F04FD80065813F /* AtoZTouch.m */; };
-		7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B311961159B6D9E002134C4 /* AtoZ.h */; };
 		7B3E09EA18E5FB8600FDE227 /* CPUMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3E09E818E5FB8600FDE227 /* CPUMonitor.h */; };
 		7B3E09EB18E5FB8600FDE227 /* CPUMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E09E918E5FB8600FDE227 /* CPUMonitor.m */; };
 		7B401FD418287C2F00F24167 /* BETaskHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B401FD118287C2F00F24167 /* BETaskHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -445,6 +449,13 @@
 		7B45C5EA1625051D00737335 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B45C5EC1625051D00737335 /* Localizable.strings */; };
 		7B469B0919B2192A00C15DDB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B469B0819B2192A00C15DDB /* main.swift */; };
 		7B475B1315ED65450002137E /* bullseye.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B475B1215ED65450002137E /* bullseye.png */; };
+		7B479E181A8CAA4C00EC12BD /* ALApplicationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF5E7D1A854230000AE605 /* ALApplicationList.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B479E1A1A8CAD6A00EC12BD /* libMobileGestalt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B479E191A8CAD6A00EC12BD /* libMobileGestalt.dylib */; };
+		7B4804DE1A8B266F00D63860 /* JTTableViewGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4804D81A8B266F00D63860 /* JTTableViewGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B4804DF1A8B266F00D63860 /* JTTableViewGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4804D91A8B266F00D63860 /* JTTableViewGestureRecognizer.m */; };
+		7B4804E01A8B266F00D63860 /* JTTransformableTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4804DA1A8B266F00D63860 /* JTTransformableTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B4804E11A8B266F00D63860 /* JTTransformableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4804DB1A8B266F00D63860 /* JTTransformableTableViewCell.m */; };
+		7B4804E31A8B266F00D63860 /* UIColor+JTGestureBasedTableViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4804DD1A8B266F00D63860 /* UIColor+JTGestureBasedTableViewHelper.m */; };
 		7B487E33175C9CBC005EFD88 /* objswitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B740FD7173D44C800F15726 /* objswitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4A8FEF15AB267D00463B91 /* AZSourceList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B4A8FED15AB267D00463B91 /* AZSourceList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B4A8FEE15AB267D00463B91 /* AZSourceList.m */; };
@@ -956,6 +967,7 @@
 		7BDF56A31627695500041A42 /* TestBedDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF56A21627695500041A42 /* TestBedDelegate.m */; };
 		7BDF56B11627BE4200041A42 /* AZInstantApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BDF56AF1627BE4200041A42 /* AZInstantApp.m */; };
 		7BDF56B21627C2ED00041A42 /* AZInstantApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDF56AE1627BE4200041A42 /* AZInstantApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BDF5E7E1A854230000AE605 /* ALApplicationList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BDF5E7C1A854230000AE605 /* ALApplicationList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE211DC1785F7A600D6F88D /* AZSynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE211DB1785F7A600D6F88D /* AZSynthesize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE254FD178202460054DFB6 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA425B315E7B52F00D2A471 /* MAAttachedWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7BE295A817E76876004C60EA /* AtoZPrefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE2959817E76875004C60EA /* AtoZPrefs.h */; };
@@ -1004,6 +1016,10 @@
 		7BF0571D15EB33F3003A2A7A /* AZSpinnerLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF1B9AC1744A26300B2BF84 /* NSManagedObject+SDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA36BEB165BB2050077A065 /* NSManagedObject+SDAdditions.m */; };
 		7BF1B9AD1744A26700B2BF84 /* NSManagedObject+SDAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BA36BEA165BB2050077A065 /* NSManagedObject+SDAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BF1EB691A84BE9800C24CD7 /* GoogleTTS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF1EB671A84BE9800C24CD7 /* GoogleTTS.h */; };
+		7BF1EB6A1A84BE9800C24CD7 /* GoogleTTS.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF1EB671A84BE9800C24CD7 /* GoogleTTS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BF1EB6B1A84BE9800C24CD7 /* GoogleTTS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1EB681A84BE9800C24CD7 /* GoogleTTS.m */; };
+		7BF1EB6C1A84BE9800C24CD7 /* GoogleTTS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF1EB681A84BE9800C24CD7 /* GoogleTTS.m */; };
 		7BF2617D164F2B260057EB88 /* AtoZFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF9854915FEBDB100D47192 /* AtoZFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF2AE1B18AE1ED2002087E7 /* AZGeometryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF2AE1918AE1BA2002087E7 /* AZGeometryTests.m */; };
 		7BF343FE17538D330006E542 /* NullSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF343FC17538D330006E542 /* NullSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1089,6 +1105,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 66213432148AF2CF006881E1;
 			remoteInfo = SVGKitLibrary;
+		};
+		7B2453EB1A83F3BA008EB1AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B2453DE1A83F3B7008EB1AC;
+			remoteInfo = AtoZTouch;
 		};
 		7B2585F317183EC800527501 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1271,6 +1294,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7B311950159B6D9E002134C4;
 			remoteInfo = AtoZ;
+		};
+		7B4804A51A8B220500D63860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 52D6217814DF7F1E00400117;
+			remoteInfo = JTGestureBasedTableViewDemo;
+		};
+		7B4804A71A8B220500D63860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 52D6219C14DF7F1E00400117;
+			remoteInfo = JTGestureBasedTableViewDemoTests;
+		};
+		7B4804A91A8B220500D63860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1AA68A5114FA443D009145F3;
+			remoteInfo = JTGestureBaseTableViewStoryBoardDemo;
+		};
+		7B4804E51A8B267000D63860 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7B11A1DC1A849DF10000ADFB;
+			remoteInfo = LoadMe;
 		};
 		7B494F6E198423FC00CB4AD5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2077,17 +2128,6 @@
 			name = "Copy Sounds";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B39615715F04FD70065813F /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-				7B39616D15F0580B0065813F /* AtoZ.h in CopyFiles */,
-				7B39615F15F04FD80065813F /* AtoZTouch.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7B469B0419B2192A00C15DDB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2283,6 +2323,15 @@
 		7B23C36315CE98AF00DD1A9C /* AZLogConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZLogConsole.h; sourceTree = "<group>"; };
 		7B23C37A15CF2E8200DD1A9C /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		7B23C37C15CF318500DD1A9C /* missingdial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missingdial.png; path = ../missingdial.png; sourceTree = "<group>"; };
+		7B2453DF1A83F3B7008EB1AC /* AtoZTouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZTouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2453E21A83F3B7008EB1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B2453E91A83F3BA008EB1AC /* AtoZTouchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtoZTouchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B2453EF1A83F3BB008EB1AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B2453F01A83F3BB008EB1AC /* AtoZTouchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTouchTests.m; sourceTree = "<group>"; };
+		7B2453F61A83F44C008EB1AC /* AZTMacroDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTMacroDefines.h; sourceTree = "<group>"; };
+		7B2453F81A83F4BE008EB1AC /* AtoZTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZTouch.h; sourceTree = "<group>"; };
+		7B2453FA1A840165008EB1AC /* AtoZ+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AtoZ+UITableView.h"; sourceTree = "<group>"; };
+		7B2453FB1A840165008EB1AC /* AtoZ+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AtoZ+UITableView.m"; sourceTree = "<group>"; };
 		7B24E97715A1299700A9D87A /* NSView+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSView+AtoZ.h"; path = "../NSView+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B24E97815A1299700A9D87A /* NSView+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSView+AtoZ.m"; sourceTree = "<group>"; };
 		7B24E97F15A12D2100A9D87A /* AZGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGrid.h; sourceTree = "<group>"; };
@@ -2516,10 +2565,6 @@
 		7B379D3415DE668F0040A093 /* EditTitlePanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditTitlePanel.xib; sourceTree = "<group>"; };
 		7B385DEC15C3B49E00A28686 /* AZFoamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZFoamView.h; sourceTree = "<group>"; };
 		7B385DED15C3B49E00A28686 /* AZFoamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZFoamView.m; sourceTree = "<group>"; };
-		7B39615915F04FD70065813F /* libAtoZTouch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAtoZTouch.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AtoZTouch-Prefix.pch"; sourceTree = "<group>"; };
-		7B39615E15F04FD80065813F /* AtoZTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AtoZTouch.h; sourceTree = "<group>"; };
-		7B39616015F04FD80065813F /* AtoZTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AtoZTouch.m; sourceTree = "<group>"; };
 		7B3A1552180C79B200F63F4D /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		7B3A1554180C79B200F63F4D /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		7B3A1555180C79B200F63F4D /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
@@ -2585,6 +2630,14 @@
 		7B469B0819B2192A00C15DDB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		7B469B5419B21D4D00C15DDB /* AtoZ_private.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = AtoZ_private.modulemap; path = ../AtoZ_private.modulemap; sourceTree = "<group>"; };
 		7B475B1215ED65450002137E /* bullseye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullseye.png; sourceTree = "<group>"; };
+		7B479E191A8CAD6A00EC12BD /* libMobileGestalt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMobileGestalt.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libMobileGestalt.dylib; sourceTree = DEVELOPER_DIR; };
+		7B479E1B1A8CAD6C00EC12BD /* libMobileGestalt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libMobileGestalt.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libMobileGestalt.dylib; sourceTree = DEVELOPER_DIR; };
+		7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JTGestureBasedTableViewDemo.xcodeproj; path = modules/JTGestureBasedTableView/JTGestureBasedTableViewDemo.xcodeproj; sourceTree = "<group>"; };
+		7B4804D81A8B266F00D63860 /* JTTableViewGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTTableViewGestureRecognizer.h; path = modules/JTGestureBasedTableView/JTGestureBasedTableView/JTTableViewGestureRecognizer.h; sourceTree = "<group>"; };
+		7B4804D91A8B266F00D63860 /* JTTableViewGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTTableViewGestureRecognizer.m; path = modules/JTGestureBasedTableView/JTGestureBasedTableView/JTTableViewGestureRecognizer.m; sourceTree = "<group>"; };
+		7B4804DA1A8B266F00D63860 /* JTTransformableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JTTransformableTableViewCell.h; path = modules/JTGestureBasedTableView/JTGestureBasedTableView/JTTransformableTableViewCell.h; sourceTree = "<group>"; };
+		7B4804DB1A8B266F00D63860 /* JTTransformableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JTTransformableTableViewCell.m; path = modules/JTGestureBasedTableView/JTGestureBasedTableView/JTTransformableTableViewCell.m; sourceTree = "<group>"; };
+		7B4804DD1A8B266F00D63860 /* UIColor+JTGestureBasedTableViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+JTGestureBasedTableViewHelper.m"; path = "modules/JTGestureBasedTableView/JTGestureBasedTableView/UIColor+JTGestureBasedTableViewHelper.m"; sourceTree = "<group>"; };
 		7B495F7715C076C7002DC694 /* RGB.clr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = RGB.clr; path = ../RGB.clr; sourceTree = "<group>"; };
 		7B4A5B6B1714AFF200020D6D /* NoodleKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NoodleKit.xcodeproj; path = ../Frameworks/NoodleKit/NoodleKit.xcodeproj; sourceTree = "<group>"; };
 		7B4A8FED15AB267D00463B91 /* AZSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AZSourceList.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -3203,6 +3256,8 @@
 		7BDF56A21627695500041A42 /* TestBedDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestBedDelegate.m; sourceTree = "<group>"; };
 		7BDF56AE1627BE4200041A42 /* AZInstantApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AZInstantApp.h; sourceTree = "<group>"; };
 		7BDF56AF1627BE4200041A42 /* AZInstantApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZInstantApp.m; sourceTree = "<group>"; };
+		7BDF5E7C1A854230000AE605 /* ALApplicationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALApplicationList.h; sourceTree = "<group>"; };
+		7BDF5E7D1A854230000AE605 /* ALApplicationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALApplicationList.m; sourceTree = "<group>"; };
 		7BDFE2AB167A191A00BC5C53 /* NSDate+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+AtoZ.h"; path = "../NSDate+AtoZ.h"; sourceTree = "<group>"; };
 		7BDFE2AC167A191A00BC5C53 /* NSDate+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+AtoZ.m"; sourceTree = "<group>"; };
 		7BE1F69C15F90298005ED292 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../Frameworks/FunSize.framework/FunSize.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -3269,6 +3324,8 @@
 		7BEF70251603112800A0300E /* NSBundle+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+AtoZ.m"; sourceTree = "<group>"; };
 		7BF0571A15EB33F2003A2A7A /* AZSpinnerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSpinnerLayer.m; sourceTree = "<group>"; };
 		7BF0571B15EB33F3003A2A7A /* AZSpinnerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSpinnerLayer.h; sourceTree = "<group>"; };
+		7BF1EB671A84BE9800C24CD7 /* GoogleTTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleTTS.h; sourceTree = SOURCE_ROOT; };
+		7BF1EB681A84BE9800C24CD7 /* GoogleTTS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleTTS.m; sourceTree = SOURCE_ROOT; };
 		7BF29C831807B41D004668D3 /* WebSockets+AtoZTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WebSockets+AtoZTests.m"; path = "AtoZUnitTests/WebSockets+AtoZTests.m"; sourceTree = SOURCE_ROOT; };
 		7BF29CC71807B520004668D3 /* RoutingHTTPServerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoutingHTTPServerTests.m; path = ../../Frameworks/RoutingHTTPServerFramework/RoutingHTTPServerTests/RoutingHTTPServerTests.m; sourceTree = "<group>"; };
 		7BF29CC91807B5B3004668D3 /* NSObjectStrictProtocolsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSObjectStrictProtocolsTests.m; path = Categories/StrictProtocols/NSObjectStrictProtocolsTests.m; sourceTree = SOURCE_ROOT; };
@@ -3350,10 +3407,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B39615615F04FD70065813F /* Frameworks */ = {
+		7B2453DB1A83F3B7008EB1AC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B479E1A1A8CAD6A00EC12BD /* libMobileGestalt.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B2453E61A83F3BA008EB1AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2453EA1A83F3BA008EB1AC /* AtoZTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3738,6 +3804,47 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		7B2453E01A83F3B7008EB1AC /* AtoZTouch */ = {
+			isa = PBXGroup;
+			children = (
+				7B4804E91A8B8E7800D63860 /* JTTable */,
+				7BDF5E7C1A854230000AE605 /* ALApplicationList.h */,
+				7BDF5E7D1A854230000AE605 /* ALApplicationList.m */,
+				7B2453F81A83F4BE008EB1AC /* AtoZTouch.h */,
+				7B2453F61A83F44C008EB1AC /* AZTMacroDefines.h */,
+				7B2453FA1A840165008EB1AC /* AtoZ+UITableView.h */,
+				7B2453FB1A840165008EB1AC /* AtoZ+UITableView.m */,
+				7B2453E11A83F3B7008EB1AC /* Supporting Files */,
+			);
+			path = AtoZTouch;
+			sourceTree = "<group>";
+		};
+		7B2453E11A83F3B7008EB1AC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */,
+				7B2453E21A83F3B7008EB1AC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B2453ED1A83F3BA008EB1AC /* AtoZTouchTests */ = {
+			isa = PBXGroup;
+			children = (
+				7B2453F01A83F3BB008EB1AC /* AtoZTouchTests.m */,
+				7B2453EE1A83F3BB008EB1AC /* Supporting Files */,
+			);
+			path = AtoZTouchTests;
+			sourceTree = "<group>";
+		};
+		7B2453EE1A83F3BB008EB1AC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B2453EF1A83F3BB008EB1AC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7B24E97B15A12CED00A9D87A /* AZGeometry */ = {
 			isa = PBXGroup;
 			children = (
@@ -4077,7 +4184,11 @@
 				7B31B12F15E9441D00802CD5 /* AtoZUnits */,
 				7BF72D59171F8F2F0037CF41 /* AtoZUnitTests */,
 				7B05BB09159C406200409B83 /* Classes */,
+				7BF1EB671A84BE9800C24CD7 /* GoogleTTS.h */,
+				7BF1EB681A84BE9800C24CD7 /* GoogleTTS.m */,
 				7B6BEDD91674B42E00829B8A /* Core */,
+				7B2453E01A83F3B7008EB1AC /* AtoZTouch */,
+				7B2453ED1A83F3BA008EB1AC /* AtoZTouchTests */,
 				7B311953159B6D9E002134C4 /* Frameworks */,
 				7B59C8281600D346009DAFCA /* Models */,
 				7B3777BE16F1BDAD0083CBB5 /* Networking */,
@@ -4092,7 +4203,6 @@
 		7B311952159B6D9E002134C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7B39615915F04FD70065813F /* libAtoZTouch.a */,
 				7B184EE515FCA98600696360 /* AtoZCLI */,
 				7BDF568C1627695300041A42 /* AtoZTestBed.app */,
 				7B4A908916F3A6F0003CD058 /* AtoZHelper.app */,
@@ -4107,6 +4217,8 @@
 				7B469B0619B2192A00C15DDB /* AtoZ_SwiftREPL */,
 				7BAAD10519DECE630067607C /* AtoZPlus.framework */,
 				7BAAD10F19DECE640067607C /* AtoZ+Tests.xctest */,
+				7B2453DF1A83F3B7008EB1AC /* AtoZTouch.framework */,
+				7B2453E91A83F3BA008EB1AC /* AtoZTouchTests.xctest */,
 			);
 			name = Products;
 			path = ..;
@@ -4115,6 +4227,8 @@
 		7B311953159B6D9E002134C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B479E1B1A8CAD6C00EC12BD /* libMobileGestalt.dylib */,
+				7B479E191A8CAD6A00EC12BD /* libMobileGestalt.dylib */,
 				7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */,
 				7BC425771776799D00928201 /* AtoZAutoBox.xcodeproj */,
 				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
@@ -4254,25 +4368,6 @@
 				7BBCBAD116713DD600681F2B /* AtoZWebSnapperGridViewController.m */,
 			);
 			name = OFF;
-			sourceTree = "<group>";
-		};
-		7B39615B15F04FD70065813F /* AtoZTouch */ = {
-			isa = PBXGroup;
-			children = (
-				7B39615E15F04FD80065813F /* AtoZTouch.h */,
-				7B39616015F04FD80065813F /* AtoZTouch.m */,
-				7B39615C15F04FD80065813F /* Supporting Files */,
-			);
-			name = AtoZTouch;
-			path = ../AtoZTouch;
-			sourceTree = "<group>";
-		};
-		7B39615C15F04FD80065813F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7B39615D15F04FD80065813F /* AtoZTouch-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		7B3A1550180C79B100F63F4D /* _xcconfigs */ = {
@@ -4433,6 +4528,29 @@
 			path = AtoZ_SwiftREPL;
 			sourceTree = "<group>";
 		};
+		7B4804851A8B220400D63860 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B4804A61A8B220500D63860 /* JTGestureBasedTableViewDemo.app */,
+				7B4804A81A8B220500D63860 /* JTGestureBasedTableViewDemoTests.xctest */,
+				7B4804AA1A8B220500D63860 /* JTGestureBaseTableViewStoryBoardDemo.app */,
+				7B4804E61A8B267000D63860 /* LoadMe.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B4804E91A8B8E7800D63860 /* JTTable */ = {
+			isa = PBXGroup;
+			children = (
+				7B4804D81A8B266F00D63860 /* JTTableViewGestureRecognizer.h */,
+				7B4804D91A8B266F00D63860 /* JTTableViewGestureRecognizer.m */,
+				7B4804DA1A8B266F00D63860 /* JTTransformableTableViewCell.h */,
+				7B4804DB1A8B266F00D63860 /* JTTransformableTableViewCell.m */,
+				7B4804DD1A8B266F00D63860 /* UIColor+JTGestureBasedTableViewHelper.m */,
+			);
+			name = JTTable;
+			sourceTree = "<group>";
+		};
 		7B4A5B6C1714AFF200020D6D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -4541,7 +4659,6 @@
 				7B95C88416F00E9A00480BB1 /* AtoZ-Framework-Config.xcconfig */,
 				7B0C13C916F4647F00229000 /* sox */,
 				7B6BEDDA1674C0A500829B8A /* Unused */,
-				7B39615B15F04FD70065813F /* AtoZTouch */,
 				7B9ADE9E1635C51A0026FA02 /* CTBadge_1.pdf */,
 				7B9ADE9F1635C51A0026FA02 /* CTBadge_3.pdf */,
 				7B9ADEA01635C51A0026FA02 /* CTBadge_4.pdf */,
@@ -5927,6 +6044,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B2453DC1A83F3B7008EB1AC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B4804DE1A8B266F00D63860 /* JTTableViewGestureRecognizer.h in Headers */,
+				7B2453F91A83F4BE008EB1AC /* AtoZTouch.h in Headers */,
+				7BF1EB6A1A84BE9800C24CD7 /* GoogleTTS.h in Headers */,
+				7BDF5E7E1A854230000AE605 /* ALApplicationList.h in Headers */,
+				7B4804E01A8B266F00D63860 /* JTTransformableTableViewCell.h in Headers */,
+				7B2453FC1A840165008EB1AC /* AtoZ+UITableView.h in Headers */,
+				7B2453F71A83F44C008EB1AC /* AZTMacroDefines.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B31194E159B6D9E002134C4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -6044,6 +6175,7 @@
 				7B34823819DF3FB80088BE9A /* DTTimePeriodCollection.h in Headers */,
 				7B4CCDC4191881420063D9BF /* AtoZEmoji.h in Headers */,
 				7B92137415C56F4600862F9D /* AZSimpleView.h in Headers */,
+				7BF1EB691A84BE9800C24CD7 /* GoogleTTS.h in Headers */,
 				7B28FB4C17DECF3300DD5803 /* DSSyntaxDefinition.h in Headers */,
 				7BAAD23019DEE7430067607C /* NSFont+AtoZ.h in Headers */,
 				7B9742A915C62F70006490DD /* RuntimeReporter.h in Headers */,
@@ -6413,6 +6545,43 @@
 			productReference = 7B184EE515FCA98600696360 /* AtoZCLI */;
 			productType = "com.apple.product-type.tool";
 		};
+		7B2453DE1A83F3B7008EB1AC /* AtoZTouch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B2453F21A83F3BB008EB1AC /* Build configuration list for PBXNativeTarget "AtoZTouch" */;
+			buildPhases = (
+				7B2453DA1A83F3B7008EB1AC /* Sources */,
+				7B2453DB1A83F3B7008EB1AC /* Frameworks */,
+				7B2453DC1A83F3B7008EB1AC /* Headers */,
+				7B2453DD1A83F3B7008EB1AC /* Resources */,
+				7B4804F01A8B941600D63860 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AtoZTouch;
+			productName = AtoZTouch;
+			productReference = 7B2453DF1A83F3B7008EB1AC /* AtoZTouch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7B2453E81A83F3BA008EB1AC /* AtoZTouchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B2453F41A83F3BB008EB1AC /* Build configuration list for PBXNativeTarget "AtoZTouchTests" */;
+			buildPhases = (
+				7B2453E51A83F3BA008EB1AC /* Sources */,
+				7B2453E61A83F3BA008EB1AC /* Frameworks */,
+				7B2453E71A83F3BA008EB1AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7B2453EC1A83F3BA008EB1AC /* PBXTargetDependency */,
+			);
+			name = AtoZTouchTests;
+			productName = AtoZTouchTests;
+			productReference = 7B2453E91A83F3BA008EB1AC /* AtoZTouchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7B311950159B6D9E002134C4 /* AtoZ */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B31197B159B6D9E002134C4 /* Build configuration list for PBXNativeTarget "AtoZ" */;
@@ -6433,23 +6602,6 @@
 			productName = AtoZ;
 			productReference = 7B311951159B6D9E002134C4 /* AtoZ.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		7B39615815F04FD70065813F /* AtoZTouch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7B39616215F04FD80065813F /* Build configuration list for PBXNativeTarget "AtoZTouch" */;
-			buildPhases = (
-				7B39615715F04FD70065813F /* CopyFiles */,
-				7B39615515F04FD70065813F /* Sources */,
-				7B39615615F04FD70065813F /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AtoZTouch;
-			productName = AtoZTouch;
-			productReference = 7B39615915F04FD70065813F /* libAtoZTouch.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		7B4112E61846FB91009EE3EA /* ObjectiveCLI */ = {
 			isa = PBXNativeTarget;
@@ -6638,6 +6790,12 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "mrgray.com, inc.";
 				TargetAttributes = {
+					7B2453DE1A83F3B7008EB1AC = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					7B2453E81A83F3BA008EB1AC = {
+						CreatedOnToolsVersion = 6.2;
+					};
 					7B4113011846FB93009EE3EA = {
 						TestTargetID = 7B311950159B6D9E002134C4;
 					};
@@ -6729,6 +6887,10 @@
 					ProjectRef = 7B028F3919A5304B00559DFB /* JNWCollectionView.xcodeproj */;
 				},
 				{
+					ProductGroup = 7B4804851A8B220400D63860 /* Products */;
+					ProjectRef = 7B4804841A8B220400D63860 /* JTGestureBasedTableViewDemo.xcodeproj */;
+				},
+				{
 					ProductGroup = 7BA10C58192ADABB004964AB /* Products */;
 					ProjectRef = 7BA10C57192ADABB004964AB /* KeyValueObjectMapping.xcodeproj */;
 				},
@@ -6800,10 +6962,12 @@
 			projectRoot = "";
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
+				7B2453DE1A83F3B7008EB1AC /* AtoZTouch */,
 				7BCAD9101944BFC1005E6C4D /* Deps */,
 				7B4F5B6D1760FB5D00BFE73D /* Frameworks */,
 				7BCAD93B1944CE95005E6C4D /* StaticFrameworks */,
 				7BCAD9141944C022005E6C4D /* Libs */,
+				7BAAD10419DECE630067607C /* AtoZPlus */,
 				7B644DB51816B5A00036D205 /* AtoZUnitTests */,
 				7B0DA21817434FCA00535483 /* AtoZPrefs */,
 				7B0DA29E174352CC00535483 /* AtoZAgent */,
@@ -6811,7 +6975,6 @@
 				7BDF568B1627695300041A42 /* AtoZTestBed */,
 				7B184EE415FCA98600696360 /* AtoZCLI */,
 				7B02A2C4172A852E00973A80 /* AZPrompt */,
-				7B39615815F04FD70065813F /* AtoZTouch */,
 				7B5A71FC178C0A1F00AF9807 /* AtoZDocumentation */,
 				7B04F6FD1815061B00800285 /* WindowPoppers */,
 				7B4112E61846FB91009EE3EA /* ObjectiveCLI */,
@@ -6819,8 +6982,8 @@
 				7B789D5B1913A677000615B9 /* Router */,
 				7BE62485192C5E87007C3772 /* OCLint */,
 				7B469B0519B2192A00C15DDB /* AtoZ_SwiftREPL */,
-				7BAAD10419DECE630067607C /* AtoZPlus */,
 				7BAAD10E19DECE640067607C /* AtoZ+Tests */,
+				7B2453E81A83F3BA008EB1AC /* AtoZTouchTests */,
 			);
 		};
 /* End PBXProject section */
@@ -7013,6 +7176,34 @@
 			fileType = wrapper.cfbundle;
 			path = Tests.octest;
 			remoteRef = 7B427EFA170B13240052FC31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B4804A61A8B220500D63860 /* JTGestureBasedTableViewDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = JTGestureBasedTableViewDemo.app;
+			remoteRef = 7B4804A51A8B220500D63860 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B4804A81A8B220500D63860 /* JTGestureBasedTableViewDemoTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JTGestureBasedTableViewDemoTests.xctest;
+			remoteRef = 7B4804A71A8B220500D63860 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B4804AA1A8B220500D63860 /* JTGestureBaseTableViewStoryBoardDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = JTGestureBaseTableViewStoryBoardDemo.app;
+			remoteRef = 7B4804A91A8B220500D63860 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B4804E61A8B267000D63860 /* LoadMe.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LoadMe.bundle;
+			remoteRef = 7B4804E51A8B267000D63860 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B4A5B771714AFF400020D6D /* NoodleKit.framework */ = {
@@ -7488,6 +7679,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B2453DD1A83F3B7008EB1AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B2453E71A83F3BA008EB1AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B31194F159B6D9E002134C4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7716,6 +7921,32 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/ln -sF \"${CODESIGNING_FOLDER_PATH}\" \"/sd/UNIX/bin/\"\n";
 		};
+		7B4804F01A8B941600D63860 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nBUILTED=\"${CODESIGNING_FOLDER_PATH}/${TARGETNAME}\"\n\nif [ \"$(otool -L $BUILTED)\" -ne \"0\" ]; then say failed && exit 1; fi\n\n/xbin/universalframework\n\n/usr/bin/scp -P22100 -r \"/dd/AtoZ/${SHARED_SUPPORT_FOLDER_PATH}\" \\\n            root@6.local:/Library/Frameworks\n\n\n#if [[ ! \"${SDK_NAME}\" =~ \"simulator\" ]]; then\n\n#else\n#    logger not copying simulator files to device\n#fi\n\n# open \"${CODESIGNING_FOLDER_PATH}\"";
+		};
+		7B4804FF1A8BB9E500D63860 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcodebuild -scheme AtoZ 1> /dev/null\n\n. '\n'\nSOUNDS=/System/Library/Sounds/\n\nif [ \"$?\" -eq \"0\" ]; then\n\n/usr/bin/afplay \"$SOUNDS$(/xbin/rando $(ls $SOUNDS))\"\nfi\n'";
+		};
 		7B5A7204178C0A4100AF9807 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -7815,6 +8046,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B2453DA1A83F3B7008EB1AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B4804E31A8B266F00D63860 /* UIColor+JTGestureBasedTableViewHelper.m in Sources */,
+				7B479E181A8CAA4C00EC12BD /* ALApplicationList.m in Sources */,
+				7BF1EB6C1A84BE9800C24CD7 /* GoogleTTS.m in Sources */,
+				7B4804DF1A8B266F00D63860 /* JTTableViewGestureRecognizer.m in Sources */,
+				7B4804E11A8B266F00D63860 /* JTTransformableTableViewCell.m in Sources */,
+				7B2453FD1A840165008EB1AC /* AtoZ+UITableView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B2453E51A83F3BA008EB1AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2453F11A83F3BB008EB1AC /* AtoZTouchTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B31194C159B6D9E002134C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7894,6 +8146,7 @@
 				7BAD22CF177D7F3300480B2A /* AZGoogleImages.m in Sources */,
 				7B091A3F15A850E500821FFD /* AZButton.m in Sources */,
 				7B13AFC5177EC97600EDEEF2 /* AZMacTrackBall.m in Sources */,
+				7BF1EB6B1A84BE9800C24CD7 /* GoogleTTS.m in Sources */,
 				7B4A8FF015AB267D00463B91 /* AZSourceList.m in Sources */,
 				7BA2223419B397DF008A1590 /* SoundManager.m in Sources */,
 				7BBD96EF15AD38F300943FC1 /* AZApplePrivate.m in Sources */,
@@ -8122,14 +8375,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B39615515F04FD70065813F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7B39616115F04FD80065813F /* AtoZTouch.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7B4112E31846FB91009EE3EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -8230,6 +8475,11 @@
 			isa = PBXTargetDependency;
 			name = JNWCollectionView;
 			targetProxy = 7B028F8919A530BC00559DFB /* PBXContainerItemProxy */;
+		};
+		7B2453EC1A83F3BA008EB1AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B2453DE1A83F3B7008EB1AC /* AtoZTouch */;
+			targetProxy = 7B2453EB1A83F3BA008EB1AC /* PBXContainerItemProxy */;
 		};
 		7B3C7373197CA1F50096522C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8780,6 +9030,117 @@
 			};
 			name = Debug;
 		};
+		7B2453F31A83F3BB008EB1AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(THEOS)/Frameworks",
+					"$(THEOS)/include",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(THEOS)/include",
+					"$(AZBUILD)/include",
+					/usr/local/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = AtoZTouch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-w",
+					"-fconstant-cfstrings",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(THEOS)/include $(PROJECT_DIR)/AtoZTouch/Frameworks $(PROJECT_DIR)/AtoZTouch/PrivateFrameworks";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7B2453F51A83F3BB008EB1AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = AtoZTouchTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
 		7B311979159B6D9E002134C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B3A1552180C79B200F63F4D /* Common.xcconfig */;
@@ -8788,7 +9149,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				IBC_FLATTEN_NIBS = NO;
 				IBC_STRIP_NIBS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -8925,37 +9286,6 @@
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				RUN_OCLINT = NO;
 				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		7B39616315F04FD80065813F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B3A155E180C79B200F63F4D /* iOS-StaticLibrary.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/AtoZTouch.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "AtoZTouch/AtoZTouch-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "ATOZTOUCH=1";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "include/${PRODUCT_NAME}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -9421,6 +9751,22 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		7B2453F21A83F3BB008EB1AC /* Build configuration list for PBXNativeTarget "AtoZTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B2453F31A83F3BB008EB1AC /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7B2453F41A83F3BB008EB1AC /* Build configuration list for PBXNativeTarget "AtoZTouchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B2453F51A83F3BB008EB1AC /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		7B31194A159B6D9E002134C4 /* Build configuration list for PBXProject "AtoZ" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -9433,14 +9779,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7B31197C159B6D9E002134C4 /* Debug */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		7B39616215F04FD80065813F /* Build configuration list for PBXNativeTarget "AtoZTouch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7B39616315F04FD80065813F /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

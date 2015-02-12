@@ -1,14 +1,20 @@
+//
 //  AtoZTouch.h
 //  AtoZTouch
-//  Created by Alex Gray on 8/30/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//hello
-//no
-#import <Foundation/Foundation.h>
-#import "BaseModel.h"
+//
+//  Created by Alex Gray on 2/5/15.
+//  Copyright (c) 2015 mrgray.com, inc. All rights reserved.
+//
 
-@interface AtoZTouch : BaseModel
+#import <UIKit/UIKit.h>
 
-- (void) sayHello;
+//#if(TAR
 
-@end
+#import <AtoZTouch/AZTMacroDefines.h>
+
+#pragma mark - IOS UI
+
+
+#import <AtoZTouch/AtoZ+UITableView.h>
+
+#import <AtoZTouch/JTTableViewGestureRecognizer.h>

@@ -95,6 +95,11 @@ int main(int argc, char *argv[], char**argp ){\
 //@end
 
 
+#define AZMAIN(...) \
+\
+APPLE_MAIN { int EXIT = 0; @autoreleasepool {  ( __VA_ARGS__ ); } return EXIT; }
+
+
 
 NS_INLINE int fakeMain(int argc, char *argv[]) {
 
