@@ -442,14 +442,18 @@ NSS* pad = [NSString.string paddedRightTo:MAX(1,self.length-count)];
  return pad ? [pad withString:self.copy] : self;
 
 }
-- (NSS*) paddedTo:(NSUI)count 						{
+- (NSS*) paddedTo:(NSUI)ct 						{
 
-	return [self stringByPaddingToLength:count withString:@" " startingAtIndex:0];
+  return self.length >= ct ? self : [self stringByPaddingToLength:ct withString:@" " startingAtIndex:0];
 }
-+ (NSA*) properNames	 									{
-	static NSS *names; if (!names) names = @"/usr/share/dict/propernames";
-  static NSA*propers;
-	return propers = propers ?: [[[self stringWithContentsOfFile:names usedEncoding:NULL error:NULL] componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet] arrayWithoutObject:@""];  // sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]
++ (NSA*) properNames	 								{
+
+  AZSTATIC_OBJ(NSA, propers,
+               [[[self stringWithContentsOfFile:@"/usr/share/dict/propernames" usedEncoding:NULL error:NULL]
+           componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet]  arrayWithoutObject:@""])
+  return propers;
+
+  // sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]
 }
 
 + (OrderedDictionary*) properNamesByLetter { return self.properNames.mapToDictionaryByLetter; }
@@ -1102,9 +1106,6 @@ finish:
 	return $(@"%@%@", head, tail);
 }
 
-+ (id)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
-	return [self.alloc initWithData:data encoding:encoding];
-}
 
 + (NSS*)stringWithCGFloat:(CGFloat)f maxDigits:(NSUInteger)numDigits {
 	//012345678 <-Indices.
@@ -1541,12 +1542,12 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 @implementation NSMutableAttributedString (Additions)
 - (void)resizeTo:(CGFloat)size
 {
-  [@(self.length) times:^(NSN* idx) {
+  [@(self.length) do:^(int idx) {
 
     [self addAttribute:NSFontAttributeName
-                 value:[AZFONTMANAGER convertFont:[[self attributesAtIndex:idx.uIV effectiveRange:NULL]
+                 value:[AZFONTMANAGER convertFont:[[self attributesAtIndex:idx effectiveRange:NULL]
                                                    objectForKey:NSFontAttributeName]toSize:size]
-                 range:NSMakeRange(idx.uIV, 1)];
+                 range:NSMakeRange(idx, 1)];
   }];
 }
 - (void) setFont:(NSFont*)font {
@@ -2158,9 +2159,10 @@ static void _ScanSentence(NSScanner *scanner) {
  return !format || argList == NULL ? nil : [self.alloc initWithFormat:format arguments:argList];
 }
 
-+ (NSS*)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
-	return [self.alloc initWithData:data encoding:encoding];
-}
+// IN CocosTechCore
+//+ (NSS*)stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
+//	return [self.alloc initWithData:data encoding:encoding];
+//}
 
 - initWithConcatnatingStrings:(NSS*)first, ...{
 	NSMutableArray *array = [NSMutableArray array];

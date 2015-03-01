@@ -12,7 +12,7 @@
 //  appreciated but not required.
 //
 
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 #import <SecurityFoundation/SFAuthorization.h>
 
 @interface NSTask (OneLineTasksWithOutput)

@@ -528,10 +528,10 @@ __attribute__((constructor)) static void setupLogger() {
 	NSLog(@"apple url event: %@", path);
 	[[NSAlert alertWithMessageText:@"URL Request" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%@", path] runModal];
 }
-- (BOOL) inTTY                  {   return [@(isatty(STDERR_FILENO))boolValue]; }
 - (NSC*) logColor               {  return _logColor = _logColor ?: RANDOMCOLOR; }
 
 - (void) appendToStdOutView:(NSS*)text		{
+
 	NSAttributedString *string = [text attributedWithFont:AtoZ.controlFont andColor:self.logColor];
 	// Get the length of the textview contents
 	NSRange theEnd				= NSMakeRange([_stdOutView.string length], 0);

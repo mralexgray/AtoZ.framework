@@ -31,6 +31,9 @@ NSS *    NSBundleFolder (void);
 - (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
 
 - (NSA*) pathsOfFilesIn:(NSS*)p   withExtension:(NSS*)ext;
+
+/*! [FM pathsOfFilesIn:NSHomeDirectory() matchingPattern:@"/.*"]   .dotfiles  */
+
 - (NSA*) pathsOfFilesIn:(NSS*)p matchingPattern:(NSS*)regex;
 - (NSA*) pathsOfFilesIn:(NSS*)p         passing:(BOOL(^)(NSS*))testBlock;
 //recursive
@@ -43,6 +46,9 @@ NSS *    NSBundleFolder (void);
 
 //+ (NSImage *) imageNamed: (NSS*) aName;
 //+ (NSImage *) imageFromURLString: (NSS*) urlstring;
+
+- (BOOL) isSymlink:(NSString*)ln;
+- (BOOL) isSymlink:(NSString*)ln to:(NSString*)p;
 
 @end
 

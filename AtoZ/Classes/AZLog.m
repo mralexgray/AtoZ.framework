@@ -59,28 +59,31 @@ JREnumDefine ( LogEnv );
 //}
 
 
-@implementation NSLogMessage @synthesize  JSONRepresentation = _JSONRep, data = _data, message = _message, file = _file, function = _function, line = _line, date = _date;
+@implementation NSLogMessage
 
-- (INST) initWithLog:		(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUI)sev {	self = super.init;
+@synthesize  JSONRepresentation = _JSONRep, data = _data, message = _message, file = _file, function = _function, line = _line, date = _date;
+
+- (INST)    initWithLog:data file:(char*)file func:(char*)func line:(int)line sev:(NSUI)sev {	self = super.init;
 
   ISA(data,NSS) ? _message = data : ISA(data,NSData) ? _data = data : nil;
   _file = $(@"%s",file); _date = NSDate.date; _line = @(line ?: 0); _severity = @(sev ?: 0); _function = func ? $UTF8(func) : nil;
   return self;
 }
-+ (INST) messageWithLog:(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUI)sev {
++ (INST) messageWithLog:data file:(char*)file func:(char*)func line:(int)line sev:(NSUI)sev {
   return [self.alloc initWithLog:data file:file func:func line:line sev:sev];
 }
--   (id) JSONRepresentation				{ if (_JSONRep) return _JSONRep; NSERR*error;
 
-  id x = [NSJSONSerialization dataWithJSONObject:self.dictionaryRepresentation options:NSJSONWritingPrettyPrinted error:&error];
-  // Pass 0 if you don't care about the readability of the generated string
-  return _JSONRep = error ? NSLog(@"Got an error: %@", error), (id)nil: [NSS stringWithUTF8Data:x];
-}
 - (NSD*) dictionaryRepresentation {
   return @{@"message":self.message,	@"date": _date.string, @"file": _file ?:@"", @"line":_line ? _line.stringValue : @"0", @"severity":self.severityString};
 }
 - (NSS*) severityString						{ objswitch(_severity) objcase(@0) return @"INFO"; objcase(@1) return @"WARN"; defaultcase return @"DEBUG"; endswitch }
 - (NSS*) message									{ return _message = _message ?: _data ? [NSS stringWithUTF8Data:_data] : @""; }
+-        JSONRepresentation				{ if (_JSONRep) return _JSONRep; NSERR*error;
+
+  id x = [NSJSONSerialization dataWithJSONObject:self.dictionaryRepresentation options:NSJSONWritingPrettyPrinted error:&error];
+  // Pass 0 if you don't care about the readability of the generated string
+  return _JSONRep = error ? NSLog(@"Got an error: %@", error), (id)nil: [NSS stringWithUTF8Data:x];
+}
 @end
 
 void WEBLOG	   (id fmt, ...)  { AZLogConsoleView* __unused e = (AZLogConsoleView*)[AZLogConsole.sharedConsole webView]; /* [e logString: file:(char*)filename lineNumber:(int)lineNum];*/ }

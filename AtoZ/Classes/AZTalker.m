@@ -1,12 +1,12 @@
 
-#import "AtoZ.h"
+
 #import "AZTalker.h"
 
 @interface AZTalker ()
 AZPROP(NSSpeechSynthesizer,talker);
 @end
 
-@implementation AZTalker static NSMA* queue = nil; static BOOL finished = NO;
+@implementation AZTalker static NSMutableArray* queue = nil; static BOOL finished = NO;
 
 - (void) setUp { _talker = NSSpeechSynthesizer.new; _talker.delegate = self; queue = NSMA.new; }
 
@@ -23,20 +23,20 @@ AZPROP(NSSpeechSynthesizer,talker);
 
 + (NSSpeechSynthesizer*) talker { return [self.sharedInstance talker]; }
 
-+ (void) randomDicksonism { SAY(NSS.dicksonisms.randomElement); }
+//+ (void) randomDicksonism { SAY(NSString.dicksonisms.randomElement); }
 
 
-+ (void) sayUntilFinished:(NSS*)x { finished = NO; [self say:x then:^{ finished = YES; }];
++ (void) sayUntilFinished:(NSString*)x { finished = NO; [self say:x then:^{ finished = YES; }];
 
   while(!finished) [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.date];
 }
-+ (void) say:(NSS*)x                      { [self.sharedInstance say:x]; }// startSpeakingString:x]; }
-+ (void) say:(NSS*)x then:(VBlk)then { [self.sharedInstance setDoneTalking:[then copy]]; [self.sharedInstance say:x]; }
++ (void) say:(NSString*)x                      { [self.sharedInstance say:x]; }// startSpeakingString:x]; }
++ (void) say:(NSString*)x then:(VBlk)then { [self.sharedInstance setDoneTalking:[then copy]]; [self.sharedInstance say:x]; }
 
-+ (void) sayFormat:(NSString*)fmt,... {
-
-  va_list argList; va_start(argList, fmt); [self say:[NSS stringWithFormat:fmt arguments:argList]]; va_end(argList);
-}
+//+ (void) sayFormat:(NSString*)fmt,... {
+//
+//  va_list argList; va_start(argList, fmt); [self say:[NSString stringWithFormat:fmt arguments:argList]]; va_end(argList);
+//}
 
 
 
@@ -46,7 +46,8 @@ AZPROP(NSSpeechSynthesizer,talker);
   [self.talker startSpeakingString:x];
 }
 
-+ (NSU*) tempURL { 	return [NSURL.alloc initFileURLWithPath:AZTEMPFILE(aiff)]; }
++ (NSU*) tempURL { 	return [NSURL.alloc initFileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSUUID.UUID.UUIDString]];
+}
 
 + (void) say:(NSString*)x toData:(void(^)(NSData*d))data {
 

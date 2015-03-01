@@ -429,7 +429,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 //					  AZ_arc__WEAK				= 0x00100000);
 
 
-//#import "AtoZMacroDefines.h"
+//@import AtoZUniversal;
 //#import "JREnum.h"
 //#import "AtoZUmbrella.h"
 //#ifdef __OBJC__
@@ -656,7 +656,7 @@ oldValue = newValue;
 //  #import "BaseModel.h"
 //  #import "JREnum.h"
 //
-//  #import "AtoZMacroDefines.h"
+//  @import AtoZUniversal;
 //  #import "AtoZUmbrella.h"
 //  #import "BoundingObject.h"
 //  #import "AtoZGeometry.h"
@@ -941,8 +941,7 @@ oldValue = newValue;
 //	#import "GCDAsyncSocket.h"
 //	#import "GCDAsyncSocket+AtoZ.h"
 	#import "objswitch.h"
-	#import "BaseModel.h"
-	#import "AtoZMacroDefines.h"
+	@import AtoZUniversal;
 	#import "JREnum.h"
 	#import "AtoZTypes.h"
 	#import "AtoZGeometry.h"

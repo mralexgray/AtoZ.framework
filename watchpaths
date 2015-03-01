@@ -1,0 +1,126 @@
+#!/usr/bin/env zsh
+
+export UNIVERSAL_ARCHS="arm64" "armv7" "i386" "x86_64"
+
+installTouchFramework() {
+
+  declare -a LINKERS
+
+
+  local TARGET="AtoZTouch"
+  local SRCROOT="/a2z/AtoZ"
+  local TARGET_BUILD_DIR="/dd/AtoZ"
+
+  local BUILD_CMD="/usr/bin/xcodebuild -configuration Debug IPHONEOS_DEPLOYMENT_TARGET=7.0 \
+                                       -project $SRCROOT/AtoZ.xcodeproj \
+                                       -scheme $TARGET"
+
+  cd $TARGET_BUILD_DIR
+
+
+  for arch in $UNIVERSAL_ARCHS; do
+  
+    [[ "$arch" =~ ("arm64"|"arm") ]] && PLATFORM=iphoneos || PLATFORM=iphonesimulator
+  
+    BUILD_IN="$TARGET_BUILD_DIR/build-$arch"
+  
+    eval "$BUILD_CMD -sdk \"$PLATFORM\" \
+                      ARCHS=\"$arch\" \
+                      VALID_ARCHS=\"$arch\" \
+                      TARGET_BUILD_DIR=\"$BUILD_IN\" \
+                      BUILT_PRODUCTS_DIR=\"$BUILD_IN\" | xcpretty"
+
+  
+    LINKERS+=("$TARGET_BUILD_DIR/build-$arch/AtoZTouch.framework/AtoZTouch")
+
+  done
+
+  DEST="$TARGET_BUILD_DIR/AtoZTouch.framework"
+
+  rm -rf "$DEST"
+  cp -r  "$TARGET_BUILD_DIR/build-arm64/AtoZTouch.framework" "$TARGET_BUILD_DIR"
+  rm -rf "$DEST/AtoZTouch"
+
+  lipo -create $LINKERS -output "$DEST/AtoZTouch"
+
+  otool -L $DEST/AtoZTouch 
+
+  [[ "$?" -ne "0" ]] && return 9
+
+  /usr/bin/scp -P22100 -r "$DEST" root@6.local:/Library/Frameworks
+
+  say A to Z Touch Installed on device.
+}
+
+export process='say'
+
+: ' fswatch [OPTION] ... path ...
+
+  Options:
+   -0, --print0          Use the ASCII NUL character (0) as line separator.
+   -1, --one-event       Exit fswatch after the first set of events is received.
+       --batch-marker    Print a marker at the end of every batch.
+   -e, --exclude=REGEX   Exclude paths matching REGEX.
+   -E, --extended        Use extended regular expressions.
+       --format=FORMAT   Use the specified record format.
+   -f, --format-time     Print the event time using the specified format.
+   -h, --help            Show this message.
+   -i, --include=REGEX   Include paths matching REGEX.
+   -I, --insensitive     Use case insensitive regular expressions.
+   -l, --latency=DOUBLE  Set the latency.
+   -L, --follow-links    Follow symbolic links.
+   -m, --monitor=NAME    Use the specified monitor.
+   -n, --numeric         Print a numeric event mask.
+   -o, --one-per-batch   Print a single message with the number of change events.
+   -r, --recursive       Recurse subdirectories.
+   -t, --timestamp       Print the event timestamp.
+   -u, --utc-time        Print the event time as UTC time.
+   -v, --verbose         Print verbose output.
+       --version         Print the version of fswatch and exit.
+   -x, --event-flags     Print the event flags.
+       --event-flag-separator=STRING
+                         Print event flags using the specified separator.
+
+  Available monitors in this platform:
+
+    fsevents_monitor
+    kqueue_monitor
+    poll_monitor
+
+  See the man page for more information.
+
+  Report bugs to <enrico.m.crisostomo@gmail.com>.
+  fswatch home page: <https://github.com/emcrisostomo/fswatch>.
+'
+
+# installTouchFramework
+
+# -iL /dd/AtoZ/**/(AtoZTouch|SS)
+
+# /usr/local/bin/fswatch -iL /dd/AtoZ/**  | xargs -I{} say rebuilding {}
+
+/usr/local/bin/fswatch \
+\
+  --event-flags --follow-links \
+  --event-flag-separator "?" \
+  -i /a2Z/**|/sd/dev/AtoZIO/** \
+  -e xcuserdata \
+  -e .git \
+  | xargs -I{} $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
+
+
+
+# /xbin/universalframework {} && say rebuilding
+# eval "$(xcodebuild -showBuildSettings  | sed '1d;s/^ *//;s/"/\\"/g;s/ = \(.*\)/="\1"/;s/ = /=/;s/UID.*//'| grep '=')"
+
+
+                # CODE_SIGNING_REQUIRED='NO' \
+                # CODESIGNING_IDENTITY=''"
+
+                # lipo -create  ; do echo '#{build_dir}/build-$arch/#{target}#{wrapper}/#{target}'
+
+
+
+
+# env
+

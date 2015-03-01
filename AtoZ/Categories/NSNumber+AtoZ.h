@@ -9,6 +9,7 @@
 
 @prop_RO NSS* hexString;
 
+
 - (void) do:(void(^)(int ctr))block;
 + (INST) numberWithBytes:(const void*)bytes objCType:(const char*)type;
 
@@ -54,6 +55,7 @@
 @prop_RO NSN * increment, * abs, *negate, * transpose;
 
 - (NSA*) times:(id (^)(void))block;
+- (NSA*) ntimes:(id (^)(int index))block;
 
 @prop_RO NSA* toArray;
 @prop_RO NSS* sVal;

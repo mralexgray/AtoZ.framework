@@ -1,6 +1,7 @@
 
 #import "AtoZTypes.h"
 
+/// @see NSString-Utilities.h in CocoaTechCore!!
 
 @interface NSData (AtoZ)
 @prop_RO NSS* UTF8String, *UTF16String;
@@ -22,12 +23,13 @@
 
 + (NSA*) alphabet;
 + (NSA*) digits;
-+ (NSA*) lettersAndNumbers;
++ (NSA*) lettersAndNumbers; /// A-Z + 1-9
 
-@prop_RO BOOL isInteger, isValidURL;
+@prop_RO  BOOL    isInteger,
+                  isValidURL;
 
-@property   			NSRNG	subRange;
-@prop_RO NSRNG range;
+@prop_   NSRNG	  subRange;
+@prop_RO NSRNG    range;
 
 - (void) openInTextMate;
 
@@ -247,7 +249,6 @@ AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
 @prop_RO NSAS * attributedWithDefaults;
 
 
-+ (INST) stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 + (NSS*)   stringWithCGFloat: (CGF)f		 maxDigits: (NSUI)numDigits;
 //- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
 - (NSAS*) attributedWith:(NSD*)attrs;
@@ -508,7 +509,8 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [initWithData:encoding:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/initWithData:encoding:
  */
-+ (INST) stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
+// IN CocosTechCore
+//+ (INST) stringWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 
 /*!
  *  @brief Creates and returns an NSString object with concatnating given arguments.

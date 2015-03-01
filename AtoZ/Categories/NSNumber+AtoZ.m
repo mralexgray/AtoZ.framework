@@ -156,11 +156,15 @@
 - (NSN*)increment {
 	return @([self intValue]+1);
 }
+- (NSA*) ntimes:(id (^)(int index))block {
+  return self.intValue < 0 ? nil :[@(self.intValue).toArray mapArray:^id(id obj) { return block([obj intValue]); }];
+}
 -(NSA*)times:(id (^)(void))block {
 
   return self.intValue < 0 ? nil
                            :[@(self.intValue).toArray mapArray:^id(id obj) { return block(); }];
 }
+
 -(NSA*)to:(NSN*)to {	return [self to:to by:@1.0]; }
 
 -(NSA*)to:(NSN*)to by:(NSN*)by { 	NSMA *re = NSMA.new;

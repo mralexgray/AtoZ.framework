@@ -114,6 +114,8 @@ void 	QuietLog								(NSS *format,...);
 #define STACKFUNCTION 	STACKARRAY[4]
 #define STACKLINE	 		STACKARRAY[5]
 
+#ifndef XCODE_COLORS_DEFS
+#define XCODE_COLORS_DEFS
 #pragma mark - COLOR LOGGING
 /*	Foreground color: 	Insert the ESCAPE_SEQ into your string, followed by "fg124,12,255;" where r=124, g=12, b=255.
  Background color:	 	Insert the ESCAPE_SEQ into your string, followed by "bg12,24,36;" where r=12, g=24, b=36.
@@ -133,6 +135,8 @@ void 	QuietLog								(NSS *format,...);
 #define 	XCODE_COLORS_RESET	 		XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
 #define 	COLOR_RESET 					XCODE_COLORS_RESET
 #define 	COLOR_ESC 					XCODE_COLORS_ESCAPE
+
+#endif
 
 #define AZLOGIN 	LOGCOLORS($UTF8(__PRETTY_FUNCTION__), @" started running!", nil)
 #define AZLOGOUT  LOGCOLORS($UTF8(__PRETTY_FUNCTION__), @" finished running!", nil)

@@ -6,10 +6,17 @@
 //  Copyright (c) 2015 mrgray.com, inc. All rights reserved.
 //
 
-#import <UIKit/UITableView.h>
+@import UIKit;
 
 @interface UITableView (AtoZ)
 
 - (void) update:(void(^)(UITableView*)) block;
+
+@end
+
+
+@interface UITabBarController (Swipe)
+
+- (void) setupSwipeGestureRecognizersAllowCyclingThroughTabs:(BOOL)allowsCycling;
 
 @end

@@ -1,0 +1,85 @@
+
+   target = "AtoZTouch"
+  wrapper = ".framework"
+xcodeproj = "/a2z/AtoZ/AtoZ.xcodeproj"
+build_dir = "/dd/AtoZ"
+
+def xcodebuild(sdk, archs, iphoneos_deployment_target, products_dir)
+  sh "xcodebuild -project '#{xcodeproj}' \
+                 -scheme '#{xc_scheme}' \
+                 -configuration 'Debug' \
+                 -sdk '#{sdk}' \
+                  ARCHS='#{archs}' \
+                  VALID_ARCHS='#{archs}' \
+                  IPHONEOS_DEPLOYMENT_TARGET='#{iphoneos_deployment_target}' \
+                  TARGET_BUILD_DIR='#{products_dir}' \
+                  BUILT_PRODUCTS_DIR='#{build_dir}/#{products_dir}' \
+                  CODE_SIGNING_REQUIRED='NO' \
+                  CODESIGNING_IDENTITY=''"
+end
+
+desc "Build arm"
+task :build_arm do
+  xcodebuild('iphoneos', 'armv7 armv7s', '7.0', 'build-arm')
+end
+
+desc "Build arm64"
+task :build_arm64 do
+  xcodebuild('iphoneos', 'arm64', '7.0', 'build-arm64')
+end
+
+desc "Build i386"
+task :build_i386 do
+  xcodebuild('iphonesimulator', 'i386', '7.0', 'build-i386')
+end
+
+desc "Build x86_64"
+task :build_x86_64 do
+  xcodebuild('iphonesimulator', 'x86_64', '7.0', 'build-x86_64')
+end
+
+desc "Build fat"
+task :build_fat => [:build_arm, :build_arm64, :build_i386, :build_x86_64] do
+  # sh "rm -rf '/dd/AtoZ/AtoZTouch.framework'"
+  # sh "cp -r './' '/dd/AtoZ'"
+  # sh "mkdir /dd/AtoZ/AtoZTouch.framework"
+  # sh "rm -rf '/dd/AtoZ/AtoZTouch.framework/AtoZTouch'"
+  
+  sh "lipo -create  $(for arch in 'arm64' 'arm' 'i386' 'x86_64'; do echo '#{build_dir}/build-$arch/#{target}#{wrapper}/#{target}'
+           -output '#{build_dir}/#{target}#{wrapper}/#{target}'"
+
+  # libjpeg.${arch}/.libs/libjpeg.a; done)
+  #                  './build-arm64/#{target}#{wrapper}/#{target}' \
+  #                   './build-i386/AtoZTouch.framework/AtoZTouch' \
+  #                 './build-x86_64/AtoZTouch.framework/AtoZTouch' \
+
+end
+
+desc "Clean"
+task :clean do
+  sh 'rm -rf '#{b}'build*'
+end
+
+desc "Clean binary"
+task :distclean => [:clean] do
+  sh "rm -rf /dd/AtoZ/AtoZTouch.framework"
+end
+
+desc "Install"
+task :install do
+  sh "/usr/bin/scp -P22100 -r /dd/AtoZ/AtoZTouch.framework root@6.local:/Library/Frameworks"
+end
+
+# task :default => [:distclean, :build_fat]
+# task :default => [:build_fat, :install]
+task :default => [:build_fat]
+
+desc "Copy"
+task :copy_files do
+  cp('readme.htm', File.join('build', 'readme.htm'), :verbose => true)
+end
+
+desc "Move"
+task :mv_files do
+  mv(File.join('build', 'readme.htm'), File.join('release', 'index.htm'), :verbose => true)
+end

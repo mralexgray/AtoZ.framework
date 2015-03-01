@@ -201,10 +201,11 @@ IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, 
  @end
  */
 
-NSC* Clr			(azkColor c) {
-  return 	c == azkColorNone 	? nil 		 :	c == azkColorRed 	? RED		 	:	c == azkColorOrange 	? ORANGE		 	:
-  c == azkColorYellow 	? YELLOW		 :	c == azkColorGreen? GREEN		:	c == azkColorBlue 	? BLUE			: nil;
-}
+//NSC* Clr			(azkColor c) {
+//  return 	c == azkColorNone 	? nil 		 :	c == azkColorRed 	? RED		 	:	c == azkColorOrange 	? ORANGE		 	:
+//  c == azkColorYellow 	? YELLOW		 :	c == azkColorGreen? GREEN		:	c == azkColorBlue 	? BLUE			: nil;
+//}
+
 NSG* GradForClr(azkColor c) {
 
 		return 	c == azkColorNone 	? nil 		 :	c == azkColorRed 	? REDGRAD 	:	c == azkColorOrange 	? ORANGEGRAD 	:

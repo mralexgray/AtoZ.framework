@@ -20,7 +20,7 @@
 //@property				  NSArrayController * connections;
 
 
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 #import "BoundingObject.h"
 
 #define WSSRVR        AZWebSocketServer

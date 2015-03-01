@@ -1,30 +1,25 @@
 
+
+//#ifndef AtoZ_AtoZUniversal_h
+//#import "AtoZUniversal.h"
+//#endif
+
+#import "TargetConditionals.h"
+@import AppKit;
+#import <AtoZUniversal/BaseModel.h>
+
+
 #ifndef AtoZ_MacroDefines
 #define AtoZ_MacroDefines
 
-#import <Foundation/Foundation.h>
-#import <AppKit/AppKit.h>
 
 #pragma mark - ATOZFRAMEWORK
-
-#import <JREnum.h>
-
-#define APPLE_MAIN int main(int argc, char **argv, char **envp, char **apple)
-#define APPLEMAIN(...) APPLE_MAIN { ({ __VA_ARGS__; }); }
-
-
-//@import AppKit.NSView;
-//@import AppKit.NSImage;
-//@import AppKit.NSImageView;
 
 #ifndef metamacro_take
 #define metamacro_take(N, ...) \
         metamacro_concat(metamacro_take, N)(__VA_ARGS__)
 #endif
 
-#ifndef metamacro_take
-#define RNG AZRange
-#endif
 
 #pragma mark - COLORS
 #define $RGBA(R,G,B,A) ((NSC*)[NSC r:R g:G b:B a:A])
@@ -1253,6 +1248,7 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 
 #define $ARRAYSET(A) [NSSet setWithArray:(A)]
 #define $CG2NSC(A) [NSC colorWithCGColor:(A)]
+
 //#define $concat(A,...) { A = [A arrayByAddingObjectsFromArray:((NSArray *)[NSArray arrayWithObjects:__VA_ARGS__,nil])]; }
 // s stringByReplacingOccurrencesOfString:@"fff " withString:@"%%%%"] )
 //#define AZLOG(log,...) NSLog(@"%@", [log s stringByReplacingOccurrencesOfString:@"fff " withString:@"%%%%"] )
@@ -1271,6 +1267,11 @@ _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
 Stuff; \
 _Pragma("clang diagnostic pop") \
 } while (0)
+
+
+#ifndef metamacro_take
+#define RNG AZRange
+#endif
 
 
 #endif /* END AtoZ_AtoZMacroDefines_h */

@@ -1217,16 +1217,16 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 
   CAL *grid = [[self layerWithFrame:r mask:CASIZEABLE] objectBySettingValue:AZLAYOUTMGR forKey:@"layoutManager"];
 
-  [rows times:^(NSN *r) {
-    [cols times:^(NSN *c) {
+  [rows do:^(int r) {
+    [cols do:^(int c) {
 
       CAL *cell         = pal ? [CAGL gradientWithColor:pal.nextNormalObject] : [self layer];
       cell.borderColor  = cgWHITE;
       cell.borderWidth  = 1;
       cell.constraints  = @[  AZConstRelSuperScaleOff( kCAConstraintWidth,  1/cols.fV, 0),
                               AZConstRelSuperScaleOff( kCAConstraintHeight, 1/rows.fV, 0),
-                       AZConstAttrRelNameAttrScaleOff( kCAConstraintMinX, AZSLayer, kCAConstraintMaxX, c.iV/cols.fV,0),
-                       AZConstAttrRelNameAttrScaleOff( kCAConstraintMinY, AZSLayer, kCAConstraintMaxY, r.iV/rows.fV,0)];
+                       AZConstAttrRelNameAttrScaleOff( kCAConstraintMinX, AZSLayer, kCAConstraintMaxX, c/cols.fV,0),
+                       AZConstAttrRelNameAttrScaleOff( kCAConstraintMinY, AZSLayer, kCAConstraintMaxY, r/rows.fV,0)];
       [cell disableResizeActions];
       [grid addSublayer:cell];
     }];

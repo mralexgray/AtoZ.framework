@@ -6,15 +6,19 @@
 //  Copyright (c) 2015 mrgray.com, inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
 //#if(TAR
 
-#import <AtoZTouch/AZTMacroDefines.h>
+#import <AtoZTouch/AtoZUniversal.h>
 
 #pragma mark - IOS UI
 
 
-#import <AtoZTouch/AtoZ+UITableView.h>
+#import <AtoZTouch/UITableView+AtoZ.h>
 
 #import <AtoZTouch/JTTableViewGestureRecognizer.h>
+#import <AtoZTouch/AZApplicationList.h>
+
+
+#import <AtoZTouch/AZiTalker.h>
+#import <AtoZTouch/GoogleTTS.h>

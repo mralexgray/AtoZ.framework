@@ -2,7 +2,7 @@
 // NSOperation-WebFetches-MadeEasy (TM)
 // Copyright (C) 2012 by David Hoerl
 // 
-//#import "AtoZMacroDefines.h"
+//@import AtoZUniversal;
 //#import <CocoaAsyncSocket/ConcurrentOperation.h>
 #import "AtoZUmbrella.h"
 //#import "ConcurrentOperation.h"

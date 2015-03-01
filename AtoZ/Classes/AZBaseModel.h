@@ -88,7 +88,7 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //use the BaseModel class as the base class for any of your
 //model objects. BaseModels can be standalone objects, or
 //act as sub-properties of a larger object
-#import "F.h"
+
 #import "AtoZUmbrella.h"
 
 @interface AZBaseModel : NSObject

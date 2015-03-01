@@ -1,6 +1,6 @@
 
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 
 @class StickyNoteView2;
 

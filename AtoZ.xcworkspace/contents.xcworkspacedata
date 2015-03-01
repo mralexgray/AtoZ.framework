@@ -11,6 +11,9 @@
       location = "group:../dev/SansNib/sans.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:AtoZ/AtoZPlayground.playground">
+   </FileRef>
+   <FileRef
       location = "container:AtoZ/AtoZ.xcodeproj">
    </FileRef>
    <FileRef

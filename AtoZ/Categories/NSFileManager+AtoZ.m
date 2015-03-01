@@ -23,6 +23,12 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 @implementation NSFileManager (AtoZ)
 
+- (BOOL) isSymlink:(NSString*)ln to:(NSString*)p { return [self isSymlink:ln] &&
+                                                         [[self destinationOfSymbolicLinkAtPath:ln error:nil] isEqualToString:p];
+}
+
+- (BOOL) isSymlink:(NSString*)ln { return [self attributesOfItemAtPath:ln error:nil][NSFileType] == NSFileTypeSymbolicLink; }
+
 - tagForFileAtPath:pathorurl {
 
   NSURL * fileURL = ISA(pathorurl, NSURL) ? pathorurl : [NSURL fileURLWithPath:pathorurl];
@@ -161,12 +167,14 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 }
 - (NSA*) pathsOfFilesIn:(NSS*)path matchingPattern:(NSS*)regex              {
 
-	glob_t gt;
-	NSMutableArray* globber = NSMutableArray.new;
-	int exit = glob($(@"%@/%@",path.stringByStandardizingPath,regex).UTF8String, 0, NULL, &gt);
-	if (exit != 0) return nil;
+  glob_t gt; NSMA* globber = @[].mutableCopy;
+
+	if ((glob($(@"%@%@",path.stringByStandardizingPath,regex).UTF8String, 0, NULL, &gt))) return nil;
+
 	for (int i = 0; i < gt.gl_matchc; i++)
+
 		[globber addObject:[self stringWithFileSystemRepresentation:gt.gl_pathv[i] length:strlen(gt.gl_pathv[i])].copy];
+
 	globfree(&gt);
 	return globber;
 }

@@ -1,6 +1,8 @@
 
 #import <Zangetsu/Zangetsu.h>
-#import <AtoZ/AtoZMacroDefines.h>
+
+@import AtoZUniversal;
+
 #import <AtoZ/AtoZTypes.h>
 
 /*! Useful protocol for any object that implements both setter and getters for both FRAME and BOUNDS.  

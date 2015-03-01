@@ -2,9 +2,9 @@
 //  PVAsyncImageView.h  Created by Pedro Vieira on 7/11/12
 //  Copyright (c) 2012 Pedro Vieira. ( https://twitter.com/W1TCH_ )
 
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 
-@interface AZASIMGV : NSImageView
+@interface AZASImageView : NSImageView
 
 @property (readonly) BOOL isLoadingImage, userDidCancel, didFailLoadingImage;
 

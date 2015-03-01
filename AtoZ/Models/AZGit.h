@@ -1,7 +1,6 @@
 
 
 #import "AtoZUmbrella.h"
-#import "BaseModel.h"
 #import "AZObject.h"
 
 

@@ -1,10 +1,6 @@
-//
-//  AZTMacroDefines.h
-//  AtoZ
-//
-//  Created by Alex Gray on 2/5/15.
-//  Copyright (c) 2015 mrgray.com, inc. All rights reserved.
-//
+
+
+#import <UIKit/UIKit.h>
 
 #ifndef AtoZ_AZTMacroDefines_h
 #define AtoZ_AZTMacroDefines_h
@@ -34,6 +30,41 @@
 
 #define TVDidSelectRowAtIP \
         TVMethod(void) didSelectRowAtIndexPath:(NSIndexPath*)ip
+
+
+
+#define AZiMAIN(DELEGATE) \
+\
+int main(int argc, char **argv) {	int ret;	@autoreleasepool { \
+\
+  ret = UIApplicationMain(argc, argv, @#DELEGATE, @#DELEGATE); \
+\
+} return ret; }
+
+
+#pragma mark - Relocate to universal
+
+#if TARGET_OS_IPHONE
+  #define NSColor UIColor
+  #define NSC NSColor
+#else
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #endif

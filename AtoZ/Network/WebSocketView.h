@@ -1,6 +1,6 @@
 
 
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 
 @interface             WebSocketView : NSObject
 @property (NATOM)         NSUInteger       port;

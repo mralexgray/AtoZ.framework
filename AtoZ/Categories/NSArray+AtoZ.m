@@ -335,7 +335,8 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
   *argv = av;
   return(ac);
 }
-+ (NSA*) from:(NSI)from to:(NSI)to { return [NSA arrayFrom:from to:to]; }
++ (NSA*) from:(NSI)from to:(NSI)to { return [@(from) to:@(to)]; /* [NSA arrayFrom:from to:to]; */ }
+
 - nextNormalObject {
 	NSN    * n = [self associatedValueForKey:@"AZNextNormalObjectInternalIndex" orSetTo:@0 policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	NSUI indie = n.unsignedIntegerValue > self.count ? 0 : n.unsignedIntegerValue;

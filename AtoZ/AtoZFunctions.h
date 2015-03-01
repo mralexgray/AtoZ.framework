@@ -108,7 +108,7 @@ NS_INLINE  char intToHex ( NSI dig ) { return dig > 9 ? ( dig <= 0xf ? ('a' + di
 FOUNDATION_STATIC_INLINE CGFloat rF (){ return (CGFloat)((arc4random()%255)/255.); }
 
 NSG* GradForClr(azkColor c);
-NSC* Clr(azkColor c);
+//NSC* Clr(azkColor c);
 
 NSA* AZConstDefaults(AZO orientation);
 

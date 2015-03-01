@@ -33,7 +33,9 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 #ifdef __OBJC__
 
 
-#import "AtoZUmbrella.h"
+
+@import AtoZUniversal;
+@import AtoZIO;
 
 @import AtoZAppKit;
 @import AtoZBezierPath;
@@ -49,12 +51,14 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import PhFacebook;
 @import TwUI;
 @import UAGithubEngine;
-@import UIKit;
+@import NSUIKit;
 @import Zangetsu;
 
 @import RoutingHTTPServer;
 
-#import "AtoZCategories.h"
+#import <AtoZ/AtoZUmbrella.h>
+
+#import <AtoZ/AtoZCategories.h>
 
 @import BlocksKit;
 
@@ -109,14 +113,13 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 #import "JREnum.h"
 #import "objswitch.h"
-#import "BaseModel.h"
+
 #import "AutoCoding.h"
 #import "HRCoder.h"
-#import "F.h"
 
 #import "AtoZAutoBox/AtoZAutoBox.h"
 #import "AtoZTypes.h"
-#import "AtoZMacroDefines.h"
+
 #import "BoundingObject.h"
 #import "AtoZGeometry.h"
 
@@ -215,7 +218,7 @@ extern NSS *const AtoZSharedInstanceUpdated,
 @end
 
 
-#import "OperationsRunner.h"
+#import <AtoZ/OperationsRunner.h>
 
 
 /*! @abstract AZClassProxy enables `performSelector` to be called on `Class`'s.  Yay!.
@@ -317,8 +320,6 @@ AZNSIFACE(AZClassProxy)
 @prop_NA  NSA * fonts,          /// 13 font... names.
               * cachedImages;   /// nil.
 @prop_RO  NSB * bundle;
-@prop_RO BOOL   inTTY,          /// Seems accurate..
-                        inXcode;
 
 @prop_RO NSOS * sharedStack;
 @prop_RO NSOQ * sharedQ,
@@ -368,6 +369,8 @@ AZNSIFACE(AZClassProxy)
 +  (void) playNotificationSound: (NSD*)apsDictionary;
 +  (void) badgeApplicationIcon:  (NSS*)string;
 +  (NSA*) globalPalette;
+
+#define GLOBALPAL [AtoZ globalPalette]
 
 +  (void) testVarargs: (NSA*)args;
 

@@ -12,7 +12,7 @@
 // Copyright (c) 2009, 2010, ZETETIC LLC
 // All rights reserved.
 
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 
 @interface NSTimeZone (Extensions)
 + (NSTimeZone*) GMTTimeZone;

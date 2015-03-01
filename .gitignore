@@ -18,6 +18,7 @@
 .idea/
 .ideas/
 Archive*
+*.framework/
 AtoZ.framework
 AtoZ/XcodeENV.sh
 build
@@ -30,3 +31,4 @@ Notes.txt
 profile
 xcuserdata
 screenshots
+AtoZ/build*

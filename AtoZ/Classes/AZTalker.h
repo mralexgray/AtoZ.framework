@@ -1,21 +1,24 @@
 
 
-#import "AtoZUmbrella.h"
+
+#import <AtoZUniversal/AtoZMacroDefines.h>
+#import <AtoZUniversal/F.h>
+
 
 #define BRENDA    [AZTalker randomDicksonism]
-#define   SAY(X) ({ [AZTalker sayUntilFinished:ISA(X,NSS) ? X : [X description]]; })
+#define   SAY(X) ({ [AZTalker sayUntilFinished:ISA(X,NSString) ? X : [X description]]; })
 #define AZSAY(X) SAY(X)
 
 @interface AZTalker : BaseModel <NSSpeechSynthesizerDelegate>
 
-+ (void) sayUntilFinished:(NSS*)x;
-+ (void)        sayFormat:(NSS*)fmt,...;
++ (void) sayUntilFinished:(NSString*)x;
++ (void)        sayFormat:(NSString*)fmt,...;
 
-+ (void) say:(NSS*)x       then:(VBlk)blk;
-+ (void) say:(NSS*)x      toURL:(URLBlk)u;
-+ (void) say:(NSS*)x     toData:(DTABlk)d;
-+ (void) say:(NSS*)x withVolume:(CGF)volm;
-+ (void) say:(NSS*)x;
++ (void) say:(NSString*)x       then:(void(^)())blk;
++ (void) say:(NSString*)x      toURL:(URLBlk)u;
++ (void) say:(NSString*)x     toData:(DTABlk)d;
++ (void) say:(NSString*)x withVolume:(CGF)volm;
++ (void) say:(NSString*)x;
 
 + (void) randomDicksonism;
 
@@ -24,5 +27,5 @@
 @end
 
 
-//+(NSData*) sayToData:(NSString*)thing;
-//- (void) say:(NSString*)thing;
+//+(NSData*) sayToData:(NSStringtring*)thing;
+//- (void) say:(NSStringtring*)thing;

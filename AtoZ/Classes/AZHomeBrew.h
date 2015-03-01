@@ -1,6 +1,5 @@
 
-#import "AtoZMacroDefines.h"
-#import "BaseModel.h"
+@import AtoZUniversal;
 
 typedef NS_ENUM(NSUI, BrewOperationType) {
 	BrewOperationNone = 0,

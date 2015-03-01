@@ -7,8 +7,9 @@
 //
 
 //#import "AtoZUmbrella.h"
-#import <AppKit/AppKit.h>
-#import "BaseModel.h"
+//#import <AppKit/AppKit.h>
+
+#import <AtoZUniversal/AtoZUniversal.h>
 
 
 #define ALWAYS_SHOW_UI 0

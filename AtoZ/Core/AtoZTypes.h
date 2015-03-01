@@ -1,9 +1,12 @@
 
 #ifndef AtoZ_Types_h
 #define AtoZ_Types_h
+
+
 @import Foundation;
 #ifndef AtoZ_MacroDefines_h
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
+
 #endif
 #ifndef JREnum_h
 #import "JREnum.h"

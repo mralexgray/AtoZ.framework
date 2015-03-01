@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+set -e
+
+   target = "AtoZTouch"
+  wrapper = ".framework"
+xcodeproj = "/a2z/AtoZ/AtoZ.xcodeproj"
+build_dir = "/dd/AtoZ"
+
+def xcodebuild(sdk, archs, iphoneos_deployment_target, products_dir)
+  sh "xcodebuild -project '#{xcodeproj}' \
+                 -scheme '#{xc_scheme}' \
+                 -configuration 'Debug' \
+                 -sdk '#{sdk}' \
+                  ARCHS='#{archs}' \
+                  VALID_ARCHS='#{archs}' \
+                  IPHONEOS_DEPLOYMENT_TARGET='#{iphoneos_deployment_target}' \
+                  TARGET_BUILD_DIR='#{products_dir}' \
+                  BUILT_PRODUCTS_DIR='#{build_dir}/#{products_dir}' \
+                  CODE_SIGNING_REQUIRED='NO' \
+                  CODESIGNING_IDENTITY=''"
+
+
+archs=()
+
+function arch() { local arch=$1; local host=$2; local sdk=$3; local os=$4; local min=$5; shift 5
+
+  
+
+    rm -rf "libjpeg.${arch}"
+    rm -rf "libvncserver.${arch}"
+
+    if ! isysroot=$(xcodebuild -sdk "${sdk}" -version Path); then
+        return
+    fi
+
+    mkdir "libjpeg.${arch}"
+    mkdir "libvncserver.${arch}"
+
+    flags=()
+    flags+=(-isysroot "${isysroot}")
+    flags+=(-m${os}-version-min="${min}")
+    flags+=(-O3 -g3)
+    flags+=(-fvisibility=hidden)
+
+    if [[ ${arch} == arm* && ${arch} != arm64 ]]; then
+        flags+=(-mthumb)
+    fi
+
+    cpp="$*"
+
+    function configure() {
+        code=$1
+        shift
+        CC="clang -arch ${arch}" CXX="clang++ -arch ${arch}" CFLAGS="${flags[*]}" CPPFLAGS="${flags[*]} ${cpp}" ../"${code}"/configure --host="${host}" --disable-shared "$@"
+    }
+
+    cd "libjpeg.${arch}"
+    configure jpeg-9a
+    make
+    cd ..
+
+    flags+=(-I"${PWD}/jpeg-9a")
+
+    jpeg=${PWD}/libjpeg.${arch}
+    flags+=(-I"${jpeg}")
+
+    cd "libvncserver.${arch}"
+    configure libvncserver JPEG_LDFLAGS="-L${jpeg}/.libs -ljpeg"
+    make -C libvncserver
+    cd ..
+
+    archs+=("${arch}")
+}
+
+arch armv6 arm-apple-darwin10 iphoneos iphoneos 2.0 -mllvm -arm-reserve-r9
+arch armv7 arm-apple-darwin11 iphoneos iphoneos 2.0
+arch arm64 aarch64-apple-darwin11 iphoneos iphoneos 2.0
+
+rm -rf library
+mkdir library
+
+lipo -output library/libjpeg.a -create $(for arch in "${archs[@]}"; do echo libjpeg.${arch}/.libs/libjpeg.a; done)
+lipo -output library/libvncserver.a -create $(for arch in "${archs[@]}"; do echo libvncserver.${arch}/libvncserver/.libs/libvncserver.a; done)
+
+lipo -output library/libsurface-armv6.dylib -thin armv7 "$(xcodebuild -sdk iphoneos -version Path)/System/Library/PrivateFrameworks/CoreSurface.framework/CoreSurface"
+LANG=C /sw/bin/sed -i -e 's@\(\xCE\xFA\xED\xFE\x0C\x00\x00\x00\)\x09\x00\x00\x00@\1\x06\x00\x00\x00@' library/libsurface-armv6.dylib
+lipo -output library/libsurface.dylib -create library/libsurface-armv6.dylib "$(xcodebuild -sdk iphoneos -version Path)/System/Library/PrivateFrameworks/IOSurface.framework/IOSurface"

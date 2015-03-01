@@ -7,7 +7,7 @@
 //
 
 #import <KSHTMLWriter/KSHTMLWriter.h>
-#import "AtoZMacroDefines.h"
+@import AtoZUniversal;
 
 @interface KSHTMLWriter (AtoZ)
 

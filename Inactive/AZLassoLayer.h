@@ -1,11 +1,3 @@
-
-//  AZLassoLayer.h
-//  AtoZ
-
-//  Created by Alex Gray on 8/28/12.
-//  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-//#import "BaseModel.h"
-//#import "AtoZ.h"
 //#import "AtoZAutoBox/AtoZAutoBox.h"
 //#import "AtoZSingleton/AtoZSingleton.h"
 

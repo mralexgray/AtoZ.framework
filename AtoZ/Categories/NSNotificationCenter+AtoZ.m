@@ -21,12 +21,15 @@ void PostUserNote(NSString*note, ...){ azva_list_to_nsarray(note,vals);
 
 	SEL sel = @selector(userNotificationCenter:shouldPresentNotification:);
 
-	id<NSUserNotificationCenterDelegate> del = self.defaultUserNotificationCenter.delegate ?: (id<NSUserNotificationCenterDelegate>)self.defaultUserNotificationCenter;
+	id<NSUserNotificationCenterDelegate> del = self.defaultUserNotificationCenter.delegate ?: (id)self.defaultUserNotificationCenter;
+
 	if (![del respondsToSelector:sel]) {
-		IMP imp = imp_implementationWithBlock(^BOOL(id _self, SEL sel, NSUserNotificationCenter*c,NSUserNotification*n){ return YES; });
+
+    IMP imp = imp_implementationWithBlock(^BOOL(id _self, SEL sel, NSUserNotificationCenter*c,NSUserNotification*n){ return YES; });
 		class_addMethod([del class],sel,imp,"c@:@:@");
-		//	  NSLog(@"delegate:%@ responds..... %@",self.defaultUserNotificationCenter.delegate, [del respondsToSelector:sel] ? @"YES": @"NO");
+    // NSLog(@"delegate:%@ responds..... %@",self.defaultUserNotificationCenter.delegate, [del respondsToSelector:sel] ? @"YES": @"NO");
 	}
+
 	NSUserNotification *note	= NSUserNotification.new;
 	note.contentImage					= NSIMG.randomMonoIcon;
 	note.title								= t;

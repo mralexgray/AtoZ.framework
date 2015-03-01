@@ -5,10 +5,10 @@
 //  Copyright (c) 2012 Pedro Vieira. ( https://twitter.com/W1TCH_ )
 //  All rights reserved.
 //
-#import "AZASIMGV.h"
+#import "AZASImageView.h"
 #import "AtoZ.h"
 
-@interface AZASIMGV ()
+@interface AZASImageView ()
 	@property (readwrite) BOOL isLoadingImage;
 	@property (readwrite) BOOL userDidCancel;
 	@property (readwrite) BOOL didFailLoadingImage;
@@ -19,7 +19,7 @@
 	@property (nonatomic, strong)	NSTrackingArea *trackingArea;
 @end
 
-@implementation AZASIMGV
+@implementation AZASImageView
 @synthesize  imageDownloadData, imageURLConnection, errorImage, spinningWheel, trackingArea;
 
 

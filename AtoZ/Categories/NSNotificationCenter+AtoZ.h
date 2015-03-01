@@ -7,8 +7,9 @@
 //
 #import "AtoZUmbrella.h"
 #import "AtoZTypes.h"
-#import <Foundation/Foundation.h>
 
+#define AZUSERNOTC NSUserNotificationCenter
+#define AZUNOTC [AZUSERNOTC defaultUserNotificationCenter]
 
 // PostUserNote(@"some shit happneed", @"go cry about it");
 
