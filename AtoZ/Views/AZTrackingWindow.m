@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZTrackingWindow.h"
 
 typedef struct AZTri {		CGPoint a;	CGPoint b;	CGPoint c;	}AZTri;

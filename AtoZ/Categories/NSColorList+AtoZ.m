@@ -1,4 +1,4 @@
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSColor+AtoZ.h"
 #import "NSColorList+AtoZ.h"
 

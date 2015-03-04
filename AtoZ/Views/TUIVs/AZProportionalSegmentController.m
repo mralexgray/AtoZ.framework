@@ -6,7 +6,7 @@
 //  Copyright 2011 Maybe Apps, LLC. All rights reserved.
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZProportionalSegmentController.h"
 static NSI 	masterCt = 0;
 static id 	drawer = nil;

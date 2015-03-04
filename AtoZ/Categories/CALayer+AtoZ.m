@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "BoundingObject.h"
 #import "CALayer+AtoZ.h"
 
@@ -1998,7 +1998,7 @@ CGImageRef CreateCGImageFromFile        ( NSS *path ) {
 CGIREF GetCGImageNamed	( NSS *name ) {
 	// For efficiency, loaded images are cached in a dictionary by name.
 	static NSMutableDictionary *sMap;
-	if ( !sMap ) sMap = [NSMutableDictionary dictionary];
+	if ( !sMap ) sMap = @{}.mutableCopy;
 	CGIREF image = [(NSImage *)[NSImage imageNamed:sMap[name]] cgImage];
 	if ( !image ) {
 	// Hasn't been cached yet, so load it:
@@ -2017,7 +2017,7 @@ CGIREF GetCGImageNamed	( NSS *name ) {
 CGCLRREF GetCGPatternNamed	 ( NSS *name ) {	// can be resource name or abs. path
 				  // For efficiency, loaded patterns are cached in a dictionary by name.
 	static NSMutableDictionary *sMap;
-	if ( !sMap ) sMap = [NSMutableDictionary dictionary];
+	if ( !sMap ) sMap = @{}.mutableCopy;
 	CGCLRREF pattern = [NSColor colorWithPatternImage:sMap[name]].CGColor;
 	if ( !pattern ) {
 	pattern = CreatePatternColor( GetCGImageNamed(name) );

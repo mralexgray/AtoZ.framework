@@ -1,8 +1,7 @@
 
 
 #import "MondoSwitch.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation MondoSwitch @synthesize on, target, action;
 
 // Coder methods are necessary so that everything draws nicely in interface builder.

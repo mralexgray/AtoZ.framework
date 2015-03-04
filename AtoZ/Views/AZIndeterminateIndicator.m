@@ -10,8 +10,7 @@
 //  http://www.harmless.de
 //  Copyright 2007 Andreas Mayer. All rights reserved.
 #import "AZIndeterminateIndicator.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #define ConvertAngle(a) (fmod((90.0-(a)), 360.0))
 @implementation AZIndeterminateIndicator
 

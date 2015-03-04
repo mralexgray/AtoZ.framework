@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "CAScrollView.h"
 
 JREnum(ScrollFix, LayerInsertFront,	LayerInsertEnd, LayerRemoveFront, LayerRemoveEnd, LayerStateOK,	LayerStateUnresolved,	LayerStateUnset);

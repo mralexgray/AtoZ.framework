@@ -1,5 +1,4 @@
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 @interface AZSpeech2Text : BaseModel
 @property (weak) IBOutlet NSTextField *outputArea;

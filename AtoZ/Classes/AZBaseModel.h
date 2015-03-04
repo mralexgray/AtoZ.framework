@@ -56,8 +56,7 @@ typedef BOOL(^IsDocumentEdited)(id _self);
 #import <Foundation/Foundation.h>
 #import <objc/message.h>
 #import <objc/runtime.h>
-//#import "AtoZ.h"
-//#import "AtoZFunctions.h"
+//#import <AtoZ/AtoZ.h>//#import "AtoZFunctions.h"
 //#import "AtoZUmbrella.h"
 //#import "NSObject+AtoZ.h"
 

@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSWindow_Flipr.h"
 
 #include <sys/sysctl.h>

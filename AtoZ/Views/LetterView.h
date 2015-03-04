@@ -1,6 +1,5 @@
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface LetterView : NSView
 
 @property (STRNG) 	CATXTL 	*letterLayer, 	*extraLayer;

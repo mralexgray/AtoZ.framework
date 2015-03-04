@@ -11,8 +11,7 @@
 
 #define PYO PythonOperation
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 @interface  PYRunner : BaseModel
 @property (nonatomic, assign) dispatch_once_t interpreter;

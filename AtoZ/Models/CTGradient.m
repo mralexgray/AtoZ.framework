@@ -125,7 +125,6 @@ void resolveHSV(float *color1, float *color2);
 	}
   return self;
   }
-#pragma mark -
 
 #pragma mark Creation
 + (id)gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end
@@ -486,7 +485,6 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-#pragma mark -
 
 #pragma mark Modification
 - (CTGradient *)gradientWithAlphaComponent:(float)alpha
@@ -556,7 +554,6 @@ void resolveHSV(float *color1, float *color2);
   
   return newGradient;
   }
-#pragma mark -
 
 #pragma mark Information
 - (CTGradientBlendingMode)blendingMode
@@ -600,7 +597,6 @@ void resolveHSV(float *color1, float *color2);
 									blue:components[2]
 								   alpha:components[3]];
   }
-#pragma mark -
 
 #pragma mark Drawing
 - (void)drawSwatchInRect:(NSRect)rect
@@ -720,7 +716,6 @@ void resolveHSV(float *color1, float *color2);
   CGContextRestoreGState(currentContext);
   }
 
-#pragma mark -
 
 #pragma mark Private Methods
 - (void)setBlendingMode:(CTGradientBlendingMode)mode;
@@ -888,7 +883,6 @@ void resolveHSV(float *color1, float *color2);
   
   return nil;
   }
-#pragma mark -
 
 #pragma mark Core Graphics
 //////////////////////////////////////Blending Functions/////////////////////////////////////

@@ -7,8 +7,7 @@
 //
 
 #import "AZHostView.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 /*** A "layer backed NSView" 
 		1. can have subviews.  it is a normal view after all

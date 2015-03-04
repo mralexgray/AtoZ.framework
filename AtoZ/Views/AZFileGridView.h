@@ -4,8 +4,7 @@
 
 //  Created by Alex Gray on 8/26/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface AZFileGridView : NSView
 @property (nonatomic, retain) CALayer *root;
 @property (nonatomic, retain) AZSizer *sizer;

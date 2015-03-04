@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZColorWell.h"
 
 @interface    HighlightingView : NSView

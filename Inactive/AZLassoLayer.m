@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZLassoLayer.h"
 #import <QuartzCore/QuartzCore.h>
 

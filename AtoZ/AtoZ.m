@@ -4,8 +4,7 @@
 #import <sys/sysctl.h>
 #import <sys/proc_info.h>     /// + (NSArray*)processes
 #import <libproc.h>           /// GetBSDProcessList....
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 /*!  idler.c - Uses IOKit to figure out the idle time of the system. The idle time is stored as a property of the IOHIDSystem class; the name is HIDIdleTime. Stored as a 64-bit int, measured in ns. * The program itself just prints to stdout the time that the computer has been idle in seconds. Compile with gcc -Wall -framework IOKit -framework Carbon idler.c -o
 */

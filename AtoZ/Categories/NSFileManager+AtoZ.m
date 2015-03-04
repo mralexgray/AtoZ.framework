@@ -1,8 +1,7 @@
 
 //  NSFileManager+AtoZ.m  Created by Alex Gray on 8/28/12.
 
-#import "AtoZ.h"
-@import os;
+#import <AtoZ/AtoZ.h>@import os;
 @import Darwin;
 //#include <glob.h>
 #import <sys/xattr.h>

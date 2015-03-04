@@ -7,8 +7,7 @@
 //
 
 #import "MetalUI.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation MetalImageCell
 
 - (void) drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {

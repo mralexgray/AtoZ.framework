@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSEvent+AtoZ.h"
 #import "AtoZFunctions.h"
 #include <objc/runtime.h>

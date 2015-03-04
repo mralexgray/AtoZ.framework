@@ -9,16 +9,15 @@
 
 //#if(TAR
 
-#import <AtoZTouch/AtoZUniversal.h>
 
 #pragma mark - IOS UI
-
 
 #import <AtoZTouch/UITableView+AtoZ.h>
 
 #import <AtoZTouch/JTTableViewGestureRecognizer.h>
 #import <AtoZTouch/AZApplicationList.h>
 
+#import <AtoZTouch/Color+AtoZ.h>
 
 #import <AtoZTouch/AZiTalker.h>
 #import <AtoZTouch/GoogleTTS.h>

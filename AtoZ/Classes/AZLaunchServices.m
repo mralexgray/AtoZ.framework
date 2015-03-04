@@ -2,7 +2,7 @@
 //  Created by Alex Gray on 8/17/12.
 
 @import CoreServices;
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZLaunchServices.h"
 
 JREnumDefine(AZItemsViewFormat);

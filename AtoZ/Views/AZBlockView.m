@@ -1,7 +1,6 @@
 
 #import "AZBlockView.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface  BNRBlockView ()
 
 @end

@@ -1,6 +1,6 @@
 
 #import <WebKit/WebKit.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZLogConsole.h"
 #import "AZURLBar.h"
 

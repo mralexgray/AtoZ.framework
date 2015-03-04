@@ -5,8 +5,7 @@
 //  Copyright (c) 2011 Ian Voyce. All rights reserved.
 //
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface StarLayer : CALayer
 
 @property (STRNG, NATOM) NSC* color, *outlineColor;

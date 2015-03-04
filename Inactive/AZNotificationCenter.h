@@ -5,7 +5,7 @@
 //  Created by Michael Ash on 10/15/08.
 
 #import <AppKit/AppKit.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 @interface AZNotificationCenter : AZSingleton
 {
 	NSMutableDictionary*	_observerHelpers;

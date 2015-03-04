@@ -7,8 +7,7 @@
 //
 
 #import "NSCell+AtoZ.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 //@implementation NSButton (TextColor)
 //
 //- (NSColor *)textColor
@@ -92,7 +91,7 @@ static NSColor *highlightColor;
 
 -(NSD*)titleAttributes {
 	if (!titleAttributes_) {
-		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+		NSMutableDictionary *attributes = @{}.mutableCopy;
 		[attributes setValue:[NSFont controlContentFontOfSize:12.0f] forKey:NSFontAttributeName];
 		[attributes setValue:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
 		titleAttributes_ = attributes;
@@ -102,7 +101,7 @@ static NSColor *highlightColor;
 
 -(NSD*)selectedTitleAttributes {
 	if (!selectedTitleAttributes_) {
-		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+		NSMutableDictionary *attributes = @{}.mutableCopy;
 		[attributes setValue:[NSFont fontWithName:@"LucidaGrande-Bold" size:12.0f] forKey:NSFontAttributeName];
 		[attributes setValue:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
 		selectedTitleAttributes_ = attributes;
@@ -112,7 +111,7 @@ static NSColor *highlightColor;
 
 //-(NSD*)categoryAttributes {
 //	if (!categoryAttributes_) {
-//		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+//		NSMutableDictionary *attributes = @{}.mutableCopy;
 //		[attributes setValue:[NSFont controlContentFontOfSize:10.0f] forKey:NSFontAttributeName];
 //		[attributes setValue:[NSColor darkGrayColor] forKey:NSForegroundColorAttributeName];
 //		categoryAttributes_ = attributes;
@@ -122,7 +121,7 @@ static NSColor *highlightColor;
 //
 //-(NSD*)selectedCategoryAttributes {
 //	if (!selectedCategoryAttributes_) {
-//		NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+//		NSMutableDictionary *attributes = @{}.mutableCopy;
 //		[attributes setValue:[NSFont controlContentFontOfSize:10.0f] forKey:NSFontAttributeName];
 //		[attributes setValue:[NSColor colorWithCalibratedWhite:0.9f alpha:1.0f] forKey:NSForegroundColorAttributeName];
 //		selectedCategoryAttributes_ = attributes;

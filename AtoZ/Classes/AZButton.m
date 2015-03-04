@@ -3,8 +3,7 @@
 //  AtoZ
 //
 #import "AZButton.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #define AZButtonBlackGradientBottomColor		 [NSColor colorWithDeviceWhite:0.150 alpha:1.000]
 #define AZButtonBlackGradientTopColor			[NSColor colorWithDeviceWhite:0.220 alpha:1.000]
 #define AZButtonBlackHighlightColor			  [NSColor colorWithDeviceWhite:1.000 alpha:0.050]

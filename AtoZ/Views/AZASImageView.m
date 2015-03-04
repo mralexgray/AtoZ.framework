@@ -6,8 +6,7 @@
 //  All rights reserved.
 //
 #import "AZASImageView.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface AZASImageView ()
 	@property (readwrite) BOOL isLoadingImage;
 	@property (readwrite) BOOL userDidCancel;

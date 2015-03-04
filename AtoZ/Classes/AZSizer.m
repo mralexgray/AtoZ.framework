@@ -1,6 +1,6 @@
 
 #import "AtoZUmbrella.h"
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZSizer.h"
 
 //NSUI gcd (NSI m, NSUI n) { NSI t, r;

@@ -217,7 +217,6 @@ static NSString *const kCallbackError = @"error";
   [super dealloc];
 }
 
-#pragma mark -
 
 // Begin fetching the URL (or begin a retry fetch).  The delegate is retained
 // for the duration of the fetch connection.
@@ -1717,7 +1716,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 - (void)setProperty:(id)obj forKey:(NSString *)key {
   @synchronized(self) {
     if (properties_ == nil && obj != nil) {
-      [self setProperties:[NSMutableDictionary dictionary]];
+      [self setProperties:@{}.mutableCopy];
     }
     [properties_ setValue:obj forKey:key];
   }

@@ -1,6 +1,6 @@
 /*	 Copyright (c) 2013, Jonathan Willing. All rights reserved. Licensed under the MIT license <http://opensource.org/licenses/MIT>	*/
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "CAWindow.h"
 
 /* Since we're using completion blocks to determine when to kill the extra window, we need

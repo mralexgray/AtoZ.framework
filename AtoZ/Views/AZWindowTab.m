@@ -7,7 +7,7 @@
 //@prop_RO OSCornerType 	outsideCorners;
 //@end
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "BoundingObject.h"
 #import "AZWindowTab.h"
 

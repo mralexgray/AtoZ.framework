@@ -7,7 +7,7 @@
 //
 
 #import "AZGrid.h"
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZBlockView.h"
 
 JREnumDefine(AZGridStyle);

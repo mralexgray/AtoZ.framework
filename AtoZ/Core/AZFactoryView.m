@@ -1,5 +1,4 @@
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #import "AZFactoryView.h"
 #import "AtoZFunctions.h"
 

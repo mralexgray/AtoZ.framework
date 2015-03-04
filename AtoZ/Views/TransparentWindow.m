@@ -6,8 +6,7 @@
 //  <http://iratescotsman.com/>
 
 #import "TransparentWindow.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface   TransparentWindow ()
 
 - (NSWindow *) windowForAnimation:(NSRect)aFrame;

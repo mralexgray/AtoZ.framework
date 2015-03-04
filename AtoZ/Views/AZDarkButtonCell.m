@@ -1,7 +1,6 @@
 
 #import "AZDarkButtonCell.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 /**  Custom cells...  not directly related to Basemodel, etc... but you can see some ways to access the shared instance, etc */
 
 @implementation AZPriorityClickCell

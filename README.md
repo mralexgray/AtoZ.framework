@@ -189,7 +189,7 @@ Useful when writing tests for asynchronous tasks. Default timeout is 10 seconds,
 
         $dict(v1, k1, v2, k2)     =>  [NSDictionary dictionaryWithObjectsAndKeys:v1, k1, v2, k2, nil]
         $mdict(v1, k1, v2, k2)    =>  [NSMutableDictionary ...]
-        $mdictnew or $mdict(nil)  =>  [NSMutableDictionary dictionary]
+        $mdictnew or $mdict(nil)  =>  @{}.mutableCopy
 
 ### NSString shorthands
 
@@ -486,7 +486,6 @@ typedef struct {
     long long _field2;
 } CDStruct_912cb5d2;
 
-#pragma mark -
 
 /*
  * File: /Users/localadmin/Library/Developer/Xcode/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/AtoZ.framework/Versions/A/AtoZ

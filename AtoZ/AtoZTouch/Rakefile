@@ -1,13 +1,15 @@
 
-   target = "AtoZTouch"
-  wrapper = ".framework"
-xcodeproj = "/a2z/AtoZ/AtoZ.xcodeproj"
-build_dir = "/dd/AtoZ"
-
 def xcodebuild(sdk, archs, iphoneos_deployment_target, products_dir)
+
+  target = "AtoZTouch"
+  wrapper = ".framework"
+  xcodeproj = "/a2z/AtoZ/AtoZ.xcodeproj"
+  build_dir = "/dd/AtoZ"
+
   sh "xcodebuild -project '#{xcodeproj}' \
                  -scheme '#{xc_scheme}' \
                  -configuration 'Debug' \
+                 -target '#{target}' \
                  -sdk '#{sdk}' \
                   ARCHS='#{archs}' \
                   VALID_ARCHS='#{archs}' \

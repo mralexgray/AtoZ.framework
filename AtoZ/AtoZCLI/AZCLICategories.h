@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface NSWorkspace (OPEN)
 
 - (IBAction) openInTerminal:(id)x;

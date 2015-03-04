@@ -9,8 +9,7 @@
 
 #import "AZCLICategories.h"
 #import "Terminal.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation NSWorkspace (OPEN)
 
 // Terminal

@@ -3,8 +3,7 @@
 //  Copyright (c) 2011 Ian Voyce. All rights reserved.
 
 #import "StarLayer.h"
-#import "AtoZ.h"
-//#import <DrawKit/DrawKit.h>
+#import <AtoZ/AtoZ.h>//#import <DrawKit/DrawKit.h>
 
 @interface StarLayer ()
 @prop_RO 		CALayer *root;

@@ -170,7 +170,6 @@
 - (NSCGSize)size { return NSCGSizeMake(width, height); }
 - (void)setSize:(NSCGSize)inSize { width = inSize.width; height = inSize.height; [self notifyReceiver]; }
 
-#pragma mark -
 
 - (SSPoint *)mutableOrigin
 {

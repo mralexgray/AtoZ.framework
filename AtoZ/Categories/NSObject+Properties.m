@@ -1,6 +1,6 @@
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSObject+AtoZ.h"
 #import "NSObject+Properties.h"
 

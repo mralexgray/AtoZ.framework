@@ -9,6 +9,13 @@
 #import "AZiTalker.h"
 #import <AVFoundation/AVFoundation.h>
 
+void AtoZTouchWelcome() {
+
+  system("play /System/Library/CoreServices/AssistiveTouch.app/Drill.aiff");
+   NSLog(@"I'm here baby, get used to it");
+}
+
+
 @interface VSSpeechSynthesizer : NSObject
 @property(assign) id delegate;
 @property(assign) float rate,volume;

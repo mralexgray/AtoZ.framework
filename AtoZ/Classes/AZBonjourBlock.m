@@ -3,7 +3,7 @@
 #define NSNSB NSNetServiceBrowser
 #define NSNS NSNetService
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZBonjourBlock.h"
 
 @implementation  NSNetService (URL) - (NSURL*) URL {  return $URL($(@"http://%@:%ld",self.hostName, self.port)); } @end

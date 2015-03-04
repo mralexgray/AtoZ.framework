@@ -1,8 +1,7 @@
 
 
 #import "AZObject.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #define logAsInstance NSLog(@"%@ \"s%@\"", NSStringFromSelector(_cmd), NSStringFromClass(self.class))
 #define logAsClass NSLog(@"%@ \"s%@\"", NSStringFromSelector(_cmd), NSStringFromClass(self))
 

@@ -9,8 +9,7 @@
 //#import "NSArray+Reversing.h"
 
 //#import "NSImage+Transform.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #import "NSImage-Tint.h"
 
 //NO CORE IMAGE!!! 

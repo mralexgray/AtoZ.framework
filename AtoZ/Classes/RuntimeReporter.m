@@ -6,7 +6,7 @@
 //  Copyright 2004-2009 John C. Randolph. All rights reserved.
 
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "RuntimeReporter.h"
 #import <objc/runtime.h>
 #import <objc/Protocol.h>

@@ -9,7 +9,7 @@
 //#define PRINTMETHODS 0
 
 #import "AZVeil.h"
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 @interface AZSplitView : NSSplitView
 //INHERITED @property (nonatomic, retain) NSColor* dividerColor;
 @end

@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "CPUMonitor.h"
 
 @implementation CPUMonitor { unsigned long prevUsed, prevTotal; }

@@ -1,10 +1,40 @@
 
 #import "SubscriptProtocols.h"
 
+//@concreteprotocol(KeyGet)
+//
+//- objectForKeyedSubscript:_ { return
+//
+//  [self respondsToSelector:@selector(objectForKey:)] ? [(id)self objectForKey:_] : [self valueForKey:_];
+//}
+//
+//@end
 
-#import <objc/message.h>
+//@concreteprotocol(KeySet)
+//
+//- (void) setObject:_  forKeyedSubscript:(id<NSCopying>)k {
+//
+//  [self respondsToSelector:@selector(setObject:forKey:)] ? [(id)self setObject:_ forKey:k]
+//                                                         : [self  setValue:_ forKey:k];
+//}
+//
+//@end
 
-@implementation NSObject (ClassSubscriptable)
+//@concreteprotocol(ClassKeyGet)
+
+
+//@end
+
+//@concreteprotocol(ClassKeySet)
+
+
+//@end
+
+@implementation NSObject (KeySub)
+
+- (void) setObject:x forKeyedSubscript:(CopyObject)k { [self setValue:x forKey:k]; }
+
+- objectForKeyedSubscript:x { return [self valueForKey:x]; }
 
 + objectForKeyedSubscript:x { NSUInteger loc = [x rangeOfString:@"."].location;
 
@@ -19,7 +49,12 @@
   return path && z ? [z valueForKeyPath:path] : z ? z : nil;
 }
 
-- (void) setObject:x forKeyedSubscript:(id<NSCopying>)k { [self setValue:x forKey:(NSString*)k]; }
-- objectForKeyedSubscript:x { return [self valueForKey:x]; }
++ (void) setObject:_  forKeyedSubscript:(id<NSCopying>)k {
+
+  if (![self respondsToSelector:NSSelectorFromString(k)]) return;
+
+  ((void(*)(id, SEL,id))objc_msgSend)(self, NSSelectorFromString(k),_);
+}
 
 @end
+

@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import <CoreServices/CoreServices.h>
 
 JREnumDefine(AZLexicon);
@@ -366,7 +366,6 @@ extern CFStringRef DCSRecordGetString(CFTypeRef record);
 extern DCSDictionaryRef DCSRecordGetSubDictionary(CFTypeRef record);
 extern CFStringRef DCSRecordGetTitle(CFTypeRef record);
 
-#pragma mark -
 
 @interface TTTDictionaryEntry () @property (readwrite, nonatomic, copy) NSString *headword, *text, *HTML; @end
 

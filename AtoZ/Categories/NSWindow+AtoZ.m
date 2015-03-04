@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSWindow+AtoZ.h"
 
 @interface NSApplication (Undocumented) - (NSA*)_orderedWindowsWithPanels:(BOOL)panels; @end

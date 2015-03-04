@@ -2,7 +2,7 @@
 
 #import "NSString+SymlinksAndAliases.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSString+AtoZ.h"
 
 #define kMaxFontSize 10000

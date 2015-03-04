@@ -7,8 +7,7 @@
 //
 
 #import "AtoZInfinity.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation InfiniteDocumentView
 @end
 

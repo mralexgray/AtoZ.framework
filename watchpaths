@@ -52,6 +52,67 @@ installTouchFramework() {
   say A to Z Touch Installed on device.
 }
 
+
+
+# installTouchFramework
+
+# -iL /dd/AtoZ/**/(AtoZTouch|SS)
+
+# /usr/local/bin/fswatch -iL /dd/AtoZ/**  | xargs -I{} say rebuilding {}
+
+DIRTY="$(dirname $0)/dirty"
+/bin/cat /dev/null >! "$DIRTY"
+
+FLAGS=''  #'-0 --event-flags --follow-links'
+INC=(
+'/a2Z/**'
+'/sd/dev/AtoZIO/**'
+)
+EXC=(
+'xcuserdata'
+'.git'
+)
+
+
+CMD="$FLAGS -i $(echo ${(j: -i :)INC}) -e $(echo ${(j: -e :)EXC})"
+echo "cmd is $CMD"
+
+fswatch $CMD | xargs -I{} echo "saving " {}
+
+# $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
+
+# while read -d "" event; do \
+  # echo "saving  ${event}" \
+  # echo ${event} >! "$DIRTY" \
+# done
+
+
+# /usr/local/bin/fswatch \
+# \
+#   --event-flags --follow-links \
+#   --event-flag-separator "?" \
+#   -i /a2Z/** \
+#   -i /sd/dev/AtoZIO/** \
+#   -e xcuserdata \
+#   -e .git \
+#   | xargs -I{} $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
+
+
+
+# /xbin/universalframework {} && say rebuilding
+# eval "$(xcodebuild -showBuildSettings  | sed '1d;s/^ *//;s/"/\\"/g;s/ = \(.*\)/="\1"/;s/ = /=/;s/UID.*//'| grep '=')"
+
+
+                # CODE_SIGNING_REQUIRED='NO' \
+                # CODESIGNING_IDENTITY=''"
+
+                # lipo -create  ; do echo '#{build_dir}/build-$arch/#{target}#{wrapper}/#{target}'
+
+
+
+# env
+
+
 export process='say'
 
 : ' fswatch [OPTION] ... path ...
@@ -92,35 +153,3 @@ export process='say'
   Report bugs to <enrico.m.crisostomo@gmail.com>.
   fswatch home page: <https://github.com/emcrisostomo/fswatch>.
 '
-
-# installTouchFramework
-
-# -iL /dd/AtoZ/**/(AtoZTouch|SS)
-
-# /usr/local/bin/fswatch -iL /dd/AtoZ/**  | xargs -I{} say rebuilding {}
-
-/usr/local/bin/fswatch \
-\
-  --event-flags --follow-links \
-  --event-flag-separator "?" \
-  -i /a2Z/**|/sd/dev/AtoZIO/** \
-  -e xcuserdata \
-  -e .git \
-  | xargs -I{} $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
-
-
-
-# /xbin/universalframework {} && say rebuilding
-# eval "$(xcodebuild -showBuildSettings  | sed '1d;s/^ *//;s/"/\\"/g;s/ = \(.*\)/="\1"/;s/ = /=/;s/UID.*//'| grep '=')"
-
-
-                # CODE_SIGNING_REQUIRED='NO' \
-                # CODESIGNING_IDENTITY=''"
-
-                # lipo -create  ; do echo '#{build_dir}/build-$arch/#{target}#{wrapper}/#{target}'
-
-
-
-
-# env
-

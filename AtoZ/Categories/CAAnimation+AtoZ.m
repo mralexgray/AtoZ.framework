@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "CAAnimation+AtoZ.h"
 
 @implementation CAAnimationGroup (oneLine)

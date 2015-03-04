@@ -6,7 +6,7 @@
 //  Copyright 2010 The Cosmic Machine. All rights reserved.
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface AZHostView : NSView

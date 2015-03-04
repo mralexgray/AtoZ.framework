@@ -1,6 +1,6 @@
 
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZSimpleView.h"
 
 #pragma mark - TableRowView ... see Id in IB of "NSTableViewRowViewKey"

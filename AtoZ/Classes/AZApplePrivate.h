@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface AZApplePrivate : BaseModel
 + (NSA*) registeredApps;
 @end

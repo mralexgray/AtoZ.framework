@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface AZHoverButton : NSButton
 {
 	NSTrackingArea *trackingArea;

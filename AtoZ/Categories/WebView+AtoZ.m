@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "WebView+AtoZ.h"
 
 @implementation WebView (AtoZ)

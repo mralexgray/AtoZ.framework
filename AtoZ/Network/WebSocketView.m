@@ -1,7 +1,7 @@
 //#import "AtoZCategories.h"
 //#import "Bootstrap.h"
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZWebSocketServer.h"
 #import "WebSocketView.h"
 

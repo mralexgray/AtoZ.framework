@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSTextView+SyntaxColoring.h"
 
 #define isAZaz_(c) ( (c >= 'A' && c <= 'z') || c == '_' )

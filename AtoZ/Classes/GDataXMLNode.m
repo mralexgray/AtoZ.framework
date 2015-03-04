@@ -384,7 +384,6 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   [super dealloc];
 }
 
-#pragma mark -
 
 - (void) setStringValue:(NSString *)str {
   if (xmlNode_ != NULL && str != nil) {
@@ -867,7 +866,6 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return [super methodSignatureForSelector:selector];
 }
 
-#pragma mark -
 
 - (xmlNodePtr)XMLNodeCopy {
   if (xmlNode_ != NULL) {
@@ -1580,7 +1578,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
   // allocate the namespace map that will be passed
   // down on recursive calls
-  NSMutableDictionary *nsMap = [NSMutableDictionary dictionary];
+  NSMutableDictionary *nsMap = @{}.mutableCopy;
 
   [self fixUpNamespacesForNode:nodeToFix
             graftingToTreeNode:graftPointNode
@@ -1698,7 +1696,6 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   [super dealloc];
 }
 
-#pragma mark -
 
 - (GDataXMLElement *)rootElement {
   GDataXMLElement *element = nil;

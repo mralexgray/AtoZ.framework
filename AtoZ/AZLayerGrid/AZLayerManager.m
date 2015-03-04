@@ -7,8 +7,7 @@
 //
 
 #import "AZLayerManager.h"
-//#import "AtoZ.h"
-@implementation AZLayerManager
+//#import <AtoZ/AtoZ.h>@implementation AZLayerManager
 
 @end
 /*
@@ -177,7 +176,6 @@ BOOL layerIsGridCell( CALayer* layer ) { return [layer isKindOfClass: [GridCell 
 
 @end
 // ---------------------------------------------------------------------------
-#pragma mark -
 
 @implementation GridCell
 

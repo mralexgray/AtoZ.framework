@@ -1,4 +1,4 @@
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSOutlineView+AtoZ.h"
 
 @concreteprotocol(NSOutlineViewDraggable)

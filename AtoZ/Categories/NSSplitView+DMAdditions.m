@@ -2,7 +2,7 @@
 //  NSSplitView+DMAdditions.m  Created by Daniele Margutti on 12/21/12.
 
 @import Quartz;
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSSplitView+DMAdditions.h"
 
 @implementation NSSplitView (DMAdditions)

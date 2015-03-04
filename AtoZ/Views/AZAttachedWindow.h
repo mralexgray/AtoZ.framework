@@ -3,8 +3,7 @@
 
 //  Created by Matt Gemmell on 27/09/2007.
 //  Copyright 2007 Magic Aubergine.
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 /*
  Below are the positions the attached window can be displayed at.
  

@@ -7,7 +7,7 @@
 //
 
 #import "AZBoxMagic.h"
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 @interface AZBoxMagic ()
 @property NSSize cellSize;
 @property NSUInteger rows;

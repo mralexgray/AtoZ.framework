@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "DSObjectiveCSyntaxDefinition.h"
 
 @implementation DSObjectiveCSyntaxDefinition

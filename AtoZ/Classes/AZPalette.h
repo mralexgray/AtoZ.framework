@@ -9,8 +9,7 @@
 #import <Foundation/Foundation.h>
 //#import "MArray.h"
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @interface AZPalette : NSArray
 
 + (AZP*) randomPalette;

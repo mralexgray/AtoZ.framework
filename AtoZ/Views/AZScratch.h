@@ -1047,7 +1047,7 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  #import "ASIProgressDelegate.h"
 
 #import "AssetCollection.h"
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZColorWell.h"
 #import "AtoZFunctions.h"
 #import "AtoZGeometry.h"
@@ -1314,15 +1314,14 @@ OmniBase_EXTERN void OBAssertFailed(const char *type, const char *expression, co
  #import "WebView+AtoZ.h"
  #import "XLDragDropView.h"
 
-#import "AtoZ.h"
-*/ 
+#import <AtoZ/AtoZ.h>*/ 
  
 
 /*
 #import "AtoZFunctions.h"
 #import "BaseModel.h"
 #import "BaseModel+AtoZ.h"
-//#import "AtoZ.h"
+//#import <AtoZ/AtoZ.h>
 #import "SNRHUDButtonCell.h"
 #import "SNRHUDImageCell.h"
 #import "SNRHUDScrollView.h"

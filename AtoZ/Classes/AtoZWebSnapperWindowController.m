@@ -4,8 +4,7 @@
 #import "AtoZWebSnapperWindowController.h"
 #import "PreferencesController.h"
 #import "MetalUI.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 //#import "NSStringAdditions.h"
 
 
@@ -18,7 +17,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 
 @end
 
-#pragma mark -
 
 @implementation AtoZWebSnapperWindowController
 @synthesize snapper;
@@ -310,7 +308,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 	[thumbnailScaleField setEnabled:((NSBUTT*)sender).state == NSOnState];
 }
 
-#pragma mark -
 
 - (void)openDocument:(id)sender {
 	[self showWindow:sender];
@@ -365,7 +362,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 	[self fetchUsingString:[sender title]];
 }
 
-#pragma mark -
 
 - (void)warnOfMalformedPaparazziURL:(NSURL *)url {
 	NSAlert *alert = NSAlert.new;
@@ -497,7 +493,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 		[self takeURLFromBrowser:@"Safari"];
 }
 
-#pragma mark -
 
 // Drag and drop
 
@@ -537,7 +532,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 	return NO;
 }
 
-#pragma mark -
 
 // NSApplication delegation
 
@@ -599,7 +593,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 	return YES;
 }
 
-#pragma mark -
 
 - (void)cancelOperation:(id)sender {
 	if (snapper.isLoading)
@@ -612,7 +605,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 }
 #endif
 
-#pragma mark -
 
 // urlField defaults
 
@@ -667,7 +659,6 @@ static AtoZWebSnapperWindowController *kController = nil;
 }
 #endif
 
-#pragma mark -
 
 - (NSUI)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {

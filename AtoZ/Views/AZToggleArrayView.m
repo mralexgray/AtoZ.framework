@@ -3,7 +3,7 @@
 //  Created by Tomaz Kragelj on 8.12.09.
 //  Copyright (C) 2009 Gentle Bytes. All rights reserved.
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZToggleArrayView.h"
 
 //	Change to YES to enable colored frames - useful for debugging layers layout

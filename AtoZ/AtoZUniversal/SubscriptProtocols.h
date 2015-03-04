@@ -1,5 +1,5 @@
 
-@import Foundation;
+@import ExtObjC;
 
 #define   NSIFACE(X)        @interface X : NSObject + (instancetype)
 #define INTERFACE(X,...)    @interface X : __VA_ARGS__ + (instancetype)
@@ -19,23 +19,24 @@
  KeyGet + KeySet:  Override, otherwise goes to default NSObject @c valueForKey: / @c setValue:forKey:
  ClassIndexGet:    Declare + implement for indexed access to Class. Example.. your Class Singleton is an Array!
  */
+#define CopyObject id<NSCopying>
+@protocol KeyGet        <NSObject> @optional -               objectForKeyedSubscript:(CopyObject)k;                @end
+@protocol KeySet        <NSObject> @optional - (void) setObject:_  forKeyedSubscript:(CopyObject)k; @end
+@protocol IndexSet      <NSObject> @required - (void) setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
+@protocol IndexGet      <NSObject> @required -              objectAtIndexedSubscript:(NSUInteger)i;    @end
 
-@protocol KeyGet   <NSObject> @optional -               objectForKeyedSubscript:_;                @end
-@protocol KeySet   <NSObject> @optional - (void) setObject:_  forKeyedSubscript:(id<NSCopying>)k; @end
-@protocol IndexSet <NSObject> @optional - (void) setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
-@protocol IndexGet <NSObject> @optional -              objectAtIndexedSubscript:(NSUInteger)i;    @end
-
-@protocol ClassKeyGet   <NSObject>  +               objectForKeyedSubscript:_;                @end
-@protocol ClassKeySet   <NSObject>  + (void) setObject:_  forKeyedSubscript:(id<NSCopying>)k; @end
-@protocol ClassIndexSet <NSObject>  + (void) setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
-@protocol ClassIndexGet <NSObject>  +              objectAtIndexedSubscript:(NSUInteger)i;   @end
+// defaults to returning the method invoked by the subscript string.
+@protocol ClassKeyGet   <NSObject> @optional +               objectForKeyedSubscript:(CopyObject)k;                @end
+@protocol ClassKeySet   <NSObject> @optional + (void) setObject:_  forKeyedSubscript:(CopyObject)k; @end
+@protocol ClassIndexSet <NSObject> @required + (void) setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
+@protocol ClassIndexGet <NSObject> @required +              objectAtIndexedSubscript:(NSUInteger)i;   @end
 
 @protocol KeySub              <KeyGet,               KeySet> @end
 @protocol IndexSub            <IndexGet,           IndexSet> @end
-@protocol ClassIndexSub       <ClassIndexGet, ClassIndexSet> @end
-@protocol ClassKeySub         <ClassKeyGet,     ClassKeySet> @end
-
 @protocol Subscriptable       <IndexSub,             KeySub> @end
+
+@protocol ClassKeySub         <ClassKeyGet,     ClassKeySet> @end
+@protocol ClassIndexSub       <ClassIndexGet, ClassIndexSet> @end
 @protocol ClassSubscriptable  <ClassIndexSub,   ClassKeySub> @end
 
 
@@ -47,3 +48,4 @@
 
  */
 @interface NSObject (Subscriptions) <KeySub,IndexSub,ClassKeyGet> @end
+

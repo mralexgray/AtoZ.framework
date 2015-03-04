@@ -41,7 +41,7 @@ static id _mapUserInfoValueToPlistValue(const void *value)
 		return mapped;
 	}
 	if ([valueObject ISADICT]) {
-		NSMutableDictionary *mapped = [NSMutableDictionary dictionary];
+		NSMutableDictionary *mapped = @{}.mutableCopy;
 		CFDictionaryApplyFunction((CFDictionaryRef)valueObject, _addMapppedUserInfoValueToDictionary, (__bridge void *)(mapped));
 		return mapped;
 	}
@@ -96,7 +96,7 @@ static void _addMapppedUserInfoValueToDictionary(const void *key, const void *va
 
 - (NSD*)toPropertyList;
 {
-	NSMutableDictionary *plist = [NSMutableDictionary dictionary];
+	NSMutableDictionary *plist = @{}.mutableCopy;
 
 	[plist setObject:[self domain] forKey:@"domain"];
 	[plist setObject:[NSNumber numberWithInteger:[self code]] forKey:@"code"];

@@ -1,8 +1,7 @@
 
 //  AZBoxGrid.h
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 /**  USAGE
 - (NSUInteger)numberOfCellsInCollectionView:(AZBoxGrid *)view {
 	return [content count];

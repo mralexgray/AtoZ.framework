@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSDictionary+AtoZ.h"
 
 
@@ -280,7 +280,7 @@ return  ISA(object,NSS)
 
 		if (m == 1)	{
 			if ([curContainer isKindOfClass:[NSNull class]])	{
-				curContainer = [NSMutableDictionary dictionary]	;
+				curContainer = @{}.mutableCopy	;
 				if (needArray)	{
 					[containerContainer replaceObjectAtIndex:index  withObject:curContainer]	;
 				}
@@ -294,7 +294,7 @@ return  ISA(object,NSS)
 			if (![containerContainer ISADICT])
 				[NSException raise:@"Path item not a dictionary" format:@"(keyPath %@ - offending %@)",inKeyPath,curPathItem]	;
 			if (curContainer == nil)	{
-				curContainer = [NSMutableDictionary dictionary]	;
+				curContainer = @{}.mutableCopy	;
 				[containerContainer setObject:curContainer forKey:curPathItem]	;
 			}
 		}

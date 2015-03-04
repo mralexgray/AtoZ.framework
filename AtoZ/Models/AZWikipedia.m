@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZWikipedia.h"
 
 @implementation AZWikipedia

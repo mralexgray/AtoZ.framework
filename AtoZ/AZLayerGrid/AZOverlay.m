@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Mikkel Eide Eriksen. All rights reserved.
 //
 #import "AZOverlay.h"
-//#import "AtoZ.h"
-
+//#import <AtoZ/AtoZ.h>
 #pragma mark - Helper class extension
 
 enum {

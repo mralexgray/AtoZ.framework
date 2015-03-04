@@ -1,6 +1,5 @@
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation NSRegularExpression (Additions)
 + (NSRegularExpression *) cachedRegularExpressionWithPattern:(NSString *) pattern options:(NSRegularExpressionOptions) options error:(NSError *__autoreleasing*) error {
 	static NSMutableDictionary *dangerousCache = nil;

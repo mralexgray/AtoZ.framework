@@ -1,7 +1,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "CAShapeLayer+AtoZ.h"
 #define SHAREDLASSO self.class.sharedLasso
 #define ROOTL SHAREDLASSO.root

@@ -7,8 +7,7 @@
 	//
 
 #import "CalcModel.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation CalcModel
 
 @synthesize accumulatorValue;

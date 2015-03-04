@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #define NOT_REACHED() do {	AZLOG(@"<INTERNAL INCONSISTENCY>"); } while (0)
 
 #import "NSURL+AtoZ.h"
@@ -50,7 +49,7 @@
 	NSMutableDictionary* parameters = nil;
 	NSString* query = [self query];
 	if (query) {
-		parameters = [NSMutableDictionary dictionary];
+		parameters = @{}.mutableCopy;
 		NSScanner* scanner = [NSScanner.alloc initWithString:query];
 		[scanner setCharactersToBeSkipped:nil];
 		while (1) {

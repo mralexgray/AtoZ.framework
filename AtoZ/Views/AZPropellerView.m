@@ -3,7 +3,7 @@
 //  ProgressBar
 //  Created by Patrick Chamelo on 8/26/12.
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZPropellerView.h"
 
 

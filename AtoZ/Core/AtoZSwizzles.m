@@ -1,7 +1,7 @@
 
 
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZSwizzles.h"
 
 @implementation AZBlockSwizzle

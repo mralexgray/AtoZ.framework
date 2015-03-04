@@ -8,14 +8,15 @@
 @import ObjectiveC;
 @import QuartzCore;
 
-#import <RoutingHTTPServer/RoutingHTTPServer.h>
+@import RoutingHTTPServer;
 
 #define autorelease self
 
 #import <KVOMap/KVOMap.h>
 #import <AtoZAutoBox/AtoZAutoBox.h>
 #import <FunSize/FunSize.h>
-@import AtoZUniversal;
+
+@import AtoZUniversal; // also handles ExtObjC
 
 #import "BlocksAdditions.h"
 
@@ -23,7 +24,7 @@
 //#import <WebKit/WebKit.h>
 //#import <SystemConfiguration/SystemConfiguration.h>
 
-#import <ExtObjC/ExtObjC.h>
+//#import <ExtObjC/ExtObjC.h>
 #import <Zangetsu/Zangetsu.h>
 //#import <KVOMap/KVOMap.h>
 #import <AtoZAutoBox/AtoZAutoBox.h>

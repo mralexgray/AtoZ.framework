@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import <Quartz/Quartz.h>
 #import <AddressBook/ABAddressBook.h>
 #import <AddressBook/ABPerson.h>

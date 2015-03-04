@@ -50,7 +50,7 @@
 
 @import Python;
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "PythonOperation.h"
 
 static int usedPythonInterpreterNum = 0;

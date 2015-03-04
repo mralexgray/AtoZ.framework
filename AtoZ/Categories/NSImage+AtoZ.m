@@ -3,7 +3,7 @@
 
 #import <SVGKit/SVGKit.h>
 #import <QuickLook/QuickLook.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSImage+AtoZ.h"
 
 NSIMG* AZIMGNamed(NSS *constName) {  return objc_msgSend(NSIMG.class, NSSelectorFromString(constName)); }

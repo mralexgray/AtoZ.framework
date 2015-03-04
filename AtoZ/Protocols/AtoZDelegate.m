@@ -1,6 +1,6 @@
 
 //#import <extobjc_OSX/extobjc.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZDelegate.h"
 
 //@interface AtoZApplicationBridge (PRIVATE)
@@ -121,7 +121,6 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 }
 
 
-#pragma mark -
 
 + (BOOL) registerWithDictionary:(NSDictionary *)regDict {
    if(attemptingToRegister){
@@ -235,7 +234,6 @@ Watch for notification clicks if our delegate responds to th growlNotificationWa
 	[pool drain];
 }
 
-#pragma mark -
 
 + (void) _emptyQueue
 {

@@ -7,8 +7,7 @@
 //
 
 #import "AZMedallionView.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation AZMedallionView
 #pragma mark - Properties
 

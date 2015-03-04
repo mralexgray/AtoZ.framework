@@ -18,7 +18,7 @@
 
 //- (BOOL) _shouldDelegate:(NSS*)key	{ return self.delegate == (SOCKSRVRD)self && ([self vFK:key]); }
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "AZWebSocketServer.h"														// Originally created by Max Howell in October 2011. This class is in the public domain.
 

@@ -1,7 +1,7 @@
 
 //  THGeometricFunctions.m   Lumumba   Created by Benjamin Schüttler on 19.11.09.  Copyright 2011 Rogue Coding. All rights reserved.
 //  #import <DrawKit/DrawKit.h> import <Quartz/Quartz.h>/#import <Zangetsu/Zangetsu.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZGeometry.h"
 
 //@concreteprotocol( AZScalar ) @dynamic min, max;- (id) valueForUndefinedKey:(NSS*)key {} @end

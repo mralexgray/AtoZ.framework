@@ -4,7 +4,7 @@
 //#import <asl.h>
 //#import <sys/time.h>
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZLog.h"
 #import <notify.h>
 #import <notify_keys.h>

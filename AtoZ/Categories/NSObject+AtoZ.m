@@ -1,8 +1,7 @@
   
 #import <objc/runtime.h>
 //#import "AtoZAutoBox/AtoZAutoBox.h"
-#import "AtoZ.h"
-//#import "AtoZUmbrella.h"
+#import <AtoZ/AtoZ.h>//#import "AtoZUmbrella.h"
 //#import "AtoZFunctions.h"
 #import "NSObject+AtoZ.h"
 
@@ -2197,7 +2196,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*) selectors {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	[dict setObject:[[self class] selectorList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
 		[dict setObject:[cl selectorList] forKey:NSStringFromClass(cl)];
@@ -2218,7 +2217,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*)properties {
 
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	[dict setObject:[[self class] propertyList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
 		[dict setObject:[cl propertyList] forKey:NSStringFromClass(cl)];
@@ -2240,7 +2239,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*)ivars {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	[dict setObject:[[self class] ivarList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
 		[dict setObject:[cl ivarList] forKey:NSStringFromClass(cl)];
@@ -2268,7 +2267,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*) protocols {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	[dict setObject:[[self class] protocolList] forKey:NSStringFromClass([self class])];
 	for (Class cl in [self superclasses]) {
 		[dict setObject:[cl protocolList] forKey:NSStringFromClass(cl)];

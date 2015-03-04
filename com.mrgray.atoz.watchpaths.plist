@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Disabled</key>
-	<false/>
+	<true/>
 	<key>Label</key>
 	<string>com.mrgray.atoz.watchpaths</string>
 	<key>Program</key>

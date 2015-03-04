@@ -8,7 +8,7 @@
 //  GC-enabled code revised by Stefan Vogt http://byteproject.net
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZSourceList.h"
 
 //Layout constants

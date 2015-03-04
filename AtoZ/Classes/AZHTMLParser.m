@@ -4,7 +4,7 @@
 //  Created by Ben Reeves on 09/03/2010.
 //  Copyright 2010 Ben Reeves. All rights reserved.
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #include <libxml2/libxml/HTMLparser.h>      //HTMLparser.h>
 #import "HTMLNode.h"
 #import "AZHTMLParser.h"
@@ -20,7 +20,7 @@
 -(EL*) head	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"head"];	}
 -(EL*) body	{ return _docPtr == NULL ? nil : [self.doc findChildTag:@"body"];	}
 
--         initWithString:(NSS*)str error:(__autoreleasing NSERR**)e  {
+-         initWithString:(NSS*)str error:(NSERR*__autoreleasing*)e  {
 
   if (!(self = super.init)) return nil;	_docPtr = NULL;
 
@@ -53,8 +53,7 @@
 -  initWithContentsOfURL:(NSURL*)u error:(NSERR*__autoreleasing*)e  {
 
 	NSData * _data = [NSData.alloc initWithContentsOfURL:u options:0 error:e];
-	if (_data == nil || *e) return nil;
-	return self = [self initWithData:_data error:e];
+  return !_data || *e ? nil : (self = [self initWithData:_data error:e]);
 }
 
 - (void) dealloc {	if (_docPtr)	xmlFreeDoc(_docPtr); }

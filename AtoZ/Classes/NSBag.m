@@ -1,6 +1,6 @@
 
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSBag.h"
 
 @implementation NSBag { NSMutableDictionary *dict; } SYNTHESIZE_CLASS_FACTORY(bag)

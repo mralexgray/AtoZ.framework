@@ -1,6 +1,6 @@
 //fprintf(stderr, "__TEXT,__info_plist section not found\n"),1;
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSBundle+AtoZ.h"
 #import <mach-o/getsect.h>
 

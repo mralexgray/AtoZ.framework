@@ -1,5 +1,6 @@
+
 #import "NSBezierPath+AtoZ.h"
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 
 @implementation NSAffineTransform (RectMapping)
 

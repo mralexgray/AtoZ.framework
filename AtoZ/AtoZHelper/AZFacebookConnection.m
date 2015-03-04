@@ -4,8 +4,7 @@
 //
 
 #import "AZFacebookConnection.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 NSString* APPLICATION_ID = @"223404761008769";
 
 

@@ -6,7 +6,7 @@
 //  Copyright 2008 __MyCompanyName__. All rights reserved.
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "IsometricView.h"
 
 #define MAX_GRID_SIZE 30

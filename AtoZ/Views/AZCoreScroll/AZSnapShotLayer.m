@@ -1,8 +1,7 @@
 
 #import "AZSnapShotLayer.h"
 #import <CoreText/CoreText.h>
-#import "AtoZ.h"
-//#import <FunSize/FunSize.h>
+#import <AtoZ/AtoZ.h>//#import <FunSize/FunSize.h>
 
 #define SFBlackColor	CGColorCreateGenericRGB(0.0f,0.0f,0.0f,1.0f)
 #define SFWhiteColor	CGColorCreateGenericRGB(1.0f,1.0f,1.0f,1.0f)

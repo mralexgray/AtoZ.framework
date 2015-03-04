@@ -3,7 +3,7 @@
 //#import <objc/runtime.h>
 //#import <Zangetsu/Zangetsu.h>
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZNodeProtocol.h"
 //#import "extobjc_OSX/extobjc.h"
 

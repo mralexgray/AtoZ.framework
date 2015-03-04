@@ -51,7 +51,7 @@ BGTheme * _themeKeyDecode (BGHUDView *_self) { 	BGThemeManager *b = BGThemeManag
 //-(void)initDefaultThemes {
 	
 	//Init our Dictionary for 2 defaults
-//	self.themes = [NSMutableDictionary dictionary];
+//	self.themes = @{}.mutableCopy;
 
 	//Add the default Flat and Gradient themes
 //	[themes setObject: [[BGTheme alloc] init] forKey: @"flatTheme"];

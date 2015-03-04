@@ -1,5 +1,4 @@
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 #import "AZSemiResponderWindow.h"
 #import "AZBlockView.h"
 #import "AZMouser.h"

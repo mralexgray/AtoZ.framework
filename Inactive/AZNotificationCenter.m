@@ -127,7 +127,6 @@ static char AZNotificationHelperMagicContext;
 //	[super dealloc];
 //}
 
-#pragma mark -
 
 - (id)_dictionaryKeyForObserver:(id)observer object:(id)target keyPath:(NSString *)keyPath selector:(SEL)selector
 {

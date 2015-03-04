@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern void AtoZTouchWelcome();
+
 @interface AZiTalker : NSObject
 
 @end

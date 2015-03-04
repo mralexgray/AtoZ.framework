@@ -7,8 +7,7 @@
 //
 
 #import "AZPrismView.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation AZPrismView
 
 @synthesize nsBitmapImageRepObj, cgFloatRed, cgFloatRedUpdate, nsTimerRef;

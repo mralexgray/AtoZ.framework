@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSApplication+AtoZ.h"
 
 #import <TargetConditionals.h>

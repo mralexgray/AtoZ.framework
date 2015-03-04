@@ -1,4 +1,5 @@
-#import "AtoZ.h"
+
+#import <AtoZ/AtoZUmbrella.h>
 
 @interface InfiniteDocumentView : NSView
 @end

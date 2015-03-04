@@ -1,7 +1,7 @@
 
 //#define SYNTHESIZE_CONSTS #undef SYNTHESIZE_CONSTS
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "Bootstrap.h"
 
 @implementation KSHTMLWriter (extras)

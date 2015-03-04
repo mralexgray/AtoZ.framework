@@ -6,8 +6,7 @@
 //
 
 #import <objc/runtime.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 const NSString* zkeyP  = @"keyPath";
 const NSString* zdurA  = @"duration";
 const NSString* zfromV = @"fromValue";

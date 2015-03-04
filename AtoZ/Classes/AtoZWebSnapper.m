@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 9/14/12.
 //
 //
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import <WebKit/WebKit.h>
 #import "AtoZWebSnapper.h"
 
@@ -208,7 +208,6 @@ NSString * const kAZWebSnapperUseGMTKey					= @"UseGMT";
 	}
 }
 
-#pragma mark -
 
 - (void)takeScreenshot
 {

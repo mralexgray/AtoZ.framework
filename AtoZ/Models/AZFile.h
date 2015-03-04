@@ -1,6 +1,6 @@
 
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZUmbrella.h"
 
 

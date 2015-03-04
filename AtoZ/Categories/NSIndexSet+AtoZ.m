@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSIndexSet+AtoZ.h"
 
 @implementation NSIndexPath (AtoZ)

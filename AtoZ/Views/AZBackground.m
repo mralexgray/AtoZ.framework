@@ -4,7 +4,7 @@
 
 //  Created by Alex Gray on 8/17/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZBackground.h"
 
 @implementation AZBackground

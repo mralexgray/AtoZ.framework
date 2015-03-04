@@ -7,8 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 @interface AZDebugLayer : CAL
 @property NSC* color;

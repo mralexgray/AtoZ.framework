@@ -1,4 +1,4 @@
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "StickyNoteView.h"
 #import <QuartzCore/QuartzCore.h>
 

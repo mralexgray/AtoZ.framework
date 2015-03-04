@@ -1,6 +1,5 @@
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 @interface AZBackgroundProgressBar : NSView
 

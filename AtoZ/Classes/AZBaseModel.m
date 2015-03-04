@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZBaseModel.h"
 
 
@@ -263,7 +263,7 @@
 //  3. This notice may not be removed or altered from any source distribution.
 
 //#import "AZBaseModel.h"
-//#import "AtoZ.h"
+//#import <AtoZ/AtoZ.h>
 #import "AtoZUmbrella.h"
 //#import "AtoZFunctions.h"
 

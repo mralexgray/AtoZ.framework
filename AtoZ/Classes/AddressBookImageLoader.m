@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AddressBookImageLoader.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBook/ABAddressBookC.h>
@@ -116,7 +116,7 @@ void x (){
  NSMutableArray *items = [NSMutableArray array];
  for (int i = 0; i < num; i++)
  {
- NSMutableDictionary *md = [NSMutableDictionary dictionary];
+ NSMutableDictionary *md = @{}.mutableCopy;
  [md setObject:[valueArray objectAtIndex:i] forKey:@"value"];
  [md setObject:[labelArray objectAtIndex:i] forKey:@"label"];
  [items addObject:md];
@@ -581,7 +581,7 @@ void x (){
 // No Image
 - (NSDictionary *) baseDictionaryRepresentation
 {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	if (self.firstname) [dict setObject:self.firstname forKey:FIRST_NAME_STRING];
 	if (self.middlename) [dict setObject:self.middlename forKey:MIDDLE_NAME_STRING];
 	if (self.lastname) [dict setObject:self.lastname forKey:LAST_NAME_STRING];

@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @class AZWindowExtend;
 @interface AZWindowExtendController : NSObject
 @property (weak) AZWindowExtend *window;

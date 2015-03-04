@@ -1,8 +1,7 @@
 
 //#import <WebKit/WebView.h>
 @import WebKit;
-#import "AtoZ.h"
-//#import "AZURLWebS"
+#import <AtoZ/AtoZ.h>//#import "AZURLWebS"
 
 
 @interface AZURLSnapshot()

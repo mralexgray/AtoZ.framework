@@ -2,7 +2,7 @@
 //  MondoSwitchButtonCALayer.m  CocoaMondoKit
 //  Created by Matthieu Cormier on 12/8/09.  Copyright 2009 Preen and Prune Software and Design. All rights reserved.
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "MondoSwitchButtonCALayer.h"
 
 @implementation MondoSwitchButtonCALayer @synthesize notClickedImgRef, clickedImgRef, theSwitch;

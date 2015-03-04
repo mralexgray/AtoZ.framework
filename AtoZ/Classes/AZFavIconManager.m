@@ -1,7 +1,7 @@
 //  AZFavIconFinder.m
 //  Created by Fabio Pelosin on 04/09/12.
 //  Copyright (cb
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZFavIconManager.h"
 CGSize sizeInPixels(NSIMG *icon) {
 	CGSize size = icon.size;

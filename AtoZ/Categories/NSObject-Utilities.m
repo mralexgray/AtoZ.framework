@@ -1,7 +1,7 @@
 /* Erica Sadun, http://ericasadun.com iPhone Developer's Cookbook, 3.0 Edition BSD License, Use at your own risk	*/
 //#import <objc/objc-runtime.h>
 //#import <objc/objc-class.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSObject-Utilities.h"
 
 @implementation NSInvocation(OCMAdditions)
@@ -631,7 +631,7 @@
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*) selectors  {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	dict[NSStringFromClass([self class])] = [[self class] getSelectorListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getSelectorListForClass];
@@ -658,7 +658,7 @@
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*) ivars  {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	dict[NSStringFromClass([self class])] = [[self class] getIvarListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getIvarListForClass];
@@ -679,7 +679,7 @@
 }
 // Return a dictionary with class/selectors entries, all the way up to NSObject
 - (NSD*) protocols  {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSMutableDictionary *dict = @{}.mutableCopy;
 	dict[NSStringFromClass([self class])] = [[self class] getProtocolListForClass];
 	for (Class cl in [self superclasses])
 		dict[NSStringFromClass(cl)] = [cl getProtocolListForClass];

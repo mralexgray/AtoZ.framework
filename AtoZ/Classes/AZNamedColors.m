@@ -2,7 +2,7 @@
 //  THnamedColors.m  Lumumba
 //  Created by Benjamin Schüttler on 28.10.09.  Copyright 2011 Rogue Coding. All rights reserved.
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZNamedColors.h"
 
 @implementation NSColorList (Dictionary)

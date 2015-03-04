@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSTableView+AtoZ.h"
 
 @implementation NSTableView (AtoZ)

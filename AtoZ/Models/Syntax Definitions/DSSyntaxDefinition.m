@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 //
 //#import <BlocksKit/BlocksKit.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "DSSyntaxDefinition.h"
 
 

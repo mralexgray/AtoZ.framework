@@ -10,8 +10,7 @@
 //  Version: 2.0
 
 #import "CTBadge.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 const CGFloat CTLargeBadgeSize = 46.;
 const CGFloat CTSmallBadgeSize = 23.;
 const CGFloat CTLargeLabelSize = 24.;

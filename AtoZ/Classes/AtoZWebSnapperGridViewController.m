@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 11/30/12.
 //
 //
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AtoZWebSnapperGridViewController.h"
 
 @interface AtoZWebSnapperGridViewController ()

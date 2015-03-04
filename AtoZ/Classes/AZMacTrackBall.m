@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #include <math.h>
 #import "AZMacTrackBall.h"
 

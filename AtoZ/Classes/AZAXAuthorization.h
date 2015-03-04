@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 extern int system(const char *string);
 
 @interface AZAXAuthorization : NSObject

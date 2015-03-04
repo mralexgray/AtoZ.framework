@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZImageToDataTransformer.h"
 @implementation AZImageToDataTransformer
 + (BOOL)allowsReverseTransformation

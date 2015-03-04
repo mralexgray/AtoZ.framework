@@ -7,8 +7,7 @@
 //
 
 #import "AZColor.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 @implementation AZColor     //@synthesize     brightness,     saturation,hue, count, name,color, hueComponent,   total;
 
 @dynamic  brightness,hue, saturation;

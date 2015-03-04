@@ -4,7 +4,7 @@
 //
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZRect.h"
 
 

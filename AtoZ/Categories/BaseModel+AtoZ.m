@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "BaseModel+AtoZ.h"
 //static NSString *const BaseModelSharedInstanceKey = @"sharedInstance";
 //static NSString *const BaseModelLoadingFromResourceFileKey = @"loadingFromResourceFile";

@@ -2,7 +2,7 @@
 //  HTMLND.m  StackOverflow
 //  Created by Ben Reeves on 09/03/2010.  Copyright 2010 Ben Reeves. All rights reserved.
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "HTMLNode.h"
 #import <libxml/HTMLtree.h>
 #import <libxml/HTMLparser.h>

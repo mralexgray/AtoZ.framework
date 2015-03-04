@@ -1,5 +1,5 @@
 
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NSColor+AtoZ_Private.h"
 #import "NSColor+AtoZ.h"
 #import "AZNamedColors.h"
@@ -1561,7 +1561,7 @@ foreach($s as $k => $v) { list($hue,$sat,$val) = $v; list($r,$g,$b) = hsvtorgb($
  //the rgb.txt file that comes with Mac OS X 10.3.8 contains 752 entries.
  //we create 3 autoreleased objects for each one.
  //best to not pollute our caller's autorelease pool.
- NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+ NSMutableDictionary *mutableDict = @{}.mutableCopy;
  for (unsigned i = 0; i < length; ++i) {
  if (state.inComment) {
  if (ch[i] == '\n') state.inComment = NO;

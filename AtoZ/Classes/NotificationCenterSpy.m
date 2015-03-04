@@ -3,7 +3,7 @@
 //
 //  Created by Javier Soto on 9/13/11.
 //
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "NotificationCenterSpy.h"
 
 static NotificationCenterSpy *sharedInstance = nil;

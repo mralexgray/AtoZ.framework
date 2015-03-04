@@ -4,7 +4,7 @@
 
 #import <ScriptingBridge/ScriptingBridge.h>
 #import <WebKit/WebKit.h>
-#import "AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "AZLogConsole.h"
 
 BOOL 	inited = NO;

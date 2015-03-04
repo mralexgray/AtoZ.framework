@@ -39,7 +39,6 @@ static PreferencesController *kController = nil;
 	[thumbnailSuffixField setStringValue:[defaults objectForKey:kAZWebSnapperThumbnailSuffixKey]];
 }
 
-#pragma mark -
 
 - (IBAction)setFilenameFormat:(id)sender {
 	[AZUSERDEFS setObject:[sender stringValue] forKey:kAZWebSnapperFilenameFormatKey];

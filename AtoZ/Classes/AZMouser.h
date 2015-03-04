@@ -1,6 +1,5 @@
 
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 
 void AZPostMouseEvent(CGMouseButton button, CGEventType type, const CGPoint point);
 void AZLeftClick(const CGPoint point);

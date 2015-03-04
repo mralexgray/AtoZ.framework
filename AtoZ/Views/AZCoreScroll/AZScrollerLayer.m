@@ -1,6 +1,5 @@
 #import "AZScrollerLayer.h"
-#import "AtoZ.h"
-
+#import <AtoZ/AtoZ.h>
 //JREnumDefine(AZScrollerMouseDownInput);
 
 #define BORDERWIDTH 0.0
