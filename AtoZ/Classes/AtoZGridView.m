@@ -765,7 +765,7 @@ CLANG_IGNORE_PROTOCOL
 
 //- (void) setItems:(NSMA*)items
 //{
-//	_items = [items cw_mapArray:^id(NSO* obj) {
+//	_items = [items map:^id(NSO* obj) {
 //
 //		return 	@{ 	kContentImageKey: obj.imageValue ?: [NSIMG imageNamed:@"missing"] ELSENULL,
 //					kContentTitleKey: [obj respondsToString:@"name"] ? [obj valueForKey:@"name"] : @"N/A",

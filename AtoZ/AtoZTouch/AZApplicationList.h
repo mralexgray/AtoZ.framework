@@ -1,5 +1,5 @@
 
-#import <UIKit/UIKit.h>
+#import <AtoZTouch/AtoZiMacroDefines.h>
 
 typedef NS_ENUM(NSUInteger,AZApplicationIconSize){  AZApplicationIconSizeSmall = 29,
                                                     AZApplicationIconSizeLarge = 59  };

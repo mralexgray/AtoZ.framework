@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 typedef BOOL(^IsDocumentEdited)(id _self); 
 
@@ -57,8 +56,7 @@ typedef BOOL(^IsDocumentEdited)(id _self);
 #import <objc/message.h>
 #import <objc/runtime.h>
 //#import <AtoZ/AtoZ.h>//#import "AtoZFunctions.h"
-//#import "AtoZUmbrella.h"
-//#import "NSObject+AtoZ.h"
+//
 
 extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //the BaseModel protocol defines optional methods that
@@ -88,7 +86,6 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 //model objects. BaseModels can be standalone objects, or
 //act as sub-properties of a larger object
 
-#import "AtoZUmbrella.h"
 
 @interface AZBaseModel : NSObject
 <AZBaseModel, NSCoding, NSCopying, NSFastEnumeration>
@@ -159,10 +156,10 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 - (id)normal:(NSInteger)index;
 
 
-- (void) eachWithIndex:(VoidIteratorArrayWithIndexBlock) block;
-- (NSMA*) map:(MapArrayBlock) block;
+- (void) eachWithIndex:(ObjIntBlk) block;
+- (NSMA*) map:(Obj_ObjBlk) block;
 - (NSMA*) nmap:(id (^)(id obj, NSUInteger index))block;
-- (NSA*) filter:(BoolArrayBlock) block;
+- (NSA*) filter:(Bool_ObjBlk) block;
 - (NSString*) saveInstanceInAppSupp;
 + (instancetype) instanceWithID:(NSString*)uniqueID;
 	// NSCODING extras

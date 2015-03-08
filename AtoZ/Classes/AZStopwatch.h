@@ -9,12 +9,11 @@
 	MyApp[4090:15203]  -> Stopwatch: [My Timer] runtime: [0.029]
 */
 
-#import "AtoZUmbrella.h"
 
 @interface AZStopwatch : NSObject 
 
-+ (void) named:	(NSS*)name block: (VoidBlock)block;
-+ (void) stopwatch:(NSS*)name timing:(VoidBlock)block;
++ (void) named:	(NSS*)name block: (Blk)block;
++ (void) stopwatch:(NSS*)name timing:(Blk)block;
 + (void) start:	 (NSS*)name;
 + (void) stop:		 (NSS*)name;
 + (void) print:	 (NSS*)name;

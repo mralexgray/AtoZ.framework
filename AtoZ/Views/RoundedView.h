@@ -6,7 +6,6 @@
 //  <http://iratescotsman.com/>
 //
 
-#import "AtoZUmbrella.h"
 
 @interface RoundedView : NSView
 {

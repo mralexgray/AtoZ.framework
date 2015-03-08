@@ -4,6 +4,113 @@
 #import <AtoZ/AtoZ.h>
 #import "NSObject-Utilities.h"
 
+
+@implementation  NSObject (ImageVsColor)
+
+-   (NSC*) colorValue {
+	if ([self isKindOfClass:NSC.class]) return (NSC *)self;
+	NSC * c = [self isKindOfClass:NSIMG.class] ? ((NSIMG *)self).quantize[0] : nil;
+	return c ? : [self respondsToString:@"color"] ? [self valueForKey:@"color"] : nil;
+}
+- (NSIMG*) imageValue {
+	if (ISA(self,NSIMG)) return (NSIMG*)self;
+	NSIMG * i = ISA(self,NSC) ? [NSIMG swatchWithColor:(NSC*)self size:AZSizeFromDim(256)] :
+  ISA(self,NSS) ? [NSIMG imageForSize:AZSizeFromDim(100) withDrawingBlock:^{
+    [(NSS*)self drawAtPoint:NSZeroPoint withAttributes:NSAS.defaults];
+  }] : nil;
+	return i ? : [self respondsToString:@"image"] ? [self valueForKey:@"image"] : nil;
+}
+@end
+
+@implementation NSO (BlockIntrospection)
+- (BOOL) isKindOfBlock: anotherBlock  { return [self.blockSignature isEqual:[anotherBlock blockSignature]]; }
+- (NSS*) blockDescription                { return  self.blockSignature.debugDescription;	}
+- (SIG*) blockSignature                  { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
+- (BOOL) isaBlock                        { return [self.className containsAnyOf:@[@"NSGlobalBlock", @"NSBlock"]];
+
+//  for (id x in @[@"NSGlobalBlock", @"NSBlock"]) if ([self.className rangeOfString:x].location != NSNotFound) return YES;
+}
+@end
+
+@implementation NSObject (AtoZBindings)
+
+- (void) bind:(NSA*)paths toObject: o withKeyPaths:(NSA*)objKps {
+	for (NSS* path in paths) {
+//		NSUI index;
+//		if (![o respondsToSelector:[o getterForPropertyNamed:path]] || [o vFK:path] == nil) continue;
+		NSString *theirKP = [objKps normal:[paths indexOfObject:path]];// < objKps.count) ? objKps[index] : path;
+		[self bind:path toObject:o withKeyPathUsingDefaults:theirKP];
+	}
+}
+- (void) bindToObject: o withKeyPaths:(NSA*)objKps{
+
+	[self blockSelf:^(id _self) {	[objKps each:^(id obj){ [_self bind:obj toObject:o withKeyPath:obj options:nil]; }]; }];
+}
+- (void) propagateValue: value forBinding:(NSString*)binding; {
+
+	NSParameterAssert(binding != nil);
+
+	//WARNING: bindingInfo contains NSNull, so it must be accounted for
+	NSD* bindingInfo = [self infoForBinding:binding];
+	if(!bindingInfo) return; //there is no binding
+
+	//apply the value transformer, if one has been set
+	NSD* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
+	if(bindingOptions) {
+		NSVT* transformer = [bindingOptions valueForKey:NSValueTransformerBindingOption];
+		if(!transformer || (id)transformer == AZNULL){
+			NSString* transformerName = bindingOptions[NSValueTransformerNameBindingOption];
+			if(transformerName && (id)transformerName != AZNULL) transformer = [NSValueTransformer valueTransformerForName:transformerName];
+		}
+		if(transformer && (id)transformer != AZNULL)
+      if ([transformer.class allowsReverseTransformation]) value = [transformer reverseTransformedValue:value];
+      else NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
+	}
+
+	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];
+	if(!boundObject || boundObject == AZNULL) return NSLog(@"ERROR: NSObservedObjectKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+	NSString* boundKeyPath = [bindingInfo objectForKey:NSObservedKeyPathKey];
+	if(!boundKeyPath||(id)boundKeyPath==AZNULL) return NSLog(@"ERROR: NSObservedKeyPathKey was nil for binding \"%@\" in %s", binding, __PRETTY_FUNCTION__);
+	[boundObject setValue:value forKeyPath:boundKeyPath];
+}
+#define DEFAULTOPTSWITHNULL(x)  @{NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption:x}
+- (void) bindFrameToBoundsOf: obj { [self b:@"frame" tO:obj wKP:@"bounds" o:nil]; }
+- (void)    bindKeys:(NSA*)b tO: o { for (NSS*k in b) [self b:k tO:o]; }
+- (void)    b:(NSS*)b to:(NSS*)kp using: wild type:(BindType)bType {
+
+  bType == NSNotFound                           ? [self b:b tO:self wKP:kp o: wild ?: nil] :
+  bType == BindTypeSelector                     ? [self b:b tO:self wKP:kp s:NSSelectorFromString(wild)] :
+  bType == BindTypeTransform  ? [self b:b tO:self wKP:kp t:wild] :  // && [wild isaBlock]
+  bType == BindTypeIfNil                        ? [self b:b tO:self wKP:kp n:wild] : NSLog(@"WARN: Nothing appropriate to be done here!");
+}
+- (void)    b:(NSS*)b       tO: o                                                                { [self bind:b toObject:o withKeyPath:b  options:nil]; 	}
+- (void) bind:(NSS*)b toObject: o withKeyPathUsingDefaults:(NSS*)kp                              { [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(AZNULL)]; 	}
+- (void)    b:(NSS*)b       tO: o                      wKP:(NSS*)kp         o:(NSD*)opt          { [self bind:b toObject:o withKeyPath:kp  options:opt]; 	}
+- (void) bind:(NSS*)b toObject: o              withKeyPath:(NSS*)kp  nilValue: nilV           { [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(nilV)];	 	}
+- (void)    b:(NSS*)b       tO: o                      wKP:(NSS*)kp         n: nilV           { [self b:b tO:o wKP:kp o:DEFAULTOPTSWITHNULL(nilV)];	}
+- (void) bind:(NSS*)b toObject: o              withKeyPath:(NSS*)kp transform:(Obj_ObjBlk)t  {
+
+  if (self == nil || b == nil || kp == nil || !t) return NSLog(@"warning: bailed on binding.. self:%@ b:%@ o:%@ kp:%@ t:%@", self, b, o, kp, t);
+
+  [self bind:b toObject:o withKeyPath:kp
+     options:@{ NSContinuouslyUpdatesValueBindingOption:@YES,
+                        NSValueTransformerBindingOption:[AZValueTransformer transformerWithBlock:t]}];
+}
+- (void)    b:(NSS*)b       tO: o                      wKP:(NSS*)kp         t:(Obj_ObjBlk)t  { [self bind:b toObject:o withKeyPath:kp transform:t]; }
+- (void) bind:(NSS*)b toObject: o       withNegatedKeyPath:(NSS*)kp                              {
+	[self bind:b toObject:o withKeyPath:kp options:@{NSContinuouslyUpdatesValueBindingOption: @(YES), NSValueTransformerNameBindingOption : NSNegateBooleanTransformerName}];
+}
+- (void)    b:(NSS*)b       tO: o                      wKP:(NSS*)kp         s:(SEL)select        { [self bind:b toObject:o withKeyPath:kp  selector:select]; }
+- (void) bind:(NSS*)b toObject: x              withKeyPath:(NSS*)kp  selector:(SEL)select        {
+
+  [self b:b tO:x wKP:kp t:^id(id value) { return objc_msgSend(value, select); }];
+}
+- (void)    b:(NSS*)b toKP:(NSS*)selfkp { [self b:b tO:self wKP:selfkp o:nil]; }
+
+
+@end
+
+
 @implementation NSInvocation(OCMAdditions)
 -   (id)        getArgumentAtIndexAsObject:(int)x {
 
@@ -333,13 +440,13 @@
 
 @implementation NSObject (Utilities)
 
-- (NSA*) superclassesAsStrings {  return [[self.superclasses map:^id(id obj) { return NSStringFromClass(obj); }] arrayWithoutStringContaining:@"NSObject"]; }
-- (NSA*) superclasses { // Return an array of an object's superclasses
-
-	Class cl = self.class; NSMutableArray *results = @[cl].mutableCopy;
-	do {	cl = cl.superclass; [results addObject:cl]; }	while (![cl isEqual:NSObject.class]);
-	return results;
+- (NSS*) xmlRepresentation {
+	return [NSS stringWithData:[AZXMLWriter dataWithPropertyList:self] encoding:NSUTF8StringEncoding];
 }
+- (BOOL)saveAs:(NSS*)file { return [self writeToFile:file atomically:YES]; }
+
+
+
 // Return an invocation based on a selector and variadic arguments
 - (NSInvocation *) invocationWithSelector: (SEL) selector andArguments:(va_list) arguments  {
 	if (![self respondsToSelector:selector]) return NULL;

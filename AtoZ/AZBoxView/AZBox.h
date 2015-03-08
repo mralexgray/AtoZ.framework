@@ -2,7 +2,6 @@
 //  AZBox.h
 //  AtoZ
 //#import <AppKit/AppKit.h>
-#import "AtoZUmbrella.h"
 
 @interface AZBox : NSView
 

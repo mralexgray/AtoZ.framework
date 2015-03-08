@@ -19,7 +19,7 @@
 @property (NATOM) AZMedallionView 	*medallion;
 @property (NATOM) BLKVIEW	   	 		*blockView;
 @property (NATOM) AZDebugLayerView  	*debugLayers;
-@property (NATOM, STRNG) NSIV	 			*badges, *imageNamed;
+@property (NATOM, STR) NSIV	 			*badges, *imageNamed;
 @property (NATOM) NSSCRLV 				*contactSheet;
 @property (NATOM) AtoZGridViewAuto   	*picol;
 @property (NATOM) AtoZGridViewAuto	*autoGrid;

@@ -2,7 +2,6 @@
 //  AZQueue.h
 // 	FIFO (first in first out) data structure for Objective-C
 
-#import "AtoZUmbrella.h"
 @interface AZQueue : NSObject {
 	NSMutableArray* array;
 }

@@ -26,7 +26,7 @@
 //- (void) dealloc	{	self.completion = nil;	self.start = nil;	}
 @implementation CATransaction (AtoZ)
 
-+ (void)flushBlock:(VoidBlock)block {
++ (void)flushBlock:(Blk)block {
   [self begin];
   block();
   [self flush];
@@ -34,8 +34,8 @@
 }
 
 + (void)transactionWithLength:(NSTI)l
-                      actions:(VoidBlock)block
-                   completion:(VoidBlock)comp {
+                      actions:(Blk)block
+                   completion:(Blk)comp {
 
   [self begin];
   [self setAnimationDuration:l];
@@ -469,9 +469,9 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
   CABA *newA = [dict hasKey:@"keyPath"]
                        ? [CABA animationWithKeyPath:dict[@"keyPath"]]
                        : [CABA animation];
-  [dict hasKey:@"keyPath"] ? [newA setPropertiesWithDictionary:
+  [dict hasKey:@"keyPath"] ? [newA setValuesForKeysWithDictionary:
                                        [dict dictionaryWithoutKey:@"keyPath"]]
-                           : [newA setPropertiesWithDictionary:dict];
+                           : [newA setValuesForKeysWithDictionary:dict];
   return newA;
 }
 

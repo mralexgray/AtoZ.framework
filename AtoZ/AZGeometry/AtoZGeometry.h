@@ -1,12 +1,11 @@
 
-#import "AtoZUmbrella.h"
-#import "AtoZTypes.h"
-#import "AZGrid.h"
-#import "AZMatrix.h"
-#import "AZPoint.h"
-#import "AZSize.h"
-#import "AZRect.h"
-#import "AZSegmentedRect.h"
+
+#import <AtoZ/AZGrid.h>
+#import <AtoZ/AZMatrix.h>
+#import <AtoZ/AZPoint.h>
+#import <AtoZ/AZSize.h>
+#import <AtoZ/AZRect.h>
+#import <AtoZ/AZSegmentedRect.h>
 
 
 

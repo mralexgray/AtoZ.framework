@@ -1,7 +1,6 @@
 
 #define NSTN NSTreeNode
 
-#import "AtoZUmbrella.h"
 #import "AZObject.h"
 
 #pragma mark - NSOutlineView Hacks for Drag and Drop

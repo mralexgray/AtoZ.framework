@@ -206,7 +206,7 @@
 
 	[self bind:@"indicator" toObject:w withKeyPath:@"insideEdge" transform:^id (id edge) {
 
-    [AZTalker sayFormat:@"Inside edge:%@", AZAlignToString([edge unsignedIntegerValue])];
+    [AZTalker say:$(@"Inside edge:%@", AZAlignToString([edge unsignedIntegerValue]))];
 		return [l setNeedsDisplay], [l setNeedsLayout], [NSIMG imageForSize:AZSizeFromDim(25) withDrawingBlock:^{
 			[[NSBP bezierPathWithTriangleInRect:AZRectFromDim(25)
 											orientation:(AZCompass)AZAlignToNormalBitmask([edge unsignedIntegerValue])]
@@ -259,7 +259,7 @@
 		@[@[[	NSMenuI.alloc initWithTitle:@"HugeVageen" action:@selector(terminate:) keyEquivalent:@"q"],
 				NSMenuI.separatorItem],
 			[@[ @"NSNormalWindowLevel",             @"NSFloatingWindowLevel",       @"NSMainMenuWindowLevel",       @"NSStatusWindowLevel",
-				 @"NSModalPanelWindowLevel",    @"NSPopUpMenuWindowLevel", @"NSScreenSaverWindowLevel"] cw_mapArray : ^id (id obj) {
+				 @"NSModalPanelWindowLevel",    @"NSPopUpMenuWindowLevel", @"NSScreenSaverWindowLevel"] map : ^id (id obj) {
 
 				NSMenuI *n = [NSMenuI.alloc initWithTitle:obj action:NSSelectorFromString(@"setWindowLevel:") keyEquivalent:@""];
 						   n.representedObject     = self;

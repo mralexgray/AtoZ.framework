@@ -89,7 +89,7 @@
 				//			self.ignoresMouseEvents =YES;
 				//			AZLeftClick(mouseLoc());
 				//			self.ignoresMouseEvents = NO;
-				////		tab = areSame(tab.name, @"tab") ? tab.superlayer : [[tab sublayerWithName:@"tab"] superlayer];
+				////		tab = Same(tab.name, @"tab") ? tab.superlayer : [[tab sublayerWithName:@"tab"] superlayer];
 				//		}();
 				break;
 			}
@@ -241,7 +241,7 @@
 // works.  just need to observe
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (areSame(@"offset",keyPath)) 			[self setNeedsLayout];
+	if (Same(@"offset",keyPath)) 			[self setNeedsLayout];
 }
 
 -(AZSizer*) sizer
@@ -272,7 +272,7 @@
 //		((CABA*)theA).fillMode 				= kCAFillModeForwards;
 //		((CABA*)theA).fromValue 			= AZV3d(transform);
 //		((CABA*)theA).toValue 				=
-//		areSame(event,@"selected")				? AZV3d(CATransform3DConcat(transform, CATransform3DMakeRotation(TWOPI, 1, 0, 0)))
+//		Same(event,@"selected")				? AZV3d(CATransform3DConcat(transform, CATransform3DMakeRotation(TWOPI, 1, 0, 0)))
 //		: [@[@"hovered"] containsObject:event]	? ^{ 	BOOL h = [layer boolForKey:@"hovered"];
 //			CGF val = h ? 200 : -200;
 //			return AZV3d(CATransform3DConcat( transform, CATransform3DMakeRotation(-DEG2RAD(180), 0,1, 0)));// CATransform3DMakeTranslation(0, val, 0)));
@@ -330,7 +330,7 @@
  -(void) drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx
  {
  AZLOG($(@"d in c for %@", layer.debugDescription));
- if ( areSame(layer.name, @"ribbon")) {
+ if ( Same(layer.name, @"ribbon")) {
  //		AZSemiResponderWindowTab *t = (AZSemiResponderWindowTab*)[layer superlayerOfClass:[AZSemiResponderWindowTab class]];
  if ([t boolForKey:@"clicked"] || [t boolForKey:@"hovered"]){ NSRectFillWithColor(layer.frame, BLACK); return; }
  else [NSGraphicsContext drawInContext:ctx flipped:NO actions:^{
@@ -352,7 +352,7 @@
  }():nil;
 
  [theEvent type] == NSMouseMoved ? ^{
- if (tab) [tab boolForKey:@"hovered"] ?: [_scrollLayer.sublayers do:^(CAL*l){ [l setBool:areSame(l, tab) forKey:@"hovered"]; }];
+ if (tab) [tab boolForKey:@"hovered"] ?: [_scrollLayer.sublayers do:^(CAL*l){ [l setBool:Same(l, tab) forKey:@"hovered"]; }];
  }() : nil;
 
  if (([theEvent type] == NSScrollWheel) && theEvent.deltaX ) {
@@ -408,7 +408,7 @@
  //		((CABA*)theA).removedOnCompletion = YES;
  //		((CABA*)theA).toValue = [layer[@"hovered"]boolValue] ? @(p) : @( p - 200);
  //	}() :
- //	areSame(kCAOnOrderIn, event) ? ^ {
+ //	Same(kCAOnOrderIn, event) ? ^ {
  //		CABasicAnimation * fold = [CABA animationWithKeyPath:@"transform"];
  //		CATransform3D up = CATransform3DMakePerspective(0, -.003);
  //		theA.toValue = AZV3d(up);

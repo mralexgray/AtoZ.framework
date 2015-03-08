@@ -1,7 +1,5 @@
 
-#import "AtoZAutoBox/AtoZAutoBox.h"
-#import "AtoZUmbrella.h"
-#import "JREnum.h"
+@import AtoZAutoBox;
 
 #define CEL NSCell
 

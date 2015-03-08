@@ -17,7 +17,7 @@
 //   [super dealloc];
 }
 
--(BOOL)isEmpty {
+-(BOOL)IsEmpty {
    return ([_dictionary count]==0)?YES:NO;
 }
 

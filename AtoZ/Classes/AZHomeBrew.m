@@ -2,6 +2,7 @@
 #import <AtoZ/AtoZ.h>
 #import "AZHomeBrew.h"
 
+#import "CWTask.h"
 
 @implementation AZBrewFormula
 
@@ -190,8 +191,8 @@
 //+ (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString *)key
 //{
 //	NSSet  *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-//	return 	areSame(key, @"shouldLog") 	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"avail",@"installed")] :
-//	//			areSame(key, @"avail")	  	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"installed", @"shouldLog")] :
+//	return 	Same(key, @"shouldLog") 	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"avail",@"installed")] :
+//	//			Same(key, @"avail")	  	?	[keyPaths setByAddingObjectsFromSet:NSSET(@"installed", @"shouldLog")] :
 //	keyPaths;
 //}
 

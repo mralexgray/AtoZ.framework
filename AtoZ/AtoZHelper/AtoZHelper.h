@@ -22,7 +22,7 @@ typedef void(^openURL)(NSS*url, WebView *w);
 
 //, WebSocketDelegate, AZWebSocketServerDelegate>
 //@property AZWebSocketServer *socketServer;
-//@property (STRNG) AZAddressBook *ab;
+//@property (STR) AZAddressBook *ab;
 //
 //- (IBAction)getFB:_;
                               //- (IBAction)getColorList:_;

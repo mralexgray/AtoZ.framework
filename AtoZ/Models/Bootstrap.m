@@ -114,7 +114,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 
 	//	[_oQ addOperationWithBlock:^{
 	//		[@[@"js", @"css"] each:^(NSS* ext){  [self setValue:[[[_bundle URLsForResourcesWithExtension:ext subdirectory:ext] filter:^BOOL(NSURL* object) {  return ![((NSS*)object.path.lastPathComponent) containsAnyOf:@[@"bootstrap-popover",@"bootstrap-transition"]]; }]
-	//						   cw_mapArray:^id(NSURL* url) {
+	//						   map:^id(NSURL* url) {
 	//
 	//			return [Asset instanceOfType:[ext assetFromString] withPath:$(@"/%@/%@", ext, url.path.lastPathComponent) orContents:nil isInline:NO];//$(@"/%@/%@", ext, url.path.lastPathComponent) orContents:nil isInline:YES];}] forKey:ext];
 	//		}] forKey:ext]; }];
@@ -137,7 +137,7 @@ NSString * const custCSS = @"html,	body{height:100%; } #wrap{min-height:100%;hei
 
 - (void) observeValueForKeyPath:(NSS*)kP ofObject:(id)obj change:(NSD*)change context:(void*)c
 {
-	if ( areSame(_oQ, obj) && areSame(kP, @"operations") && _oQ.operations.count == 0 )  {
+	if ( Same(_oQ, obj) && Same(kP, @"operations") && _oQ.operations.count == 0 )  {
 		NSLog(@"queue has completed");
 		//		self.html = nil;
 	} else	[super observeValueForKeyPath:kP ofObject:obj change:change context:c];

@@ -264,7 +264,6 @@
 
 //#import "AZBaseModel.h"
 //#import <AtoZ/AtoZ.h>
-#import "AtoZUmbrella.h"
 //#import "AtoZFunctions.h"
 
 NSString *const AZBaseModelSharedInstanceUpdatedNotification = @"AZBaseModelSharedInstanceUpdatedNotification";
@@ -299,7 +298,7 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
     NSString *stringer = $(@"set%@", [key capitalizedString]);
     SEL stringed = NSSelectorFromString(stringer);
     if ([self respondsToSelector:stringed]) {
-        id newV = isEmpty(object) ? @"" : object;
+        id newV = IsEmpty(object) ? @"" : object;
         [self setValue:newV forKey:key];
     } else {                const char *bar = [key UTF8String];
 
@@ -339,15 +338,15 @@ static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 //		return self;  } else return nil; }
 
 
-- (void) achWithIndex:(VoidIteratorArrayWithIndexBlock)block  {
+- (void) achWithIndex:(ObjIntBlk)block  {
     [F eachInArrayWithIndex:_backingstore withBlock:block];
 }
 
-- (NSMA *)map:(MapArrayBlock)block             {
+- (NSMA *)map:(Obj_ObjBlk)block             {
     return [F mapArray:_backingstore withBlock:block].mutableCopy;
 }
 
-- (NSMA *)filter:(BoolArrayBlock)block         {
+- (NSMA *)filter:(Bool_ObjBlk)block         {
     return [F filterArray:_backingstore withBlock:block].mutableCopy;
 }
 

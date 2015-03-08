@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 @class 	   AtoZGridView, AtoZGridViewItem;
 @protocol  AtoZGridViewDelegate  <NSObject>
@@ -56,19 +55,19 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 
 #pragma mark - Initializing a AtoZGridView Object
 /** @name Initializing a AtoZGridView Object */
-@property (NATOM, STRNG) NSColor *backgroundColor;
+@property (NATOM, STR) NSColor *backgroundColor;
 
 #pragma mark - Managing the Delegate and the Data Source
 /** @name Managing the Delegate and the Data Source */
 /**	Property for the receiver's delegate. */
-@property (NATOM, STRNG) IBOutlet id <AtoZGridViewDelegate> delegate;
+@property (NATOM, STR) IBOutlet id <AtoZGridViewDelegate> delegate;
 /**	Property for the receiver's data source. */
-@property (NATOM, STRNG) IBOutlet id <AtoZGridViewDataSource> dataSource;
+@property (NATOM, STR) IBOutlet id <AtoZGridViewDataSource> dataSource;
 
 #pragma mark - Configuring the GridView
 /** @name Configuring the GridView */
 /**	A title string for the grid view. The default value is `nil`. */
-@property (NATOM, STRNG) NSS *gridViewTitle;
+@property (NATOM, STR) NSS *gridViewTitle;
 /**	Property for setting the elasticity of the enclosing `NSScrollView`.
  This property will be set and overwrite the values from Interface Builder. There is no horizontal-vertical distinction.
  The default value is `YES`.
@@ -98,21 +97,21 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 @property (NATOM, ASS) CGF  selectionRingLineWidth;
 @property (NATOM, ASS) NSUI contentInset;
 @property (NATOM, ASS) NSUI itemBorderRadius;
-@property (STRNG	 ) NSD  *itemTitleTextAttributes;
+@property (STR	 ) NSD  *itemTitleTextAttributes;
 
 #pragma mark - Colors
 /** @name GridView Item Colors */
 /**	The background color of the `AtoZGridViewItem`. You can set any known `NSColor` values, also pattern images. If this property is not used it will be set to the */
-@property (NATOM, STRNG) NSC *itemBackgroundColor;
+@property (NATOM, STR) NSC *itemBackgroundColor;
 /** Returns the standard `AtoZGridViewItem` background color when the item is in mouse over state (property must be enabled) */
-@property (NATOM, STRNG) NSC *itemBackgroundHoverColor;
+@property (NATOM, STR) NSC *itemBackgroundHoverColor;
 /** Returns the standard `AtoZGridViewItem` background color when the item is selected */
-@property (NATOM, STRNG) NSC *itemBackgroundSelectionColor;
+@property (NATOM, STR) NSC *itemBackgroundSelectionColor;
 /**	The color of the selection ring.
  If this property is not used it will be set to the default value `[NSColor itemSelectionRingColor]`. Also see NSColor(AtoZGridViewPalette). */
 /** Returns the standard `AtoZGridViewItem` selection ring color when the item is selected */
-@property (NATOM, STRNG) NSC *itemSelectionRingColor;
-@property (NATOM, STRNG) NSC *itemTitleColor, *itemTitleShadowColor, *selectionFrameColor;
+@property (NATOM, STR) NSC *itemSelectionRingColor;
+@property (NATOM, STR) NSC *itemTitleColor, *itemTitleShadowColor, *selectionFrameColor;
 
 #pragma mark - Managing the Content
 /** @name  Managing the Content */

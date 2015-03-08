@@ -237,6 +237,44 @@ NSOQ       * AZSharedOperationStack (void)  {	return ATOZ.sharedStack; }
 NSOQ       * AZSharedOperationQueue (void) 	{	return ATOZ.sharedQ; }
 NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 
+
+//@prop_RO M13OrderedDictionary * sortedByValue;
+
+@implementation NSD (M13)
+- (M13OrderedDictionary *)sortedByValue {
+
+  M13OrderedDictionary  *s = [M13OrderedDictionary orderedDictionaryWithDictionary:self.copy];
+  return [s sortedByKeysUsingSelector:@selector(compare:)];
+}
+@end
+
+@implementation NSBundle (AtoZBundle)
++ (INST) frameworkBundleNamed:(NSS*)name {
+	NSS* str = [[AZBUNDLE privateFrameworksPath]withPath:[name withString:@".framework"]];
+	return [NSBundle bundleWithPath:str];
+  //	AZLOG(fw);
+}
+
++ (NSA*) azFrameworkBundles             { return [NSB.allFrameworks filter:^BOOL(NSB* obj){		return [obj.bundlePath contains:AZFWORKBUNDLE.bundlePath.stringByDeletingLastPathComponent];	}]; }
++ (NSA*) azFrameworkNames               { return [[self.azFrameworkBundles vFKP:@"bundlePath.lastPathComponent.stringByDeletingPathExtension"]alphabetized]; }  // sort:^NSComparisonResult(id obj1, id obj2) { return [[obj1 bundlePath].lastPathComponent compare:[obj2 bundlePath].lastPathComponent]; }]; } // [@"pathExtension"][@"alphabetized"];  }
++ (NSA*) azFrameworkIds                 { return self.azFrameworkBundles[@"bundleIdentifier"];  }
++ (NSA*) azFrameworkInfos               { return self.azFrameworkBundles[@"infoDictionary"];    }
++ (NSD*) azFrameworkInfoForId:(NSS*)bId	{
+  
+  return [self.azFrameworkInfos findDictionaryWithValue:bId];
+  
+}
+
++ (void) loadAZFrameworks {
+  
+	[[self pathsForResourcesOfType:@"framework" inDirectory:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
+		[[self bundleWithPath:obj]load];
+	}];
+  //[[[AZFILEMANAGER visibleDirectoryContentsAtPath:[AZBUNDLE privateFrameworksPath]] each:^(id obj) {
+  //	[NSB frameworkBundleNamed:[obj ]
+}
+@end
+
 @implementation AtoZ
 
 {	__weak id _constantShortcutMonitor;	}
@@ -599,7 +637,7 @@ __attribute__((constructor)) static void setupLogger() {
 }
 - (NSA*) fonts								{	return _fonts = _fonts ?:
 
-	[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] cw_mapArray:^id(NSURL* obj) {
+	[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] map:^id(NSURL* obj) {
 		if (!obj) return nil; __unused NSError *err; FSRef fsRef; OSStatus status;
 		CFURLGetFSRef((CFURLRef)obj, &fsRef);
 		if (status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal,
@@ -625,13 +663,13 @@ __attribute__((constructor)) static void setupLogger() {
 
 	//	if (err) { NSAlert *alert = [NSAlert alertWithMessageText:@"Error parsing JSON" defaultButton:@"Damn that sucks" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Check your JSON"];	[alert beginSheetModalForWindow:[[NSApplication sharedApplication]mainWindow] modalDelegate:nil didEndSelector:nil contextInfo:nil];		return; }
 }
--  (void) performBlock: (VoidBlock)block waitUntilDone:(BOOL)wait 						{
+-  (void) performBlock: (Blk)block waitUntilDone:(BOOL)wait 						{
 
 	NSThread *newThread = [NSThread new];
 	[NSThread performSelector:@selector(az_runBlock:) onThread:newThread withObject:[block copy] waitUntilDone:wait];
 }
-+  (void) az_runBlock:(VoidBlock)block 															{ block(); }
-+  (void) performBlockInBackground:(VoidBlock)block 											{
++  (void) az_runBlock:(Blk)block 															{ block(); }
++  (void) performBlockInBackground:(Blk)block 											{
 
 	[NSThread performSelectorInBackground:@selector(az_runBlock:) withObject:[block copy]];
 }
@@ -643,7 +681,7 @@ __attribute__((constructor)) static void setupLogger() {
 	}() : NSZeroPoint;
 }
 -  (void) moveMouseToScreenPoint:			(NSP)point 											{	CGSUPRESSINTERVAL(0); CGWarpMouseCursorPosition(point); CGSUPRESSINTERVAL(.25); }
--  (void) handleMouseEvent:(NSEM)event inView:(NSV*)view withBlock:(VoidBlock)block	{
+-  (void) handleMouseEvent:(NSEM)event inView:(NSV*)view withBlock:(Blk)block	{
 
 	if (self != AtoZ.sharedInstance) NSLog(@"uh oh, not a shared I"); // __typeof__(self) *aToZ = [AtoZ sharedInstance];
 	[NSEVENTLOCALMASK:event handler:^NSE *(NSE *ee) {
@@ -659,7 +697,7 @@ __attribute__((constructor)) static void setupLogger() {
 //+  (NSA*) runningApps 																					{	return [self.class.runningAppsAsStrings arrayUsingBlock:^id(id obj) { return [AZFile instanceWithPath:obj];	}]; }
 +  (NSA*) runningAppsAsStrings	 																	{
 
-	return [AZWORKSPACE.runningApplications cw_mapArray:^id(NSRunningApplication *obj){
+	return [AZWORKSPACE.runningApplications map:^id(NSRunningApplication *obj){
 		return obj.activationPolicy != NSApplicationActivationPolicyProhibited
     && obj.bundleURL && ![obj.bundleURL.path.lastPathComponent containsAnyOf:@[	@"Google Chrome Helper.app",
                                                                                 @"Google Chrome Worker.app",
@@ -806,7 +844,7 @@ static int GetBSDProcessList (struct kinfo_proc **procList, size_t *procCount)	{
  pid = 37298;					    },... ) */
 
 
-+ (NSA*) runningProcesses {				return [self.getBSDProcessList cw_mapArray:^id(id o) { return [self infoForPID:[[o vFK:@"pid"] iV]] ?: o; }]; }
++ (NSA*) runningProcesses {				return [self.getBSDProcessList map:^id(id o) { return [self infoForPID:[[o vFK:@"pid"] iV]] ?: o; }]; }
 
 + (NSTN*) runningApps {	return [self.runningProcesses reduce:NSTN.new withBlock:^id(NSTN* sum, id obj) {
 
@@ -822,7 +860,7 @@ static int GetBSDProcessList (struct kinfo_proc **procList, size_t *procCount)	{
 
 
 
-+ (NSA*) runningApplications {	return [self.getBSDProcessList cw_mapArray:^id(id o) { return [NSRunningApplication runningApplicationWithProcessIdentifier:[[o vFK:@"pid"] iV]]; }]; }
++ (NSA*) runningApplications {	return [self.getBSDProcessList map:^id(id o) { return [NSRunningApplication runningApplicationWithProcessIdentifier:[[o vFK:@"pid"] iV]]; }]; }
 
 
 static void soundCompleted(SystemSoundID soundFileObject, void *clientData)			{ // Clean up.
@@ -1250,9 +1288,8 @@ static NSMutableDictionary* flags;
 //#import "MASShortcut+UserDefaults.h"
 //#import "MASShortcut+Monitoring.h"
 //#import "AtoZFunctions.h"
-//#import "AtoZUmbrella.h"
-//#import "AtoZModels.h"
+////#import "AtoZModels.h"
 //#import "OperationsRunner.h"
-//  NSS* setter;	if ( [self canSetValueForKey:key]) {if (isEmpty(object)) [self setValue:@"" forKey:key]; else{
+//  NSS* setter;	if ( [self canSetValueForKey:key]) {if (IsEmpty(object)) [self setValue:@"" forKey:key]; else{
 //  else if () // [self respondsToString:setter = $(@"set%@",[(NSS*)k capitalizedString])])
 //performString:setter withObject:x];  else NSLog(@"setValue: %@ for layer's key: %@", object, key)

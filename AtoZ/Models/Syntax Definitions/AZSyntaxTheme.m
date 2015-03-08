@@ -36,7 +36,7 @@
 //PROXY_DEFINE_BLOCK(AZSyntaxThemes,NSMA,^(NSMA*setBacking){ 
 //	
 //	NSA*themes = [AZFILEMANAGER contentsOfDirectoryAtPath:[@"~/Library/Developer/Xcode/UserData/FontAndColorThemes/" stringByExpandingTildeInPath] error:nil];
-//	setBacking = [[themes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.dvtcolortheme'"]] cw_mapArray:^id(NSString*name){
+//	setBacking = [[themes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.dvtcolortheme'"]] map:^id(NSString*name){
 //		return [AZSyntaxTheme themeWithXcodeTheme:name];
 //  	}].mutableCopy;
 //	return setBacking;

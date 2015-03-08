@@ -7,8 +7,7 @@
 //+ (INST) r;
 //+ (INST) rect;
 
-#import <Zangetsu/Zangetsu.h>
-#import "AtoZUmbrella.h"
+//#import <Zangetsu/Zangetsu.h>
 #import "BoundingObject.h"
 
 

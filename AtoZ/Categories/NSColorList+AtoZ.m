@@ -36,7 +36,7 @@
 -  (NSA*) colors            {
 
   return (palettesD = palettesD ?: NSMD.new)[self.name] = palettesD[self.name]
-                                ?: [self.allKeys cw_mapArray:^id(id obj) {
+                                ?: [self.allKeys map:^id(id obj) {
     return self[obj];
   }];
 }
@@ -298,7 +298,7 @@ scanFailed:
   NSS *rgbSub   = [rgbString substringWithRange:NSMakeRange(iBegin+1,iClose-(iBegin+1))];
   NSA *components = [rgbSub    componentsSeparatedByString:@","];
   if ( [components count] != 3 )  return nil;
-  NSA* componentValues = [components cw_mapArray:^id(NSS* aComponent) {
+  NSA* componentValues = [components map:^id(NSS* aComponent) {
     NSS *cleanedComponent = [aComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return [cleanedComponent length] == 0 ? nil : @([cleanedComponent fV]);
   }];

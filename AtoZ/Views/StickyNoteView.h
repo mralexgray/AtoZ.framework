@@ -19,10 +19,10 @@ JREnumDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggi
 
 @interface StickyNote : BaseModel 
 + (instancetype) instanceWithFrame: (NSR)rect;
-@property 	  	  (RONLY)	NSW	*window;
+@property 	  	  (RO)	NSW	*window;
 @property    (CP, NATOM)  	NSS	*placeholderString;
-@property (STRNG, NATOM)	NSC	*noteColor, *textColor;
-@property (STRNG, NATOM) StickyNoteView *sticky;
+@property (STR, NATOM)	NSC	*noteColor, *textColor;
+@property (STR, NATOM) StickyNoteView *sticky;
 
 @end
 

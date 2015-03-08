@@ -4,8 +4,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AZLassoLayer ()
-@property (STRNG)	 		CAL  *root;
-@property (STRNG) 		CASHL *blk, *wht;
+@property (STR)	 		CAL  *root;
+@property (STR) 		CASHL *blk, *wht;
 @property (NATOM,ASS) 	CGF 	 dynamicStroke;
 @end
 

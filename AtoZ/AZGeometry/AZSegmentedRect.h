@@ -8,7 +8,6 @@
 
 ////#import "AtoZGeometry.h"
 // #import "AtoZ.h"  // Do not change..  Weirdly essential.
-#import "AtoZUmbrella.h"
 #import "AZRect.h"
 
 @class AZPoint, AZSize;

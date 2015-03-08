@@ -129,7 +129,7 @@ static CFHashCode _hashString(const void *value)
 		NSLog(@"runA4:%@  on:%@  dic:%@", event, anObject, dict);
 //	return [@[@"content", @"color"]containsObject:event] ? [CABA propertyAnimation : @{  zkeyP	: event, zdurA : @3, zfromV	: self.permaPresentation[event], ztimeF : CAMEDIAEASEOUT}]
 //		 : [event isEqualToString:@"hovered"] 			 ? [self anim]]
-	if (areSame(event, @"hovered")) [anObject animate:@"transform.rotation.y" toFloat:DEG2RAD(360) time:2];
+	if (Same(event, @"hovered")) [anObject animate:@"transform.rotation.y" toFloat:DEG2RAD(360) time:2];
 //	else [self s //]	 : [super actionForKey:event];
 
 //	= [CABA animationWithKeyPath:@"transform"];

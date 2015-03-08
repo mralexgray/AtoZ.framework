@@ -6,7 +6,8 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import "AZPoint.h"
+#import <AtoZ/AtoZ.h>
+//#import <AtoZ/AZPoint.h>
 //#import "AZSize.h"
 //#import "AZRect.h"
 

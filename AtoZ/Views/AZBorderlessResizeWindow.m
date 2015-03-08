@@ -186,8 +186,8 @@
 + (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
 
   objswitch(k)
-    objcase(@"inFrame")   return NSSET(@"edgeInset",@"outFrame");
-    objcase(@"outFrame")  return NSSET(@"fullSize", @"dragFrame");
+    objcase(@"inFrame")   return [NSSet setWithArray:@[@"edgeInset",@"outFrame"]];
+    objcase(@"outFrame")  return [NSSet setWithArray:@[@"fullSize", @"dragFrame"]];
     defaultcase           return [super keyPathsForValuesAffectingValueForKey:k];
   endswitch
 }

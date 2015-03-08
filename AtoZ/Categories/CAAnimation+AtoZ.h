@@ -11,8 +11,8 @@ typedef void (^AZCAAnimationCompletionBlock)();
 
 //Note this is slightly flawed as we set ourself as the delegate, really we should create a chained proxy, if we need that I will add it.
 @interface CATransaction (AtoZ)
-+ (void) transactionWithLength:(NSTI)l actions:(VoidBlock)block completion:(VoidBlock)comp;
-+ (void)flushBlock:(VoidBlock)block;
++ (void) transactionWithLength:(NSTI)l actions:(Blk)block completion:(Blk)comp;
++ (void)flushBlock:(Blk)block;
 //+ (void)CADisabledBlock:(void(^)(void))block;
 //+ (void) immediatelyWithCompletion:(void (^)())completion transaction:(void (^)())block;
 //+ (void)az_performWithDisabledActions:(void(^)(void))block

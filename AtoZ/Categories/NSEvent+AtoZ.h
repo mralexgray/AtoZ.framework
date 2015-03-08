@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 
 @interface NSColorPanel (AtoZ)
@@ -9,7 +8,7 @@
 
 @protocol NSActionBlock <NSObject>
 @concrete
-@property (CP) VoidObjBlock actionBlock;
+@property (CP) ObjBlk actionBlock;
 @property (CP) VBlk voidActionBlock;
 @end
 

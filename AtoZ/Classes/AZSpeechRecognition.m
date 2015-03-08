@@ -1,5 +1,6 @@
 
 #import "AZSpeechRecognition.h"
+#import "CWTask.h"
 #import <AtoZ/AtoZ.h>
 @interface AZSpeech2Text ()
 @property (nonatomic, assign) FilterBlock filter;

@@ -12,6 +12,8 @@
 
 #pragma mark - IOS UI
 
+@import UIKit;
+
 #import <AtoZTouch/UITableView+AtoZ.h>
 
 #import <AtoZTouch/JTTableViewGestureRecognizer.h>

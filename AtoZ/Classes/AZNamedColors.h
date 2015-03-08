@@ -6,7 +6,6 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import "AtoZUmbrella.h"
 
 @interface  NSColorList (Dictionary) @prop_RO NSD *dictionary;  @end
 

@@ -1,9 +1,7 @@
 
-#import <Zangetsu/Zangetsu.h>
 
 @import AtoZUniversal;
 
-#import <AtoZ/AtoZTypes.h>
 
 /*! Useful protocol for any object that implements both setter and getters for both FRAME and BOUNDS.  
     and that can be genuinely represented in those terms.
@@ -59,38 +57,7 @@
 
 //@prop_ NSAlignmentOptions   alignment;
 
-@protocol Random  <NSO>
-@required + (INST) random;              // implement random and you get random:ct for free!
-@concrete + (NSA*) random:(NSUI)ct;     // ie. +[NSColor random:10] -> 10 randos..
-@end
 
-@protocol Indexed <NSO> @concrete
-@prop_RO id<NSFastEnumeration> backingStore;
-@prop_RO  NSUI index, indexMax;
-@end
-
-@protocol FakeArray <NSO,NSFastEnumeration>
-@required
-@prop_RO id<NSFastEnumeration>enumerator;
-- (int) indexOfObject:(id)x;
-@concrete
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
-- (void)eachWithIndex:(void(^)(id obj,int index))block; // Dep's on indexOffObject:
-- (void)do:(void(^)(id obj))block;               // Dep's on <NSFastEnumeration>
-@end
-
-@protocol ArrayLike <NSO,NSFastEnumeration>
-@concrete @prop_ NSA<Indexed>*storage;
-@prop_RO NSUI count;
-
-- (void)     addObject:(id)x;
-- (void)  removeObject:(id)x;
-- (void)    addObjects:(NSA*)x;
-- (void) removeObjects:(NSA*)x;
-
-@end
-
-#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 
 DECLARECONFORMANCE( NSV,     RectLike )
 DECLARECONFORMANCE( NSW,     RectLike )
@@ -137,10 +104,6 @@ typedef struct  { NSUI  rows;
 
 - (void) setOnChangeDimensions:(void(^)(NSSZ oldSz,NSSZ newSz))c;
 
-@end
-
-@protocol      TypedArray   <NSO> @concrete
-@prop_ Class objectClass;
 @end
 
 //@protocol     GridLike <NSO> @concrete
@@ -275,7 +238,7 @@ typedef void(^MutationBlock)(id _self, id x, NSUI idx);
 @optional @property (CP) MutationBlock onInsert; @property (CP) void(^onRemove)(id _self, id x, NSUI idx);
 
 + (INST) withRect:(NSR)r inRect:(NSR)sf aligned:(AZA)a;
-//#import "AZBlockView.h"         //#import "AtoZTypes.h"
+//#import "AZBlockView.h"         //
 
 
 

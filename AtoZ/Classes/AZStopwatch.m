@@ -15,8 +15,8 @@
 
 @implementation AZStopwatch {	NSMutableDictionary *items; }
 
-+ (void)     named:(NSS*)name  block:(VoidBlock)block	{	[AZStopwatch stopwatch:name timing:block];	}
-+ (void) stopwatch:(NSS*)name timing:(VoidBlock)block	{	[AZStopwatch start:name];	block(); [AZStopwatch stop: name]; }
++ (void)     named:(NSS*)name  block:(Blk)block	{	[AZStopwatch stopwatch:name timing:block];	}
++ (void) stopwatch:(NSS*)name timing:(Blk)block	{	[AZStopwatch start:name];	block(); [AZStopwatch stop: name]; }
 
 + (void)     start:(NSS*)name { [self.sharedInstance add:name]; }
 + (void)      stop:(NSS*)name { [[self.sharedInstance get:name] stop];	[self print:name]; }

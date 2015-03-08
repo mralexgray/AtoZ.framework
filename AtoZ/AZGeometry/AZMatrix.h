@@ -5,7 +5,6 @@
 
 // A THMatrix is always mutable
 
-#import "AtoZUmbrella.h"
 
 @interface AZMatrix : NSObject {
 	NSUI width, height;

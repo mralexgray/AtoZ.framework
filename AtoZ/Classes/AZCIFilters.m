@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+@import Quartz;
 #import "AZCIFilters.h"
-#import"NSError+AtoZ.h"
+#import "NSError+AtoZ.h"
 
 
 static NSA *_filters;

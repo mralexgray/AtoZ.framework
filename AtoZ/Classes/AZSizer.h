@@ -1,6 +1,5 @@
 
 
-#import "AtoZUmbrella.h"
 
 
 /* Standard C Function: Greatest Common Divisor */

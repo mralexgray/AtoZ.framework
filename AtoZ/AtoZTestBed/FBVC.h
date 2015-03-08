@@ -11,19 +11,19 @@
 										NSOutlineViewDataSource,
 										NSOutlineViewDelegate	>
 
-@property (STRNG) PhFacebook *fb;
+@property (STR) PhFacebook *fb;
 
-@property (UNSFE) IBOutlet NSOutlineView		*outlineView;
-@property (UNSFE) IBOutlet BGHUDTokenFieldCell 	*tokens;
+@property (UNSF) IBOutlet NSOutlineView		*outlineView;
+@property (UNSF) IBOutlet BGHUDTokenFieldCell 	*tokens;
 
-@property (UNSFE) IBOutlet NSTextField 	*token_label;
-@property (UNSFE) IBOutlet NSTextField 	*request_label;
-@property (UNSFE) IBOutlet NSTextField 	*request_text;
-@property (UNSFE) IBOutlet NSTextView 		*result_text;
-@property (UNSFE) IBOutlet NSImageView 	*profile_picture;
-@property (UNSFE) IBOutlet NSButton 		*send_request;
+@property (UNSF) IBOutlet NSTextField 	*token_label;
+@property (UNSF) IBOutlet NSTextField 	*request_label;
+@property (UNSF) IBOutlet NSTextField 	*request_text;
+@property (UNSF) IBOutlet NSTextView 		*result_text;
+@property (UNSF) IBOutlet NSImageView 	*profile_picture;
+@property (UNSF) IBOutlet NSButton 		*send_request;
 
-@property (UNSFE) IBOutlet NSView*			scrollV;
-@property (UNSFE) IBOutlet NSView*			target;
+@property (UNSF) IBOutlet NSView*			scrollV;
+@property (UNSF) IBOutlet NSView*			target;
 
 @end

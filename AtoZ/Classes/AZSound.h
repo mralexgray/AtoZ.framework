@@ -83,9 +83,9 @@
 + (INST)  soundWithContentsOfURL:(NSU*)url;
 - (INST)   initWithContentsOfURL:(NSU*)url;
 
-@property (RONLY,CP)                    NSS * name;
+@property (RO,CP)                    NSS * name;
 @prop_RO                       NSU * url;
-@property (RONLY,getter = isPlaying)   BOOL   playing;
+@property (RO,getter = isPlaying)   BOOL   playing;
 @property (NATOM,getter = isLooping)   BOOL   looping;
 @property (NATOM,CP) SoundCompletionHandler   completionHandler;
 
@@ -118,8 +118,7 @@
 //#define SM_SOUND NSSound
 //#endif
 
-//#import "AtoZUmbrella.h"
-
+//
 //extern NSString *const SoundDidFinishPlayingNotification;
 
 //typedef void (^SoundCompletionHandler)(BOOL didFinish);

@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 /*! @abstract	Allows for an extremely flexible manipulation of a static representation of the window.
  Since it uses a visual representation of the window, the window cannot be interacted with while a transform is applied, nor is it automatically updated to reflect the window's state.
@@ -42,7 +41,7 @@ OR
 typedef CAL*(^CALAyerSetupBlock)(CAL* layer);
 
 @interface CAWindow : NSWindow
-@property (NATOM,ASS,RONLY)     CALayer	* layer;
+@property (NATOM,ASS,RO)     CALayer	* layer;
 @property (NATOM,CP) 	CALAyerSetupBlock   setupBlock;
 @property (NATOM)                  BOOL   fullScreen;
 

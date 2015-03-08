@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 @interface NSAffineTransform (RectMapping)
 /* initialize the NSAffineTransform so it maps points in srcBounds proportionally to points in dstBounds */
@@ -57,7 +56,7 @@
 - (void) fillGradientFrom: (NSC*)start to:(NSC*)end angle:(float)inAngle;
 - (void)fillGradientFrom:(NSC*)c1 to:(NSC*)c2 startAlign:(AZAlign)align;
 
-@property (STRNG,NATOM) NSA* dashPattern;
+@property (STR,NATOM) NSA* dashPattern;
 //- (NSA*) dashPattern;
 //- (void) setDashPattern:(NSA*)newPattern;
 

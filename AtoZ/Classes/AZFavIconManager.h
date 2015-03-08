@@ -4,7 +4,6 @@
 //  Created by Fabio Pelosin on 04/09/12.
 //  Copyright (c) 2012 Discontinuity s.r.l. All rights reserved.
 
-#import "AtoZUmbrella.h"
 
 #if TARGET_OS_IPHONE
 #define NSImage UIImage
@@ -26,8 +25,8 @@ extern CGSize sizeInPixels(NSIMG *image);
 @class  AZFavIconCache;
 @interface AZFavIconManager : NSObject								/** AZFavIconManager is a complete solution for managing Favicons.*/
 + (AZFavIconManager*) sharedInstance;
-@property (NATOM,STRNG) NSIMG 			*placehoder;			/** Placeholder image for favicons. Defaults to [UIImage imageNamed:@"favicon"]. */
-@property (NATOM,STRNG) AZFavIconCache *cache;					/** The AZFavIconCache instance used b current manager. Defaults to [AZFavIconCache sharedCache] */
+@property (NATOM,STR) NSIMG 			*placehoder;			/** Placeholder image for favicons. Defaults to [UIImage imageNamed:@"favicon"]. */
+@property (NATOM,STR) AZFavIconCache *cache;					/** The AZFavIconCache instance used b current manager. Defaults to [AZFavIconCache sharedCache] */
 
 /** Are requests for icons with URLs already in queue discarded? (useful in tables). Defaults to false. */
 @property BOOL discardRequestsForIconsWithPendingOperation;
@@ -59,9 +58,9 @@ extern  NSS * const kAZFavIconOperationDidEndNetworkActivity;
 
 @interface AZFavIconOperation : NSOperation
 
-@property (NATOM,STRNG) NSURL *url;
-@property (NATOM,STRNG) NSA	*defaultNames;
-@property (NATOM,STRNG) NSS	*relationshipsRegex;
+@property (NATOM,STR) NSURL *url;
+@property (NATOM,STR) NSA	*defaultNames;
+@property (NATOM,STR) NSS	*relationshipsRegex;
 @property (nonatomic, copy) AZFavIconOperationCompletionBlock completion;
 @property (nonatomic, copy) AZFavIconOperationAcceptanceBlock acceptanceBlock;
 @property (nonatomic, copy) AZFavIconOperationPreflightBlock  preFlightBlock;

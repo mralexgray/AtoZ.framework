@@ -58,7 +58,7 @@
 //}
 //+ (instancetype) instanceWithNames:(NSA*)names {
 //
-//	NSA* colors = [names cw_mapArray:^id(id object) {
+//	NSA* colors = [names map:^id(id object) {
 //		NSC* c = [NSC colorWithName:object] ?: [NSC colorWithHTMLString:object] ?: [NSC colorWithHexString:object];
 //		if (c) c.name = object;		return c ?: nil;
 //	}];

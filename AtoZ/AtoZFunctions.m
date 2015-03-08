@@ -3,7 +3,7 @@
 #include <Python.h>
 #import <AtoZ/AtoZ.h>
 #import "NSString+AtoZ.h"
-#import "AtoZTypes.h"
+
 #import "AtoZFunctions.h"
 
 //#define DefineAllOf(...) metamacro_foreach
@@ -156,7 +156,7 @@ IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, 
  + (instancetype)     instance				{	return _children[AZCLSSTR] ?: self.sharedInstance; }
  + (void) 	setSharedInstance : (id)i 	{
 	if (i == nil) {
- _children = [_children.allKeys cw_mapArray:^id(id object) {
+ _children = [_children.allKeys map:^id(id object) {
  if (SameString(object, AZCLSSTR)) return nil; else return @{object:_children[object]};
  }].mutableCopy;
 	}
@@ -458,7 +458,7 @@ NSTSK *  launchMonitorAndReturnTask(NSTSK *t) {
   [t launch]; monitorTask(t);  return t;
 }
 
-//static inline BOOL isEmpty(id thing);	return	thing == nil || ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)	|| NO;	}
+//static inline BOOL IsEmpty(id thing);	return	thing == nil || ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)	|| NO;	}
 
 //AZRange 	AZMakeRange			(NSI min,  NSI max) 		{
 //	return (AZRange) {min, max };
@@ -616,50 +616,6 @@ BOOL isIPlocal(UInt32 address) {
 //}
 
 
-NSCharacterSet * _GetCachedCharacterSet(CharacterSet set) {
-  static NSCharacterSet *cache[kNumCharacterSets] = { 0 };
-  if (cache[set] == nil) {
-    OSSpinLockLock(&_staticSpinLock);
-    if (cache[set] == nil) {
-      switch (set) {
-        case kCharacterSet_Newline:
-          cache[set] = NSCharacterSet.newlineCharacterSet;
-          break;
-        case kCharacterSet_WhitespaceAndNewline:
-          cache[set] = NSCharacterSet.whitespaceAndNewlineCharacterSet;
-          break;
-        case kCharacterSet_WhitespaceAndNewline_Inverted:
-          cache[set] = [NSCharacterSet.whitespaceAndNewlineCharacterSet invertedSet];
-          break;
-        case kCharacterSet_UppercaseLetters:
-          cache[set] = NSCharacterSet.uppercaseLetterCharacterSet;
-          break;
-        case kCharacterSet_DecimalDigits_Inverted:
-          cache[set] = [NSCharacterSet.decimalDigitCharacterSet invertedSet];
-          break;
-        case kCharacterSet_WordBoundaries:
-          cache[set] = NSMutableCharacterSet.new;
-          [(NSMutableCharacterSet *)cache[set] formUnionWithCharacterSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-          [(NSMutableCharacterSet *)cache[set] formUnionWithCharacterSet :[NSCharacterSet punctuationCharacterSet]];
-          [(NSMutableCharacterSet *)cache[set] removeCharactersInString : @"-"];
-          break;
-        case kCharacterSet_SentenceBoundaries:
-          cache[set] = NSMutableCharacterSet.new;
-          [(NSMutableCharacterSet *)cache[set] addCharactersInString : @".?!"];
-          break;
-        case kCharacterSet_SentenceBoundariesAndNewlineCharacter:
-          cache[set] = NSMutableCharacterSet.new;
-          [(NSMutableCharacterSet *)cache[set] formUnionWithCharacterSet :[NSCharacterSet newlineCharacterSet]];
-          [(NSMutableCharacterSet *)cache[set] addCharactersInString : @".?!"];
-          break;
-        case kNumCharacterSets:
-          break;
-      }
-    }
-    OSSpinLockUnlock(&_staticSpinLock);
-  }
-  return cache[set];
-}
 
 OSStatus HotKeyHandler(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
   NSLog(@"HotKeyHandler theEvent:%@ ", theEvent);
@@ -681,42 +637,13 @@ CGFloat AZDeviceScreenScale(void) {
 #endif
 }
 
-// Check if the "thing" pass'd is empty
-BOOL isEmpty(id thing) {
-  return thing == nil
-  ? : [thing ISKINDA:[NSNull class]]
-  ? : [thing respondsToString:@"length"] && ![(NSData *)thing length]
-  ? : [thing respondsToString:@"count" ] && ![(NSA*) thing count]
-  ? : NO;
-}
-
-BOOL areSame(id a, id b) {
-  return a == b
-  ? : [a ISKINDA:[NSS class]] && [b ISKINDA:[NSS class]] && [a isEqualToString:b]
-  //		?: [thing respondsToString:@"length"] && ![(NSData*)thing length]
-  //		?: [thing respondsToString:@"count" ] && ![(NSA*)thing	 count]
-  ? : NO;
-}
 
 
 
 
 
 BOOL areSameThenDo(id a, id b, VoidBlock doBlock) {
-  BOOL same = areSame(a, b); if (same) doBlock(); return same;
-}
-
-BOOL SameChar		(const char *a, const char *b) {
-  return [$(@"%s", a) isEqualToString:$(@"%s", b)];
-}
-BOOL SameString	(id a, id b) {
-  return [$(@"%@", a) isEqualToString:$(@"%@", b)];
-}
-BOOL 	SameStringI		(          NSS* a,          NSS* b ){
-  return [[$(@"%@", a)lowercaseString] isEqualToString:[$(@"%@", b) lowercaseString]];
-}
-BOOL SameClass	(id a, id b) {
-  return SameString(NSStringFromClass([a class]), NSStringFromClass([b class]));
+  BOOL same = Same(a, b); if (same) doBlock(); return same;
 }
 
 /*
@@ -1018,22 +945,14 @@ NSUInteger normalizedNumberLessThan(id num, NSUInteger max) {
   return u <= max ? u : max;
 }
 
-BOOL isEven(NSI n) { return !(n % 2);   }
-BOOL  isOdd(NSI n) { return !isEven(n); }
 
 //static inline
-//BOOL isEmpty(id thing){
+//BOOL IsEmpty(id thing){
 //	return	thing == nil
 //	|| ([thing respondsToSelector:@selector(length)] && [(NSData *)thing length] == 0)
 //	|| ([thing respondsToSelector:@selector(count)]  && [(NSArray *)thing count] == 0)
 //	|| NO;
 //}
-BOOL IsEmpty(id obj) {
-  return obj == nil
-  ||	  (NSNull *)obj == [NSNull null]
-  ||	  ([obj respondsToSelector:@selector(length)] && [obj length] == 0)
-  ||	  ([obj respondsToSelector:@selector(count)]	  && [obj count]  == 0);
-}
 
 extern CGFloat percent(CGFloat val) {
   return val > 5 && val < 100 ? val / 100. : val > 1 ? 1 : val < 0 ? 0 : val;

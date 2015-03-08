@@ -4,7 +4,6 @@
 // 
 //@import AtoZUniversal;
 //#import <CocoaAsyncSocket/ConcurrentOperation.h>
-#import "AtoZUmbrella.h"
 //#import "ConcurrentOperation.h"
 
 typedef NSRNG (*htmlProcessor)(NSData *arg, const char *classMatch);

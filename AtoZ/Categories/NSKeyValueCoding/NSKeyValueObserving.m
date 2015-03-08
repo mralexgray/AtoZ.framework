@@ -162,7 +162,7 @@ static void removeKeyObserver(NSKeyObserver *keyObserver){
 
    [observationInfo removeKeyObserver:keyObserver];
 
-   if([observationInfo isEmpty]){
+   if([observationInfo IsEmpty]){
 	[object setObservationInfo:NULL];
 	[observationInfo release];
    }

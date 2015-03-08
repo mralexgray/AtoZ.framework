@@ -79,7 +79,7 @@ void test()
     id _previousWrappingEnum;		id _nextWrappingEnum;
     BOOL _isFirstEnum, _isLastEnum, _isCacheValid;
 }
-@property (NATOM,STRNG) NSS *name;
+@property (NATOM,STR) NSS *name;
 @property (NATOM,	 ASS) int ordinal;
 
 + (id) enumFromName: (NSString *) name;
@@ -88,10 +88,10 @@ void test()
 // note the use of id make these no longer type safe
 + (id) firstEnum;
 + (id) lastEnum;
-@property (NATOM,RONLY) id previousEnum;
-@property (NATOM,RONLY) id nextEnum;
-@property (NATOM,RONLY) id previousWrappingEnum;
-@property (NATOM,RONLY) id nextWrappingEnum;
+@property (NATOM,RO) id previousEnum;
+@property (NATOM,RO) id nextEnum;
+@property (NATOM,RO) id previousWrappingEnum;
+@property (NATOM,RO) id nextWrappingEnum;
 - (id) deltaEnum: (NSI) delta wrapping: (BOOL) wrapping;
 // this should only be called from with the enum declaration methods
 - (id) initWithName:(NSS*)n ordinal:(int)o properties:(NSD*)props;

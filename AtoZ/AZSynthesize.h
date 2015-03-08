@@ -6,7 +6,7 @@
 //  Copyright (C) 2012 Justin Spahr-Summers.
 //  Released under the MIT license.
 //
-#import <Zangetsu/Zangetsu.h>
+//#import <Zangetsu/Zangetsu.h>
 //#import "extobjc_OSX/extobjc.h"
 //#import  <extobjc_OSX/EXTRuntimeExtensions.h>
 #import <objc/runtime.h>

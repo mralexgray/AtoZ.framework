@@ -5,11 +5,7 @@
 //  Created by Alex Gray on 7/28/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-#import "AtoZUmbrella.h"
-#import "AtoZTypes.h"
 
-#define AZUSERNOTC NSUserNotificationCenter
-#define AZUNOTC [AZUSERNOTC defaultUserNotificationCenter]
 
 // PostUserNote(@"some shit happneed", @"go cry about it");
 

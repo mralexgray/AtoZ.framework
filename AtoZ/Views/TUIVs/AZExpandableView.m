@@ -149,7 +149,7 @@
 	NSC  *x = [self.favicon isKindOfClass:NSIMG.class] ? GREEN : RED;
 	[p  fillWithColor:x];
 + (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*) key { NSSet *kps = [[super keyPathsForValuesAffectingValueForKey:key] setByAddingObjectsFromArray:
-																					 areSame(key, @"dictionary") ? @[@"name", @"color", @"url", @"favicon", @"attrString"] 
-																					 :	areSame(key, @"favicon") ? @[@"color"] : @[]];   LOGWARN(@"kps:%@ affecting:%@", kps, key); return kps;
+																					 Same(key, @"dictionary") ? @[@"name", @"color", @"url", @"favicon", @"attrString"] 
+																					 :	Same(key, @"favicon") ? @[@"color"] : @[]];   LOGWARN(@"kps:%@ affecting:%@", kps, key); return kps;
 																					 }*/
 

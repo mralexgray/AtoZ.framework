@@ -155,7 +155,7 @@
 	url = https://github.com/mralexgray/NoodleKit.git
 	ignore = dirty
 [submodule "AtoZ/Core/JREnum"]
-	path = AtoZ/Core/JREnum
+	path = AtoZUniversal/JREnum
 	url = https://github.com/mralexgray/JREnum.git
 	ignore = dirty
 [submodule "Frameworks/BWToolKit"]
@@ -211,11 +211,11 @@
 	url = https://github.com/mralexgray/NullSafe.git
 	ignore = dirty
 [submodule "Frameworks/THObserversAndBinders"]
-	path = Frameworks/THObserversAndBinders
+	path = AtoZUniversal/THObserversAndBinders
 	url = https://github.com/mralexgray/THObserversAndBinders.git
 	ignore = dirty
 [submodule "Frameworks/libextobjc"]
-	path = Frameworks/libextobjc
+	path = AtoZUniversal/EX.whatevs
 	url = https://github.com/mralexgray/libextobjc.git
 	ignore = dirty
 [submodule "Frameworks/KVO-Notification-Manager"]
@@ -328,3 +328,6 @@
 [submodule "AtoZ/AtoZTouch/modules/JTGestureBasedTableView"]
 	path = AtoZ/AtoZTouch/modules/JTGestureBasedTableView
 	url = git@github.com:mralexgray/JTGestureBasedTableViewDemo.git
+[submodule "AtoZUniversal/BaseModel"]
+	path = AtoZUniversal/BaseModel
+	url = https://github.com/mralexgray/BaseModel.git

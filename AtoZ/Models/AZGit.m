@@ -14,7 +14,7 @@
 //			[gistNodes.mutableChildNodes addObject:[NSTreeNode treeNodeWithRepresentedObject:[AZGist instanceWithDictionary:gist]]];
 //		}];
 //- (NSArray*) childNodes {
-//	return [self.properties[@"AZGist"] cw_mapArray:^id(id object) {
+//	return [self.properties[@"AZGist"] map:^id(id object) {
 //		id myVal = [self vFK:object];
 //		return myVal ? [NSTN treeNodeWithRepresentedObject:@{object:myVal}] : nil;
 //	}];

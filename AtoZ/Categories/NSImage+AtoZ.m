@@ -370,8 +370,7 @@ NSData *PNGRepresentation(NSIMG *image) {
 }
 
 + (NSA*) randomWebImages:(NSUI)ct {
-  return [[@0 to:@(ct)]
-      cw_mapArray:^id(id object) { return self.randomWebImage; }];
+  return [[@0 to:@(ct)]map:^id(id object) { return self.randomWebImage; }];
 }
 
 + (NSIMG*) randomWebImage {
@@ -412,7 +411,7 @@ NSData *PNGRepresentation(NSIMG *image) {
   //	return images;
 }
 /*		LOG_EXPR(tags.count);
-    NSA* urls = [tags cw_mapArray:^id(HTMLNode *object) {	return [object
+    NSA* urls = [tags map:^id(HTMLNode *object) {	return [object
 getAttributeNamed:@"src"]; }];// stringByRemovingPrefix:f2]substringBefore:f3];
 }];
     LOG_EXPR(tags);
@@ -513,7 +512,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
 // parseXMLTag:@"text"]);
     self.results  			= requestError 		?  @[$(@"Error: %@  headers: %@",
 requestError, _requester.responseHeaders)]
-                  : ![wikiD isEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] :
+                  : ![wikiD IsEmpty]	?  @[[wikiD parseXMLTag:@"Description"]] :
 nil;
   }
   if (_results.count) _completion(self);
@@ -882,7 +881,7 @@ static NSMutableIndexSet *namedMonos;
 alloc]initWithContentsOfFile:[[self
 picolFolderPath]stringByAppendingPathComponent:obj]];		u.name = [obj
 stringByDeletingPathExtension]; return u;	}]filter:^BOOL(id object) {		return
-[object isKindOfClass:[NSImage class]] && !isEmpty(object); }];
+[object isKindOfClass:[NSImage class]] && !IsEmpty(object); }];
 //	return  [[[self class] picolStrings] map:^id(id obj) {		NSIMG*i = [NSImage
 az_imageNamed:obj];		NSLog(@"loading %@  aka %@", [obj lastPathComponent], i);
 return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
@@ -2688,7 +2687,7 @@ rightDone:
                                   @"NSTriangleNormalDown",
                                   @"NSTrianglePressedDown"
                                 ]
-                                    cw_mapArray:^id(id object) {
+                                    map:^id(id object) {
                                       return [NSIMG imageNamed:object] ?: nil;
                                     }];
 }
@@ -3994,7 +3993,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return [self valueForKey:key];
 }
 - (void)setObject: object forKeyedSubscript:(NSS*) key {
-  isEmpty(object) ? [self setValue:@"" forKey:key]
+  IsEmpty(object) ? [self setValue:@"" forKey:key]
                   : [self setValue:object forKey:key];
 }
 @end

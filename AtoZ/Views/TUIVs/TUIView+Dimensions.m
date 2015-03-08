@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 4/4/13.
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
-#import "NSObject+AtoZ.h"
+#import <AtoZ/AtoZ.h>
 #import "TUIView+Dimensions.h"
 
 @implementation TUIView (Dimensions)

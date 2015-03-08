@@ -396,7 +396,7 @@ static NSTableRowView* DynamicRowViewForItem(id self, SEL _cmd, NSOutlineView*ov
 #pragma mark - CAAnimationDelegate
 // works.  just need to observe
 //- (void)observeValueForKeyPath:(NSString*)kp ofObject:(id)o change:(NSDictionary*)c context:(void*)x{
-//	if (areSame(@"offset",keyPath)) 			[self setNeedsLayout];	}
+//	if (Same(@"offset",keyPath)) 			[self setNeedsLayout];	}
 
 //SYNTHESIZE_SINGLETON_FOR_CLASS(BlockDelegate, sharedDelegate);
 //+ (instancetype) addAnimation:(CALayer*)layer ofType:(CABlockType)type withBlock:(id)block {
@@ -583,8 +583,7 @@ AZValueTransformer *transformer = [AZValueTransformer transformerWithBlock:trans
  @end
 
 #import <objc/runtime.h>
-#import "AtoZTypes.h"
-#import "AtoZUmbrella.h"
+
 #import "AtoZNodeProtocol.h"
 
 //- (NSTableRowView*)outlineView:(NSOutlineView*)oV         rowViewForItem:(id)x { AZLOGCMD;

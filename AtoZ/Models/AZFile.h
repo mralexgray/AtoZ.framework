@@ -1,7 +1,6 @@
 
 
 #import <AtoZ/AtoZ.h>
-#import "AtoZUmbrella.h"
 
 
 @interface AZFile : BaseModel //<AtoZNodeProtocol> // Base abstract class that wraps a file system URL
@@ -70,10 +69,10 @@
 //@property (retain) NSColor *fillColor;
 //@property (copy) NSString *fillColorName;
 //
-//@property (STRNG, readwrite) NSString *title;
+//@property (STR, readwrite) NSString *title;
 //
 //// Access to the image. This property can be observed to find out when it changes and is fully loaded.
-//@property (STRNG) NSImage *image;
+//@property (STR) NSImage *image;
 //@property (readonly, retain) NSImage *thumbnailImage;
 //
 //	// Asynchronously loads the image (if not already loaded). A KVO notification is sent out when the image is loaded.
@@ -122,6 +121,6 @@ extern NSString *const ATEntityPropertyNamedThumbnailImage;
 
 	//	@property (weak)	id itunesDescription;
 	//	@property (weak)	id itunesResults;
-	//	@property (NATOM, STRNG)	AJSiTunesResult *itunesInfo;
-	//	@property (NATOM, STRNG)  	NSImage	 * 	icon;
+	//	@property (NATOM, STR)	AJSiTunesResult *itunesInfo;
+	//	@property (NATOM, STR)  	NSImage	 * 	icon;
 

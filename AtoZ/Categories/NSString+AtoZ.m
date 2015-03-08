@@ -7,7 +7,6 @@
 
 #define kMaxFontSize 10000
 //#import "HTMLNode.h"
-//#import "NSObject+AtoZ.h"
 //#import "NSColor+AtoZ.h"
 //#import "NSArray+AtoZ.h"
 //#import "AtoZFunctions.h"
@@ -32,16 +31,6 @@
 //}
 //@end
 
-@implementation NSData (AtoZ)
-- (NSS*) UTF16String { return [NSS.alloc initWithData:self encoding:NSUTF16StringEncoding]; }
-- (NSS*) UTF8String { return [NSS stringWithUTF8Data:self]; }
-@end
-
-@implementation NSParagraphStyle (AtoZ)
-+ (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d {	NSMutableParagraphStyle *s;
-	return [s = self.defaultParagraphStyle.mutableCopy setPropertiesWithDictionary:d], s;
-}
-@end
 
 NSString *stringForBrightness( CGF brightness )	{	return
 	brightness < ( 19.0 / 255) ? @"&" 	: brightness < ( 50.0 / 255) 	? @"8" : brightness < ( 75.0 / 255) ? @"0" : brightness < (100.0 / 255) ? @"$" :
@@ -281,7 +270,6 @@ NSString *stringForBrightness( CGF brightness )	{	return
     va_list va; NSString* string; va_start(va, format);
     string = [NSS.alloc initWithFormat:format arguments:va]; va_end(va); string; })];
 }
--  (NSS*) withString:(NSS*)string 					{	return !string ? self : [self stringByAppendingString:string];	}
 -  (NSS*) JSONRepresentation 							{
 	__block NSMutableString *jsonString = @"\"".mutableCopy;
 
@@ -323,24 +311,6 @@ NSString *stringForBrightness( CGF brightness )	{	return
 	}];
 	[jsonString appendString:@"\""];
 	return jsonString;
-}
-+  (NSS*) stringFromArray:(NSA*)a; 					{
-
-	return [self stringFromArray:a withDelimeter:@"" last:@""];
-}
-+  (NSS*) stringFromArray:(NSA*)a
-               withSpaces:(BOOL)spaces
-               onePerline:(BOOL)newl 				{
-	return [self stringFromArray:a withDelimeter:spaces ? @" " : newl ? @"\n" : @"" last:spaces ? @" " : newl ? @"\n" : @""];
-}
-+  (NSS*) stringFromArray:(NSA*)a
-            withDelimeter:(NSS*)del
-                     last:(NSS*)last 				{
-	if (!a.count) return nil;
-	NSS* outString = [a reduce:@"" withBlock:^id (id sum, id obj) {
-   	return [[sum withString:obj] withString:del];
-	}];
-	return [[outString stringByDeletingSuffix:del]withString:last];
 }
 
 //return ((NSS*)[NSS stringWithContentsOfURL: encoding:NSUTF8StringEncoding error:nil]).trim; }
@@ -626,14 +596,11 @@ finish:
 - (NSS*) sansComponent { return self.stringByDeletingLastPathComponent; }
 - (NSS*) sansExtension { return self.stringByDeletingPathExtension; }
 
-
-- (NSS*) withPath:(NSS*)p {	return [self stringByAppendingPathComponent:p]; }
 - (NSS*) withExtIfMissing:(NSS*)ext { NSS*e = [ext containsString:@"."] ? ext.pathExtension : ext;
 
   return [self.pathExtension isEqualToString:e] ? self : [self withExt:e];
 
 }
-- (NSS*) withExt:	(NSS*)ext { return [self stringByAppendingPathExtension:ext];  }
 
 - (NSS*) stripHtml {
 	// take this string obj and wrap it in a root element to ensure only a single root element exists
@@ -1601,7 +1568,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 - (NSAS*) stringBySettingAttributes:(NSD*)attr {
 
   NSMAS *s = self.mutableCopy;
-  [s setAttributes:[self.attributes cw_dictionaryByAppendingDictionary:attr] range:self.string.range];
+  [s setAttributes:[self.attributes dictionaryByAddingEntriesFromDictionary:attr] range:self.string.range];
   return s;
 }
 
@@ -2084,30 +2051,6 @@ static void _ScanSentence(NSScanner *scanner) {
 //	range = [self rangeOfCharacterFromSet:set options:0 range:range];
 //  return range.location == NSNotFound;
 
-- (BOOL) isFloatNumber
-{
-    BOOL valid = NO;
-    NSCharacterSet *floatNumber = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
-    NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:self];
-    if ([self length] > 0 ) {
-        valid = [floatNumber isSupersetOfSet:stringSet];
-    }
-    return valid;
-}
-
-- (BOOL)isIntegerNumber {
-	NSRange range = NSMakeRange(0, self.length);
-	if (range.length) {
-		unichar character = [self characterAtIndex:0];
-		if ((character == '+') || (character == '-')) {
-			range.location = 1;
-			range.length -= 1;
-		}
-		range = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_DecimalDigits_Inverted) options:0 range:range];
-		return range.location == NSNotFound;
-	}
-	return NO;
-}
 
 //- (NSString*) stripped {
 //	NSMutableString *s = self.mutableCopy;

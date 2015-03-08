@@ -3,7 +3,7 @@
 //  Created by Benjamin Schüttler on 28.09.09.
 //  Copyright 2011 Rogue Coding. All rights reserved.
 
-#import "AtoZUmbrella.h"
+
 
 @class AZSize, AZRect, AZGrid, AGMatrix;
 @interface AZPoint : NSObject  {  CGF x, y;  }

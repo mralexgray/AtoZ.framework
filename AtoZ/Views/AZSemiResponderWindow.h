@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 #import "AZLayer.h"
 
 #define WINCOLS NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary
@@ -43,9 +42,9 @@ typedef void (^animationCompletionBlock)(void);
 
 @end
 
-//@property (NATOM, STRNG) BLKVIEW *contentBlock;
+//@property (NATOM, STR) BLKVIEW *contentBlock;
 //@property (NATOM, ASS) NSR perfectRect;
-//@property (STRNG, NATOM) AZSemiResponderWindow  *window;
+//@property (STR, NATOM) AZSemiResponderWindow  *window;
 
 //@property (nonatomic,retain) NSMD *spots;
 //@property (nonatomic,retain) CAL *scrollLayer;

@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZUmbrella.h"
 
 @interface AZFilters : BaseModel
 @prop_RO NSA *filterNames;

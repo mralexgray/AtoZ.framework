@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Alex Gray. All rights reserved.
 
 
-#import "AtoZUmbrella.h"
 
 @interface AZFoamView : NSView
 

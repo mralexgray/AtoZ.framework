@@ -361,7 +361,7 @@ static BOOL loadingFromResourceFile = NO;
 
 - (void) setObject:(id)object forKeyedSubscript:(NSString *)key
 {
-	if (isEmpty(object)) [self setValue:@"" forKey:key];
+	if (IsEmpty(object)) [self setValue:@"" forKey:key];
 	else [self setValue:object forKey:key];
 }
 

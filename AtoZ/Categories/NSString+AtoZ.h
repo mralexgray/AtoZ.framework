@@ -1,15 +1,9 @@
 
-#import "AtoZTypes.h"
+
 
 /// @see NSString-Utilities.h in CocoaTechCore!!
 
-@interface NSData (AtoZ)
-@prop_RO NSS* UTF8String, *UTF16String;
-@end
 
-@interface NSParagraphStyle (AtoZ)
-+ (NSParagraphStyle*) defaultParagraphStyleWithDictionary:(NSD*)d;
-@end
 
 @interface NSImage(ASCII)
 - (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
@@ -35,12 +29,8 @@
 
 - (NSComparisonResult) compareNumberStrings:(NSS*)str;
 - (NSS*) justifyRight:(NSUI)col;
-- (NSS*)   withString:(NSS*)string;
 - (NSS*)   withFormat:(NSS*)format,...;
 
-+ (NSS*) stringFromArray:(NSA*)a;
-+ (NSS*) stringFromArray:(NSA*)a withSpaces:(BOOL)spaces onePerline:(BOOL)newl;
-+ (NSS*) stringFromArray:(NSA*)a withDelimeter:(NSS*)del last:(NSS*)last;
 
 #pragma mark - Parsing / Cleaning
 @prop_RO NSS * JSONRepresentation,
@@ -143,8 +133,6 @@
 + (NSS*) clipboard;
 - (void)copyToClipboard;
 
-- (NSS*) withPath:(NSS*)path;
-- (NSS*) withExt:	(NSS*)ext;
 - (NSS*) withExtIfMissing:(NSS*)ext;
 
 
@@ -164,7 +152,7 @@
 - (NSS*)	substringToLastCharacter;
 - (NSN*) numberValue;
 
-AZPROPERTY(NSS, RONLY, *firstLetter, *lastLetter, *language);
+AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 
 - (NSSZ)sizeWithFont:(NSFont *)font;
 - (NSSZ)sizeWithFont:(NSFont *)font margin:(NSSZ)size;
@@ -432,7 +420,6 @@ extern int gNSStringGeometricsTypesetterBehavior;
 -  (NSS*) stringByReplacingPrefix:(NSS*) prefix withString:(NSS*) string;
 -  (NSS*) stringByReplacingSuffix:(NSS*) suffix withString:(NSS*) string;
 
-@prop_RO BOOL  isIntegerNumber, isFloatNumber;
 @prop_RO NSA *sentences;
 @prop_RO NSS *firstSentence;
 @end

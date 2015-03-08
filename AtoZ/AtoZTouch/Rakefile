@@ -2,7 +2,6 @@
 def xcodebuild(sdk, archs, iphoneos_deployment_target, products_dir)
 
   target = "AtoZTouch"
-  wrapper = ".framework"
   xcodeproj = "/a2z/AtoZ/AtoZ.xcodeproj"
   build_dir = "/dd/AtoZ"
 
@@ -46,6 +45,7 @@ task :build_fat => [:build_arm, :build_arm64, :build_i386, :build_x86_64] do
   # sh "cp -r './' '/dd/AtoZ'"
   # sh "mkdir /dd/AtoZ/AtoZTouch.framework"
   # sh "rm -rf '/dd/AtoZ/AtoZTouch.framework/AtoZTouch'"
+  wrapper = ".framework"
   
   sh "lipo -create  $(for arch in 'arm64' 'arm' 'i386' 'x86_64'; do echo '#{build_dir}/build-$arch/#{target}#{wrapper}/#{target}'
            -output '#{build_dir}/#{target}#{wrapper}/#{target}'"

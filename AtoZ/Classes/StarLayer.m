@@ -7,7 +7,7 @@
 
 @interface StarLayer ()
 @prop_RO 		CALayer *root;
-@property (STRNG) 	 	CALayer *star, *text;
+@property (STR) 	 	CALayer *star, *text;
 
 @end
 

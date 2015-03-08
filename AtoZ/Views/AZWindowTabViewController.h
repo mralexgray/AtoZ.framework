@@ -7,7 +7,6 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZUmbrella.h"
 
 @class AZWindowTab, WebView;
 @interface AZWindowTabViewController : NSViewController

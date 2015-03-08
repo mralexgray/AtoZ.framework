@@ -7,7 +7,6 @@
 #import <BlocksKit/BlocksKit.h>
 #import <objc/objc-class.h>
 #import <objc/runtime.h>
-#import "AtoZUmbrella.h"
 
 
 /*! For Unit testing blocks etc... @code
@@ -206,19 +205,13 @@ BOOL 	isPathAccessible 			( NSS *path, SandBox mode );
 
 NSS*	googleSearchFor( NSS* string );   // broken!
 
-BOOL 	SameChar			( const char *a, const char *b );
-BOOL 	SameString		(          id a,          id b );
-BOOL 	SameStringI		(          NSS* a,          NSS* b );
-BOOL 	SameClass		(          id a, 			  id b );
 NSS* 	bitString		( NSUI  bMask );
-BOOL 	areSame 			( id a,  id b );
-BOOL 	isEmpty			( id whatever );
 
 BOOL 	areSameThenDo					( id a, id b, VoidBlock doBlock);
 
 NSS* 	AZToStringFromTypeAndValue	( const char *typeCode, void *value );
 
-NSCharacterSet* _GetCachedCharacterSet(CharacterSet set);
+
 OSStatus HotKeyHandler				( EventHandlerCallRef nextHandler, EventRef theEvent, void *userData);
 CIFilter* CIFilterDefaultNamed	( NSS* name );
 
@@ -237,7 +230,7 @@ static inline BOOL NSRangeContainsRange( NSRNG range1, NSRNG range2) {
 }
 
 //static inline
-//BOOL isEmpty(id thing);
+//BOOL IsEmpty(id thing);
 //typedef int (^triple)(int number);
 
 #define AZAPPMAIN int main(int c, const char * v[]) {	return NSApplicationMain(c,(const char**)v); }
@@ -314,8 +307,6 @@ CGF 	AZNormalCGF (CGF floatV, CGF minV, CGF maxV);
 NSUI 	AZNormalNSUI (NSUI i, NSUI min, NSUI max);
 
 
-BOOL isEven( NSI aNumber );
-BOOL isOdd ( NSI aNumber );
 
 NSN* 	DegreesToNumber	( CGF degrees 	);
 CGF 	DegreesToRadians	( CGF degrees 	);

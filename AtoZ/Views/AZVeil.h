@@ -4,8 +4,12 @@
 
 //  Created by Alex Gray on 8/20/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
-#import <AtoZ/AtoZ.h>@class  TransparentWindow;
+#import <AtoZ/AtoZ.h>
+
+@class  TransparentWindow;
+
 typedef enum { 	ShroudIsUp, ShroudIsDown} ShroudIs;
+
 @interface AZVeil : NSObject <NSWindowDelegate, NSApplicationDelegate, NSSplitViewDelegate>
 {
 	NSTimer *refreshWhileActiveTimer;

@@ -8,7 +8,7 @@
 #import <AtoZ/AtoZ.h>
 @interface StarLayer : CALayer
 
-@property (STRNG, NATOM) NSC* color, *outlineColor;
+@property (STR, NATOM) NSC* color, *outlineColor;
 @property (ASS, NATOM) 	AZState spinState;
 
 

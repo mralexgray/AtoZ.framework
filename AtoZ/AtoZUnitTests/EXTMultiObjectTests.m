@@ -2,6 +2,7 @@
 #import <XCTest/XCTest.h>
 #import <AtoZ/AtoZ.h>
 
+
 AZFULLIMP(ColorStringObject, EXTMultiObject,
 
 - (id) init { return [EXTMultiObject multiObjectForObjects:@"Amber", YELLOW, nil]; } )

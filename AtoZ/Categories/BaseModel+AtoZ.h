@@ -3,7 +3,6 @@
 //  Created by Alex Gray on 4/10/13.
 
 #import <objc/runtime.h>
-#import "AtoZUmbrella.h"
 
 #define BaseModelDidAddNewInstance @"BaseModelDidAddNewInstanceNotification"
 #define iClass 	[self class]
@@ -51,7 +50,7 @@ AZPROPRDO (NSMA, defaultCollection);
 //+ (NSN*) activeSubclasses;  // Root Class introspection
 //+ (NSA*) allClassInstances;
 
-//@property (STRNG)			NSS*	defaultCollectionKey;
+//@property (STR)			NSS*	defaultCollectionKey;
 //@prop_RO NSA 	*allClassInstances;//, *superProperties;
 
 //@prop_RO NSN 	*instanceCt, 	*instanceNumber;

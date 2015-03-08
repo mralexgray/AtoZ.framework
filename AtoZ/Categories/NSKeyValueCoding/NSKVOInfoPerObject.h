@@ -10,7 +10,7 @@
 
 -init;
 
--(BOOL)isEmpty;
+-(BOOL)IsEmpty;
 
 -objectForKey:key;
 -(void)setObject:object forKey:key;

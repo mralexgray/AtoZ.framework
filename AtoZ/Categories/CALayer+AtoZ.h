@@ -2,7 +2,6 @@
 
 //@import CoreText;
 #import <CoreText/CoreText.h>
-#import "AtoZUmbrella.h"
 
 
 #define NOHITLAYER(RAW) [CANoHitLayer noHitLayerOfClass:[RAW class]]
@@ -45,12 +44,12 @@
 @prop_RO IndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
 
 /*! @see swizzleHitTest for swizled implementation enablig this! */
-@prop_CP  IDBlk onHit, onHover; // SenderEvent
+@prop_CP  ObjBlk onHit, onHover; // SenderEvent
 
 //- (CAL*) hoverTest:(NSP)pt; // FIX
 
-- (void) setOnHit:(IDBlk)wasHit;
-- (void) setOnHover:(IDBlk)wasHit;
+- (void) setOnHit:(ObjBlk)wasHit;
+- (void) setOnHover:(ObjBlk)wasHit;
 
 //- (void) setWasHit:(LayerBlock)b; - (void) setMouseOverBlock:(LayerBlock)b;
 //@property (CP) void(^sublayerMouseOverBlock)(CAL*);
@@ -303,7 +302,7 @@
 
 - (void) addAnimation:(CAA*)animation;
 - (void) addAnimation:(CAA*)animation forKey:(NSS*)key withStopBlock: (void (^)(BOOL finished))stopBlock;
-- (void) addAnimation:(CAA*)animation forKey:(NSS*)key withStartBlock:(VoidBlock)strtBlk stopBlock:(void (^)(BOOL finished))stpBlk;
+- (void) addAnimation:(CAA*)animation forKey:(NSS*)key withStartBlock:(Blk)strtBlk stopBlock:(void (^)(BOOL finished))stpBlk;
 - (void) replaceAnimationForKey:				   (NSS*)key withAnimation:(CAA*)animation;
 - (NSA*) keyedAnimations;
 

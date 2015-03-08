@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 #import "NSColorList+AtoZ.h"
 
 #define REDGRAD  		[NSG.alloc initWithColorsAndLocations:\
@@ -124,7 +123,6 @@ typedef void(^colorFadeBlock)(NSC*c);
 
 #pragma mark - Conveience
 
-+ (NSC*) r:(CGF)r g:(CGF)g b:(CGF)b a:(CGF)a;
 + (NSC*) white:(CGF)percent;
 + (NSC*) white:(CGF)percent a:(CGF)alpha;
 + (NSC*) linen;

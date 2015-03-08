@@ -11,7 +11,9 @@
 
 int main (int argc, const char * argv[]){  @autoreleasepool {
 
-    AtoZTouchWelcome();
+  AtoZTouchWelcome();
+  printf("Hay %lu applications!\n", AZApplicationList.sharedApplicationList.applications.allKeys.count);
+
 //    [InstaBanner showBannerWithBundleIdentifier:@"com.apple.MobileSafari" title:@"well hello" message:@"huge vageen"];
   }
 	return 0;

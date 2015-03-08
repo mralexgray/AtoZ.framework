@@ -9,8 +9,8 @@
 
 @interface TUIVVC : NSViewController <AHLayoutDataSource>
 
-@property (STRNG) IBOutlet TUINSView *containerView;
-@property (STRNG) TUIV* rootView;
+@property (STR) IBOutlet TUINSView *containerView;
+@property (STR) TUIV* rootView;
 @property AHLayout *horizontalLayout, *verticalLayout;
 
 @prop_RO NSArray* visibleViews;

@@ -193,7 +193,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 - (void)            setAcceptsFirstResponder:(BOOL)x    { [self overrideResponder:@selector(acceptsFirstResponder) withBool:x]; }
 - (void)             setPerformKeyEquivalent:(BOOL)x    { [self overrideResponder:@selector(performKeyEquivalent:) withBool:x]; }
 
-- (void) animateWithDuration:(NSTI)d block:(IDBlk)stuff {
+- (void) animateWithDuration:(NSTI)d block:(ObjBlk)stuff {
 
 //  if ([self.class conformsToProtocol:@protocol(NSAnimatablePropertyContainer)])
   //  return XX(@"You dont coform to NSAnimatablePropertyContainer>!");

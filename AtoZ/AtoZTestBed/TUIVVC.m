@@ -32,7 +32,7 @@
 	_horizontalLayout.viewClass 			= AZExpandableView.class;
 //	_horizontalLayout.reloadHandler 		= self.reloadHandler;
 
-	_horizObjects = [NSS.testDomains  cw_mapArray:^id(NSS* obj) {	return @{	
+	_horizObjects = [NSS.testDomains  map:^id(NSS* obj) {	return @{	
 								@"name" : obj,
 								@"color": RANDOMGRAY,
 								@"url": [obj urlified] }.mutableCopy;
@@ -62,7 +62,7 @@
 - (AHLayoutHandler) reloadHandler 
 {
 	return ^(AHLayout* a) {	NSLog(@"rezhuzhingReload:%@",	
-										[a.visibleViews cw_mapArray:^id(AZExpandableView *x) {// = (AZExpandableView*)[a viewForIndex:];
+										[a.visibleViews map:^id(AZExpandableView *x) {// = (AZExpandableView*)[a viewForIndex:];
 											NSMD* d = x.dictionary;
 											BOOL isOk = [[(NSIMG*)d[@"favicon"] name]endsWith:d[@"name"]];
 											if (!isOk) 

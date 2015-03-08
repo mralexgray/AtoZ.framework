@@ -17,7 +17,7 @@ const CGF framesPerSecond = 10.0;
 //@end
 
 @interface AZBackgroundProgressBar ()
-@property (NATOM,STRNG) NSBP *bp;
+@property (NATOM,STR) NSBP *bp;
 @property (NATOM		 ) BOOL  shouldAnimate;
 @property (NATOM,  ASS) CGF   phase;
 @end

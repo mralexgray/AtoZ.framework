@@ -2,7 +2,6 @@
 //- (void) openCardAtIndex:(NSUI)@index;
 //+ (instancetype) instanceWithImage:(NSIMG*)img imageID:(NSS*)imgID andImageSubTitle:(NSS*) subT andPersonUID:(NSS*)pUID;
 
-#import "AtoZUmbrella.h"
 
 @protocol    AZDataSource <NSTableViewDataSource>
 - (id)     contactAtIndex:(NSUI)i;

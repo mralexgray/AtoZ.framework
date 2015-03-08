@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 @interface          ClearWin : NSW + withFrame:(NSR)r; // Designated!
 @prop_NA BOOL debug, needsDisplay;

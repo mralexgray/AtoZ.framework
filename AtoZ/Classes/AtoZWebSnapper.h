@@ -47,20 +47,20 @@ extern NSString * const kAZWebSnapperUseGMTKey;
 
 @interface AtoZWebSnapper : NSObject
 
-@property (STRNG, NATOM) NSURL				*currentURL;
-@property (STRNG, NATOM) NSString			*currentTitle;
+@property (STR, NATOM) NSURL				*currentURL;
+@property (STR, NATOM) NSString			*currentTitle;
 
 @property (ASS, NATOM)	NSSize				currentMax; // currentSize isn't needed because the size is set when the load starts
 @property (ASS, NATOM)	float				currentDelay;
 
-@property (STRNG, NATOM) WebView		*webView;
-@property (STRNG, NATOM) NSWindow		*webWindow;
+@property (STR, NATOM) WebView		*webView;
+@property (STR, NATOM) NSWindow		*webWindow;
 @property (ASS,   NATOM)	BOOL				isLoading;
 
-@property (STRNG, NATOM) NSBitmapImageRep	*bitmap;
-@property (STRNG, NATOM) NSData				*pdfData;
-@property (STRNG, NATOM) NSIMG				*snap;
-@property (STRNG, NATOM) NSMA				*webHistory;
+@property (STR, NATOM) NSBitmapImageRep	*bitmap;
+@property (STR, NATOM) NSData				*pdfData;
+@property (STR, NATOM) NSIMG				*snap;
+@property (STR, NATOM) NSMA				*webHistory;
 
 
 //- (void)takeURLFromBrowser: (NSS*) name;

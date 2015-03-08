@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import "AtoZUmbrella.h"
 
 #import <TwUI/TwUI.h>
 
@@ -26,7 +25,7 @@
 @end
 
 @interface TUIView (BezierPaths)
-@property (NATOM, STRNG) NSBP *path;
+@property (NATOM, STR) NSBP *path;
 - (void) setPath:(NSBP*) path;
 @end
 

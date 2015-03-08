@@ -18,7 +18,7 @@ NSString *const AZToggleOn			= @"AZToggleOn";
 NSString *const AZToggleState		= @"AZToggleState";
 
 @interface AZToggleArrayView ()	//(UserInteraction)
-@property (STRNG, NATOM) CAL *containerLayer, *rootLayer;
+@property (STR, NATOM) CAL *containerLayer, *rootLayer;
 - (AZToggleControlLayer*) toggleLayerForEvent:(NSE*)event;
 - (CGP) layerLocationForEvent:(NSE*)event;
 @end
@@ -359,8 +359,8 @@ NSString *const AZToggleState		= @"AZToggleState";
 //  GBToggleLayer.m Created by Tomaz Kragelj on 9.12.09.	Copyright (C) 2009 Gentle Bytes. All rights reserved.
 
 @interface AZToggleControlLayer ()
-@property (NATOM,STRNG)	CAL		*thumbLayer, 		*onBackLayer,		*offBackLayer;
-@property (NATOM,STRNG)	CATXTL 	*onTextLayer, 		*offTextLayer;
+@property (NATOM,STR)	CAL		*thumbLayer, 		*onBackLayer,		*offBackLayer;
+@property (NATOM,STR)	CATXTL 	*onTextLayer, 		*offTextLayer;
 @prop_RO CGF 				contentsHeight;
 @end
 

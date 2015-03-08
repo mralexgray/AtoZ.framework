@@ -9,7 +9,6 @@
 
 
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZUmbrella.h"
 
 
 #define XVERTS 6

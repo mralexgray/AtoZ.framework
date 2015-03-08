@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 #import <AtoZ/AtoZ.h>
 #import "AZSizer.h"
 
@@ -44,10 +43,10 @@
 @end
 
 @interface AZSizer ()
-@property (RDWRT)  NSUI		   rows,  columns;
-@property (RDWRT)  CGF		   width, height;
-//@property (NATOM, RDWRT) NSSZ  size;
-@property (NATOM, STRNG) NSMA *candidates;
+@property (RW)  NSUI		   rows,  columns;
+@property (RW)  CGF		   width, height;
+//@property (NATOM, RW) NSSZ  size;
+@property (NATOM, STR) NSMA *candidates;
 @end
 
 @implementation AZSizer

@@ -19,7 +19,6 @@
 */
 
 
-#import "AtoZUmbrella.h"
 
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
 #   define NSCGRect CGRect

@@ -34,8 +34,11 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 
 
-@import AtoZUniversal;
-@import AtoZIO;
+//@import AppKit;
+//@import ObjectiveC;
+//@import QuartzCore;
+
+@import AtoZIO;  // also handles ExtObjC  + AtoZUniversal + AtoZAutoBox
 
 @import AtoZAppKit;
 @import AtoZBezierPath;
@@ -52,13 +55,33 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import TwUI;
 @import UAGithubEngine;
 @import NSUIKit;
-@import Zangetsu;
 
-@import RoutingHTTPServer;
+@import RoutingHTTPServer; // Includes HTTPServer + AsyncSockset + Lumberjack
 
-#import <AtoZ/AtoZUmbrella.h>
+#define JATEMPLATE_SYNTAX_WARNINGS 1
+#define autorelease self
 
+@import KVOMap;
+
+#import "BlocksAdditions.h"
+#import "M13OrderedDictionary.h"
+//#import <CocoaLumberjack/CocoaLumberjack.h>
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
+
+#pragma mark - ATOZFRAMEWORK
+
+#import <AtoZ/objswitch.h>
+#import <AtoZ/AutoCoding.h>
+#import <AtoZ/HRCoder.h>
+
+#import <AtoZ/BoundingObject.h>
+#import <AtoZ/MutableGeometry.h>
+
+/*! id x = CAL.new; [x setGeos:@"bounds", @"x",@100, @"width", @5000, nil];   NEAT! */
+#import <AtoZ/AtoZGeometry.h>
 #import <AtoZ/AtoZCategories.h>
+#import <AtoZ/AZCLI.h>
 
 @import BlocksKit;
 
@@ -79,7 +102,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 #import <TwUI/TwUI.h>
 #import <UAGithubEngine/UAGithubEngine.h>
 #import <UIKit/UIKit.h>
-#import <Zangetsu/Zangetsu.h>
+
 
 
   #import <Foundation/NSObjCRuntime.h>
@@ -94,7 +117,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 #import <WebKit/WebView.h>
 @import RoutingHTTPServer;
 
-#import <Zangetsu/Zangetsu.h>
+
 #import <RoutingHTTPServer/RoutingHTTPServer.h>
 
 #import "AOPProxy/AOPProxy.h"
@@ -111,14 +134,13 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 #import <MapKit/MapKit.h>
 #import <RoutingHTTPServer/AZRouteResponse.h>
 
-#import "JREnum.h"
 #import "objswitch.h"
 
 #import "AutoCoding.h"
 #import "HRCoder.h"
 
 #import "AtoZAutoBox/AtoZAutoBox.h"
-#import "AtoZTypes.h"
+
 
 #import "BoundingObject.h"
 #import "AtoZGeometry.h"
@@ -271,6 +293,31 @@ AZNSIFACE(AZClassProxy)
     @discussion This class provides a means to interface with AtoZ
                 Currently it provides a way to detect if AtoZ is installed and launch the AtoZHelper if it's not already running.
  */
+
+ 
+
+@interface NSBundle (AtoZBundle)
+
++ (NSB*) frameworkBundleNamed:(NSS*)name;
+
++ (void) loadAZFrameworks;
+
+/// (  "NSBundle </Users/localadmin/Library/Frameworks/AtoZBezierPath.framework> (loaded)", ... "NSBundle </Users/localadmin/Library/Frameworks/Zangetsu.framework> (loaded)" )
++ (NSA*) azFrameworkBundles;
+
+///  ( AtoZ, AtoZAppKit, .. UIKit, Zangetsu )
++ (NSA*) azFrameworkNames;
+
+/// ( "us.pandamonia.BlocksKit", ... "com.twitter.TwUI" )
++ (NSA*) azFrameworkIds;
+
+/// conveniencer for azFrameworkIds.kvc(@"infoDictionary")
++ (NSA*) azFrameworkInfos;
+
++ (NSD*) azFrameworkInfoForId:(NSS*)bId;
+
+@end
+
 #define ATOZ AtoZ.sharedInstance
 
 @interface AtoZ : BaseModel <DDLogFormatter>
@@ -280,7 +327,6 @@ AZNSIFACE(AZClassProxy)
 + (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l;
 
 //+ (void) logFile:(const char*)file line:(int)ln func:(const char*)fnc format:(id)fmt,...;
-
 
 
 @property AZLiveReload *reloader;
@@ -379,7 +425,7 @@ AZNSIFACE(AZClassProxy)
 */
 +  (void)  varargBlock:(void(^)(NSA*enumerator))block withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
 +  (void)  sendArrayTo:(SEL)method inClass:(Class)klass withVarargs:(id)varargs, ... NS_REQUIRES_NIL_TERMINATION;
--  (void) performBlock:(VoidBlock)block waitUntilDone:(BOOL)wait;
+-  (void) performBlock:(Blk)block waitUntilDone:(BOOL)wait;
 - (NSJS*)  jsonRequest:(NSS*) url;
 + (NSJS*)  jsonRequest:(NSS*) url;
 
@@ -402,7 +448,7 @@ AZNSIFACE(AZClassProxy)
 //+ (NSA*) appCategories;
 //+ (NSA*) appFolderSorted;
 //+ (NSA*) appFolderSamplerWith: (NSUInteger) apps;
-//@property (NATOM, STRNG) SoundManager *sManager;
+//@property (NATOM, STR) SoundManager *sManager;
 //@property (strong, nonatomic) NSLogConsole *console;
 
 @end
@@ -428,8 +474,8 @@ AZNSIFACE(AZClassProxy)
 
 @interface JustABox : NSView
 @property (ASS)     BOOL  selected;
-@property (RDWRT,CP) CASHL *shapeLayer;
-@property (RDWRT,CP) NSC  *save, *color;
+@property (RW,CP) CASHL *shapeLayer;
+@property (RW,CP) NSC  *save, *color;
 @end
 
 @interface CAAnimation (NSViewFlipper)
@@ -442,338 +488,12 @@ AZNSIFACE(AZClassProxy)
   NSTimeInterval duration;
   BOOL isFlipped;
 }
-@property (RONLY)   BOOL isFlipped;
+@property (RO)   BOOL isFlipped;
 @property (ASS)   NSTI duration;
-@property (WK,RONLY)  NSView *visibleView;
+@property (WK,RO)  NSView *visibleView;
 -  (id) initWithHostView:(NSV*)newHost frontView:(NSV*)newFrontView backView:(NSV*)newBackView;
 -(void) flip;
 @end
-
-//typedef void(^log)(NSS*s);
-
-
-/** The appledoc application handler.
-
- This is the principal tool class. It represents the entry point for the application. The main promises of the class are parsing and validating of command line arguments and initiating documentation generation. Generation is divided into several distinct phases:
-
- 1. Parsing data from source files: This is the initial phase where input directories and files are parsed into a memory representation (i.e. objects) suitable for subsequent handling. This is where the source code files are  parsed and validated for possible file or object-level incosistencies. This step is driven by `GBParser` class.
- 2. Post-processing of the data parsed in the previous step: At this phase, we already have in-memory representation of all source code objects, so we can post-process and validate things such as links to other objects etc. We can also update in-memory representation with this data and therefore prepare everything for the final phase. This step is driven by `GBProcessor` class.
- 3. Generating output: This is the final phase where we use in-memory data to generate output. This step is driven by `GBGenerator` class.
- @warning *Global settings implementation details:* To be able to properly apply all levels of settings - factory defaults, global settings and command line arguments - we can't solely rely on `DDCli` for parsing command line args. As the user can supply templates path from command line (instead of using one of the default paths), we need to pre-parse command line arguments for templates switches. The last one found is then used to read global settings. This solves proper settings inheritance up to global settings level. Another issue is how to implement code that deals with global settings; there are several possible solutions (the simplest from programmers point of view would be to force the user to pass in templates path as the first parameter, then `DDCli` would first process this and when we would receive notification, we could parse the option, load in global settings and resume operation). At the end I chose to pre-parse command line for template arguments before passing it to `DDCli`. This did require some tweaking to `DDCli` code (specifically the method that converts option string to KVC key was moved to public interface), but ended up as very simple to inject global settings - by simply using the same KCV messages as `DDCli` uses. This small tweak allowed us to use exactly the same path of handling global settings as normal command line arguments. The benefits are many: all argument names are alreay unit tested to properly map to settings values, code reuse for setting the values.  */
-
-/*  xcode shortcuts  @property (nonatomic, assign) <\#type\#> <\#name\#>; */
-
-/*
- @class AZTaskResponder;
- typedef void (^asyncTaskCallback)(AZTaskResponder *response);
- @interface AZTaskResponder: BaseModel
- @property (copy) BKReturnBlock     returnBlock;
- @property (copy) asyncTaskCallback   asyncTask;
- @property (NATOM,STRNG) id response;
- //Atoz
- + (void) aSyncTask:(asyncTaskCallback)handler;
- - (void) parseAsyncTaskResponse;
- // this is how we make the call:
- // [AtoZ aSyncTask:^(AZTaskResponder *response) {   respond to result;  }];
- @end
- */
-
-/*  http://stackoverflow.com/questions/4224495/using-an-nsstring-in-a-switch-statement
- You can use it as
-
- FilterBlock fb1 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"YES"]) { NSLog(@"You did it");  *stop = YES;} return element;};
- FilterBlock fb2 = ^id(id element, NSUInteger idx, BOOL *stop){ if ([element isEqualToString:@"NO"] ) { NSLog(@"Nope");   *stop = YES;} return element;};
-
- NSArray *filter = @[ fb1, fb2 ];
- NSArray *inputArray = @[@"NO",@"YES"];
-
- [inputArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
- [obj processByPerformingFilterBlocks:filter];
- }];
- but you can also do more complicated stuff, like aplied chianed calculations:
-
- FilterBlock b1 = ^id(id element,NSUInteger idx, BOOL *stop) {return [NSNumber numberWithInteger:[(NSNumber *)element integerValue] *2 ];};
- FilterBlock b2 = ^id(NSNumber* element,NSUInteger idx, BOOL *stop) {
- *stop = YES;
- return [NSNumber numberWithInteger:[element integerValue]*[element integerValue]];
- };
- FilterBlock b3 = ^id(NSNumber* element, NSUInteger idx,BOOL *stop) {return [NSNumber numberWithInteger:[element integerValue]*[element integerValue]];};
-
- NSArray *filterBlocks = @[b1,b2, b3, b3, b3];
- NSNumber *numberTwo = [NSNumber numberWithInteger:2];
- NSNumber *numberTwoResult = [numberTwo processByPerformingFilterBlocks:filterBlocks];
- NSLog(@"%@ %@", numberTwo, numberTwoResult);
- */
-
-//#pragma GCC diagnostic ignored "-Wformat-security"
-//#import <NanoStore/NSFNanoObjectProtocol.h>
-//#import <NanoStore/NSFNanoObject.h>
-//#import <NanoStore/NSFNanoGlobals.h>
-//#import <NanoStore/NSFNanoStore.h>
-//#import <NanoStore/NSFNanoPredicate.h>
-//#import <NanoStore/NSFNanoExpression.h>
-//#import <NanoStore/NSFNanoSearch.h>
-//#import <NanoStore/NSFNanoSortDescriptor.h>
-//#import <NanoStore/NSFNanoResult.h>
-//#import <NanoStore/NSFNanoBag.h>
-//#import <NanoStore/NSFNanoEngine.h>
-//#import <NanoStore/NSFNanoGlobals.h>
-//#import <Growl/Growl.h>
-//#import "Nu.h"
-
-// ARC is compatible with iOS 4.0 upwards, but you need at least Xcode 4.2 with Clang LLVM 3.0 to compile it.
-//#if !__has_feature(objc_arc)
-//#error This project must be compiled with ARC (Xcode 4.2+ with LLVM 3.0 and above)
-//#endif
-
-
-//#define EXCLUDE_STUB_PROTOTYPES 1
-//#import <PLWeakCompatibility/PLWeakCompatibilityStubs.h>
-
-
-
-// #undef ah_retain #undef ah_dealloc #undef ah_autorelease autorelease #undef ah_dealloc dealloc
-
-//
-//  ARC Helper
-//
-//  Version 2.2
-//
-//  Created by Nick Lockwood on 05/01/2012.
-//  Copyright 2012 Charcoal Design
-//
-//  Distributed under the permissive zlib license
-//  Get the latest version from here:
-//
-//  https://gist.github.com/1563325
-//
-/*
-  #import <Availability.h>
-  #undef ah_retain
-  #undef ah_dealloc
-  #undef ah_autorelease autorelease
-  #undef ah_dealloc dealloc
-  #if __has_feature(objc_arc)
-    #define ah_retain self
-    #define ah_release self
-    #define ah_autorelease self
-    #define ah_dealloc self
-  #else
-    #define ah_retain retain
-    #define ah_release release
-    #define ah_autorelease autorelease
-    #define ah_dealloc dealloc
-    #undef __bridge
-    #define __bridge
-    #undef __bridge_transfer
-    #define __bridge_transfer
-  #endif
-
-  //  Weak reference support
-
-  #import <Availability.h>
-  #if !__has_feature(objc_arc_weak)
-    #undef ah_weak
-    #define ah_weak unsafe_unretained
-    #undef __ah_weak
-    #define __ah_weak __unsafe_unretained
-  #endif
-
-  //  Weak delegate support
-
-  #import <Availability.h>
-  #undef ah_weak_delegate
-  #undef __ah_weak_delegate
-  #if __has_feature(objc_arc_weak) && \
-    (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
-    __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
-    #define ah_weak_delegate weak
-    #define __ah_weak_delegate __weak
-  #else
-    #define ah_weak_delegate unsafe_unretained
-    #define __ah_weak_delegate __unsafe_unretained
-  #endif
-
-//  ARC Helper ends
-*/
-
-//#import "GCDAsyncSocket.h"
-//#import "GCDAsyncSocket+AtoZ.h"
-//#import "HTTPServer.h"
-//#import "HTTPConnection.h"
-//#import "HTTPMessage.h"
-//#import "HTTPResponse.h"
-//#import "HTTPDataResponse.h"
-//#import "HTTPAuthenticationRequest.h"
-//#import "DDNumber.h"
-//#import "DDRange.h"
-//#import "DDData.h"
-//#import "HTTPFileResponse.h"
-//#import "HTTPAsyncFileResponse.h"
-//#import "HTTPDynamicFileResponse.h"
-//#import "RoutingHTTPServer.h"
-//#import "WebSocket.h"
-//#import "RouteRequest.h"
-//#import "RouteResponse.h"
-//#import "WebSocket.h"
-//#import "AZWebSocketServer.h"
-//#import "HTTPLogging.h"
-
-////@import ObjectiveC;
-////@import Security;
-////@import Quartz;
-////#import <QuartzCore/QuartzCore.h>
-////#import <QuartzCore/QuartzCore.h>
-////@import ApplicationServices;
-////@import AVFoundation;
-////@import CoreServices;
-////@import AudioToolbox;
-
-//#import <objc/message.h>
-//#import <objc/runtime.h>
-//#import <AppKit/AppKit.h>
-//#import <Quartz/Quartz.h>
-//#import <Security/Security.h>
-//#import <Foundation/Foundation.h>
-//#import <QuartzCore/QuartzCore.h>
-//#import <AudioToolbox/AudioToolbox.h>
-//#import <CoreServices/CoreServices.h>
-//#import <AVFoundation/AVFoundation.h>
-//#import <ApplicationServices/ApplicationServices.h>
-
-
-//#import <stat.h>
-//#import <Python/Python.h>
-//#import <NanoStore/NanoStore.h>
-//#import <Nu/Nu.h>
-
-
-//  ARC Helper ends
-
-
-/*
-  #if __has_feature(objc_arc)                     // ARC Helper Version 2.2
-    #define ah_retain     self
-    #define ah_release    self
-    #define ah_autorelease  self
-//    #define release       self                    // Is this right?  Why's mine different?
-  //  #define autorelease     self                    // But shit hits fan without.
-    #define ah_dealloc    self
-  #else
-    #define ah_retain     retain
-    #define ah_release    release
-    #define ah_autorelease  autorelease
-    #define ah_dealloc    dealloc
-    #undef  __bridge
-    #define  __bridge
-    #undef   __bridge_transfer
-    #define  __bridge_transfer
-  #endif
-  #if !__has_feature(objc_arc_weak)                 // Weak reference support
-    #undef    ah_weak
-    #define     ah_weak   unsafe_unretained
-    #undef  __ah_weak
-    #define   __ah_weak __unsafe_unretained
-  #endif
-  #undef ah_weak_delegate                         // Weak delegate support
-  #undef __ah_weak_delegate
-  #if __has_feature(objc_arc_weak) && (!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
-    #define   ah_weak_delegate weak
-    #define __ah_weak_delegate __weak
-  #else
-    #define   ah_weak_delegate   unsafe_unretained
-    #define __ah_weak_delegate __unsafe_unretained
-  #endif                                    // ARC Helper ends
-
-
-  //  ARC Helper Version 1.3.1 Created by Nick Lockwood on 05/01/2012. Copyright 2012 Charcoal Design Distributed under the permissive zlib license  Get the latest version from here: https://gist.github.com/1563325
-  #ifndef AH_RETAIN
-    #if __has_feature(objc_arc)
-      #define AH_RETAIN(x) (x)
-      #define AH_RELEASE(x) (void)(x)
-      #define AH_AUTORELEASE(x) (x)
-      #define AH_SUPER_DEALLOC (void)(0)
-      #define __AH_BRIDGE __bridge
-    #else
-      #define __AH_WEAK
-      #define AH_WEAK assign
-      #define AH_RETAIN(x) [(x) retain]
-      #define AH_RELEASE(x) [(x) release]
-      #define AH_AUTORELEASE(x) [(x) autorelease]
-      #define AH_SUPER_DEALLOC [super dealloc]
-      #define __AH_BRIDGE
-    #endif
-  #endif
-
-*/
-/*
-#import <pwd.h>
-#import <stdio.h>
-#import <netdb.h>
-#import <dirent.h>
-#import <unistd.h>
-#import <stdarg.h>
-#import <unistd.h>
-#import <dirent.h>
-#import <xpc/xpc.h>
-#import <xpc/xpc.h>
-#import <sys/stat.h>
-#import <sys/time.h>
-#import <sys/types.h>
-#import <sys/ioctl.h>
-#import <sys/xattr.h>
-#import <sys/sysctl.h>
-#import <sys/sysctl.h>
-#import <sys/stat.h>
-#import <sys/types.h>
-#import <sys/xattr.h>
-#import <arpa/inet.h>
-#import <objc/objc.h>
-#import <netinet/in.h>
-#import <objc/message.h>
-#import <objc/runtime.h>
-#import <libkern/OSAtomic.h>
-
-#import <Foundation/Foundation.h>
-#import <Security/Security.h>
-#import <Python/Python.h>
-#import <AppKit/AppKit.h>
-#import <Quartz/Quartz.h>
-#import <Carbon/Carbon.h>
-#import <libkern/OSAtomic.h>
-#import <CoreText/CoreText.h>
-#import <QuartzCore/QuartzCore.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import <ApplicationServices/ApplicationServices.h>
-#import <AVFoundation/AVFoundation.h>
-#import <CoreServices/CoreServices.h>
-#import <AudioToolbox/AudioToolbox.h>
-*/
-
-//  #import <extobjc_OSX/e.h>
-//  #import "extobjc_OSX/extobjc.h"
-//  #import <extobjc/metamacros.h>
-//  #import "GCDAsyncSocket.h"
-//  #import "GCDAsyncSocket+AtoZ.h"
-//  #import "AtoZAutoBox/NSObject+DynamicProperties.h"
-
-//#import <AIUtilities/AIUtilities.h>
-//#import "extobjc_OSX/extobjc.h"
-//#import "AtoZAutoBox/AtoZAutoBox.h"
-//#import "ObjcAssociatedObjectHelper/ObjcAssociatedObjectHelpers.h"
-//#import "AtoZSingleton/AtoZSingleton.h"
-//#import "ObjcAssociatedObjectHelper/ObjcAssociatedObjectHelpers.h"
-//#import "TypedCollections/TypedCollections.h"
-//#import "KVOMap/DCKeyValueObjectMapping.h"
-//#import "KVOMap/DCArrayMapping.h"
-//#import "KVOMap/DCDictionaryRearranger.h"
-//#import "KVOMap/DCKeyValueObjectMapping.h"
-//#import "KVOMap/DCObjectMapping.h"
-//#import "KVOMap/DCParserConfiguration.h"
-//#import "KVOMap/DCPropertyAggregator.h"
-//#import "KVOMap/DCValueConverter.h"
-
-//#endif
 
 
 

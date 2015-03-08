@@ -1,6 +1,5 @@
 ////#import <Quartz/Quartz.h>
 
-#import "AtoZUmbrella.h"
 #import "AZScrollerProtocols.h"
 
 #define AZSCROLLER_HEIGHT 50.0 // The default height

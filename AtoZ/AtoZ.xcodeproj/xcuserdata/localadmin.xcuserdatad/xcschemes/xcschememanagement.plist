@@ -7,137 +7,117 @@
 		<key>AZPrompt.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>31</integer>
+			<integer>15</integer>
 		</dict>
-		<key>AtoZ.xcscheme_^#shared#^_</key>
+		<key>AtoZ.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>4</integer>
 		</dict>
 		<key>AtoZAgent.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>11</integer>
 		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>14</integer>
 		</dict>
 		<key>AtoZDocumentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>38</integer>
+			<integer>16</integer>
 		</dict>
 		<key>AtoZHelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>12</integer>
 		</dict>
 		<key>AtoZPlus.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>51</integer>
+			<integer>8</integer>
 		</dict>
 		<key>AtoZPrefs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>10</integer>
 		</dict>
 		<key>AtoZTestBed.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>13</integer>
 		</dict>
-		<key>AtoZTouch Build.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>212</integer>
-		</dict>
-		<key>AtoZTouch.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>33</integer>
-		</dict>
-		<key>AtoZTouchDemo.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>35</integer>
-		</dict>
-		<key>AtoZTouchTester.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
-		</dict>
-		<key>AtoZTouchTests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>204</integer>
-		</dict>
-		<key>AtoZTouchUniversal.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
-		</dict>
-		<key>AtoZUniversal.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>AtoZ_SwiftREPL.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>49</integer>
-		</dict>
-		<key>Deps.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>14</integer>
-		</dict>
-		<key>Frameworks.xcscheme_^#shared#^_</key>
+		<key>AtoZTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
+		<key>AtoZTouchDemo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>AtoZTouchTester.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>AtoZ_SwiftREPL.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
+		</dict>
+		<key>Deps.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>Frameworks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Install AtoZTouch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>KVOMap.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>250</integer>
+			<integer>24</integer>
 		</dict>
-		<key>Libs.xcscheme_^#shared#^_</key>
+		<key>Libs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>3</integer>
 		</dict>
 		<key>OCLint.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>48</integer>
+			<integer>20</integer>
 		</dict>
 		<key>ObjectiveCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>44</integer>
+			<integer>18</integer>
 		</dict>
 		<key>Router.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>46</integer>
+			<integer>19</integer>
 		</dict>
-		<key>StaticFrameworks.xcscheme_^#shared#^_</key>
+		<key>StaticFrameworks.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
-		</dict>
-		<key>UniversalFramework.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>225</integer>
+			<integer>2</integer>
 		</dict>
 		<key>WindowPoppers.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>42</integer>
+			<integer>17</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

@@ -9,8 +9,8 @@
 
 @interface TestBedDelegate : NSObject <NSApplicationDelegate,NSWindowDelegate>
 
-@property (USF) IBOutlet MenuAppController * menu;          // MENU BAR
-@property (USF) IBOutlet     AtoZColorWell * colorWell;
+@property (UNSF) IBOutlet MenuAppController * menu;          // MENU BAR
+@property (UNSF) IBOutlet     AtoZColorWell * colorWell;
 
 - (IBAction)newTab:_;
                               
@@ -33,10 +33,10 @@
 //- (IBAction) setViewFromPopUp:_;
                               //- (IBAction) reZhuzhScrollLayer:_;
                               /*
-@property (STRNG) IBOutlet NSBUTT *holdOntoViews;
+@property (STR) IBOutlet NSBUTT *holdOntoViews;
 
-@property (STRNG)	BLKVIEW  *host;
-@property (STRNG) CASCRLL  *scrlr;
+@property (STR)	BLKVIEW  *host;
+@property (STR) CASCRLL  *scrlr;
 @property (NATOM) CAGL	   *hit;
 @property (NATOM) NSMD	   *model;
 @prop_RO NSRNG 	visible, front, back;
@@ -45,11 +45,11 @@
 @prop_RO NSS 		*visibleSubsString;
 @property (NATOM) CGF 		off;
 @property (NATOM)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
-@property (STRNG) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
+@property (STR) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
 
 - (IBAction)scrollFromSegment:_;
                               */
-//@property (NATOM, STRNG)  AZFileGridView 			*fileGrid;
+//@property (NATOM, STR)  AZFileGridView 			*fileGrid;
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;
 //@property (weak) IBOutlet NSView	*scrollTest;
 //@property (weak) IBOutlet CAScrollView 	*scrollTestLayerView;
@@ -59,14 +59,14 @@
 //@prop_RO NSS* visiRect;
 
 //@property (weak) 		 id  					activeView;
-//@property (NATOM, STRNG) WeakMutableArray		*vcs;
+//@property (NATOM, STR) WeakMutableArray		*vcs;
 
 
-//@property (STRNG, NATOM) AtoZ 					*propeller;
-//@property (STRNG, NATOM) NASpinSeque 			*seque;
-//@property (STRNG, NATOM) AZSemiResponderWindow	*semiWindow;
+//@property (STR, NATOM) AtoZ 					*propeller;
+//@property (STR, NATOM) NASpinSeque 			*seque;
+//@property (STR, NATOM) AZSemiResponderWindow	*semiWindow;
 
-//@property (STRNG, NATOM) NSS	 *semiLog;
+//@property (STR, NATOM) NSS	 *semiLog;
 
 //#import <AtoZUI/AtoZUI.h>
 
@@ -169,9 +169,9 @@
 
 /*	[obj setTransform:CATransform3DConcat(CATransform3DMakeScale(100, scrlr.boundsHeight, 1),
  CATransform3DMakeTranslation(idx *100, 1, 1))];
- }() : 	anObject == scrlr && areSame(key, @"onLayout") ? ^{ */
+ }() : 	anObject == scrlr && Same(key, @"onLayout") ? ^{ */
 
-//	if ( !areSame(fixState, stringForScrollFix(LayerStateOK)) )	[self performBlock:^{ static NSUI j; j++; 		[self setFixState:stringForScrollFix(LayerStateOK)]; } afterDelay:2];
+//	if ( !Same(fixState, stringForScrollFix(LayerStateOK)) )	[self performBlock:^{ static NSUI j; j++; 		[self setFixState:stringForScrollFix(LayerStateOK)]; } afterDelay:2];
 //		[numbers makeObjectsPerformSelector:@selector(fadeOut)];
 //		[toMove animate:@"frame" toRect:originR time:0.001 completion:^{
 
@@ -785,7 +785,7 @@ __block CGF spanner = 0;	[scrollLayer.sublayers each:^(CAL* cur) {  spanner += o
 	if (oreo == VRT)	newFirst.frameMinY = _sublayerOrigin + _sublayerSpan;	else	newFirst.frameMinX = _sublayerOrigin + _sublayerSpan;
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (areSame(keyPath, @"") ) [scrollLayer setNeedsLayout];
+	if (Same(keyPath, @"") ) [scrollLayer setNeedsLayout];
 	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 */

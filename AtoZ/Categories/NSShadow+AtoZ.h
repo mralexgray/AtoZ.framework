@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 @interface NSShadow (AtoZ)
 + (NSShadow*)shadowWithOffset:(NSSize)offset blurRadius:(CGFloat)radius color:(NSColor *)shadowColor ;

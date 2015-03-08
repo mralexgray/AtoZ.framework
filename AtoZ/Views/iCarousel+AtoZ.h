@@ -7,7 +7,6 @@
 //
 
 #import "iCarousel.h"
-#import "AtoZUmbrella.h"
 
 @interface iC (ScrollWheel)
 - (void) setScrollWheelEnabled:(BOOL)x;

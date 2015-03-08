@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 @interface AZButtonCell : NSButtonCell
 @property (nonatomic) NSColor *color;

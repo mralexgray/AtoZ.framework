@@ -1,7 +1,6 @@
 
 /*  BlockDelegate.h	*//***  AtoZCodeFactory *//*  Created by Alex Gray on 6/1/13. */
 
-#import "AtoZUmbrella.h"
 
 @interface NSGC (State)
 + (void) swapToBitmapContext:(NSBIR*)bitmapRef       do:(VBlk)shit;

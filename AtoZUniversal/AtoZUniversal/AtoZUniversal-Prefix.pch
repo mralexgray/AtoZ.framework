@@ -1,0 +1,32 @@
+
+#ifndef AtoZUniversal_AtoZUniversal_Prefix_pch
+#define AtoZUniversal_AtoZUniversal_Prefix_pch
+
+#ifdef __OBJC__
+
+#include <TargetConditionals.h>
+
+@import ObjectiveC;
+
+#if TARGET_OS_IPHONE
+
+@import UIKit;
+@interface NSObject (Name) - (NSString *) className; @end
+
+#else
+
+@import AppKit;
+
+#endif // TARGET_OS_IPHONE
+
+#import <AtoZUniversal/AtoZMacroDefines.h>
+#import <AtoZUniversal/BaseModel.h>
+#import <AtoZUniversal/JREnum.h>
+#import <AtoZUniversal/AtoZTypes.h>
+#import <AtoZUniversal/metamacros.h>
+#import <AtoZUniversal/F.h>
+#import <AtoZUniversal/EXTConcreteProtocol.h>
+
+#endif // __OBJC__
+
+#endif // AtoZUniversal_AtoZUniversal_Prefix_pch

@@ -92,7 +92,7 @@ void x (){
 //		_images   		= NSMD.new;
 //		[self performSelectorInBackground:@selector(find:) withObject:nil];
 
-//		_contacts 		= [_addressBook.people cw_mapArray:^id(ABPerson *person) {
+//		_contacts 		= [_addressBook.people map:^id(ABPerson *person) {
 //			NSS* u		= [person valueForProperty:kABUIDProperty];
 //			return u   != nil ? [AZContact.alloc initWithUid:u] : u;	}].mutableCopy;
 	}];
@@ -204,7 +204,7 @@ void x (){
 //}
 //- (NSMA*) contacts
 //{
-//	return _contacts  = _contacts ?: [[ABAddressBook.sharedAddressBook people] cw_mapArray:^id(ABPerson *person) {
+//	return _contacts  = _contacts ?: [[ABAddressBook.sharedAddressBook people] map:^id(ABPerson *person) {
 //			return [AZContact.alloc initWithRecord:person] ?: nil;
 //		}].mutableCopy;
 ////	[self.class setSharedInstance:self];

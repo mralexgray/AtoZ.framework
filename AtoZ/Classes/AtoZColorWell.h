@@ -1,7 +1,6 @@
 //  SPColorWell.h  SPColorWell
 //  Created by Philip Dow on 11/16/11. Copyright 2011 Philip Dow / Sprouted. All rights reserved.
 
-#import "AtoZUmbrella.h"
 
 /**
  - (void) pplicationDidFinishLaunching:(NSNotification *)aNotification {

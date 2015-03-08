@@ -1,7 +1,83 @@
 /* Erica Sadun, http://ericasadun.com iPhone Developer's Cookbook, 3.0 Edition BSD License, Use at your own risk	*/
 
-#import "AtoZUmbrella.h"
-#import "AtoZTypes.h"
+
+@interface NSObject (ImageVsColor)
+
+- (NSC*)colorValue;
+- (NSIMG*)imageValue;
+
+@end
+
+
+@interface NSO (BlockIntrospection)
+/** Block introspection!  Uses CTBlockDescription in AtoZAutoBox.
+	@param anotherBlock an object (a block) to compare oneself to.
+	@return If the signatures are an exact match.
+
+      block1 one	= ^id(void){ id a= @"a"; return a;};
+	    block1 oneA = ^id(void){ id b= @"a"; return b;};
+	    block2 two	= ^id(id amber) { return amber;   };
+	
+	    LOG_EXPR([oneA isKindOfBlock:one]); -> YES
+			LOG_EXPR([oneA isKindOfBlock:two]); -> NO
+
+*/
+@property (readonly) BOOL isaBlock;
+@property (readonly) NSS* blockDescription;
+@property (readonly) NSMethodSignature * blockSignature;
+- (BOOL) isKindOfBlock: anotherBlock;
+
+@end
+
+@interface NSObject (AtoZBindings)
+
+- (void) setWindowPosition:	(AZWindowPosition) pos;
+- (AZWindowPosition) windowPosition;
+
+- (void) bind:(NSA*)paths toObject: o withKeyPaths:(NSA*)objKps;
+- (void) bindToObject: o withKeyPaths:(NSA*)objKps;
+- (void)    b:(NSS*)b tO: o wKP:(NSS*)kp o:(NSD*)opt;
+- (void)    b:(NSS*)b tO: o wKP:(NSS*)kp t:(Obj_ObjBlk)b;
+- (void)    b:(NSS*)b tO: o wKP:(NSS*)kp s:(SEL)select;
+
+/*! @discussion let's try and make these binding types assignable with a single method. 
+    @param b First kepypath, aka the "binding"
+    @param kp What shall we bind to, eh?
+    @param wild a selector, or a transform, or  a default... depending on...
+    @param bType The binding type, an enum.
+    @code [self b:@"lineWidth" to:@"dynamicStroke" using:@1 type:BindTypeIfNil];
+*/
+- (void)    b:(NSS*)b to:(NSS*)kp using: wild type:(BindType)bType;
+
+- (void)    b:(NSS*)b       tO: o                      wKP:(NSS*)kp         n: nilV;
+
+- (void)    b:(NSS*)b tO: o;
+- (void)    bindKeys:(NSA*)b tO: o;
+- (void) bindFrameToBoundsOf: obj;
+- (void)    b:(NSS*)b toKP:(NSS*)selfkp;
+/*
+-(void)mouseDown:(NSEvent*)theEvent;	{
+    NSColor* newColor = //mouse down changes the color somehow (view-driven change)
+    self.color = newColor;
+    [self propagateValue:newColor forBinding:@"color"];	} */
+	 
+-(void) propagateValue: value forBinding:(NSString*)binding;
+
+// Calls -[NSObject bind:binding toObject:object withKeyPath:keyPath options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil]]
+- (void)bind:(NSS*)b toObject: x withKeyPathUsingDefaults:(NSS*)kp;
+
+// Calls -[NSO bind:b toObject:o withKeyPath:kp options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
+- (void)bind:(NSS*)b toObject: x withKeyPath:(NSString *)kp nilValue: nilValue;
+
+// Same as `-[NSObject bind:toObject:withKeyPath:] but also transforms values using the given transform block.
+- (void)bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp transform:(Obj_ObjBlk)transformBlock;
+
+// Same as `-[NSObject bind:toObject:withKeyPath:] but the value is transformed by negating it.
+- (void)bind:(NSS*)b toObject: x withNegatedKeyPath:(NSS*)kp;
+
+- (void)bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp selector:(SEL)select;
+
+@end
 
 @interface NSInvocation (jr_block)
 
@@ -13,7 +89,7 @@
   }];   
 */
 
-+   invocationWithTarget:t  block:(IDBlk)b;
++   invocationWithTarget:t  block:(ObjBlk)b;
 // http://www.numbergrinder.com/2008/12/callable-objects-in-cocoa-nsinvocation/
 + (INV*) createInvocationOnTarget:t selector:(SEL)s;
 + (INV*) createInvocationOnTarget:t selector:(SEL)s
@@ -53,9 +129,9 @@
 
 @interface NSObject (Utilities)
 
-// Return all superclasses of object
-- (NSA*) superclasses;
-- (NSA*) superclassesAsStrings;
+- (NSS*) xmlRepresentation;
+- (BOOL) saveAs:(NSS*)file;
+
 
 // Selector Utilities
 //- (INV*) invocationWithSelectorAndArguments:(SEL)s,...;

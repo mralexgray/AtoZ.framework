@@ -8,7 +8,7 @@
 #import "AZLog.h"
 #import <notify.h>
 #import <notify_keys.h>
-
+#import <asl.h>
 
 //+ (void) initiablize { [DDLog addLogger:DDSHARED]; DDSHARED.colorsEnabled = YES; DDSHARED.logFormatter = self.new; }
 

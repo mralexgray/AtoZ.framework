@@ -75,7 +75,7 @@
 	}
 }
 - (void)cancelDownload{
-	[self setPropertiesWithDictionary: @{ @"userDidCancel" : @(YES), @"isLoadingImage": @(NO), @"didFailLoadingImage":@(NO)}];
+	[self setValuesForKeysWithDictionary: @{ @"userDidCancel" : @(YES), @"isLoadingImage": @(NO), @"didFailLoadingImage":@(NO)}];
 	
 	[self deleteToolTips];
 	[spinningWheel stopAnimation:self];
@@ -123,7 +123,7 @@
 }
 - (void)deleteToolTips
 {
-	[self setPropertiesWithDictionary: [NSD dictionaryWithValue:@"" forKeys:@[@"toolTip",@"toolTipWhileLoading", @"toolTipWhenFinished", @"toolTipWhenFinishedWithError"]]];
+	[self setValuesForKeysWithDictionary: [NSD dictionaryWithValue:@"" forKeys:@[@"toolTip",@"toolTipWhileLoading", @"toolTipWhenFinished", @"toolTipWhenFinishedWithError"]]];
 }
 
 #pragma mark Mouse Enter Events to display tooltips

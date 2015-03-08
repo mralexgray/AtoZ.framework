@@ -8,7 +8,7 @@
 #import <AddressBook/ABRecord.h>
 #import "AtoZContacts.h"
 @interface AtoZContact ()
-@property (STRNG)	NSS* uid;
+@property (STR)	NSS* uid;
 @end
 @implementation AtoZContact
 //+(instancetype) instanceWithImage:(NSIMG*)img imageID:(NSS*)imgID andImageSubTitle:(NSS*) subT andPersonUID:(NSS*)pUID	{
@@ -31,7 +31,7 @@
 	dispatch_once(&onceToken, ^{
 		[AZStopwatch named:@"contacts.create" block:^{
 			_cachedRanges = NSMIS.new;
-			_contacts = [ABAB.people cw_mapArray:^id(ABPerson* person){
+			_contacts = [ABAB.people map:^id(ABPerson* person){
 
       //properties);
 				AtoZContact *cc = AtoZContact.instance;
@@ -75,7 +75,7 @@
 //		             imageID:name andImageSubTitle:[person valueForProperty: kABOrganizationProperty] 
 //				  andPersonUID: [person uniqueId]];
 + (NSA*) contactImages {
-  return  [[self.shared contacts] cw_mapArray:^id(AZContact *c) {  return [c image] ?: nil; }];
+  return  [[self.shared contacts] map:^id(AZContact *c) {  return [c image] ?: nil; }];
 }
 -   (id)	contactAtIndex:(NSUI)i				{ 
 	AtoZContact *c = _contacts[i]; if (c.cached) return c;
@@ -89,7 +89,7 @@
 - (NSUI) numberOfContacts { return self.contacts.count; }
 + (NSA*)	contactsInRange:(NSRange)r { return [self.shared contactsInRange:r]; }
 - (NSA*)	contactsInRange:(NSRange)r {  
-	NSA* a = [[@(r.location) to:@(r.length + r.location)] cw_mapArray:^id(id object) {
+	NSA* a = [[@(r.location) to:@(r.length + r.location)] map:^id(id object) {
 		NSUI currentIndex = [object unsignedIntegerValue]; 
 		return [self.cachedRanges containsIndex:currentIndex] ? _contacts[currentIndex] : [self contactAtIndex:currentIndex];
 	}];

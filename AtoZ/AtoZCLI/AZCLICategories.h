@@ -79,7 +79,7 @@ NS_INLINE NSD * AZObjCVars (void) { return @{
 
 //@prop_RO NSA 	*names, *colors;
 //@prop_RO NSC 	*next;
-//@property (STRNG) NSS	*name;
+//@property (STR) NSS	*name;
 //
 //- (id) objectAtIndexedSubscript:(NSUI)idx;
 //

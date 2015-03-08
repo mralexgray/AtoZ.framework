@@ -130,12 +130,12 @@
 //		IFKINDA(h, AZOutlineLayer, LOG_EXPR(((AZOutlineLayer*)h).rootNodes.count) );
 		return e;
 	}];
-//	[outline setSublayers:[outline.representedNode.children cw_mapArray:^id(NSO<AtoZNodeProtocol>*x){ return [AZOutlineLayerNode layerForNode:x style:AZOutlineCellStyleToggleHeader];	}]];
+//	[outline setSublayers:[outline.representedNode.children map:^id(NSO<AtoZNodeProtocol>*x){ return [AZOutlineLayerNode layerForNode:x style:AZOutlineCellStyleToggleHeader];	}]];
 
 	return outline;
 }  / * designated */
 -   (id) initWithLayer:		    (id)cal	{		return self = [super initWithLayer:cal] ?	// Copy custom property values between layers
-	IFKINDA( cal, AZOL, [self setPropertiesWithDictionary:[cal dictionaryRepresentation]] ),	self : nil;
+	IFKINDA( cal, AZOL, [self setValuesForKeysWithDictionary:[cal dictionaryRepresentation]] ),	self : nil;
 }
 
 + (BOOL) needsDisplayForKey: (NSS*)key	{
@@ -189,7 +189,7 @@
 }
 @end
 
-EXTMixin			  (AZOutlineLayerNode, CAScrollLayer);
+//EXTMixin			  (AZOutlineLayerNode, CAScrollLayer);
 @implementation   AZOutlineLayerNode
 
 //+ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style{

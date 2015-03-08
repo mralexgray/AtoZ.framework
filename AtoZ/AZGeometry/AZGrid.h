@@ -6,7 +6,6 @@
 //  Copyright 2011 Rogue Coding. All rights reserved.
 //
 
-#import "AtoZUmbrella.h"
 
 //#import "AZPoint.h"
 //#import "AZSize.h"
@@ -49,7 +48,7 @@ JREnumDeclare( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
 - (void) setDefaultParameters;
 -    (id) initWithCapacity:(NSUInteger)numItems;
 
-@property (UNSFE,RONLY) AZSize* size;
+@property (UNSF,RO) AZSize* size;
 @prop_RO NSUI count;
 @prop_RO CGF width, height, min, max;
 

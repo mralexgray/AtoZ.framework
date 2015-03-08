@@ -8,7 +8,7 @@
 
 #define statictype(x)	"@\"" #x "\""
 
-//typedef struct AZKVPair { __UNSFE NSS*k; __UNSFE id v; } AZKVPair;
+//typedef struct AZKVPair { __UNSF NSS*k; __UNSF id v; } AZKVPair;
 
 // Also, note that the runtime information doesn't include an atomicity hint, so we can't determine that information
 
@@ -66,7 +66,19 @@
 + (NSD*) az_propertyNamesAndTypes;
 - (NSA*) az_properties;
 + (NSS*) az_getPropertyType:(NSS*)attributeString;
+
+- (NSA*) objectKeys;
+- (NSA*) primitiveKeys;
+
 @end
+
+/// USAGE:  [someDictionary mapPropertiesToObject: someObject];
+@interface NSDictionary  (PropertyMap)
+
+- (void) mapPropertiesToObject:	instance;
+
+@end
+
 
 // Pure C API, adding to the existing API in objc/runtime.h.  The functions above are implemented in terms of these.
 // returns a static buffer - copy the string to retain it, as it will be overwritten on the next call to this function

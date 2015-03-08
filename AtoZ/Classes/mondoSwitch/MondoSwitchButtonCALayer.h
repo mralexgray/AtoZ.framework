@@ -2,7 +2,6 @@
 //  MondoSwitchButtonCALayer.h
 //  CocoaMondoKit
 
-#import "AtoZUmbrella.h"
 
 typedef enum {
 	PPNoEvent = (1 << 1),

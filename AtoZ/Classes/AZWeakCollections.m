@@ -5,7 +5,7 @@
 //  Created by Alex Gray on 11/20/12.
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
-#import <Zangetsu/Zangetsu.h>
+//#import <Zangetsu/Zangetsu.h>
 #import "AZWeakCollections.h"
 
 
@@ -52,8 +52,8 @@
 -(WeakMutableArray*)weakFilterMap:(id (^)(id obj))block
 {
 	WeakMutableArray *weakling = WeakMutableArray.new;
-	[self cw_each:^(id obj, NSUInteger index, BOOL *stop) {
-		id rObj = block(obj);
+  [self eachWithIndex:^(id obj, NSInteger index) {
+    id rObj = block(obj);
 		if (rObj) {
 			WeakReferenceObject *weakO = [WeakReferenceObject weakReferenceObjectWithObject:rObj];
 			[weakling addObject:weakO];

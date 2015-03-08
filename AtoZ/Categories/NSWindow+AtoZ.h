@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 #define CRNR OSCornerType
 
 JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
@@ -35,7 +34,7 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
       [w setFrame:AZScreenFrameUnderMenu()]; 
     }]
 */
-- (void) animateWithDuration:(NSTI)d block:(IDBlk)stuff;
+- (void) animateWithDuration:(NSTI)d block:(ObjBlk)stuff;
 @end
 
 

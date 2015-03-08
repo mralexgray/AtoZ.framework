@@ -98,6 +98,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
 
 @dynamic siblings, siblingIndex, siblingIndexIsEven, siblingIndexMax;
 
+
 SetKPfVA(Siblings,      @"siblingIndexMax")                             SetKPfVA(SiblingIndexIsEven, @"siblingIndex")
 SetKPfVA(SiblingIndex,  @"superlayer", @"superlayer.sublayers.@count")  SetKPfVA(SiblingIndexMax,    @"superlayer", @"superlayer.sublayers.@count")
 
@@ -106,9 +107,9 @@ SetKPfVA(SiblingIndex,  @"superlayer", @"superlayer.sublayers.@count")  SetKPfVA
 -     (NSA*) siblings            {	return !self.superlayer ? nil : [self.superlayer.sublayers arrayWithoutObject:self]; }
 -      (NSI) siblingIndex        {	return !self.superlayer ? -1 : (NSI)[self.superlayer.sublayers indexOfObject:self];      }
 
-- (AZParity) siblingIndexParity  { return self.siblingIndex == -1 ? AZUndefined : isEven(self.siblingIndex) ? AZEven : AZOdd; }
+- (AZParity) siblingIndexParity  { return self.siblingIndex == -1 ? AZUndefined : IsEven(self.siblingIndex) ? AZEven : AZOdd; }
 
--     (BOOL) siblingIndexIsEven  { return isEven(self.siblingIndex);                           }
+-     (BOOL) siblingIndexIsEven  { return IsEven(self.siblingIndex);                           }
 -      (NSI) siblingIndexMax    { return !self.superlayer ? -1 : self.superlayer.sublayers.count - 1; }
 
 -     (void) setFilterName:(NSS*)n  {
@@ -170,7 +171,7 @@ SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self
 -  (NSR) actuallyVisibleRectInView:(NSV *)v;     {
 
   __unused NSView *view = v ?: self.hostView;
-  // ? : [[self.superlayers cw_mapArray:^id (id o) { return [o hostView]; }]
+  // ? : [[self.superlayers map:^id (id o) { return [o hostView]; }]
 //	  sortedWithKey:@"minDim" ascending:NO].first;
 	NSR actual = NSIntersectionRect(self.visibleRect, AZRectFromSize(v.window.size));
 	//	NSLog(@"%@ vs %@ in %@ %@", AZString(self.visibleRect), AZString(actual), AZString(v.bounds), [v class]);
@@ -1357,7 +1358,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 }
 @end
 
-//#import <Zangetsu/Zangetsu.h>
+
 
 @implementation CALayer (LTKAdditions)
 /*
@@ -1557,7 +1558,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 - (void)addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStopBlock:(void (^)(BOOL finished))stopBlock {
 	[self addAnimation:animation forKey:key withStartBlock:nil stopBlock:stopBlock];
 }
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStartBlock:(VoidBlock)startBlock stopBlock:(void (^)(BOOL finished))stopBlock        {
+- (void)addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStartBlock:(Blk)startBlock stopBlock:(void (^)(BOOL finished))stopBlock        {
 
 	LTKAnimationDelegate *animationDelegate = LTKAnimationDelegate.new;
 	animationDelegate.startBlock  = startBlock;
@@ -1781,7 +1782,7 @@ static const char *kRenderAsciiBlockKey = "-";
   self[@"unhittable"] = @(yesDontHit);
   SEL contains = @selector(containsPoint:);
 #import "AtoZFunctions.h"
-#import "NSObject+AtoZ.h"
+
 
  [bp scaledToFrame:self.frame].CGPath;
   [self setPath:[NSBP bezierPathWithRect:self.bounds].quartzPath];
@@ -2459,7 +2460,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(debug,setDebug, BOOL, ^{}, ^{
 
 //CATransform3D CAT3DConcatenatedTransformation(CAT3D xyZRotation, CAT3D transformation ) {	return CATransform3DConcat(xyZRotation, transformation);	}	CATransform3D concatenatedTransformation = CATransform3DConcat(xRotation, transformation);
 
-//typedef struct KPTrifecta { __UNSFE NSS* binding; __UNSFE NSS * keypath; __UNSFE id transform; } KPTrifecta;
+//typedef struct KPTrifecta { __UNSF NSS* binding; __UNSF NSS * keypath; __UNSF id transform; } KPTrifecta;
 //  XX([p.sublayers vFK:@"string"]);
 //  [aT b:@"string" tO:self wKP:@"siblingIndex" t:^id(id value) { return [value sV]; }];
 //  [pT b:@"string" tO:self wKP:@"siblingIndex" t:^id(id value) { return [value sV]; }];

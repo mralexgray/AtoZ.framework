@@ -1,5 +1,4 @@
 
-#import "AtoZUmbrella.h"
 
 @class Asset;
 @interface Bootstrap : BaseModel

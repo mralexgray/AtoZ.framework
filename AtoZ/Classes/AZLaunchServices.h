@@ -4,7 +4,6 @@
   @see NSBundle+AtoZ.h!
 */
 
-#import "AtoZUmbrella.h"
 
 extern CFStringRef  kLSSharedFileListFavoriteVolumes,         kLSSharedFileListFavoriteItems,
                     kLSSharedFileListRecentApplicationItems,  kLSSharedFileListRecentDocumentItems,

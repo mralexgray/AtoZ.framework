@@ -173,13 +173,13 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 - (NSTreeNode*) nodeAtIndexPath:(NSIndexPath*)indexPath	{	return [self.arrangedObjects descendantNodeAtIndexPath:indexPath];	}
 - (NSA*) flattenedContent	{		// all the real objects in the tree, depth-first searching
 
-	return [NSA arrayWithArrays:[self.content cw_mapArray:^id(id realNode){
+	return [NSA arrayWithArrays:[self.content map:^id(id realNode){
 		return [realNode boolForKey:self.leafKeyPath] ? @[realNode] : [NSA arrayWithArrays:@[@[realNode],[realNode descendants]]];
 	}]];
 }
 - (NSA*) flattenedNodes		{	// all the NSTreeNodes in the tree, depth-first searching
 
-	return [NSA arrayWithArrays:[self.rootNodes cw_mapArray:^id(NSTreeNode *node){
+	return [NSA arrayWithArrays:[self.rootNodes map:^id(NSTreeNode *node){
 			return  [node boolForKey:self.leafKeyPath] ? @[node] : [NSA arrayWithArrays:@[@[node],node.descendants]];
 	}]];
 }

@@ -15,8 +15,8 @@ JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 @prop_RO	CAL	*lastLayer, *firstLayer;
 @prop_RO NSA 	*scrollLayersByAscendingPosition, *sSubs;
 @prop_RO 	BOOL 	isVRT;
-@property (STRNG) CWStack *stack;
-@property (STRNG) CAScrollLayer *sclr;
+//@property (STR) CWStack *stack;
+@property (STR) CAScrollLayer *sclr;
 @property (NATOM)		StateStyle 	hoverStyle, selectedStyle;
 @end
 
@@ -24,7 +24,7 @@ JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 #define WATCHDOG_STOP _fixWatchdog > WATCHDOGMAX
 
 @implementation CAScrollView
-@synthesize layerQueue, scrollLayer,	oreo, fixState = _fixState, isVRT, hoverStyle, selectedStyle, stack;
+@synthesize layerQueue, scrollLayer,	oreo, fixState = _fixState, isVRT, hoverStyle, selectedStyle;//, stack;
 
 - (id) initWithFrame:(NSRect)frameRect
 {

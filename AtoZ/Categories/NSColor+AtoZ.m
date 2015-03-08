@@ -196,7 +196,7 @@ SYNTHESIZE_ASC_OBJ(name, setName);
   AZNewStatic(colorListD,NSMD.new);
 
   return colorListD = colorListD.count ? colorListD :
-  [[[AZBUNDLE pathsForResourcesOfType:@"clr" inDirectory:@""] cw_mapArray:^id(id object) {
+  [[[AZBUNDLE pathsForResourcesOfType:@"clr" inDirectory:@""] map:^id(id object) {
       return [NSColorList.alloc initWithName:[object baseName] fromFile:object];
     }]   mapToDictionaryKeys:^id(NSCL* list) {  return list.name; }].mC;
 } /* AOK */ /* { Monaco = "NSColorList 0x7fab5ae49bb0 name:Monaco device:(null) file:/Volumes/4X4/DerivedData/AtoZ/Products/Debug/AtoZ.framework/Resources/Monaco.clr loaded:1";, ... } */
@@ -459,7 +459,7 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 +  (NSA*) allSystemColors                     { return [[self class] systemColors]; }
 +  (NSA*) systemColors                      {
 
-  return [NSA arrayWithArrays:[NSColorList.availableColorLists cw_mapArray:^id(NSCL* obj) {
+  return [NSA arrayWithArrays:[NSColorList.availableColorLists map:^id(NSCL* obj) {
     return [obj.allKeys map:^id(NSS *key) { NSC* c = [obj colorWithKey:key]; return !c.isBoring ? c : nil; }];
   }]];
 }
@@ -475,19 +475,18 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 }
 
 + (void) logPalettes        {
-  //  [self.colorLists each:^(id key, id value) {
 
+/* FIX XOLUMNSWIDE
   [(NSO*)[[self.colorLists.allValues vFKP:@"name"] reduce:@"".mutableCopy withBlock:^id(id sum, id obj) {
     return sum = $(@"%@\n%@\n%@",sum, obj,
-              [[NSC colorsInListNamed:obj]stringValueInColumnsCharWide:30]);
+              [[NSC colorsInListNamed:obj] stringValueInColumnsCharWide:30]);
   }]log];
-  //        [[obj colors] each:^(NSC* color) {
-  //      COLORLOG(color ?: nil, @"%@", color.name);
+*/
+  //  [self.colorLists each:^(id key, id value) { [[obj colors] each:^(NSC* color) { COLORLOG(color ?: nil, @"%@", color.name);
 
 }
-
-+ (NSC*) r:(CGF)red g:(CGF)green b:(CGF)blue a:(CGF)trans { return [self colorWithDeviceRed:red green:green blue:blue alpha:trans];}
 + (NSC*) white:(CGF)percent             { return [self colorWithDeviceWhite:percent alpha:1]; }
+
 + (NSC*) white:(CGF)percent a:(CGF)alpha    { return [self colorWithDeviceWhite:percent alpha:alpha]; }
 + (NSA*) randomPalette                { return self.randomList.colors; }
 + (NSCL*) randomList                { return self.colorLists.randomValue; }
@@ -1784,8 +1783,8 @@ foreach($s as $k => $v) { list($hue,$sat,$val) = $v; list($r,$g,$b) = hsvtorgb($
  //         localizedStringForKey:bestColorKey  value:bestColorKey  table:@"Crayons"];
  return bestColor;//, @"color", bestKey, @"key", bestList, @"list");
  }
- NSCL *clist = [[self colorsInListNamed:name] filterOne:^BOOL(NSCL* list) { return areSame(list.name, name); }];
- return [clist.allKeys cw_mapArray:^id(id obj) {
+ NSCL *clist = [[self colorsInListNamed:name] filterOne:^BOOL(NSCL* list) { return Same(list.name, name); }];
+ return [clist.allKeys map:^id(id obj) {
  NSC* c = [[clist colorWithKey:obj] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
  c.name = obj; return c;
  }];

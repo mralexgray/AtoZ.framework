@@ -1,10 +1,10 @@
 
+#import "AtoZ.h"
 #import "AZCLI.h"
-#import "AZGrid.h"
+//#import "AZGrid.h"
 //#import "NSTerminal.h"
 #include <assert.h>
 #include <SystemConfiguration/SystemConfiguration.h>
-
 
 static NSString* _AZCurrentUser;
 static NSUI _AZCurrentUserID;
@@ -24,13 +24,40 @@ void(^fillInTheBlanks)() = ^{
 //  } else  strcpy(buf, "<none>");
 //  _AZCurrentUser = [NSS stringWithUTF8String:buf];
 };
-NSUI  AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
-NSS * AZCurrentUser() { return _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
 
-NSString * AZReadStdin () { NSFileHandle *input = NSFileHandle.fileHandleWithStandardInput;  NSData *inData = input.availableData;
+
+NSUI   AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
+ NSS *   AZCurrentUser() { return   _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
+
+NSS * AZReadStdin () { NSFileHandle *input = NSFileHandle.fileHandleWithStandardInput;  NSData *inData = input.availableData;
 	return [[NSS stringWithUTF8Data:inData] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
 }
 
+@implementation NSO (AtoZCLI)
+
+- (NSS*) instanceMethodsInColumns        { return [self.instanceMethodNames formatAsListWithPadding:30]; }
+@end
+
+@implementation NSA (AtoZCLI)
+- (NSS*) stringValueInColumnsCharWide:(NSUI)characters {
+  return [self reduce:^id (id memo, id obj) {
+    __unused NSUI min = MAX(characters - [obj length], 0);
+    return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
+  } withInitialMemo:@""];
+}
+- (NSS*) formatAsListWithPadding:(NSUI)characters	{
+
+	return [self.alphabetized map:^id (id obj) { return [obj justifyRight:characters];
+
+  }].joinedWithSpaces;
+
+// /*$(@"\n%@", return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]; }].joinedWithSpaces; // );
+}
+@end
+
+
+
+/*
 static NSApplication *sharedApp;		static NSMenuItem *appMenuItem;	static NSMenu *menubar,*appMenu;
 static dispatch_once_t onceToken;	static AZCLIMenu *meths, *fws;	static NSMD	*selectionDecoder;
 
@@ -48,7 +75,7 @@ typedef id(^eval)(id blockArgs, ...);
 //	[menu = MenuAppController   .new loadStatusMenu];		// instanciate menu status bar property
 //	 dCTL	= DefinitionController.new;							// instanciate definitio contorller that does some shit with a plist
 //	_stdinHandle = AZFH_IN;		 										// read stdin
-//	[@[	@"AZBackground", @"IsometricView"	]each:^(id o) {	 [NSClassFromString(o) preview]; }];  // load up some text views... 	*/
+//	[@[	@"AZBackground", @"IsometricView"	]each:^(id o) {	 [NSClassFromString(o) preview]; }];  // load up some text views...
 //			@"AZGrid", 		@"AZPrismView", @"AZBackground2", @"AZBackgroundProgressBar",
 
 
@@ -60,7 +87,7 @@ typedef id(^eval)(id blockArgs, ...);
 												[appMenu 	  							  addItem:AZQUITMENU];		          
 												[NSApp 	 									 setDelegate:self];		}); 	
 												[self.class  mainMenu];									return self;
-}   /* All setup code fpr shared INstance */
+}   // All setup code fpr shared INstance
 +      (void) mainMenu 					{
 
 	__block VoidBlock k = ^{ [NSTerminal readString]; };
@@ -110,7 +137,7 @@ typedef id(^eval)(id blockArgs, ...);
 		[[NSBP bezierPathWithRoundedRect:_window.contentRect cornerRadius:20 inCorners:OSBottomLeftCorner|OSBottomRightCorner] fillWithColor:RANDOMCOLOR];
 	}];
 }
--       (IBA) toggleConsole:(id)s	{	[AZLogConsole.sharedConsole performString:[AZLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; } /* AZLogConsole - UNUSED */
+-       (IBA) toggleConsole:(id)s	{	[AZLogConsole.sharedConsole performString:[AZLogConsole.sharedConsole isOpen] ? @"close" : @"open"]; } // AZLogConsole - UNUSED
 
 -      (void) envTest						{
   ;;
@@ -123,7 +150,7 @@ typedef id(^eval)(id blockArgs, ...);
     LOGCOLORS(RED, @"red", ORANGE, @"orange", YELLOw, @"yellow", GREEN, @"green", BLUE, @"blue", PURPLE, GREY, "purple (but not in the right order", "Grey (also out of order)", nil);
 }
 -      (void) textWasEntered:(NSS*)s	{	[AZTalker say: s];				}
-- (VoidBlock) stringFunctions				{
+- (Blk) stringFunctions				{
 
 	return ^{	NSS*w =  NSS.randomBadWord;	[AZTalker say:w];
 					AZCLogFormat("The sum of 50 + 25 is %s", [AZLog colorizeString:w withColor:GREEN].colorLogString.UTF8String);
@@ -168,7 +195,7 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
             
   AZCLIMenu *m = self.instance; 	if(!menus) { menus = NSMA.new; toPrint = NSMIS.indexSet; } // resets all
 	[(NSMA*)[m defaultCollection] addObjectsFromArray:[items nmap:^id(NSS* obj, NSUI  index) {
-		return [AZCLIMenuItem cliMenuItem:obj index:idx + index color:[p normal:index]]; }]];  //action:(VoidBlock)blk];}];
+		return [AZCLIMenuItem cliMenuItem:obj index:idx + index color:[p normal:index]]; }]];  //action:(Blk)blk];}];
 //	[NSTerminal addInputBlock:blk];
 		[menus addObject:m]; [toPrint addIndex:[menus indexOfObject:m]]; return m;
 
@@ -185,7 +212,7 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 
 //-       (IBA) log:(id)sender			{	NSLog(@"hello from button");	}
 
-//- (VoidBlock) actionAtIndex 				{}
+//- (Blk) actionAtIndex 				{}
 //+        (id) blockEval:(eval)block 	{	 return block(self);	 }
 //- 		   (NSRNG) range						{ return  NSMakeRange(self.startIdx, [(NSA*)self.defaultCollection count]); }
 
@@ -203,7 +230,7 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 -    (id) identifier 	{ return _identifier = _identifier ?: self.uniqueID; }
  
 //- (void) setUp { NSLog(@"Normal setup");  [self  performSelector:NSSelectorFromString(@"swizzleSetUp")]; }
-//@property (NATOM,STRNG) NSMD	*selectionDecoder;
+//@property (NATOM,STR) NSMD	*selectionDecoder;
 
 - (void) colorLogging 				{
 //	COLORLOG(YELLOw, @"whatever %@", @3, nil);   
@@ -340,7 +367,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 //	BOOL respondez = [self respondsToSelector:NSSelectorFromString(_lastCommand)];
 //	NSLog(@"responds: %@", StringFromBOOL(respondez));
 //	id what = [self valueForKey:_lastCommand];
-//	NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(areSame([what class], [test class])));	
+//	NSLog(@"cfk: %@ equal to cliclass: %@... %@", NSStringFromClass([what class]), test, StringFromBOOL(Same([what class], [test class])));	
 //	}];
 	//fflush(stdout); }];
 
@@ -371,7 +398,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 	if (!stop) [self runAClassMethod];
 }
 */
-
+/*
 
 @implementation AtoZ (CLIWindow)
 + (NSW*) popDrawWindow:(DRAWBLK)blk {
@@ -410,6 +437,7 @@ AZOutsideEdgeOfRectInRect(window.frame, f);
 
 }
 @end
+*/
 
 /*
 	AIDockingWindow *attached;	
@@ -466,7 +494,7 @@ class != NULL ? [[class performSelector:select] log] : [[self performSelectorWit
 	fprintf(stdout, "YOu selected %ld.  That matched:%s.\n", select, hit ? "SOMETHING!" : "NADA!");
 	[self cuteFunctions]();	 [self mainMenu];
 	if ([result respondsToSelector:@selector(UTF8String)])  fprintf(stdout, "%s\n", [result UTF8String]);   fprintf(stdout, "objj> ");    fflush(stdout);    [_stdinFileHandle readInBackgroundAndNotify];
-- (VoidBlock) tests 				{   return _tests = [AZCLITests sharedInstance]; }
+- (Blk) tests 				{   return _tests = [AZCLITests sharedInstance]; }
 	[[@"a".classProxy vFK:o]performSelector:@selector(preview)]; // load via the hacky class proxy
 + (void) load {
 	if (AZCLI.hasSharedInstance) return; 	

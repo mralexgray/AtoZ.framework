@@ -73,7 +73,7 @@ NSAnimationBlockingMode AZDefaultAnimationBlockingMode  = NSAnimationNonblocking
 }
 
 
-- (void) setOnEndLiveResize:(VoidObjBlock)b { static dispatch_once_t onLive;
+- (void) setOnEndLiveResize:(ObjBlk)b { static dispatch_once_t onLive;
 
   dispatch_once(&onLive, ^{ [self az_overrideSelector:@selector(viewDidEndLiveResize) withBlock:(__bridge void *)^(id _self){
 

@@ -16,8 +16,8 @@
 - (void) changeViewFromDropdown:(NSPopUpButton*)sender
 {
 	NSS * label	= sender.segmentLabel;  			NSLog(@"looking for label cinderlla view: %@", label);
-	NSV * nView	=	areSame(label, @"prism" ) 	  	? [AZPrismView.alloc initWithFrame:_targetView.frame]
-					:	areSame(label, @"azGrid") 	  	? [AZGrid.alloc initWithCapacity:   23]
+	NSV * nView	=	Same(label, @"prism" ) 	  	? [AZPrismView.alloc initWithFrame:_targetView.frame]
+					:	Same(label, @"azGrid") 	  	? [AZGrid.alloc initWithCapacity:   23]
 					: 	[self respondsToString:label] ?  self[sender.segmentLabel]
 					:	nil;
 	IF_RETURN(!nView)

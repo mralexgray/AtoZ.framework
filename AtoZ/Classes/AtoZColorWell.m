@@ -310,7 +310,7 @@ static NSA * SPColorPickerDefaultColorsInCSSRGB(void) {
 //	_trackingAreas 		= [NSMA array];
 	selectionIndex = [NSIndexSet indexSetWithIndex:22];
 	//	canRemoveColor = NO;
-	colors = [SPColorPickerDefaultColorsInCSSRGB() cw_mapArray:^id(NSString *cssColor) {
+	colors = [SPColorPickerDefaultColorsInCSSRGB() map:^id(NSString *cssColor) {
 		return [NSColor colorWithCSSRGB:cssColor] ?: nil;
 	}] ?: colors;
 	return self;

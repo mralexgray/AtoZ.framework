@@ -1,7 +1,6 @@
 //
 
 #import <AtoZ/AtoZ.h>
-#import "NSObject+AtoZ.h"
 #import "NSObject+Properties.h"
 
        SEL	          property_getGetter (objc_property_t property) {
@@ -382,10 +381,10 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	return result;
 }
 - (NSD*) propertiesPlease								{
-	return [[[self.propertyNames cw_mapArray:^id (NSS *name) { SEL select = NULL;
+	return [[[self.propertyNames map:^id (NSS *name) { SEL select = NULL;
 		if (select = [self getterForPropertyNamed:name] != NULL) return nil;
 		return [self respondsToSelector:select] && [self hasPropertyForKVCKey:name] ? name : nil;
-	}] cw_mapArray:^id (id canGet) {
+	}] map:^id (id canGet) {
 		SEL getter = [self getterForPropertyNamed:canGet];
 		return [self canPerformSelector:getter] ? NSStringFromSelector(getter) : nil;
 	}] mapToDictionary:^id (id object) {
@@ -500,20 +499,48 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	[typeScanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&type];
 	return type;
 }
+
+- (NSA*) objectKeys { return [self.propertyNames map:^id(id k) { return ([self classOfPropertyNamed:k] != NULL) ? k : nil; }];}
+- (NSA*) primitiveKeys { return [self.propertyNames map:^id(id k) { return ([self classOfPropertyNamed:k] == NULL) ? k : nil; }];}
+
 @end
+
+@implementation NSD (PropertyMap)
+
+- (void)mapPropertiesToObject: instance {
+	
+//	NSA* codables = [self allKeys];
+//	codables = [[instance class] respondsToSelector:@selector(codableKeys)] ? [instance class].codableKeys : self.allKeys;
+//	if ([codables doesNotContainObjects:[self allKeys]]) {
+//		NSLog(@"possible error:  not going to set values for keys: %@", [self.allKeys arrayByRemovingObjectsFromArray:codables]);
+//	}
+	
+	[self each:^(NSS *propertyKey, id value) {
+		[instance canSetValueForKey:propertyKey] && value!=nil ?
+		[instance setValue:value forKey:propertyKey] :	^{
+			SEL select = NULL;
+			select = [instance setterForPropertyNamed:propertyKey];
+			if (select != NULL && [instance respondsToSelector:select])
+				[instance performSelectorWithoutWarnings:select withObject:value];
+
+		}();//: NSLog(@"couldnt set:%@ on %@", propertyKey, instance);
+	}];
+}
+@end
+
 /*
 //- (NSD *)propertiesPlease { return [self.codableKeys mapToDictionaryKeys:^id(id object) { return [self valueForKey:object];}];
-//	NSA* propN = self.propertyNames;	NSLog(@"trying to get props: %@", propN)	NSA *hasV = [propN cw_mapArray:^id(id object) {
+//	NSA* propN = self.propertyNames;	NSLog(@"trying to get props: %@", propN)	NSA *hasV = [propN map:^id(id object) {
 ////		return [self valueForKey:object] ? object : nil;
 ////	}];
 ////	NSLog(@"hasV: %@", hasV)
-//	NSA * responds = [propN cw_mapArray:^id(NSS* select) {
+//	NSA * responds = [propN map:^id(NSS* select) {
 //		return [self respondsToSelector:NSSelectorFromString(select)] ? select : nil;
 //	}];
 //	NSLog(@"responds: %@", responds)
 //	return [responds mapToDictionaryKeys:^id(NSS*props) {	return [self performSelectorSafely:NSSelectorFromString(props)];	}];
 //	}][self.class propertyTypeDictionaryOfClass:self.class];
-//	return  [[props.allKeys cw_mapArray:^id(id object) {		return [self respondsToString:object] ? object : nil;	}] mapToDictionaryKeys:^id(NSS* propName) {		return [self valueForKey:propName];	}];
+//	return  [[props.allKeys map:^id(id object) {		return [self respondsToString:object] ? object : nil;	}] mapToDictionaryKeys:^id(NSS* propName) {		return [self valueForKey:propName];	}];
 
 //	NSMD *props = NSMD.new;
 //	unsigned outCount, i;

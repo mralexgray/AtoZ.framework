@@ -5,8 +5,7 @@
 #ifdef __OBJC__
 
   #import <AppKit/AppKit.h>
-	#import <FunSize/FunSize.h>
-#endif
+	@import FunSize;
 
 #define NCENTER NSNotificationCenter.defaultCenter
 #define NSOQMQ NSOperationQueue.mainQueue
@@ -14,3 +13,5 @@
 
 NS_INLINE CGFloat BGCenterX(NSRect aRect) {	return (aRect.size.width / 2);	}
 NS_INLINE CGFloat BGCenterY(NSRect aRect) {	return (aRect.size.height / 2);	}
+
+#endif

@@ -47,14 +47,14 @@
 			NSLog(@"View: %@, etc %@", view, [view window]);
 		}() : nil;
 	
-//	areSame(@"CAScrollLayer", selecto) ? [self createScrollLayer] : nil;
+//	Same(@"CAScrollLayer", selecto) ? [self createScrollLayer] : nil;
 }
 @end
 
 
 //	_windowControllers = [[AZFILEMANAGER filesInDirectoryAtPath:AZAPPRESOURCES includeInvisible:NO includeSymlinks:NO]filter:^BOOL(NSS* f) { return f.pathExtension }
-//@property (STRNG) CATransition *transition;
-//@property (STRNG) NSA *transitions;
+//@property (STR) CATransition *transition;
+//@property (STR) NSA *transitions;
 //	[self.window setAcceptsMouseMovedEvents:YES];
 //	[self.window makeFirstResponder:_targetView];
 //	[self createScrollLayer];

@@ -18,11 +18,11 @@
 @interface SourceListItem : NSObject
 
 @property (WK) 	  id 	objectRep;
-@property (STRNG) NSC	*color;
+@property (STR) NSC	*color;
 @property (CP) 	  NSS 	*title, *identifier;
-@property (STRNG) NSIMG *icon;
+@property (STR) NSIMG *icon;
 @property (ASS)   NSI 	badgeValue;
-@property (STRNG) NSA 	*children;
+@property (STR) NSA 	*children;
 
 //Convenience methods
 + (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier;

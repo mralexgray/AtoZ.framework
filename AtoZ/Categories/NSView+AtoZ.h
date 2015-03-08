@@ -1,7 +1,6 @@
 
 #import <objc/objc.h>
 #import <QuartzCore/QuartzCore.h>
-#import "AtoZUmbrella.h"
 
 @interface NSViewFlipped : NSView @end
 
@@ -60,7 +59,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @class AZWT;
 @interface NSView  (AtoZ) <NSCopying>
 
-@property (NATOM) VoidObjBlock onEndLiveResize;
+@property (NATOM) ObjBlk onEndLiveResize;
 @property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..
 
 @property (NATOM) NSI tag;

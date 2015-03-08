@@ -317,7 +317,7 @@ SYNTHESIZE_ASC_CAST(pathForRect, setPathForRect,PathBlock);
 @implementation CAGradientLayer (NSColors) // @dynamic nsColors;
 
 - (void) setNSColors:(NSA*)nscs {	self.colors = [nscs arrayByPerformingSelector:@selector(CGColor)]; }
-- (NSA*) NSColors { return [self.colors cw_mapArray:^id(id o) { return [NSC colorWithCGColor:(CGColorRef)o]; }]; }
+- (NSA*) NSColors { return [self.colors map:^id(id o) { return [NSC colorWithCGColor:(CGColorRef)o]; }]; }
 @end
 
 
