@@ -35,7 +35,6 @@
 		7B313A2E1AADC0AD00179E72 /* ObjectMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A261AADC0AD00179E72 /* ObjectMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B313A2F1AADC0AD00179E72 /* ObjectMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A271AADC0AD00179E72 /* ObjectMatcher.m */; };
 		7B313A301AADC0AD00179E72 /* objswitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A281AADC0AD00179E72 /* objswitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B313A311AADC0AD00179E72 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A291AADC0AD00179E72 /* README.markdown */; };
 		7B313A321AADC0AD00179E72 /* SelectorMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A2A1AADC0AD00179E72 /* SelectorMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B313A331AADC0AD00179E72 /* SelectorMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A2B1AADC0AD00179E72 /* SelectorMatcher.m */; };
 		7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -482,7 +481,6 @@
 				7BBD2D871AA7536A00CD9477 /* NSMethodSignature+EXT.m in Sources */,
 				7B582C2D1AA6DC9800C450C3 /* F.m in Sources */,
 				7BE12BBB1AA9222F001AF7CE /* AZObserversAndBinders.m in Sources */,
-				7B313A311AADC0AD00179E72 /* README.markdown in Sources */,
 				7B582C441AA6DFF000C450C3 /* BaseModel.m in Sources */,
 				7B0A4F031AA92986008FB45A /* NSArray+AtoZ.m in Sources */,
 				7B0A4F0E1AA947A6008FB45A /* Functions.m in Sources */,

@@ -48,7 +48,7 @@ extern NSString *const kShowDockIconUserDefaultsKey;
 
 
 @interface NSProcessInfo (Extensions)
-- (BOOL) isDebuggerAttached;
+- _IsIt_ isDebuggerAttached;
 @end
 
 

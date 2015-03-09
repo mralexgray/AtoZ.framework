@@ -86,8 +86,8 @@ SYNTHESIZE_ASC_OBJ(name, setName);
 
 #pragma mark - READONLY PROPERTIES  🔖
 
-- (BOOL) isExciting   { return !self.isBoring;}
-- (BOOL) isBoring     {   NSC *deviceColor = self.inRGB; return
+- _IsIt_ isExciting   { return !self.isBoring;}
+- _IsIt_ isBoring     {   NSC *deviceColor = self.inRGB; return
 
   ((deviceColor.saturationComponent + deviceColor.hueComponent + deviceColor.brightnessComponent) > 1.6) &&
    (deviceColor.saturationComponent > .3) ? NO :
@@ -836,7 +836,7 @@ SYNTHESIZE_ASC_OBJ(name, setName);
   [[self calibratedRGBColor] getRed:&r green:&g blue:&b alpha:&a];
   return sqrt((r * r * 0.241) + (g * g * 0.691) + (b * b * 0.068));
 }
-- (BOOL) isBright         {
+- _IsIt_ isBright         {
   return self.relativeBrightness > 0.57;
 }
 - (NSC*) bright           {
@@ -869,7 +869,7 @@ SYNTHESIZE_ASC_OBJ(name, setName);
                 brightness:MAX(0.0, MIN(b * 0.7, b - 0.1))
                    alpha:a];
 }
-- (BOOL) isDark           {
+- _IsIt_ isDark           {
   return self.relativeBrightness < 0.42;
 }
 - (NSC*) dark             {
@@ -1005,22 +1005,22 @@ SYNTHESIZE_ASC_OBJ(name, setName);
   [self.calibratedRGBColor getHue:&h saturation:&s brightness:&b alpha:&a];
   return (h + s + b) / 3.0;
 }
-- (BOOL) isBlueish {
+- _IsIt_ isBlueish {
   CGFloat r,g,b,a;
   [self getRed:&r green:&g blue:&b alpha:&a];
   return b - MAX(r,g) > 0.2;
 }
-- (BOOL) isRedish {
+- _IsIt_ isRedish {
   CGFloat r,g,b,a;
   [self getRed:&r green:&g blue:&b alpha:&a];
   return r - MAX(b,g) > 0.2;
 }
-- (BOOL) isGreenish {
+- _IsIt_ isGreenish {
   CGFloat r,g,b,a;
   [self getRed:&r green:&g blue:&b alpha:&a];
   return g - MAX(r,b) > 0.2;
 }
-- (BOOL) isYellowish {
+- _IsIt_ isYellowish {
   CGFloat r,g,b,a;
   [self getRed:&r green:&g blue:&b alpha:&a];
   return ABS(r - g) < 0.1 && MIN(r,g) - b > 0.2;
@@ -1300,7 +1300,7 @@ SYNTHESIZE_ASC_OBJ(name, setName);
     return hsvColor;
 }
 
-- (BOOL) canProvideRGBComponents {  CGColorSpaceModel ref = CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
+- _IsIt_ canProvideRGBComponents {  CGColorSpaceModel ref = CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
 
   return (ref == kCGColorSpaceModelRGB || ref == kCGColorSpaceModelMonochrome);
 }

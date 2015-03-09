@@ -202,12 +202,13 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 
 @prop_RO NSA *decolonize, *splitByComma;
 
+- _Text_ fromFile:_Text_ file;
 
-- (NSS*) substringBefore:(NSS*)delimiter;
-- (NSS*)  substringAfter:(NSS*)delimiter;
+- _Text_ substringBefore:(NSS*)delimiter;
+- _Text_  substringAfter:(NSS*)delimiter;
 // The difference between the splitBy and splitAt groups is that splitAt will return an array containing one or two elements
-- (NSA*) splitAt:(NSS*)delimiter;
-- (BOOL) splitAt:(NSS*)delimiter head:(NSS**)head tail:(NSS**)tail;
+- _List_ splitAt:(NSS*)delimiter;
+- _IsIt_ splitAt:(NSS*)delimiter head:(NSS**)head tail:(NSS**)tail;
 
 // excuse the pun, but it divides the string into a head and body word, trimmed
 @prop_RO  NSA * decapitate;

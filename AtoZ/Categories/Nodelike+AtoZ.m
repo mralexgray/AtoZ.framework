@@ -16,12 +16,12 @@
 @end
 
 @implementation NSString (InRange)
-- (BOOL) containsSet:(NSCharacterSet*)set inRange:(NSRange)r {
+- _IsIt_ containsSet:(NSCharacterSet*)set inRange:(NSRange)r {
 
   return [[self substringWithRange:r] rangeOfCharacterFromSet:set].location != NSNotFound;
 
 }
-- (BOOL) isOnlyWhitespace {
+- _IsIt_ isOnlyWhitespace {
   return ![self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet].length;
 }
 @end

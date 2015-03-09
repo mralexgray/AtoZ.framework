@@ -133,7 +133,7 @@ SetKPfVA(SiblingIndex,  @"superlayer", @"superlayer.sublayers.@count")  SetKPfVA
 - (void) disableResizeActions             { [self addActionsForKeys: @{ @"position":AZNULL, @"bounds":AZNULL}]; }
 - (void) disableActionsForKeys:(NSA*)ks   {	self.actions = [self.actions ?: @{} dictionaryWithValue:AZNULL forKeys:ks]; }
 - (void)     setAnimatesResize:(BOOL)a    { a ? [self removeActionsForKeys:@[@"bounds",@"position"]] : [self disableResizeActions]; }
-- (BOOL)        animatesResize            { return [self actionForKey:@"bounds"] || [self actionForKey:@"position"]; }
+- _IsIt_        animatesResize            { return [self actionForKey:@"bounds"] || [self actionForKey:@"position"]; }
 
 SYNTHESIZE_ASC_OBJ_BLOCK(needsLayoutForKeys,setNeedsLayoutForKeys,^{},^{
 
@@ -2206,7 +2206,7 @@ CAT3D CA3DxyZRotation       (CAT3D xYR, CAT3D zR) { return CATransform3DConcat(x
 
 @dynamic isLayoutManager;
 
-- (BOOL) isLayoutManager            { return self.layoutManager == AZLAYOUTMGR; }
+- _IsIt_ isLayoutManager            { return self.layoutManager == AZLAYOUTMGR; }
 - (void) setIsLayoutManager:(BOOL)l { self.layoutManager = l ? AZLAYOUTMGR : nil; }
 
 #pragma mark LayoutManager

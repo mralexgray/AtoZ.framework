@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 #import <AtoZ/AtoZ.h>
-#import "AtoZCategories.h"
-#import "NSTextView+AtoZ.h"
+//#import "AtoZCategories.h"
+//#import "NSTextView+AtoZ.h"
 
 @implementation AZTextViewResponder
 - (void) mouseDown:(NSEvent *)theEvent {
@@ -80,7 +80,7 @@
 //		self.selectedRange.length  ? nil : [self highlightLineContainingRange:self.selectedRange]; // not a multi-line selection
 //	}];
 }
-- (BOOL) highlightCurrentLine 					{   return [[self associatedValueForKey:self.highlightColorDefaultsKeyName orSetTo:@(NO)] bV]; }
+- _IsIt_ highlightCurrentLine 					{   return [[self associatedValueForKey:self.highlightColorDefaultsKeyName orSetTo:@(NO)] bV]; }
 - (NSC*) highlightCurrentLineColor 				{
 	NSData* colorAsData = [AZUSERDEFS objectForKey:self.highlightColorDefaultsKeyName];
 	__block NSC* c = colorAsData ? [NSKeyedUnarchiver unarchiveObjectWithData:colorAsData] : ^{

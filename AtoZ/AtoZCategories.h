@@ -213,7 +213,6 @@
 #import "NSWindow+AtoZ.h"
 #import "NSWindow_Flipr.h"
 #import "NullSafe.h"
-#import "ObjectMatcher.h"
 #import "OperationsRunnerProtocol.h"
 #import "PXListDocumentView.h"
 #import "PXListView.h"
@@ -223,7 +222,7 @@
 #import "RuntimeReporter.h"
 #import "SDCloseButtonCell.h"
 #import "SDToolkit.h"
-#import "SelectorMatcher.h"
+
 #import "SIAppCookieJar.h"
 #import "SIAuthController.h"
 #import "SIConstants.h"

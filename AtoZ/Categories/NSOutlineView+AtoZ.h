@@ -11,7 +11,7 @@
 
 @protocol NSOutlineViewDraggable
 @concrete
-- (BOOL) outlineView:(NSOV*)ov          isItemExpandable: x;
+- _IsIt_ outlineView:(NSOV*)ov          isItemExpandable: x;
 -  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem: x;
 -   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem: x;
 -   (id) outlineView:(NSOV*)ov objectValueForTableColumn:(NSTC*)col
@@ -51,9 +51,9 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 - (NSA*)   groupDescendants;
 - (NSA*)    leafDescendants;
 - (NSA*) 			 siblings;
-- (BOOL) isDescendantOfNode:				(NSTN*)node;
-- (BOOL)    isSiblingOfNode:				(NSTN*)node;
-- (BOOL) isSiblingOfOrDescendantOfNode:(NSTN*)node;
+- _IsIt_ isDescendantOfNode:				(NSTN*)node;
+- _IsIt_    isSiblingOfNode:				(NSTN*)node;
+- _IsIt_ isSiblingOfOrDescendantOfNode:(NSTN*)node;
 - (NSIndexPath*) adjacentIndexPath;
 - (NSIndexPath*) nextSiblingIndexPath;
 - (NSIndexPath*) nextChildIndexPath;

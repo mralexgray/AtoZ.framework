@@ -23,7 +23,7 @@
 }
 
 
-- (BOOL) setPositions:(NSA*)newPositions ofDividersAtIndexes:(NSA*)indexes {
+- _IsIt_ setPositions:(NSA*)newPositions ofDividersAtIndexes:(NSA*)indexes {
 	NSUInteger numberOfSubviews = self.subviews.count;
 	
 	// indexes and newPositions arrays must have the same object count
@@ -74,7 +74,7 @@
 	return YES;
 }
 
-- (BOOL) setPosition:(CGFloat)position ofDividerAtIndex:(NSInteger)dividerIndex animated:(BOOL) animated {
+- _IsIt_ setPosition:(CGFloat)position ofDividerAtIndex:(NSInteger)dividerIndex animated:(BOOL) animated {
 	if (!animated) [self setPosition:position ofDividerAtIndex:dividerIndex];
 	else {
 		NSUInteger numberOfSubviews = self.subviews.count;

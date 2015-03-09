@@ -67,7 +67,7 @@
     return [_name hash]; // use the hash of the string, that way "if two objects are
     // equal (as determined by the isEqual: method) they must have the same hash value"
 }
-- (BOOL) isEqual: x {
+- _IsIt_ isEqual: x {
 	return x == self ?: ISA(x,self.class) || ISA(self,[x class]) ? [_name isEqualToString:[x vFK:@"name"]] : NO;
 }
 
@@ -368,7 +368,7 @@ return $( @"<%@:%@ %@=%d>",AZCLSSTR, self, self.name, self.ordinal);
     return [self.name hash]; // use the hash of the string, that way "if two objects are
     // equal (as determined by the isEqual: method) they must have the same hash value"
 }
-- (BOOL) isEqual: (id) other						{
+- _IsIt_ isEqual: (id) other						{
     if (other == self) return YES;
 	return [other ISKINDA:self.class] || [self ISKINDA:[other class]] 
 	?	SameString(self.name, [other vFK:@"name"]) : NO;

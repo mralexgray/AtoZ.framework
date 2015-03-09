@@ -109,8 +109,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 - (void) replaceSubviewWithRandomTransition: (NSV*)oldView with: (NSV*)newView;
 
-- (BOOL) isSubviewOfView: (NSV*) theView;
-- (BOOL) containsSubView: (NSV*) subview;
+- _IsIt_ isSubviewOfView: (NSV*) theView;
+- _IsIt_ containsSubView: (NSV*) subview;
 
 //- (NSP)  getCenterOnFrame;
 //@property NSP center;
@@ -136,7 +136,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 @prop_RO NSIMG* snapshot;
 - (NSIMG*) snapshotFromRect:(NSR) sourceRect;
-- (BOOL)  requestFocus;
+- _IsIt_  requestFocus;
 @prop_RO NSTA* trackFullView;
 - (NSTA*) trackAreaWithRect:(NSR)rect;
 - (NSTA*) trackAreaWithRect:(NSR)rect  userInfo:(NSD*)context;

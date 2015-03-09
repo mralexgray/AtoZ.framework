@@ -8,7 +8,7 @@
 @end
 
 @interface NSString (InRange)
-- (BOOL) containsSet:(NSCharacterSet*)set inRange:(NSRange)r;
+- _IsIt_ containsSet:(NSCharacterSet*)set inRange:(NSRange)r;
 @property (readonly) BOOL isOnlyWhitespace;
 @end
 

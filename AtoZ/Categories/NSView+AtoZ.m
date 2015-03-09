@@ -4,7 +4,7 @@
 #import "NSView+AtoZ.h"
 
 @implementation NSViewFlipped
-- (BOOL) isFlipped { return YES; }
+- _IsIt_ isFlipped { return YES; }
 @end
 
 
@@ -418,7 +418,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 
 @dynamic postsRectChangedNotifications;
 
-- (BOOL) postsRectChangedNotifications            { return self.postsBoundsChangedNotifications && self.postsFrameChangedNotifications; }
+- _IsIt_ postsRectChangedNotifications            { return self.postsBoundsChangedNotifications && self.postsFrameChangedNotifications; }
 - (void) setPostsRectChangedNotifications:(BOOL)x { self.postsBoundsChangedNotifications = self.postsFrameChangedNotifications = x;     }
 
 - (void) observeFrameChange: (void(^)(NSV*))block; { self.postsRectChangedNotifications = YES;
@@ -442,7 +442,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 //									[self observeName:name usingBlock:^(NSNOT*n) {	 block(n);	}]; }];
 }
 
-- (BOOL) isSubviewOfView:(NSV*)theView  {
+- _IsIt_ isSubviewOfView:(NSV*)theView  {
 	__block BOOL isSubView = NO;
 	[[theView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([self isEqualTo:(NSV*) obj]) {
@@ -452,7 +452,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 	}];
 	return isSubView;
 }
-- (BOOL) containsSubView:(NSV*)subview  {
+- _IsIt_ containsSubView:(NSV*)subview  {
 	__block BOOL containsSubView = NO;
 	[[self subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([subview isEqualTo:(NSV*) obj]) {
@@ -1005,7 +1005,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 	}];
 	//	addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:contentView];
 }
-- (BOOL) autoScrollToBottom {  return [self associatedValueForKey:@"autoScroll"]; }
+- _IsIt_ autoScrollToBottom {  return [self associatedValueForKey:@"autoScroll"]; }
 
 #define AUTOSCROLL_CATCH_SIZE 	20	//The distance (in pixels) that the scrollview must be within (from the bottom) for auto-scroll to kick in.
 - (void)setAutoScrollToBottom:(BOOL)inValue

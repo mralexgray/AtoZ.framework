@@ -325,8 +325,8 @@
 typedef void(^MPRenderASCIIBlock)(NSString* art);
 
 @interface CAL (MPPixelHitTesting)
-- (BOOL) pixelsHitTest:(CGP)p;
-- (BOOL) pixelsIntersectWithRect:(CGRect)rect;
+- _IsIt_ pixelsHitTest:(CGP)p;
+- _IsIt_ pixelsIntersectWithRect:(CGRect)rect;
 - (void) setRenderASCIIBlock:(MPRenderASCIIBlock)block;
 - (MPRenderASCIIBlock) renderASCIIBlock;
 @end

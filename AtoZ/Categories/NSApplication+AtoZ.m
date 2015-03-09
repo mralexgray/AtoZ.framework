@@ -149,7 +149,7 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 	}
 }
 
-- (BOOL) launchAtLogin {
+- _IsIt_ launchAtLogin {
 
   LSSharedFileListItemRef loginItem = self.loginItem;
 
@@ -226,7 +226,7 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
 @implementation NSProcessInfo (Extensions)
 
 // From http://developer.apple.com/mac/library/qa/qa2004/qa1361.html
-- (BOOL) isDebuggerAttached {
+- _IsIt_ isDebuggerAttached {
 	struct kinfo_proc info;
 	info.kp_proc.p_flag = 0;
 

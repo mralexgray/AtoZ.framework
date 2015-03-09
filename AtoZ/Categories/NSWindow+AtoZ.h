@@ -146,17 +146,17 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
 + (NSA*) miniaturizedWindows;
 
 - (void) setFloating:(BOOL)set;
-- (BOOL) isFloating;
+- _IsIt_ isFloating;
 
-- (BOOL) isMetallic;
-- (BOOL) isBorderless;
+- _IsIt_ isMetallic;
+- _IsIt_ isBorderless;
 
 // returns parentWindow if an NSDrawerWindow, returns self if not a drawerWindow
 - (NSWindow*) parentWindowIfDrawerWindow;
 
-- (BOOL) dimControls;
-- (BOOL) dimControlsKey;
-- (BOOL) keyWindowIsMenu;
+- _IsIt_ dimControls;
+- _IsIt_ dimControlsKey;
+- _IsIt_ keyWindowIsMenu;
 
 - (void) flushActiveTextFields;
 

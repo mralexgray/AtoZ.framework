@@ -84,7 +84,7 @@
 @implementation NSURLRequest (UserAgentSwizzling)
 @dynamic useRandomUA;
 
-- (BOOL) useRandomUA { return [self associatedValueForKey:@"useRandomUA" orSetTo:@NO]; }
+- _IsIt_ useRandomUA { return [self associatedValueForKey:@"useRandomUA" orSetTo:@NO]; }
 - (void) setUseRandomUA: (BOOL) u { [self setAssociatedValue:@(u) forKey:@"useRandomUA"]; }
 
 + (NSS*) randomUA {

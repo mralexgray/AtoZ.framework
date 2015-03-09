@@ -25,7 +25,7 @@
 @property (readonly) BOOL isaBlock;
 @property (readonly) NSS* blockDescription;
 @property (readonly) NSMethodSignature * blockSignature;
-- (BOOL) isKindOfBlock: anotherBlock;
+- _IsIt_ isKindOfBlock: anotherBlock;
 
 @end
 
@@ -130,12 +130,12 @@
 @interface NSObject (Utilities)
 
 - (NSS*) xmlRepresentation;
-- (BOOL) saveAs:(NSS*)file;
+- _IsIt_ saveAs:(NSS*)file;
 
 
 // Selector Utilities
 //- (INV*) invocationWithSelectorAndArguments:(SEL)s,...;
-//- (BOOL) performSelector:(SEL)s withReturnValueAndArguments: (void *) result, ...;
+//- _IsIt_ performSelector:(SEL)s withReturnValueAndArguments: (void *) result, ...;
 - (const char *) returnTypeForSelector:(SEL)s;
 
 // Request return value from performing selector
@@ -167,8 +167,8 @@
 
 /// Check for properties, ivar. Use respondsToSelector: and conformsToProtocol: as well
 
-- (BOOL) hasProperty:(NSS*)pName;
-- (BOOL)     hasIvar:(NSS*)iName;
+- _IsIt_ hasProperty:(NSS*)pName;
+- _IsIt_     hasIvar:(NSS*)iName;
 + (BOOL) classExists:(NSS*)cName;
 //+   (id) instanceOfClassNamed:(NSS*)className;
 
@@ -198,9 +198,9 @@
 
 @prop_NA NSS * description;
 
-- (BOOL) az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB;
+- _IsIt_ az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB;
 
-//- (BOOL) conformToProtocol: nameOrProtocol;
+//- _IsIt_ conformToProtocol: nameOrProtocol;
 /*! Dynamically overrides the specified method on this particular instance.
   @param selector the @selector to override   
   @param block The block's parameters and return type must match those of the method you are overriding. 

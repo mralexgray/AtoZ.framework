@@ -3,7 +3,7 @@
 
 @concreteprotocol(NSOutlineViewDraggable)
 
-- (BOOL) outlineView:(NSOV*)ov          isItemExpandable: x      { return NO; }
+- _IsIt_ outlineView:(NSOV*)ov          isItemExpandable: x      { return NO; }
 -  (int) outlineView:(NSOV*)ov    numberOfChildrenOfItem: x      { return 0;  }
 -   (id) outlineView:(NSOV*)ov     child:(int)idx ofItem: x      { return nil; }
 -   (id) outlineView:(NSOV*)ov objectValueForTableColumn:(NSTC*)col 
@@ -108,7 +108,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	
 	return [self mutableArrayValueForKey:kAZTreeNodeChildNodesKey];
 }
-- (BOOL) isLeaf {	return ([self countOfChildNodes] == 0)?YES:NO; }
+- _IsIt_ isLeaf {	return ([self countOfChildNodes] == 0)?YES:NO; }
 - (NSUI) countOfChildNodes { return [_childNodes count]; }
 - (NSA*) descendantNodes; {
 	NSMutableArray *retval = [NSMutableArray array];
@@ -229,8 +229,8 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 
 // all the siblings, including self
 - (NSA*) siblings											{	return self.parentNode.childNodes;					}
-- (BOOL) isDescendantOfNode:(NSTreeNode*)node	{	return [node.descendants containsObject:self];	}
-- (BOOL) isSiblingOfNode:	 (NSTreeNode*)node	{	return self.parentNode == node.parentNode;		}
+- _IsIt_ isDescendantOfNode:(NSTreeNode*)node	{	return [node.descendants containsObject:self];	}
+- _IsIt_ isSiblingOfNode:	 (NSTreeNode*)node	{	return self.parentNode == node.parentNode;		}
 
 - (BOOL)	isSiblingOfOrDescendantOfNode:(NSTreeNode *)node {	
 

@@ -23,10 +23,10 @@
 @end
 
 @implementation NSO (BlockIntrospection)
-- (BOOL) isKindOfBlock: anotherBlock  { return [self.blockSignature isEqual:[anotherBlock blockSignature]]; }
+- _IsIt_ isKindOfBlock: anotherBlock  { return [self.blockSignature isEqual:[anotherBlock blockSignature]]; }
 - (NSS*) blockDescription                { return  self.blockSignature.debugDescription;	}
 - (SIG*) blockSignature                  { return [CTBlockDescription.alloc initWithBlock:self].blockSignature;	}
-- (BOOL) isaBlock                        { return [self.className containsAnyOf:@[@"NSGlobalBlock", @"NSBlock"]];
+- _IsIt_ isaBlock                        { return [self.className containsAnyOf:@[@"NSGlobalBlock", @"NSBlock"]];
 
 //  for (id x in @[@"NSGlobalBlock", @"NSBlock"]) if ([self.className rangeOfString:x].location != NSNotFound) return YES;
 }
@@ -569,7 +569,7 @@
 }
 
 // Peform the selector using va_list arguments
-- (BOOL) performSelector: (SEL) selector withReturnValue: (void *) result andArguments: (va_list) arglist {
+- _IsIt_ performSelector: (SEL) selector withReturnValue: (void *) result andArguments: (va_list) arglist {
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
 	if (!inv) return NO;
 	[inv invoke];
@@ -578,7 +578,7 @@
 }
 // Perform a selector with an arbitrary number of arguments
 // Thanks to Kevin Ballard for assist!
-- (BOOL) performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...  {
+- _IsIt_ performSelector: (SEL) selector withReturnValueAndArguments: (void *) result, ...  {
 	va_list arglist;
 	va_start(arglist, result);
 	NSInvocation *inv = [self invocationWithSelector:selector andArguments:arglist];
@@ -801,14 +801,14 @@
 	return dict;
 }
 // Runtime checks of properties, etc.
-- (BOOL) hasProperty: (NSS*) propertyName {
+- _IsIt_ hasProperty: (NSS*) propertyName {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = [self runtime_properties];
 	for (NSArray *properties in [dict allValues])
 		[set addObjectsFromArray:properties];
 	return [set containsObject:propertyName];
 }
-- (BOOL) hasIvar:     (NSS*) ivarName     {
+- _IsIt_ hasIvar:     (NSS*) ivarName     {
 	NSMutableSet *set = [NSMutableSet set];
 	NSDictionary *dict = self.ivars;
 	for (NSArray *ivars in [dict allValues])

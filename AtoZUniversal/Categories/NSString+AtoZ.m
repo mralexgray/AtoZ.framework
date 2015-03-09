@@ -74,7 +74,9 @@
 
 @implementation NSString (AtoZ)
 
-- (BOOL) isValidURL {
+- _Text_ fromFile:_Text_ file { return [self.class.alloc initWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil]; }
+
+- _IsIt_ isValidURL {
 
     if (!self) return NO;
 

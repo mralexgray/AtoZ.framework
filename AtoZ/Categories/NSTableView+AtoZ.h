@@ -24,7 +24,7 @@
 //{\
 //	return NSDragOperationEvery/*op == NSTableViewDropAbove ? NSDragOperationEvery : NSDragOperationNone;	*/\
 //}\
-//- (BOOL) tableView:(NSTV*)tV acceptDrop:(IDDRAG)info row:(NSI)row dropOperation:(NSTVDO)op	{\
+//- _IsIt_ tableView:(NSTV*)tV acceptDrop:(IDDRAG)info row:(NSI)row dropOperation:(NSTVDO)op	{\
 //	NSPasteboard* pboard 		= [info draggingPasteboard];\
 //	NSData		* rowData 		= [pboard dataForType:dragTypeDeclaration];\
 //	NSIS			* rowIndexes 	= [NSKeyedUnarchiver unarchiveObjectWithData:rowData];\
@@ -32,7 +32,7 @@
 //	[[self mutable:mutableObjectArrayKey] moveObjectAtIndex:dragRow toIndex:row];\
 //	return YES;\
 //}\
-//- (BOOL) tableView:(NSTV*)tV writeRowsWithIndexes:(NSIS*)rowIdxs toPasteboard:(NSPB*)pb		{\
+//- _IsIt_ tableView:(NSTV*)tV writeRowsWithIndexes:(NSIS*)rowIdxs toPasteboard:(NSPB*)pb		{\
 //	NSData 	*data = [NSKeyedArchiver archivedDataWithRootObject:rowIdxs];\
 //	[pb declareTypes:@[dragTypeDeclaration] owner:self];\
 //	[pb setData:data forType:dragTypeDeclaration];	return YES;	\

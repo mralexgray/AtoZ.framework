@@ -1141,7 +1141,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 // [self az_overrideSelector:@selector(canBecomeMainWindow) withBlock:(__bridge void *)^BOOL(id _self){ return canI; }]; }
 //- (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress {	if ([animation valueForKeyPath:@"dictionary.preSlideUpExtendView"] == theAnim)		}	}
 
-//- (BOOL) hasLayer							{ return [self.contentView layer] != nil;		}
+//- _IsIt_ hasLayer							{ return [self.contentView layer] != nil;		}
 //-  (CGF) originX          { return  self.frame.origin.x; 		}
 //-  (CGF) originY					{ return  self.frame.origin.y; 		}
 // : [self.contentView setupHostView]; }

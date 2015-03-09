@@ -109,10 +109,10 @@ NSMS* html = $(@"<html>\
 
 #pragma mark - DarknessAndContrast)
 
-- (BOOL) colorIsDark                          {
+- _IsIt_ colorIsDark                          {
   return ([[self colorUsingColorSpaceName:NSCalibratedRGBColorSpace] brightnessComponent] < 0.5f);
 }
-- (BOOL) colorIsMedium                        {
+- _IsIt_ colorIsMedium                        {
   CGFloat brightness = [[self colorUsingColorSpaceName:NSCalibratedRGBColorSpace] brightnessComponent];
   return (0.35f < brightness && brightness < 0.65f);
 }
@@ -307,7 +307,7 @@ scanFailed:
                                                 blue: [componentValues[2]fV] / 255. alpha:1];
 }
 #pragma mark - ColorspaceEquality
-- (BOOL) isEqualToColor:(NSC*)inColor colorSpace:(NSS*)inColorSpace {
+- _IsIt_ isEqualToColor:(NSC*)inColor colorSpace:(NSS*)inColorSpace {
   return  [self colorUsingColorSpaceName:inColorSpace] &&   [inColor colorUsingColorSpaceName:inColorSpace]
   && [[self colorUsingColorSpaceName:inColorSpace] isEqual:[inColor colorUsingColorSpaceName:inColorSpace]];
 }

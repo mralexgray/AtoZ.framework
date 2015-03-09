@@ -25,14 +25,14 @@
 	@param	 animated				use animated transitions?
 	@return					 YES if you can animate your transitions
 */
-- (BOOL) setPosition:(CGFloat)position ofDividerAtIndex:(NSInteger)dividerIndex animated:(BOOL) animated;
+- _IsIt_ setPosition:(CGFloat)position ofDividerAtIndex:(NSInteger)dividerIndex animated:(BOOL) animated;
 
 /** Set more than one divider position at the same time using animated transitions
  @param  newPositions		   an array of the new divider positions (pass it as NSNumber)
  @param  dividerIndexes		 divider indexes array (set of NSNumber)
  @return						YES if you can animate your transitions
 */
-- (BOOL) setPositions:(NSArray*)newPositions ofDividersAtIndexes:(NSArray*)dividerIndexes;
+- _IsIt_ setPositions:(NSArray*)newPositions ofDividersAtIndexes:(NSArray*)dividerIndexes;
 
 /** Set the new position of a divider at index.
  @param  position			   the new divider position

@@ -46,8 +46,8 @@ NSS *    NSBundleFolder (void);
 //+ (NSImage *) imageNamed: (NSS*) aName;
 //+ (NSImage *) imageFromURLString: (NSS*) urlstring;
 
-- (BOOL) isSymlink:(NSString*)ln;
-- (BOOL) isSymlink:(NSString*)ln to:(NSString*)p;
+- _IsIt_ isSymlink:(NSString*)ln;
+- _IsIt_ isSymlink:(NSString*)ln to:(NSString*)p;
 
 @end
 
@@ -78,13 +78,13 @@ NSS *    NSBundleFolder (void);
 
 @interface NSFileManager (Extensions)
 - (NSS*) mimeTypeFromFileExtension:(NSS*)extension;
-- (BOOL) getExtendedAttributeBytes:(void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
+- _IsIt_ getExtendedAttributeBytes:(void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
 - (NSData*) extendedAttributeDataWithName:(NSS*)name forFileAtPath:(NSS*)path;
 - (NSS*) extendedAttributeStringWithName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
-- (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
-- (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSS*)name forFileAtPath:(NSS*)path;
-- (BOOL) setExtendedAttributeString:(NSS*)string withName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
-- (BOOL) removeItemAtPathIfExists:(NSS*)path;
+- _IsIt_ setExtendedAttributeBytes:(const void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
+- _IsIt_ setExtendedAttributeData:(NSData*)data withName:(NSS*)name forFileAtPath:(NSS*)path;
+- _IsIt_ setExtendedAttributeString:(NSS*)string withName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
+- _IsIt_ removeItemAtPathIfExists:(NSS*)path;
 - (NSA*) directoriesInDirectoryAtPath:(NSS*)path includeInvisible:(BOOL)invisible;
 - (NSA*) filesInDirectoryAtPath:(NSS*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
 #if TARGET_OS_IPHONE
@@ -104,7 +104,7 @@ NSS *    NSBundleFolder (void);
 
 @interface NSString (CarbonUtilities)
 + (NSS*)    stringWithFSRef:(const FSRef *)aFSRef;
-- (BOOL)         getFSRef:(FSRef *)aFSRef;
+- _IsIt_         getFSRef:(FSRef *)aFSRef;
 - (NSS*)    resolveAliasFile;
 - (NSS*) humanReadableFileTypeForFileExtension;
 @end

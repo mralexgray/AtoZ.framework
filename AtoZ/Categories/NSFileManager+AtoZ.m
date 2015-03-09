@@ -22,11 +22,11 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 @implementation NSFileManager (AtoZ)
 
-- (BOOL) isSymlink:(NSString*)ln to:(NSString*)p { return [self isSymlink:ln] &&
+- _IsIt_ isSymlink:(NSString*)ln to:(NSString*)p { return [self isSymlink:ln] &&
                                                          [[self destinationOfSymbolicLinkAtPath:ln error:nil] isEqualToString:p];
 }
 
-- (BOOL) isSymlink:(NSString*)ln { return [self attributesOfItemAtPath:ln error:nil][NSFileType] == NSFileTypeSymbolicLink; }
+- _IsIt_ isSymlink:(NSString*)ln { return [self attributesOfItemAtPath:ln error:nil][NSFileType] == NSFileTypeSymbolicLink; }
 
 - tagForFileAtPath:pathorurl {
 
@@ -431,7 +431,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	return type;
 }
 
-- (BOOL) getExtendedAttributeBytes:(void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
+- _IsIt_ getExtendedAttributeBytes:(void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
 	if (bytes) {
 		const char* utf8Name = [name UTF8String];
 		const char* utf8Path = [path UTF8String];
@@ -461,7 +461,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	return data ? [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding] : nil;
 }
 
-- (BOOL) setExtendedAttributeBytes:(const void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
+- _IsIt_ setExtendedAttributeBytes:(const void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
 	if (bytes || !length) {
 		const char* utf8Name = [name UTF8String];
 		const char* utf8Path = [path UTF8String];
@@ -471,16 +471,16 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	return NO;
 }
 
-- (BOOL) setExtendedAttributeData:(NSData*)data withName:(NSString*)name forFileAtPath:(NSString*)path {
+- _IsIt_ setExtendedAttributeData:(NSData*)data withName:(NSString*)name forFileAtPath:(NSString*)path {
 	return [self setExtendedAttributeBytes:data.bytes length:data.length withName:name forFileAtPath:path];
 }
 
-- (BOOL) setExtendedAttributeString:(NSString*)string withName:(NSString*)name forFileAtPath:(NSString*)path {
+- _IsIt_ setExtendedAttributeString:(NSString*)string withName:(NSString*)name forFileAtPath:(NSString*)path {
 	NSData* data = [string dataUsingEncoding:NSUTF8StringEncoding];
 	return data ? [self setExtendedAttributeData:data withName:name forFileAtPath:path] : NO;
 }
 
-- (BOOL) removeItemAtPathIfExists:(NSString*)path {
+- _IsIt_ removeItemAtPathIfExists:(NSString*)path {
 	if ([self fileExistsAtPath:path]) {
 		return [self removeItemAtPath:path error:NULL];
 	}
@@ -623,7 +623,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	UInt8			thePath[PATH_MAX + 1];		// plus 1 for \0 terminator
 	return (FSRefMakePath ( aFSRef, thePath, PATH_MAX ) == noErr) ? [NSString stringWithUTF8String: (char*) thePath] : nil;
 }
-- (BOOL) getFSRef:(FSRef *)aFSRef								{
+- _IsIt_ getFSRef:(FSRef *)aFSRef								{
 	return FSPathMakeRef( (UInt8*) [self UTF8String], aFSRef, NULL ) == noErr;
 }
 - (NSS*) resolveAliasFile								{
