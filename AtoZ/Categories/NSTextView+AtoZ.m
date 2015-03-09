@@ -244,7 +244,7 @@
 
 }
 
-- (void)changeFontSize:(CGFloat)delta;
+- _Void_ changeFontSize:(CGFloat)delta;
 {
 	NSFontManager * fontManager = [NSFontManager sharedFontManager];
 	NSTextStorage * textStorage = [self textStorage];
@@ -285,7 +285,7 @@
 
 @implementation NSSegmentedControl (FitTextNice)
 
-- (void)fitTextNice {
+- _Void_ fitTextNice {
 	NSInteger N = [self segmentCount] ;
 	NSInteger i ;
 

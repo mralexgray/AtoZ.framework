@@ -53,7 +53,7 @@
 -   (id) init 																		{	if (!(self = [super init])) return nil;	strings = NSMA.new;	return self;
 	//  Copyright 2011 Leigh McCulloch. Released under the MIT license.
 }
-- (void) parser:(NSXMLParser*)parser foundCharacters:(NSS*)string {	[strings addObject:string];}
+- _Void_ parser:(NSXMLParser*)parser foundCharacters:(NSS*)string {	[strings addObject:string];}
 - (NSS*) getCharsFound 															{	return [strings componentsJoinedByString:@""];	}
 @end
 
@@ -74,7 +74,7 @@
 
 @implementation NSString (AtoZ)
 
-- _Text_ fromFile:_Text_ file { return [self.class.alloc initWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil]; }
++ _Text_ fromFile:_Text_ file { return [self.alloc initWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil]; }
 
 - _IsIt_ isValidURL {
 
@@ -578,7 +578,7 @@ finish:
 	return 							  [pasteboard stringForType:type];
 
 }
-- (void) copyToClipboard {
+- _Void_ copyToClipboard {
 
 	[NSPBGENERAL declareTypes:@[NSStringPboardType] owner:nil];
 	// Above, we can say owner:nil since we are going to provide data immediately
@@ -604,7 +604,7 @@ finish:
 - (NSN*)numberValue 							{
 	return [[NSNumberFormatter.alloc init] numberFromString:self];
 }
-- (void)copyFileAtPathTo:(NSS*)path 	{
+- _Void_ copyFileAtPathTo:(NSS*)path 	{
 	if ([[NSFileManager defaultManager] isReadableFileAtPath:self]) [[NSFileManager defaultManager] copyItemAtPath:self toPath:path error:nil];
 }
 - (CGF)pointSizeForFrame:(NSR)frame withFont: font											{
@@ -675,7 +675,7 @@ finish:
 	return [NSUnarchiver unarchiveObjectWithData:theData];
 }
 
-//- (void)drawCenteredInRect:(CGRect)rect withFontNamed:(NSFont *)font
+//- _Void_ drawCenteredInRect:(CGRect)rect withFontNamed:(NSFont *)font
 //{
 //	CGSize size = CGSizeMake(20.0f, 400.0f); // [self sizeWithAttributes: //sizeWithFont:font];
 //	CGRect textBounds = [self rectWithFont:[]
@@ -685,9 +685,9 @@ finish:
 //								   size.width, size.height };
 //	[self drawCenteredInRect:textBounds withFont:font.fontName];
 //}
-//- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
-- (void)drawCenteredInRect:(NSR)rect withFont:(NSF *)font {
-	//- (void)drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
+//- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+- _Void_ drawCenteredInRect:(NSR)rect withFont:(NSF *)font {
+	//- _Void_ drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 	//	NSView *view = framer;
 	//	NSSize size = view.frame.size;// WithFont:font;
 	NSAttributedString *string = [NSAttributedString.alloc initWithString:self attributes:@{ font: NSFontAttributeName, NSFontSizeAttribute: @(font.pointSize) } ];
@@ -697,7 +697,7 @@ finish:
 	[string drawCenteredVerticallyInRect:rect];    // withFontNamed:font.fontName andColor:WHITE];//@{font:NSFontNameAttribute }];
 }
 
-- (void)drawInRect:(NSRect)r withFont:(NSFont *)font andColor:(NSColor *)color {
+- _Void_ drawInRect:(NSRect)r withFont:(NSFont *)font andColor:(NSColor *)color {
 	[self drawInRect:r withFontNamed:font.fontName andColor:color];
 }
 
@@ -725,7 +725,7 @@ finish:
 //	return AZRectFromSize([self sizeWithFont:font margin:NSMakeSize(font.pointSize / 2, font.pointSize / 2)]);
 }
 
-- (void)drawInRect:(NSRect)r withFontNamed:(NSS*) fontName andColor:(NSColor *)color {
+- _Void_ drawInRect:(NSRect)r withFontNamed:(NSS*) fontName andColor:(NSColor *)color {
 	NSMPS *paraAttr = [[NSMPS defaultParagraphStyle ] mutableCopy];
 	[paraAttr setAlignment:NSCenterTextAlignment];
 	[paraAttr setLineBreakMode:NSLineBreakByTruncatingTail];
@@ -1446,14 +1446,14 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
  }
 
  // KVC compliance stuff: This was needed for NSTreeController.  Not needed for the iPhone version.
- //- (void) setSubclassNames:(NSA*) names { NSLog(@"Can't set subclass names!"); }
+ //- _Void_ setSubclassNames:(NSA*) names { NSLog(@"Can't set subclass names!"); }
  //- (id) valueForUndefinedKey:(NSS*) key { return self; }
- //- (void) setValue: value forUndefinedKey:(NSS*)key { NSLog(@"unknown key:%@", key); }
+ //- _Void_ setValue: value forUndefinedKey:(NSS*)key { NSLog(@"unknown key:%@", key); }
  @end
  */
 
 @implementation NSMutableAttributedString (Additions)
-- (void)resizeTo:(CGFloat)size
+- _Void_ resizeTo:(CGFloat)size
 {
   [@(self.length) do:^(int idx) {
 
@@ -1463,7 +1463,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
                  range:NSMakeRange(idx, 1)];
   }];
 }
-- (void) setFont:(NSFont*)font {
+- _Void_ setFont:(NSFont*)font {
 
   [self addAttribute:NSFontAttributeName value:font range:self.string.range];
 }
@@ -1482,20 +1482,20 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //                                                   range:[(NSS*)maString range]];
 
 
-- (void) drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c {
+- _Void_ drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c {
 
 [NSException raise:@"you need AtoZGeomtry!" format:@""];
 //  NSR rr = AZCornerRectPositionedWithSize(r, a, self.size);
 //  [self drawInRect:rr withContrastingBackground:c];
 }
 
-- (void) drawInRect:(NSR)r withBackground:(NSC*)c {
+- _Void_ drawInRect:(NSR)r withBackground:(NSC*)c {
   [c set];
   NSRectFill(r);
 //  NSRectFillWithColor(r,c);
   [self drawInRect:r]; }
 
-- (void) drawInRect:(NSR)r withContrastingBackground:(NSC*)c {
+- _Void_ drawInRect:(NSR)r withContrastingBackground:(NSC*)c {
 
   [NSException raise:@"you need NSColor+AtoZ!" format:@""];
 
@@ -1505,7 +1505,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //    drawInRect:r withBackground:c];
 }
 
-- (void) draw {
+- _Void_ draw {
 
   [NSGC drawInContext:AZGRAPHICSCTX.graphicsPort flipped:YES actions:^{
     [self drawAtPoint:NSZeroPoint];
@@ -1580,7 +1580,7 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 }
 
 
-- (void)drawCenteredVerticallyInRect:(NSR)rect {
+- _Void_ drawCenteredVerticallyInRect:(NSR)rect {
 	CGF strHeight = [self heightForWidth:rect.size.width] * 1.4;
 	CGF      orgY = rect.origin.y + (rect.size.height / 2) - (strHeight / 2);
 	[self drawInRect:(NSR){rect.origin.x, orgY, rect.size.width, strHeight}];
@@ -2018,7 +2018,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 @end
 @implementation NSMutableString (Extensions)
-- (void)trimWhitespaceAndNewlineCharacters {
+- _Void_ trimWhitespaceAndNewlineCharacters {
 	NSRange range = [self rangeOfCharacterFromSet:_GetCachedCharacterSet(kCharacterSet_WhitespaceAndNewline_Inverted)];
 	if ((range.location != NSNotFound) && (range.location > 0)) {
 		[self deleteCharactersInRange:NSMakeRange(0, range.location)];
@@ -2795,7 +2795,7 @@ static void _ScanSentence(NSScanner *scanner) {
 		return 0;
 	return [[self string] characterAtIndex:[self scanLocation]];
 }
-- (void)inc			{
+- _Void_ inc			{
 	if (![self isAtEnd])
 		[self setScanLocation:[self scanLocation] + 1];
 }
@@ -3028,7 +3028,7 @@ static void _ScanSentence(NSScanner *scanner) {
 		*intoKeyCode = ch;
 	return YES;
 }
-- (void)skipWhitespace																	{
+- _Void_ skipWhitespace																	{
 	[self scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:nil];
 }
 @end
@@ -3669,7 +3669,7 @@ static NSMD* cache;
 	}
 	return [illegalSet copy];
 }
-- (void) log { [self.class logCharacterSet:self];}
+- _Void_ log { [self.class logCharacterSet:self];}
 + (void) logCharacterSet:(NSCharacterSet*)characterSet {
 
     unichar unicharBuffer[20]; int index = 0;
@@ -4403,7 +4403,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 @end
 
 @implementation NSMutableString (NSMutableStringAdditions)
-- (void) encodeXMLSpecialCharactersAsEntities         {
+- _Void_ encodeXMLSpecialCharactersAsEntities         {
 	NSCharacterSet *special = [NSCharacterSet characterSetWithCharactersInString:@"&<>\"'"];
 	NSRange range = [self rangeOfCharacterFromSet:special options:NSLiteralSearch];
 	if( range.location == NSNotFound )
@@ -4415,7 +4415,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 	[self replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:NSLiteralSearch range:NSMakeRange( 0, self.length )];
 	[self replaceOccurrencesOfString:@"'" withString:@"&apos;" options:NSLiteralSearch range:NSMakeRange( 0, self.length )];
 }
-- (void) decodeXMLSpecialCharacterEntities            {
+- _Void_ decodeXMLSpecialCharacterEntities            {
 	NSRange range = [self rangeOfString:@"&" options:NSLiteralSearch];
 	if( range.location == NSNotFound )
 		return;
@@ -4426,7 +4426,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 	[self replaceOccurrencesOfString:@"&apos;" withString:@"'" options:NSLiteralSearch range:NSMakeRange( 0, self.length )];
 	[self replaceOccurrencesOfString:@"&amp;" withString:@"&" options:NSLiteralSearch range:NSMakeRange( 0, self.length )];
 }
-- (void) escapeCharactersInSet:(NSCharacterSet*)set   {
+- _Void_ escapeCharactersInSet:(NSCharacterSet*)set   {
 	NSRange range = [self rangeOfCharacterFromSet:set];
 	if( range.location == NSNotFound )
 		return;
@@ -4442,7 +4442,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 		}
 	}
 }
-- (void) replaceCharactersInSet:(NSCharacterSet*)set withString:(NSString*)string {
+- _Void_ replaceCharactersInSet:(NSCharacterSet*)set withString:(NSString*)string {
 	NSRange range = NSMakeRange(0, self.length);
 	NSUInteger stringLength = string.length;
 
@@ -4454,13 +4454,13 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 		range.length = self.length - replaceRange.location;
 	}
 }
-- (void) encodeIllegalURLCharacters {
+- _Void_ encodeIllegalURLCharacters {
 	[self setString:[self stringByEncodingIllegalURLCharacters]];
 }
-- (void) decodeIllegalURLCharacters {
+- _Void_ decodeIllegalURLCharacters {
 	[self setString:[self stringByDecodingIllegalURLCharacters]];
 }
-- (void) stripIllegalXMLCharacters  {
+- _Void_ stripIllegalXMLCharacters  {
 	NSCharacterSet *illegalSet = [NSCharacterSet illegalXMLCharacterSet];
 	NSRange range = [self rangeOfCharacterFromSet:illegalSet];
 	while( range.location != NSNotFound ) {
@@ -4468,7 +4468,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 		range = [self rangeOfCharacterFromSet:illegalSet];
 	}
 }
-- (void) stripXMLTags {
+- _Void_ stripXMLTags {
 	NSRange searchRange = NSMakeRange(0, self.length);
 	while (1) {
 		NSRange tagStartRange = [self rangeOfString:@"<" options:NSLiteralSearch range:searchRange];

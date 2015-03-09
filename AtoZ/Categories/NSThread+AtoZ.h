@@ -13,12 +13,12 @@
 @end
 
 @interface NSThread (BlocksAdditions)
-- (void)performBlock:(void (^)())block;
-- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
+- _Void_ performBlock:(void (^)())block;
+- _Void_ performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
 + (void)performBlockInBackground:(void (^)())block;
 
 + (void)runBlock:(void (^)())block;
-- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
+- _Void_ performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
 @end
 
@@ -33,9 +33,9 @@
 + (void)performAZBlockOnMainThread:(void (^)())block;
 + (void)performAZBlockInBackground:(void (^)())block;
 + (void)runAZBlock:(void (^)())block;
-- (void)performAZBlock:(void (^)())block;
-- (void)performAZBlock:(void (^)())block waitUntilDone:(BOOL)wait;
-- (void)performAZBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
+- _Void_ performAZBlock:(void (^)())block;
+- _Void_ performAZBlock:(void (^)())block waitUntilDone:(BOOL)wait;
+- _Void_ performAZBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
 @end
 */

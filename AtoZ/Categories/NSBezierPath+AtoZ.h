@@ -12,11 +12,11 @@
 @end
 @interface NSBezierPath (ShadowDrawing)
 /* fill a bezier path, but draw a shadow under it offset by the given angle (counter clockwise from the x-axis) and distance. */
-- (void)fillWithShadowAtDegrees:(CGF) angle withDistance: (CGF) distance;
+- _Void_ fillWithShadowAtDegrees:(CGF) angle withDistance: (CGF) distance;
 @end
 @interface BezierNSLayoutManager: NSLayoutManager 
 @property (nonatomic, copy) NSBezierPath* theBezierPath;
-- (void)showPackedGlyphs:(char*)glyphs length:(unsigned)glyphLen	/* convert NSString into a NSBezierPath using a specific font. */
+- _Void_ showPackedGlyphs:(char*)glyphs length:(unsigned)glyphLen	/* convert NSString into a NSBezierPath using a specific font. */
 		glyphRange:(NSRange)glyphRange atPoint:(NSPoint)point font:(NSFont *)font
 		color:(NSC*)color printingAdjustment:(NSSZ)printingAdjustment;
 @end
@@ -54,7 +54,7 @@
 
 - (void) drawWithFill: 	   (NSC*)fill  andStroke: (NSC*)stroke;
 - (void) fillGradientFrom: (NSC*)start to:(NSC*)end angle:(float)inAngle;
-- (void)fillGradientFrom:(NSC*)c1 to:(NSC*)c2 startAlign:(AZAlign)align;
+- _Void_ fillGradientFrom:(NSC*)c1 to:(NSC*)c2 startAlign:(AZAlign)align;
 
 @property (STR,NATOM) NSA* dashPattern;
 //- (NSA*) dashPattern;
@@ -171,5 +171,5 @@ NSP  UKRightCenterOfRect ( NSR rect );
 /* Fill a path with a gradient color - lighter at top, darker at bottom
  * <http://www.wilshipley.com/blog/2005/07/pimp-my-code-part-3-gradient.html>
  */
-- (void)gradientFillWithColor:(NSColor*)color;
+- _Void_ gradientFillWithColor:(NSColor*)color;
 @end

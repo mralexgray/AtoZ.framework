@@ -42,14 +42,14 @@ return  ISA(object,NSS)
     return [self mutableCopy];
 }
 
-- (void)setObject: anObject forKey: aKey
+- _Void_ setObject: anObject forKey: aKey
 {
     if (![keyset containsObject:aKey])
         [keyset addObject:aKey];
     [dictionary setObject:anObject forKey:aKey];
 }
 
-- (void)removeObjectForKey: aKey
+- _Void_ removeObjectForKey: aKey
 {
     [dictionary removeObjectForKey:aKey];
     [keyset removeObject:aKey];
@@ -79,7 +79,7 @@ return  ISA(object,NSS)
 //    return [keyset reverseObjectEnumerator];
 //}
 
-- (void)insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex
+- _Void_ insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex
 {
     if ([dictionary objectForKey:aKey])
     {
@@ -108,7 +108,7 @@ return  ISA(object,NSS)
     return [dictionary objectForKey:key];
 }
 
-- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx
+- _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx
 {
     //NSAssert (idx <= keyset.count -1, @"index %ld is beyond max range %ld", idx, keyset.count - 1);
 
@@ -116,7 +116,7 @@ return  ISA(object,NSS)
     [dictionary setObject:obj forKey:key];
 }
 
-- (void)setObject: obj forKeyedSubscript:(id <NSCopying>)key
+- _Void_ setObject: obj forKeyedSubscript:(id <NSCopying>)key
 {
     [self setObject:obj forKey:key];
 }
@@ -153,7 +153,7 @@ return  ISA(object,NSS)
 /**
 @implementation NSOrderedDictionary (AtoZ)
 
-- (void) forwardInvocation:(NSINV*)invocation 		{  // FIERCE
+- _Void_ forwardInvocation:(NSINV*)invocation 		{  // FIERCE
 
 // Forward the message to the surrogate object if the surrogate object understands the message,
 //	otherwise just pass the invocation up the inheritance chain, eventually hitting the default
@@ -199,7 +199,7 @@ return  ISA(object,NSS)
 	else {					[self setObject:[NSNull null] forKey:aKey];	return NO;	}
 }
 #if !TARGET_OS_IPHONE
-- (void)setColor:(NSColor *)aColor forKey:(NSS*)aKey	{
+- _Void_ setColor:(NSColor *)aColor forKey:(NSS*)aKey	{
 	NSData *theData=[NSArchiver archivedDataWithRootObject:aColor];
 	self[aKey] = theData;
 }
@@ -593,7 +593,7 @@ return  ISA(object,NSS)
 	return nil;
 }
 
-//- (void) recursiveObjectForKey:(NSS*)key rootBlock:(void(^)(id root))block {                                  // IN PROGRESS
+//- _Void_ recursiveObjectForKey:(NSS*)key rootBlock:(void(^)(id root))block {                                  // IN PROGRESS
 //
 //  id x = nil;
 //	if((x = [self objectForKey:key])) {
@@ -665,13 +665,13 @@ return  ISA(object,NSS)
 	}
 	return dict;
 }
-- (void)enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block{
+- _Void_ enumerateEachKeyAndObjectUsingBlock:(void(^)(id key, id obj))block{
 	NSParameterAssert(block != nil);
 	[self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
 		block(key, obj);
 	}];
 }
-- (void)enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block{
+- _Void_ enumerateEachSortedKeyAndObjectUsingBlock:(void(^)(id key, id obj, NSUInteger idx))block{
 	NSParameterAssert(block != nil);
 	NSArray *keys = [[self allKeys] sortedArrayUsingSelector:@selector(compare:)];
 	[keys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -679,7 +679,7 @@ return  ISA(object,NSS)
 	}];
 }
 /*
-- (void) obtainKeyPaths: val intoArray:(NSMutableArray*)arr withString:(NSString*)s {
+- _Void_ obtainKeyPaths: val intoArray:(NSMutableArray*)arr withString:(NSString*)s {
     if ([val isKindOfClass:[NSDictionary class]]) {
         for (id aKey in [val allKeys]) {
             NSString* path = 

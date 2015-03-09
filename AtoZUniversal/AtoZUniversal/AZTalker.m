@@ -9,9 +9,9 @@ AZPROP(NSSpeechSynthesizer,talker);
 
 @implementation AZTalker static NSMutableArray* queue = nil; static BOOL finished = NO;
 
-- (void) setUp { _talker = NSSpeechSynthesizer.new; _talker.delegate = self; queue = NSMA.new; }
+- _Void_ setUp { _talker = NSSpeechSynthesizer.new; _talker.delegate = self; queue = NSMA.new; }
 
-- (void) say:(NSString *)x {
+- _Void_ say:(NSString *)x {
 
 	NSSpeechSynthesizer.isAnyApplicationSpeaking
 
@@ -67,7 +67,7 @@ AZPROP(NSSpeechSynthesizer,talker);
 	[[self.sharedInstance talker] startSpeakingString:x toURL:aURL];
 }
 
-- (void) speechSynthesizer:(NSSpeechSynthesizer *)sender didFinishSpeaking:(BOOL)finishedSpeaking {
+- _Void_ speechSynthesizer:(NSSpeechSynthesizer *)sender didFinishSpeaking:(BOOL)finishedSpeaking {
 
 	if (!queue.count) { !_doneTalking ?: _doneTalking(); return; }  	NSD *d = queue[0];   NSURL*url = d[@"URL"];
 

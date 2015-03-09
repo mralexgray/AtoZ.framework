@@ -160,7 +160,7 @@ NSString *const kShowDockIconUserDefaultsKey = @"ShowDockIcon";
   return result;
 }
 
-- (void)setLaunchAtLogin:(BOOL)launchAtLogin {
+- _Void_ setLaunchAtLogin:(BOOL)launchAtLogin {
 
   if (launchAtLogin == self.launchAtLogin) return;
 

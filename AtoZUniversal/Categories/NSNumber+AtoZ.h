@@ -8,7 +8,7 @@
 @prop_RO NSS* hexString;
 
 
-- (void) do:(void(^)(int ctr))block;
+- _Void_ do:(void(^)(int ctr))block;
 + (INST) numberWithBytes:(const void*)bytes objCType:(const char*)type;
 
 +  (NSR) rectBy:(NSA*)sizes;

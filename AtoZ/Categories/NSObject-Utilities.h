@@ -64,18 +64,18 @@
 -(void) propagateValue: value forBinding:(NSString*)binding;
 
 // Calls -[NSObject bind:binding toObject:object withKeyPath:keyPath options:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSContinuouslyUpdatesValueBindingOption, nil]]
-- (void)bind:(NSS*)b toObject: x withKeyPathUsingDefaults:(NSS*)kp;
+- _Void_ bind:(NSS*)b toObject: x withKeyPathUsingDefaults:(NSS*)kp;
 
 // Calls -[NSO bind:b toObject:o withKeyPath:kp options:@{ NSContinuouslyUpdatesValueBindingOption: @(YES), NSNullPlaceholderBindingOption: nilValue}];
-- (void)bind:(NSS*)b toObject: x withKeyPath:(NSString *)kp nilValue: nilValue;
+- _Void_ bind:(NSS*)b toObject: x withKeyPath:(NSString *)kp nilValue: nilValue;
 
 // Same as `-[NSObject bind:toObject:withKeyPath:] but also transforms values using the given transform block.
-- (void)bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp transform:(Obj_ObjBlk)transformBlock;
+- _Void_ bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp transform:(Obj_ObjBlk)transformBlock;
 
 // Same as `-[NSObject bind:toObject:withKeyPath:] but the value is transformed by negating it.
-- (void)bind:(NSS*)b toObject: x withNegatedKeyPath:(NSS*)kp;
+- _Void_ bind:(NSS*)b toObject: x withNegatedKeyPath:(NSS*)kp;
 
-- (void)bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp selector:(SEL)select;
+- _Void_ bind:(NSS*)b toObject: x withKeyPath:(NSS*)kp selector:(SEL)select;
 
 @end
 
@@ -180,7 +180,7 @@
 /// Choose the first selector that the object responds to
 - (SEL) chooseSelector:(SEL)s, ...;
 
-- (void)runUntil:(BOOL*)stop;
+- _Void_ runUntil:(BOOL*)stop;
 
 @end
 

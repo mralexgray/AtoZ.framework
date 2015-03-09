@@ -4,7 +4,7 @@
 
 @interface AZDict : NSMutableDictionary
 
-- (void)setObject: anObject forKey: aKey;
+- _Void_ setObject: anObject forKey: aKey;
 
 @prop_NA BOOL sortByValues;
 @prop_RO NSUInteger count;
@@ -15,11 +15,11 @@
 //- (id)objectForKey: aKey;
 
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;
-- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx;
-- (void)setObject: obj forKeyedSubscript:(id <NSCopying>)key;
+- _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx;
+- _Void_ setObject: obj forKeyedSubscript:(id <NSCopying>)key;
 - (id)objectForKeyedSubscript: key;
 
-- (void)insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
+- _Void_ insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
 - (id)keyAtIndex:(NSUInteger)anIndex;
 
 @end
@@ -27,7 +27,7 @@
 
 @class NSBag;
 //@interface NSOrderedDictionary (AtoZ)
-//- (void) forwardInvocation:(NSINV*)invocation;
+//- _Void_ forwardInvocation:(NSINV*)invocation;
 //- (SIG*) methodSignatureForSelector:(SEL)sel;
 //- (BOOL) respondsToSelector:(SEL)selector;
 //@end
@@ -39,7 +39,7 @@
 
 @interface NSMutableDictionary (AtoZ)
   #if !TARGET_OS_IPHONE
-- (void)setColor:(NSColor *)aColor forKey:(NSS*)aKey;
+- _Void_ setColor:(NSColor *)aColor forKey:(NSS*)aKey;
 - (NSColor *)colorForKey:(NSS*)aKey;
 #endif
 - (BOOL)setObjectOrNull: anObject forKey: aKey;
@@ -146,7 +146,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 
 - (NSS*) keyForValueOfClass:(Class)klass;
 
-- (void) eachWithIndex:(KeyValueIndexAbortBlock)block;
+- _Void_ eachWithIndex:(KeyValueIndexAbortBlock)block;
 
 -  (id) recursiveObjectForKey:(NSS*)k; /* fierce */  //- (NSA*) recursiveObjectsForKey:(NSS*)key;
 
@@ -157,9 +157,9 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (NSD*) dictionaryWithoutKey: key;
 - (NSD*) dictionaryWithKey: newKey replacingKey: oldKey;
 
-- (void) enumerateEachKeyAndObjectUsingBlock:(KeyValueIteratorBlock)block;
+- _Void_ enumerateEachKeyAndObjectUsingBlock:(KeyValueIteratorBlock)block;
 
-- (void) enumerateEachSortedKeyAndObjectUsingBlock:(KeyValueIndexBlock)block;
+- _Void_ enumerateEachSortedKeyAndObjectUsingBlock:(KeyValueIndexBlock)block;
 @end
 
 @interface  NSArray (FindDictionary)
@@ -327,7 +327,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 @end
 
 //@interface OrderedDictionary : NSMutableDictionary
-//- (void)insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
+//- _Void_ insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
 //- (id)keyAtIndex:(NSUInteger)anIndex;
 //- (NSEnumerator *)reverseKeyEnumerator;
 //@end

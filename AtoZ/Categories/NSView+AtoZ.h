@@ -11,8 +11,8 @@
 
 
 @interface NSView (MoveAndResize)
-- (void)setNewFrameFromMouseDrag:(NSRect)newFrame;
-- (void)trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType;
+- _Void_ setNewFrameFromMouseDrag:(NSRect)newFrame;
+- _Void_ trackMouseDragsForEvent:(NSEvent *)theEvent clickType:(int)clickType;
 
 /*  USAGE  
 
@@ -203,7 +203,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 	If NO, and if the height required by the receiver's current content is smaller than the receiver's current height, the receiver's height is not resized.&nbsp;
 	This is used to avoid a changing height which could be annoying in many circumstances. */
 
-- (void)sizeHeightToFitAllowShrinking:(BOOL)allowShrinking ;
+- _Void_ sizeHeightToFitAllowShrinking:(BOOL)allowShrinking ;
 
 /*!	@brief	Compares the left edge of the receiver with the left edge of a other view.
  	@param	otherView
@@ -216,7 +216,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
  	@details  This method takes a completely different approach than the others in this class.
 	Indeed, it was written years later (201105).	*/
 
-- (void)sizeHeightToFit ;
+- _Void_ sizeHeightToFit ;
 
 @end
 
@@ -230,14 +230,14 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @property (assign,nonatomic) BOOL autoScrollToBottom;
 /*!* @brief Scroll to the top of the documentView.
  *croll to the top of the documentView.*/
-- (void)scrollToTop;
+- _Void_ scrollToTop;
 /*! @brief Scroll to the bottom of the documentView.Scroll to the bottom of the documentView. */
-- (void)scrollToBottom;
+- _Void_ scrollToBottom;
 
 @end
 
 @interface NSTableView (Scrolling)
-- (void)scrollRowToTop:(NSI)row ;
+- _Void_ scrollRowToTop:(NSI)row ;
 @end
 
 

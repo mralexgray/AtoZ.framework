@@ -2,7 +2,7 @@
 
 @interface NSTextView (SyntaxColoring)
 
-- (void)colorizeWithKeywords:(NSA*)keywords classes:(NSA*)classes;
+- _Void_ colorizeWithKeywords:(NSA*)keywords classes:(NSA*)classes;
 
 @end
 @interface NSString (SyntaxColoring)
@@ -12,7 +12,7 @@
 @end
 @interface NSMutableAttributedString (RTB)
 
-- (void)setTextColor:(NSC*)color font:(NSFont*)font range:(NSRNG)range;
+- _Void_ setTextColor:(NSC*)color font:(NSFont*)font range:(NSRNG)range;
 
 @end
 

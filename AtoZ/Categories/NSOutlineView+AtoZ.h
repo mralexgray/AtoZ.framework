@@ -90,10 +90,10 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 - (void)  setSelectedRepresentedObject: obj;
 - (void) setSelectedRepresentedObjects:(NSA*)objs;
 /*
-- (void)removeSelectedNodes;
-- (void)removeTreeNodes:(NSArray *)treeNodes;
-- (void)removeRepresentedObject: representedObject;
-- (void)removeRepresentedObjects:(NSArray *)representedObjects;
+- _Void_ removeSelectedNodes;
+- _Void_ removeTreeNodes:(NSArray *)treeNodes;
+- _Void_ removeRepresentedObject: representedObject;
+- _Void_ removeRepresentedObjects:(NSArray *)representedObjects;
 */
 @end
 

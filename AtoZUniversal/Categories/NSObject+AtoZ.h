@@ -16,9 +16,9 @@
 @end
 
 @interface NSObject (GCD)
-- (void) performAsynchronous:(Blk)_;
-- (void) performOnMainThread:(Blk)_         wait:(BOOL)wait;
-- (void)        performAfter:(NSTimeInterval)sec block:(Blk)_;
+- _Void_ performAsynchronous:(Blk)_;
+- _Void_ performOnMainThread:(Blk)_         wait:(BOOL)wait;
+- _Void_        performAfter:(NSTimeInterval)sec block:(Blk)_;
 @end
 
 @interface NSObject (ClassAssociatedReferences)
@@ -77,19 +77,19 @@ IMP impOfCallingMethod (id lookupObject, SEL selector);
 
 @interface NSObject   (AssociatedValues)
 
-- (void)          setAssociatedValue:val      forKey:(NSS*)k; // DEFAULTS TO OBJC_ASSOCIATION_RETAIN
-- (void)          setAssociatedValue:val      forKey:(NSS*)k policy:(PLCY)p;
+- _Void_          setAssociatedValue:val      forKey:(NSS*)k; // DEFAULTS TO OBJC_ASSOCIATION_RETAIN
+- _Void_          setAssociatedValue:val      forKey:(NSS*)k policy:(PLCY)p;
 -              associatedValueForKey:(NSS*)k orSetTo:def     policy:(PLCY)p;
 -              associatedValueForKey:(NSS*)k orSetTo:def; // DEFAULTS TO OBJC_ASSOCIATION_RETAIN_NONATOMIC
 //-            associatedValueForKey:(NSS*)k; // or nil!
-- (void) removeAssociatedValueForKey:(NSS*)k;
+- _Void_ removeAssociatedValueForKey:(NSS*)k;
 - (BOOL)    hasAssociatedValueForKey:(NSS*)k;
-- (void)   removeAllAssociatedValues;
+- _Void_   removeAllAssociatedValues;
 
 
 @end
 
-//	- (void)registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {	NSLog(@"someValue changed: %@", change);  }]; }
+//	- _Void_ registerObservation{	[observee addObserverForKeyPath:@"someValue" task:^(id obj, NSDictionary *change) {	NSLog(@"someValue changed: %@", change);  }]; }
 //	-(void)observeKeyPath:(NSS*)keyPath;
 //	@interface NSObject (AMBlockObservation)
 
@@ -107,17 +107,17 @@ typedef void(^bSelf)(id _self);
 - (NSA*) superclasses;
 - (NSA*) superclassesAsStrings;
 
-- (void)  setYesForKey: k;
-- (void)  setYesForKeys:(NSA*)ks;
-- (void)  setNoForKey: k;
-- (void)  setNoForKeys:(NSA*)ks;
+- _Void_  setYesForKey: k;
+- _Void_  setYesForKeys:(NSA*)ks;
+- _Void_  setNoForKey: k;
+- _Void_  setNoForKeys:(NSA*)ks;
 
 
-- (void) sV: v fK: k;  // setValue:forKey:
-- (void) sV: v fKP: k; // setValue:forKeyPath:
+- _Void_ sV: v fK: k;  // setValue:forKey:
+- _Void_ sV: v fKP: k; // setValue:forKeyPath:
 
-- (void)  blockSelf:(bSelf)block;
-- (void) triggerKVO:(NSS*)k 
+- _Void_  blockSelf:(bSelf)block;
+- _Void_ triggerKVO:(NSS*)k 
               block:(bSelf)blk;
 
 @prop_RO NSAS *attributedDescription;
@@ -125,9 +125,9 @@ typedef void(^bSelf)(id _self);
 
 - (NSString*) descriptionForKey:(NSS*)k;
 
-- (void)willChangeValueForKeysBlock:(ObjBlk)blk keys:(NSString*)keys, ...;
+- _Void_ willChangeValueForKeysBlock:(ObjBlk)blk keys:(NSString*)keys, ...;
 
-- (void)sVs:(NSA*)v fKs:(NSA*)k;
+- _Void_ sVs:(NSA*)v fKs:(NSA*)k;
 -(void) setValues:(NSA*)x forKeys:(NSA*)ks;
 -(void) setValue: x forKeys:(NSA*)ks;
 
@@ -148,7 +148,7 @@ typedef void(^bSelf)(id _self);
 	
 	id whatever = [CAL instanceWithProperties:@"stupid", @(YES), @"sexy", @(NO), nil];  	*/
 
-- (void) performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ...NS_REQUIRES_NIL_TERMINATION; /*	USAGE:  	
+- _Void_ performBlockWithVarargsInArray:(void(^)(NSO*_self,NSA*varargs))block, ...NS_REQUIRES_NIL_TERMINATION; /*	USAGE:  	
 
 	[NSS.randomBadWord performBlockWithVarargsInArray: ^(NSO*_self, NSA*args){
   
@@ -162,13 +162,13 @@ typedef void(^bSelf)(id _self);
 
 /*  USAGE: 	[@"Apple is "performBlockEachVararg:^(NSO*_self,id v){ LOG_EXPR([_self withString:v]); }, @"Whatever!", @"Sexy", @"fruitful", nil];
 	-> Apple is Whatever!	-> Apple is Sexy	-> Apple is fruitful */
-- (void) performBlockEachVararg:(void(^)(NSO*_self,id obj))block, ... NS_REQUIRES_NIL_TERMINATION;
+- _Void_ performBlockEachVararg:(void(^)(NSO*_self,id obj))block, ... NS_REQUIRES_NIL_TERMINATION;
 
 
 -filterKeyPath:(NSS*)kp recursively:(id(^)(id))mayReturnOtherObjectOrNil;
 
-- (void)performBlock:(Blk)block;
-//- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
+- _Void_ performBlock:(Blk)block;
+//- _Void_ performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
 // adapted from the CocoaDev MethodSwizzling page
 
@@ -185,7 +185,7 @@ typedef void(^bSelf)(id _self);
 //-(void) 	DDLogVerbose;
 
 #if !TARGET_OS_IPHONE
-- (void) bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
+- _Void_ bindArrayKeyPath:(NSS*)array toController:(NSArrayController*)controller;
 #endif
 
 - performString:(NSS*)string;
@@ -226,16 +226,16 @@ typedef void (^caseBlock)();
 
 /* DISABLED
 	// To add array style subscripting:
-- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx; // setter
+- _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx; // setter
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 
 */
 	// To add dictionary style subscripting
-//- (void)setObject: obj forKeyedSubscript:(id <NSCopying>)key; // setter
+//- _Void_ setObject: obj forKeyedSubscript:(id <NSCopying>)key; // setter
 //- (id)objectForKeyedSubscript: key;						   // getter
-//- (void)performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay; // conflict BlocksKit
+//- _Void_ performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay; // conflict BlocksKit
 
-- (void)fireBlockAfterDelay:(void (^)(void))block;
+- _Void_ fireBlockAfterDelay:(void (^)(void))block;
 
 
 + (NSMA*)newInstances:(NSUI)count;
@@ -293,13 +293,13 @@ typedef void (^caseBlock)();
 
 - (NSS*)formatWithArguments:(NSA*)arr;
 + (NSS*)evaluatePseudoFormat:(NSS*)fmt withArguments:(NSA*)arr;
-//- (void) log:firstObject, ...;
+//- _Void_ log:firstObject, ...;
 @end
 
 @interface NSObject (AG)
 
 /* 
-- (void)doSomethingWithFloat:(float)f;														// Example 1
+- _Void_ doSomethingWithFloat:(float)f;														// Example 1
 	float value = 7.2661; 																		// Create a float
 	float *height = &value; 																	// Create a _pointer_ to the float (a floater?)
 	[self performSelector:@selector(doSomethingWithFloat:) withValue:height]; 	// Now pass the pointer to the float
@@ -349,11 +349,11 @@ typedef void (^caseBlock)();
 
 - (NSValue*) invokeSelector:(SEL)selector, ...;
 
-- (void) log;
-//- (void) logInColor:(NSC*)color; FIX
+- _Void_ log;
+//- _Void_ logInColor:(NSC*)color; FIX
 
 //- (NSMethodSignature*) methodSignatureForSelector:(SEL)selector;
-//- (void)forwardInvocation:(NSInvocation *)invocation;
+//- _Void_ forwardInvocation:(NSInvocation *)invocation;
 
 
 /**	Additional performSelector signatures that support up to 7 arguments.	*/
@@ -398,30 +398,30 @@ BOOL respondsToString(id obj,NSS* string);
 
 - (NSString*) stringFromClass;
 
-- (void) setIntValue:	(NSInteger) i forKey:	(NSString*) key;
-- (void) setIntValue:	(NSInteger) i forKeyPath:	(NSString*) keyPath;
+- _Void_ setIntValue:	(NSInteger) i forKey:	(NSString*) key;
+- _Void_ setIntValue:	(NSInteger) i forKeyPath:	(NSString*) keyPath;
 
-- (void) setFloatValue:	(CGFloat) f forKey:	(NSString*) key;
-- (void) setFloatValue:	(CGFloat) f forKeyPath:	(NSString*) keyPath;
+- _Void_ setFloatValue:	(CGFloat) f forKey:	(NSString*) key;
+- _Void_ setFloatValue:	(CGFloat) f forKeyPath:	(NSString*) keyPath;
 
 - (BOOL) isEqualToAnyOf:	(id<NSFastEnumeration>) enumerable;
 
-- (void) fire:	(NSString*) notificationName;
-- (void) fire:	(NSString*) notificationName userInfo:	(NSDictionary*) userInfo;
+- _Void_ fire:	(NSString*) notificationName;
+- _Void_ fire:	(NSString*) notificationName userInfo:	(NSDictionary*) userInfo;
 
 
 - observeName:(NSString*)noteName usingBlock:(void(^)(NSNotification*n))blk;
 
-- (void) observeObject:	(NSObject*) object
+- _Void_ observeObject:	(NSObject*) object
 			 forName:	(NSString*) notificationName
 			 calling:	(SEL) selector;
 
 -(void)observeName:(NSS*) notificationName
 		   calling:(SEL)selector;
 
-- (void) stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
+- _Void_ stopObserving:	(NSObject*) object forName:	(NSString*) notificationName;
 
-- (void) observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... NS_REQUIRES_NIL_TERMINATION;
+- _Void_ observeNotificationsUsingBlocks:(NSS*) firstNotificationName, ... NS_REQUIRES_NIL_TERMINATION;
 
 
 // This awesome method was found at Stackoverflow From Rob Mayoff - http://stackoverflow.com/users/77567/rob-mayoff
@@ -441,16 +441,16 @@ _Pragma("clang diagnostic pop") \
 
 - performSelectorWithoutWarnings:(SEL) aSelector withObject: obj;
 - performSelectorWithoutWarnings:(SEL)aSelector withObject: obj withObject: obj2;
-//- (void) performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
-- (void) addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
-- (void) addObserver:	(NSObject*) observer 
+//- _Void_ performSelector:	(SEL) aSelector afterDelay:	(NSTimeInterval) seconds;
+- _Void_ addObserver:	(NSObject*) observer forKeyPath:	(NSString*) keyPath;
+- _Void_ addObserver:	(NSObject*) observer 
 	   forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
-- (void) removeObserver:	(NSObject*) observer 
+- _Void_ removeObserver:	(NSObject*) observer 
 		  forKeyPaths:	(id<NSFastEnumeration>) keyPaths;
 
-- (void)az_willChangeValueForKeys:(NSA*)keys;//	(id<NSFastEnumeration>) keys;
-- (void)az_didChangeValueForKeys:(NSA*)keys;//	(id<NSFastEnumeration>) keys;
-- (void) triggerChangeForKeys:(NSA*)keys;
+- _Void_ az_willChangeValueForKeys:(NSA*)keys;//	(id<NSFastEnumeration>) keys;
+- _Void_ az_didChangeValueForKeys:(NSA*)keys;//	(id<NSFastEnumeration>) keys;
+- _Void_ triggerChangeForKeys:(NSA*)keys;
 
 #pragma mark - PropertyArray
 //- (NSDictionary*) dictionaryWithValuesForKeys;
@@ -471,7 +471,7 @@ _Pragma("clang diagnostic pop") \
 */
 
 #pragma mark - SetClass
-- (void) setClass:	(Class) aClass;	// In your custom class
+- _Void_ setClass:	(Class) aClass;	// In your custom class
 + (instancetype) customClassWithProperties:(NSD*) properties;
 - (instancetype) initWithProperties:		 (NSD*) properties;
 - (instancetype) initWithDictionary:		 (NSD*) properties;
@@ -484,7 +484,7 @@ _Pragma("clang diagnostic pop") \
 
 @interface NSObject (KVCExtensions)
 
-//- (void) setPropertiesWithDictionary:(NSD*)dictionary;
+//- _Void_ setPropertiesWithDictionary:(NSD*)dictionary;
 - (BOOL) canSetValueForKey:	   (NSString*) key;
 - (BOOL) canSetValueForKeyPath: (NSString*) keyPath;
 
@@ -493,9 +493,9 @@ _Pragma("clang diagnostic pop") \
 /*
 @interface NSObject (NoodlePerformWhenIdle)
 
-- (void)performSelector:(SEL)aSelector withObject: anArgument afterSystemIdleTime:(NSTimeInterval)delay;
+- _Void_ performSelector:(SEL)aSelector withObject: anArgument afterSystemIdleTime:(NSTimeInterval)delay;
 
-- (void)performSelector:(SEL)aSelector withObject: anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime;
+- _Void_ performSelector:(SEL)aSelector withObject: anArgument afterSystemIdleTime:(NSTimeInterval)delay withinTimeLimit:(NSTimeInterval)maxTime;
 
 @end
 */
@@ -530,12 +530,12 @@ _Pragma("clang diagnostic pop") \
 - objectByPerformingSelector:(SEL)selector;
 
 // Delay Utilities
-- (void) performSelector: (SEL)select withCPointer:(void*)cPointer afterDelay:(NSTI)delay;
-- (void) performSelector: (SEL)select withInt: 	(int)iVal  			 afterDelay:(NSTI) delay;
-- (void) performSelector: (SEL)select withFloat:(CGF)fVal  		    afterDelay:(NSTI) delay;
-- (void) performSelector: (SEL)select withBool: (BOOL)bVal         afterDelay:(NSTI) delay;
-- (void) performSelector: (SEL)select 							          afterDelay:(NSTI) delay;
-- (void) performSelector: (SEL)select withDelayAndArguments: (NSTI)delay,...;
+- _Void_ performSelector: (SEL)select withCPointer:(void*)cPointer afterDelay:(NSTI)delay;
+- _Void_ performSelector: (SEL)select withInt: 	(int)iVal  			 afterDelay:(NSTI) delay;
+- _Void_ performSelector: (SEL)select withFloat:(CGF)fVal  		    afterDelay:(NSTI) delay;
+- _Void_ performSelector: (SEL)select withBool: (BOOL)bVal         afterDelay:(NSTI) delay;
+- _Void_ performSelector: (SEL)select 							          afterDelay:(NSTI) delay;
+- _Void_ performSelector: (SEL)select withDelayAndArguments: (NSTI)delay,...;
 
 // Return Values, allowing non-object returns
 - valueByPerformingSelector:(SEL)selector withObject:object1 withObject: object2;
@@ -568,10 +568,10 @@ _Pragma("clang diagnostic pop") \
 //typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
 //@interface NSObject (NSObject_KVOBlock)
 //- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
-//- (void)removeKVOBlockForToken: inToken;
+//- _Void_ removeKVOBlockForToken: inToken;
 ///// One shot blocks remove themselves after they've been fired once.
 //- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
-//- (void)KVODump;
+//- _Void_ KVODump;
 //@end
 
 @interface AZBool : NSObject
@@ -627,7 +627,7 @@ _Pragma("clang diagnostic pop") \
   \
     return [backing methodSignatureForSelector:s] ?: nil;	} \
   \
-  - (void)forwardInvocation:(NSInvocation*)inv { [inv invokeWithTarget: backing]; } \
+  - _Void_ forwardInvocation:(NSInvocation*)inv { [inv invokeWithTarget: backing]; } \
   \
   - (BOOL)respondsToSelector:(SEL)s { return [backing respondsToSelector:s]; \
   \

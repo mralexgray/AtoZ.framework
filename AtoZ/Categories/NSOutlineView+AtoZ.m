@@ -22,7 +22,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 
 @interface AZTreeNode ()
 @property (readwrite,assign,nonatomic) id parentNode;
-- (void)insertObject: object inChildNodesAtIndex:(NSUInteger)index;
+- _Void_ insertObject: object inChildNodesAtIndex:(NSUInteger)index;
 @end
 
 @implementation AZTreeNode
@@ -49,7 +49,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return self;
 }
 
-- (void)encodeWithCoder:(NSCoder*)cdr { [super encodeWithCoder:cdr]; [cdr encodeObject:self.childNodes forKey:kAZTreeNodeChildNodesKey];
+- _Void_ encodeWithCoder:(NSCoder*)cdr { [super encodeWithCoder:cdr]; [cdr encodeObject:self.childNodes forKey:kAZTreeNodeChildNodesKey];
 }
 #pragma mark NSCopying
 - (id)copyWithZone:(NSZone *)zone {
@@ -79,10 +79,10 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return [_childNodes objectAtIndex:index];
 }
 
-- (void)addObjectToChildNodes: object; {
+- _Void_ addObjectToChildNodes: object; {
 	[self insertObject:object inChildNodesAtIndex:[self countOfChildNodes]];
 }
-- (void)insertObject: object inChildNodesAtIndex:(NSUInteger)index; {
+- _Void_ insertObject: object inChildNodesAtIndex:(NSUInteger)index; {
 	if (!_childNodes)
 		_childNodes = NSMutableArray.new;
 	
@@ -90,7 +90,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	
 	[_childNodes insertObject:object atIndex:index];
 }
-- (void)removeObjectFromChildNodesAtIndex:(NSUInteger)index; {
+- _Void_ removeObjectFromChildNodesAtIndex:(NSUInteger)index; {
 	[[_childNodes objectAtIndex:index] setParentNode:nil];
 	
 	[_childNodes removeObjectAtIndex:index];
@@ -361,7 +361,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 }
 
 // makes a blank selection in the outline view
-- (void)selectNone;
+- _Void_ selectNone;
 {
 	[self removeSelectionIndexPaths:[self selectionIndexPaths]];
 }
@@ -412,7 +412,7 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return treeNode;
 }
 
-- (void)selectParentFromSelection;
+- _Void_ selectParentFromSelection;
 {
 	if ([[self selectedNodes] count] == 0)
 		return;
@@ -519,19 +519,19 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	return treeNodes.copy;
 }
 // selects 'treeNode' using its index path
-- (void)setSelectedTreeNode:(NSTreeNode *)treeNode; {
+- _Void_ setSelectedTreeNode:(NSTreeNode *)treeNode; {
 	[self setSelectedTreeNodes:[NSArray arrayWithObject:treeNode]];
 }
 // selects an array of NSTreeNode objects 'treeNodes' using their index paths
-- (void)setSelectedTreeNodes:(NSArray *)treeNodes; {
+- _Void_ setSelectedTreeNodes:(NSArray *)treeNodes; {
 	[self setSelectionIndexPaths:[treeNodes valueForKey:@"indexPath"]];
 }
 // selects the real model object 'representedObject'
-- (void)setSelectedRepresentedObject: representedObject; {
+- _Void_ setSelectedRepresentedObject: representedObject; {
 	[self setSelectedRepresentedObjects:[NSArray arrayWithObject:representedObject]];
 }
 // selects an array of real model objects 'representedObjects'
-- (void)setSelectedRepresentedObjects:(NSArray *)representedObjects; {
+- _Void_ setSelectedRepresentedObjects:(NSArray *)representedObjects; {
 	NSMutableArray *indexPaths = [NSMutableArray array];
 	NSArray *nodes = [self treeNodes];
 	
@@ -546,19 +546,19 @@ NSString* const kAZTreeNodeChildNodesKey = @"childNodes";
 	[self setSelectionIndexPaths:indexPaths];
 }
 /*
-- (void)removeSelectedNodes; {
+- _Void_ removeSelectedNodes; {
 	[self removeObjectsAtArrangedObjectIndexPaths:[self selectionIndexPaths]];
 }
 
-- (void)removeTreeNodes:(NSArray *)treeNodes; {
+- _Void_ removeTreeNodes:(NSArray *)treeNodes; {
 	[self removeObjectsAtArrangedObjectIndexPaths:[treeNodes valueForKey:@"indexPath"]];
 }
 
-- (void)removeRepresentedObject: representedObject; {
+- _Void_ removeRepresentedObject: representedObject; {
 	[self removeRepresentedObjects:[NSArray arrayWithObject:representedObject]];
 }
 
-- (void)removeRepresentedObjects:(NSArray *)representedObjects; {
+- _Void_ removeRepresentedObjects:(NSArray *)representedObjects; {
 	NSMutableArray *indexPaths = [NSMutableArray array];
 	NSArray *nodes = [self treeNodes];
 	for (id object in representedObjects) {

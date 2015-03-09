@@ -23,7 +23,7 @@
 //    return textColor;
 //}
 //
-//- (void)setTextColor:(NSColor *)textColor
+//- _Void_ setTextColor:(NSColor *)textColor
 //{
 //    NSMutableAttributedString *attrTitle = [[NSMutableAttributedString alloc] 
 //                                            initWithAttributedString:[self attributedTitle]];

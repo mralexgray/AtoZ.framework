@@ -357,7 +357,7 @@ SYNTHESIZE_ASC_CAST(pathForRect, setPathForRect,PathBlock);
 //		return [super actionForKey:key];
 //}
 
-//- (void)drawInContext:(CGContextRef)ctx {
+//- _Void_ drawInContext:(CGContextRef)ctx {
 
   [self setDrawInContextBlk:^(CALayer *l, CGContextRef ctx) {
     

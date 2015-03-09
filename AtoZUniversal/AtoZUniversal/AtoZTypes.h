@@ -475,23 +475,23 @@ typedef NSComparisonResult(^__className##Comparator)(__className* obj1, __classN
 \
 @interface NSMutableArray (__className##_NSMutableArray_Generics) <__className> \
 \
-- (void) addObjectsFromArray:(NSArray<__className>*)otherArray; \
-- (void) removeObject:(__className*)anObject inRange:(NSRange)range; \
-- (void) removeObject:(__className*)anObject; \
-- (void) removeObjectIdenticalTo:(__className*)anObject inRange:(NSRange)range; \
-- (void) removeObjectIdenticalTo:(__className*)anObject; \
-- (void) removeObjectsInArray:(NSArray<__className>*)otherArray; \
+- _Void_ addObjectsFromArray:(NSArray<__className>*)otherArray; \
+- _Void_ removeObject:(__className*)anObject inRange:(NSRange)range; \
+- _Void_ removeObject:(__className*)anObject; \
+- _Void_ removeObjectIdenticalTo:(__className*)anObject inRange:(NSRange)range; \
+- _Void_ removeObjectIdenticalTo:(__className*)anObject; \
+- _Void_ removeObjectsInArray:(NSArray<__className>*)otherArray; \
 \
-- (void) replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray range:(NSRange)otherRange; \
-- (void) replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray; \
-- (void) etArray:(NSArray<__className>*)otherArray; \
-- (void) sortUsingFunction:(NSInteger (*)(__className*, __className*, void *))compare context:(void *)context; \
+- _Void_ replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray range:(NSRange)otherRange; \
+- _Void_ replaceObjectsInRange:(NSRange)range withObjectsFromArray:(NSArray<__className>*)otherArray; \
+- _Void_ etArray:(NSArray<__className>*)otherArray; \
+- _Void_ sortUsingFunction:(NSInteger (*)(__className*, __className*, void *))compare context:(void *)context; \
 \
-- (void) nsertObjects:(NSArray<__className>*)objects atIndexes:(NSIndexSet *)indexes; \
-- (void) removeObjectsAtIndexes:(NSIndexSet *)indexes; \
-- (void) replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray<__className>*)objects; \
+- _Void_ nsertObjects:(NSArray<__className>*)objects atIndexes:(NSIndexSet *)indexes; \
+- _Void_ removeObjectsAtIndexes:(NSIndexSet *)indexes; \
+- _Void_ replaceObjectsAtIndexes:(NSIndexSet *)indexes withObjects:(NSArray<__className>*)objects; \
 \
-- (void) etObject:(__className*)obj atIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0); \
+- _Void_ etObject:(__className*)obj atIndexedSubscript:(NSUInteger)idx NS_AVAILABLE(10_8, 6_0); \
 \
 + (NSMutableArray<__className>*)array; \
 + (NSMutableArray<__className>*)arrayWithObject:(__className*)anObject; \
@@ -544,14 +544,14 @@ typedef NSComparisonResult(^__className##Comparator)(__className* obj1, __classN
 \
 @interface NSMutableSet (__className##_NSMutableSet_Generics) <__className> \
 \
-- (void) addObject:(__className*)object; \
-- (void) removeObject:(__className*)object; \
-- (void) addObjectsFromArray:(NSArray<__className>*)array; \
-- (void) ntersectSet:(NSSet<__className>*)otherSet; \
-- (void) inusSet:(NSSet<__className>*)otherSet; \
-- (void) nionSet:(NSSet<__className>*)otherSet; \
+- _Void_ addObject:(__className*)object; \
+- _Void_ removeObject:(__className*)object; \
+- _Void_ addObjectsFromArray:(NSArray<__className>*)array; \
+- _Void_ ntersectSet:(NSSet<__className>*)otherSet; \
+- _Void_ inusSet:(NSSet<__className>*)otherSet; \
+- _Void_ nionSet:(NSSet<__className>*)otherSet; \
 \
-- (void) etSet:(NSSet<__className>*)otherSet; \
+- _Void_ etSet:(NSSet<__className>*)otherSet; \
 + (NSSet<__className>*)setWithCapacity:(NSUInteger)numItems; \
 - (NSSet<__className>*)initWithCapacity:(NSUInteger)numItems; \
 \
@@ -564,8 +564,8 @@ typedef NSComparisonResult(^__className##Comparator)(__className* obj1, __classN
 - (NSSet<__className>*)initWithSet:(NSSet<__className>*)set; \
 - (NSUInteger)countForObject:(__className*)object; \
 - (NSEnumerator<__className>*)objectEnumerator; \
-- (void) addObject:(__className*)object; \
-- (void) removeObject:(__className*)object; \
+- _Void_ addObject:(__className*)object; \
+- _Void_ removeObject:(__className*)object; \
 \
 @end \
 
@@ -574,12 +574,12 @@ typedef NSComparisonResult(^__className##Comparator)(__className* obj1, __classN
 #define GENERICSABLEWITHBLOCKS(__className) \
 \
 @interface NSMutableArray (__className##_NSMutableArray_BLOCKS_Generics) <__className> \
-- (void) sortUsingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
-- (void) sortWithOptions:(NSSortOptions)opts usingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
+- _Void_ sortUsingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
+- _Void_ sortWithOptions:(NSSortOptions)opts usingComparator:(__className##Comparator)cmptr NS_AVAILABLE(10_6, 4_0); \
 @end \
 @interface NSSet (__className##_NSSet_BLOCKS_Generics) <__className> \
-- (void) numerateObjectsUsingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
-- (void) numerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
+- _Void_ numerateObjectsUsingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
+- _Void_ numerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(__className* obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0); \
 - (NSSet<__className>*)objectsPassingTest:(BOOL (^)(__className* obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0); \
 - (NSSet<__className>*)objectsWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(__className* obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0); \
 @end \

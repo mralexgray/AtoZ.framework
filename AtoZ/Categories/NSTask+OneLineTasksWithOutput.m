@@ -73,7 +73,7 @@
 //
 // Releases instance memory.
 //
-//- (void)dealloc
+//- _Void_ dealloc
 //{
 //	[[NSNotificationCenter defaultCenter] removeObserver:self];
 //	[standardOutput release];
@@ -160,7 +160,7 @@
 // Parameters:
 //	notification - the notification
 //
-- (void)terminatedNotification: (NSNotification *)notification
+- _Void_ terminatedNotification: (NSNotification *)notification
 {
 	taskComplete = YES;
 }
@@ -170,7 +170,7 @@
 //
 // Runs the current event loop until the terminated notification is received
 //
-- (void)launchTaskAndRunSynchronous
+- _Void_ launchTaskAndRunSynchronous
 {
 	[task launch];
 	
@@ -189,7 +189,7 @@
 //
 // Runs the current event loop until the terminated notification is received
 //
-- (void)launchTaskAndRunAsynchronousForObject: receiver selector:(SEL)selector
+- _Void_ launchTaskAndRunAsynchronousForObject: receiver selector:(SEL)selector
 {
 	[task launch];
 	

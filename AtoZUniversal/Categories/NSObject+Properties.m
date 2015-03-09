@@ -86,14 +86,14 @@ const char * property_getRetentionMethod (objc_property_t property) {
 - (INST) objectBySettingValues:(NSA*)vs forKeys:(NSA*)ks  { [self sVs:vs fKs:ks];                 return self; }
 - (INST)  objectBySettingValue: v     forKey:(NSS*)k   { if ([self canSetValueForKey:k]) [self sV:v fK:k]; else self[k] = v; return self; }
 
-- (void)         incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
+- _Void_         incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
 - (INST) objectByIncrementing:(NSS*)k by:(NSN*)v { [self incrementKey:k by:v]; return self; }
 
-- (void)  setKVs: firstKey,... { id item = nil, key = firstKey; va_list list; va_start(list, firstKey);
+- _Void_  setKVs: firstKey,... { id item = nil, key = firstKey; va_list list; va_start(list, firstKey);
 
   while (!!key && (item = va_arg(list, id))) { [self sV:item fK:key]; key = va_arg(list, id); } va_end(list);
 }
-- (void)  setValuesForKeys:(AZKP*)kp,... { azva_list_to_nsarray(kp,keyVals);
+- _Void_  setValuesForKeys:(AZKP*)kp,... { azva_list_to_nsarray(kp,keyVals);
 
   [keyVals each:^(AZKP* obj) { [self sV:obj.value fK:obj.key]; }];
 }
@@ -510,7 +510,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 
 @implementation NSD (PropertyMap)
 
-- (void)mapPropertiesToObject: instance {
+- _Void_ mapPropertiesToObject: instance {
 	
 //	NSA* codables = [self allKeys];
 //	codables = [[instance class] respondsToSelector:@selector(codableKeys)] ? [instance class].codableKeys : self.allKeys;

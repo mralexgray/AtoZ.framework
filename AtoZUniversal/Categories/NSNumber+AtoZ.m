@@ -10,7 +10,7 @@
 
 @implementation NSNumber (AtoZ)
 
-- (void) do:(void(^)(int ctr))block { [self.toArray each:^(NSN* obj) {  block(obj.intValue); }]; }
+- _Void_ do:(void(^)(int ctr))block { [self.toArray each:^(NSN* obj) {  block(obj.intValue); }]; }
 
 + (NSN*) randomFloatBetween:(CGF)min :(CGF)max { return [self numberWithFloat:RAND_FLOAT_VAL(min, max)]; }
 

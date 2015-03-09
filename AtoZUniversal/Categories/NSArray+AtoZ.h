@@ -92,7 +92,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 
 //     azva_list_to_nsarray(firstVal, values);  [values eachWithVariadicPairs:^(id a, id b) { [x setValue:b forKey:a]; }]
-- (void) eachWithVariadicPairs:(void(^)(id a, id b))pairs;
+- _Void_ eachWithVariadicPairs:(void(^)(id a, id b))pairs;
 
 + (instancetype) arrayWithCopies:(NSUI)copies of:(id<NSCopying>)obj;
 
@@ -136,7 +136,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*) withMaxItems:(NSUI) items;
 - (NSA*) withMinItems:(NSUI)items;
 - (NSA*) withMinItems:(NSUI)items usingFiller:(id) fill;
-- (void) setStringsToNilOnbehalfOf: entity;  // FIX:  DOCUMENT!!
+- _Void_ setStringsToNilOnbehalfOf: entity;  // FIX:  DOCUMENT!!
 
 @prop_RO CSET * countedSet;
 @prop_RO  NSN * maxNumberInArray, * minNumberInArray;
@@ -154,12 +154,12 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*) sorted:(AZOrder)o;
 @prop_RO NSA * sorted;
 
-//- (void) logEachPropertiesPlease;  FIX
-//- (void) logEachProperties; FIX
-- (void) logEach;
+//- _Void_ logEachPropertiesPlease;  FIX
+//- _Void_ logEachProperties; FIX
+- _Void_ logEach;
 
 + (NSA*)    arrayFromPlist:(NSS*)path;
-- (void) saveToPlistAtPath:(NSS*)path;
+- _Void_ saveToPlistAtPath:(NSS*)path;
 - (NSS*)    stringWithEnum:(NSUI)e;
 - (NSUI)    enumFromString:(NSS*)s default:(NSUI)def;
 - (NSUI)    enumFromString:(NSS*)s;
@@ -194,17 +194,17 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
  * Makes an iterable copy of the array, making it possible for the selector to modify
  * the array. Contrast this with makeObjectsPerformSelector which does not allow side effects of
  * modifying the array.	*/
-- (void)perform:(SEL)sel;
-- (void)perform:(SEL)sel withObject: p1;
-- (void)perform:(SEL)sel withObject: p1 withObject: p2;
-- (void)perform:(SEL)sel withObject: p1 withObject: p2 withObject: p3;
+- _Void_ perform:(SEL)sel;
+- _Void_ perform:(SEL)sel withObject: p1;
+- _Void_ perform:(SEL)sel withObject: p1 withObject: p2;
+- _Void_ perform:(SEL)sel withObject: p1 withObject: p2 withObject: p3;
 
 /**	Extensions to makeObjectsPerformSelector to provide support for more than one object
  * parameter.	*/
-- (void)makeObjectsPerformSelector:(SEL)s withObject: o1 withObject: o2;
-- (void)makeObjectsPerformSelector:(SEL)s withObject: o1	withObject: o2 withObject: o3;
+- _Void_ makeObjectsPerformSelector:(SEL)s withObject: o1 withObject: o2;
+- _Void_ makeObjectsPerformSelector:(SEL)s withObject: o1	withObject: o2 withObject: o3;
 
-- (void)makeObjectsPerformSelector:(SEL)s withBool:(BOOL)b;
+- _Void_ makeObjectsPerformSelector:(SEL)s withBool:(BOOL)b;
 
 /**	@return nil or an object that matches value with isEqual:	*/
 -   (id)  objectWithValue: v forKey: k;
@@ -319,20 +319,20 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (BOOL)      doesNotContainObject: object;
 
 /*** Just a case study at the moment. Just another way of writing enumerateUsingBlock, but as it's written kvc conform the foreach macro can be used to write code like foreach (id o, array) {   ... } */
-- (void)         setAndExecuteEnumeratorBlock:(void(^)(id o, NSUI idx, BOOL*s))b;
+- _Void_         setAndExecuteEnumeratorBlock:(void(^)(id o, NSUI idx, BOOL*s))b;
 
 - (NSA*)                    objectsWithFormat:(NSS*)format, ...;
 -                   firstObjectWithFormat:(NSS*)format, ...;
 -                      firstObjectOfClass:(Class)k;
 - (NSA*)              filteredArrayUsingBlock:(BOOL(^)(id evaluatedObject, NSDictionary *bindings))block;
 - (NSA*)     uniqueObjectsSortedUsingSelector:(SEL)comparator;
-- (void) eachDictionaryKeyAndObjectUsingBlock:(void(^)(id k, id o))b;
-- (void)                              az_each:(void(^)(id o, NSUI idx, BOOL *s))b;
-- (void)         az_eachConcurrentlyWithBlock:(void (^)(NSI idx, id o, BOOL *s))b;
+- _Void_ eachDictionaryKeyAndObjectUsingBlock:(void(^)(id k, id o))b;
+- _Void_                              az_each:(void(^)(id o, NSUI idx, BOOL *s))b;
+- _Void_         az_eachConcurrentlyWithBlock:(void (^)(NSI idx, id o, BOOL *s))b;
 -   (id)                        findWithBlock:(BOOL(^)(id o))b;
 - (BOOL)             isObjectInArrayWithBlock:(BOOL(^)(id o))b;
 - (NSA*)                     findAllWithBlock:(BOOL(^)(id o))b;
-- (void)                              doUntil:(BOOL(^)(id o))b;
+- _Void_                              doUntil:(BOOL(^)(id o))b;
 
 #if !(TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 -(NSHashTable*)findAllIntoWeakRefsWithBlock:(BOOL (^)(id))block;
@@ -375,7 +375,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 -  (void) firstToLast;
 -  (void) lastToFirst;
 
-- (void) removeFirstObject; // like removeLastObject
+- _Void_ removeFirstObject; // like removeLastObject
 
 // shift & pop for stacklike operations \
     they will return the removed objects removes and returns the first object in the array \
@@ -383,12 +383,12 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 @prop_RO id shift;
 
-- (void) shove:x; // insert at index: 0
+- _Void_ shove:x; // insert at index: 0
 
 /** Helper method for adding the given object to the end of the receiver.
  	Internally the method sends the receiver `addObject:`, but using this method makes usage of array as stack more obvious.
  	@param object The object to push to the end of the receiver.	*/
-- (void)push: object;
+- _Void_ push: object;
 
 /** Helper method to removing the last object from the receiver. removes and returns the last object in the array
 	Internally the method sends the receiver `removeLastObject` and returns the removed object.
@@ -405,10 +405,10 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
                        * az_reverse,  // reverses the whole array
                        * shuffle;     // randomizes the order of the array
 
-- (void) moveObject: obj toIndex:(NSUI)toIndex;
+- _Void_ moveObject: obj toIndex:(NSUI)toIndex;
 
-- (void) moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx;
-- (void) moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx withBlock:(void(^)(id,NSUInteger))block;
+- _Void_ moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx;
+- _Void_ moveObjectAtIndex:(NSUI)fromIdx toIndex:(NSUI)toIdx withBlock:(void(^)(id,NSUInteger))block;
 
 @end
 

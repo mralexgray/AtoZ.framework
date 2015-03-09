@@ -20,7 +20,7 @@
 + (NSS*)stringByLaunchingPath:(NSS*)p withArguments:(NSA*)a error:(NSError**)e;
 + (NSS*)stringByLaunchingPath:(NSS*)p withArguments:(NSA*)a authorization:(SFAuthorization*)auth
 																																		error:(NSERR*__autoreleasing*)error;
-//- (void)launchTaskAndRunSynchronous;
+//- _Void_ launchTaskAndRunSynchronous;
 @end
 
 #define kNSTaskLaunchFailed -1

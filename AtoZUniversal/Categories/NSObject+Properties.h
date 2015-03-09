@@ -22,11 +22,11 @@
 - (INST)        objectBySettingVariadicPairs:(NSA*)vsForKs;
 - (INST)                   withValuesForKeys: v,...;
 - (INST)                              wVsfKs: v,...;
-- (void)                    setValuesForKeys:(AZKP*)kp,...;
-- (void)                        incrementKey:(NSS*)k 
+- _Void_                    setValuesForKeys:(AZKP*)kp,...;
+- _Void_                        incrementKey:(NSS*)k 
                                           by:(NSN*)v;
 
-- (void)  setKVs: firstKey,... NS_REQUIRES_NIL_TERMINATION;
+- _Void_  setKVs: firstKey,... NS_REQUIRES_NIL_TERMINATION;
 
 + (NSD*) classPropertiesAndTypes;
 + (NSA*) objcPropertiesWithoutSuperclass;
@@ -73,7 +73,7 @@
 /// USAGE:  [someDictionary mapPropertiesToObject: someObject];
 @interface NSDictionary  (PropertyMap)
 
-- (void) mapPropertiesToObject:	instance;
+- _Void_ mapPropertiesToObject:	instance;
 
 @end
 

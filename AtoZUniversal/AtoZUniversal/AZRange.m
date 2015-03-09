@@ -125,7 +125,7 @@ void parseStringIntoNSInteger(NSString* str,NSInteger*pNum){
 - (BOOL) isValidNSRange { return self.location >= 0 && self.length >= 0; }
 
 - (NSRange) range { return NSMakeRange(self.isValidNSRange ? self.location : NSNotFound, self.isValidNSRange ? self.length : NSNotFound); }
-- (void) setRange:(NSRange)range { self.location = range.location; self.length = range.length; }
+- _Void_ setRange:(NSRange)range { self.location = range.location; self.length = range.length; }
 
 - (RNG*) push   { self.location++; return self; }
 - (RNG*) pull   { self.location--; return self; }

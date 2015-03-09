@@ -47,7 +47,7 @@
 @end
 @implementation NSBezierPath (ShadowDrawing)
 /* fill a bezier path, but draw a shadow under it offset by the	given angle (counter clockwise from the x-axis) and distance. */
-- (void)fillWithShadowAtDegrees:(CGF)angle withDistance:(CGF)distance {
+- _Void_ fillWithShadowAtDegrees:(CGF)angle withDistance:(CGF)distance {
   CGF radians = angle * (3.141592 / 180.0); /* create a new shadow */
   NSShadow *theShadow = NSShadow.new;    /* offset the shadow by the indicated direction and distance */
   [theShadow setShadowOffset:NSMakeSize(cosf(radians) * distance, sinf(radians) * distance)]; /* set other shadow parameters */
@@ -70,12 +70,12 @@
 //    return theBezierPath;
 //}
 //
-//- (void)setTheBezierPath:(NSBezierPath *)value {    if (theBezierPath != value)   theBezierPath = value;
+//- _Void_ setTheBezierPath:(NSBezierPath *)value {    if (theBezierPath != value)   theBezierPath = value;
 //    }
 //}
 
 /* convert the NSString into a NSBezierPath using a specific font. */
-- (void)showPackedGlyphs:(char *)glyphs length:(unsigned)glyphLen glyphRange:(NSRNG)glyphRange atPoint:(NSP)point font:(NSFont *)font
+- _Void_ showPackedGlyphs:(char *)glyphs length:(unsigned)glyphLen glyphRange:(NSRNG)glyphRange atPoint:(NSP)point font:(NSFont *)font
                    color:(NSColor *)color printingAdjustment:(NSSize)printingAdjustment {
   /* if there is a NSBezierPath associated with this	layout, then append the glyphs to it. */
   NSBezierPath *bezier = [self theBezierPath];
@@ -135,7 +135,7 @@
   return transform;
 }
 
-- (void)shearXBy:(CGFloat)xFraction yBy:(CGFloat)yFraction {
+- _Void_ shearXBy:(CGFloat)xFraction yBy:(CGFloat)yFraction {
   NSAffineTransform *theTransform = [NSAffineTransform transform];
   NSAffineTransformStruct transformStruct = {0, 0, 0, 0, 0,0};
 
@@ -221,7 +221,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 	*out++ = colors[3] + factor * colors[11];
 }
 
-- (void)linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor
+- _Void_ linearGradientFillWithStartColor:(NSColor *)startColor endColor:(NSColor *)endColor
 {
 	/*
    CGColorSpaceRef colorspace;
@@ -285,13 +285,13 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 	[self customVerticalFillWithCallbacks:callbacks firstColor:startColor secondColor:endColor];
 };
 
-- (void)bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor
+- _Void_ bilinearGradientFillWithOuterColor:(NSColor *)outerColor innerColor:(NSColor *)innerColor
 {
 	static const CGFunctionCallbacks callbacks = {0, &bilinearShadedColor, NULL};
 	[self customVerticalFillWithCallbacks:callbacks firstColor:innerColor secondColor:outerColor];
 }
 
-- (void)customVerticalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSColor *)firstColor secondColor:(NSColor *)secondColor	{
+- _Void_ customVerticalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks firstColor:(NSColor *)firstColor secondColor:(NSColor *)secondColor	{
 	CGColorSpaceRef colorspace;
 	CGShadingRef shading;
 	CGPoint startPoint = {0, 0};
@@ -353,7 +353,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 	CGColorSpaceRelease(colorspace);
 }
 
-- (void)customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks
+- _Void_ customHorizontalFillWithCallbacks:(CGFunctionCallbacks)functionCallbacks
                                firstColor:(NSColor*)firstColor secondColor:(NSColor*)secondColor	{
 	CGColorSpaceRef colorspace;
 	CGShadingRef shading;
@@ -414,8 +414,8 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 
 - (CGF)width	{    return self.bounds.size.width;	}
 - (CGF)height 	{    return self.bounds.size.height;	}
-- (void)setWidth:(CGF)t 	{    [self scaledToSize:AZSizeExceptWide(self.bounds.size, t)];	}
-- (void)setHeight:(CGF)t  	{
+- _Void_ setWidth:(CGF)t 	{    [self scaledToSize:AZSizeExceptWide(self.bounds.size, t)];	}
+- _Void_ setHeight:(CGF)t  	{
   [self scaledToSize:AZSizeExceptHigh(self.bounds.size, t)];
 }
 
@@ -593,12 +593,12 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 
 CGF AZAlignToAngle(AZAlign a) { return  a == AZAlignBottom ? 90 : a == AZAlignTop ? 270 : a == AZAlignRight ? 180 : 0; }
 
-- (void)fillGradientFrom:(NSC*)c1 to:(NSC*)c2 startAlign:(AZAlign)align {
+- _Void_ fillGradientFrom:(NSC*)c1 to:(NSC*)c2 startAlign:(AZAlign)align {
 
   [self fillGradientFrom:c1 to:c2 angle:AZAlignToAngle(align)];
 }
 
-- (void)fillGradientFrom:(NSC*)c1 to:(NSC*)c2 angle:(float)angle {
+- _Void_ fillGradientFrom:(NSC*)c1 to:(NSC*)c2 angle:(float)angle {
 
   [NSGC state:^{ [[NSG.alloc initWithStartingColor:c1 endingColor:c2] drawInBezierPath:self angle:angle]; }];
   /*
@@ -691,7 +691,7 @@ CGF AZAlignToAngle(AZAlign a) { return  a == AZAlignBottom ? 90 : a == AZAlignTo
   return array;
 }
 
-- (void)setDashPattern:(NSA*) newPattern {
+- _Void_ setDashPattern:(NSA*) newPattern {
   NSI i, count = [newPattern count];
   CGF pattern[count];
   for (i = 0; i < count; i++) {
@@ -1091,7 +1091,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 }
 
 
-- (void)applyInnerShadow:(NSShadow *)shadow {
+- _Void_ applyInnerShadow:(NSShadow *)shadow {
   [NSGraphicsContext saveGraphicsState];
 
   NSShadow *shadowCopy = [shadow copy];
@@ -1160,21 +1160,21 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 // NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:radius yRadius:radius];
 
 
-- (void)fillWithColor:(NSC *)color {
+- _Void_ fillWithColor:(NSC *)color {
   [NSGC state:^{
     [color set], [self fill];
   }];
 }
 
-- (void)strokeWithColor:(NSC*)c andWidth:(CGF)w inside:(NSR)frame {
+- _Void_ strokeWithColor:(NSC*)c andWidth:(CGF)w inside:(NSR)frame {
 
   self.lineWidth = w;  [c setStroke];  [self strokeInsideWithinRect:frame];
 }
-- (void)strokeWithColor:(NSC*)c andWidth:(CGF)w {  self.lineWidth = w;  [self strokeWithColor:c]; }
+- _Void_ strokeWithColor:(NSC*)c andWidth:(CGF)w {  self.lineWidth = w;  [self strokeWithColor:c]; }
 
-- (void)strokeWithColor:(NSC *)color { [color set], [self stroke]; }
+- _Void_ strokeWithColor:(NSC *)color { [color set], [self stroke]; }
 
-- (void)fillWithInnerShadow:(NSShadow *)shadow {
+- _Void_ fillWithInnerShadow:(NSShadow *)shadow {
 
   //    [NSGraphicsContext state:^{
 
@@ -1199,7 +1199,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
   //  }];
 }
 
-- (void)drawBlurWithColor:(NSColor *)color radius:(CGFloat)radius {
+- _Void_ drawBlurWithColor:(NSColor *)color radius:(CGFloat)radius {
   NSRect bounds = NSInsetRect(self.bounds, -radius, -radius);
   NSShadow *shadow = NSShadow.new;
   shadow.shadowOffset = NSMakeSize(0, bounds.size.height);
@@ -1222,12 +1222,12 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 }
 
 // Credit for the next two methods goes to Matt Gemmell
-- (void)strokeInside {
+- _Void_ strokeInside {
   /* Stroke within path using no additional clipping rectangle. */
   [self strokeInsideWithinRect:NSZeroRect];
 }
 
-- (void)strokeInsideWithinRect:(NSRect)clipRect {
+- _Void_ strokeInsideWithinRect:(NSRect)clipRect {
   //	NSGraphicsContext *thisContext = AZGRAPHICSCTX;
   CGF lineWidth = [self lineWidth];
 
@@ -1461,11 +1461,11 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 @implementation NSBezierPath (ESPoints)
 
 #pragma mark MAIN CONVENIENCE METHODS
-- (void)drawPointsAndHandles {
+- _Void_ drawPointsAndHandles {
   [self drawPointsInColor:DEFAULTPOINTCOLOR withHandlesInColor:DEFAULTHANDLECOLOR];
 }
 
-- (void)drawPointsInColor:(NSColor *)pointColor withHandlesInColor:(NSColor *)handleColor {
+- _Void_ drawPointsInColor:(NSColor *)pointColor withHandlesInColor:(NSColor *)handleColor {
   NSPoint previousPoint = NSMakePoint(0.0, 0.0);
   for (NSInteger i = 0; i < [self elementCount]; i++) {
     previousPoint = [self drawPathElement:i withPreviousPoint:previousPoint inColor:pointColor withHandlesInColor:handleColor];
@@ -1474,21 +1474,21 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
 #pragma mark DRAWING POINTS
 
-- (void)drawPoint:(NSPoint)pt {
+- _Void_ drawPoint:(NSPoint)pt {
   [self drawPoint:pt inColor:DEFAULTPOINTCOLOR];
 }
 
-- (void)drawPoint:(NSPoint)pt inColor:(NSColor *)pointColor {
+- _Void_ drawPoint:(NSPoint)pt inColor:(NSColor *)pointColor {
   NSBezierPath *bp = [NSBezierPath bezierPathWithRect:NSMakeRect(pt.x - POINTSIZE * 0.5, pt.y - POINTSIZE * 0.5, POINTSIZE, POINTSIZE)];
   [pointColor set];
   [bp fill];
 }
 
-- (void)drawHandlePoint:(NSPoint)pt {
+- _Void_ drawHandlePoint:(NSPoint)pt {
   [self drawHandlePoint:pt inColor:DEFAULTHANDLECOLOR];
 }
 
-- (void)drawHandlePoint:(NSPoint)pt inColor:(NSColor *)pointColor {
+- _Void_ drawHandlePoint:(NSPoint)pt inColor:(NSColor *)pointColor {
   NSBezierPath *bp = [NSBezierPath bezierPathWithRect:NSMakeRect(pt.x - HANDLESIZE * 0.5, pt.y - HANDLESIZE * 0.5, HANDLESIZE, HANDLESIZE)];
   [pointColor set];
   [bp fill];
@@ -1706,7 +1706,7 @@ static const CGFloat domainAndRange[8] = {0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0
   return path;
 }
 
-- (void)gradientFillWithColor:(NSColor*)color {
+- _Void_ gradientFillWithColor:(NSColor*)color {
 	// Take the color apart
 	CGFloat hue, saturation, brightness, alpha;
 	[[color colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];

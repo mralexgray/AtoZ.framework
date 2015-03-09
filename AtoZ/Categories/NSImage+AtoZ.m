@@ -171,8 +171,8 @@ NSData *PNGRepresentation(NSIMG *image) {
 
 //- (CGF)width {	return self.size.width ;		}
 //- (CGF)height {	return self.size.height ;	}
-//- (void)setWidth:(CGF)t {  self.scalesWhenResized = YES; [self setSize:AZSizeExceptWide(self.size, t)]; }
-//- (void)setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
+//- _Void_ setWidth:(CGF)t {  self.scalesWhenResized = YES; [self setSize:AZSizeExceptWide(self.size, t)]; }
+//- _Void_ setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
 
 -  (NSAS*) attributedString {
 
@@ -718,7 +718,7 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
         return sig;
     }
     
-    - (void)forwardInvocation:(NSInvocation*) inv
+    - _Void_ forwardInvocation:(NSInvocation*) inv
     {
         for(id obj in self)
             [inv invokeWithTarget:obj];
@@ -977,13 +977,13 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   [badge unlockFocus];
   return badge;
 }
-- (void)draw {
+- _Void_ draw {
   [self drawAtPoint:NSZeroPoint];
 }
-- (void)drawAtPoint:(NSP)point {
+- _Void_ drawAtPoint:(NSP)point {
   [self drawAtPoint:point inRect:NSZeroRect];
 }
-- (void)drawAtPoint:(NSP)point inRect:(NSR)rect {
+- _Void_ drawAtPoint:(NSP)point inRect:(NSR)rect {
 
   [self drawAtPoint:point
            fromRect:rect
@@ -997,7 +997,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   return [self imageWithSize:frame.size
              drawnUsingBlock:^{ [self drawInQuadrants:images inRect:frame]; }];
 }
-- (void)drawinQuadrant:(QUAD)quad inRect:(NSR)rect;
+- _Void_ drawinQuadrant:(QUAD)quad inRect:(NSR)rect;
 {
   [self
       drawInRect:
@@ -1731,7 +1731,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
 - (NSS*) dataURL { return $(@"data:image/png;base64,%@",[self base64EncodingWithFileType:NSPNGFileType]); }
 
-- (void)openQuantizedSwatch {
+- _Void_ openQuantizedSwatch {
   [AZStopwatch named:@"openQuantizedSwatch"
                block:^{
     NSS *p = $(@"/tmp/quantization.%@.png", NSString.newUniqueIdentifier);
@@ -1810,7 +1810,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 */
 #endif
 
-- (void)drawFloatingRightInFrame:(NSRect)aFrame {
+- _Void_ drawFloatingRightInFrame:(NSRect)aFrame {
   NSRect r = aFrame;
 
   float max =
@@ -1825,7 +1825,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 /*! draws the passed image into the passed rect, centered and scaled appropriately.
     @note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
  */
-- (void)drawCenteredinRect:(NSRect)inRect
+- _Void_ drawCenteredinRect:(NSRect)inRect
                  operation:(NSCompositingOperation)op
                   fraction:(float)delta {
   NSRect srcRect = NSZeroRect;
@@ -2216,7 +2216,7 @@ scaledHeight)];
   return newImage;
 }*/
 
-- (void)drawInRect:(NSRect)dstRect
+- _Void_ drawInRect:(NSRect)dstRect
          operation:(NSCompositingOperation)op
           fraction:(float)delta
             method:(AGImageResizingMethod)resizeMethod {
@@ -2797,7 +2797,7 @@ rightDone:
   return alpha;
 }
 
-- (void)drawEtchedInRect:(NSRect)rect {
+- _Void_ drawEtchedInRect:(NSRect)rect {
   NSSize size = rect.size;
   CGFloat dropShadowOffsetY = -size.width / 64;    //<= 64.0 ? -1.0 : -2.0;
   CGFloat innerShadowBlurRadius = size.width / 32; //<= 3 2.0 ? 1.0 : 4.0;
@@ -3409,7 +3409,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   //  return YES;
 }
 
-- (void)removeRepresentationsLargerThanSize:(NSSZ)size {
+- _Void_ removeRepresentationsLargerThanSize:(NSSZ)size {
   NSEnumerator *e = [[self representations] reverseObjectEnumerator];
   NSIR *thisRep;
   while ((thisRep = [e nextObject])) {
@@ -3992,7 +3992,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 - (id)objectForKeyedSubscript:(NSS*) key {
   return [self valueForKey:key];
 }
-- (void)setObject: object forKeyedSubscript:(NSS*) key {
+- _Void_ setObject: object forKeyedSubscript:(NSS*) key {
   IsEmpty(object) ? [self setValue:@"" forKey:key]
                   : [self setValue:object forKey:key];
 }
@@ -4210,7 +4210,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return maskedImage;
 }
 
-- (void)drawInRect:(NSRect)drawRect
+- _Void_ drawInRect:(NSRect)drawRect
       withGradient:(NSGradient*) gradient
         dropShadow:(NSShadow*) dropShadow
        innerShadow:(NSShadow*) innerShadow
@@ -4385,7 +4385,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 @implementation NSImage (AIImageDrawingAdditions)
 
 // Draw this image in a rect, tiling if the rect is larger than the image
-- (void)tileInRect:(NSRect)rect {
+- _Void_ tileInRect:(NSRect)rect {
   NSSize size = [self size];
   NSRect destRect =
       NSMakeRect(rect.origin.x, rect.origin.y, size.width, size.height);
@@ -5314,7 +5314,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return data;
 }
 
-- (void)writeGIFExtensionBlocksInData:(NSMutableData*) data
+- _Void_ writeGIFExtensionBlocksInData:(NSMutableData*) data
                      forRepresenation:(NSBIR*) bitmap {
   // GIF Application Extension Block - 0x21FF0B
   const char *GIFApplicationExtensionBlock = "\x21\xFF\x0B\x4E\x45\x54\x53\x43"

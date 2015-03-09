@@ -87,15 +87,15 @@
  
 #pragma mark - NSMutableArray primitive methods
  
-- (void) insertObject:x atIndex:(NSUI)idx { // if (idx >= _storage.count) [_storage setCount:idx];
+- _Void_ insertObject:x atIndex:(NSUI)idx { // if (idx >= _storage.count) [_storage setCount:idx];
  
   _storage[[@(idx) stringValue]] = x;// insertPointer:(__bridge void *)x atIndex:idx];
   _lastIndex = idx;
 }
  
-- (void) removeObjectAtIndex:(NSUI)idx {  [_storage removeObjectForKey:@(idx).strV]; } // removePointerAtIndex:idx]; }
+- _Void_ removeObjectAtIndex:(NSUI)idx {  [_storage removeObjectForKey:@(idx).strV]; } // removePointerAtIndex:idx]; }
  
-- (void) addObject:x { if (!x) return;  BOOL inserted = NO;  int i = 0;
+- _Void_ addObject:x { if (!x) return;  BOOL inserted = NO;  int i = 0;
 
   while (!inserted && i < 1000000 ) {
     id z = [_storage objectForKey:@(i).strV];
@@ -105,9 +105,9 @@
   NSLog(@"%@ ca oly try to store up to 100000 items!", AZSELSTR); // [_storage addPointer:(__bridge void *)x];
 }
 
-- (void) removeLastObject { [_storage removeObjectForKey:@(_lastIndex).strV]; } //]  [_storage removePointerAtIndex:_storage.count]; }
+- _Void_ removeLastObject { [_storage removeObjectForKey:@(_lastIndex).strV]; } //]  [_storage removePointerAtIndex:_storage.count]; }
  
-- (void) replaceObjectAtIndex:(NSUI)idx withObject:x {
+- _Void_ replaceObjectAtIndex:(NSUI)idx withObject:x {
 //  if (idx >= _storage.count) [_storage setCount:idx];
 
 //  [_storage replacePointerAtIndex:idx withPointer:(__bridge void *)x];
@@ -117,7 +117,7 @@
 #pragma mark - Subscript Overrides
  
 // Avoids NSRangeException thrown in setObject:atIndex: (Private?)
-- (void) setObject:obj atIndexedSubscript:(NSUI)idx {
+- _Void_ setObject:obj atIndexedSubscript:(NSUI)idx {
   [self replaceObjectAtIndex:idx withObject:obj];
 }
  
@@ -139,17 +139,17 @@
 
 //#pragma mark - NSMutableArray primitive methods
 // 
-//- (void)insertObject: o atIndex:(NSUInteger)x {
+//- _Void_ insertObject: o atIndex:(NSUInteger)x {
 //
 //  if (x >= _storage.count) [_storage setCount:x];
 //  [_storage insertPointer:(__bridge void *)o atIndex:x];
 //}
 // 
-//- (void)removeObjectAtIndex:(NSUInteger)x {[_storage removePointerAtIndex:x]; }
-//- (void)addObject: o { [_storage addPointer:(__bridge void *)o]; }
-//- (void)removeLastObject { [_storage removePointerAtIndex:_storage.count]; }
+//- _Void_ removeObjectAtIndex:(NSUInteger)x {[_storage removePointerAtIndex:x]; }
+//- _Void_ addObject: o { [_storage addPointer:(__bridge void *)o]; }
+//- _Void_ removeLastObject { [_storage removePointerAtIndex:_storage.count]; }
 //
-//- (void)replaceObjectAtIndex:(NSUInteger)x withObject: o {
+//- _Void_ replaceObjectAtIndex:(NSUInteger)x withObject: o {
 //
 //  if (x >= _storage.count) [_storage setCount:x];
 //  [_storage replacePointerAtIndex:x withPointer:(__bridge void *)o];
@@ -158,7 +158,7 @@
 #pragma mark - Subscript Overrides
  
 // Avoids NSRangeException thrown in setObject:atIndex: (Private?)
-//- (void)setObject: obj atIndexedSubscript:(NSUInteger)idx {
+//- _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx {
 //  [self replaceObjectAtIndex:idx withObject:obj];
 //}
 //// Don't need to override but it's nice to be sure
@@ -419,7 +419,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
 - (NSA*) withMaxItems:(NSUI)items                       {
   return self.count <= items ? self : [self subarrayToIndex:items];
 }
-- (void) setStringsToNilOnbehalfOf: entity {
+- _Void_ setStringsToNilOnbehalfOf: entity {
   [self each:^(id obj) { [entity setValue:nil forKey:obj]; }];
 }
 - (NSA*) sorted { return self.descending; }
@@ -459,12 +459,12 @@ NSA* SortersForKeysAsc(NSString*sort, BOOL order, ...) {
 - (NSA*) URLsForPaths {
   return [self map:^id (id obj) { return [NSURL fileURLWithPath:obj]; }];
 }
-//- (void) logEachPropertiesPlease  {      [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"%@", [obj propertiesPlease]); }]; }
-//- (void) logEachProperties        {
+//- _Void_ logEachPropertiesPlease  {      [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"%@", [obj propertiesPlease]); }]; }
+//- _Void_ logEachProperties        {
 //  [self eachWithIndex:^(NSO* obj, NSI idx) { NSLog(@"%@", [obj properties]); }];
 //}
 
-- (void) logEach                  {
+- _Void_ logEach                  {
   [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"Index %ld: %@", idx, obj);  }];
 }
 + (NSA*) arrayFromPlist:(NSS*) path {
@@ -472,7 +472,7 @@ NSA* SortersForKeysAsc(NSString*sort, BOOL order, ...) {
           [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
                                                     format:nil errorDescription:nil];
 }
-- (void) saveToPlistAtPath:(NSS*) path {
+- _Void_ saveToPlistAtPath:(NSS*) path {
   //	[HRCoder archiveRootObject:self toFile:path];
   //	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/plutil" arguments:@[@"-convert", @"xml1", path]];
 }
@@ -614,7 +614,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 /**	Additions.	*/
 //@implementation NSArray (TTCategory)
-- (void)perform:(SEL)selector {
+- _Void_ perform:(SEL)selector {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -624,7 +624,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   //    [copy release];
 }
-- (void)perform:(SEL)selector withObject: p1 {
+- _Void_ perform:(SEL)selector withObject: p1 {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -634,7 +634,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   //    [copy release];
 }
-- (void)perform:(SEL)selector withObject: p1 withObject: p2 {
+- _Void_ perform:(SEL)selector withObject: p1 withObject: p2 {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -646,7 +646,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
   }
 }
-- (void)perform:(SEL)selector withObject: p1 withObject: p2 withObject: p3 {
+- _Void_ perform:(SEL)selector withObject: p1 withObject: p2 withObject: p3 {
   NSArray *copy = [NSA arrayWithArray:self];
   NSEnumerator *e = [copy objectEnumerator];
   for (id delegate; (delegate = [e nextObject]); ) {
@@ -655,7 +655,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     }
   }
 }
-- (void)makeObjectsPerformSelector:(SEL)selector withObject: p1 withObject: p2 {
+- _Void_ makeObjectsPerformSelector:(SEL)selector withObject: p1 withObject: p2 {
   for (id delegate in self) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -663,7 +663,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 #pragma clang diagnostic pop
   }
 }
-- (void)makeObjectsPerformSelector:(SEL)selector
+- _Void_ makeObjectsPerformSelector:(SEL)selector
                         withObject: p1
                         withObject: p2
                         withObject: p3 {
@@ -671,7 +671,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     [delegate performSelector:selector withObject:p1 withObject:p2 withObject:p3];
   }
 }
-- (void)makeObjectsPerformSelector:(SEL)selector withBool:(BOOL)b {
+- _Void_ makeObjectsPerformSelector:(SEL)selector withBool:(BOOL)b {
   for (id x in self) {
     if (![x respondsToSelector:selector]) continue;
     BOOL local = b;
@@ -926,7 +926,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 
 
-- (void) eachWithVariadicPairs:(void(^)(id a, id b))pairs {
+- _Void_ eachWithVariadicPairs:(void(^)(id a, id b))pairs {
   NSA* split = self.splitByParity;
   NSA* valsA = split[0], *valsB = split[1];
   [valsA eachWithIndex:^(id obj, NSI idx) {  pairs(obj, valsB[idx]); }];
@@ -1037,7 +1037,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 - andExecuteEnumeratorBlock {
   return nil;
 }
-- (void)setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUI idx, BOOL *stop))block {
+- _Void_ setAndExecuteEnumeratorBlock:(void (^)(id obj, NSUI idx, BOOL *stop))block {
   [self enumerateObjectsUsingBlock:block];
 }
 - (NSA*) objectsWithFormat:(NSS*) format, ...{
@@ -1113,10 +1113,10 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
  @param obj (Block Parameter) this is the object in the array currently being enumerated over
  @param index (Block Parameter) this is the index of obj in the array
  @param stop (Block Parameter) set this to YES to stop enumeration, otherwise there is no need to use this	*/
-- (void)az_each:(void (^)(id obj, NSUI index, BOOL *stop))block {
+- _Void_ az_each:(void (^)(id obj, NSUI index, BOOL *stop))block {
   [self enumerateObjectsUsingBlock:block];
 }
-- (void)eachDictionaryKeyAndObjectUsingBlock:(void (^)(id key, id obj))block;
+- _Void_ eachDictionaryKeyAndObjectUsingBlock:(void (^)(id key, id obj))block;
 {
   [self each:^(NSD *dict) {
     [dict enumerateEachKeyAndObjectUsingBlock:^(id key, id obj) {
@@ -1133,7 +1133,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
  @param index (Block Parameter) the position of the object in the array
  @param obj (Block Parameter) the object being enumerated over
  @param stop (Block Parameter) if you need to stop the enumeration set this to YES otherwise do nothing	*/
-- (void)az_eachConcurrentlyWithBlock:(void (^)(NSI index, id obj, BOOL *stop))block {
+- _Void_ az_eachConcurrentlyWithBlock:(void (^)(NSI index, id obj, BOOL *stop))block {
   //make sure we get a unique queue identifier
   dispatch_group_t group = dispatch_group_create();
   dispatch_queue_t queue = dispatch_queue_create([NSString stringWithFormat:@"%@%@", @"com.AGFoundation.NSArray_", NSUUID.UUID.UUIDString].UTF8String, DISPATCH_QUEUE_CONCURRENT);
@@ -1178,7 +1178,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }];
   return results;
 }
-- (void)doUntil:(BOOL(^)(id obj))block {
+- _Void_ doUntil:(BOOL(^)(id obj))block {
   [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
     *stop =! block(obj);
   }];
@@ -1271,7 +1271,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 @end
 @implementation NSMA (Extensions)
-- (void) removeFirstObject {
+- _Void_ removeFirstObject {
 	[self removeObjectAtIndex:0];
 }
 @end
@@ -1369,7 +1369,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
 }
 //Also, a small bonus to further increase functionality, if you're performing operations on the items moved (like updating a db or something), the following code has been very useful to me:
-- (void)moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block {
+- _Void_ moveObjectAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex withBlock:(void (^)(id, NSUInteger))block {
   if (fromIndex == toIndex) return;
   if (fromIndex >= self.count) return;                  //there is no object to move, return
   if (toIndex >= self.count) toIndex = self.count - 1;  //toIndex too large, assume a move to end
@@ -1666,7 +1666,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
    return [[self vFK:k] MTrecursiveValueForKey:k progress:prog], prog;
 }
 
-- (void)MTrecursiveValueForKey:(NSS*)k progress:(NSMA*)prog {
+- _Void_ MTrecursiveValueForKey:(NSS*)k progress:(NSMA*)prog {
   if (![self valueForKey:k]) return [prog addObject:self];
   [prog addObject:self];
   [[self valueForKey:k] MTrecursiveValueForKey:k progress:prog];
@@ -1674,7 +1674,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 @end
 @implementation NSArray (RecursiveKVC)
 - (NSA*)recursiveValueForKey:(NSS*)k {  return [super recursiveValueForKey:k]; }
-- (void)MTrecursiveValueForKey:(NSS*)key progress:(NSMA*)progress{
+- _Void_ MTrecursiveValueForKey:(NSS*)key progress:(NSMA*)progress{
     for (id obj in self)[obj MTrecursiveValueForKey:key progress:progress];
 }
 

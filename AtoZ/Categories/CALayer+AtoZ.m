@@ -377,7 +377,7 @@ SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(hostView, setHostView, ^{ value = value ?: [self
 static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 #define kCALayerLabel @"CALayerLabel"
 
-- (void)setText:(CATXTL *)text	     {
+- _Void_ setText:(CATXTL *)text	     {
 	objc_setAssociatedObject(self, &TEXT_IDENTIFIER, text, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	self.text ? [self replaceSublayer:self.text with:text] : [self addSublayer:text];
 	[self setNeedsLayout];  [self setNeedsDisplay];
@@ -385,7 +385,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 - (CATXTL *)text	 {
 	return (CATXTL *)objc_getAssociatedObject(self, &TEXT_IDENTIFIER);
 }
-- (void)setRoot:(CAL *)root	      {
+- _Void_ setRoot:(CAL *)root	      {
 
 	objc_setAssociatedObject(self, &ROOT_IDENTIFIER, root, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	self.root ? [self replaceSublayer:self.root with:root] : [self addSublayer:root];
@@ -602,19 +602,19 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	return transform;
 }
 
-- (void)rotateAroundYAxis:(CGF)radians	  {
+- _Void_ rotateAroundYAxis:(CGF)radians	  {
 
 	[self vFK:@"animating"] ? ^{ return; } () : ^{ [self setValue:@(YES) forKey:@"animating"];
 	[CATransaction transactionWithLength:1 easing:CAMEDIAEASY actions:^{
 		self.sublayerTransform = CATransform3DMakeRotation(radians, 0, 1, 0);
 	}]; } ();
 }
-- (void)setHostingLayerAnchorPoint:(CGP)point	      {
+- _Void_ setHostingLayerAnchorPoint:(CGP)point	      {
 	CAL *topLayer = [self.superlayers lastObject];
 	topLayer.anchorPoint = point;
 	//	topLayer.frame = [layerView bounds];
 }
-- (void)animateCameraToPosition:(CGP)point	      {
+- _Void_ animateCameraToPosition:(CGP)point	      {
 	[self vFK:@"animating"] ? ^{ return; } () : ^{ [self setValue:@(YES) forKey:@"animating"];
 	[CATransaction transactionWithLength:2 easing:CAMEDIAEASY actions:^{
 		//	} setCompletionBlock:^ { // referencing mBeingAnimated creates a retain cycle as the block will retain self mBeingAnimated = NO; }];
@@ -624,15 +624,15 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	}];
 	[self setValue:@(NO) forKey:@"animating"]; } ();
 }
-- (void)rotateBy45     {
+- _Void_ rotateBy45     {
 	[self vFK:@"animating"] ? ^{ return; } () : ^{ [self setValue:@(YES) forKey:@"animating"];
 	[self rotateAroundYAxis:M_PI_4];
 	[self setValue:@(NO) forKey:@"animating"]; } ();
 }
-- (void)rotateBy90     {
+- _Void_ rotateBy90     {
 	[self rotateAroundYAxis:M_PI_2];
 }
-- (void)animateToColor:(NSC*)color {
+- _Void_ animateToColor:(NSC*)color {
 	[self animateToColor:color duration:2 withCallBack:NO];
 }
 - (VBlk) animateToColor:(NSC*)color duration:(NSTI)interval withCallBack:(BOOL)itRezhuzhesTheColor {
@@ -653,13 +653,13 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 /*
 
  + (NSA*)uncodableKeys {	return [self propertyNames];	}
- - (void)setWithCoder:(NSCoder *)coder{	[super setWithCoder:coder];[self autoEncodeWithCoder:coder];}
- - (void)encodeWithCoder:(NSCoder *)coder{	[super encodeWithCoder:coder];
+ - _Void_ setWithCoder:(NSCoder *)coder{	[super setWithCoder:coder];[self autoEncodeWithCoder:coder];}
+ - _Void_ encodeWithCoder:(NSCoder *)coder{	[super encodeWithCoder:coder];
  [self autoDecode:coder]; //encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
  [[self.class uncodableKeys] each:^(NSS* key) {
  [self autoEncodeWithCoder:coder]  ;//]}= DECODE_VALUE([[coder decodeObjectForKey:@"uncodableProperty"];	}];
  }
- - (void)encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];
+ - _Void_ encodeWithCoder:(NSCoder *)coder	{	[super encodeWithCoder:coder];
  [coder encodeObject:ENCODE_VALUE(self.newProperty) forKey:@"uncodableProperty"];	}
  - (id)copyWithZone:(NSZone *)zone {  return [self.class.alloc initWithCoder:NSCoder.new];	}
  self.position = nanPointCheck(AZCenterOfRect(toRect));
@@ -833,7 +833,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
  t        = [self hasPropertyForKVCKey:@"sublayerTransform"] ? CATransform3DConcat(self.sublayerTransform, t) : t;
  t.m34	= [self hasPropertyForKVCKey:@"sublayerTransform.m34"] ? self.sublayerTransform.m34 : 1.0 / -450;
  self.sublayerTransform = t;
- - (void)orientOnEvent: (NSEvent*)event;
+ - _Void_ orientOnEvent: (NSEvent*)event;
  {
  CGPoint point = NSPointToCGPoint([self convertPoint:theEvent.locationInWindow fromView:nil]);
  draggedDuringThisClick = true;
@@ -876,18 +876,18 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	isFlipped ? [self flipBack] : [self flipOver];
 	[self setBool:isFlipped = !isFlipped forKey:@"flipped"];
 }
-- (void)flipDown  {        //:(CATransform3D)transform {
+- _Void_ flipDown  {        //:(CATransform3D)transform {
 	self.anchorPoint = CGPointMake(.5, 0);
 	CATransform3D transform = CATransform3DIdentity;
 	transform.m34 = 1.0 / 700.0;
 	self.transform = CATransform3DRotate(transform, 180 * M_PI / 180, 1, 0, 0);
 }
-- (void)flipOver  {        //:(CATransform3D)transform {
+- _Void_ flipOver  {        //:(CATransform3D)transform {
 	CATransform3D transform = CATransform3DIdentity;
 	transform.m34 = 1.0 / 700.0;
 	self.transform = CATransform3DRotate(transform, 180 * M_PI / 180, 1, 0, 0);
 }
-- (void)flipBack  {        //:(CATransform3D)transform {
+- _Void_ flipBack  {        //:(CATransform3D)transform {
 	CATransform3D transform = CATransform3DIdentity;
 	transform.m34 = 1.0 / 700.0;
 	self.transform =  CATransform3DRotate(transform, 180 * M_PI / 180, -1, 0, 0);
@@ -897,7 +897,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	pos == AZTop || pos == AZBtm ? 0 : 1 };
 	return CATransform3DMakeRotation(DEG2RAD(180), dir.x, dir.y, 0.0f);
 }
-- (void)flipForward:(BOOL)forward atPosition:(AZPOS)pos duration:(NSTI)time   {
+- _Void_ flipForward:(BOOL)forward atPosition:(AZPOS)pos duration:(NSTI)time   {
 
 	CAT3D flip = [self flipForward:forward atPosition:pos];
 	[self animate:@"transform" toTransform:flip time:time eased:CAMEDIAEASY completion:^{
@@ -923,7 +923,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 #ifdef DEBUGTALKER
 //	AZTALK($(@"%@ flipped", newFlipState ? @"IS" : @"is NOT "));
 #endif
-- (void)setScale:(CGF)scale {
+- _Void_ setScale:(CGF)scale {
 	[self setValue:[NSValue valueWithSize:NSSizeToCGSize((NSSize) {scale, scale})] forKeyPath:@"transform.scale"];
 }
 - (ReverseAnimationBlock)pulse  {
@@ -953,12 +953,12 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	[self addAnimation:pulseAnimation forKey:@"pulseAnimation"];
 	return ^{ [self removeAnimationForKey:@"pulseAnimation"]; };
 }
-- (void)addAnimations:(NSA *)anims forKeys:(NSA *)keys;   {
+- _Void_ addAnimations:(NSA *)anims forKeys:(NSA *)keys;   {
 	[anims enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 	[self addAnimation:obj forKey:keys[idx]];
 	}];
 }
-- (void)fadeIn  {
+- _Void_ fadeIn  {
 	//	CABA *theAnimation=[CABA animationWithKeyPath:@"opacity"];
 	//	theAnimation.duration=3.5;		theAnimation.repeatCount=1;
 	//	theAnimation.autoreverses=YES;	theAnimation.fromValue=@(1.0);
@@ -976,7 +976,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	[self addAnimation:theAnimation forKey:@"animateOpacity"];
 	//	disable
 }
-- (void)fadeOut {
+- _Void_ fadeOut {
 	CABA *theAnimation = [CABA animationWithKeyPath:@"opacity"];
 	theAnimation.duration =  [self animationKeys]
 	? [[[self animationForKey:[self animationKeys].first] valueForKey:@"duration"]integerValue] : .5;
@@ -1142,7 +1142,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	return animationGroup;
 }
 
-- (void)addSublayers:(NSA *)subLayers;  { self.sublayers = [self.sublayers ?: @[] arrayByAddingObjectsFromArray:subLayers]; } //	[subLayers do :^(id obj) { self addSublayer:obj]; }]; }
+- _Void_ addSublayers:(NSA *)subLayers;  { self.sublayers = [self.sublayers ?: @[] arrayByAddingObjectsFromArray:subLayers]; } //	[subLayers do :^(id obj) { self addSublayer:obj]; }]; }
 @end
 
 @implementation CALayer (AtoZLayerFactory) @dynamic gridPalette;
@@ -1346,12 +1346,12 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 #pragma mark - Category Implementation
 @implementation LTKAnimationDelegate @synthesize startBlock, stopBlock;
 #pragma mark - Protocol Implementations CAAnimation Methods (Informal)
-- (void)animationDidStart:(CAA*)animation                           {
+- _Void_ animationDidStart:(CAA*)animation                           {
 	if (self.startBlock != nil) {
 	self.startBlock();
 	}
 }
-- (void)animationDidStop:(CAA*)animation finished:(BOOL)finished   {
+- _Void_ animationDidStop:(CAA*)animation finished:(BOOL)finished   {
 	if (self.stopBlock != nil) {
 	self.stopBlock(finished);
 	}
@@ -1456,7 +1456,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 
 */
 #pragma mark - CALayer (LTKAdditions) Methods
-- (void)setAnchorPointAndPreserveCurrentFrame:(CGPoint)anchorPoint;     {
+- _Void_ setAnchorPointAndPreserveCurrentFrame:(CGPoint)anchorPoint;     {
 	CGPoint newPoint = CGPointMake((self.width * anchorPoint.x), (self.height * anchorPoint.y));
 	CGPoint oldPoint = CGPointMake((self.width * self.anchorPoint.x), (self.height * self.anchorPoint.y));
 	newPoint = CGPointApplyAffineTransform(newPoint, self.affineTransform);
@@ -1514,51 +1514,51 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 - (CAL *)modelCALayer    {
 	return (CAL *)[self modelLayer];
 }
-- (void)addDefaultFadeTransition        {
+- _Void_ addDefaultFadeTransition        {
 	[self addFadeTransitionWithDuration:LTKDefaultTransitionDuration];
 }
-- (void)addDefaultMoveInTransitionWithSubtype:(NSS *)subtype     {
+- _Void_ addDefaultMoveInTransitionWithSubtype:(NSS *)subtype     {
 	[self addMoveInTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
-- (void)addDefaultPushTransitionWithSubtype:(NSS *)subtype       {
+- _Void_ addDefaultPushTransitionWithSubtype:(NSS *)subtype       {
 	[self addPushTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
-- (void)addDefaultRevealTransitionWithSubtype:(NSS *)subtype     {
+- _Void_ addDefaultRevealTransitionWithSubtype:(NSS *)subtype     {
 	[self addRevealTransitionWithSubtype:subtype duration:LTKDefaultTransitionDuration];
 }
-- (void)addFadeTransitionWithDuration:(NSTimeInterval)duration  {
+- _Void_ addFadeTransitionWithDuration:(NSTimeInterval)duration  {
 	CATransition *transition = [CATransition animation];  // kCATransitionFade is the default type
 	transition.duration = duration;
 	[self addAnimation:transition forKey:kCATransition];
 }
-- (void)addMoveInTransitionWithSubtype:(NSS *)subtype duration:(NSTimeInterval)duration  {
+- _Void_ addMoveInTransitionWithSubtype:(NSS *)subtype duration:(NSTimeInterval)duration  {
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionMoveIn;
 	transition.subtype = subtype;
 	transition.duration = duration;
 	[self addAnimation:transition forKey:kCATransition];
 }
-- (void)addPushTransitionWithSubtype:(NSS *)subtype duration:(NSTimeInterval)duration    {
+- _Void_ addPushTransitionWithSubtype:(NSS *)subtype duration:(NSTimeInterval)duration    {
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionPush;
 	transition.subtype = subtype;
 	transition.duration = duration;
 	[self addAnimation:transition forKey:kCATransition];
 }
-- (void)addRevealTransitionWithSubtype:(NSS *)subtype duration:(NSTimeInterval)duration  {
+- _Void_ addRevealTransitionWithSubtype:(NSS *)subtype duration:(NSTimeInterval)duration  {
 	CATransition *transition = [CATransition animation];
 	transition.type = kCATransitionReveal;
 	transition.subtype = subtype;
 	transition.duration = duration;
 	[self addAnimation:transition forKey:kCATransition];
 }
-- (void)addAnimation:(CAAnimation *)animation   {
+- _Void_ addAnimation:(CAAnimation *)animation   {
 	[self addAnimation:animation forKey:nil];
 }
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStopBlock:(void (^)(BOOL finished))stopBlock {
+- _Void_ addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStopBlock:(void (^)(BOOL finished))stopBlock {
 	[self addAnimation:animation forKey:key withStartBlock:nil stopBlock:stopBlock];
 }
-- (void)addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStartBlock:(Blk)startBlock stopBlock:(void (^)(BOOL finished))stopBlock        {
+- _Void_ addAnimation:(CAAnimation *)animation forKey:(NSS *)key withStartBlock:(Blk)startBlock stopBlock:(void (^)(BOOL finished))stopBlock        {
 
 	LTKAnimationDelegate *animationDelegate = LTKAnimationDelegate.new;
 	animationDelegate.startBlock  = startBlock;
@@ -1566,7 +1566,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 	animation.delegate          = animationDelegate;
 	[self addAnimation:animation forKey:key];
 }
-- (void)replaceAnimationForKey:(NSS *)key withAnimation:(CAAnimation *)animation {
+- _Void_ replaceAnimationForKey:(NSS *)key withAnimation:(CAAnimation *)animation {
 
   if ([self.animationKeys containsObject:key]) [self removeAnimationForKey:key];
 	[self addAnimation:animation forKey:key];
@@ -1600,7 +1600,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 	CGImageRef img	       = CGBitmapContextCreateImage(ctx);
 	return [[NSImage alloc]initWithCGImage:img size:contextSize];
 }
-- (void)enableDebugBordersRecursively:(BOOL)recursively { IF_VOID(ISA(self,AZDebugLayer));
+- _Void_ enableDebugBordersRecursively:(BOOL)recursively { IF_VOID(ISA(self,AZDebugLayer));
 
 	AZDebugLayer *l = ({ id x; if (!(x = [self scanSubsForClass:AZDebugLayer.class])) [self addSublayer: x = AZDebugLayer.new]; x; });
 
@@ -1618,12 +1618,12 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 @end
 @implementation CAScrollLayer  (CAScrollLayer_Extensions) 
 
-//- (void)scrollBy:(CGPoint)inDelta       {
+//- _Void_ scrollBy:(CGPoint)inDelta       {
 //	const CGRect theVisibleRect = self.visibleRect;
 //	const CGPoint theNewScrollLocation = { .x = CGRectGetMinX(theVisibleRect) + inDelta.x, .y = CGRectGetMinY(theVisibleRect) + inDelta.y };
 //	[self scrollToPoint:theNewScrollLocation];
 //}
-- (void)scrollTo:(CGF)off        { CGF delta = 0;
+- _Void_ scrollTo:(CGF)off        { CGF delta = 0;
   objswitch(self.scrollMode)
 //    objcase(@"both") 
     objcase(@"none") return;
@@ -1632,7 +1632,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
   endswitch
   [self scrollBy:delta];
 }
-- (void)scrollBy:(CGF)inDelta       {
+- _Void_ scrollBy:(CGF)inDelta       {
   objswitch(self.scrollMode)
     objcase(kCAScrollVertically)   	[self scrollToPoint: AZPointOffsetY(self.bounds.origin, inDelta)];
     objcase(kCAScrollHorizontally) 	[self scrollToPoint: AZPointOffsetX(self.bounds.origin, inDelta)];
@@ -1644,7 +1644,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 //	const CGPoint theNewScrollLocation = { .x = CGRectGetMinX(theVisibleRect) + inDelta.x, .y = CGRectGetMinY(theVisibleRect) + inDelta.y };
 //	[self scrollToPoint:theNewScrollLocation];
 }
-- (void)scrollCenterToPoint:(CGPoint)inPoint;   {
+- _Void_ scrollCenterToPoint:(CGPoint)inPoint;   {
 	const CGRect theBounds = self.bounds;
 	const CGPoint theCenter = {
 	.x = CGRectGetMidX(theBounds),
@@ -1659,7 +1659,7 @@ NSTI const LTKDefaultTransitionDuration = 0.25;
 @end
 static const char *kRenderAsciiBlockKey = "-";
 @implementation CALayer (MPPixelHitTesting)
-- (void)setRenderASCIIBlock:(MPRenderASCIIBlock)block  {
+- _Void_ setRenderASCIIBlock:(MPRenderASCIIBlock)block  {
 	objc_setAssociatedObject(self, kRenderAsciiBlockKey, block, OBJC_ASSOCIATION_COPY);
 }
 - (MPRenderASCIIBlock)renderASCIIBlock {
@@ -1702,7 +1702,7 @@ static const char *kRenderAsciiBlockKey = "-";
 	}
 	return (hit != 0);
 }
-- (void)renderShapeLayer:(CAShapeLayer *)layer inContext:(CGContextRef)context  {
+- _Void_ renderShapeLayer:(CAShapeLayer *)layer inContext:(CGContextRef)context  {
 	if (layer.path) {
 	// TODO: still incomplete. Should finish implementation.
 	CGColorRef whiteColor = CGColorGetConstantColor(kCGColorWhite);
@@ -1914,7 +1914,7 @@ static const char *kRenderAsciiBlockKey = "-";
 	return [@[@"siblingIndex", @"siblingIndexMax",@"siblings"]containsObject:key] ?: [super automaticallyNotifiesObserversForKey:key]; }
 + (NSSet*) keyPathsForValuesAffectingSiblings { return NSSET(@"sublayers"); }  //@"superlayer.sublayers"); }
 + (NSSet*) keyPathsForValuesAffectingSiblingIndex { return NSSET(@"siblings"); }  //@"superlayer.sublayers"); }
-- (void)setHostView:(NSV *)hostView     {	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_ASSIGN]; }
+- _Void_ setHostView:(NSV *)hostView     {	[self setAssociatedValue:hostView forKey:@"hostView" policy:OBJC_ASSOCIATION_ASSIGN]; }
 - (NSV *)hostView	{
 */
 
@@ -2373,7 +2373,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(debug,setDebug, BOOL, ^{}, ^{
 //  else [({ @[@"anchorDebugger", @"positionDebugger", @"boundsDebugger"]; }) do:^(id obj) {id x = [ sublayerWithName:obj]; if(x) [x removeFromSuperlayer];  }];
 });
 
-- (void)debugAppendToLayerTree:(NSMutableString *)treeStr indention:(NSString *)indentStr {
+- _Void_ debugAppendToLayerTree:(NSMutableString *)treeStr indention:(NSString *)indentStr {
 	[treeStr appendFormat:@"%@%@\n", indentStr, self.debugDescription];
 	for (CAL *aSub in self.sublayers) {
 	[aSub debugAppendToLayerTree:treeStr indention:[indentStr stringByAppendingString:@"\t"]];

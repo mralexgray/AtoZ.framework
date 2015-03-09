@@ -8,7 +8,7 @@
 
 - init { 	return self = super.init ? dict = NSMD.new, self : nil;	}
 
-- (void) add:_ { NSParameterAssert(_); NSN*ct; dict[_] = @(((ct = dict[_]) ? ct.iV : 0) + 1); }
+- _Void_ add:_ { NSParameterAssert(_); NSN*ct; dict[_] = @(((ct = dict[_]) ? ct.iV : 0) + 1); }
 
 + (NSBag *) bagWithObjects:_, ... {
 
@@ -25,7 +25,7 @@
   return bag;
 }
 
-- (void) addObjects:_, ... {
+- _Void_ addObjects:_, ... {
 
 	if (!_) return;
 	[self add:_];
@@ -37,7 +37,7 @@
 	va_end(objects);
 }
 
-- (void) remove:anObject	{
+- _Void_ remove:anObject	{
 
 	NSNumber *num = dict[anObject];
 	if (!num) return;

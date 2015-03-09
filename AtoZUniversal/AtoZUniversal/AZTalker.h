@@ -26,5 +26,5 @@
 //+ (void) randomDicksonism;
 
 //+(NSData*) sayToData:(NSStringtring*)thing;
-//- (void) say:(NSStringtring*)thing;
+//- _Void_ say:(NSStringtring*)thing;
 #endif

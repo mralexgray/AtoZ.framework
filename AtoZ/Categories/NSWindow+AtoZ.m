@@ -391,7 +391,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 - (CGR) contentRect 						{  return (NSR){{0,0},[(id<BoundingObject>)self.contentView size]}; }
 
 /** @brief Set content size with animation	*/
-- (void)setContentSize:(NSSize)aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag	{
+- _Void_ setContentSize:(NSSize)aSize display:(BOOL)displayFlag animate:(BOOL)animateFlag	{
 	NSRect  frame = [self frame];
 	NSSize  desiredSize;
 	
@@ -968,7 +968,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
  
  return minaturized;
  }
- - (void)setFloating:(BOOL)set;
+ - _Void_ setFloating:(BOOL)set;
  {
  if (set)
  [self setLevel:NSFloatingWindowLevel];
@@ -997,7 +997,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
  
  return self;
  }
- - (void)setDefaultFirstResponder;
+ - _Void_ setDefaultFirstResponder;
  {
  // send this out to ask our window to set the defaul first responder
  [[NSNotificationCenter defaultCenter] postNotificationName:kNTSetDefaultFirstResponderNotification object:self];
@@ -1022,7 +1022,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
  
  return [[NSApp keyWindow] isKindOfClass:sCarbonMenuWindowClass];
  }
- - (void)flushActiveTextFields;
+ - _Void_ flushActiveTextFields;
  {
  // flush the current editor
  id fr = [self firstResponder];
@@ -1105,7 +1105,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 	[animation startAnimation]; // because it's blocking, once it returns, we're done
 }
 
-- (void)slideDown {
+- _Void_ slideDown {
 	 //	if ([[self contentView] isHidden]) [[self main] setHidden:YES];
 	 NSRect firstViewFrame = [[self contentView] frame];
 	 NSRect screen =  [[NSScreen mainScreen]frame];
@@ -1139,7 +1139,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 
 //  [self az_overrideSelector:@selector(canBecomeKeyWindow) withBlock:(__bridge void *)^BOOL(id _self){ return canI; }]; }
 // [self az_overrideSelector:@selector(canBecomeMainWindow) withBlock:(__bridge void *)^BOOL(id _self){ return canI; }]; }
-//- (void)animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress {	if ([animation valueForKeyPath:@"dictionary.preSlideUpExtendView"] == theAnim)		}	}
+//- _Void_ animation:(NSAnimation *)animation didReachProgressMark:(NSAnimationProgress)progress {	if ([animation valueForKeyPath:@"dictionary.preSlideUpExtendView"] == theAnim)		}	}
 
 //- _IsIt_ hasLayer							{ return [self.contentView layer] != nil;		}
 //-  (CGF) originX          { return  self.frame.origin.x; 		}

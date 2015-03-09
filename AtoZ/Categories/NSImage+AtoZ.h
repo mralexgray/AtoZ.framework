@@ -274,7 +274,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 - (NSIMG*) etched;
 - (NSIMG*) alpha:(CGF)fraction;
-- (void)drawEtchedInRect:(NSRect)rect;
+- _Void_ drawEtchedInRect:(NSRect)rect;
 - (NSIMG*) maskedWithColor:(NSC *)color;
 
 /*!
@@ -379,7 +379,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 @interface CIFilter (Subscript)
 - (id)objectForKeyedSubscript:(NSS*)key;
-- (void)setObject: object forKeyedSubscript:(NSS*)key;
+- _Void_ setObject: object forKeyedSubscript:(NSS*)key;
 @end
 
 @interface CIFilter (WithDefaults)
@@ -424,7 +424,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
  	@discussion The image content is drawn at its current resolution and is not scaled unless the CTM of the current coordinate system itself contains a scaling factor. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
 	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.
 
-- (void)drawAdjustedAtPoint:(NSPoint)aPoint fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
+- _Void_ drawAdjustedAtPoint:(NSPoint)aPoint fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
 
 	!	@method	drawAdjustedInRect:fromRect:operation:fraction:
  	@abstract	Draws all or part of the image in the specified rectangle in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
@@ -434,7 +434,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
  	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
  	@discussion If the srcRect and dstRect rectangles have different sizes, the source portion of the image is scaled to fit the specified destination rectangle. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
  	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.
-- (void)drawAdjustedInRect:(NSRect)dstRect fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
+- _Void_ drawAdjustedInRect:(NSRect)dstRect fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
 
 !	@method	unflippedImage
  	@abstract	Returns a version of the receiver but unflipped.
@@ -494,7 +494,7 @@ typedef enum {
 
 @interface NSImage (AIImageDrawingAdditions)
 
-- (void)tileInRect:(NSRect)rect;
+- _Void_ tileInRect:(NSRect)rect;
 - (NSImage *)imageByScalingToSize:(NSSize)size;
 //- (NSImage *)imageByScalingToSize:(NSSize)size DPI:(CGFloat)dpi;
 - (NSImage *)imageByFadingToFraction:(CGFloat)delta;
@@ -558,7 +558,7 @@ typedef enum {
 /*
  * Writes Application Extension Block and modifies Graphic Control Block for a GIF image
  */
-- (void)writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
+- _Void_ writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
 
 /*
  * Properties for a GIF image

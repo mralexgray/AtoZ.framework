@@ -10,7 +10,7 @@
 
 @concreteprotocol(TypedArray)
 - (Class)objectClass { return objc_getAssociatedObject(self, _cmd); }
-- (void) setObjectClass:(Class)objectClass { objc_setAssociatedObject(self, _cmd, objectClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+- _Void_ setObjectClass:(Class)objectClass { objc_setAssociatedObject(self, _cmd, objectClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
 @end
 
 @concreteprotocol(Random)
@@ -35,11 +35,11 @@
 - (int) indexOfObject:(id)x { DEMAND_CONFORMANCE; return NSNotFound; }
 /*! @required - (int) idexOfObject:(id)x; */
 
-- (void)eachWithIndex:(ObjIntBlk)block {
+- _Void_ eachWithIndex:(ObjIntBlk)block {
 
     for (id x in self) { int idx = [self indexOfObject:x]; if (idx != (int)NSNotFound) block(x,idx); }
 }
-- (void)do:(void(^)(id obj))block { for (id z in self) block(z); }
+- _Void_ do:(void(^)(id obj))block { for (id z in self) block(z); }
 @end
 
 
@@ -56,23 +56,23 @@ SetKPfVA(Index,@"backingStore")
 
 - (NSMA<Indexed>*) storage { return objc_getAssociatedObject(self, _cmd) ?: ({ id x = NSMA.new; objc_setAssociatedObject(self, _cmd, x, OBJC_ASSOCIATION_RETAIN_NONATOMIC); x; }); }
 
-- (void) addObject:       (NSO*)x { __block id storage = self.storage;
+- _Void_ addObject:       (NSO*)x { __block id storage = self.storage;
 
   [[x backingStore] isEqual:storage] ?: [x triggerKVO:@"backingStore" block:^(id _self) { ASSIGN_WEAK(_self,backingStore,storage); }];
   [self insertObject:x inStorageAtIndex:[storage count]];
 
 }
 - (NSUI) count { return self.storage.count; }
-- (void) removeObject:    (id)x { [self removeObjectFromStorageAtIndex:[self.storage indexOfObject:x]]; }
-- (void) addObjects:    (NSA*)x { for (id z in x) [self    addObject:z];                                }
-- (void) removeObjects: (NSA*)x { for (id z in x) [self removeObject:z];                                }
+- _Void_ removeObject:    (id)x { [self removeObjectFromStorageAtIndex:[self.storage indexOfObject:x]]; }
+- _Void_ addObjects:    (NSA*)x { for (id z in x) [self    addObject:z];                                }
+- _Void_ removeObjects: (NSA*)x { for (id z in x) [self removeObject:z];                                }
 
 - (NSUI)                 countOfStorage         { return self.storage.count;                  }
 -   (id)         objectInStorageAtIndex:(NSUI)x { return self.storage[x];                     }
-- (void) removeObjectFromStorageAtIndex:(NSUI)x { [(NSMA*)[self storage] removeObjectAtIndex:x];       }
-- (void)                   insertObject:(id)obj
+- _Void_ removeObjectFromStorageAtIndex:(NSUI)x { [(NSMA*)[self storage] removeObjectAtIndex:x];       }
+- _Void_                   insertObject:(id)obj
                        inStorageAtIndex:(NSUI)x { [(NSMA*)[self storage] insertObject:obj atIndex:x];  }
-- (void)  replaceObjectInStorageAtIndex:(NSUI)x
+- _Void_  replaceObjectInStorageAtIndex:(NSUI)x
                              withObject:(id)obj { [(NSMA*)[self storage] replaceObjectAtIndex:x withObject:obj];                      }
 
 //int ssss() {  [@{@"ss" :@2} recursiveValueForKey:<#(NSString *)#>

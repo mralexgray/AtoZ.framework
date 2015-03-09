@@ -14,10 +14,10 @@
 + (instancetype) bag;
 + (instancetype) bagWithObjects:_, ...;
 
-- (void)           add:_;
-- (void)    addObjects:_, ...;
+- _Void_           add:_;
+- _Void_    addObjects:_, ...;
 
-- (void)        remove:_;
+- _Void_        remove:_;
 -  (NSI) occurrencesOf:_;
 
 @prop_RO NSA * objects, * uniqueObjects, * sortedObjects;

@@ -42,7 +42,7 @@
 
 + resourceOfClass:(Class)rClass inBundleWithClass:(Class)k withName:(NSString*)n init:(SEL)method;
 - (NSA*) cacheImages;
-- (void) cacheNamedImages;
+- _Void_ cacheNamedImages;
 - (NSA*) recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
 - (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 

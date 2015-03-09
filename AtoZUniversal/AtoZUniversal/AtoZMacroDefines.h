@@ -49,10 +49,11 @@ _Type              BOOL   _IsIt;
 _Type           CGRect    _Rect;
 _Type           CGSize    _Size;
 _Type          CGPoint    _Cord;
-
+_Type NSComparisonResult  _Comp;
 
 _Type            NSMenu * _Menu;
 _Type            NSView * _View;
+_Type            NSData * _Data;
 _Type           CALayer * _Layr;
 _Type           NSArray * _List;
 _Type           NSColor * _Colr;
@@ -75,6 +76,7 @@ _Type     NSApplication * _Appl;
 _Type     NSOutlineView * _OutV;
 _Type     NSTableColumn * _TCol;
 _Type    NSNotification * _Note;
+_Type  NSParagraphStyle * _PStl;
 _Type NSArrayController * _LstX;
 
 
@@ -84,6 +86,7 @@ _Type _Void(^_MBlk)(_SubM menu);
 
 #define   Menu NSMenu
 #define   View NSView
+#define   Data NSData
 #define   Colr NSColor
 #define   Errr NSError
 #define   Evnt NSEvent
@@ -104,6 +107,7 @@ _Type _Void(^_MBlk)(_SubM menu);
 #define   Appl NSApplication
 #define   OutV NSOutlineView
 #define   TCol NSTableColumn
+#define   PStl NSParagraphStyle
 #define   Note NSNotification
 
 
@@ -113,7 +117,9 @@ _Type _Void(^_MBlk)(_SubM menu);
 #define _Appl_ (_Appl)
 #define _Bndl_ (_Bndl)
 #define _Colr_ (_Colr)
+#define _Comp_ (_Comp)
 #define _Cord_ (_Cord)
+#define _Data_ (_Data)
 #define _Dict_ (_Dict)
 #define _Errr_ (_Errr)
 #define _Evnt_ (_Evnt)
@@ -132,6 +138,7 @@ _Type _Void(^_MBlk)(_SubM menu);
 #define _OutV_ (_OutV)
 #define _Pict_ (_Pict)
 #define _PicV_ (_PicV)
+#define _PStl_ (_Pstl)
 #define _Rect_ (_Rect)
 #define _Scrl_ (_Scrl)
 #define _SInt_ (_SInt)
@@ -160,6 +167,15 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 #define _IFCE @interface
 #define _PRTO @protocol
 #define _IMPT @import
+#define _FINI @end
+
+
+#define IMPL implementation
+#define IFCE interface
+#define PRTO protocol
+#define IMPT import
+#define FINI end
+
 
 #define _CAT(K,NAME,...) _IFCE K (NAME) __VA_ARGS__; @end
 
@@ -269,7 +285,7 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 #define   NSIFACE(X)        @interface X : NSObject + (instancetype)
 #define INTERFACE(X,...)    @interface X : __VA_ARGS__ + (instancetype)
 #define    EXTEND(X)        @interface X ()
-#define      VOID(X)      - (void) X
+#define      VOID(X)      - _Void_ X
 #define FACTORY + (instancetype)
 #define TYPEDEF_V(X)        typedef void(^X)
 
@@ -437,7 +453,7 @@ X,OBJC_ASSOCIATION_COPY_NONATOMIC);
 
 #define SYNTHESIZE_DELEGATE(BLOCK_NAME,SETTER_NAME,SIG,METHOD,BLOCK) \
 - SIG BLOCK_NAME { RET_ASSOC; }\
-- (void) SETTER_NAME:SIG BLOCK_NAME { SET_ASSOC_DELEGATE(BLOCK_NAME); }\
+- _Void_ SETTER_NAME:SIG BLOCK_NAME { SET_ASSOC_DELEGATE(BLOCK_NAME); }\
 - METHOD { BLOCK; }
 
 /*  INSTEAD OF NASTY ASSOCIATED OBJECTS.....  */
@@ -453,7 +469,7 @@ X,OBJC_ASSOCIATION_COPY_NONATOMIC);
 
 /*
  Example Setter
- - (void) setSomething:(BOOL)something { if (self.something == something) return;  SAVE(@selector(something), @(something)); }
+ - _Void_ setSomething:(BOOL)something { if (self.something == something) return;  SAVE(@selector(something), @(something)); }
  Example Getter
  - (BOOL) something { id x = FETCH; return x ? [x boolValue] : NO; }
  */
@@ -747,7 +763,7 @@ OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...);
 
 #define AZTESTCASE(_name_)  @interface _name_ : XCTestCase @end @implementation _name_
 
-#define AZTEST(_methodname_, _actions_)   - (void) test##_methodname_ { ({ _actions_; }); }
+#define AZTEST(_methodname_, _actions_)   - _Void_ test##_methodname_ { ({ _actions_; }); }
 
 //#define AZINTERFACE(_name_,...) @interface _name_ : __VA_ARGS__ ?: NSObject   // AZINTERFACE(NSMA,Alex) -> @interface Alex : NSMutableArray
 
@@ -829,6 +845,9 @@ OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...);
 	 	NSRect    a = (NSRect){1,2,3,4};	 IS_OBJECT(a) ? @"YES" : @"NO" -" NO
 		NSString* b = @"whatAmI?";	       IS_OBJECT(b) ? @"YES" : @"NO" -" YES
 		NSInteger c = 9;						 IS_OBJECT(a) ? @"YES" : @"NO" -" NO   */
+
+
+#define dispatch_uno(...) ((_Void)({ static dispatch_once_t u; dispatch_once(&u, ^{ ({ __VA_ARGS__; }); }); }))
 
 #define SYNTHESIZE_SINGLETON_FOR_CLASS(classname, accessorname) 		\
 + (classname *)accessorname {                                       \
@@ -1630,7 +1649,7 @@ _Pragma("clang diagnostic pop") \
  extern NSString *someGlobalValue;
 
  @implementation B
- - (void)someFunc {
+ - _Void_ someFunc {
  NSString *localValue = [self getSomeValue];
  [localValue isEqualToString:someGlobalValue] ? ^{ ... }() : ^{ ... }();
  }
@@ -1680,15 +1699,15 @@ _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 #define ARRAY_ACCESSORS(lowername, capsname) \
 	- (NSUInteger)countOf ## capsname { return [lowername count]; } \
 	- (id)objectIn ## capsname ## AtIndex: (NSUInteger)index { return [lowername objectAtIndex: index]; } \
-	- (void)insertObject: (id)obj in ## capsname ## AtIndex: (NSUInteger)index { [lowername insertObject: obj atIndex: index]; } \
-	- (void)removeObjectFrom ## capsname ## AtIndex: (NSUInteger)index { [lowername removeObjectAtIndex: index]; }
+	- _Void_ insertObject: (id)obj in ## capsname ## AtIndex: (NSUInteger)index { [lowername insertObject: obj atIndex: index]; } \
+	- _Void_ removeObjectFrom ## capsname ## AtIndex: (NSUInteger)index { [lowername removeObjectAtIndex: index]; }
 
 #ifdef XCODECODEFORPASTING
 
 - (NSUInteger) countOf<#Collection#> { return [<#collectuion#> count]; }
 - objectIn<#Collection#>AtIndex:(NSUInteger)idx { return [<#collectuion#> objectAtIndex:idx]; }
-- (void) insertObject:(id)o in<#Collection#>AtIndex:(NSUInteger)idx { [<#collectuion#> insertObject:o atIndex:idx]; }
-- (void) removeObjectFrom<#Collection#>AtIndex:(NSUInteger)idx { [<#collectuion#> removeObjectAtIndex:idx]; }
+- _Void_ insertObject:(id)o in<#Collection#>AtIndex:(NSUInteger)idx { [<#collectuion#> insertObject:o atIndex:idx]; }
+- _Void_ removeObjectFrom<#Collection#>AtIndex:(NSUInteger)idx { [<#collectuion#> removeObjectAtIndex:idx]; }
 
 #endif
 

@@ -26,8 +26,8 @@
                                             objects:(id __unsafe_unretained [])buffer
                                               count:(NSUInteger)len;
 
-- (void) eachWithIndex:(ObjIntBlk)block; // Dep's on indexOffObject:
-- (void) do:(ObjBlk)block;               // Dep's on <NSFastEnumeration>
+- _Void_ eachWithIndex:(ObjIntBlk)block; // Dep's on indexOffObject:
+- _Void_ do:(ObjBlk)block;               // Dep's on <NSFastEnumeration>
 
 @end
 
@@ -35,10 +35,10 @@
 @concrete @prop__  NSA<Indexed>*storage;
           @prop_RO NSUI count;
 
-- (void)     addObject:(id)x;
-- (void)  removeObject:(id)x;
-- (void)    addObjects:(NSA*)x;
-- (void) removeObjects:(NSA*)x;
+- _Void_     addObject:(id)x;
+- _Void_  removeObject:(id)x;
+- _Void_    addObjects:(NSA*)x;
+- _Void_ removeObjects:(NSA*)x;
 
 @end
 

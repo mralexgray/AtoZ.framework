@@ -37,10 +37,10 @@
 // MyProtocol.h
 @protocol MyProtocol
 @required
-- (void)someRequiredMethod;
+- _Void_ someRequiredMethod;
 
 @optional
-- (void)someOptionalMethod;
+- _Void_ someOptionalMethod;
 
 @concrete
 - (BOOL)isConcrete;
@@ -56,7 +56,7 @@
 
 // this will not actually get added to conforming classes, since they are
 // required to have their own implementation
-- (void)someRequiredMethod {}
+- _Void_ someRequiredMethod {}
 
 @end
 

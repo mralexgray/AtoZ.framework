@@ -32,6 +32,6 @@
 
 @interface NSSegmentedControl (FitTextNice)
 
-- (void)fitTextNice ;
+- _Void_ fitTextNice ;
 
 @end

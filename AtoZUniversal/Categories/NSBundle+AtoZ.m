@@ -249,7 +249,7 @@
 }
 #if !TARGET_OS_IPHONE
 
-- (void) cacheNamedImages {
+- _Void_ cacheNamedImages {
 	AZNew(NSCS,typesCounter);
 	AZNewVal(types,NSIMG.imageFileTypes);
 

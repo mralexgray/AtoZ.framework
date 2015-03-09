@@ -47,7 +47,7 @@
 
 @end
 /*
-- (void)bounceView:(UIView *)view amplitude:(CGFloat)amplitude
+- _Void_ bounceView:(UIView *)view amplitude:(CGFloat)amplitude
 duration:(CGFloat)duration {
     CGFloat m34 = 1 / 300.f * (view.layer.anchorPoint.x == 0 ? -1 : 1);
     CGFloat bounceAngleModifiers[] = {1, 0.33f, 0.13f};
@@ -110,16 +110,16 @@ withModifier:modifier];
 
 #pragma mark - Table animation
 
-- (void)rippleAtOrigin:(NSInteger)originIndex {
+- _Void_ rippleAtOrigin:(NSInteger)originIndex {
     [self rippleAtOrigin:originIndex amplitude:self.rippleAmplitude];
 }
 
-- (void)rippleAtOrigin:(NSInteger)originIndex amplitude:(CGFloat)amplitude {
+- _Void_ rippleAtOrigin:(NSInteger)originIndex amplitude:(CGFloat)amplitude {
     [self rippleAtOrigin:originIndex amplitude:amplitude
 duration:self.rippleDuration];
 }
 
-- (void)rippleAtOrigin:(NSInteger)originIndex amplitude:(CGFloat)amplitude
+- _Void_ rippleAtOrigin:(NSInteger)originIndex amplitude:(CGFloat)amplitude
 duration:(CGFloat)duration {
     UIView *originView = [self viewForIndex:originIndex];
 
@@ -699,7 +699,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
   [rotateAnimation setDuration:2];
   return rotateAnimation;
 }
-- (void)setAz_completionBlock:(AZCAAnimationCompletionBlock)block {
+- _Void_ setAz_completionBlock:(AZCAAnimationCompletionBlock)block {
   self.delegate = self;
   objc_setAssociatedObject(self,
                            &AZCAAnimationCompletionBlockAssociatedObjectKey,
@@ -711,7 +711,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
       self, &AZCAAnimationCompletionBlockAssociatedObjectKey);
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+- _Void_ animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
   if (flag && self.az_completionBlock != nil)
     self.az_completionBlock();
 }
@@ -1009,7 +1009,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 
 @implementation NSView (CAAnimationEGOHelper)
 
-- (void)popInAnimated {
+- _Void_ popInAnimated {
   if ([self wantsLayer])
     [[self layer] popInAnimated];
 }
@@ -1018,7 +1018,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 
 @implementation CALayer (CAAnimationEGOHelper)
 
-- (void)popInAnimated {
+- _Void_ popInAnimated {
   [self addAnimation:[CAAnimation popInAnimation] forKey:@"transform"];
 }
 
@@ -1076,7 +1076,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 //	}
 //
 
-//- (void)animateView:(NSView*)sender {
+//- _Void_ animateView:(NSView*)sender {
 //		// Get the relevant frames.
 //	NSView *enclosingView = [[[NSApplication sharedApplication] mainWindow]
 //contentView];
@@ -1132,7 +1132,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
 //	[[yellowFadeView animator] setFrame:[yellowFadeView frame]];
 //}
 //
-//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+//- _Void_ drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 //		// Bezier path radius
 //	int radius = 4;
 //
@@ -1180,8 +1180,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  @property (NATOM, CP) void (^completion)(BOOL);
  @property (NATOM, CP) void (^start)();
 
- - (void)animationDidStart:(CAAnimation *)anim;
- - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
+ - _Void_ animationDidStart:(CAAnimation *)anim;
+ - _Void_ animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;
 
  @end
  @implementation CAAnimationDelegate
@@ -1199,21 +1199,21 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  return self;
  }
 
- - (void)dealloc
+ - _Void_ dealloc
  {
  self.completion = nil;
  self.start = nil;
  //	[super dealloc];
  }
 
- - (void)animationDidStart:(CAAnimation *)anim
+ - _Void_ animationDidStart:(CAAnimation *)anim
  {
  if (self.start != nil) {
  self.start();
  }
  }
 
- - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+ - _Void_ animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
  {
  if (self.completion != nil) {
  self.completion(flag);
@@ -1237,7 +1237,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  return YES;
  }
 
- - (void)setCompletion:(void (^)(BOOL))completion
+ - _Void_ setCompletion:(void (^)(BOOL))completion
  {
  CAAnimationDelegate *newDelegate = CAAnimationDelegate.new;
  newDelegate.completion = completion;
@@ -1254,7 +1254,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  return ((CAAnimationDelegate *)self.delegate).completion;
  }
 
- - (void)setStart:(void (^)())start
+ - _Void_ setStart:(void (^)())start
  {
  CAAnimationDelegate *newDelegate = CAAnimationDelegate.new;
  newDelegate.start = start;
@@ -1275,7 +1275,7 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  */
 /*   example of blocks category below
 
- - (void)runAnimation: unused
+ - _Void_ runAnimation: unused
  {
  // Create a shaking animation that rotates a bit counter clockwisely and then
  rotates another

@@ -80,14 +80,14 @@
 + (void)runAZBlock:(void (^)())block{
 	block();
 }
-- (void)performAZBlock:(void (^)())block{
+- _Void_ performAZBlock:(void (^)())block{
 
 	if ([[NSThread currentThread] isEqual:self])
 		block();
 	else
 		[self performAZBlock:block waitUntilDone:NO];
 }
-- (void)performAZBlock:(void (^)())block waitUntilDone:(BOOL)wait{
+- _Void_ performAZBlock:(void (^)())block waitUntilDone:(BOOL)wait{
 
 	[NSThread performSelector:@selector(runAZBlock:)
 					 onThread:self
@@ -95,7 +95,7 @@
 				waitUntilDone:wait];
 }
 
-- (void)performAZBlock:(void (^)())block afterDelay:(NSTimeInterval)delay{
+- _Void_ performAZBlock:(void (^)())block afterDelay:(NSTimeInterval)delay{
 
 	[self performSelector:@selector(performAZBlock:)
 			   withObject:[block copy]// autorelease]

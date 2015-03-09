@@ -12,7 +12,7 @@
 
 //@concreteprotocol(KeySet)
 //
-//- (void) setObject:_  forKeyedSubscript:(id<NSCopying>)k {
+//- _Void_ setObject:_  forKeyedSubscript:(id<NSCopying>)k {
 //
 //  [self respondsToSelector:@selector(setObject:forKey:)] ? [(id)self setObject:_ forKey:k]
 //                                                         : [self  setValue:_ forKey:k];
@@ -32,7 +32,7 @@
 
 @implementation NSObject (KeySub)
 
-- (void) setObject:x forKeyedSubscript:(CopyObject)k { [self setValue:x forKey:(id)k]; }
+- _Void_ setObject:x forKeyedSubscript:(CopyObject)k { [self setValue:x forKey:(id)k]; }
 
 - objectForKeyedSubscript:x { return [self valueForKey:x]; }
 

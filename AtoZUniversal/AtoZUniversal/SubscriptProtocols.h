@@ -7,8 +7,8 @@
  */
 #define CopyObject id<NSCopying>
 @protocol KeyGet        <NSObject> @optional -               objectForKeyedSubscript:(CopyObject)k;                @end
-@protocol KeySet        <NSObject> @optional - (void) setObject:_  forKeyedSubscript:(CopyObject)k; @end
-@protocol IndexSet      <NSObject> @required - (void) setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
+@protocol KeySet        <NSObject> @optional - _Void_ setObject:_  forKeyedSubscript:(CopyObject)k; @end
+@protocol IndexSet      <NSObject> @required - _Void_ setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
 @protocol IndexGet      <NSObject> @required -              objectAtIndexedSubscript:(NSUInteger)i;    @end
 
 // defaults to returning the method invoked by the subscript string.

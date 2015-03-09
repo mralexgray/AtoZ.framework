@@ -40,7 +40,7 @@ char **stringArrayFromNSArray(NSArray *a) {
 	return sa;
 }
 
-- (void)tryToColorizeWithTokens:(char**)tokens    nbTokens:(NSUInteger)nbTokens
+- _Void_ tryToColorizeWithTokens:(char**)tokens    nbTokens:(NSUInteger)nbTokens
                             ptr:(char *)ptr           text:(const char*)txt
                    firstCharSet:(NSCSET*)cs1 secondCharSet:(NSCSET*)cs2
 								                                     color:(NSC*)color {
@@ -125,7 +125,7 @@ char **stringArrayFromNSArray(NSArray *a) {
 
 @implementation NSMutableAttributedString (RTB)
 
-- (void)setTextColor:(NSColor*)color font:(NSFont*)font range:(NSRNG)range {
+- _Void_ setTextColor:(NSColor*)color font:(NSFont*)font range:(NSRNG)range {
     NSDictionary *d = @{ NSForegroundColorAttributeName : color, NSFontAttributeName : font };
     [self setAttributes:d range:range];
 }
@@ -134,7 +134,7 @@ char **stringArrayFromNSArray(NSArray *a) {
 
 @implementation NSString (SyntaxColoring)
 
-- (void)tryToColorizeWithTokens:(char**)tokens nbTokens:(NSUI)nbTokens
+- _Void_ tryToColorizeWithTokens:(char**)tokens nbTokens:(NSUI)nbTokens
                             ptr:(char*)ptr			   text:(const char*)text
                    firstCharSet:(NSCSET*)c1 secondCharSet:(NSCSET*)cs2
 //#if TARGET_OS_IPHONE

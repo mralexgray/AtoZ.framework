@@ -2,8 +2,9 @@
 #import <AtoZUniversal/AtoZUniversal.h>
 
 @implementation NSData (AtoZ)
-- (NSS*) UTF16String { return [NSS.alloc initWithData:self encoding:NSUTF16StringEncoding]; }
-- (NSS*) UTF8String  { return [NSS.alloc initWithData:self encoding: NSUTF8StringEncoding]; }
+- _Text_ UTF16String  { return [NSS.alloc initWithData:self encoding:NSUTF16StringEncoding]; }
+- _Text_ UTF8String   { return [NSS.alloc initWithData:self encoding: NSUTF8StringEncoding]; }
+- _Text_ ASCIIString  { return [NSS.alloc initWithData:self encoding:NSASCIIStringEncoding]; }
 @end
 
 @implementation NSString (FromAtoZ)

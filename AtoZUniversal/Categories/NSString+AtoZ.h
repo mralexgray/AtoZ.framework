@@ -9,9 +9,9 @@
 
 @prop_RO Class classified;
 
-+ (NSA*) alphabet;
-+ (NSA*) digits;
-+ (NSA*) lettersAndNumbers; /// A-Z + 1-9
++ _List_ alphabet;
++ _List_ digits;
++ _List_ lettersAndNumbers; /// A-Z + 1-9
 
 @prop_RO  BOOL    isInteger,
                   isValidURL;
@@ -19,82 +19,83 @@
 @prop_   NSRNG	  subRange;
 @prop_RO NSRNG    range;
 
-- (void) openInTextMate;
+- _Void_ openInTextMate;
 
-- (NSComparisonResult) compareNumberStrings:(NSS*)str;
-- (NSS*) justifyRight:(NSUI)col;
-- (NSS*)   withFormat:(NSS*)format,...;
+- _Comp_ compareNumberStrings: _Text_ str;
+- _Text_ justifyRight: _UInt_ col;
+- _Text_   withFormat: _Text_ format,...;
 
 
 #pragma mark - Parsing / Cleaning
-@prop_RO NSS * JSONRepresentation,
-							 *	stringByDecodingXMLEntities,
-							 *	stringByCleaningJSONUnicode,
-							 *	stringByStrippingHTML,
-							 *	unescapeQuotes,
-							 *	stripHtml,
-							 *	decodeHTMLCharacterEntities,
-							 *	encodeHTMLCharacterEntities,
-							 *	escapeUnicodeString,
-							 *	unescapeUnicodeString,
-							 *	decodeAllAmpersandEscapes,
-							 *	urlEncoded,
-							 *	urlDecoded,
-							 * MD5String,
-               * humanReadableEncoding;
+@prop_RO _Text JSONRepresentation,
+							 stringByDecodingXMLEntities,
+							 stringByCleaningJSONUnicode,
+							 stringByStrippingHTML,
+							 unescapeQuotes,
+							 stripHtml,
+							 decodeHTMLCharacterEntities,
+							 encodeHTMLCharacterEntities,
+							 escapeUnicodeString,
+							 unescapeUnicodeString,
+							 decodeAllAmpersandEscapes,
+							 urlEncoded,
+							 urlDecoded,
+							 MD5String,
+               humanReadableEncoding;
 
 @prop_RO const char * ASCIIString;
 
-@prop_RO NSData *UTF8Data;
+@prop_RO _Data UTF8Data;
 
-- (NSS*) parseXMLTag:(NSS*) tag;
+- _Text_ parseXMLTag: _Text_ tag;
+
 //- (NSS*)decodeAllPercentEscapes;
 
 #pragma mark - LEXICONS
 
-+ (NSS*) newUniqueIdentifier;
-+ (NSS*) randomAppPath;
-+ (NSA*) testDomains;
-+ (NSA*) weirdUnicodes;
++ _Text_ newUniqueIdentifier;
++ _Text_ randomAppPath;
++ _List_ testDomains;
++ _List_ weirdUnicodes;
 
 @property (readonly) NSA* letters;
 
-- (NSS*) times:(int)count;
-- (NSS*) tidyHTML;
-- (NSS*) decodeHTMLCharacterEntities;
-- (NSS*) encodeHTMLCharacterEntities;
+- _Text_ times:(int)count;
+- _Text_ tidyHTML;
+- _Text_ decodeHTMLCharacterEntities;
+- _Text_ encodeHTMLCharacterEntities;
 
-+ (NSS*) dicksonBible;
-+ (NSA*) dicksonisms;
-+ (NSS*) randomDicksonism;
-+ (NSA*) dicksonPhrases;
-+ (NSS*) dicksonParagraphWith:(NSUI)sentences;
++ _Text_ dicksonBible;
++ _List_ dicksonisms;
++ _Text_ randomDicksonism;
++ _List_ dicksonPhrases;
++ _Text_ dicksonParagraphWith:(NSUI)sentences;
 
-+ (NSA*) gaySlang;
-+ (NSS*) randomGaySlang;
++ _List_ gaySlang;
++ _Text_ randomGaySlang;
 
-+ (NSA*) badWords;
-+ (NSS*) randomBadWord;
++ _List_ badWords;
++ _Text_ randomBadWord;
 
-+ (NSD*) properNamesByLetter; 
-+ (NSA*) properNames;
++ _Dict_ properNamesByLetter;
++ _List_ properNames;
 /** A "random" Wiipedia definition.. from some list of words I rustle up, from somewhere..
   * @exception Still gives you a string, but it will say something like "No Wikipedia Entry for adenomyxosarcoma!"
 
     NSString.randomWiki ->
     subinfeudation: In English law, subinfeudation is the practice by which tenants, holding land under the king or other superior lord, carved out new and distinct tenures in their turn by sub-letting or alienating a part of their lands. The tenants were termed "mesne-lords," with regard to those holding from them, the immediate tenant being tenant in capite. The lowest tenant of all was the freeholder, or, as he was sometimes termed tenant paravail. The Crown, who in theory owned all lands, was lord paramount.
 */
-+ (NSS*) randomWiki;
++ _Text_ randomWiki;
 
 /** A smartly parsed + concise "Wikipedia" "definition" of an NSString instance.
  *  @see NSString wikiDescription
     @"apple".wikiDescription ->
     Apple Inc. is an American multinational corporation that designs and sells consumer electronics, computer software, and personal computers. The company's best-known hardware products are the Macintosh line of computers, the iPod, the iPhone and the iPad.
 */
-@prop_RO NSS* wikiDescription;
+@prop_RO _Text wikiDescription;
 
 /** @return A "random" word, like _dehydrogenate_ fetched from the kind folks at http://randomword.setgetgo.com/get.php */
-+ (NSS*) randomWord;
++ _Text_ randomWord;
 
 
 /** Provides a limitless bountry of nonsense words!
@@ -103,55 +104,54 @@
 */
 
 
-+ (NSS*) randomWords:(NSI)number;
++ _Text_ randomWords:(NSI)number;
 /** A gramatically-sound, entirely incompreghensible number of complete "phrases".
     @param The number of "sentences" you want.
     [NSString randomSentences:2] = Lacus morbi a lacinia nonummy bibendum cras iaculis nunc mollis ac nec et sem. Nibh cum vitae leo tellus in eget penatibus neque sed taciti velit ipsum integer in augue sapien.
 */
-+ (NSS*) randomSentences:(NSI)number;
++ _Text_ randomSentences:(NSI)number;
 
 
-+ (NSS*) spaces:(NSUI)ct;
-- (NSS*) paddedTo:(NSUI)count;
-- (NSS*) paddedRightTo:(NSUI)count;
-- (NSUI) longestWordLength;
++ _Text_        spaces: _UInt_ ct;
+- _Text_      paddedTo: _UInt_ ct;
+- _Text_ paddedRightTo: _UInt_ ct;
+- _UInt_ longestWordLength;
 
-+ (NSS*) clipboard;
-- (void)copyToClipboard;
++ _Text_ clipboard;
+- _Void_ copyToClipboard;
 
-- (NSS*) withExtIfMissing:(NSS*)ext;
+- _Text_ withExtIfMissing:(NSS*)ext;
 
+@prop_RO _Text sansComponent, sansExtension;
 
-@property (readonly) NSS * sansComponent, *sansExtension;
-
-- (BOOL) loMismo:	(NSS*)s;
+- _IsIt_ loMismo:	_Text_ s;
 
 - (unichar)lastCharacter;
-- (void) copyFileAtPathTo:(NSS*) path;
+- _Void_ copyFileAtPathTo: _Text_ path;
 
 - (CGF) pointSizeForFrame:(NSR)frame withFont: font;
 + (CGF) pointSizeForFrame:(NSR)frame withFont: font forString:(NSS*) string;
 
-- (NSS*)stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix;
-- (NSS*) stringByReplacingAllOccurancesOfString:(NSS*) search withString:(NSS*) replacement;
+- _Text_ stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix;
+- _Text_ stringByReplacingAllOccurancesOfString: _Text_ search withString: _Text_ replacement;
 
-- (NSS*)	substringToLastCharacter;
+- _Text_ substringToLastCharacter;
 - (NSN*) numberValue;
 
 AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 
-- (NSSZ)sizeWithFont:(NSFont *)font;
-- (NSSZ)sizeWithFont:(NSFont *)font margin:(NSSZ)size;
+- (NSSZ)sizeWithFont:(NSFont*)font;
+- (NSSZ)sizeWithFont:(NSFont*)font margin:(NSSZ)size;
 
 - (CGF)widthWithFont:(NSF *)font;
 - (NSR)frameWithFont:(NSF *)font;
 
 //@prop_RO NSC *colorValue;
-- (void)drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor:(NSC *)color;
+- _Void_ drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor:(NSC *)color;
 // new way
-- (void)drawInRect:(NSR)r withFont:(NSFont *)font andColor:(NSC *)color;
-//- (void) drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
-- (void)drawCenteredInRect:(NSR)rect withFont:(NSF *)font;
+- _Void_ drawInRect:(NSR)r withFont:(NSFont *)font andColor:(NSC *)color;
+//- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+- _Void_ drawCenteredInRect:(NSR)rect withFont:(NSF *)font;
 
 @prop_RO	NSS * trim,				/*** Returns the string cleaned from leading and trailing whitespaces */
 							 * reversed,		/*** Returns the reverse version of the string */
@@ -198,11 +198,11 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 /*** Returns a set with all unique elements of this String, separated by whitespaces */
 @prop_RO NSSet *wordSet;
 
-- (NSA*) trimmedComponentsSeparatedByString:(NSS*) delimiter;
+- _List_ trimmedComponentsSeparatedByString:(NSS*) delimiter;
 
 @prop_RO NSA *decolonize, *splitByComma;
 
-- _Text_ fromFile:_Text_ file;
++ (INST) fromFile:_Text_ file;
 
 - _Text_ substringBefore:(NSS*)delimiter;
 - _Text_  substringAfter:(NSS*)delimiter;
@@ -216,23 +216,23 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 @prop_RO  NSP   pointValue;
 @prop_RO NSUI   minutesValue, secondsValue;
 
-@prop_ (RO,CP) NSURL * url, * fileURL;
+@prop_RC NSURL * url, * fileURL;
 
 @prop_RO NSS * ucfirst, * lcfirst,  *fileContents;
 
 @prop_RO NSAS * attributedWithDefaults;
 
 
-+ (NSS*)   stringWithCGFloat: (CGF)f		 maxDigits: (NSUI)numDigits;
++ (INST)   stringWithCGFloat: (CGF)f		 maxDigits: (NSUI)numDigits;
 //- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
 - (NSAS*) attributedWith:(NSD*)attrs;
 - (NSAS*) attributedWithFont:(NSF *)font andColor:(NSC *)color;
 - (NSMAS*) attributedParagraphWithSpacing:(CGF)spacing;
-- (NSS*) truncatedForRect:(NSR)frame withFont:(NSF *)font;
+- _Text_ truncatedForRect:(NSR)frame withFont:(NSF *)font;
 //-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
 
-- (NSS*) truncateInMiddleForWidth:(CGF)overall;
-- (NSS*) truncateInMiddleToCharacters:(NSUI)chars;
+- _Text_ truncateInMiddleForWidth:(CGF)overall;
+- _Text_ truncateInMiddleToCharacters:(NSUI)chars;
 
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
@@ -240,12 +240,11 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 
 @interface NSMutableString (AtoZ)
 
--  (NSS*) shift;
--  (NSS*) pop;
+@prop_RC _Text shift, pop;
 
--  (BOOL) removePrefix:(NSS*)prefix;
--  (BOOL) removeSuffix:(NSS*)suffix;
--  (BOOL) removePrefix:(NSS*)prefix andSuffix:(NSS*)suffix;
+- _IsIt_ removePrefix:(NSS*)prefix;
+- _IsIt_ removeSuffix:(NSS*)suffix;
+- _IsIt_ removePrefix:(NSS*)prefix andSuffix:(NSS*)suffix;
 - (NSMS*) camelize;
 - (NSMS*) hyphonize;
 - (NSMS*) underscorize;
@@ -263,16 +262,16 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 */
 
 @interface NSMutableAttributedString (AtoZ)
-- (void)resizeTo:(CGFloat)size;
-- (void)setFont:(NSFont*)f;
+- _Void_ resizeTo:(CGFloat)size;
+- _Void_ setFont:(NSFont*)f;
 @end
 @interface NSAttributedString (AtoZ)
 @prop_RO NSRNG range;
 - (CGF) pointSizeForSize:(NSSZ)z;
-- (void) drawInRect:(NSR)r withBackground:(NSC*)c;
-- (void) drawInRect:(NSR)r withContrastingBackground:(NSC*)c;
-- (void) drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c;
-- (void) draw;
+- _Void_ drawInRect:(NSR)r withBackground:(NSC*)c;
+- _Void_ drawInRect:(NSR)r withContrastingBackground:(NSC*)c;
+- _Void_ drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c;
+- _Void_ draw;
 @prop_RO NSFont *font;
 @prop_RO NSMD* attributes;
 + (NSD*) defaults;
@@ -325,7 +324,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 @interface NSAttributedString (Geometrics)
 
-- (void)drawCenteredVerticallyInRect:(NSRect)rect;
+- _Void_ drawCenteredVerticallyInRect:(NSRect)rect;
 
 // Measuring Attributed Strings
 - (NSSize)sizeForWidth:	(CGF)width height:(CGF)height;
@@ -411,7 +410,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 @end
 
 @interface NSMutableString (Extensions)
-- (void)trimWhitespaceAndNewlineCharacters;   // From both ends
+- _Void_ trimWhitespaceAndNewlineCharacters;   // From both ends
 @end
 
 // Utility function to convert KVC values into property-style values
@@ -811,7 +810,7 @@ typedef int HFSplitRule;
 
 @interface NSScanner (additions)
 - (unichar)peek;
-- (void)inc;
+- _Void_ inc;
 - (BOOL)expectCharacter:(unichar)ch;
 - (BOOL)scanCharacter:(unichar *)ch;
 - (BOOL)scanUpToUnescapedCharacterFromSet:(NSCharacterSet *)toCharSet
@@ -828,7 +827,7 @@ typedef int HFSplitRule;
 - (BOOL)scanShellVariableIntoString:(NSString **)intoString;
 - (BOOL)scanString:(NSS*)aString;
 - (BOOL)scanKeyCode:(NSInteger *)intoKeyCode;
-- (void)skipWhitespace;
+- _Void_ skipWhitespace;
 @end
 
 /*
@@ -847,7 +846,7 @@ Implements fuzzy matching for strings.
 
 @interface NSMutableString (DSCategory)
 /// @name White spaces
-- (void)stripTrailingWhiteSpaces;
+- _Void_ stripTrailingWhiteSpaces;
 @end
 
 @interface NSString (DSCategory)
@@ -917,7 +916,7 @@ Implements fuzzy matching for strings.
 
 
 @interface NSCharacterSet (EmojisAddition)
-- (void) log;
+- _Void_ log;
 
 + (void) logCharacterSet:(NSCharacterSet*)characterSet;
 + (NSCharacterSet *) illegalXMLCharacterSet;
@@ -979,14 +978,14 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 @end
 
 @interface NSMutableString (NSMutableStringAdditions)
-- (void) encodeXMLSpecialCharactersAsEntities;
-- (void) decodeXMLSpecialCharacterEntities;
-- (void) escapeCharactersInSet:(NSCharacterSet *) set;
-- (void) replaceCharactersInSet:(NSCharacterSet *) set withString:(NSS*) string;
-- (void) encodeIllegalURLCharacters;
-- (void) decodeIllegalURLCharacters;
-- (void) stripIllegalXMLCharacters;
-- (void) stripXMLTags;
+- _Void_ encodeXMLSpecialCharactersAsEntities;
+- _Void_ decodeXMLSpecialCharacterEntities;
+- _Void_ escapeCharactersInSet:(NSCharacterSet *) set;
+- _Void_ replaceCharactersInSet:(NSCharacterSet *) set withString:(NSS*) string;
+- _Void_ encodeIllegalURLCharacters;
+- _Void_ decodeIllegalURLCharacters;
+- _Void_ stripIllegalXMLCharacters;
+- _Void_ stripXMLTags;
 @end
 
 

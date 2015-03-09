@@ -89,10 +89,10 @@ typedef void (^AZCAAnimationCompletionBlock)();
 //+ (CAA*)rotateAnimationForLayer:(CALayer*) theLayer start:(CGF)starting end:(CGF)ending;
 
 @interface NSView (CAAEGOHelper)
-- (void)popInAnimated;
+- _Void_ popInAnimated;
 @end
 @interface CALayer (CAAEGOHelper)
-- (void)popInAnimated;
+- _Void_ popInAnimated;
 @end
 
 @interface CATransition (AtoZ)

@@ -227,7 +227,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 	}
    return(NSDragOperationNone);
 }
-- (void)draggingExited:(id <NSDraggingInfo>)sender	{
+- _Void_ draggingExited:(id <NSDraggingInfo>)sender	{
 	self.layer.borderColor = NULL;
 	self.layer.borderWidth = 0.0;
 }
@@ -614,7 +614,7 @@ static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
 }
 
 //Remove all the subviews from a view
-- (void)removeAllSubviews;
+- _Void_ removeAllSubviews;
 {
   while (self.subviews.count) {
     id x = self.lastSubview;
@@ -711,7 +711,7 @@ static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
 	// stopping the wiggle now
 	[self.layer removeAllAnimations];
 }
-- (void)resizeFrameBy:(int)value {
+- _Void_ resizeFrameBy:(int)value {
 	NSR frame = [self frame];
 	[[self animator]setFrame:CGRectMake(frame.origin.x,
 													frame.origin.x,
@@ -736,7 +736,7 @@ static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
 	ani.animationCurve          = AZDefaultAnimationCurve;
 	return ani;
 }
-- (void)playAnimationWithParameters:(NSD*)params	{
+- _Void_ playAnimationWithParameters:(NSD*)params	{
 
 	NSViewAnimation *animation = [self.class animationWithDefaultsWithAnimations:[self animationArrayForParameters:params]];
 	[animation setDelegate:(id)self];
@@ -753,19 +753,19 @@ static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
 	[animation startAnimation];
 }
 
-- (void)fadeWithEffect:effect	{ [self playAnimationWithParameters:@{	NSViewAnimationEffectKey: effect}];	}
-- (void)fadeOut               {
+- _Void_ fadeWithEffect:effect	{ [self playAnimationWithParameters:@{	NSViewAnimationEffectKey: effect}];	}
+- _Void_ fadeOut               {
 
   self.layer ? [self.layer fadeOut] : [self fadeWithEffect:NSViewAnimationFadeOutEffect];
 }
-- (void)fadeIn                {
+- _Void_ fadeIn                {
 
   //[self.subviews makeObjectsPerformSelector:_cmd];
   self.layer ? [self.layer fadeIn] : [self fadeWithEffect:NSViewAnimationFadeInEffect];
 }
 
-- (void)animateToFrame:(NSR)n	{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n)}];	}
-- (void)fadeToFrame:(NSR)n		{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n),
+- _Void_ animateToFrame:(NSR)n	{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n)}];	}
+- _Void_ fadeToFrame:(NSR)n		{ [self playAnimationWithParameters:@{	NSViewAnimationEndFrameKey: AZVrect(n),
 																						 	NSViewAnimationEffectKey  : self.isHidden ?
 		  																				 NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect}];
 }
@@ -897,7 +897,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 }
 - (void) setCenterY:(CGF)t duration:(NSTI)time {}
 
-- (void)deltaX:(CGF)dX
+- _Void_ deltaX:(CGF)dX
 		  deltaW:(CGF)dW {
 	NSR frame = [self frame] ;
 	frame.origin.x += dX ;
@@ -905,7 +905,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 	[self setFrame:frame] ;
 }
 
-- (void)deltaY:(CGF)dY
+- _Void_ deltaY:(CGF)dY
 		  deltaH:(CGF)dH {
 	NSR frame = [self frame] ;
 	frame.origin.y += dY ;
@@ -913,26 +913,26 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 	[self setFrame:frame] ;
 }
 
-- (void)deltaX:(CGF)dX {
+- _Void_ deltaX:(CGF)dX {
 	[self deltaX:dX
 			deltaW:0.0] ;
 }
 
-- (void)deltaY:(CGF)dY {
+- _Void_ deltaY:(CGF)dY {
 	[self deltaY:dY
 			deltaH:0.0] ;
 }
 
-- (void)deltaW:(CGF)dW {
+- _Void_ deltaW:(CGF)dW {
 	[self deltaX:0.0
 			deltaW:dW] ;
 }
 
-- (void)deltaH:(CGF)dH {
+- _Void_ deltaH:(CGF)dH {
 	[self deltaY:0.0
 			deltaH:dH] ;
 }
-- (void)sizeHeightToFitAllowShrinking:(BOOL)allowShrinking {
+- _Void_ sizeHeightToFitAllowShrinking:(BOOL)allowShrinking {
 	float oldHeight = [self height] ;
 	float width = [self width] ;
 	float height ;
@@ -978,7 +978,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 
 #define BOTTOM_MARGIN 20.0
 
-- (void)sizeHeightToFit {
+- _Void_ sizeHeightToFit {
 	CGFloat minY = 0.0 ;
 	for (NSV* subview in [self subviews]) {
 		minY = MIN([subview frame].origin.y - BOTTOM_MARGIN, minY) ;
@@ -1008,7 +1008,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 - _IsIt_ autoScrollToBottom {  return [self associatedValueForKey:@"autoScroll"]; }
 
 #define AUTOSCROLL_CATCH_SIZE 	20	//The distance (in pixels) that the scrollview must be within (from the bottom) for auto-scroll to kick in.
-- (void)setAutoScrollToBottom:(BOOL)inValue
+- _Void_ setAutoScrollToBottom:(BOOL)inValue
 {
 	[self setAssociatedValue:@(inValue) forKey:@"autoScroll" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 	//Observe the document view's frame changes
@@ -1020,7 +1020,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 }
 
 //When our document resizes
-//- (void)documentFrameDidChange:(NSNotification *)notification
+//- _Void_ documentFrameDidChange:(NSNotification *)notification
 //{
 //	//We guard against a recursive call to this method, which may occur if the user is resizing the view at the same time
 //	//content is being modified
@@ -1048,7 +1048,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 
 @implementation NSTableView (Scrolling)
 
-- (void)scrollRowToTop:(NSInteger)row {
+- _Void_ scrollRowToTop:(NSInteger)row {
 	if ((row != NSNotFound) && (row >=0)) {
 		CGFloat rowPitch = [self rowHeight] + [self intercellSpacing].height ;
 		CGFloat y = row * rowPitch ;
@@ -1132,7 +1132,7 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 
 @interface      COICOPopoverView : AZSimpleView @end
 @implementation COICOPopoverView
-- (void)drawRect:(NSR)aRect {
+- _Void_ drawRect:(NSR)aRect {
 	self.backgroundColor = self.backgroundColor ?: [NSColor controlBackgroundColor];
 	NSG *gradient = [NSG.alloc initWithStartingColor:self.backgroundColor  endingColor:NSC.controlBackgroundColor];
 	[gradient drawInBezierPath:[NSBP bezierPathWithRoundedRect:self.bounds xRadius:5 yRadius:6] angle:270.0];

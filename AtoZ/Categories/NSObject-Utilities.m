@@ -838,7 +838,7 @@ CLANG_POP
 - (id) tryPerformSelector:(SEL)sel 									{ return [self tryPerformSelector:sel withObject:nil withObject:nil];     }
 
 
-- (void)runUntil:(BOOL*)stop {
+- _Void_ runUntil:(BOOL*)stop {
 
   while(!stop) [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.date];
 }
