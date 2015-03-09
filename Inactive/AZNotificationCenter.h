@@ -11,7 +11,7 @@
 	NSMutableDictionary*	_observerHelpers;
 }
 
-+ (id)defaultCenter;
++ defaultCenter;
 
 // selector should have the following signature:
 - (void)observeValueForKeyPath:(NSString *)keyPath 		ofObject:(id)target

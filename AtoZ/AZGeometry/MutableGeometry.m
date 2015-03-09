@@ -227,7 +227,7 @@
 
 @implementation NSValue (SSGeometryCompatibility)
 
-+ (id)valueWithNSCGRect:(NSCGRect)inRect
++ valueWithNSCGRect:(NSCGRect)inRect
 {
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
   return [self valueWithCGRect:inRect];
@@ -236,7 +236,7 @@
 #endif
 }
 
-+ (id)valueWithNSCGSize:(NSCGSize)inSize
++ valueWithNSCGSize:(NSCGSize)inSize
 {
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
   return [self valueWithCGSize:inSize];
@@ -245,7 +245,7 @@
 #endif
 }
 
-+ (id)valueWithNSCGPoint:(NSCGPoint)inPoint;
++ valueWithNSCGPoint:(NSCGPoint)inPoint;
 {
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
   return [self valueWithCGPoint:inPoint];

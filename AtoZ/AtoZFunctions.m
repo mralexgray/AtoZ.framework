@@ -146,7 +146,7 @@ IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, 
  static dispatch_once_t  _onceToken;
 
  @implementation 	AZSingleton //Subclassible thread-safe ARC singleton  Copyright Kevin Lawler. Released under ISC.
- + (id) 		   sharedInstance				{
+ + 		   sharedInstance				{
 
 	if ( !_children )																dispatch_once(&_onceToken, ^{ _children = NSMD.new; });
 	if ( !_children[AZCLSSTR] || _children[AZCLSSTR] == AZNULL )	dispatch_sync(dispatch_get_main_queue(),^{
@@ -172,11 +172,11 @@ IMP SwizzleImplementedInstanceMethods(Class aClass, const SEL originalSelector, 
  //+(void) initialize {    //thread-safe if(!_children) _children = NSMutableDictionary.new; [_children setObject:[self.alloc init] forKey:AZCLSSTR]; }
  //+(id) alloc {    id c; if((c = [self instance]))  return c;  return [self allocWithZone:nil];	}
  //-(id) init 	{    id c; if((c = [_children objectForKey:AZCLSSTR])) return c;//sic, unfactored//    self = [super init];    return self; }
- //+ (id) instance 		{    return [_children objectForKey:AZCLSSTR];	}
- //+ (id) sharedInstance {     return [self instance];  } //alias for instance
- //+ (id) singleton 		{         return [self instance];   } //alias for instance
+ //+ instance 		{    return [_children objectForKey:AZCLSSTR];	}
+ //+ sharedInstance {     return [self instance];  } //alias for instance
+ //+ singleton 		{         return [self instance];   } //alias for instance
  ////stop other creative stuff
- //+ (id) new {    return [self instance];}
+ //+ new {    return [self instance];}
  //+(id)copyWithZone:(NSZone *)zone {    return [self instance];	}
  //+(id)mutableCopyWithZone:(NSZone *)zone {    return [self instance];	}
  //+ (void) setSharedInstance:(id)i { if ((i) && [self instance] != i && [i ISKINDA:self.class]) [_children setObject:i forKey:AZCLSSTR];

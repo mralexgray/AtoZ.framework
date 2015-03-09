@@ -30,19 +30,19 @@ typedef enum  _CTBlendingMode
 	CGFunctionRef gradientFunction;
 	}
 
-+ (id)gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end;
++ gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end;
 
-+ (id)aquaSelectedGradient;
-+ (id)aquaNormalGradient;
-+ (id)aquaPressedGradient;
++ aquaSelectedGradient;
++ aquaNormalGradient;
++ aquaPressedGradient;
 
-+ (id)unifiedSelectedGradient;
-+ (id)unifiedNormalGradient;
-+ (id)unifiedPressedGradient;
-+ (id)unifiedDarkGradient;
++ unifiedSelectedGradient;
++ unifiedNormalGradient;
++ unifiedPressedGradient;
++ unifiedDarkGradient;
 
-+ (id)sourceListSelectedGradient;
-+ (id)sourceListUnselectedGradient;
++ sourceListSelectedGradient;
++ sourceListUnselectedGradient;
 
 - (CTGradient *)gradientWithAlphaComponent:(float)alpha;
 

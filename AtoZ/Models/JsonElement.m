@@ -61,7 +61,7 @@ NSDictionary *JsonElementInitializers = nil;
 	return [self initWithTerminal:object];
 }
 
-+ (id)elementWithObject:(id)object {
++ elementWithObject:(id)object {
 	return [[[self alloc] initWithObject:object] autorelease];
 }
 

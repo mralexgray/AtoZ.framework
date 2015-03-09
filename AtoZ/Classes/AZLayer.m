@@ -89,7 +89,7 @@ static CFHashCode _hashString(const void *value)
 }
 
 
-+ (id)defaultValueForKey:(NSString *)key  // ESSENTIAL
++ defaultValueForKey:(NSString *)key  // ESSENTIAL
 
 {
 	static NSD* vals = nil;	vals = vals ?: @{

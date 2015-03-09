@@ -8,7 +8,7 @@
 #import "NBBThemeEngine.h"
 
 @implementation NSWindow (NBBWindowProxy)
-+ (id)allocWithZone:(NSZone *)zone
++ allocWithZone:(NSZone *)zone
 {
 	NBBThemeEngine* themeEngine = [NBBThemeEngine sharedThemeEngine];
 	self = [themeEngine classReplacementForThemableClass:self];

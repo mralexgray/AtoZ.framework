@@ -424,7 +424,7 @@
 	}
 	return [invocation copy];
 }
-+ (id)invocationWithTarget: target block:(void(^)(id target))block {
++ invocationWithTarget: target block:(void(^)(id target))block {
 
     AZInvocationGrabber *grabber = [AZInvocationGrabber.alloc initWithTarget:target];
     block(grabber);    return grabber.invocation;

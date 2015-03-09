@@ -67,7 +67,7 @@ _EXTERN const char* kGDataXMLXPathDefaultNamespacePrefix _INITIALIZE_AS("_def_ns
 // XMLNode = xmlNodePtr
 //
 // So, for example:
-//  + (id)nodeConsumingXMLNode:(xmlNodePtr)theXMLNode;
+//  + nodeConsumingXMLNode:(xmlNodePtr)theXMLNode;
 
 @class NSArray, NSDictionary, NSError, NSString, NSURL;
 @class GDataXMLElement, GDataXMLDocument;
@@ -117,12 +117,12 @@ typedef NSUInteger GDataXMLNodeKind;
 + (GDataXMLElement *)elementWithName:(NSString *)name stringValue:(NSString *)value;
 + (GDataXMLElement *)elementWithName:(NSString *)name URI:(NSString *)value;
 
-+ (id)attributeWithName:(NSString *)name stringValue:(NSString *)value;
-+ (id)attributeWithName:(NSString *)name URI:(NSString *)attributeURI stringValue:(NSString *)value;
++ attributeWithName:(NSString *)name stringValue:(NSString *)value;
++ attributeWithName:(NSString *)name URI:(NSString *)attributeURI stringValue:(NSString *)value;
 
-+ (id)namespaceWithName:(NSString *)name stringValue:(NSString *)value;
++ namespaceWithName:(NSString *)name stringValue:(NSString *)value;
 
-+ (id)textWithStringValue:(NSString *)value;
++ textWithStringValue:(NSString *)value;
 
 - (NSString *)stringValue;
 - (void) setStringValue:(NSString *)str;

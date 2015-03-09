@@ -52,10 +52,10 @@
 
 /* @return a default theme (similar to the default theme of Xcode). */
 
-+ (id)defaultTheme;
++ defaultTheme;
 
 /* @return a theme initialized with an Xcode theme (.dvtcolortheme files) */
-+ (id)themeWithXcodeTheme:(NSString*)path;
++ themeWithXcodeTheme:(NSString*)path;
 
 ///-----------------------------------------------------------------------------
 /// @name Integration with DSSyntaxDefinition

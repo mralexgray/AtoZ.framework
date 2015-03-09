@@ -95,7 +95,7 @@
 	return self;
 }
 
-+ (id)defaultTheme {
++ defaultTheme {
 	AZSyntaxTheme *result = self.new;
 	
 	result.plainTextColor  = [UINSColor blackColor];
@@ -118,7 +118,7 @@
 }
 //- (id) valueForKey:(NSString *)key { return [self vFK:key] ?: [self respondsToSelector:NSSelectorFromString(key)] ? RANDOMCOLOR : [super vFK:key]; }
 
-+ (id)themeWithXcodeTheme:(NSString*)path {
++ themeWithXcodeTheme:(NSString*)path {
 	AZSyntaxTheme *result = self.class.new;
 	
 	NSDictionary* root     = [NSDictionary dictionaryWithContentsOfFile:path];

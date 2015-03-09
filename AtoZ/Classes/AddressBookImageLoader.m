@@ -651,7 +651,7 @@ void x (){
 	return data;
 }
 
-+ (id) contactWithDictionary: (NSDictionary *) dict
++ contactWithDictionary: (NSDictionary *) dict
 {
 	ABContact *contact = [ABContact contact];
 	if ([dict objectForKey:FIRST_NAME_STRING]) contact.firstname = [dict objectForKey:FIRST_NAME_STRING];
@@ -692,7 +692,7 @@ void x (){
 	return contact;
 }
 
-+ (id) contactWithData: (NSData *) data
++ contactWithData: (NSData *) data
 {
 	// Otherwise handle points
 	CFStringRef errorString;
@@ -723,12 +723,12 @@ void x (){
 	return self;
 }
 
-+ (id) groupWithRecord: (ABRecordRef) grouprec
++ groupWithRecord: (ABRecordRef) grouprec
 {
 	return [[ABGroup.alloc initWithRecord:grouprec] autorelease];
 }
 
-+ (id) groupWithRecordID: (ABRecordID) recordID
++ groupWithRecordID: (ABRecordID) recordID
 {
 	ABAddressBookRef addressBook = CFAutorelease(ABAddressBookCreate());
 	ABRecordRef grouprec = ABAddressBookGetGroupWithRecordID(addressBook, recordID);
@@ -738,7 +738,7 @@ void x (){
 }
 
 // Thanks to Ciaran
-+ (id) group
++ group
 {
 	ABRecordRef grouprec = ABGroupCreate();
 	id group = [ABGroup groupWithRecord:grouprec];

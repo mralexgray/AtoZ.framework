@@ -19,12 +19,12 @@
 // MARK: -
 // MARK: General Accessors
 
-+ (id) createObjectInManagedObjectContext:(NSManagedObjectContext*)MOC {
++ createObjectInManagedObjectContext:(NSManagedObjectContext*)MOC {
 	NSString *entityName = NSStringFromClass(self);
 	return [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:MOC];
 }
 
-+ (id) fetchAllObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC {
++ fetchAllObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC {
 	NSString *entityName = NSStringFromClass(self);
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
@@ -41,7 +41,7 @@
 	return results;
 }
 
-+ (id) fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
++ fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
 					returnOnlyFirstResult:(BOOL)firstOnly
 						useSortDescriptor:(NSSortDescriptor*)sortDesciptor
 						  predicateFormat:(NSString*)predicateFormat, ...
@@ -61,7 +61,7 @@
 										  predicate:predicate];
 }
 
-+ (id) fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
++ fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
 					returnOnlyFirstResult:(BOOL)firstOnly
 						useSortDescriptor:(NSSortDescriptor*)sortDesciptor
 								predicate:(NSPredicate*)predicate

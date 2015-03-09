@@ -1538,7 +1538,7 @@ foreach($s as $k => $v) { list($hue,$sat,$val) = $v; list($r,$g,$b) = hsvtorgb($
 }
 - (void) orwardInvocation:(NSInvocation *)invocation{ [invocation invokeWithTarget:nil]; }
 
-  + (id)dictionaryWithContentsOfRGBTxtFile:(NSS*) path
+  + dictionaryWithContentsOfRGBTxtFile:(NSS*) path
 
  NSMutableData *data = [NSMutableData dataWithContentsOfFile:path];
  if (!data) return nil;
@@ -1626,7 +1626,7 @@ foreach($s as $k => $v) { list($hue,$sat,$val) = $v; list($r,$g,$b) = hsvtorgb($
  }//@end
 
  @implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
- + (id)colorWithHTMLString:(NSS*) str                     {
+ + colorWithHTMLString:(NSS*) str                     {
  return [self colorWithHTMLString:str defaultColor:nil];
  }
  / * !
@@ -1654,7 +1654,7 @@ foreach($s as $k => $v) { list($hue,$sat,$val) = $v; list($r,$g,$b) = hsvtorgb($
  }
  return hexValue;
  }
- + (id)colorWithHTMLString:(NSS*) str defaultColor:(NSC*)defaultColor {
+ + colorWithHTMLString:(NSS*) str defaultColor:(NSC*)defaultColor {
  if (!str) return defaultColor;
  NSUInteger strLength = [str length];
  NSS *colorValue = str;

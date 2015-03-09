@@ -43,7 +43,7 @@ shared##classname = self.new; \
 }); \
 return shared##classname; \
 } \
-+ (id)allocWithZone:(NSZone *)zone \
++ allocWithZone:(NSZone *)zone \
 { \
 static dispatch_once_t p; \
 __block classname* temp = nil; \
@@ -100,7 +100,7 @@ return temp; \
  return shared##Klass;\
  }\
  \
- + (id)allocWithZone:(NSZone *)zone {\
+ + allocWithZone:(NSZone *)zone {\
  return [[self shared##Klass] retain];\
  }\
  \
@@ -176,7 +176,7 @@ return temp; \
 //	return shared##Klass;\
 //  }\
 //  \
-//  + (id)allocWithZone:(NSZone *)zone {\
+//  + allocWithZone:(NSZone *)zone {\
 //	return [[self shared##Klass] retain];\
 //  }\
 //  \
@@ -270,7 +270,7 @@ shared##classname = self.new; \
 }); \
 return shared##classname; \
 } \
-+ (id)allocWithZone:(NSZone *)zone \
++ allocWithZone:(NSZone *)zone \
 { \
 static dispatch_once_t p; \
 __block classname* temp = nil; \

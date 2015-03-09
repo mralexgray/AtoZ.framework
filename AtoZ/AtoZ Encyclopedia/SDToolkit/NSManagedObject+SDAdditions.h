@@ -9,16 +9,16 @@
 #import <CoreData/CoreData.h>
 @interface NSManagedObject (SDAdditions)
 
-+ (id) createObjectInManagedObjectContext:(NSManagedObjectContext*)MOC;
++ createObjectInManagedObjectContext:(NSManagedObjectContext*)MOC;
 
-+ (id) fetchAllObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC;
++ fetchAllObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC;
 
-+ (id) fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
++ fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
 					returnOnlyFirstResult:(BOOL)firstOnly
 						useSortDescriptor:(NSSortDescriptor*)sortDesciptor
 						  predicateFormat:(NSString*)predicateFormat, ...;
 
-+ (id) fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
++ fetchObjectsInManagedObjectContext:(NSManagedObjectContext*)MOC
 					returnOnlyFirstResult:(BOOL)firstOnly
 						useSortDescriptor:(NSSortDescriptor*)sortDesciptor
 								predicate:(NSPredicate*)predicate;

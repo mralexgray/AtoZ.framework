@@ -88,9 +88,9 @@ int main(int argc, char *argv[], char**argp ){\
 	@autoreleasepool {\
 	int mask = NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask|NSResizableWindowMask;		\
   	NSApplication *app = NSApplication.sharedApplication;\
-  	NSW *win = [NSWindow.alloc initW4/+ (id) appWithBlock:(void(^)(void))blk;
-//+ (id) appWithMenuBlock:(void(^)(void))blk;
-//+ (id) appWithWindowBlock:(void(^)(void))blk;
+  	NSW *win = [NSWindow.alloc initW4/+ appWithBlock:(void(^)(void))blk;
+//+ appWithMenuBlock:(void(^)(void))blk;
+//+ appWithWindowBlock:(void(^)(void))blk;
 //@end
 
 

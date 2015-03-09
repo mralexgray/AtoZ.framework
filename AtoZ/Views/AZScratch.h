@@ -1837,7 +1837,7 @@ scanFailed:
 }
 @end
 @implementation NSColor (AIColorAdditions_HTMLSVGCSSColors)
-//+ (id)colorWithHTMLString:(NSString*)str
+//+ colorWithHTMLString:(NSString*)str
 //{
 //	return [self colorWithHTMLString:str defaultColor:nil];
 //}
@@ -1870,7 +1870,7 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 	return hexValue;
 }
 
-+ (id)colorWithHTMLString:(NSString*)str defaultColor:(NSC*)defaultColor
++ colorWithHTMLString:(NSString*)str defaultColor:(NSC*)defaultColor
 {
 	if (!str)	return defaultColor;
 	NSUInteger strLength = [str length];

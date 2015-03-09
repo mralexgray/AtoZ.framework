@@ -14,7 +14,7 @@ The goal is to allocate and return overriding theme specific subclasses instead
 */
 
 @interface NSControl (NBBControlProxy)
-+ (id)allocWithZone:(NSZone *)zone;
++ allocWithZone:(NSZone *)zone;
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow;
 
 - (NBBTheme*) theme; // part of NBBThemable protocol

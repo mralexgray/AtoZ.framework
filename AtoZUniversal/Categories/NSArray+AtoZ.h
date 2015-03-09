@@ -361,8 +361,8 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 @end
 
 @interface NSMutableArray (WeakReferences)
-+ (id)mutableArrayUsingWeakReferences;
-+ (id)mutableArrayUsingWeakReferencesWithCapacity:(NSUInteger)capacity;
++ mutableArrayUsingWeakReferences;
++ mutableArrayUsingWeakReferencesWithCapacity:(NSUInteger)capacity;
 @end
 
 @interface NSMutableArray (AG)

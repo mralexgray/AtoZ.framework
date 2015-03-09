@@ -17,7 +17,7 @@
 
 #pragma mark - API
 
-+ (id)sharedMediaServer;
++ sharedMediaServer;
 {
     static dispatch_once_t onceToken;
     static id sharedMediaServer = nil;

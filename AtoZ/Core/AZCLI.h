@@ -55,7 +55,7 @@
 
 //void AZCLogFormatWithArguments (const char *format,va_list arguments);
 //void AZCLogFormat					 (const char *fmt,...);
-//+ (id) blockEval:(id(^)(id blockArgs, ...))block;
+//+ blockEval:(id(^)(id blockArgs, ...))block;
 //@property (		  RO) 	 NSS	*frameworkMenu, *methodMenu;
 //@interface AZCLIMenu : 	BaseModel	@property (STR)   	NSA 	*items;	@prop_RO    NSS 	*outputString;	@property (ASS)  		NSRNG  range;	@end
 //@property (		  STR)     NSFH *logConsoleHandle;

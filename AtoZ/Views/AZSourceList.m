@@ -1056,13 +1056,13 @@ NSString * const AZSLDeleteKeyPressedOnRowsNotification = @"AZSourceListDeleteKe
 	
 	return self;
 }
-+ (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier
++ itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier
 {	
 	SourceListItem *item = [SourceListItem itemWithTitle:aTitle identifier:anIdentifier icon:nil];
 	
 	return item;
 }
-+ (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon
++ itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon
 {
 	SourceListItem *item = SourceListItem.new;
 	

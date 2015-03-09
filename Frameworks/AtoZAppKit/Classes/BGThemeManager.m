@@ -47,7 +47,7 @@ BGTheme * _themeKeyDecode (BGHUDView *_self) { 	BGThemeManager *b = BGThemeManag
     }();
 }
 - (id)copyWithZone:	(NSZone*)zone	{    return self;						}
-+ (id)allocWithZone:	(NSZone*)zone	{    return [self keyedManager];	}
++ allocWithZone:	(NSZone*)zone	{    return [self keyedManager];	}
 //-(void)initDefaultThemes {
 	
 	//Init our Dictionary for 2 defaults

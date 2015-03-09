@@ -53,8 +53,8 @@ static NSArray* extensionsForAssetType(AssetType type) {
 //  dispatch_once(&uno, ^{   shared 			 = [[self _alloc] _init];
 //												shared.content = shared.assets = NSMA.new;  	}); return shared;
 //}
-//+ (id) allocWithZone:(NSZone*)z { return [self shared];              }
-//+ (id) alloc                    { return [self shared];              }
+//+ allocWithZone:(NSZone*)z { return [self shared];              }
+//+ alloc                    { return [self shared];              }
 - (id) init                     {
   if (!(self = super.init)) return nil;
   _content = NSMA.new;

@@ -55,11 +55,11 @@
 
 @interface MArray (MArrayCreation)
 
-+ (id)array;
-+ (id)arrayWithContentsOfFile:(NSString *)path;
-+ (id)arrayWithContentsOfURL:(NSURL *)url;
-+ (id)arrayWithObject:(id)anObject;
-+ (id)arrayWithObjects:(id)firstObj, ...;
++ array;
++ arrayWithContentsOfFile:(NSString *)path;
++ arrayWithContentsOfURL:(NSURL *)url;
++ arrayWithObject:(id)anObject;
++ arrayWithObjects:(id)firstObj, ...;
 - (id)initWithArray:(MArray *)array;
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
 - (id)initWithArray:(MArray *)array copyItems:(BOOL)flag;
@@ -69,8 +69,8 @@
 - (id)initWithObjects:(id *)objects count:(unsigned)count;
 - (id)initWithObjects:(id)firstObj, ...;
 
-+ (id)arrayWithArray:(NSArray *)array;
-+ (id)arrayWithObjects:(id *)objs count:(unsigned)cnt;
++ arrayWithArray:(NSArray *)array;
++ arrayWithObjects:(id *)objs count:(unsigned)cnt;
 
 @end
 
@@ -108,7 +108,7 @@
 
 @interface MArray (NSMutableArrayCreation)
 
-+ (id)arrayWithCapacity:(unsigned)numItems;
++ arrayWithCapacity:(unsigned)numItems;
 - (id)initWithCapacity:(unsigned)numItems;
 
 @end

@@ -25,8 +25,8 @@
 @property (STR) NSA 	*children;
 
 //Convenience methods
-+ (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier;
-+ (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon;
++ itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier;
++ itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier icon:(NSImage*)anIcon;
 - (BOOL)hasBadge;
 - (BOOL)hasChildren;
 - (BOOL)hasIcon;
@@ -37,7 +37,7 @@
 @class JsonResource;
 @interface JSONListItem : SourceListItem
 
-+ (id)itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier fromJson:(JsonResource*)anIcon;
++ itemWithTitle:(NSString*)aTitle identifier:(NSString*)anIdentifier fromJson:(JsonResource*)anIcon;
 
 @end
 

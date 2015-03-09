@@ -2280,7 +2280,7 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(isListItem,setIsListItem,BOOL);
 @interface PositionPointLayer : CASHL  <KeyBoundShape> @end
 @interface BoundsLayer        : CASHLA <KeyBoundShape> @end
 
-@implementation AnchorPointLayer  + (id) dVfK:(NSS*)k { objswitch(k)
+@implementation AnchorPointLayer  + dVfK:(NSS*)k { objswitch(k)
 
   objcase(@"path")      return (id)[NSBP bezierPathWithOvalInRect:AZRectFromDim(20)].quartzPath;
   objcase(@"fillColor") return (id)cgRED;
@@ -2290,7 +2290,7 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(isListItem,setIsListItem,BOOL);
   endswitch             return [super dVfK:k];
 }
 @end
-@implementation PositionPointLayer  + (id) dVfK:(NSS*)k { objswitch(k)
+@implementation PositionPointLayer  + dVfK:(NSS*)k { objswitch(k)
 
   objcase(@"path")      return (id)[NSBP withR:AZRectFromDim(20)].quartzPath;
   objcase(@"fillColor") return (id)cgGREEN;
@@ -2300,7 +2300,7 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(isListItem,setIsListItem,BOOL);
 }
 @end
 @implementation BoundsLayer
-//+ (id) dVfK:(NSS*)k { objswitch(k)
+//+ dVfK:(NSS*)k { objswitch(k)
 //  objcase(@"fillColor")     return (id)cgBLUE;
 //  objcase(@"strokeColor")   return (id)cgBLACK;
 //  objcase(@"binding")       return @"bounds";

@@ -83,7 +83,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
                   named:(NSS *)name;
 +(INST)missing;
 
-//+ (id) objectForKeyedSubscript: k;
+//+ objectForKeyedSubscript: k;
 //@property (NATOM) CGF width, height;
 @prop_RO NSAS *attributedString;
 
@@ -402,7 +402,7 @@ extern NSData *PNGRepresentation(NSIMG *image);
  	NSImage loads image data from files lazily.
  	This method forces the file to be read to create a small sized version.
  	This can be a useful thing to do as a background operation.	*/
-+ (id)thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGF)width;
++ thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGF)width;
 
 @end
 

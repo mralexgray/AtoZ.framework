@@ -76,7 +76,7 @@
 //@property (retain, strong) NSView *v1, *v2, *sV;
 //@property (retain, strong) CAL *l1, *l2;
 //
-//+ (id)animateTo:(id)v1 inSuperView:(id)sV;
+//+ animateTo:(id)v1 inSuperView:(id)sV;
 //
 //@end
 
@@ -597,7 +597,7 @@
 
  @implementation NASpinSeque
 
- + (id)animateTo:(id)v inSuperView:(id)sV
+ + animateTo:(id)v inSuperView:(id)sV
  {
  NASpinSeque *n = [NASpinSeque new];// = [super init];
  //	if (self) {

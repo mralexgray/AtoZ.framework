@@ -13,15 +13,15 @@
 
 //Returns an autoreleased shadow initialized with the default settings
 //(0 radius, 0 offset, 33% opaque black).
-+ (id) shadow;
++ shadow;
 
 //Returns an autoreleased shadow initialized with the specified radius and offset,
 //and the default color (33% opaque black).
-+ (id) shadowWithBlurRadius: (CGFloat)blurRadius
++ shadowWithBlurRadius: (CGFloat)blurRadius
                      offset: (NSSize)offset;
 
 //Returns an autoreleased shadow initialized with the specified radius, offset and colour.
-+ (id) shadowWithBlurRadius: (CGFloat)blurRadius
++ shadowWithBlurRadius: (CGFloat)blurRadius
                      offset: (NSSize)offset
                       color: (NSColor *)color;
 

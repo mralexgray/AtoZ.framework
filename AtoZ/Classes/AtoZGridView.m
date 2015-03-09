@@ -896,7 +896,7 @@ static CGFloat kDefaultItemBorderRadius;
 - (void) selectItemsCoveredBySelectionFrame:(NSRect)selectionFrame usingModifierFlags:(NSUI)modifierFlags;
 
 
-+ (id)defaultAnimationForKey:(NSString *)key {
++ defaultAnimationForKey:(NSString *)key {
 	if ([key loMismo:@"frame"]) {
 		NSR rect = ;
 		CIFilter* transitionFilter = [CIFilter filterWithName:key];  [transitionFilter setDefaults];

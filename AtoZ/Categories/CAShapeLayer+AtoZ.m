@@ -42,7 +42,7 @@ IF_VOID(          !lyr          // require thatthe layer exist
   [SHAREDLASSO.hit = lyr addSublayer:ROOTL];
   [SHAREDLASSO.lasso replaceAnimationForKey:@"chunky" withAnimation:[CABA dashPhaseAnimationForPerimeter:SHAREDLASSO.lasso.perimeter]];
 }
-+ (id) hit { return SHAREDLASSO.hit; }
++ hit { return SHAREDLASSO.hit; }
 @end
 
 @implementation CAShapeLayerAuto   - (id) init { SUPERINIT;

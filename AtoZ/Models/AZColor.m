@@ -14,7 +14,7 @@
 
 + (instancetype)colorWithColor:(NSColor *)color {  AZColor *cc = [self new];  cc.color = color.deviceRGBColor; return cc; }
 
-+ (id) forwardingTargetForSelctor:(SEL)s {
++ forwardingTargetForSelctor:(SEL)s {
   return NSC.class;
 }
 - (id) forwardingTargetForSelctor:(SEL)s {  XX(NSStringFromSelector(s));

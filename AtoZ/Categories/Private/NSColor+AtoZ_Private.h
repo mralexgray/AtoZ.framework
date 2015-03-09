@@ -116,7 +116,7 @@ static NSArray *defaultValidColors = nil;
 
 
 /*
-+ (id)colorWithHTMLString:(NSS*)str { return [self colorWithHTMLString:str defaultColor:nil]; }
++ colorWithHTMLString:(NSS*)str { return [self colorWithHTMLString:str defaultColor:nil]; }
 
 
 + (INST) colorWithHTMLString:(NSS*)str defaultColor:(NSC*)defaultC { if (!str || (!str.length && !defaultC)) return nil;

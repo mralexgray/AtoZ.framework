@@ -18,7 +18,7 @@
 //@interface MediaServer : NSObject
 //@property (strong, nonatomic) NSOperationQueue *operationQueue;
 //
-//+ (id)sharedMediaServer;
+//+ sharedMediaServer;
 //- (void) setchTweetsForSearch:(NSString *)searchString block:(FetchBlock)block;
 //
 //@end

@@ -21,7 +21,7 @@
     return sharedAnimationWindow;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
++ allocWithZone:(NSZone *)zone
 {
     return [self sharedAnimationWindow];// retain];
 }

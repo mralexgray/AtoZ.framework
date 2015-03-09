@@ -2063,9 +2063,9 @@ static void _ScanSentence(NSScanner *scanner) {
 #undef __NSINTEGER_FORMAT
 }
 
-+ (id)stringWithInteger:(NSInteger)value {	return [self.alloc initWithInteger:value]; }
++ stringWithInteger:(NSInteger)value {	return [self.alloc initWithInteger:value]; }
 
-+ (id)stringWithFormat:(NSS*)format array:(NSA*)arguments {
++ stringWithFormat:(NSS*)format array:(NSA*)arguments {
 
     NSMutableData* data = [NSMutableData dataWithLength:sizeof(id) *arguments.count];
     [arguments getObjects:(__unsafe_unretained id *)data.mutableBytes range:NSMakeRange(0,arguments.count)];
@@ -2094,7 +2094,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	// OMG... what's the best?
 	return [self initWithString:[array componentsJoinedByString:@""]];
 }
-+ (id)stringWithConcatnatingStrings:(NSS*)first, ...{
++ stringWithConcatnatingStrings:(NSS*)first, ...{
 	NSMutableArray *array = [NSMutableArray array];
 	va_list args;
 	va_start(args, first);
@@ -2205,7 +2205,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	}
 	return self;
 }
-+ (id)stringWithConcatnatingStrings:(NSS*)first, ...{
++ stringWithConcatnatingStrings:(NSS*)first, ...{
 	NSMutableString *aString = [self stringWithString:first];
 	va_list args;
 	va_start(args, first);
@@ -2610,7 +2610,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	return s;
 }
 
-+ (id) stringWithCharacter:(unichar)c { return [self stringWithCharacters:(unichar[]){c} length:1]; }
++ stringWithCharacter:(unichar)c { return [self stringWithCharacters:(unichar[]){c} length:1]; }
 
 + (NSS*)stringWithCharacters:	(NSA*)keySequence			{
 	NSMutableString *s = [NSMutableString string];

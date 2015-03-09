@@ -110,8 +110,8 @@
 @end
 
 @interface NSValue (SSGeometryCompatibility)
-+ (id)valueWithNSCGRect:(NSCGRect)inRect;
-+ (id)valueWithNSCGSize:(NSCGSize)inSize;
-+ (id)valueWithNSCGPoint:(NSCGPoint)inPoint;
++ valueWithNSCGRect:(NSCGRect)inRect;
++ valueWithNSCGSize:(NSCGSize)inSize;
++ valueWithNSCGPoint:(NSCGPoint)inPoint;
 @end
 

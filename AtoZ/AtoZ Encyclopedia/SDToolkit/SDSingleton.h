@@ -20,7 +20,7 @@ return globalVar;\
 @synchronized(self) { if (globalVar == nil) self.new; }\
 return globalVar;\
 }\
-+ (id) allocWithZone:(NSZone *)zone {\
++ allocWithZone:(NSZone *)zone {\
 @synchronized(self) { if (globalVar == nil) return [super allocWithZone:zone]; }\
 return globalVar;\
 }\

@@ -326,7 +326,7 @@
 
 /*
 
-//+ (id) tabWithViewClass:(Class)k		{
+//+ tabWithViewClass:(Class)k		{
 //
 //	id retVal = [self.alloc initWithFrame:NSZeroRect];
 //	[k.alloc initWithFrame:AZRectFromDim(200)] 

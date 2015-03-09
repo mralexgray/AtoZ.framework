@@ -35,11 +35,11 @@
 //	@property(NATOM, readonly) NSMutableArray *children;
 //	@prop_RO NSUI capacity;
 - (id) initWithArray:(NSArray*)array;
-+ (id) appFolder;
-+ (id) samplerWithCount:(NSUInteger)items;
-// + (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
-+ (id) instanceWithFiles:(NSA*)files;
-+ (id) instanceWithPaths:(NSA*)strings;
++ appFolder;
++ samplerWithCount:(NSUInteger)items;
+// + samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
++ instanceWithFiles:(NSA*)files;
++ instanceWithPaths:(NSA*)strings;
 
 //- (NSA*)filesMatchingFilter: (NSString *)filte
 //- (NSA*)filesWithCategory: (AppCat)cat;

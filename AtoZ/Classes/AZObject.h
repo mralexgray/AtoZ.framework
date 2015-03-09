@@ -8,9 +8,9 @@
 
 @protocol IBSingleton <NSObject> @optional - (void) setUp;
 @concrete
-+ (id) allocWithZone:(NSZone*)z;
++ allocWithZone:(NSZone*)z;
 + (instancetype) sharedInstance;
-+ (id) alloc; + (id) _alloc;
++ alloc; + _alloc;
 - (id) init;	- (id) _init;
 @end
 

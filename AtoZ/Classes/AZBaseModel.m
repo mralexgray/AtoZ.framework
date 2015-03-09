@@ -952,7 +952,7 @@ static BOOL loadingFromResourceFile = NO;
 //	return description;
 //}
 
-+ (id)retrieve:(NSString *)key {
++ retrieve:(NSString *)key {
     return [NSKeyedUnarchiver unarchiveObjectWithFile:$(@"%@/%@.archive",
                                                         NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0], key)];
 }

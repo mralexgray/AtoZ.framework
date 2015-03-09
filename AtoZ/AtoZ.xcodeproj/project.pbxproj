@@ -2177,7 +2177,7 @@
 		7B06BB9B1761CD62003A9C7E /* xx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xx.png; sourceTree = "<group>"; };
 		7B06BB9D1761CD92003A9C7E /* grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid.png; sourceTree = "<group>"; };
 		7B06BBD11761EBB1003A9C7E /* AZColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZColor.h; path = Models/AZColor.h; sourceTree = SOURCE_ROOT; };
-		7B06BBD21761EBB1003A9C7E /* AZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZColor.m; path = Models/AZColor.m; sourceTree = SOURCE_ROOT; };
+		7B06BBD21761EBB1003A9C7E /* AZColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AZColor.m; path = Models/AZColor.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B0838E8172F247100301FB2 /* NSTextView+SyntaxColoring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextView+SyntaxColoring.h"; path = "../NSTextView+SyntaxColoring.h"; sourceTree = "<group>"; };
 		7B0838E9172F247100301FB2 /* NSTextView+SyntaxColoring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+SyntaxColoring.m"; sourceTree = "<group>"; };
 		7B08CEA21A805A3000677E39 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
@@ -2215,7 +2215,7 @@
 		7B0E4BBF1668AE8B00CA1684 /* ColorVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorVC.xib; sourceTree = "<group>"; };
 		7B0E4BD71669145F00CA1684 /* NSCell+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCell+AtoZ.h"; path = "../NSCell+AtoZ.h"; sourceTree = "<group>"; };
 		7B0E4BD81669145F00CA1684 /* NSCell+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSCell+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AddressBookImageLoader.h; path = Classes/AddressBookImageLoader.h; sourceTree = SOURCE_ROOT; };
+		7B0E4BEB1669221A00CA1684 /* AddressBookImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; lineEnding = 0; name = AddressBookImageLoader.h; path = Classes/AddressBookImageLoader.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B0E4BEC1669221A00CA1684 /* AddressBookImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AddressBookImageLoader.m; path = Classes/AddressBookImageLoader.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B0E727E1654DA2B00A1A613 /* PicolSingulario.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = PicolSingulario.pdf; path = Resources/PicolSingulario.pdf; sourceTree = SOURCE_ROOT; };
 		7B0EF0B7170875F1008592BD /* AZWikipedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZWikipedia.h; path = Models/AZWikipedia.h; sourceTree = SOURCE_ROOT; };
@@ -2331,7 +2331,7 @@
 		7B2585E017183CB800527501 /* AZMatteSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZMatteSegmentedControl.h; sourceTree = "<group>"; };
 		7B2585E117183CB800527501 /* AZMatteSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZMatteSegmentedControl.m; sourceTree = "<group>"; };
 		7B2585EC17183EC600527501 /* BWToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BWToolkit.xcodeproj; path = ../Frameworks/BWToolKit/BWToolkit.xcodeproj; sourceTree = "<group>"; };
-		7B25863C1718944500527501 /* AZCLI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZCLI.h; path = Core/AZCLI.h; sourceTree = SOURCE_ROOT; };
+		7B25863C1718944500527501 /* AZCLI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AZCLI.h; path = Core/AZCLI.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B25863D1718944600527501 /* AZCLI.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = AZCLI.m; path = Core/AZCLI.m; sourceTree = SOURCE_ROOT; };
 		7B2586421719B7C800527501 /* AZScratch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AZScratch.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B2647A5176E0E220062ECF3 /* pw_maze_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pw_maze_white.png; sourceTree = "<group>"; };

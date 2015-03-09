@@ -56,7 +56,7 @@ typedef void (^FetchBlock)(NSArray *items, NSError *error);
 
 @interface SizeObj : NSObject
 @property (readwrite) CGFloat width, height;
-+ (id)forSize:(NSSize)sz;
++ forSize:(NSSize)sz;
 - (id)initWithSize:(NSSize)sz;
 - (NSSize)sizeValue;
 @end

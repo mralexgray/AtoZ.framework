@@ -127,7 +127,7 @@ void resolveHSV(float *color1, float *color2);
   }
 
 #pragma mark Creation
-+ (id)gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end
++ gradientWithBeginningColor:(NSColor *)begin endingColor:(NSColor *)end
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -152,7 +152,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)aquaSelectedGradient
++ aquaSelectedGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -192,7 +192,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)aquaNormalGradient
++ aquaNormalGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -224,7 +224,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)aquaPressedGradient
++ aquaPressedGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -256,7 +256,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)unifiedSelectedGradient
++ unifiedSelectedGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -276,7 +276,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)unifiedNormalGradient
++ unifiedNormalGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -296,7 +296,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)unifiedPressedGradient
++ unifiedPressedGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -316,7 +316,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)unifiedDarkGradient
++ unifiedDarkGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -336,7 +336,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)sourceListSelectedGradient
++ sourceListSelectedGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -360,7 +360,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)sourceListUnselectedGradient
++ sourceListUnselectedGradient
   {
   id newInstance = [[[self class] alloc] init];
   
@@ -384,7 +384,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)rainbowGradient
++ rainbowGradient
   {
   CTGradient* newInstance = [[[self class] alloc] init];
   
@@ -410,7 +410,7 @@ void resolveHSV(float *color1, float *color2);
   return newInstance;
   }
 
-+ (id)hydrogenSpectrumGradient
++ hydrogenSpectrumGradient
   {
   CTGradient* newInstance = [[[self class] alloc] init];
   

@@ -9,7 +9,7 @@
 
 @implementation NSControl (NBBControlProxy)
 
-+ (id)allocWithZone:(NSZone *)zone
++ allocWithZone:(NSZone *)zone
 {
 	NBBThemeEngine* themeEngine = [NBBThemeEngine sharedThemeEngine];
 	((NSProxy*)self) = [themeEngine classReplacementForThemableClass:self];

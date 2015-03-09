@@ -163,7 +163,7 @@ extern NSString *const AZBaseModelSharedInstanceUpdatedNotification;
 - (NSString*) saveInstanceInAppSupp;
 + (instancetype) instanceWithID:(NSString*)uniqueID;
 	// NSCODING extras
-+ (id)retrieve:(NSString *)key;
++ retrieve:(NSString *)key;
 + (BOOL)persist:(id)object key:(NSString *)key;
 + (BOOL)delete:(NSString *)key;
 + (BOOL)deleteEverything;

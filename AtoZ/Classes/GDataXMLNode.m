@@ -113,10 +113,10 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 // dealloc'd; borrowing it implies that ownership and disposal remain the
 // job of the supplier of the node
 
-+ (id)nodeConsumingXMLNode:(xmlNodePtr)theXMLNode;
++ nodeConsumingXMLNode:(xmlNodePtr)theXMLNode;
 - (id)initConsumingXMLNode:(xmlNodePtr)theXMLNode;
 
-+ (id)nodeBorrowingXMLNode:(xmlNodePtr)theXMLNode;
++ nodeBorrowingXMLNode:(xmlNodePtr)theXMLNode;
 - (id)initBorrowingXMLNode:(xmlNodePtr)theXMLNode;
 
 // getters of the underlying node
@@ -206,7 +206,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (id)attributeWithName:(NSString *)name stringValue:(NSString *)value {
++ attributeWithName:(NSString *)name stringValue:(NSString *)value {
 
   xmlChar *xmlName = GDataGetXMLString(name);
   xmlChar *xmlValue = GDataGetXMLString(value);
@@ -220,7 +220,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (id)attributeWithName:(NSString *)name URI:(NSString *)attributeURI stringValue:(NSString *)value {
++ attributeWithName:(NSString *)name URI:(NSString *)attributeURI stringValue:(NSString *)value {
 
   // since we don't know a prefix yet, shove in the whole URI; we'll look for
   // a proper namespace ptr later when addChild calls fixUpNamespacesForNode
@@ -239,7 +239,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (id)textWithStringValue:(NSString *)value {
++ textWithStringValue:(NSString *)value {
 
   xmlNodePtr theNewText = xmlNewText(GDataGetXMLString(value));
   if (theNewText) {
@@ -248,7 +248,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (id)namespaceWithName:(NSString *)name stringValue:(NSString *)value {
++ namespaceWithName:(NSString *)name stringValue:(NSString *)value {
 
   xmlChar *href = GDataGetXMLString(value);
   xmlChar *prefix;
@@ -268,7 +268,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (id)nodeConsumingXMLNode:(xmlNodePtr)theXMLNode {
++ nodeConsumingXMLNode:(xmlNodePtr)theXMLNode {
   Class theClass;
 
   if (theXMLNode->type == XML_ELEMENT_NODE) {
@@ -288,7 +288,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return self;
 }
 
-+ (id)nodeBorrowingXMLNode:(xmlNodePtr)theXMLNode {
++ nodeBorrowingXMLNode:(xmlNodePtr)theXMLNode {
   Class theClass;
   if (theXMLNode->type == XML_ELEMENT_NODE) {
     theClass = [GDataXMLElement class];

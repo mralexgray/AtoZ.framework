@@ -47,12 +47,12 @@ return self;
 
 @implementation NSShadow (ADBShadowExtensions)
 
-+ (id) shadow
++ shadow
 {
     return self.new;
 }
 
-+ (id) shadowWithBlurRadius: (CGFloat)blurRadius
++ shadowWithBlurRadius: (CGFloat)blurRadius
                      offset: (NSSize)offset
 {
     NSShadow *theShadow = self.new;
@@ -61,7 +61,7 @@ return self;
     return theShadow;
 }
 
-+ (id) shadowWithBlurRadius: (CGFloat)blurRadius
++ shadowWithBlurRadius: (CGFloat)blurRadius
                      offset: (NSSize)offset
                       color: (NSColor *)color
 {

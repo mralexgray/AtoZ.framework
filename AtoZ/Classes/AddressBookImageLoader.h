@@ -83,7 +83,7 @@
 //- (NSData *) baseDataRepresentation; // no image
 //- (NSData *) dataRepresentation; // image where available
 //
-//+ (id) contactWithDictionary: (NSDictionary *) dict;
-//+ (id) contactWithData: (NSData *) data;
+//+ contactWithDictionary: (NSDictionary *) dict;
+//+ contactWithData: (NSData *) data;
 
 

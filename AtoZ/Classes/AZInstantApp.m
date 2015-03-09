@@ -35,7 +35,7 @@ return 0;}' | gcc -framework Cocoa -x objective-c -o MinimalistCocoaApp - ; ./Mi
 	}
 	return self;
 }
-+ (id) appWithBlock:(void(^)(void))blk {
++ appWithBlock:(void(^)(void))blk {
 
 	id whatever;
 	return whatever;
@@ -75,9 +75,9 @@ int main(int argc, char *argv[], char**argp ){\
 	[win center];	[win setLevel: NSFloatingWindowLevel];	[win makeKeyAndOrderFront: nil]; x(win); 	[app run];	}	return 0;	}
 	
 
-+ (id) appWithBlock:(NSS*(^)(void))blk;
-+ (id) appWithMenuWindowBlock:(NSS*(^)(void))blk;
-+ (id) appWindowBlock:(NSS*(^)(void))blk;
++ appWithBlock:(NSS*(^)(void))blk;
++ appWithMenuWindowBlock:(NSS*(^)(void))blk;
++ appWindowBlock:(NSS*(^)(void))blk;
 
 */
 @end

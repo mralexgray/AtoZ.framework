@@ -167,7 +167,7 @@ NSData *PNGRepresentation(NSIMG *image) {
 //  return [self from:gravatarEndPoint];
 }
 
-//+ (id) objectForKeyedSubscript: k { return [self imageNamed:k]; }
+//+ objectForKeyedSubscript: k { return [self imageNamed:k]; }
 
 //- (CGF)width {	return self.size.width ;		}
 //- (CGF)height {	return self.size.height ;	}
@@ -700,7 +700,7 @@ static NSA *frameworkImageNames_ = nil, *frameworkImagePaths_ = nil;
     return [super resolveInstanceMethod:aSEL];
 }
 
-+ (id)valueForUndefinedKey:(NSS*) k { AZLOGCMD;
++ valueForUndefinedKey:(NSS*) k { AZLOGCMD;
 
 + (NSMethodSignature*) methodSignatureForSelector:(SEL)s {
 
@@ -4020,7 +4020,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 /* Create an NSImage from with the contents of the url of the specified width.
  * The height of the resulting NSImage maintains the proportions in source.	*/
-+ (id)thumbnailImageWithContentsOfURL:(NSURL*) url width:(CGF)width {
++ thumbnailImageWithContentsOfURL:(NSURL*) url width:(CGF)width {
   NSIMG *thumbnailImage = nil;
   NSIMG *image = [NSImage.alloc initWithContentsOfURL:url];
   if (image != nil) {

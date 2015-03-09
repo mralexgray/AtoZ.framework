@@ -379,7 +379,7 @@
 //+ (AGIdealSizer*) sharedInstance {
 //	return [super sharedInstance];
 //}
-/**+ (id)forQuantity:(int)numItems forRect:(NSR)frame{
+/**+ forQuantity:(int)numItems forRect:(NSR)frame{
  //	int rows = ceil(sqrt(numItems));
  //	__block int smallR = 0, rem, runnerUp, rUpItems;
  __block float distanceFromOne = 99.9;

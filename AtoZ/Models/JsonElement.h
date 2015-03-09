@@ -34,7 +34,7 @@
 @property (STR) NSMutableDictionary *children;
 
 - (id)initWithObject:(id)object;
-+ (id)elementWithObject:(id)object;
++ elementWithObject:(id)object;
 
 - (id)childAtIndex:(NSInteger)index;
 - (NSString *)outlineDescription;

@@ -25,7 +25,7 @@
 
 
 //@prop_NA NSV * view;
-//+ (id) tabWithViewClass:(Class)k;
+//+ tabWithViewClass:(Class)k;
 
 //@property (STR) 			AZWindowTabController	*vc;
 //+   (id) tabWithViewClass:				  (Class)k;

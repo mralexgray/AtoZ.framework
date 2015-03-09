@@ -309,12 +309,12 @@
     [self.backingstore lastToFirst];
 }
 
-+ (id)appFolder;
++ appFolder;
 {
     AZFolder *u = [AZFolder new];
     return (id)u.appFolder;
 }
-+ (id)samplerWithCount:(NSUInteger)items;
++ samplerWithCount:(NSUInteger)items;
 {
     AZFolder *u = [AZFolder new];
     return [u samplerWithCount:items];
@@ -323,16 +323,16 @@
 {
     return [AZFolder instanceWithPaths:[[self appFolderPaths] randomSubarrayWithSize:items]];
 }
-//+ (id) samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
-//+ (id) instanceWithFiles:(NSA*)files;
-//+ (id) instanceWithPaths:(NSA*)strings;
-//+ (id) instanceWithPath:(NSA*)strings;
+//+ samplerWithBetween:(NSUInteger)minItems andMax:(NSUInteger)items;
+//+ instanceWithFiles:(NSA*)files;
+//+ instanceWithPaths:(NSA*)strings;
+//+ instanceWithPath:(NSA*)strings;
 
-+ (id)instanceWithFiles:(NSA*) files {
++ instanceWithFiles:(NSA*) files {
     return [[AZFolder alloc]initWithArray:files];
 }
 
-+ (id)instanceWithPaths:(NSA*) paths {
++ instanceWithPaths:(NSA*) paths {
     return [[AZFolder alloc]initWithArray:paths];
 }
 
@@ -439,7 +439,7 @@
         return [AZFolder instanceWithPaths:[applications randomSubarrayWithSize:(items - minItems)]];
    }
 
-        //+ (id) instanc:(NSA*)items {
+        //+ instanc:(NSA*)items {
         //	return  [AZFolder instanceWithPaths:items];
         //	if ([items[0]  isKindOfClass:[AZFile class]])
         //		 ? [[self class]instanceWithFiles:items]

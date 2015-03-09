@@ -16,7 +16,7 @@ extern NSString *selectedSnapShot;
 
 }
 
-+ (id)layoutManager;
++ layoutManager;
 
 - (CGPoint)scrollPointForSelected:(CALayer *)layer;
 

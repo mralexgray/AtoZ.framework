@@ -9,7 +9,7 @@
 #import "NSValue+AtoZ.h"
 
 @implementation NSValue (AZWindowPosition)
-+ (id)valueWithPosition:(AZWindowPosition)pos;
++ valueWithPosition:(AZWindowPosition)pos;
 {
 	return [NSValue value:&pos withObjCType:@encode(AZWindowPosition)];
 }
@@ -22,7 +22,7 @@
 
 @implementation NSValue (AZInstallationStatus)
 
-+ (id)valueWithInstallStatus: (AZInstallationStatus) status;
++ valueWithInstallStatus: (AZInstallationStatus) status;
 {
 	return [NSValue value:&status withObjCType:@encode(AZInstallationStatus)];
 }
@@ -84,7 +84,7 @@
 //  return [@"swizzled:" withString:desc]; // [(NSValue*)self swizzleDescription];//AZString([self pointerValue]);//[NSString stringWithFormat: @"(%@) %@", objctype, [rep description]];
 
 
-+ (id)valueWithColor: (NSColor*) color 
++ valueWithColor: (NSColor*) color 
 {
 	return (NSVAL*)[NSValue valueWithBytes:[color.hexString dataUsingEncoding:NSUTF8StringEncoding].bytes objCType:@encode(NSS)];
 }
@@ -102,11 +102,11 @@ struct _Pair
 typedef struct _Pair Pair;
 
 @interface NSValue (Pair)
-+ (id)valueWithPair:(Pair)pair;
++ valueWithPair:(Pair)pair;
 - (Pair)pairValue;
 @end
 @implementation NSValue (Pair)
-+ (id)valueWithPair:(Pair)pair
++ valueWithPair:(Pair)pair
 {
 	return [NSValue value:&pair withObjCType:@encode(Pair)];
 }

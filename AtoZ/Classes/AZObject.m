@@ -30,9 +30,9 @@
 - (id)  init										{ logAsInstance; return self;																				}
 - (id) _init										{ logAsInstance; return [super init];																}
 //_alloc is important, because otherwise the object wouldn't be allocated
-+ (id) _alloc										{	logAsClass; return [self.class.superclass allocWithZone:NULL];	}
-+ (id)  alloc										{ logAsClass; return self.sharedInstance;													}
-+ (id) allocWithZone:(NSZone*)z	{ logAsClass; return self.sharedInstance;													}
++ _alloc										{	logAsClass; return [self.class.superclass allocWithZone:NULL];	}
++  alloc										{ logAsClass; return self.sharedInstance;													}
++ allocWithZone:(NSZone*)z	{ logAsClass; return self.sharedInstance;													}
 
 + (instancetype)sharedInstance	{ logAsClass;
 

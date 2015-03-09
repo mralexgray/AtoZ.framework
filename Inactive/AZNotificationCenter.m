@@ -72,7 +72,7 @@ static char AZNotificationHelperMagicContext;
 
 //
 //
-//+ (id) defaultCenter {
+//+ defaultCenter {
 //	static AZNotificationCenter *center = nil;
 //
 //	//- check sharedInstance existenz
@@ -95,7 +95,7 @@ static char AZNotificationHelperMagicContext;
 //	return center;
 //}
 
-+ (id)defaultCenter
++ defaultCenter
 {
 	return [self sharedInstance];
 }

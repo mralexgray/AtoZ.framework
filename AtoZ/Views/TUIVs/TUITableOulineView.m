@@ -10,7 +10,7 @@
 //#import "TUILayoutConstraint.h"
 #import <TwUI/TwUI.h>
 @interface TUIView (PrivateKludge)
-+ (id) _currentAnimation;
++ _currentAnimation;
 @end
 
 

@@ -40,12 +40,12 @@
     // we're immutable, just retain ourselves again
     return self;// retain];
 }
-+ (id) enumFromName: (NSString *) nam	{
++ enumFromName: (NSString *) nam	{
 
     SEL sel = NSSelectorFromString(nam);	
 	 return [self respondsToSelector: sel] ? [self performSelector: sel] : nil;
 }
-+ (id) enumFromOrdinal: (int) ordinal
++ enumFromOrdinal: (int) ordinal
 {
     // find first enum that has the corresponding 
 	return [self.allEnums filterOne:^BOOL(AZEnum *retval) {
@@ -113,14 +113,14 @@ static NSMutableDictionary *gAllEnums = nil;
     [gAllEnums removeObjectForKey:self];
 }
 // note the use of id make these no longer type safe
-+ (id) firstEnum
++ firstEnum
 {
     NSArray *allEnums = [self allEnums];
     if ([allEnums count])
 	return [[self allEnums] objectAtIndex:0];
     return nil;
 }
-+ (id) lastEnum	{    return self.allEnums.lastObject;	}
++ lastEnum	{    return self.allEnums.lastObject;	}
 - (id) previousEnum
 {
     if (!isCacheValid) { [[self class] allEnums]; } // update cache
@@ -347,11 +347,11 @@ static BOOL getPropertyInfo(Class cls, NSString *propertyName, Class *propertyCl
     // we're immutable, just retain ourselves again
     return self;// retain];
 }
-+ (id) enumFromName: (NSS *) nam			{
++ enumFromName: (NSS *) nam			{
     SEL sel = NSSelectorFromString(nam);
     return [self respondsToSelector: sel] ? [self performSelector: sel] : nil;
 }
-+ (id) enumFromOrdinal: (int) ordinal			{
++ enumFromOrdinal: (int) ordinal			{
     // find first enum that has the corresponding ordinal
    return [self.allEnums filterOne:^BOOL(AZEnum *retval) {
 		return retval.ordinal == ordinal;
@@ -415,12 +415,12 @@ static NSMutableDictionary *gAllEnums = nil;
     [gAllEnums removeObjectForKey:self];
 }
 // note the use of id make these no longer type safe
-+ (id) firstEnum		{
++ firstEnum		{
    
 	NSArray *allEnums = [self allEnums];
 	return allEnums.count ? self.allEnums[0] : nil;
 }
-+ (id) lastEnum		{    return self.allEnums.lastObject;	}
++ lastEnum		{    return self.allEnums.lastObject;	}
 - (id) previousEnum	{
 
     if (!_isCacheValid) { self.class.allEnums; } // update cache

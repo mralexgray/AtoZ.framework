@@ -12,13 +12,13 @@
 @property (nonatomic) NSString *name;
 @property (nonatomic) int ordinal;
 
-+ (id) enumFromName: (NSString *) name;
-+ (id) enumFromOrdinal: (int) ordinal;
++ enumFromName: (NSString *) name;
++ enumFromOrdinal: (int) ordinal;
 + (NSArray *) allEnums;
 
 // note the use of id make these no longer type safe
-+ (id) firstEnum;
-+ (id) lastEnum;
++ firstEnum;
++ lastEnum;
 @property (readonly) id previousEnum, nextEnum, previousWrappingEnum, nextWrappingEnum;
 - (id) deltaEnum: (NSInteger) delta wrapping: (BOOL) wrapping;
 // this should only be called from with the enum declaration methods
@@ -34,7 +34,7 @@
 // Under AppKit, we also support NSPoint, NSSize and NSRect (encoded as NSValue *)
 // For now, encode all other structs as NSValues and make the property be of type NSValue *, or explicitly implement the property yourself
 #define AZENUM(ename, evalue, eproperties...) \
-+ (id) ename { \
++ ename { \
 static id retval = nil; \
 if (retval == nil) { \
 retval = [self.alloc initWithName: @ #ename ordinal: evalue properties: [NSDictionary dictionaryWithObjectsAndKeys: eproperties, nil]]; \
@@ -82,12 +82,12 @@ void test()
 @property (NATOM,STR) NSS *name;
 @property (NATOM,	 ASS) int ordinal;
 
-+ (id) enumFromName: (NSString *) name;
-+ (id) enumFromOrdinal: (int) ordinal;
++ enumFromName: (NSString *) name;
++ enumFromOrdinal: (int) ordinal;
 + (NSA*) allEnums;
 // note the use of id make these no longer type safe
-+ (id) firstEnum;
-+ (id) lastEnum;
++ firstEnum;
++ lastEnum;
 @property (NATOM,RO) id previousEnum;
 @property (NATOM,RO) id nextEnum;
 @property (NATOM,RO) id previousWrappingEnum;
@@ -106,7 +106,7 @@ void test()
 // Under AppKit, we also support NSPoint, NSSize and NSRect (encoded as NSValue *)
 // For now, encode all other structs as NSValues and make the property be of type NSValue *, or explicitly implement the property yourself
 #define AZENUM(ename, evalue, eproperties...) \
-+ (id) ename { \
++ ename { \
 static id retval = nil; \
 if (retval == nil) { \
 retval = [self.alloc initWithName: @ #ename ordinal: evalue properties: [NSDictionary dictionaryWithObjectsAndKeys: eproperties, nil]]; \

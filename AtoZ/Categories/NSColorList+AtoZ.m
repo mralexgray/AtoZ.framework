@@ -5,7 +5,7 @@
 @implementation NSColorList (AtoZ) static NSMD *palettesD;
 
 #pragma mark - ClassKeyGet Protocol
-+ (id) objectForKeyedSubscript: x  { return [self colorListNamed:x] ?: [self.class colorListInFrameworkWithFileName:x] ?: nil; }
++ objectForKeyedSubscript: x  { return [self colorListNamed:x] ?: [self.class colorListInFrameworkWithFileName:x] ?: nil; }
 #pragma mark - KeyGet Protocol
 - (id) objectForKeyedSubscript: x {  NSC * calore = [self colorWithKey:x];
 

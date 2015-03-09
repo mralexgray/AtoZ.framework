@@ -4,12 +4,12 @@
 #import "AZHomeBrew.h"
 	
 @interface NSValue (AZWindowPosition)
-+ (id)valueWithPosition: (AZWindowPosition) pos;
++ valueWithPosition: (AZWindowPosition) pos;
 - (AZWindowPosition) positionValue;
 @end
 
 @interface NSValue (AZInstallationStatus)
-+ (id)valueWithInstallStatus: (AZInstallationStatus) status;
++ valueWithInstallStatus: (AZInstallationStatus) status;
 - (AZInstallationStatus) installStatusValue;
 @end
 
