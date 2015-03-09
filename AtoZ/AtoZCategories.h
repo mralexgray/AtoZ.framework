@@ -160,7 +160,7 @@
 #import "KGNoise.h"
 #import "KSHTMLWriter+AtoZ.h"
 #import "LetterView.h"
-#import "LoremIpsum.h"
+
 #import "MAAttachedWindow.h"
 #import "MAKVONotificationCenter.h"
 #import "MASShortcut.h"  // SHortcut Manager and View
@@ -196,7 +196,7 @@
 #import "NSScreen+AtoZ.h"
 #import "NSShadow+AtoZ.h"
 #import "NSSplitView+DMAdditions.h"
-#import "NSString+AtoZ.h"
+
 #import "NSString+AtoZEnums.h"
 #import "NSString+PathAdditions.h"
 #import "NSString+SymlinksAndAliases.h"

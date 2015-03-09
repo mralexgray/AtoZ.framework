@@ -1,21 +1,6 @@
 
 #import "AZLogConsole.h"
 
-@interface NSArray (AtoZCLI)
-- (NSS*) stringValueInColumnsCharWide:(NSUI)characters;
-- (NSS*)      formatAsListWithPadding:(NSUI)characters;
-@end
-
-@interface NSO (AtoZCLI)
-- (NSS*) instanceMethodsInColumns;
-@end
-
-
-
-/* Adapted from QA1133:http://developer.apple.com/mac/library/qa/qa2001/qa1133.html */
-
-FOUNDATION_EXPORT NSString * AZCurrentUser();
-FOUNDATION_EXPORT     NSUI   AZCurrentUserID();
 
 /*
 #define	   AZCLISI  AZCLI.sharedInstance

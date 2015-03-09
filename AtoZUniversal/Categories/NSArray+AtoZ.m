@@ -1,6 +1,5 @@
 
 
-#import <AtoZUniversal/AtoZMacroDefines.h>
 #import <AtoZUniversal/AtoZUniversal.h>
 
 @interface AZSparseArray ()
@@ -1701,3 +1700,58 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 //id objects = @[@{@"color": @"blue"}, @{@"color": @"red"}, @{@"color": @"green"}, @"notacolor"];
 
 //[objects valueForKeyPath:@"@distinctUnionOfPresentObjects.color"] // -> @[@"blue", @"red", @"green"]. 
+
+
+#include <assert.h>
+#include <SystemConfiguration/SystemConfiguration.h>
+
+static NSString* _AZCurrentUser;
+static NSUI _AZCurrentUserID;
+
+void(^fillInTheBlanks)() = ^{
+
+  char buf[256]; BOOL ok; uid_t _uid;
+  SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("GetConsoleUser"), NULL, NULL);
+  assert(store != NULL);
+//  CFStringRef name =
+  _AZCurrentUser = (__bridge NSS*)SCDynamicStoreCopyConsoleUser(store, &_uid, NULL);
+  _AZCurrentUserID = _uid;
+//  CFRelease(store);
+// if (name != NULL) {
+//  ok = CFStringGetCString(name, buf, 256, kCFStringEncodingUTF8); //  assert(ok == true);
+//  CFRelease(name);
+//  } else  strcpy(buf, "<none>");
+//  _AZCurrentUser = [NSS stringWithUTF8String:buf];
+};
+
+
+NSUI   AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
+ NSS *   AZCurrentUser() { return   _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
+
+NSS * AZReadStdin () { NSFileHandle *input = NSFileHandle.fileHandleWithStandardInput;  NSData *inData = input.availableData;
+	return [[NSS stringWithUTF8Data:inData] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
+}
+
+@implementation NSO (AtoZCLI)
+
+- (NSS*) instanceMethodsInColumns  { return [self.instanceMethodNames formatAsListWithPadding:30]; }
+@end
+
+@implementation NSA (AtoZCLI)
+- (NSS*) stringValueInColumnsCharWide:(NSUI)characters {
+  return [self reduce:^id (id memo, id obj) {
+    __unused NSUI min = MAX(characters - [obj length], 0);
+    return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
+  } withInitialMemo:@""];
+}
+- (NSS*) formatAsListWithPadding:(NSUI)characters	{
+
+	return [self.alphabetized map:^id (id obj) { return [obj justifyRight:characters];
+
+  }].joinedWithSpaces;
+
+// /*$(@"\n%@", return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]; }].joinedWithSpaces; // );
+}
+@end
+
+

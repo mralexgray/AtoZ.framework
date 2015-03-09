@@ -51,6 +51,11 @@
 		7B89AE991AA961BE0036EC09 /* JREnum.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B89AE981AA961BE0036EC09 /* JREnum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B89AE9C1AA9666C0036EC09 /* AZRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B89AE9A1AA9666C0036EC09 /* AZRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B89AE9D1AA9666C0036EC09 /* AZRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B89AE9B1AA9666C0036EC09 /* AZRange.m */; };
+		7B964E4F1AAD7EB800F866D3 /* NSObject+Properties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B964E4D1AAD7EB800F866D3 /* NSObject+Properties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B964E501AAD7EB800F866D3 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B964E4E1AAD7EB800F866D3 /* NSObject+Properties.m */; };
+		7B964E531AAD815000F866D3 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B964E511AAD815000F866D3 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B964E521AAD815000F866D3 /* NSString+AtoZ.m */; };
+		7B964E561AAD8A4E00F866D3 /* LoremIpsum.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */; };
 		7BBD2D781AA74C8700CD9477 /* EXTConcreteProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD2D751AA74C8700CD9477 /* EXTConcreteProtocol.m */; };
 		7BBD2D7A1AA74C8700CD9477 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D761AA74C8700CD9477 /* EXTRuntimeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -120,6 +125,11 @@
 		7B89AE981AA961BE0036EC09 /* JREnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JREnum.h; path = JREnum/JREnum.h; sourceTree = "<group>"; };
 		7B89AE9A1AA9666C0036EC09 /* AZRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZRange.h; path = AtoZUniversal/AZRange.h; sourceTree = "<group>"; };
 		7B89AE9B1AA9666C0036EC09 /* AZRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZRange.m; path = AtoZUniversal/AZRange.m; sourceTree = "<group>"; };
+		7B964E4D1AAD7EB800F866D3 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Properties.h"; path = "Categories/NSObject+Properties.h"; sourceTree = "<group>"; };
+		7B964E4E1AAD7EB800F866D3 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Properties.m"; path = "Categories/NSObject+Properties.m"; sourceTree = "<group>"; };
+		7B964E511AAD815000F866D3 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AtoZ.h"; path = "Categories/NSString+AtoZ.h"; sourceTree = "<group>"; };
+		7B964E521AAD815000F866D3 /* NSString+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AtoZ.m"; path = "Categories/NSString+AtoZ.m"; sourceTree = "<group>"; };
+		7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = LoremIpsum.plist; path = Categories/LoremIpsum.plist; sourceTree = "<group>"; };
 		7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTConcreteProtocol.h; sourceTree = "<group>"; };
 		7BBD2D751AA74C8700CD9477 /* EXTConcreteProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTConcreteProtocol.m; sourceTree = "<group>"; };
 		7BBD2D761AA74C8700CD9477 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
@@ -165,6 +175,7 @@
 		7B582BBB1AA6A4F300C450C3 = {
 			isa = PBXGroup;
 			children = (
+				7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */,
 				7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */,
 				7B582C341AA6DCDF00C450C3 /* AtoZMacroDefines.h */,
 				7B0A4F091AA92CB0008FB45A /* AtoZTypes.h */,
@@ -259,6 +270,10 @@
 		7BE12B631AA917B8001AF7CE /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7B964E511AAD815000F866D3 /* NSString+AtoZ.h */,
+				7B964E521AAD815000F866D3 /* NSString+AtoZ.m */,
+				7B964E4D1AAD7EB800F866D3 /* NSObject+Properties.h */,
+				7B964E4E1AAD7EB800F866D3 /* NSObject+Properties.m */,
 				7B0A4F001AA92986008FB45A /* NSArray+AtoZ.h */,
 				7B0A4EFF1AA92986008FB45A /* NSArray+AtoZ.m */,
 				7BE12B641AA917DC001AF7CE /* NSBundle+AtoZ.h */,
@@ -287,6 +302,7 @@
 				7B0A4F0A1AA92CB0008FB45A /* AtoZTypes.h in Headers */,
 				7BBD2D7A1AA74C8700CD9477 /* EXTRuntimeExtensions.h in Headers */,
 				7B0A4F0D1AA947A6008FB45A /* Functions.h in Headers */,
+				7B964E4F1AAD7EB800F866D3 /* NSObject+Properties.h in Headers */,
 				7B0A4F041AA92986008FB45A /* NSArray+AtoZ.h in Headers */,
 				7BE12BC01AA925E8001AF7CE /* NSNumber+AtoZ.h in Headers */,
 				7B582C3A1AA6DCDF00C450C3 /* SubscriptProtocols.h in Headers */,
@@ -299,6 +315,7 @@
 				7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */,
 				7B0A4F071AA92A54008FB45A /* Protocols.h in Headers */,
 				7BBD2D831AA7536A00CD9477 /* EXTBlockMethod.h in Headers */,
+				7B964E531AAD815000F866D3 /* NSString+AtoZ.h in Headers */,
 				7B89AE9C1AA9666C0036EC09 /* AZRange.h in Headers */,
 				7B582C431AA6DFF000C450C3 /* BaseModel.h in Headers */,
 				7B582C371AA6DCDF00C450C3 /* AZTalker.h in Headers */,
@@ -394,6 +411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B964E561AAD8A4E00F866D3 /* LoremIpsum.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +455,7 @@
 				7B582C441AA6DFF000C450C3 /* BaseModel.m in Sources */,
 				7B0A4F031AA92986008FB45A /* NSArray+AtoZ.m in Sources */,
 				7B0A4F0E1AA947A6008FB45A /* Functions.m in Sources */,
+				7B964E501AAD7EB800F866D3 /* NSObject+Properties.m in Sources */,
 				7B582C301AA6DC9800C450C3 /* NSNumber+F.m in Sources */,
 				7B89AE9D1AA9666C0036EC09 /* AZRange.m in Sources */,
 				7BBD2D841AA7536A00CD9477 /* EXTBlockMethod.m in Sources */,
@@ -446,6 +465,7 @@
 				7B0A4F081AA92A54008FB45A /* Protocols.m in Sources */,
 				7BBD2D7B1AA74C8700CD9477 /* EXTRuntimeExtensions.m in Sources */,
 				7B582C2E1AA6DC9800C450C3 /* NSArray+F.m in Sources */,
+				7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */,
 				7BE12BC41AA92743001AF7CE /* NSData+AtoZ.m in Sources */,
 				7B582C381AA6DCDF00C450C3 /* AZTalker.m in Sources */,
 				7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */,
@@ -476,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -497,6 +518,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
@@ -518,6 +540,7 @@
 				"DEPLOYMENT_LOCATION[sdk=macosx*]" = YES;
 				"DSTROOT[sdk=macosx*]" = $HOME;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(USER_FWKS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUniversal/AtoZUniversal-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
@@ -539,6 +562,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(USER_FWKS)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUniversal/AtoZUniversal-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";

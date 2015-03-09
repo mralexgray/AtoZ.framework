@@ -12,7 +12,7 @@
 
 #import "AZSegmentedRect.h"
 //#import <AtoZ/AtoZ.h>//#import "AZRect.h"
-#import "NSString+AtoZ.h"
+
 
 @implementation AZSegmentedRect
 

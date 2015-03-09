@@ -2,6 +2,182 @@
 #ifndef AtoZ_MacroDefines
 #define AtoZ_MacroDefines
 
+#pragma mark -  REDEFINITIONS
+
+
+#if TARGET_OS_IPHONE
+
+#define       NSNib UINib
+#define      NSFont UIFont
+#define      NSView UIView
+#define      NSRect CGRect
+#define      NSSize CGSize
+#define     NSImage UIImage
+#define     NSColor UIColor
+#define     NSPoint CGPoint
+#define     NSEvent UIEvent
+#define    NSWindow UIWindow
+#define  NSZeroSize CGSizeZero
+#define  NSZeroRect CGRectZero
+#define NSZeroPoint CGPointZero
+#define NSNotification UINotification
+
+#endif
+
+#define _Type typedef 
+
+// AtoZ is a terse dialect of ObjC that is more concise, yet 100% compatible. \
+   It strives to minimize excessive *'s, {}'s, and ()'s. \
+   Class pointers and types are typedef'd to aliases, with no pointer, \
+   formatted like _Four lettes, starting with an underscore, capitalized.
+
+//#define DECALREIT(orig,short) \
+//  _Type  orig * _#short;      \
+//  #define orig short          \
+//  #define _#short#_ (_#short)
+//
+//DECLAREIT(NSMutableAttributedString,MATx)
+
+_Type                id   _ObjC;
+_Type             Class   _Meta;
+_Type               SEL   _Meth;
+_Type              void   _Void;
+_Type           CGFloat   _Flot;
+_Type        NSUInteger   _UInt;
+_Type         NSInteger   _SInt;
+_Type              BOOL   _IsIt;
+_Type           CGRect    _Rect;
+_Type           CGSize    _Size;
+_Type          CGPoint    _Cord;
+
+
+_Type            NSMenu * _Menu;
+_Type            NSView * _View;
+_Type           CALayer * _Layr;
+_Type           NSArray * _List;
+_Type           NSColor * _Colr;
+_Type           NSError * _Errr;
+_Type           NSEvent * _Evnt;
+_Type           NSImage * _Pict;
+_Type           WebView * _WebV;
+_Type          NSBundle * _Bndl;
+_Type          NSNumber * _Numb;
+_Type          NSObject * _NObj;
+_Type          NSString * _Text;
+_Type          NSWindow * _Wind;
+_Type        NSMenuItem * _SubM;
+_Type       NSImageView * _PicV;
+_Type       NSSplitView * _Splt;
+_Type       NSTableView * _TblV;
+_Type      NSDictionary * _Dict;
+_Type      NSScrollView * _Scrl;
+_Type     NSApplication * _Appl;
+_Type     NSOutlineView * _OutV;
+_Type     NSTableColumn * _TCol;
+_Type    NSNotification * _Note;
+_Type NSArrayController * _LstX;
+
+
+_Type _Void(^_MBlk)(_SubM menu);
+
+// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
+
+#define   Menu NSMenu
+#define   View NSView
+#define   Colr NSColor
+#define   Errr NSError
+#define   Evnt NSEvent
+#define   Layr CALayer
+#define   List NSArray
+#define   Pict NSImage
+#define   Bndl NSBundle
+#define   NObj NSObject
+#define   Numb NSNumber
+#define   Text NSString
+#define   Wind NSWindow
+#define   SubM NSMenuItem
+#define   PicV NSImageView
+#define   Splt NSSplitView
+#define   TblV NSTableView
+#define   Dict NSDictionary
+#define   Scrl NSScrollView
+#define   Appl NSApplication
+#define   OutV NSOutlineView
+#define   TCol NSTableColumn
+#define   Note NSNotification
+
+
+/// We also make "shortcuts for all these new types with a leading Underscore to use ase parenthesis-free method parameterts!
+
+
+#define _Appl_ (_Appl)
+#define _Bndl_ (_Bndl)
+#define _Colr_ (_Colr)
+#define _Cord_ (_Cord)
+#define _Dict_ (_Dict)
+#define _Errr_ (_Errr)
+#define _Evnt_ (_Evnt)
+#define _Flot_ (_Flot)
+#define _IsIt_ (_IsIt)
+#define _Layr_ (_Layr)
+#define _List_ (_List)
+#define _LstX_ (_LstX)
+#define _MBlk_ (_MBlk)
+#define _Menu_ (_Menu)
+#define _Meta_ (_Meta)
+#define _Meth_ (_Meth)
+#define _Note_ (_Note)
+#define _Numb_ (_Numb)
+#define _ObjC_ (_ObjC)
+#define _OutV_ (_OutV)
+#define _Pict_ (_Pict)
+#define _PicV_ (_PicV)
+#define _Rect_ (_Rect)
+#define _Scrl_ (_Scrl)
+#define _SInt_ (_SInt)
+#define _Size_ (_Size)
+#define _Splt_ (_Splt)
+#define _SubM_ (_SubM)
+#define _TblV_ (_TblV)
+#define _TCol_ (_TCol)
+#define _Text_ (_Text)
+#define _UInt_ (_UInt)
+#define _View_ (_View)
+#define _Void_ (_Void)
+#define _WebV_ (_WebV)
+#define _Wind_ (_Wind)
+
+#define LstX NSArrayController
+
+
+#define     _Kind instancetype
+#define     _Kind_ (_Kind)
+
+typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
+#define      _VBlk_ (_VBlk)
+
+#define _IMPL @implementation
+#define _IFCE @interface
+#define _PRTO @protocol
+#define _IMPT @import
+
+#define _CAT(K,NAME,...) _IFCE K (NAME) __VA_ARGS__; @end
+
+
+#define   _____ @property
+#define _RONLY _____ (readonly)
+
+#define INIT_(K,...) [[K alloc] init##__VA_ARGS__]
+#define NEW(A,B) A *B = A.new
+
+#if TARGET_OS_IPHONE
+#define MakeColor(r,g,b) [Colr           colorWithRed:r/255. green:g/255. blue:b/255. alpha:1.]
+#else
+#define MakeColor(r,g,b) [Colr colorWithCalibratedRed:r/255. green:g/255. blue:b/255. alpha:1.]
+#endif
+
+#define oFK objectForKey
+
 #define vFK valueForKey
 #define vFKP valueForKeyPath
 #define mC mutableCopy
@@ -33,7 +209,8 @@
 #define NSLogC(fmt...)  NSLog(fmt)
 
 #define APPLE_MAIN int main(int argc, char **argv, char **envp, char **apple)
-#define MAIN(...) APPLE_MAIN { ({ __VA_ARGS__; }); }
+
+#define MAIN(...) APPLE_MAIN { int EXIT = 0; @autoreleasepool { ({ __VA_ARGS__; }); } return EXIT; }
 
 // START NEEDHOMES
 
@@ -215,6 +392,7 @@
 #define NSMSet NSMutableSet
 #define NSN NSNumber
 #define NSNOT NSNotification
+#define NSUNOT NSUserNotification
 #define NSO NSObject
 #define NSP NSPoint
 #define NSPInRect NSPointInRect
@@ -321,6 +499,7 @@ X,OBJC_ASSOCIATION_COPY_NONATOMIC);
 #define HALF(a) (a / 2.0)
 
 #define StringFromBOOL(b) (b?@"YES":@"NO")
+#define $B(b) StringFromBOOL(b)
 
 #define       P(x,y)  CGPointMake(x, y)
 #define       R(x,y)  CGRectMake(0,0,x, y)
@@ -461,7 +640,7 @@ X,OBJC_ASSOCIATION_COPY_NONATOMIC);
 
 #define AZSTATIC(_TYPE,_NAME,_VAL)              static _TYPE _NAME = (_VAL)
 
-#define AZSTATIC_OBJ(_KLASS,_NAME,...)          static _KLASS *_NAME; _NAME = _NAME ?: ({ __VA_ARGS__; });
+#define AZSTATIC_OBJ(_KLASS,_NAME,...)          static _KLASS *_NAME; _NAME = _NAME ?: ((_KLASS*)({ __VA_ARGS__; }));
 
 #define AZSTATIC_OBJBLK(_KLASS,_NAME,_VALBLK)   static _KLASS *_NAME; _NAME = _NAME ?: (id)(_VALBLK())
 
@@ -575,21 +754,30 @@ OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...);
 #define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
 //AZPROPASS(_kind_...) @property (NATOM,ASS) _kind_ __VA_ARGS__ //#QUALIFIER_FROM_BITMASK(_arc_)
 
-/*	CLANG_IGNORE(-Wuninitialized);
-	Shady Shit
-	CLANG_POP;
-*/ /// Also in AutoBox (redundancy needs fix)
 
-#define CLANG_IGNORE_HELPER0(x) #x
-#define CLANG_IGNORE_HELPER1(x) CLANG_IGNORE_HELPER0(clang diagnostic ignored x)
-#define CLANG_IGNORE_HELPER2(y) CLANG_IGNORE_HELPER1(#y)
-#define CLANG_POP _Pragma("clang diagnostic pop")
-#define CLANG_IGNORE(x)\
-	_Pragma("clang diagnostic push");\
-	_Pragma(CLANG_IGNORE_HELPER2(x))
+/// Also in AutoBox (redundancy needs fix)
 
-#define CLANG_IGNORE_DEPRECATED CLANG_IGNORE(-Wdeprecated-declarations)
-#define CLANG_IGNORE_PROTOCOL CLANG_IGNORE(-Wprotocol)
+  #define NSStringifyWithoutExpandingMacros(x) @#x
+  #define NSStringify(x) NSStringifyWithoutExpandingMacros(x)
+  #define NSSTRINGIFY(z) NSStringify(z)
+
+  /*	CLANG_IGNORE(-Wuninitialized);
+    Shady Shit
+    CLANG_POP;
+  */
+
+  #define CLANG_IGNORE_HELPER0(x) #x
+  #define CLANG_IGNORE_HELPER1(x) CLANG_IGNORE_HELPER0(clang diagnostic ignored x)
+  #define CLANG_IGNORE_HELPER2(y) CLANG_IGNORE_HELPER1(#y)
+  #define CLANG_POP _Pragma("clang diagnostic pop")
+  #define CLANG_IGNORE(x)\
+    _Pragma("clang diagnostic push");\
+    _Pragma(CLANG_IGNORE_HELPER2(x))
+
+  #define CLANG_IGNORE_DEPRECATED CLANG_IGNORE(-Wdeprecated-declarations)
+  #define CLANG_IGNORE_PROTOCOL CLANG_IGNORE(-Wprotocol)
+
+// END Reducuntdamnt
 
 #define $point(A)     [NSValue valueWithPoint:A]
 #define $points(A,B)     [NSValue valueWithPoint:CGPointMake(A,B)]
@@ -748,22 +936,16 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 
 #if TARGET_OS_IPHONE
 
-#pragma mark -  REDEFINITIONS
 
-#define NSFont UIFont
-#define NSNib UINib
-#define NSEvent UIEvent
-#define NSView UIView
-#define NSWindow UIWindow
-#define NSImage UIImage
-#define NSColor UIColor
-#define NSPoint CGPoint
-#define NSRect CGRect
-#define NSSize CGSize
 
-#define NSZeroPoint CGPointZero
-#define NSZeroSize CGSizeZero
-#define  NSZeroRect CGRectZero
+
+
+
+
+
+
+
+
 
 #else
 
@@ -1175,6 +1357,7 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 //
 
 #define AZOBJCLSSTR(X) NSStringFromClass ( [X class] )
+#define STR2CLS(S) NSClassFromString(NSSTRINGIFY(S))
 #define AZCLSSTR NSStringFromClass ( [self class] )
 #define AZSSOQ AZSharedSingleOperationQueue()
 #define AZSOQ AZSharedOperationQueue()
@@ -1511,7 +1694,6 @@ _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 
 //#define objc_dynamic_cast(obj,cls) ([obj isKindOfClass:(Class)objc_getClass(#cls)] ? (cls *)obj : NULL)
 
-#define NEW(A,B) A *B = A.new
 
 //#define NEWVALUE(_NAME_,_VAL_) \
 //	objc_getClass([_VAL_ class])

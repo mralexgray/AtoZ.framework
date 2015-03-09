@@ -3,59 +3,6 @@
 #import "AZCLI.h"
 //#import "AZGrid.h"
 //#import "NSTerminal.h"
-#include <assert.h>
-#include <SystemConfiguration/SystemConfiguration.h>
-
-static NSString* _AZCurrentUser;
-static NSUI _AZCurrentUserID;
-
-void(^fillInTheBlanks)() = ^{
-
-  char buf[256]; BOOL ok; uid_t _uid;
-  SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("GetConsoleUser"), NULL, NULL);
-  assert(store != NULL);
-//  CFStringRef name =
-  _AZCurrentUser = (__bridge NSS*)SCDynamicStoreCopyConsoleUser(store, &_uid, NULL);
-  _AZCurrentUserID = _uid;
-//  CFRelease(store);
-// if (name != NULL) {
-//  ok = CFStringGetCString(name, buf, 256, kCFStringEncodingUTF8); //  assert(ok == true);
-//  CFRelease(name);
-//  } else  strcpy(buf, "<none>");
-//  _AZCurrentUser = [NSS stringWithUTF8String:buf];
-};
-
-
-NSUI   AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
- NSS *   AZCurrentUser() { return   _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
-
-NSS * AZReadStdin () { NSFileHandle *input = NSFileHandle.fileHandleWithStandardInput;  NSData *inData = input.availableData;
-	return [[NSS stringWithUTF8Data:inData] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
-}
-
-@implementation NSO (AtoZCLI)
-
-- (NSS*) instanceMethodsInColumns        { return [self.instanceMethodNames formatAsListWithPadding:30]; }
-@end
-
-@implementation NSA (AtoZCLI)
-- (NSS*) stringValueInColumnsCharWide:(NSUI)characters {
-  return [self reduce:^id (id memo, id obj) {
-    __unused NSUI min = MAX(characters - [obj length], 0);
-    return [memo withString:[obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]];
-  } withInitialMemo:@""];
-}
-- (NSS*) formatAsListWithPadding:(NSUI)characters	{
-
-	return [self.alphabetized map:^id (id obj) { return [obj justifyRight:characters];
-
-  }].joinedWithSpaces;
-
-// /*$(@"\n%@", return [obj stringByPaddingToLength:characters withString:@" " startingAtIndex:0]; }].joinedWithSpaces; // );
-}
-@end
-
-
 
 /*
 static NSApplication *sharedApp;		static NSMenuItem *appMenuItem;	static NSMenu *menubar,*appMenu;
@@ -242,30 +189,31 @@ __block NSUI i 			= ((AZCLIMenuItem*)((NSA*)[m defaultCollection])[0]).index - 1
 
 */
 
-//	[_mainMenu each:^(AZCLIMenu* mensy) {  [NSTerminal printString:mensy.block(resp, @encode(typeof(NSString)))]; }];
+/*
+	[_mainMenu each:^(AZCLIMenu* mensy) {  [NSTerminal printString:mensy.block(resp, @encode(typeof(NSString)))]; }];
 	
-//			[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification 
-//																	 object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *n) { 
-//					[self setInsideEdge:99];  [AZNOTCENTER removeObserver:observer1];	}]),
-//	_mainMenu = [AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *note) {
-//		NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
-//		[input log];
-//		if ( SameString(@":", input.firstLetter)) {
-//			NSA* words = [input componentsSeparatedByString:@":"];
-//			LOGCOLORS(@"rawWords:", words, NSC.randomPalette, nil);
-//			[@"s".classProxy[words[0]] performSelectorWithoutWarnings:NSSelectorFromString(words[1])];
-//		}
-//		[_stdinHandle readInBackgroundAndNotify];
-//	}]; return _mainMenu;
-//	}();
+			[AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification 
+																	 object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *n) { 
+					[self setInsideEdge:99];  [AZNOTCENTER removeObserver:observer1];	}]),
+	_mainMenu = [AZNOTCENTER addObserverForName:NSFileHandleReadCompletionNotification object:_stdinHandle queue:AZSOQ usingBlock:^(NSNOT *note) {
+		NSS* input = [n stringForKey:NSFileHandleNotificationDataItem];
+		[input log];
+		if ( SameString(@":", input.firstLetter)) {
+			NSA* words = [input componentsSeparatedByString:@":"];
+			LOGCOLORS(@"rawWords:", words, NSC.randomPalette, nil);
+			[@"s".classProxy[words[0]] performSelectorWithoutWarnings:NSSelectorFromString(words[1])];
+		}
+		[_stdinHandle readInBackgroundAndNotify];
+	}]; return _mainMenu;
+	}();
 
-//+ (void) handleInteractionWithPrompt: (NSS*)string block:(void(^)(NSString *output)) block {
++ (void) handleInteractionWithPrompt: (NSS*)string block:(void(^)(NSString *output)) block {
 
-//- (NSString*) termReadStringNowWhat:(NSString*)str ofType:(const char*)encoding {
+- (NSString*) termReadStringNowWhat:(NSString*)str ofType:(const char*)encoding {
 	
-//	NSS *outie; [NSTerminal printString:outie = NSTerminal.readString];	block(outie);
-//}
-
+	NSS *outie; [NSTerminal printString:outie = NSTerminal.readString];	block(outie);
+}
+*/
 
 /*
 

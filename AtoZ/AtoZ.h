@@ -322,6 +322,19 @@ AZNSIFACE(AZClassProxy)
 
 @interface AtoZ : BaseModel <DDLogFormatter>
 
++ (NSS*) ISP;
+/** A "random" `AZDefinition` containing an entry from UrbanDictionary.com.
+  * @see AZDefinition
+    @warning  This is a sycronous call, and can be slow..  For better results..
+    @see +[NSString randomUrabanDBlock:]
+    id x = NSS.randomUrbanD;
+    XX([x word]);       -> [x word] = GPA
+    XX([x definition]); -> [x definition] = Overated system for determining a students intelligence but on occasion it does reflect a person's brain power. Designed primarily for parents and ...
+*/
++ (AZDefinition*) randomUrbanD;
+
++ (void) randomUrabanDBlock:(void (^)(AZDefinition *definition))block;
+
 @prop_RO  LogEnv   logEnv;
 
 + (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l;

@@ -7,6 +7,7 @@
 #include <TargetConditionals.h>
 
 @import ObjectiveC;
+@import WebKit;
 
 #if TARGET_OS_IPHONE
 
@@ -16,6 +17,7 @@
 #else
 
 @import AppKit;
+
 
 #endif // TARGET_OS_IPHONE
 

@@ -277,6 +277,58 @@ NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 
 @implementation AtoZ
 
++ (NSS*)  ISP { return [[[NET curl:@"whoismyisp.org"] substringAfter:@"Your Internet Service Provider (ISP) is '"] substringBefore:@"'"]; }
+
+
++ (void) randomUrabanDBlock:(void(^)(AZDefinition*d))block {
+
+
+	ASIHTTPRequest *requester 	= [ASIHTTPRequest.alloc initWithURL:@"http://www.urbandictionary.com/random.php".urlified];
+  [requester startTiming];
+	requester.completionBlock 	= ^(ASIHTTPRequest *request) {
+		NSS   * responsePage  = request.responseString.copy;
+		NSError *error = request.error;
+
+    if (error) { block($AZDEFINE(@"undefined", @"no response from urban")); return; }
+
+		AZHTMLParser * p = [AZHTMLParser.alloc initWithString:responsePage error:&error];
+		HTMLNode * title = [p.head findChildWithAttribute:@"property"
+                                         matchingName:@"og:title" allowPartial:YES];
+		NSS    * __unused content = [title       getAttributeNamed:@"content"];
+		HTMLNode * descN = [p.head findChildWithAttribute:@"property"
+                                         matchingName:@"og:description" allowPartial:YES];
+		NSS       * desc = [descN       getAttributeNamed:@"content"];
+    [request stopTiming];
+
+               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+		block($AZDEFINELEX([title getAttributeNamed:@"content"],
+                     ({ [desc withFormat:@" (%@)", request.elapsed]; }),
+                     AZLexiconUrbanD)); // AZDefinition
+	};
+	[requester startAsynchronous];
+}
++ (AZDefinition *)randomUrbanD						{
+
+	__block AZDefinition *urbanD;
+
+	ASIHTTPRequest *requester = [ASIHTTPRequest.alloc initWithURL:$URL($(@"http://www.urbandictionary.com/random.php"))];
+	[requester setCompletionBlock:^(ASIHTTPRequest *request) {
+		NSS *responsePage = request.responseString.copy;
+		//		NSLog(@"Response:%@", responsePage);
+		NSError *requestError   = [request error];
+		if (!requestError) {
+			AZHTMLParser *p = [AZHTMLParser.alloc initWithString:responsePage error:&requestError];
+			NSS *title      =       [[p.head findChildWithAttribute:@"property" matchingName:@"og:title" allowPartial:YES] getAttributeNamed:@"content"];
+			NSS *desc       =       [[p.head findChildWithAttribute:@"property" matchingName:@"og:description" allowPartial:YES] getAttributeNamed:@"content"];
+			//			NSLog(@"title: %@  desc: %@", title, desc );
+			urbanD = $AZDEFINE(title, desc);               ///rawContents.urlDecoded.decodeHTMLCharacterEntities);
+		} else urbanD = $AZDEFINE(@"undefined", @"no response from urban");
+	}];
+	[requester startSynchronous];
+	return urbanD;
+}
+
+
 {	__weak id _constantShortcutMonitor;	}
 
 static __unused BOOL fontsRegistered; const char*XCenv;

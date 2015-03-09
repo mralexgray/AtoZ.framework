@@ -2,8 +2,6 @@
 	NSObject+Properties.h		AQToolkit
 	*  Created by Jim Dovey on 10/7/2008. *  Copyright (c) 2008-2009, Jim Dovey *  All rights reserved. */
 
-#import <objc/runtime.h>
-
 /** type notes: *//*	I'm not 100% certain what @encode(NSString) would return. @encode(id) returns '@', and the types of properties are actually encoded as such along with a strong-type value following. Therefore, if you want to check for a specific class, you can provide a type string of '@"NSString"'. The following macro will do this for you. */
 
 #define statictype(x)	"@\"" #x "\""
@@ -34,8 +32,8 @@
 + (NSA*) objcPropertiesWithoutSuperclass;
 + (NSA*) objcProperties;
 @prop_RO NSD* propertiesPlease, * pp, * propertyNamesAndTypes;
-@prop_RO NSS * ppString, // PRIMARY PROPERTY LISTER
-                      * properties;
+@prop_RO NSS * ppString; // PRIMARY PROPERTY LISTER
+                      //* properties;
 @prop_RO NSA * propertyNames;
 @prop_RO BOOL hasProperties;
 - (NSD*) propertiesSans:						(NSS*)someKey;

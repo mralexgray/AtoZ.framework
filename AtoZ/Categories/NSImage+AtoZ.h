@@ -601,3 +601,8 @@ extern NSString *kXML_Base64ReferenceAttribute;
 	@result	The base 64 encoded image data string.	*/
 - (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
 @end
+
+@interface NSImage(ASCII)
+- (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
+@end
+

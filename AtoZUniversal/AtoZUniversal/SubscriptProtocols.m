@@ -36,10 +36,10 @@
 
 - objectForKeyedSubscript:x { return [self valueForKey:x]; }
 
-+ objectForKeyedSubscript:x { NSUInteger loc = [x rangeOfString:@"."].location;
++ objectForKeyedSubscript:(CopyObject)x { NSUInteger loc = [(id)x rangeOfString:@"."].location;
 
-  NSString *path = loc == NSNotFound ? nil : [x substringFromIndex:loc+1],
-            *sel = path ? [x substringToIndex:loc] : x;
+  NSString *path = loc == NSNotFound ? nil : [(id)x substringFromIndex:loc+1],
+            *sel = path ? [(id)x substringToIndex:loc] : (id)x;
 
   NSLog(@"resolving %@ selector:%@", NSStringFromClass(self), sel);
 
@@ -57,4 +57,14 @@
 }
 
 @end
+
+@implementation NSUserDefaults (SubscriptAndUnescape)
+
+- objectForKeyedSubscript:(CopyObject)k{ id obj = [self oFK:(id)k];
+
+  return ISA(obj,NSS) && [obj hasPrefix:@"\\"] ? [obj substringFromIndex:1] : obj;
+}
+
+@end
+
 

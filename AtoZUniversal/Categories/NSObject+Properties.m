@@ -1,7 +1,8 @@
-//
 
-#import <AtoZ/AtoZ.h>
-#import "NSObject+Properties.h"
+
+@import FunSize; // maptoDictionary
+
+#import <AtoZUniversal/AtoZUniversal.h>
 
        SEL	          property_getGetter (objc_property_t property) {
 	const char *attrs = property_getAttributes( property );
@@ -94,7 +95,7 @@ const char * property_getRetentionMethod (objc_property_t property) {
 }
 - (void)  setValuesForKeys:(AZKP*)kp,... { azva_list_to_nsarray(kp,keyVals);
 
-  [keyVals do:^(AZKP* obj) { [self sV:obj.value fK:obj.key]; }];
+  [keyVals each:^(AZKP* obj) { [self sV:obj.value fK:obj.key]; }];
 }
 - (INST) withValuesForKeys: v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
 - (INST)            wVsfKs: v,...     { azva_list_to_nsarray(v,vals); return [self objectBySettingVariadicPairs:vals]; }
@@ -336,7 +337,7 @@ static const char* getPropertyType    (objc_property_t property) 	{
 
   NSA *props = [self.propertyNames reduce:@[@"Properties: \n"].mC withBlock:^id(id sum, id obj) {
   
-      id x = [self vFK:obj], z =[x className]; z = [AtoZ macroFor:z] ?: z;
+      id x = [self vFK:obj], z =[x className]; z = [NSClassFromString(@"AtoZ") performString:@"macroFor:" withObject:z] ?: z;
 
       [sum addObject:$(@"%@:%@ [%@]", obj, ISA(x,NSA)||ISA(x,NSD) ? $(@"@count.%lu", [x count]) : x, 
         
@@ -381,8 +382,9 @@ static const char* getPropertyType    (objc_property_t property) 	{
 	return result;
 }
 - (NSD*) propertiesPlease								{
+
 	return [[[self.propertyNames map:^id (NSS *name) { SEL select = NULL;
-		if (select = [self getterForPropertyNamed:name] != NULL) return nil;
+		if ((select = [self getterForPropertyNamed:name]) != NULL) return nil;
 		return [self respondsToSelector:select] && [self hasPropertyForKVCKey:name] ? name : nil;
 	}] map:^id (id canGet) {
 		SEL getter = [self getterForPropertyNamed:canGet];
@@ -429,7 +431,8 @@ static const char* getPropertyType    (objc_property_t property) 	{
 -(Class) classOfPropertyNamed:		(NSS*)name 	{
 	NSString *classS = [self attributesOfProp:name][0];		 //  "T@\"NSShadow\""
 //	LOG_EXPR(classS);
-	return NSClassFromString([[classS substringAfter:@"@"]stringByReplacingAllOccurancesOfString:@"\"" withString:@""]);
+	return NSClassFromString([[classS substringAfter:@"@"]
+          stringByReplacingAllOccurancesOfString:@"\"" withString:@""]);
 }
 - (const char*) typeOfPropertyNamed:(NSS*)name	{
 	return ( [[self class] typeOfPropertyNamed:name] );
@@ -475,8 +478,8 @@ static const char* getPropertyType    (objc_property_t property) 	{
 			NSString *type = [NSString stringWithCString:property_getAttributes(*propert) encoding:NSUTF8StringEncoding];
             propName = [NSString stringWithCString:property_getName(*propert) encoding:NSUTF8StringEncoding];
       // check for exclusions
-      if([self respondsToSelector:NSSelectorFromString(@"_excludedPropertyNames")] &&
-        [[self performSelector:NSSelectorFromString(@"_excludedPropertyNames")] containsObject:propName])  continue; // skip this one
+      if([self respondsToString:@"_excludedPropertyNames"] &&
+        [[self performString:@"_excludedPropertyNames"] containsObject:propName])  continue; // skip this one
       
       if([[propName substringToIndex:1] isEqualToString:@"_"]) { NSLog(@"PRIVATE PROPERTY! %@", propName); continue; }
       [propertyNames setObject:[self az_getPropertyType:type] forKey:propName];

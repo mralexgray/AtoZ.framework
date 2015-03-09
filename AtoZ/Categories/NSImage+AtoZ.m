@@ -374,7 +374,7 @@ NSData *PNGRepresentation(NSIMG *image) {
 }
 
 + (NSIMG*) randomWebImage {
-  return [self googleImages:NSS.randomUrbanD.word ct:1 eachBlock:nil];
+  return [self googleImages:AtoZ.randomUrbanD.word ct:1 eachBlock:nil];
 }
 + (NSIMG*) googleImage:(NSS*) query {
   return [self googleImages:query ct:1 eachBlock:nil];
@@ -5539,4 +5539,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AZImageCache, sharedCache);
   return [_cacheDirectory withPath:[path withExtIfMissing:@"png"]];
 }
 
+@end
+
+NSString *stringForBrightness( CGF brightness )	{	return
+	brightness < ( 19.0 / 255) ? @"&" 	: brightness < ( 50.0 / 255) 	? @"8" : brightness < ( 75.0 / 255) ? @"0" : brightness < (100.0 / 255) ? @"$" :
+	brightness < (130.0 / 255) ? @"2" 	: brightness < (165.0 / 255) 	? @"1" : brightness < (180.0 / 255) ? @"|" : brightness < (200.0 / 255) ? @";" :
+	brightness < (218.0 / 255) ? @":" 	: brightness < (229.0 / 255) 	? @"'" :																						  @" " ;
+}
+@implementation NSImage(ASCII)
+- (NSS*)asciiArtWithWidth:(NSI)width height:(NSI)height	{
+	if (!width || !height) return nil;
+	NSMS *string = NSMS.new;
+
+	NSImage *tempImage = [NSIMG imageWithSize:NSMakeSize(width, height) drawnUsingBlock:^{
+		[self drawInRect:AZRectBy(width,height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	}];
+
+	NSBitmapImageRep *bitmapImage = [NSBitmapImageRep.alloc initWithData:tempImage.TIFFRepresentation];
+
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++)[string appendString:stringForBrightness([[bitmapImage colorAtX:j y:i] colorUsingColorSpaceName:NSDeviceWhiteColorSpace].whiteComponent)];
+		[string appendString:@"\n"];
+	}
+	return string;
+}
 @end
