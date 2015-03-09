@@ -32,6 +32,12 @@
 		7B0A4F0E1AA947A6008FB45A /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A4F0C1AA947A6008FB45A /* Functions.m */; };
 		7B0A4F111AA94D94008FB45A /* NSBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A4F0F1AA94D94008FB45A /* NSBag.m */; };
 		7B0A4F121AA94D94008FB45A /* NSBag.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0A4F101AA94D94008FB45A /* NSBag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B313A2E1AADC0AD00179E72 /* ObjectMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A261AADC0AD00179E72 /* ObjectMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B313A2F1AADC0AD00179E72 /* ObjectMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A271AADC0AD00179E72 /* ObjectMatcher.m */; };
+		7B313A301AADC0AD00179E72 /* objswitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A281AADC0AD00179E72 /* objswitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B313A311AADC0AD00179E72 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A291AADC0AD00179E72 /* README.markdown */; };
+		7B313A321AADC0AD00179E72 /* SelectorMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A2A1AADC0AD00179E72 /* SelectorMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B313A331AADC0AD00179E72 /* SelectorMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A2B1AADC0AD00179E72 /* SelectorMatcher.m */; };
 		7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B582BD11AA6A4F800C450C3 /* AtoZUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B582BC51AA6A4F400C450C3 /* AtoZUniversal.framework */; };
 		7B582BD81AA6A4F800C450C3 /* AtoZUniversalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B582BD71AA6A4F800C450C3 /* AtoZUniversalTests.m */; };
@@ -100,6 +106,12 @@
 		7B0A4F0C1AA947A6008FB45A /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Functions.m; path = AtoZUniversal/Functions.m; sourceTree = "<group>"; };
 		7B0A4F0F1AA94D94008FB45A /* NSBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSBag.m; path = AtoZUniversal/NSBag.m; sourceTree = "<group>"; };
 		7B0A4F101AA94D94008FB45A /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSBag.h; path = AtoZUniversal/NSBag.h; sourceTree = "<group>"; };
+		7B313A261AADC0AD00179E72 /* ObjectMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMatcher.h; sourceTree = "<group>"; };
+		7B313A271AADC0AD00179E72 /* ObjectMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMatcher.m; sourceTree = "<group>"; };
+		7B313A281AADC0AD00179E72 /* objswitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objswitch.h; sourceTree = "<group>"; };
+		7B313A291AADC0AD00179E72 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		7B313A2A1AADC0AD00179E72 /* SelectorMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectorMatcher.h; sourceTree = "<group>"; };
+		7B313A2B1AADC0AD00179E72 /* SelectorMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectorMatcher.m; sourceTree = "<group>"; };
 		7B582BC51AA6A4F400C450C3 /* AtoZUniversal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZUniversal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B582BC91AA6A4F400C450C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AtoZUniversal.h; path = AtoZUniversal/AtoZUniversal.h; sourceTree = "<group>"; };
@@ -172,9 +184,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B313A231AADC0AD00179E72 /* ObjectMatcher */ = {
+			isa = PBXGroup;
+			children = (
+				7B313A261AADC0AD00179E72 /* ObjectMatcher.h */,
+				7B313A271AADC0AD00179E72 /* ObjectMatcher.m */,
+				7B313A281AADC0AD00179E72 /* objswitch.h */,
+				7B313A291AADC0AD00179E72 /* README.markdown */,
+				7B313A2A1AADC0AD00179E72 /* SelectorMatcher.h */,
+				7B313A2B1AADC0AD00179E72 /* SelectorMatcher.m */,
+			);
+			path = ObjectMatcher;
+			sourceTree = "<group>";
+		};
 		7B582BBB1AA6A4F300C450C3 = {
 			isa = PBXGroup;
 			children = (
+				7B313A231AADC0AD00179E72 /* ObjectMatcher */,
 				7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */,
 				7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */,
 				7B582C341AA6DCDF00C450C3 /* AtoZMacroDefines.h */,
@@ -298,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B89AE991AA961BE0036EC09 /* JREnum.h in Headers */,
+				7B313A321AADC0AD00179E72 /* SelectorMatcher.h in Headers */,
 				7B0A4F121AA94D94008FB45A /* NSBag.h in Headers */,
 				7B0A4F0A1AA92CB0008FB45A /* AtoZTypes.h in Headers */,
 				7BBD2D7A1AA74C8700CD9477 /* EXTRuntimeExtensions.h in Headers */,
@@ -307,6 +334,7 @@
 				7BE12BC01AA925E8001AF7CE /* NSNumber+AtoZ.h in Headers */,
 				7B582C3A1AA6DCDF00C450C3 /* SubscriptProtocols.h in Headers */,
 				7B0A4F021AA92986008FB45A /* NSDictionary+AtoZ.h in Headers */,
+				7B313A301AADC0AD00179E72 /* objswitch.h in Headers */,
 				7BBD2D781AA74C8700CD9477 /* EXTConcreteProtocol.h in Headers */,
 				7B582C391AA6DCDF00C450C3 /* AtoZMacroDefines.h in Headers */,
 				7BE12BB81AA91D0D001AF7CE /* NSObject+AtoZ.h in Headers */,
@@ -325,6 +353,7 @@
 				7BE12BBC1AA9222F001AF7CE /* AZObserversAndBinders.h in Headers */,
 				7B582C2B1AA6DC9800C450C3 /* F+Private.h in Headers */,
 				7BBD2D861AA7536A00CD9477 /* NSMethodSignature+EXT.h in Headers */,
+				7B313A2E1AADC0AD00179E72 /* ObjectMatcher.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,9 +478,11 @@
 				7B0A4F111AA94D94008FB45A /* NSBag.m in Sources */,
 				7BE12BB71AA91D0D001AF7CE /* NSObject+AtoZ.m in Sources */,
 				7B582C2F1AA6DC9800C450C3 /* NSDictionary+F.m in Sources */,
+				7B313A331AADC0AD00179E72 /* SelectorMatcher.m in Sources */,
 				7BBD2D871AA7536A00CD9477 /* NSMethodSignature+EXT.m in Sources */,
 				7B582C2D1AA6DC9800C450C3 /* F.m in Sources */,
 				7BE12BBB1AA9222F001AF7CE /* AZObserversAndBinders.m in Sources */,
+				7B313A311AADC0AD00179E72 /* README.markdown in Sources */,
 				7B582C441AA6DFF000C450C3 /* BaseModel.m in Sources */,
 				7B0A4F031AA92986008FB45A /* NSArray+AtoZ.m in Sources */,
 				7B0A4F0E1AA947A6008FB45A /* Functions.m in Sources */,
@@ -466,6 +497,7 @@
 				7BBD2D7B1AA74C8700CD9477 /* EXTRuntimeExtensions.m in Sources */,
 				7B582C2E1AA6DC9800C450C3 /* NSArray+F.m in Sources */,
 				7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */,
+				7B313A2F1AADC0AD00179E72 /* ObjectMatcher.m in Sources */,
 				7BE12BC41AA92743001AF7CE /* NSData+AtoZ.m in Sources */,
 				7B582C381AA6DCDF00C450C3 /* AZTalker.m in Sources */,
 				7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */,

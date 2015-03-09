@@ -21,6 +21,7 @@
 
 #endif // TARGET_OS_IPHONE
 
+#import <AtoZUniversal/objswitch.h>
 #import <AtoZUniversal/AtoZMacroDefines.h>
 #import <AtoZUniversal/BaseModel.h>
 #import <AtoZUniversal/JREnum.h>

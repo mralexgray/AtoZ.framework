@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import "AZBoxMagic.h"
 #import <AtoZ/AtoZ.h>
+
 @interface AZBoxMagic ()
 @property NSSize cellSize;
 @property NSUInteger rows;

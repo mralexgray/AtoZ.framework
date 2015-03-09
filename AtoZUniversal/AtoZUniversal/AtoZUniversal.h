@@ -21,6 +21,7 @@
 #import <AtoZUniversal/JREnum.h>
 #import <AtoZUniversal/AtoZTypes.h>
 #import <AtoZUniversal/BaseModel.h>
+#import <AtoZUniversal/objswitch.h>
 #import <AtoZUniversal/F.h>                       // in PCH ^
 
 #import <AtoZUniversal/NSBag.h>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
-#import <AtoZ/AtoZ.h>
+
 #import "AZFile.h"
 @class AZBoxMagic;
 @protocol AZBoxMagicDataSource <NSObject>

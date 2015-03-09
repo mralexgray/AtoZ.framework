@@ -52,7 +52,7 @@
 }
 
 - (NSString *)generateInitialURL {
-    NSString *seedPage = [NSS randomUrbanD].word;
+    NSString *seedPage = [AtoZ randomUrbanD].word;
     NSString *url;
 
     if ([seedPage isEqualToString:@"##RANDOM##"]) url = @"http://en.wikipedia.org/wiki/Special:Random";

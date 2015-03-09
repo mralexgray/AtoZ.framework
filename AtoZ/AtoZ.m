@@ -275,7 +275,8 @@ NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 }
 @end
 
-@implementation AtoZ
+@implementation AtoZ {	__weak id _constantShortcutMonitor;	}
+
 
 + (NSS*)  ISP { return [[[NET curl:@"whoismyisp.org"] substringAfter:@"Your Internet Service Provider (ISP) is '"] substringBefore:@"'"]; }
 
@@ -329,7 +330,6 @@ NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 }
 
 
-{	__weak id _constantShortcutMonitor;	}
 
 static __unused BOOL fontsRegistered; const char*XCenv;
 

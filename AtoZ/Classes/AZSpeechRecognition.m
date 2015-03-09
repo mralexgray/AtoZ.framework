@@ -13,7 +13,7 @@
 
 	[@[@[ @"dicksonism",	NSS.randomDicksonism										   ],
 	   @[ @"random",		NSS.randomWord			 									   ],
-	   @[ @"urband", 	   [NSS.randomUrbanD.word withString:NSS.randomUrbanD.definition]],
+	   @[ @"urband", 	   [AtoZ.randomUrbanD.word withString:AtoZ.randomUrbanD.definition]],
 	   @[ @"bad word",		NSS.badWords.randomElement									   ]]
 
 		subIndex:0 blockReturnsIndex:^id(NSS*s){ return [s contains: sender.title.lowercaseString] ? s : nil;

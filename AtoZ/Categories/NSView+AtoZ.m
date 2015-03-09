@@ -384,7 +384,7 @@ SYNTHESIZE_ASC_OBJ_BLOCK(background,setBackground,^{},^{
 
 - (AZWT*) preview	{ // [[[@"a" classProxy] vFK:AZCLSSTR]performSelector:@selector(preview)];
 
-	AZWindowTab *w = AZWindowTab.new; w.View = self; [w makeKeyAndOrderFront:nil]; return w;
+	AZWindowTab *w = AZWindowTab.new; w.view = self; [w makeKeyAndOrderFront:nil]; return w;
 }
 
 + (AZWT*) preview	{ return [NSView previewOfClass:self.class];  }

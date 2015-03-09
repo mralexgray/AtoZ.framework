@@ -187,7 +187,7 @@
 #import "NSNotificationCenter+AtoZ.h"
 
 #import "NSObject+AZBlockObservation.h"
-#import "NSObject+Properties.h"
+
 #import "NSObject+StrictProtocols.h"
 #import "NSObject-Utilities.h"
 #import "NSObject_KVOBlock.h"

@@ -22,7 +22,7 @@
 #import "NSObject_KVOBlock.h"
 #import "NSObject-Utilities.h" 
 #import "NSObject+AZBlockObservation.h" 
-#import "NSObject+Properties.h"
+
 #import "NSOperationStack.h"
 #import "NSOutlineView+AtoZ.h"
 #import "NSScreen+AtoZ.h" 

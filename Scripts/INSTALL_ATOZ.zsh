@@ -46,7 +46,7 @@ env | sort > /tmp/$TARGET_NAME.env
 # CREATE_TOP_LEVEL_FW_LINKAGE
 RSYNCH_IT
 
-# ln -sF "$AZBUILD/AtoZ.framework" "$USER_FWKS"
+ ln -sF "$AZBUILD/AtoZ.framework" "$USER_FWKS"
 
 # EOF
 
