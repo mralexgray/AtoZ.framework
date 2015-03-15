@@ -4,6 +4,62 @@
 
 @implementation NSColorList (AtoZ) static NSMD *palettesD;
 
++ (INST) merge:(NSA*)lists {
+
+  return [lists reduce:[NSCL.alloc initWithName:[[lists vFK:@"name"] joinedBy:@"_"]]
+             withBlock:^id(NSCL* sum, NSCL* obj) {
+
+    [obj.allKeys each:^(id x) {
+      [sum insertColor:[obj colorWithKey:x] key:x atIndex:sum.allKeys.count];
+    }];
+    return sum;
+  }];
+
+}
+
+
++ (INST) colorListFromColourLoversGimpList:(NSS*) path {
+
+  _List lines = [[[NSS fromFile:path] substringAfter:@"#"] lines];
+
+  NSMD* cols = @{}.mC;
+
+  [lines each:^(id x){
+      if ([x length] < 11) return;
+      int r, b, g; _Text name  = [x substringAfter:@"	"];
+      r = [[x substringWithRange:NSMakeRange(0,3)]intValue];
+      g = [[x substringWithRange:NSMakeRange(4,3)]intValue];
+      b = [[x substringWithRange:NSMakeRange(8,3)]intValue];
+
+
+      id colr = [NSC r:r/255. g:g/255. b:b/255. a:1];
+      [cols setValue:colr forKey:name ?: @"N/A"];
+
+  }];
+
+
+  [cols each:^(NSS* key, id obj) {
+      [(NSS*)[[key withString:zNL] withFG:obj] print];
+  }];
+
+  id listname = path.lastPathComponent.stringByDeletingPathExtension;
+
+//  id x = [lines filter:^BOOL(id object) {
+//    return ![object length] ? NO : [[object firstLetter] isInteger];
+//  }];
+//      NSScanner  *scanner = [NSScanner.alloc initWithString:x];
+//      [scanner setCharactersToBeSkipped:NSCharacterSet.whitespaceCharacterSet];
+//      [scanner scanInt:&r];
+//      [scanner scanInt:&g];
+//      [scanner scanInt:&b];
+//      [scanner scanString:name];
+
+  return [NSC createColorlistWithColors:cols.allValues andNames:cols.allKeys named:listname];
+
+}
+
+- _Void_ save { [self writeToFile:[NSHomeDirectory() stringByAppendingFormat:@"/Library/Colors/%@.clr", self.name]]; }
+
 #pragma mark - ClassKeyGet Protocol
 + objectForKeyedSubscript: x  { return [self colorListNamed:x] ?: [self.class colorListInFrameworkWithFileName:x] ?: nil; }
 #pragma mark - KeyGet Protocol

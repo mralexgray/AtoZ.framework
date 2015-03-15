@@ -3,19 +3,18 @@
 
 #if TARGET_OS_IPHONE
 @implementation NSO (Name) -(NSString*)className { return NSStringFromClass([self class]);} @end
-#endif
-
+#else
 @implementation NSObject (NibLoading)
 
-#if !TARGET_OS_IPHONE
 + (INST) loadFromNib {	static NSNib   *aNib = nil;	NSArray *objs = nil;
 
 	[aNib = aNib ?: [NSNib.alloc initWithNibNamed:AZCLSSTR bundle:nil] instantiateWithOwner:nil topLevelObjects:&objs];
   // [objs objectWithClass:self.class];
   for (id object in objs) if ([object isKindOfClass:self.class]) return object; return nil;
 }
-#endif
 @end
+#endif
+
 @implementation NSObject (GCD)
 - _Void_ performOnMainThread:(Blk)block
                         wait:(BOOL)wait           {

@@ -2,34 +2,6 @@
 #ifndef AtoZ_MacroDefines
 #define AtoZ_MacroDefines
 
-#pragma mark -  REDEFINITIONS
-
-
-#if TARGET_OS_IPHONE
-
-#define       NSNib UINib
-#define      NSFont UIFont
-#define      NSView UIView
-#define      NSRect CGRect
-#define      NSSize CGSize
-#define     NSImage UIImage
-#define     NSColor UIColor
-#define     NSPoint CGPoint
-#define     NSEvent UIEvent
-#define    NSWindow UIWindow
-#define  NSZeroSize CGSizeZero
-#define  NSZeroRect CGRectZero
-#define NSZeroPoint CGPointZero
-#define NSNotification UINotification
-
-#endif
-
-#define _Type typedef 
-
-// AtoZ is a terse dialect of ObjC that is more concise, yet 100% compatible. \
-   It strives to minimize excessive *'s, {}'s, and ()'s. \
-   Class pointers and types are typedef'd to aliases, with no pointer, \
-   formatted like _Four lettes, starting with an underscore, capitalized.
 
 //#define DECALREIT(orig,short) \
 //  _Type  orig * _#short;      \
@@ -38,144 +10,7 @@
 //
 //DECLAREIT(NSMutableAttributedString,MATx)
 
-_Type                id   _ObjC;
-_Type             Class   _Meta;
-_Type               SEL   _Meth;
-_Type              void   _Void;
-_Type           CGFloat   _Flot;
-_Type        NSUInteger   _UInt;
-_Type         NSInteger   _SInt;
-_Type              BOOL   _IsIt;
-_Type           CGRect    _Rect;
-_Type           CGSize    _Size;
-_Type          CGPoint    _Cord;
-_Type NSComparisonResult  _Comp;
-
-_Type            NSMenu * _Menu;
-_Type            NSView * _View;
-_Type            NSData * _Data;
-_Type           CALayer * _Layr;
-_Type           NSArray * _List;
-_Type           NSColor * _Colr;
-_Type           NSError * _Errr;
-_Type           NSEvent * _Evnt;
-_Type           NSImage * _Pict;
-_Type           WebView * _WebV;
-_Type          NSBundle * _Bndl;
-_Type          NSNumber * _Numb;
-_Type          NSObject * _NObj;
-_Type          NSString * _Text;
-_Type          NSWindow * _Wind;
-_Type        NSMenuItem * _SubM;
-_Type       NSImageView * _PicV;
-_Type       NSSplitView * _Splt;
-_Type       NSTableView * _TblV;
-_Type      NSDictionary * _Dict;
-_Type      NSScrollView * _Scrl;
-_Type     NSApplication * _Appl;
-_Type     NSOutlineView * _OutV;
-_Type     NSTableColumn * _TCol;
-_Type    NSNotification * _Note;
-_Type  NSParagraphStyle * _PStl;
-_Type NSArrayController * _LstX;
-
-
-_Type _Void(^_MBlk)(_SubM menu);
-
-// For ObjC classes, let's define a preprocessor Macro to call the direct Classes, without the _.
-
-#define   Menu NSMenu
-#define   View NSView
-#define   Data NSData
-#define   Colr NSColor
-#define   Errr NSError
-#define   Evnt NSEvent
-#define   Layr CALayer
-#define   List NSArray
-#define   Pict NSImage
-#define   Bndl NSBundle
-#define   NObj NSObject
-#define   Numb NSNumber
-#define   Text NSString
-#define   Wind NSWindow
-#define   SubM NSMenuItem
-#define   PicV NSImageView
-#define   Splt NSSplitView
-#define   TblV NSTableView
-#define   Dict NSDictionary
-#define   Scrl NSScrollView
-#define   Appl NSApplication
-#define   OutV NSOutlineView
-#define   TCol NSTableColumn
-#define   PStl NSParagraphStyle
-#define   Note NSNotification
-
-
-/// We also make "shortcuts for all these new types with a leading Underscore to use ase parenthesis-free method parameterts!
-
-
-#define _Appl_ (_Appl)
-#define _Bndl_ (_Bndl)
-#define _Colr_ (_Colr)
-#define _Comp_ (_Comp)
-#define _Cord_ (_Cord)
-#define _Data_ (_Data)
-#define _Dict_ (_Dict)
-#define _Errr_ (_Errr)
-#define _Evnt_ (_Evnt)
-#define _Flot_ (_Flot)
-#define _IsIt_ (_IsIt)
-#define _Layr_ (_Layr)
-#define _List_ (_List)
-#define _LstX_ (_LstX)
-#define _MBlk_ (_MBlk)
-#define _Menu_ (_Menu)
-#define _Meta_ (_Meta)
-#define _Meth_ (_Meth)
-#define _Note_ (_Note)
-#define _Numb_ (_Numb)
-#define _ObjC_ (_ObjC)
-#define _OutV_ (_OutV)
-#define _Pict_ (_Pict)
-#define _PicV_ (_PicV)
-#define _PStl_ (_Pstl)
-#define _Rect_ (_Rect)
-#define _Scrl_ (_Scrl)
-#define _SInt_ (_SInt)
-#define _Size_ (_Size)
-#define _Splt_ (_Splt)
-#define _SubM_ (_SubM)
-#define _TblV_ (_TblV)
-#define _TCol_ (_TCol)
-#define _Text_ (_Text)
-#define _UInt_ (_UInt)
-#define _View_ (_View)
-#define _Void_ (_Void)
-#define _WebV_ (_WebV)
-#define _Wind_ (_Wind)
-
-#define LstX NSArrayController
-
-
-#define     _Kind instancetype
-#define     _Kind_ (_Kind)
-
-typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
-#define      _VBlk_ (_VBlk)
-
-#define _IMPL @implementation
-#define _IFCE @interface
-#define _PRTO @protocol
-#define _IMPT @import
-#define _FINI @end
-
-
-#define IMPL implementation
-#define IFCE interface
-#define PRTO protocol
-#define IMPT import
-#define FINI end
-
+#define STR2CLS(S) NSClassFromString(NSSTRINGIFY(S))
 
 #define _CAT(K,NAME,...) _IFCE K (NAME) __VA_ARGS__; @end
 
@@ -231,6 +66,10 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 // START NEEDHOMES
 
 #define    WORD definition
+#define NSENUM NSEnumerator
+#define FM   NSFileManager.defaultManager
+#define UDEFS  NSUserDefaults.standardUserDefaults
+
 
 // END NEEDHOMES
 
@@ -288,6 +127,8 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 #define      VOID(X)      - _Void_ X
 #define FACTORY + (instancetype)
 #define TYPEDEF_V(X)        typedef void(^X)
+
+#define RNGTO(X) (NSRange){0,X}
 
 #define     ACT  id<CAAction>
 #define AZIDCAA (id<CAAction>)
@@ -420,6 +261,7 @@ typedef     void(^_VBlk)();     //typedef     _Void(^)() _VBlk;
 #define NSSCLASS NSString.class
 #define NSST NSSet
 #define NST NSTimer
+#define NSSZ NSSize
 #define NSTI NSTimeInterval
 #define NSTXTV NSTextView
 #define NSUI NSUInteger
@@ -801,8 +643,8 @@ OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...);
 
 #define NSU  NSURL
 #define $URL(A)    !ISA(A,NSS) || !A || ![A length] ? nil : \
-                      [AZFILEMANAGER fileExistsAtPath:A] ? [NSURL fileURLWithPath:A] : \
-                      [NSURL URLWithString:A]
+                    [AZFILEMANAGER fileExistsAtPath:A] ? [NSURL fileURLWithPath:A] : \
+                    [NSURL URLWithString:A]
                       
 #define $SEL(A)    NSSelectorFromString(A)
 #define AZStringFromSet(A) [NSS stringFromArray:A.allObjects]
@@ -954,9 +796,25 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define                                         NSZeroRange NSMakeRange(0,0)
 
 #if TARGET_OS_IPHONE
+//@import UIKit.UIApplication;
+#define AZWORKSPACE UIApplication.sharedApplication
+#define PLATFORM_OPEN(url) [AZWORKSPACE openURL:url]
+#elif TARGET_OS_MAC
+//@import AppKit.NSWorkspace;
+#define AZWORKSPACE NSWorkspace.sharedWorkspace
+NS_INLINE void PLATFORM_OPEN(id url) { [AZWORKSPACE openURL:url]; }
+#endif
 
 
+#define         NSURLC NSURLConnection
+#define    NSAorDCLASS @[NSArray.class, NSDictionary.class]
+#define      NSMURLREQ NSMutableURLRequest
+#define          NSERR NSError
+#define           NSOP NSOperation
+#define           NSOS NSOperationStack
 
+#define AZUNIVERSALRESOURCES [[NSBundle bundleWithIdentifier:@"com.mrgray.AtoZUniversal"] resourcePath]
+#if TARGET_OS_IPHONE
 
 
 
@@ -1030,7 +888,6 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define                                          AZUSERDEFS NSUserDefaults.standardUserDefaults
 #define                                         CAMEDIAEASY [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
 #define                                CGSUPRESSINTERVAL(x) CGEventSourceSetLocalEventsSuppressionInterval(nil,x)
-#define                                         AZWORKSPACE NSWorkspace.sharedWorkspace
 #define                                                pFCN postsFrameChangedNotifications
 #define                                           MOUSEDOWN NSLeftMouseDownMask
 #define                        performDelegateSelector(sel) if ([delegate respondsToSelector:sel]) { [delegate performSelector:sel]; }
@@ -1097,8 +954,6 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define           NSPO NSPopover
 #define          NSBSB NSBackingStoreBuffered
 #define         NSTABV NSTabView
-#define         NSURLC NSURLConnection
-#define    NSAorDCLASS @[NSArray.class, NSDictionary.class]
 #define           NSWC NSWindowController
 #define          NSCSV NSCellStateValue
 #define           NSGC NSGraphicsContext
@@ -1107,18 +962,14 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define           NSTRV NSTableRowView
 #define         NSTVDO NSTableViewDropOperation
 #define            SIG NSMethodSignature
-#define      NSMURLREQ NSMutableURLRequest
 #define         NSSHDW NSShadow
 #define ISADICTorARRAY isKindOfAnyClass:NSAorDCLASS
-#define          NSERR NSError
 #define           NSVC NSViewController
 #define           NSEM NSEventMask
-#define           NSOP NSOperation
 #define            NSM NSMenu
 #define           NSTA NSTrackingArea
 #define         NSTXTF NSTextField
 #define        NSBRWSR NSBrowser
-#define           NSOS NSOperationStack
 #define           NSAT NSAffineTransform
 #define           NSCL NSColorList
 #define           NSTC NSTableColumn
@@ -1133,7 +984,7 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
     #define         NSSEGC NSSegmentedControl
     #define         NSACTX NSAnimationContext
     #define         NSTBAR NSToolbar
-    #define           NSSZ NSSize
+
     #define          NSAPP NSApplication
     #define           NSDE NSDirectoryEnumerator
 
@@ -1230,10 +1081,7 @@ q&AZ_arc__WEAK      ? weak    : assign
 //IS_OBJECT((__VA_ARGS__)) ? __typeof((__VA_ARGS__)) * _name_ = (__VA_ARGS__) 
 
 #define AZFWBNDL AZFWORKBUNDLE
-#define NSENUM NSEnumerator
 #define CABD  BlockDelegate
-#define FM   NSFileManager.defaultManager
-#define UDEFS  NSUserDefaults.standardUserDefaults
 #define PINFO NSProcessInfo.processInfo
 #define AZF AZFile
 
@@ -1281,7 +1129,7 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define    CAMEDIAEASEOUT  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]
 #define   CAMEDIAEASEIN  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]
 #define       CAMEDIAEASY  [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]
-#define       AZWORKSPACE  NSWorkspace.sharedWorkspace
+
 #define      AZCOLORPANEL  NSColorPanel.sharedColorPanel
 #define      AZUSERDEFS  NSUserDefaults.standardUserDefaults
 #define NSOPANEL  NSOpenPanel.openPanel
@@ -1376,7 +1224,6 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 //
 
 #define AZOBJCLSSTR(X) NSStringFromClass ( [X class] )
-#define STR2CLS(S) NSClassFromString(NSSTRINGIFY(S))
 #define AZCLSSTR NSStringFromClass ( [self class] )
 #define AZSSOQ AZSharedSingleOperationQueue()
 #define AZSOQ AZSharedOperationQueue()

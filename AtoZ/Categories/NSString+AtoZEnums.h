@@ -2,6 +2,10 @@
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 
+_IFCE Text (ISP)
++ _Text_ ISP;
+_FINI
+
 @interface AZEnum : NSObject<NSCopying, NSCoding> {  //    NSString *name;     int ordinal;
     // cached to speed up prev/next - these are all "assign", not that it matters because they are all singletons 
     id previousWrappingEnum;

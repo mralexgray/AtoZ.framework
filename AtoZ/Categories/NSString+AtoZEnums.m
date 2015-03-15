@@ -3,7 +3,13 @@
 #import "NSString+AtoZEnums.h"
 #import <objc/runtime.h>
 #import <AtoZ/AtoZ.h>
-@implementation AZEnum
+
+_IMPL Text (ISP)
++ _Text_ ISP { return [AtoZ ISP]; }
+_FINI
+
+
+_IMPL AZEnum
 //@synthesize name, ordinal; //- (void) dealloc	{    name = nil    [super dealloc];	}
 - (void) encodeWithCoder:(NSCoder *)aCoder	{    
 		

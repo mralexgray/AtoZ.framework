@@ -1,5 +1,6 @@
 
 #import "AZSizer.h"
+@import Quartz;
 
 NSIMG* AZIMGNamed(NSS *constName);
 
@@ -41,25 +42,24 @@ APPKIT_EXTERN NSString  *const AZIMG_checkmark,       *const AZIMG_addressBook, 
 @end
 
 
-@interface 	  					AZImageCache : NSCache	+ (AZImageCache*) sharedCache;
+_IFCE AZImageCache : NSCache	+ (AZImageCache*) sharedCache;
 
-AZPROP(NSString,cacheDirectory);
+AZPROP(Text,cacheDirectory);
 
-+   (void)  	  cacheImage:(NSIMG*)image;
-- (NSIMG*) 		 imageForKey:(NSS*)key;
--   (void)  	    setImage:(NSIMG*)image forKey:(NSS*)key;
--   (void) removeAllObjects;													//  builklt-in method
-@end
++ _Void_  	  cacheImage:(NSIMG*)image;
+- _Pict_ 		 imageForKey:(NSS*)key;
+- _Void_  	    setImage:(NSIMG*)image forKey:(NSS*)key;
+- _Void_ removeAllObjects;													//  builklt-in method
 
-static inline int               get_bit ( unsigned char *arr, unsigned long bit_num);
-CGImageRef  			CreateCGImageFromData	( DTA * data );
-CGF                            distance	( NSP aPoint );				// Just one function to declare...
+_FINI
+
+_S _I _SInt              get_bit ( _UChr carr, _ULng bit_num);
+CGImageRef CreateCGImageFromData (    _Data data );
+CGF                     distance (    _Cord aPnt );				// Just one function to declare...
 
 typedef void(^NSImageDrawer)(void);
 
 typedef void(^LockedFocusWithFrame)(NSR dRect);
-
-extern NSData *PNGRepresentation(NSIMG *image);
 
 @interface NSImage (AtoZDrawBlock)
 
@@ -68,10 +68,12 @@ extern NSData *PNGRepresentation(NSIMG *image);
 
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /*! [NSImage imageNamed:@"document"] */
 
-@import Quartz;
+
 @class AZFile;
 
 @interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
+
+@prop_RO _Data PNGRepresentation;
 
 + (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
 

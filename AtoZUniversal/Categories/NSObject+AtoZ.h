@@ -5,11 +5,9 @@
 
 #if TARGET_OS_IPHONE
 @interface NSObject (Name) - (NSString *) className; @end
+#else
+@interface NSObject (NibLoading) + (INST) loadFromNib; @end
 #endif
-
-@interface NSObject (NibLoading)
-+ (INST) loadFromNib;
-@end
 
 @interface NSObject (HidingAssocitively)
 @property BOOL folded;

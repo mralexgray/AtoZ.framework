@@ -1,7 +1,8 @@
 
 //  NSFileManager+AtoZ.m  Created by Alex Gray on 8/28/12.
 
-#import <AtoZ/AtoZ.h>@import os;
+#import <AtoZUniversal/AtoZUniversal.h>
+@import os;
 @import Darwin;
 //#include <glob.h>
 #import <sys/xattr.h>
@@ -12,13 +13,14 @@
 //#import <dirent.h>
 //#import <sys/stat.h>
 //#include <assert.h>
-#import "NSFileManager+AtoZ.h"
+
 
 NSS * NSDocumentsFolder() { return [NSHomeDirectory() withPath:@"Documents"]; }
 NSS * NSLibraryFolder()   { return [NSHomeDirectory() withPath:@"Library"];   }
 NSS * NSTmpFolder()       {	return [NSHomeDirectory() withPath:@"tmp"];       }
 NSS * NSBundleFolder()    {	return NSBundle.mainBundle.bundlePath;            }
 NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
+
 
 @implementation NSFileManager (AtoZ)
 
@@ -99,10 +101,10 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 			return [path stringByAppendingPathComponent:file];
 	return nil;
 }
-
+#if !TARGET_OS_IPHONE
 - (NSS*)       pathForDocumentNamed:(NSS*)fname { return [self pathForItemNamed:fname inFolder:NSDocumentsFolder()];  }
 - (NSS*) pathForBundleDocumentNamed:(NSS*)fname {	return [self pathForItemNamed:fname inFolder:NSBundleFolder()];     }
-
+#endif
 - (NSA*) filesInFolder:(NSS*)path {
 	NSString *file;
 	NSMutableArray *results = [NSMutableArray array];
@@ -117,9 +119,10 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 }
 
 - (NSA*) pathsForItemsInFolder:(NSS*)path withExtension:(NSS*)ext {
+
 	NSError *error = nil;
 	return [[self contentsOfDirectoryAtPath:path error:&error] filter:^BOOL(NSS* object) {
-		return [path.pathExtension isEqual:ext];
+		return [[object pathExtension] isEqualToString:ext];
 	}];
 }
 
@@ -351,8 +354,14 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	NSError *error = nil;
 	NSDictionary *attributes = [self attributesOfItemAtPath:[[url absoluteURL] path] error:&error];
 	if (!attributes) {
-		NSLog(@"Unable to get attributes of %@: %@", [url absoluteString], [error toPropertyList]);
-		return;
+
+    NSDictionary *userInfo = [error userInfo];
+		id x = [userInfo description]  ?:@"n/a";//_mapUserInfoValueToPlistValue(CFBridgingRetain(userInfo)) : @"n/a";
+
+    NSLog(@"Unable to get attributes of %@: %@", [url absoluteString],
+                          @{@"domain":[error domain]?:@"",
+                              @"code":@([error code] ?: 0),
+                                         @"userInfo" : x}); return;
 	}
 
 	assert(sizeof(ino_t) == sizeof(unsigned long long));
@@ -389,7 +398,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 		error = nil;
 		NSArray *children = [self contentsOfDirectoryAtURL:url includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants error:&error];
 		if (!children) {
-			NSLog(@"Unable to get children of %@: %@", [url absoluteString], [error toPropertyList]);
+			NSLog(@"Unable to get children of %@: %@", [url absoluteString], @"arror desc here"); // [error toPropertyList]);
 			return;
 		}
 
@@ -405,12 +414,12 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	_appendPropertiesOfTreeAtURL(self, str, url, 0);
 
 	NSLog(@"%@:\n%@\n", [url absoluteString], str);
-	[str release];
 }
 
 #endif
 
 @end
+
 
 
 @implementation NSFileManager (Extensions)
@@ -542,10 +551,9 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 // https://developer.apple.com/library/ios/#qa/qa1719/_index.html
 - (void) setDoNotBackupAttributeAtPath:(NSString*)path {
 	u_int8_t value = 1;
-	int result = setxattr([path fileSystemRepresentation], "com.apple.MobileBackup", &value, sizeof(value), 0, 0);
-	if (result) {
-		LOG_ERROR(@"Failed setting do-not-backup attribute on \"%@\": %s (%i)", path, strerror(result), result);
-	}
+	int result;
+	if ((result  = setxattr([path fileSystemRepresentation], "com.apple.MobileBackup", &value, sizeof(value), 0, 0)))
+		NSLog(@"Failed setting do-not-backup attribute on \"%@\": %s (%i)", path, strerror(result), result);
 }
 
 #endif
@@ -576,7 +584,9 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 			if(![self fileExistsAtPath: currentPath])
 			{
 				[self createDirectoryAtPath: currentPath withIntermediateDirectories:YES attributes:nil error:nil];
-				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:currentPath];
+        #if !TARGET_OS_IPHONE
+				[AZWORKSPACE noteFileSystemChanged:currentPath];
+        #endif
 			}
 		}
 	}
@@ -611,7 +621,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 }
 
 @end
-
+#if !TARGET_OS_IPHONE
 #import <Carbon/Carbon.h>
 
 @implementation NSString (CarbonUtilities)
@@ -635,6 +645,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	return theResolvedAlias;
 }
 @end
+
 @implementation NSFileManager (UKVisibleDirectoryContents)
 
 -(NSArray*)	visibleDirectoryContentsAtPath: (NSString*)path
@@ -659,4 +670,5 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 }
 
 @end
+#endif
 

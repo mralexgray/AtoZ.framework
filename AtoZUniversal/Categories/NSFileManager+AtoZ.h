@@ -1,11 +1,13 @@
 
-
+#if !TARGET_OS_IPHONE
 NS_INLINE NSS* humanReadableFileTypeForFileExtension (NSS *ext) {
 
 	CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
                                                              (__bridge CFStringRef)ext, NULL);
 	NSS *UTIDesc = (__bridge NSS*)UTTypeCopyDescription(fileUTI); return CFRelease(fileUTI),UTIDesc;
 }
+
+#endif
 
 NSS * NSDocumentsFolder (void);
 NSS *   NSLibraryFolder (void);
@@ -23,8 +25,10 @@ NSS *    NSBundleFolder (void);
 - (NSA*) arrayWithFilesMatchingPattern:(NSS*)pattern inDirectory:(NSS*)dir;
 
 - (NSS*)              pathForItemNamed:(NSS*)fname      inFolder:(NSS*)path;
+#if !TARGET_OS_IPHONE
 - (NSS*)          pathForDocumentNamed:(NSS*)fname;
 - (NSS*)    pathForBundleDocumentNamed:(NSS*)fname;
+#endif
 
 //non-resursive
 - (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
@@ -101,7 +105,7 @@ NSS *    NSBundleFolder (void);
 - (NSS*) uniqueFilePath: (NSS*) filePath;
 
 @end
-
+#if !TARGET_OS_IPHONE
 @interface NSString (CarbonUtilities)
 + (NSS*)    stringWithFSRef:(const FSRef *)aFSRef;
 - _IsIt_         getFSRef:(FSRef *)aFSRef;
@@ -113,3 +117,4 @@ NSS *    NSBundleFolder (void);
 // Same as directoryContentsAtPath, but filters out files whose names start with ".":
 -(NSA*)	visibleDirectoryContentsAtPath: (NSS*)path;
 @end
+#endif

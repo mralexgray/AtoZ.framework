@@ -96,7 +96,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 + (instancetype) arrayWithCopies:(NSUI)copies of:(id<NSCopying>)obj;
 
-@prop_RO NSS * joinedByNewlines, * joinedWithSpaces, * componentString;
+@prop_RO NSS * joinedByNewlines, * joinedWithSpaces, * joined;
 
 - (NSS*) joinedBy:(NSS*)x;
 

@@ -40,6 +40,8 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 @import AtoZIO;  // also handles ExtObjC  + AtoZUniversal + AtoZAutoBox
 
+@import AtoZAutoBox;
+
 @import AtoZAppKit;
 @import AtoZBezierPath;
 @import BWTK;
@@ -129,7 +131,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 #import <NMSSH/NMSSH.h>
 #import <Rebel/Rebel.h>
 
-#import "AtoZSingleton/AtoZSingleton.h"
+
 #import <MapKit/MapKit.h>
 #import <RoutingHTTPServer/AZRouteResponse.h>
 

@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Zach Waugh. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <AtoZ/AtoZUmbrella.h>
+@import AtoZUniversal;
 
 @interface AZEmoji : NSString
 @prop_RO NSS * alias, * group, *code;

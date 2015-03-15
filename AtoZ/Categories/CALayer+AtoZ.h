@@ -41,7 +41,7 @@
 
 @prop_NA id eventMonitor;
 @prop_NA NSEventMask eventMask;
-@prop_RO IndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
+//@prop_RO IndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
 
 /*! @see swizzleHitTest for swizled implementation enablig this! */
 @prop_CP  ObjBlk onHit, onHover; // SenderEvent

@@ -2,19 +2,7 @@
 #ifndef AtoZ_AtoZUniversal_h
 #define AtoZ_AtoZUniversal_h
 
-#include <TargetConditionals.h>
-
-#if TARGET_OS_IPHONE
-@import UIKit;
-#else
-@import AppKit;
-#endif
-
-@import ObjectiveC;
-@import WebKit;
-
-@import AtoZAutoBox.OrderedDictionary; // Eliminate
-
+#import <_ObjC.h>
 
 #import <AtoZUniversal/AtoZMacroDefines.h>
 #import <AtoZUniversal/metamacros.h>
@@ -26,6 +14,8 @@
 
 #import <AtoZUniversal/NSBag.h>
 #import <AtoZUniversal/AZRange.h>
+#import <AtoZUniversal/OrderedDictionary.h>
+#import <AtoZUniversal/ObjcAssociatedObjectHelpers.h>
 
 #import <AtoZUniversal/EXTSynthesize.h>
 #import <AtoZUniversal/EXTConcreteProtocol.h>
@@ -35,6 +25,8 @@
 #import <AtoZUniversal/Protocols.h>
 #import <AtoZUniversal/Functions.h>
 
+#import <AtoZUniversal/NSFileManager+AtoZ.h>
+#import <AtoZUniversal/NSString-Utilities.h>
 #import <AtoZUniversal/NSString+AtoZ.h>
 #import <AtoZUniversal/NSNumber+AtoZ.h>
 #import <AtoZUniversal/NSData+AtoZ.h>

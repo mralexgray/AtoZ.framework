@@ -1,29 +1,38 @@
 
+#define _Copy id<NSCopying>
+#define _Copy_ (_Copy)
+#define forKSub         forKeyedSubscript
+#define atIdxSub       atIndexedSubscript
+#define xAtIndex objectAtIndexedSubscript
+#define xForKSub  objectForKeyedSubscript
+#define setXForKSub _Void_ setX:_ forKSub
+#define setXAtIndex _Void_ setX:_ atIdxSub
+
 
 /*! Advertise your subsctriptability with these simple protocols!
 
  KeyGet + KeySet:  Override, otherwise goes to default NSObject @c valueForKey: / @c setValue:forKey:
  ClassIndexGet:    Declare + implement for indexed access to Class. Example.. your Class Singleton is an Array!
  */
-#define CopyObject id<NSCopying>
-@protocol KeyGet        <NSObject> @optional -               objectForKeyedSubscript:(CopyObject)k;                @end
-@protocol KeySet        <NSObject> @optional - _Void_ setObject:_  forKeyedSubscript:(CopyObject)k; @end
-@protocol IndexSet      <NSObject> @required - _Void_ setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
-@protocol IndexGet      <NSObject> @required -              objectAtIndexedSubscript:(NSUInteger)i;    @end
+
+_PRTO KeyGet        <NObj> -    xForKSub: _Copy_ k; @end
+_PRTO KeySet        <NObj> - setXForKSub: _Copy_ k; @end
+_PRTO IndexSet      <NObj> - setXAtIndex: _UInt_ i; @end
+_PRTO IndexGet      <NObj> -    xAtIndex: _UInt_ i; @end
 
 // defaults to returning the method invoked by the subscript string.
-@protocol ClassKeyGet   <NSObject> @optional +               objectForKeyedSubscript:(CopyObject)k;                @end
-@protocol ClassKeySet   <NSObject> @optional + (void) setObject:_  forKeyedSubscript:(CopyObject)k; @end
-@protocol ClassIndexSet <NSObject> @required + (void) setObject:_ atIndexedSubscript:(NSUInteger)i;    @end
-@protocol ClassIndexGet <NSObject> @required +              objectAtIndexedSubscript:(NSUInteger)i;   @end
+_PRTO ClassKeyGet   <NObj> +    xForKSub: _Copy_ k; @end
+_PRTO ClassKeySet   <NObj> + setXForKSub: _Copy_ k; @end
+_PRTO ClassIndexSet <NObj> + setXAtIndex: _UInt_ i; @end
+_PRTO ClassIndexGet <NObj> +    xAtIndex: _UInt_ i; @end
 
-@protocol KeySub              <KeyGet,               KeySet> @end
-@protocol IndexSub            <IndexGet,           IndexSet> @end
-@protocol Subscriptable       <IndexSub,             KeySub> @end
+_PRTO KeySub              <KeyGet,               KeySet> @end
+_PRTO IndexSub            <IndexGet,           IndexSet> @end
+_PRTO Subscriptable       <IndexSub,             KeySub> @end
 
-@protocol ClassKeySub         <ClassKeyGet,     ClassKeySet> @end
-@protocol ClassIndexSub       <ClassIndexGet, ClassIndexSet> @end
-@protocol ClassSubscriptable  <ClassIndexSub,   ClassKeySub> @end
+_PRTO ClassKeySub         <ClassKeyGet,     ClassKeySet> @end
+_PRTO ClassIndexSub       <ClassIndexGet, ClassIndexSet> @end
+_PRTO ClassSubscriptable  <ClassIndexSub,   ClassKeySub> @end
 
 
 /*!  Access to class methods via Keyed Subscript! Even with keypaths!  Just cast the class to id first!
@@ -34,4 +43,5 @@
 
  */
 @interface NSObject (Subscriptions) <KeySub,IndexSub,ClassKeyGet> @end
+
 

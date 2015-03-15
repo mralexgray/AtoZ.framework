@@ -14,8 +14,14 @@
 + (INST)              colorListWithColors:(NSA*)cs            andNames:(NSA*)ns
                                                                  named:(NSS*)n;
 
++ (INST) merge:(NSA*)lists;
+
+- _Void_ save;
 + (NSA*) namedColors;
 + (NSD*) namedColorDictionary;
+
++ (INST) colorListFromColourLoversGimpList:(NSS*) path;
+
 @end
 
 @interface NSColor (AIColorAdditions)

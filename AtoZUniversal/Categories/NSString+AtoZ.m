@@ -4,7 +4,16 @@
 #import <AtoZUniversal/AtoZUniversal.h>
 
 @import FunSize; // drawInContext:flipped
-@import CocoatechCore; // stringWithString:attributes
+//@import CocoatechCore; // stringWithString:attributes
+
+
+@implementation NSAttributedString (NTExtensions)
+
++ (INST) stringWithString:(NSString*)inString attributes:(NSDictionary*)attributes;
+{
+	return inString ? [[NSAttributedString alloc] initWithString:inString attributes:attributes] : nil;
+}
+@end
 
 //@import AtoZ.AtoZGeometry; // AZIsZeroSize
 
@@ -166,10 +175,11 @@
 }
 -  (void) openInTextMate 								{
 
+#if !TARGET_OS_IPHONE
   id x;
   [self writeToFile:x = [STR2CLS(AtoZ) performString:@"tempFilePathWithExtension:" withObject:@"txt"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
   [AZWORKSPACE openFile:x withApplication:@"TextMate"];
-
+#endif
 //  runCommand($(@"/bin/echo \"%@\" | mate", self));
 }
 -  (void) setSubRange:(NSRNG) rng 					{
@@ -184,7 +194,7 @@
 -  (BOOL) isInteger 										{ return self.isIntegerNumber; }
 - (NSComparisonResult)compareNumberStrings:(NSS*)str {  return [@([str intValue]) compare:@([self intValue])];	}
 
--  (NSS*) justifyRight:(NSUI)col {  int add;
+-  (NSS*) justifyRight:(NSUI)col {  NSUI add;
 
   return (add = col - self.length) > 0 ? [[NSS spaces:add] withString:self] : self;
 }
@@ -332,7 +342,7 @@
 	NSURLRequest *request = [NSURLRequest requestWithURL:$URL(@"http://randomword.setgetgo.com/get.php") cachePolicy:0 timeoutInterval:5];
 	NSURLResponse *response = nil;    NSError *error = nil;
 	NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	NSS *theWord = data ? [NSString stringWithData:data encoding:NSUTF8StringEncoding] : @"Timeout!";
+	NSS *theWord = data ? [data UTF8String] : @"Timeout!";
 	return [theWord stringByTrimmingWhiteSpace];
 }
 + (NSS*) randomWiki 									{	__block NSS *wiki; __block NSS *word; NSUI tries = 10;
@@ -374,20 +384,21 @@
 }
 + (NSA*)       badWords {
 	static NSA *swearwords = nil;
-	swearwords = swearwords ? : [NSA arrayFromPlist:[AZFWRESOURCES withPath:@"BadWords.plist"]];
+	swearwords = swearwords ? : [NSA arrayFromPlist:[AZUNIVERSALRESOURCES withPath:@"BadWords.plist"]];
 	return swearwords;
 }
 + (NSA*)       gaySlang {
 
-  AZSTATIC_OBJ(NSA,gaySlang, [NSA arrayFromPlist:[AZFWRESOURCES withPath:@"GaySlang.plist"]]);
+  AZSTATIC_OBJ(NSA,gaySlang, [NSA arrayFromPlist:[AZUNIVERSALRESOURCES withPath:@"GaySlang.plist"]]);
 	return gaySlang;
 
 }
 + (NSS*) randomGaySlang { return self.gaySlang.randomElement; }
 
 + (NSS*) randomAppPath 								{
-
+#if !TARGET_OS_IPHONE
 	return [[AZWORKSPACE.runningApplications valueForKeyPath:@"executableURL.path"] randomElement];
+#endif
 }
 + (NSS*) randomDicksonism 						{	return self.dicksonisms.randomElement;
 }
@@ -571,6 +582,11 @@ finish:
 	// get the raw text out of the parsee after parsing, and return it
 	return strippedString;
 }
+#if TARGET_OS_IPHONE
+// iOS code
+#else
+// OSX code
+
 + (NSS*) clipboard {
 	NSPasteboard *pasteboard 	= NSPasteboard.generalPasteboard;
 	NSArray *supportedTypes 	= @[NSStringPboardType];
@@ -584,6 +600,8 @@ finish:
 	// Above, we can say owner:nil since we are going to provide data immediately
 	[NSPBGENERAL setString:self  forType:NSStringPboardType];
 }
+#endif
+
 - (unichar)lastCharacter {  return [self characterAtIndex:self.length - 1]; }
 - (NSS*) substringToLastCharacter {
 	return [self substringToIndex:([self length] - 1)];
@@ -667,6 +685,11 @@ finish:
 	CFUUIDRef uuid = CFUUIDCreate(NULL);    CFStringRef identifier = CFUUIDCreateString(NULL, uuid);
 	CFRelease(uuid);                                                return CFBridgingRelease(identifier);
 }
+#if TARGET_OS_IPHONE
+// iOS code
+#else
+// OSX code
+
 //- (NSColor *)colorValue {	return [NSColor colorFromString:self]; }
 - (NSData *)colorData                   {
 	return [NSArchiver archivedDataWithRootObject:self];
@@ -674,6 +697,7 @@ finish:
 + (NSC*)colorFromData:(NSData*)theData  {
 	return [NSUnarchiver unarchiveObjectWithData:theData];
 }
+#endif
 
 //- _Void_ drawCenteredInRect:(CGRect)rect withFontNamed:(NSFont *)font
 //{
@@ -686,6 +710,12 @@ finish:
 //	[self drawCenteredInRect:textBounds withFont:font.fontName];
 //}
 //- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+
+#if TARGET_OS_IPHONE
+// iOS code
+#else
+// OSX code
+
 - _Void_ drawCenteredInRect:(NSR)rect withFont:(NSF *)font {
 	//- _Void_ drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
 	//	NSView *view = framer;
@@ -696,6 +726,7 @@ finish:
 	//								   size.width, size.height);
 	[string drawCenteredVerticallyInRect:rect];    // withFontNamed:font.fontName andColor:WHITE];//@{font:NSFontNameAttribute }];
 }
+#endif
 
 - _Void_ drawInRect:(NSRect)r withFont:(NSFont *)font andColor:(NSColor *)color {
 	[self drawInRect:r withFontNamed:font.fontName andColor:color];
@@ -714,16 +745,21 @@ finish:
 	NSAttributedString *s = [[NSAttributedString alloc]initWithString:self attributes:attrs];
 	return [s  size];
 }
-
-- (CGF)widthWithFont:(NSF *)font {
-	return [self sizeWithFont:font margin:NSMakeSize(font.pointSize / 2, font.pointSize / 2)].width;
-}
-
 - (NSR)frameWithFont:(NSF *)font {
   [NSException raise:@"you need AtoZGeomtry!" format:@""];
   return NSZeroRect;
 //	return AZRectFromSize([self sizeWithFont:font margin:NSMakeSize(font.pointSize / 2, font.pointSize / 2)]);
 }
+
+#if TARGET_OS_IPHONE
+// iOS code
+#else
+// OSX code
+
+- (CGF)widthWithFont:(NSF *)font {
+	return [self sizeWithFont:font margin:NSMakeSize(font.pointSize / 2, font.pointSize / 2)].width;
+}
+
 
 - _Void_ drawInRect:(NSRect)r withFontNamed:(NSS*) fontName andColor:(NSColor *)color {
 	NSMPS *paraAttr = [[NSMPS defaultParagraphStyle ] mutableCopy];
@@ -738,6 +774,7 @@ finish:
 	[drawingString drawInRect:r];
 }
 
+#endif
 //		NSMutableParagraphStyle *paraStyle = NSMutableParagraphStyle.new;
 ////		[paraStyle setParagraphStyle:	[NSParagraphStyle defaultParagraphStyle]];
 ////		[paraStyle setAlignment:		NSCenterTextAlignment];
@@ -791,7 +828,7 @@ finish:
 /*** Actually this should be called stringByReversingThisString, but that appeared to be too much sugar-free.  Reverse ist non-destructive */
 - (NSS*)reversed  {
 	NSMutableString *re = NSMutableString.string;
-	for (int i = self.length - 1; i >= 0; i--) {
+	for (NSUI i = self.length - 1; i >= 0; i--) {
 		[re appendString:[self substringWithRange:NSMakeRange(i, 1)]];
 	}
 	return re;
@@ -1047,6 +1084,10 @@ finish:
                                                                     }];
 }
 
+#if TARGET_OS_IPHONE
+// iOS code
+#else
+
 //This method creates an NSMutableAttributedString, using an NSString and an NSMutableParagraphStyle.
 - (NSMutableAttributedString *)attributedParagraphWithSpacing:(CGF)spacing {
 	NSMutableParagraphStyle *aMutableParagraphStyle;
@@ -1098,6 +1139,8 @@ finish:
 	//	[attString autorelease]; // since it was alloc'd
 	return attString;
 }
+// OSX code
+#endif
 
 //If your NSTextView already has attributed strings in its textStorage, you can get the NSParagraphStyle by:
 //aMutableParagraphStyle = [[myTextView typingAttributes]
@@ -1135,6 +1178,8 @@ finish:
 
   return [@(count).toArray reduce:@"".mC withBlock:^id(id sum, id obj) { return [sum appendString:self], sum; }];
 }
+#if !TARGET_OS_IPHONE
+
 - (NSS*) tidyHTML  {
 
 	NSXMLDocument *doc = [NSXMLDocument.alloc initWithXMLString:self options:NSXMLDocumentTidyHTML error:nil];
@@ -1143,7 +1188,7 @@ finish:
 	//Create a string from the NSData object you have
 	return [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
 }
-
+#endif
 // Method based on code obtained from:
 // http://www.thinkmac.co.uk/blog/2005/05/removing-entities-from-html-in-cocoa.html
 //
@@ -1453,6 +1498,8 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
  */
 
 @implementation NSMutableAttributedString (Additions)
+
+#if !TARGET_OS_IPHONE
 - _Void_ resizeTo:(CGFloat)size
 {
   [@(self.length) do:^(int idx) {
@@ -1463,6 +1510,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
                  range:NSMakeRange(idx, 1)];
   }];
 }
+#endif
 - _Void_ setFont:(NSFont*)font {
 
   [self addAttribute:NSFontAttributeName value:font range:self.string.range];
@@ -1488,29 +1536,30 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //  NSR rr = AZCornerRectPositionedWithSize(r, a, self.size);
 //  [self drawInRect:rr withContrastingBackground:c];
 }
-
+#if !TARGET_OS_IPHONE
 - _Void_ drawInRect:(NSR)r withBackground:(NSC*)c {
   [c set];
   NSRectFill(r);
 //  NSRectFillWithColor(r,c);
   [self drawInRect:r]; }
-
+#endif
 - _Void_ drawInRect:(NSR)r withContrastingBackground:(NSC*)c {
 
   [NSException raise:@"you need NSColor+AtoZ!" format:@""];
 
 //  NSC* contraster = [c contrastingForegroundColor], *mine = [self.attributes objectForKey:NSForegroundColorAttributeName];
-//  [!!mine && [mine isEqualTo:contraster] ? self
+//  [!!mine && [mine isEqual:contraster] ? self
 //                                         : [self stringBySettingAttributes:@{NSForegroundColorAttributeName:contraster}]
 //    drawInRect:r withBackground:c];
 }
-
+#if !TARGET_OS_IPHONE
 - _Void_ draw {
 
   [NSGC drawInContext:AZGRAPHICSCTX.graphicsPort flipped:YES actions:^{
     [self drawAtPoint:NSZeroPoint];
   }];
 }
+#endif
 - (NSMD*) attributes {
 
   __block NSMD* attr = NSMD.new;
@@ -1525,7 +1574,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
   [s setAttributes:[self.attributes dictionaryByAddingEntriesFromDictionary:attr] range:self.string.range];
   return s;
 }
-
+#if !TARGET_OS_IPHONE
 + (NSD*) defaults {
 
   AZSTATIC_OBJ(NSD, ds, @{ NSForegroundColorAttributeName:WHITE,
@@ -1534,7 +1583,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
                         })
   return ds;
 }
-
+#endif
 - (NSFont*) font { return [self.attributes objectForKey:NSFontAttributeName]; }
 
 @end
@@ -1542,6 +1591,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 
 @implementation NSAttributedString (Geometrics)
 
+#if !TARGET_OS_IPHONE
 int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 
 - (NSSize)sizeForWidth:(CGF)width height:(CGF)height {
@@ -1570,7 +1620,7 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 	}
 	return answer;
 }
-
+#endif
 - (CGF)heightForWidth:(CGF)width {
 	return [self sizeForWidth:width height:FLT_MAX].height;
 }
@@ -1744,7 +1794,7 @@ static NSString * SillyStringImplementation(id self, SEL _cmd, ...) {
 	return (__bridge NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""),
                                                                                        kCFStringEncodingUTF8);
 }
-
+#if !TARGET_OS_IPHONE
 static NSArray * _SpecialAbreviations() {
 	static NSArray *array = nil;
 	if (array == nil) {
@@ -2012,6 +2062,7 @@ static void _ScanSentence(NSScanner *scanner) {
 //	[s trimWhitespaceAndNewlineCharacters];
 //	return s.copy;
 //}
+#endif
 
 - (NSA*) sentences { return [self extractAllSentences]; }
 - (NSS*) firstSentence { return [self extractFirstSentence]; }
@@ -2413,8 +2464,10 @@ static void _ScanSentence(NSScanner *scanner) {
 	[attrTitle fixAttributesInRange:range];
 	return attrTitle;
 }
+
+#if !TARGET_OS_IPHONE
 - (NSC*)color {
-	int len = [self length];
+	NSUI len = [self length];
 	NSRange range = NSMakeRange(0, MIN(len, 1));     // take color from first char
 	NSDictionary *attrs = [self fontAttributesInRange:range];
 	NSColor *textColor = [NSColor controlTextColor];
@@ -2423,7 +2476,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	}
 	return textColor;
 }
-
+#endif
 @end
 
 @implementation NSString (IngredientsUtilities)
@@ -2478,6 +2531,7 @@ static void _ScanSentence(NSScanner *scanner) {
 			n++;
 	return n;
 }
+#if !TARGET_OS_IPHONE
 + (NSS*)stringWithKeyCode:			(NSInteger)keyCode	{
 	unichar key = keyCode & 0x0000FFFF;
 	unsigned int modifiers = keyCode & 0xFFFF0000;
@@ -2605,6 +2659,8 @@ static void _ScanSentence(NSScanner *scanner) {
 	NSLog(@"encodedKey = %@", encodedKey);
 	return encodedKey;
 }
+#endif
+
 + (NSS*)stringWithKeySequence:(NSA*)keySequence			{
 	NSMutableString *s = [NSMutableString string];
 	for (NSNumber *n in keySequence)
@@ -2629,7 +2685,7 @@ static void _ScanSentence(NSScanner *scanner) {
 	return [self isEqualToString:[self lowercaseString]] &&
 	![self isEqualToString:[self uppercaseString]];
 }
-
+#if !TARGET_OS_IPHONE
 /* Expands <special> to a nice visual representation.
  * Format of the <special> keys are:
  *   <^@r> => control-command-r (apple style)
@@ -2667,7 +2723,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 	return keyArray;
 }
-
+#endif
 @end
 
 //  NSString+HFExtension.m	  Handy Foundation  Created by venj on 13-2-19.
@@ -2897,6 +2953,7 @@ static void _ScanSentence(NSScanner *scanner) {
 - (BOOL)scanString:(NSS*)aString														{
 	return [self scanString:aString intoString:nil];
 }
+#if !TARGET_OS_IPHONE
 - (BOOL)scanKeyCode:(NSInteger *)intoKeyCode										{
 	[self setCharactersToBeSkipped:nil];
 
@@ -3028,11 +3085,13 @@ static void _ScanSentence(NSScanner *scanner) {
 		*intoKeyCode = ch;
 	return YES;
 }
+#endif
 - _Void_ skipWhitespace																	{
 	[self scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:nil];
 }
 @end
 @implementation NSString (Similiarity)
+#if !TARGET_OS_IPHONE
 float ScoreForSearchAsync(SKIndexRef inIndex, CFStringRef inQuery)		{
 	// Create search
 	SKSearchRef search = SKSearchCreate(inIndex, inQuery, kSKSearchOptionFindSimilar);
@@ -3101,6 +3160,7 @@ catch_error:
 
 	return outScore;
 }
+#endif
 @end
 
 
@@ -3507,21 +3567,21 @@ static NSMD* cache;
 
 - (NSS*) name { return
 
-  [self isEqualTo:self.class.controlCharacterSet]               ? @"controlCharacterSet" :
-  [self isEqualTo:self.class.whitespaceCharacterSet]            ? @"whitespaceCharacterSet" :
-  [self isEqualTo:self.class.whitespaceAndNewlineCharacterSet]  ? @"whitespaceAndNewlineCharacterSet" :
-  [self isEqualTo:self.class.decimalDigitCharacterSet]          ? @"decimalDigitCharacterSet" :
-  [self isEqualTo:self.class.letterCharacterSet]                ? @"letterCharacterSet" :
-  [self isEqualTo:self.class.lowercaseLetterCharacterSet]       ? @"lowercaseLetterCharacterSet" :
-  [self isEqualTo:self.class.uppercaseLetterCharacterSet]       ? @"uppercaseLetterCharacterSet" :
-  [self isEqualTo:self.class.nonBaseCharacterSet]               ? @"nonBaseCharacterSet" :
-  [self isEqualTo:self.class.alphanumericCharacterSet]          ? @"alphanumericCharacterSet" :
-  [self isEqualTo:self.class.decomposableCharacterSet]          ? @"decomposableCharacterSet" :
-  [self isEqualTo:self.class.illegalCharacterSet]               ? @"illegalCharacterSet" :
-  [self isEqualTo:self.class.punctuationCharacterSet]           ? @"punctuationCharacterSet" :
-  [self isEqualTo:self.class.capitalizedLetterCharacterSet]     ? @"capitalizedLetterCharacterSet" :
-  [self isEqualTo:self.class.symbolCharacterSet]                ? @"symbolCharacterSet" :
-  [self isEqualTo:self.class.newlineCharacterSet]               ? @"newlineCharacterSet" : nil;
+  [self isEqual:self.class.controlCharacterSet]               ? @"controlCharacterSet" :
+  [self isEqual:self.class.whitespaceCharacterSet]            ? @"whitespaceCharacterSet" :
+  [self isEqual:self.class.whitespaceAndNewlineCharacterSet]  ? @"whitespaceAndNewlineCharacterSet" :
+  [self isEqual:self.class.decimalDigitCharacterSet]          ? @"decimalDigitCharacterSet" :
+  [self isEqual:self.class.letterCharacterSet]                ? @"letterCharacterSet" :
+  [self isEqual:self.class.lowercaseLetterCharacterSet]       ? @"lowercaseLetterCharacterSet" :
+  [self isEqual:self.class.uppercaseLetterCharacterSet]       ? @"uppercaseLetterCharacterSet" :
+  [self isEqual:self.class.nonBaseCharacterSet]               ? @"nonBaseCharacterSet" :
+  [self isEqual:self.class.alphanumericCharacterSet]          ? @"alphanumericCharacterSet" :
+  [self isEqual:self.class.decomposableCharacterSet]          ? @"decomposableCharacterSet" :
+  [self isEqual:self.class.illegalCharacterSet]               ? @"illegalCharacterSet" :
+  [self isEqual:self.class.punctuationCharacterSet]           ? @"punctuationCharacterSet" :
+  [self isEqual:self.class.capitalizedLetterCharacterSet]     ? @"capitalizedLetterCharacterSet" :
+  [self isEqual:self.class.symbolCharacterSet]                ? @"symbolCharacterSet" :
+  [self isEqual:self.class.newlineCharacterSet]               ? @"newlineCharacterSet" : nil;
 }
 
 + (NSA*) alphanumericCharacters         { return [self.alphanumericCharacterSet arrayify]; }
@@ -3833,6 +3893,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 	return distances[stringLength][otherStringLength];
 }
 
+#include <sys/time.h>
 
 @implementation NSString (NSStringAdditions)
 

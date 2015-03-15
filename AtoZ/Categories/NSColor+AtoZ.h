@@ -50,11 +50,12 @@
 #define CHECKERS                       [NSC checkerboardWithFirstColor: BLACK secondColor: WHITE squareWidth:25]
 
 
-//GENERICSABLE(NSColor)
-
-@interface NSColor (AtoZ) <Random, ClassKeyGet>
-
+// GENERICSABLE(NSColor)
 // ClassKeyGet NSC.class[@"red"]
+
+
+@interface Colr (AtoZ) <Random, ClassKeyGet>
+
 
 
 @prop_RO  	BOOL	 isBoring,   isExciting,
@@ -159,16 +160,23 @@ typedef void(^colorFadeBlock)(NSC*c);
 
 @end
 
-@interface NSString (THColorConversion) @prop_RO NSC * colorValue;  @prop_RO DTA * colorData; + (NSC*) colorFromData:(DTA*)data;
+@interface NSString (THColorConversion)
+
+@prop_RO _Colr colorValue;
+@prop_RO _Data colorData;
+
++ _Colr_ colorFromData:_Data_ data;
+
 @end
 @interface NSArray (THColorConversion)  @prop_RO NSA * colorValues;
 @end
 
 @interface NSCoder (AGCoder)	 //(TDBindings)
-- (void) encode: me withKeys:(NSA*)ks;
-- (void) encode: me withKeysForProps:(NSD*)ksAndDs;
-- (void) decode: me withKeysForProps:(NSD*)ksAndDs;
-- (void) decode: me withKeys:(NSA*)ks;
+
+- (void) encode:x withKeysForProps:(NSD*)ksAndDs;
+- (void) decode:x withKeysForProps:(NSD*)ksAndDs;
+- (void) decode:x         withKeys:(NSA*)ks;
+- (void) encode:x         withKeys:(NSA*)ks;
 
 + (void) encodeColor:(CGCLRREF)cgC withCoder:(NSCoder*)e withKey:(NSS*)k;
 @end
@@ -238,13 +246,13 @@ JREnumDeclare(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, A
 #define Z_REF 	108.883f
 
 @interface NSColor (Utilities)
-+ (NSA*)calveticaPalette;                 // The Calvetica specific colors.
-- (NSC*)closestColorInCalveticaPalette;   // Determines which color in the Calvetica palette most closely matches the recipient color.
-- (NSC*)closestColorInPalette:(NSA*)pal;  // Determines which color in the array of colors most closely matches recipient color.
-- (CGF*)colorToLab;         // Converts the recipient UIColor to the L*a*b* color space.
-+ (CGF*)rgbToLab:(CGF*)rgb; // Converts a color from the RGB color space to the L*a*b* color space.
-+ (CGF*)rgbToXYZ:(CGF*)rgb; // Converts a color from the RGB color space to the XYZ color space.
-+ (CGF*)xyzToLab:(CGF*)xyz; // Coverts a color from the XYZ color space to the L*a*b* color space.
++ (NSA*) calveticaPalette;                 // The Calvetica specific colors.
+- (NSC*) closestColorInCalveticaPalette;   // Determines which color in the Calvetica palette most closely matches the recipient color.
+- (NSC*) closestColorInPalette:(NSA*)pal;  // Determines which color in the array of colors most closely matches recipient color.
+- (CGF*) colorToLab;         // Converts the recipient UIColor to the L*a*b* color space.
++ (CGF*) rgbToLab:(CGF*)rgb; // Converts a color from the RGB color space to the L*a*b* color space.
++ (CGF*) rgbToXYZ:(CGF*)rgb; // Converts a color from the RGB color space to the XYZ color space.
++ (CGF*) xyzToLab:(CGF*)xyz; // Coverts a color from the XYZ color space to the L*a*b* color space.
 @end
 
 @interface NSColor (AMAdditions)

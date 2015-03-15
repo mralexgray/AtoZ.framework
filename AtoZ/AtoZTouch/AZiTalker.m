@@ -6,15 +6,8 @@
 //  Copyright (c) 2015 mrgray.com, inc. All rights reserved.
 //
 
-#import "AZiTalker.h"
+#import <AtoZTouch/AtoZTouch.h>
 #import <AVFoundation/AVFoundation.h>
-
-void AtoZTouchWelcome() {
-
-  system("play /System/Library/CoreServices/AssistiveTouch.app/Drill.aiff");
-   NSLog(@"I'm here baby, get used to it");
-}
-
 
 @interface VSSpeechSynthesizer : NSObject
 @property(assign) id delegate;

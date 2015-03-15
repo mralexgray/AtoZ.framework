@@ -13,7 +13,6 @@
 #import "NSDate+AtoZ.h" 
 #import "NSError+AtoZ.h" 
 #import "NSEvent+AtoZ.h" 
-#import "NSFileManager+AtoZ.h" 
 #import "NSFont+AtoZ.h" 
 #import "NSImage-Tint.h" 
 #import "NSIndexSet+AtoZ.h"

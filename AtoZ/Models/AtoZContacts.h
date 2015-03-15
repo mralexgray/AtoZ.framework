@@ -21,6 +21,8 @@
                 * tel;
 @end
 
+@import AtoZUniversal;
+
 @interface AtoZContacts : AtoZSingleton <AZDataSource> - (id) find:_;
                               @end
 

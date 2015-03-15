@@ -1,9 +1,9 @@
 
 #import "Color+AtoZ.h"
 
-@implementation NSColor (AtoZ)
+@implementation UIColor (AtoZ)
 
-+ (NSC*) r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a {
++ (UIColor*) r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a {
 
 #if TARGET_OS_IPHONE
  return [self colorWithRed:r green:g blue:b alpha:a];

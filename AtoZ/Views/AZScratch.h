@@ -1970,3 +1970,177 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 @end
 
 */
+
+
+//DEBUG_INFORMATION_FORMAT = dwarf
+// GCC_FAST_OBJC_DISPATCH = YES
+
+
+
+
+
+// Whether function calls should be position-dependent (should always be disabled for library code)
+
+//CODE_SIGN_IDENTITY = MrGray.com
+
+//FRAMEWORK_SEARCH_PATHS = $(USER_FWKS) //"$HOME/Library/Frameworks" $(FRAMEWORK_SEARCH_PATHS)
+//LD_RUNPATH_SEARCH_PATHS = $(USER_FWKS)
+//HEADER_SEARCH_PATHS = $(AZBUILD)/include include /usr/local/include $(SDKROOT)/usr/include/libxml2
+
+// IBC_FLATTEN_NIBS = NO
+//$(AZBUILD) $(DEVELOPER_FRAMEWORKS_DIR)/../../Platforms/MacOSX.platform/Developer/Library/Frameworks $(LD_RUNPATH_SEARCH_PATHS)
+//LIBRARY_SEARCH_PATHS = /usr/local/lib $(LIBRARY_SEARCH_PATHS)
+//OTHER_LDFLAGS = $(inherited) -lXtrace -sub_library libXtrace
+//$(CODESIGNING_FOLDER_PATH)
+//" $(AZBUILD) // /Library/Frameworks"
+
+
+//GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES // NO
+//PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES // NO
+
+//GCC_PRECOMPILE_PREFIX_HEADER = YES
+
+
+// SYMROOT = /dd/AtoZ
+
+//DSTROOT = /
+
+
+
+
+// -Wno-absolute-value
+
+//-Wno-unused-getter-return-value
+
+// -Wincomplete-umbrella
+
+// STRIP_INSTALLED_PRODUCT = NO
+
+
+
+
+
+// $(DEVELOPER_FRAMEWORKS_DIR)
+//$(BUILT_PRODUCTS_DIR)/include $(inherited)
+//(BUILT_PRODUCTS_DIR)
+//CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO [NO]  // Whether to warn on implicit conversions between signed/unsigned types
+//CURRENT_PROJECT_VERSION = ${ATOZ_VERSION}
+//DSTROOT = /
+//FRAMEWORK_SEARCH_PATHS = $(BUILT_PRODUCTS_DIR)
+//GCC_CW_ASM_SYNTAX = NO
+//GCC_ENABLE_ASM_KEYWORD = NO
+//GCC_ENABLE_OBJC_EXCEPTIONS = YES [YES]
+//GCC_NO_COMMON_BLOCKS = YES
+//GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO // [NO]
+//INSTALL_PATH = /dd/AtoZ/Products/Debug
+//SKIP_INSTALL = YES
+
+
+//USE DEFINED
+
+//ONLY_LINK_ESSENTIAL_SYMBOLS = YES
+//ZERO_LINK = NO
+
+
+// $(HOME)/Library/Frameworks  $(AZBUILD)
+// -Wno-missing-prototypes -Wno-format-security -Wno-unused-variable -Wno-unused-function -Wno-conversion -Wno-unused-value	-Wno-newline-eof -Wno-ignored-attributes -Wno-objc-property-no-attribute -Wno-sign-compare // Disable GCC compatibility warnings
+// binaries).
+// disabled for library code)
+// Overrides Release.xcconfig when used at the target level.
+// should reenable -Wimplicit-retain-self
+// This file defines common settings that should be enabled for every new project. Typically, you want to use Debug, Release, or a similar variant instead.
+// Whether function calls should be position-dependent (should always be
+// Whether to strip debugging symbols when copying resources (like included
+//$(AZBUILD)/include $(HEADER_SEARCH_PATHS)
+//-fmodules
+//// -fobjc-arc
+//// -Wno-duplicate-method-arg
+//// Disable GCC compatibility warnings
+//// Disable legacy-compatible header searching
+//// Whether to generate debugging symbols
+////-no_compact_unwind
+////-ObjC -framework Cocoa -framework Foundation -framework QuartzCore -lSansNib
+////Alex Gray Xcode"
+////ALWAYS_SEARCH_USER_PATHS = YES //NO
+////HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) /usr/local/include
+////LIBRARY_SEARCH_PATHS = $(LIBRARY_SEARCH_PATHS) /usr/local/lib
+//ALWAYS_SEARCH_USER_PATHS = YES // Disable legacy-compatible header searching
+//ARCHS = $(ARCHS_STANDARD_32_64_BIT)
+//ATOZ_GENERAL_OTHER_CFLAGS = //-Wdiv-by-zero -Wbad-function-cast -Wnested-externs -Wold-style-definition
+//ATOZ_VERSION
+//CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = NO  // [NO] Whether to warn when a floating-point value is used as a loop counter
+//CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = NO  // [NO] Whether to warn about use of rand() and random() being used instead of arc4random()
+//CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = NO  // [NO]Whether to warn about strcpy() and strcat()
+//CLANG_ENABLE_MODULES = YES
+//CLANG_LINK_OBJC_RUNTIME = YES
+//CLANG_MODULES_AUTOLINK = YES
+//CLANG_WARN_CONSTANT_CONVERSION = NO  // [NO] Warn about implicit conversions of constant values that cause the constant value to change, either through a loss of precision, or entirely in its meaning.
+//CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO  //[NO]  Whether to warn when overriding deprecated methods
+//CLANG_WARN_ENUM_CONVERSION = NO  //[NO]  Warn about implicit conversions between different kinds of enum values. For example, this can catch issues when using the wrong enum flag as an argument to a function or method.
+//CLANG_WARN_INT_CONVERSION = NO  // [NO] Warn about implicit conversions between pointers and integers. For example, this can catch issues when one incorrectly intermixes using NSNumbers and raw integers.
+//CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = NO  //[NO]  Whether to warn on suspicious implicit conversions
+//DEBUG_INFORMATION_FORMAT = dwarf-with-dsym  // The format of debugging symbols
+//FRAMEWORK_SEARCH_PATHS = "$(HOME)/Library/Frameworks" $(SYSTEM_LIBRARY_DIR)/PrivateFrameworks
+//FRAMEWORK_SEARCH_PATHS = $(inherited) $(DEVELOPER_FRAMEWORKS_DIR) $(BUILT_PRODUCTS_DIR) /Volumes/4x4/DerivedData/PrecompiledFrameworks
+//GCC_C_LANGUAGE_STANDARD = gnu99
+//GCC_DYNAMIC_NO_PIC = NO  // [NO] Static libs can be included in bundles so make them position independent
+//GCC_ENABLE_OBJC_EXCEPTIONS = YES // [YES] Whether to enable exceptions for Objective-C
+//GCC_ENABLE_OBJC_GC = unsupported
+//GCC_GENERATE_DEBUGGING_SYMBOLS = YES
+//GCC_GENERATE_TEST_COVERAGE_FILES = NO [NO]
+//GCC_GENERATE_TEST_COVERAGE_FILES = NO
+//GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES
+//GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO
+//GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO
+//GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO [NO]
+//GCC_MODEL_TUNING = G5
+//GCC_OPTIMIZATION_LEVEL = s
+
+//GCC_PRECOMPILE_PREFIX_HEADER = YES
+//GCC_PRECOMPILE_PREFIX_HEADER = NO // Whether to precompile the prefix header (if one is specified)
+//GCC_PREPROCESSOR_DEFINITIONS = DEBUG =1 $(inherited)
+//GCC_STRICT_ALIASING = YES // [YES] Whether to enable strict aliasing, meaning that two pointers of different types (other than void * or any id type) cannot point to the same memory  location
+//GCC_SYMBOLS_PRIVATE_EXTERN = NO  // [NO] Whether symbols not ex plicitly exported are hidden by default (this primarily only affects C++ code)Ïcurses
+//GCC_THREADSAFE_STATICS = NO
+//GCC_THREADSAFE_STATICS = YES // [YES] Whether static variables are thread-safe by default
+//GCC_TREAT_WARNINGS_AS_ERRORS = NO  // [NO] Whether warnings are treated as errors
+//GCC_UNROLL_LOOPS = NO
+//GCC_VERSION = com.apple.compilers.llvmgcc42
+//GCC_VERSION = com.apple.compilers.llvm.clang.1_0 // Which compiler to use
+//GCC_WARN_64_TO_32_BIT_CONVERSION = NO  //[NO]  Whether to warn about 64-bit values being implicitly shortened to 32 bits
+//GCC_WARN_ABOUT_MISSING_NEWLINE = YES
+//GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES
+//GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO  //[NO]  Whether to warn about missing function prototypes
+//GCC_WARN_ABOUT_POINTER_SIGNEDNESS = NO  //[NO]  Whether to warn about implicit conversions in the signedness of the type a pointer is pointing to (e.g., 'int *' getting converted to 'unsigned int *')
+//GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = YES // [YES] Whether to warn on a class not implementing all the required methods of a protocol it declares conformance to
+//GCC_WARN_CHECK_SWITCH_STATEMENTS = YES
+//GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO  // [NO] Whether to warn about the use of four-character constants
+//GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = NO  // [NO] Whether to warn about an aggregate data type's initializer not being fully bracketed (e.g., array initializer syntax)
+//GCC_WARN_MISSING_PARENTHESES = YES
+//GCC_WARN_SIGN_COMPARE = YES
+//GCC_WARN_SIGN_COMPARE = NO  // [NO] Whether to warn about unsafe comparisons between values of different signedness
+//GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES  // [YES] Whether to warn about the arguments to printf-style functions not matching the format specifiers
+//GCC_WARN_UNUSED_FUNCTION = NO  // [NO] Whether to warn about static functions that are unused
+//GCC_WARN_UNUSED_PARAMETER = NO[NO]
+//HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(BUILT_PRODUCTS_DIR)/include "$(SDKROOT)/usr/include/libxml2/**" /usr/include/libxml2 /usr/local/include
+//LD_RUNPATH_SEARCH_PATHS = $(AZBUILD)
+//LIBRARY_SEARCH_PATHS = $(SDKROOT)/usr/lib $(BUILT_PRODUCTS_DIR)
+//LLVM_LTO = NO
+//LLVM_VECTORIZE_LOOPS = NO
+//OTHER_CFLAGS = $(OTHER_CFLAGS) -fmodules-prune-interval =30
+//OTHER_CFLAGS = $(OTHER_CFLAGS) -fobjc-arc -Wno-auto-import
+//OTHER_CFLAGS = $(inherited) $(ATOZ_GENERAL_OTHER_CFLAGS)
+//OTHER_CFLAGS = $(OTHER_CFLAGS) -fmodules-cache-path ="$(AZBUILD)/../../AtoZModulesCache"
+//OTHER_LDFLAGS = $(OTHER_LDFLAGS)  //  -fmodules
+//PREBINDING = NO
+//PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO
+//PRODUCT_NAME = AtoZ
+//RUN_CLANG_STATIC_ANALYZER = NO// [NO] Whether to run the static analyzer with every build
+//SDKROOT = macosx10.9
+//STRIP_STYLE = debugging // Static libs should not have their internal globals or external symbols stripped.
+//TEST_AFTER_BUILD = NO// Whether to run unit tests with every build
+//USER_HEADER_SEARCH_PATHS = $(USER_HEADER_SEARCH_PATHS) $(SDKROOT)/usr/include/libxml2/** $(BUILT_PRODUCTS_DIR)/include /usr/include/libxml2 /usr/local/include
+//USER_HEADER_SEARCH_PATHS = $(USER_HEADER_SEARCH_PATHS) $(SDKROOT)/usr/include/libxml2  // $(BUILT_PRODUCTS_DIR)/include"
+//WARNING_CFLAGS = -Wmost -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wmissing-format-attribute -Wpointer-arith -Wwrite-strings -Wno-format-y2k -Wno-unused-parameter -Wbad-function-cast -Wmissing-declarations -Wnested-externs
+//WARNING_CFLAGS = $(WARNING_CFLAGS) -Wno-four-char-constants -Wno-protocol -Wno-format-security -Wno-unused-variable -Wno-unused-function -Wno-conversion	-Wno-gcc-compat	-Wno-unused-value	-Wno-newline-eof -Wno-ignored-attributes -Wno-selector	 -Wno-objc-property-no-attribute	-Wno-sign-compare
+//ATOZ_VERSION = 0.0.1

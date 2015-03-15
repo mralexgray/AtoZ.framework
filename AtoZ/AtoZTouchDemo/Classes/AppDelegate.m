@@ -7,13 +7,11 @@
 //
 
 #import "RootViewController.h"
+@import AtoZTouch;
 
-@interface AppDelegate : NSObject <UIApplicationDelegate> {
-	
-	UIWindow *window;
-}
 
-@property (nonatomic, retain) UIWindow *window;
+@interface AppDelegate : NSObject <UIApplicationDelegate>
+@property (nonatomic) UIWindow *window;
 
 @end
 
@@ -24,35 +22,23 @@
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
-{    
-	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	RootViewController *rootViewController = [[RootViewController alloc] initWithStyle:UITableViewStylePlain];
-	UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:rootViewController] autorelease];
+{
+
+  AtoZTouchWelcome();
+  printf("Hay %lu applications!\n", AZApplicationList.sharedApplicationList.applications.allKeys.count);
+
+	window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
+	RootViewController *rootViewController = [RootViewController.alloc initWithStyle:UITableViewStylePlain];
+	UINavigationController *navigationController = [UINavigationController.alloc initWithRootViewController:rootViewController];
 	window.rootViewController = navigationController;
 	[window makeKeyAndVisible];
 	return YES;
 }
 
-- (void)applicationWillTerminate:(UIApplication *) application
-{
-	
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *) application
-{
-	
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *) application
-{
-		
-}
-
-- (void)dealloc 
-{
-	[window release];
-	[super dealloc];
-}
-
 
 @end
+
+int main(int argc, char *argv[]) { 
+
+  return UIApplicationMain(argc, argv, nil, @"AppDelegate");
+}

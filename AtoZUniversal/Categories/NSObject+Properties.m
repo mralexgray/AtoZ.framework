@@ -1,8 +1,8 @@
 
 
-@import FunSize; // maptoDictionary
 
 #import <AtoZUniversal/AtoZUniversal.h>
+@import FunSize; // maptoDictionary
 
        SEL	          property_getGetter (objc_property_t property) {
 	const char *attrs = property_getAttributes( property );
@@ -84,7 +84,13 @@ const char * property_getRetentionMethod (objc_property_t property) {
 
 - (INST)    objectBySettingValuesWithDictionary:(NSD*)d   { [self sVs:d.allValues fKs:d.allKeys]; return self; }
 - (INST) objectBySettingValues:(NSA*)vs forKeys:(NSA*)ks  { [self sVs:vs fKs:ks];                 return self; }
-- (INST)  objectBySettingValue: v     forKey:(NSS*)k   { if ([self canSetValueForKey:k]) [self sV:v fK:k]; else self[k] = v; return self; }
+- (INST)  objectBySettingValue: v     forKey:(NSS*)k   {
+
+  if ([self canSetValueForKey:k]) [self sV:v fK:k];
+  else [self respondsToStringThenDo:@"setObject:forKey:" withObject:k withObject:v];
+
+  return self;
+}
 
 - _Void_         incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
 - (INST) objectByIncrementing:(NSS*)k by:(NSN*)v { [self incrementKey:k by:v]; return self; }

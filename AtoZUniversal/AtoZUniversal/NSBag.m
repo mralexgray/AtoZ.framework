@@ -75,6 +75,6 @@
 	return b;
 }
 
-- (NSS*) description { return $(@"NSBag with %lu objects (%lu unique)", self.objects.count, self.uniqueObjects.count);  /* return dict.description; */ }
+- (NSS*) description { return $(@"NSBag with %lu objects (%lu unique)", (unsigned long)self.objects.count, (unsigned long)self.uniqueObjects.count);  /* return dict.description; */ }
 
 @end

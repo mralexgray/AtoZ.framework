@@ -331,3 +331,6 @@
 [submodule "AtoZUniversal/BaseModel"]
 	path = AtoZUniversal/BaseModel
 	url = https://github.com/mralexgray/BaseModel.git
+[submodule "AtoZUniversal/Modules/_ObjC"]
+	path = _ObjC
+	url = https://github.com/mralexgray/_ObjC.git

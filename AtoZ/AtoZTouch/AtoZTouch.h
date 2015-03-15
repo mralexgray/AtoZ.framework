@@ -12,7 +12,7 @@
 
 #pragma mark - IOS UI
 
-@import UIKit;
+@import AtoZIO;
 
 #import <AtoZTouch/UITableView+AtoZ.h>
 
@@ -23,3 +23,11 @@
 
 #import <AtoZTouch/AZiTalker.h>
 #import <AtoZTouch/GoogleTTS.h>
+
+extern void AtoZTouchWelcome();
+
+_IFCE AtoZTouch : NObj _FINI
+
+
+
+

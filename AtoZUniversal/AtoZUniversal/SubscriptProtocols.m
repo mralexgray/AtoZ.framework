@@ -32,11 +32,11 @@
 
 @implementation NSObject (KeySub)
 
-- _Void_ setObject:x forKeyedSubscript:(CopyObject)k { [self setValue:x forKey:(id)k]; }
+- _Void_ setObject:x forKeyedSubscript: _Copy_ k { [self setValue:x forKey:(id)k]; }
 
 - objectForKeyedSubscript:x { return [self valueForKey:x]; }
 
-+ objectForKeyedSubscript:(CopyObject)x { NSUInteger loc = [(id)x rangeOfString:@"."].location;
++ objectForKeyedSubscript: _Copy_ x { NSUInteger loc = [(id)x rangeOfString:@"."].location;
 
   NSString *path = loc == NSNotFound ? nil : [(id)x substringFromIndex:loc+1],
             *sel = path ? [(id)x substringToIndex:loc] : (id)x;
@@ -60,7 +60,7 @@
 
 @implementation NSUserDefaults (SubscriptAndUnescape)
 
-- objectForKeyedSubscript:(CopyObject)k{ id obj = [self oFK:(id)k];
+- objectForKeyedSubscript: _Copy_ k{ id obj = [self oFK:(id)k];
 
   return ISA(obj,NSS) && [obj hasPrefix:@"\\"] ? [obj substringFromIndex:1] : obj;
 }

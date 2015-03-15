@@ -1,9 +1,9 @@
 
 
-#import "AtoZUniversal.h"
+@import UIKit;
 
-@interface NSColor (AtoZ)
+@interface UIColor (AtoZ)
 
-+ (NSC*) r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a;
++ (UIColor*) r:(CGFloat)r g:(CGFloat)g b:(CGFloat)b a:(CGFloat)a;
 
 @end

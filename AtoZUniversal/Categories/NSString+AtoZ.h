@@ -1,5 +1,12 @@
 
 
+#import <AtoZUniversal/AtoZMacroDefines.h>
+
+@interface NSAttributedString (NTExtensions)
+
++ (INST) stringWithString:_Text_ inString attributes:_Dict_ attributes;
+
+@end
 
 /// @see NSString-Utilities.h in CocoaTechCore!!
 
@@ -140,18 +147,18 @@
 
 AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 
-- (NSSZ)sizeWithFont:(NSFont*)font;
-- (NSSZ)sizeWithFont:(NSFont*)font margin:(NSSZ)size;
+- _Size_ sizeWithFont: _Font_ font;
+- _Size_ sizeWithFont: _Font_ font margin: _Size_ size;
 
-- (CGF)widthWithFont:(NSF *)font;
-- (NSR)frameWithFont:(NSF *)font;
+- (CGF)widthWithFont: _Font_ font;
+- (NSR)frameWithFont: _Font_ font;
 
 //@prop_RO NSC *colorValue;
-- _Void_ drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor:(NSC *)color;
+- _Void_ drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor: _Colr_ color;
 // new way
-- _Void_ drawInRect:(NSR)r withFont:(NSFont *)font andColor:(NSC *)color;
+- _Void_ drawInRect:(NSR)r withFont: _Font_ font andColor: _Colr_ color;
 //- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
-- _Void_ drawCenteredInRect:(NSR)rect withFont:(NSF *)font;
+- _Void_ drawCenteredInRect:(NSR)rect withFont: _Font_ font;
 
 @prop_RO	NSS * trim,				/*** Returns the string cleaned from leading and trailing whitespaces */
 							 * reversed,		/*** Returns the reverse version of the string */
@@ -966,14 +973,14 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 - (NSS*) IRCHostname;
 - (NSS*) IRCRealname;
 - (BOOL) isMatchedByRegex:(NSS*) regex;
-- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(NSERR*__autoreleasing*) error;
+- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(_Errr __autoreleasing*) error;
 - (NSRange) rangeOfRegex:(NSS*) regex inRange:(NSRange) range;
-- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSERR*__autoreleasing*) error;
+- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(_Errr __autoreleasing*) error;
 - (NSS*) stringByMatching:(NSS*) regex capture:(NSInteger) capture;
-- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(NSERR*__autoreleasing*) error;
-- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(NSERR*__autoreleasing*) error;
+- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(_Errr __autoreleasing*) error;
+- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(_Errr __autoreleasing*) error;
 - (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement;
-- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(NSERR*__autoreleasing*) error;
+- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(_Errr __autoreleasing*) error;
 - (NSUInteger) levenshteinDistanceFromString:(NSS*) string;
 @end
 

@@ -287,10 +287,11 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x { for (id z in x) [self addObj
 //  return t;
 //}
 
-- (NSS*) joinedBy:(NSS*)x { return [self  componentsJoinedByString:x]; }
+-  (NSS*) joinedBy:(NSS*)x { return [self  componentsJoinedByString:x]; }
 -  (NSS*) joinedByNewlines { return [self componentsJoinedByString: zNL]; }
 -  (NSS*) joinedWithSpaces { return [self componentsJoinedByString:zSPC]; }
--  (NSS*) componentString  { return [self componentsJoinedByString:zNIL]; }
+-  (NSS*) joined  { return [self componentsJoinedByString:zNIL]; }
+
 -    (id) assertedValueAtIndex:(NSUI)idx isKindOf:(Class)k {
 	id x = self[idx];
 	if (![x ISKINDA:k] && [x respondsToSelector:@selector(mutableCopy)])	x = [x mutableCopy];
@@ -465,12 +466,13 @@ NSA* SortersForKeysAsc(NSString*sort, BOOL order, ...) {
 //}
 
 - _Void_ logEach                  {
-  [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"Index %ld: %@", idx, obj);  }];
+  [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"Index %ld: %@", (long)idx, obj);  }];
 }
 + (NSA*) arrayFromPlist:(NSS*) path {
-  return [NSPropertyListSerialization propertyListFromData:
-          [NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable
-                                                    format:nil errorDescription:nil];
+  return [NSPropertyListSerialization propertyListWithData:
+          [NSData dataWithContentsOfFile:path] options:NSPropertyListImmutable format:nil error:nil];
+          //  mutabilityOption:NSPropertyListImmutable
+//                                                     format:nil  errorDescription:nil];
 }
 - _Void_ saveToPlistAtPath:(NSS*) path {
   //	[HRCoder archiveRootObject:self toFile:path];
@@ -925,15 +927,14 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 
 
-
 - _Void_ eachWithVariadicPairs:(void(^)(id a, id b))pairs {
   NSA* split = self.splitByParity;
   NSA* valsA = split[0], *valsB = split[1];
   [valsA eachWithIndex:^(id obj, NSI idx) {  pairs(obj, valsB[idx]); }];
 }
 - (NSA*) pairedWith:(NSA*)pairs {
-  NSParameterAssert(self.count);
-  NSParameterAssert(pairs.count);
+//  NSParameterAssert(self.count);
+//  NSParameterAssert(pairs.count);
   NSAssert(self.count == pairs.count, @"Arrays must by of equzl count!");
   return [self reduce:@[].mutableCopy with:^id(id sum, id obj, NSUI idx) {
     [sum addObject:@[obj,pairs[idx]]];
@@ -1705,6 +1706,8 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 #include <assert.h>
 #include <SystemConfiguration/SystemConfiguration.h>
 
+#if !TARGET_OS_IPHONE 
+
 static NSString* _AZCurrentUser;
 static NSUI _AZCurrentUserID;
 
@@ -1727,6 +1730,8 @@ void(^fillInTheBlanks)() = ^{
 
 NSUI   AZCurrentUserID() { return _AZCurrentUserID ? _AZCurrentUserID : (uid_t)(fillInTheBlanks(),_AZCurrentUserID); } // (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUserID); }
  NSS *   AZCurrentUser() { return   _AZCurrentUser ? _AZCurrentUser : (NSS*)(fillInTheBlanks(),_AZCurrentUser); }// (dispatch_sync(dispatch_get_main_queue(), fillInTheBlanks), _AZCurrentUser); }
+
+#endif
 
 NSS * AZReadStdin () { NSFileHandle *input = NSFileHandle.fileHandleWithStandardInput;  NSData *inData = input.availableData;
 	return [[NSS stringWithUTF8Data:inData] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
