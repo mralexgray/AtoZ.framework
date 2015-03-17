@@ -35,6 +35,7 @@
 #import <AtoZUniversal/NSObject+AtoZ.h>
 #import <AtoZUniversal/NSObject+Properties.h>
 #import <AtoZUniversal/NSBundle+AtoZ.h>
+#import <AtoZUniversal/NSImage+AtoZ.h>
 
 #if TARGET_OS_IPHONE
 

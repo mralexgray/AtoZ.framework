@@ -74,7 +74,7 @@
 		7BBD2D851AA7536A00CD9477 /* EXTSynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D801AA7536A00CD9477 /* EXTSynthesize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D861AA7536A00CD9477 /* NSMethodSignature+EXT.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D811AA7536A00CD9477 /* NSMethodSignature+EXT.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D871AA7536A00CD9477 /* NSMethodSignature+EXT.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD2D821AA7536A00CD9477 /* NSMethodSignature+EXT.m */; };
-		7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */; };
+		7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD3CAE31AB8350A00E05319 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */; };
 		7BD522BD1AB6B7BB00FC79DF /* _ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD522B51AB6B74700FC79DF /* _ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE12B661AA917DC001AF7CE /* NSBundle+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE12B641AA917DC001AF7CE /* NSBundle+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
