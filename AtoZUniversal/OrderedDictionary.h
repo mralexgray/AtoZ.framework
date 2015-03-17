@@ -40,9 +40,9 @@
 @interface OrderedDictionary : NSDictionary
 
 /** Returns the nth key in the dictionary. */
-- (id)keyAtIndex:(NSUInteger)index;
+- keyAtIndex:(NSUInteger)index;
 /** Returns the nth object in the dictionary. */
-- (id)objectAtIndex:(NSUInteger)index;
+- objectAtIndex:(NSUInteger)index;
 /** Returns an enumerator for backwards traversal of the dictionary keys. */
 - (NSEnumerator *)reverseKeyEnumerator;
 /** Returns an enumerator for backwards traversal of the dictionary objects. */
@@ -50,7 +50,7 @@
 /** Enumerates keys ands objects with index using block. */
 - (void)enumerateKeysAndObjectsWithIndexUsingBlock:(void (^)(id key, id obj, NSUInteger idx, BOOL *stop))block;
 /** Indexed Subscript */
-//- (id) objectAtIndexedSubscript:(NSUInteger)idx; // TODO FIX
+//- objectAtIndexedSubscript:(NSUInteger)idx; // TODO FIX
 @end
 
 
@@ -65,7 +65,7 @@
 @interface MutableOrderedDictionary : OrderedDictionary
 
 + dictionaryWithCapacity:(NSUInteger)count;
-- (id)initWithCapacity:(NSUInteger)count;
+- initWithCapacity:(NSUInteger)count;
 
 - (void)addEntriesFromDictionary:(NSDictionary *)otherDictionary;
 - (void)removeAllObjects;

@@ -4,8 +4,8 @@
 
   #ifdef __OBJC__
 
-    #import <_ObjC.h>
-
+    #import <AtoZUniversal/_ObjC.h>
+    
     #import <AtoZUniversal/metamacros.h>
     #import <AtoZUniversal/AtoZMacroDefines.h>
     #import <AtoZUniversal/JREnum.h>

@@ -4,7 +4,6 @@
 
 #import <AtoZ/AtoZ.h>
 #import "DSSyntaxTextView.h"
-#import "DSObjectiveCSyntaxDefinition.h"
 
 @implementation DSSyntaxTextView
 

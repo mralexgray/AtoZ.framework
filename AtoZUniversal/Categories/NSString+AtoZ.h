@@ -13,18 +13,17 @@
 @class AZDefinition;
 @interface NSString (AtoZ)
 
-
-@prop_RO Class classified;
+_RO Class classified;
 
 + _List_ alphabet;
 + _List_ digits;
 + _List_ lettersAndNumbers; /// A-Z + 1-9
 
-@prop_RO  BOOL    isInteger,
-                  isValidURL;
+_RO  _IsIt    isInteger,
+             isValidURL;
 
-@prop_   NSRNG	  subRange;
-@prop_RO NSRNG    range;
+_P   _Rnge	  subRange;
+_RO _Rnge    range;
 
 - _Void_ openInTextMate;
 
@@ -124,8 +123,6 @@
 - _Text_ paddedRightTo: _UInt_ ct;
 - _UInt_ longestWordLength;
 
-+ _Text_ clipboard;
-- _Void_ copyToClipboard;
 
 - _Text_ withExtIfMissing:(NSS*)ext;
 
@@ -147,18 +144,6 @@
 
 AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 
-- _Size_ sizeWithFont: _Font_ font;
-- _Size_ sizeWithFont: _Font_ font margin: _Size_ size;
-
-- (CGF)widthWithFont: _Font_ font;
-- (NSR)frameWithFont: _Font_ font;
-
-//@prop_RO NSC *colorValue;
-- _Void_ drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor: _Colr_ color;
-// new way
-- _Void_ drawInRect:(NSR)r withFont: _Font_ font andColor: _Colr_ color;
-//- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
-- _Void_ drawCenteredInRect:(NSR)rect withFont: _Font_ font;
 
 @prop_RO	NSS * trim,				/*** Returns the string cleaned from leading and trailing whitespaces */
 							 * reversed,		/*** Returns the reverse version of the string */
@@ -241,12 +226,31 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 - _Text_ truncateInMiddleForWidth:(CGF)overall;
 - _Text_ truncateInMiddleToCharacters:(NSUI)chars;
 
+#if MAC_ONLY
++ _Text_ clipboard;
+- _Void_ copyToClipboard;
+
+- _Size_ sizeWithFont: _Font_ font;
+- _Size_ sizeWithFont: _Font_ font margin: _Size_ size;
+
+- (CGF)widthWithFont: _Font_ font;
+- (NSR)frameWithFont: _Font_ font;
+
+//@prop_RO NSC *colorValue;
+- _Void_ drawInRect:(NSR)r withFontNamed:(NSS*) fontName andColor: _Colr_ color;
+// new way
+- _Void_ drawInRect:(NSR)r withFont: _Font_ font andColor: _Colr_ color;
+//- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
+- _Void_ drawCenteredInRect:(NSR)rect withFont: _Font_ font;
+
+#endif
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
 NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float wid, NSLineBreakMode truncateMode);
 
-@interface NSMutableString (AtoZ)
 
+
+@interface NSMutableString (AtoZ)
 @prop_RC _Text shift, pop;
 
 - _IsIt_ removePrefix:(NSS*)prefix;
@@ -268,20 +272,23 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 @end
 */
 
-@interface NSMutableAttributedString (AtoZ)
-- _Void_ resizeTo:(CGFloat)size;
+@Kind NSMutableAttributedString (AtoZ)
+- _Void_ resizeTo:_Flot_ size;
 - _Void_ setFont:(NSFont*)f;
-@end
-@interface NSAttributedString (AtoZ)
+@Stop
+
+@Kind NSAttributedString (AtoZ)
 @prop_RO NSRNG range;
-- (CGF) pointSizeForSize:(NSSZ)z;
-- _Void_ drawInRect:(NSR)r withBackground:(NSC*)c;
-- _Void_ drawInRect:(NSR)r withContrastingBackground:(NSC*)c;
-- _Void_ drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c;
+- _Flot_ pointSizeForSize:_Size_ z;
+- _Void_ drawInRect:_Rect_ r withBackground:_Colr_ c;
+- _Void_ drawInRect:_Rect_ r withContrastingBackground:_Colr_ c;
+- _Void_ drawInRect:_Rect_ r aligned:(AZA)a bgC:_Colr_ c;
 - _Void_ draw;
-@prop_RO NSFont *font;
-@prop_RO NSMD* attributes;
-+ (NSD*) defaults;
+
+@prop_RO NSFont * font;
+@prop_RO   NSMD * attributes;
+
++ _Dict_ defaults;
 - (NSAS*) stringBySettingAttributes:(NSD*)attr;
 @end
 
@@ -950,7 +957,7 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 
 @interface NSString (NSStringAdditions)
 + (NSS*) locallyUniqueString;
-- (id) initWithChatData:(NSData *) data encoding:(NSStringEncoding) encoding;
+- initWithChatData:(NSData *) data encoding:(NSStringEncoding) encoding;
 - (BOOL) isCaseInsensitiveEqualToString:(NSS*) string;
 - (BOOL) hasCaseInsensitivePrefix:(NSS*) prefix;
 - (BOOL) hasCaseInsensitiveSuffix:(NSS*) suffix;

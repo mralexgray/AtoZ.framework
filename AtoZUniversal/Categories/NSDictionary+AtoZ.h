@@ -12,15 +12,15 @@
 
 //+ (instancetype) dictWithSortedDict:(NSD*)dict byValues:(BOOL)byV;
 
-//- (id)objectForKey: aKey;
+//-- objectForKey: aKey;
 
-- (id)objectAtIndexedSubscript:(NSUInteger)idx;
+- objectAtIndexedSubscript:(NSUInteger)idx;
 - _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx;
 - _Void_ setObject: obj forKeyedSubscript:(id <NSCopying>)key;
-- (id)objectForKeyedSubscript: key;
+- objectForKeyedSubscript: key;
 
 - _Void_ insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
-- (id)keyAtIndex:(NSUInteger)anIndex;
+- keyAtIndex:(NSUInteger)anIndex;
 
 @end
 
@@ -75,15 +75,15 @@
 } */
 
 @interface NSDictionary (objectForKeyList)
-- (id)objectForKeyList: key, ...;
+- objectForKeyList: key, ...;
 
-- (id)objectMatching: match forKeyorKeyPath: kp;
+- objectMatching: match forKeyorKeyPath: kp;
 @end
 //	syntax of path similar to Java: record.array[N].item
 //	items are separated by . and array indices in []
 //	example: a.b[N][M].c.d
 @interface  NSMutableDictionary (GetObjectForKeyPath)
-- (id)objectForKeyPath:(NSS*)inKeyPath;
+- objectForKeyPath:(NSS*)inKeyPath;
 -(void)setObject: inValue forKeyPath:(NSS*)inKeyPath;
 @end
 
@@ -119,8 +119,8 @@
 */
 //http://funwithobjc.tumblr.com/post/1527111790/defining-custom-key-path-operators
 @interface NSDictionary (CustomKVCOperator)
-- (id) _allValuesForKeyPath:(NSS*)keyPath;
-- (id) _allKeysForKeyPath:(NSS*)keyPath;
+- _allValuesForKeyPath:(NSS*)keyPath;
+- _allKeysForKeyPath:(NSS*)keyPath;
 @end
 
 
@@ -163,7 +163,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 @end
 
 @interface  NSArray (FindDictionary)
-- (id)findDictionaryWithValue: value;
+- findDictionaryWithValue: value;
 @end
 
 
@@ -173,7 +173,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (NSD*)dictionaryWithObject: anObj forKey:(NSS*)key;
 //- (NSD*)dictionaryByAddingObjectsFromDictionary:(NSD*)otherDictionary;
 
-- (id)anyObject;
+- anyObject;
 - (NSS*)keyForObjectEqualTo: anObj;
 
 - (NSS*)stringForKey:(NSS*)key defaultValue:(NSS*)defaultValue;
@@ -211,7 +211,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 - (unsigned long long int)unsignedLongLongForKey:(NSS*)key defaultValue:(unsigned long long int)defaultValue;
 - (unsigned long long int)unsignedLongLongForKey:(NSS*)key;
 	// This seems more convenient than having to write your own if statement a zillion times
-//- (id)objectForKey:(NSS*)key defaultObject: defaultObject;
+//-- objectForKey:(NSS*)key defaultObject: defaultObject;
 
 //- (NSMutableDictionary *)deepMutableCopy;// NS_RETURNS_RETAINED;
 
@@ -230,7 +230,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
  @details  Returns nil if there is more than one member with
  the highest count (a "tie").&nbsp;  Also returns nil if
  the receiver is empty.	*/
-- (id)winner  ;
+- winner  ;
 @end
 
 //@interface NSArray (Subdictionaries)
@@ -328,7 +328,7 @@ typedef void(^KeyValueIteratorBlock)(id key, id obj);
 
 //@interface OrderedDictionary : NSMutableDictionary
 //- _Void_ insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
-//- (id)keyAtIndex:(NSUInteger)anIndex;
+//-- keyAtIndex:(NSUInteger)anIndex;
 //- (NSEnumerator *)reverseKeyEnumerator;
 //@end
 

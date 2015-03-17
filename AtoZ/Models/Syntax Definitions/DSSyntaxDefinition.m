@@ -194,7 +194,108 @@ NSString *const kDSDSLKeywordSyntaxType = @"DSLKeyword";
 
 
 
+@implementation DSObjectiveCSyntaxDefinition
+
++ (NSString*) name { return @"Objective-C"; }
+
++ (NSArray*) extensions { return @[ @"h", @"m" ]; }
+
+- init { SUPERINIT;
+
+  self.keywords = @[
+  @"id",
+  @"nil",
+  @"self",
+  @"void",
+  @"@implementation",
+  @"@interface",
+  @"@end",
+  @"__block"
+  ];
+
+  self.delimiters = @[
+  @[ @"{", @"}" ],
+  @[ @"[", @"]" ],
+  @[ @"@{", @"}" ],
+  @[ @"@[", @"]" ],
+  ];
+
+  self.commentPattern = @[@"//.*?\n"];
+
+  return self;
+}
+
+@end
+
+@implementation DSPodspecSyntaxDefinition
+
++ (NSString *)name {
+  return @"Podspec";
+}
+
++ (NSArray *)extensions {
+  return @[ @"podspec" ];
+}
+
+
+@end
 
 
 
 
+
+@implementation DSPodfileSyntaxDefinition
+
++ (NSString *)name {
+  return @"Podfile";
+}
+
+- init { return self = super.init ? [self setDSLKeywords:@[ @"pod", @"platform", @"ios", @"osx",
+    @"inhibit_all_warnings!", @"post_install", @"podspec" ]], self : nil;;
+}
+
+@end
+
+/** 
+ TODO:
+ - string interpolation
+ - here docs
+ - %q, %w formats
+ */
+
+@implementation DSRubySyntaxDefinition
+
++ (NSString *)name {
+  return @"Ruby";
+}
+
++ (NSArray *)extensions {
+  return @[ @"rb" ];
+}
+
+- init {
+  return self = super.init ?
+
+
+    [self setKeywords: @[
+    @"BEGIN", @"END", @"alias", @"and", @"begin", @"break", @"case", @"class",
+    @"def", @"defined", @"do", @"else", @"elsif", @"end", @"ensure", @"false",
+    @"for", @"in", @"module", @"next", @"nil", @"not", @"or", @"redo",
+    @"rescue", @"retry", @"return", @"self", @"super", @"then", @"true",
+    @"undef", @"when", @"yield", @"if", @"unless", @"while", @"until",
+    @"attr_reader", @"attr", @"attr_writer", @"autoload", @"include" ]],
+
+    [self setDelimiters: @[
+    @[ @"def[[\\t\\p{Zs}]]*\\W+", @"end" ],
+    @[ @"do", @"end" ],
+    @[ @"{", @"}" ],
+    @[ @"[", @"]" ],
+    ]],
+
+    // Includes symbols
+    [self setConstantPatterns : @[ @"[A-Z]\\w*", @":\\w+"]],
+    [self setVariablePatterns : @[@"@\\w+"]],
+    [self setCommentPattern   : @[@"#.*?\n"]], self : nil;
+}
+
+@end

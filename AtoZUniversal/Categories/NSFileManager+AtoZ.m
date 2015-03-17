@@ -131,7 +131,7 @@ NSS * NSDCIMFolder()      {	return @"/var/mobile/Media/DCIM";                 }
 
 	NSString *file;	 AZNewVal(results,NSMA.new); AZNewVal(dirEnum, [self enumeratorAtPath:path]);
 
-  while (file = dirEnum.nextObject)
+  while ((file = dirEnum.nextObject))
     if ([file.lastPathComponent isCaseInsensitiveEqualToString:name])
 			[results addObject:[path withPath:file]];
 	return results;
@@ -423,7 +423,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 
 
 @implementation NSFileManager (Extensions)
-
+#if !TARGET_OS_IPHONE
 - (NSString*) mimeTypeFromFileExtension:(NSString*)extension {
 	NSString* type = nil;
 	extension = [extension lowercaseString];
@@ -439,6 +439,7 @@ static void _appendPropertiesOfTreeAtURL(NSFileManager *self, NSMutableString *s
 	}
 	return type;
 }
+#endif
 
 - _IsIt_ getExtendedAttributeBytes:(void*)bytes length:(NSUInteger)length withName:(NSString*)name forFileAtPath:(NSString*)path {
 	if (bytes) {

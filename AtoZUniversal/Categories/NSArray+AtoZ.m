@@ -130,12 +130,12 @@
 //  return [_storage.allVak countByEnumeratingWithState:s objects:b count:l];
 //}
 
-//- (id) init { return self = super.init ? _storage = NSPointerArray.strongObjectsPointerArray, self: nil; }
+//- init { return self = super.init ? _storage = NSPointerArray.strongObjectsPointerArray, self: nil; }
 
 #pragma mark - NSArray primitive methods
  
 //- (NSUInteger)count { return _storage.count; }
-//- (id)objectAtIndex:(NSUInteger)x { return [_storage pointerAtIndex:x]; }
+//-- objectAtIndex:(NSUInteger)x { return [_storage pointerAtIndex:x]; }
 
 //#pragma mark - NSMutableArray primitive methods
 // 
@@ -162,7 +162,7 @@
 //  [self replaceObjectAtIndex:idx withObject:obj];
 //}
 //// Don't need to override but it's nice to be sure
-//- (id)objectAtIndexedSubscript:(NSUInteger)idx {
+//-- objectAtIndexedSubscript:(NSUInteger)idx {
 //  return [self objectAtIndex:idx];
 //}
 
@@ -179,14 +179,14 @@ NSString * const NSMutableArrayDidInsertObjectNotification = @"com.mrgray.NSMuta
 
 #if !TARGET_OS_IPHONE
 @implementation NSArray (NSTableDataSource)
-- (id)tableView:(NSTV*)v objectValueForTableColumn:(NSTC*)c row:(NSI)r {
+- tableView:(NSTV*)v objectValueForTableColumn:(NSTC*)c row:(NSI)r {
   id obj = self[r]; return !obj ? nil : ![obj ISADICT] ? obj : ((NSD*)obj)[c.identifier];
 }
 - (NSI)numberOfRowsInTableView:(NSTC*)v {  return self.count; }
 @end
 #endif
 @implementation NSSet (AtoZ)
-- (id)filterOne:(BOOL(^)(id))block {   __block id x = nil;
+- filterOne:(BOOL(^)(id))block {   __block id x = nil;
   [self.allObjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {  if (block(obj)) x = obj;  if (x != nil) *stop = YES;  }];
   return x;
 }
@@ -682,7 +682,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
     free(p);
   }
 }
-- (id) objectsWithValue: value forKey: key	{
+- objectsWithValue: value forKey: key	{
 	NSMA *subsample = NSMA.new;
   for (id object in self) {
     id propertyValue = [object vFK:key];
@@ -690,7 +690,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return subsample.count ? subsample : nil;
 }
-- (id)objectWithValue: value forKey: key {
+- objectWithValue: value forKey: key {
   for (id object in self) {
     id propertyValue = [object vFK:key];
     if ([propertyValue isEqual:value]) {
@@ -699,7 +699,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return nil;
 }
-- (id)objectWithClass:(Class)cls {
+- objectWithClass:(Class)cls {
   for (id object in self) {
     if ([object isKindOfClass:cls]) {
       return object;
@@ -737,7 +737,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   }
   return re;
 }
-- (id)reduce:(id (^)(id a, id b))block {
+- reduce:(id (^)(id a, id b))block {
   if (!self.count) return nil;
   id re = self.first;
   for (int i = 1; i < self.count; i++) {
@@ -1153,7 +1153,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 /**	Finds the first instance of the object that you indicate
  * via a block (returning a bool) you are looking for	*/
-- (id)findWithBlock:(BOOL (^)(id obj))block {
+- findWithBlock:(BOOL (^)(id obj))block {
   __block id foundObject = nil;
   [self enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id object, NSUI idx, BOOL *stop) {
     if (block(object)) {
@@ -1267,7 +1267,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 }
 @end
 @implementation NSArray (Extensions)
-- (id) firstObject {
+- firstObject {
 	return self.count ? [self objectAtIndex:0] : nil;
 }
 @end
@@ -1683,7 +1683,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
 
 @implementation NSA (CustoKVC)
 
-- (id) _distinctUnionOfPresentObjectsForKeyPath:(NSS*)kp {
+- _distinctUnionOfPresentObjectsForKeyPath:(NSS*)kp {
 
   NSMA * values = NSMA.new; for (id obj in self) 
   @try {

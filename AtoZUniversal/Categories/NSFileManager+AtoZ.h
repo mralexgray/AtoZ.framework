@@ -9,90 +9,90 @@ NS_INLINE NSS* humanReadableFileTypeForFileExtension (NSS *ext) {
 
 #endif
 
-NSS * NSDocumentsFolder (void);
-NSS *   NSLibraryFolder (void);
-NSS *       NSTmpFolder (void);
-NSS *    NSBundleFolder (void);
+_Text NSDocumentsFolder _Void_;
+_Text   NSLibraryFolder _Void_;
+_Text       NSTmpFolder _Void_;
+_Text    NSBundleFolder _Void_;
 
 @interface NSFileManager (AtoZ)
 
-- tagForFileAtPath:pathorurl;
-- (void) setTag:(NSUInteger)t forFileAtPath:pathorurl;
+-                     tagForFileAtPath:pathorurl;
+- _Void_ setTag:_UInt_ t forFileAtPath:pathorurl;
 
-
-- (NSA*)    pathsOfContentsOfDirectory:(NSS*)dir;
-
-- (NSA*) arrayWithFilesMatchingPattern:(NSS*)pattern inDirectory:(NSS*)dir;
-
-- (NSS*)              pathForItemNamed:(NSS*)fname      inFolder:(NSS*)path;
+- _List_    pathsOfContentsOfDirectory: _Text_ dir;
+- _List_ arrayWithFilesMatchingPattern: _Text_ pattern inDirectory: _Text_ dir;
+- _Text_              pathForItemNamed: _Text_ fname      inFolder: _Text_ path;
 #if !TARGET_OS_IPHONE
-- (NSS*)          pathForDocumentNamed:(NSS*)fname;
-- (NSS*)    pathForBundleDocumentNamed:(NSS*)fname;
+- _Text_          pathForDocumentNamed: _Text_ fname;
+- _Text_    pathForBundleDocumentNamed: _Text_ fname;
 #endif
 
-//non-resursive
-- (NSA*) pathsForItemsInFolder:(NSS*)path withExtension: (NSS*) ext;
-
-- (NSA*) pathsOfFilesIn:(NSS*)p   withExtension:(NSS*)ext;
+/// non-resursive
+- _List_ pathsForItemsInFolder:_Text_ p withExtension: _Text_ x;
+- _List_        pathsOfFilesIn:_Text_ p withExtension: _Text_ x;
 
 /*! [FM pathsOfFilesIn:NSHomeDirectory() matchingPattern:@"/.*"]   .dotfiles  */
 
-- (NSA*) pathsOfFilesIn:(NSS*)p matchingPattern:(NSS*)regex;
-- (NSA*) pathsOfFilesIn:(NSS*)p         passing:(BOOL(^)(NSS*))testBlock;
-//recursive
-- (NSA*) pathsForItemsNamed:(NSS*)ext inFolder:(NSS*)path;
-- (NSA*) pathsForItemsMatchingExtension: (NSS*) ext inFolder: (NSS*) path;
-- (NSA*) pathsForDocumentsMatchingExtension: (NSS*) ext;
-- (NSA*) pathsForBundleDocumentsMatchingExtension: (NSS*) ext;
+- _List_ pathsOfFilesIn: _Text_ p matchingPattern: _Text_ regex;
+- _List_ pathsOfFilesIn: _Text_ p         passing:(BOOL(^)(NSS*))testBlock;
 
-- (NSA*) filesInFolder: (NSS*) path;
+/// recursive
+
+- _List_                       pathsForItemsNamed:_Text_ x inFolder:_Text_ p;
+- _List_           pathsForItemsMatchingExtension:_Text_ x inFolder:_Text_ p;
+- _List_       pathsForDocumentsMatchingExtension:_Text_ x;
+- _List_ pathsForBundleDocumentsMatchingExtension:_Text_ x;
+
+- _List_                            filesInFolder: _Text_ p;
 
 //+ (NSImage *) imageNamed: (NSS*) aName;
 //+ (NSImage *) imageFromURLString: (NSS*) urlstring;
 
-- _IsIt_ isSymlink:(NSString*)ln;
-- _IsIt_ isSymlink:(NSString*)ln to:(NSString*)p;
+- _IsIt_ isSymlink: _Text_ ln;
+- _IsIt_ isSymlink: _Text_ ln to: _Text_ p;
 
 @end
 
 @interface NSFileManager (OFSimpleExtensions)
 
-- (NSD*)attributesOfItemAtPath:(NSS*)filePath traverseLink:(BOOL)traverseLink error:(NSERR*__autoreleasing*)outError;
+- _Dict_ attributesOfItemAtPath: _Text_ filePath traverseLink: _IsIt_ traverseLink error:(NSERR*__autoreleasing*)outError;
 
-	// Directory manipulations
+/// Directory manipulations
 
-- (BOOL)directoryExistsAtPath:(NSS*)path;
-- (BOOL)directoryExistsAtPath:(NSS*)path traverseLink:(BOOL)traverseLink;
+- _IsIt_ directoryExistsAtPath:_Text_ p;
+- _IsIt_ directoryExistsAtPath:_Text_ ph traverseLink:_IsIt_ traverseLink;
 
-- (BOOL)createPathToFile:(NSS*)path attributes:(NSD*)attributes error:(NSERR*__autoreleasing*)outError;
-	// Creates any directories needed to be able to create a file at the specified path.
+- _IsIt_      createPathToFile:_Text_ p    attributes:_Dict_ x error:(_Errr __autoreleasing*)e;
 
-	// Creates any directories needed to be able to create a file at the specified path.  Returns NO on failure.
-- (BOOL)createPathComponents:(NSA*)components attributes:(NSD*)attributes error:(NSERR*__autoreleasing*)outError;
+/// Creates any directories needed to be able to create a file at the specified path.  Returns NO on failure.
 
-	// Changing file access/update timestamps.
+- _IsIt_  createPathComponents:_List_ x    attributes:_Dict_ a error:(_Errr __autoreleasing*)e;
 
-- (BOOL)touchItemAtURL:(NSURL *)url error:(NSERR*__autoreleasing*)outError;
+/// Changing file access/update timestamps.
+
+- _IsIt_ touchItemAtURL:_NUrl_ u error:(_Errr __autoreleasing*)e;
 
 #ifdef DEBUG
-- (void) logPropertiesOfTreeAtURL:(NSURL *)url;
+- _Void_ logPropertiesOfTreeAtURL:(NSURL*)url;
 #endif
 
 @end
 
 @interface NSFileManager (Extensions)
-- (NSS*) mimeTypeFromFileExtension:(NSS*)extension;
-- _IsIt_ getExtendedAttributeBytes:(void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
-- (NSData*) extendedAttributeDataWithName:(NSS*)name forFileAtPath:(NSS*)path;
-- (NSS*) extendedAttributeStringWithName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
-- _IsIt_ setExtendedAttributeBytes:(const void*)bytes length:(NSUI)length withName:(NSS*)name forFileAtPath:(NSS*)path;
-- _IsIt_ setExtendedAttributeData:(NSData*)data withName:(NSS*)name forFileAtPath:(NSS*)path;
-- _IsIt_ setExtendedAttributeString:(NSS*)string withName:(NSS*)name forFileAtPath:(NSS*)path;  // Uses UTF8 encoding
-- _IsIt_ removeItemAtPathIfExists:(NSS*)path;
-- (NSA*) directoriesInDirectoryAtPath:(NSS*)path includeInvisible:(BOOL)invisible;
-- (NSA*) filesInDirectoryAtPath:(NSS*)path includeInvisible:(BOOL)invisible includeSymlinks:(BOOL)symlinks;
+#if !TARGET_OS_IPHONE
+- (NSS*) mimeTypeFromFileExtension: _Text_ extension;
+#endif
+- _IsIt_        removeItemAtPathIfExists:_Text_ p;
+- _Data_   extendedAttributeDataWithName:_Text_ n    forFileAtPath:_Text_ p;
+- _Text_ extendedAttributeStringWithName:_Text_ n    forFileAtPath:_Text_ p;  // Uses UTF8 encoding
+- _IsIt_       getExtendedAttributeBytes:   (_Void*)b       length:_UInt_ l        withName:_Text_ n forFileAtPath:_Text_ p;
+- _IsIt_       setExtendedAttributeBytes:(_C _Void*)b       length:_UInt_ l        withName:_Text_ n forFileAtPath:_Text_ p;
+- _IsIt_        setExtendedAttributeData:_Data_ d         withName:_Text_ n   forFileAtPath:_Text_ p;
+- _IsIt_      setExtendedAttributeString:_Text_ t         withName:_Text_ n   forFileAtPath:_Text_ p;  // Uses UTF8 encoding
+- _List_          filesInDirectoryAtPath:_Text_ p includeInvisible:_IsIt_ i includeSymlinks:_IsIt_ links;
+- _List_    directoriesInDirectoryAtPath:_Text_ p includeInvisible:_IsIt_ i;
 #if TARGET_OS_IPHONE
-- (void) setDoNotBackupAttributeAtPath:(NSS*)path;  // Has no effect prior to iOS 5.0.1
+- _Void_ setDoNotBackupAttributeAtPath: _Text_ path;  // Has no effect prior to iOS 5.0.1
 #endif
 @end
 
@@ -101,16 +101,16 @@ NSS *    NSBundleFolder (void);
 
 @interface NSFileManager (SGSAdditions)
 
-- (void) createPath: (NSS*) filePath;
-- (NSS*) uniqueFilePath: (NSS*) filePath;
+- _Void_ createPath: _Text_ filePath;
+- _Text_ uniqueFilePath: _Text_ filePath;
 
 @end
 #if !TARGET_OS_IPHONE
 @interface NSString (CarbonUtilities)
-+ (NSS*)    stringWithFSRef:(const FSRef *)aFSRef;
++ _Text_    stringWithFSRef:(const FSRef *)aFSRef;
 - _IsIt_         getFSRef:(FSRef *)aFSRef;
-- (NSS*)    resolveAliasFile;
-- (NSS*) humanReadableFileTypeForFileExtension;
+- _Text_    resolveAliasFile;
+- _Text_ humanReadableFileTypeForFileExtension;
 @end
 
 @interface NSFileManager (UKVisibleDirectoryContents)

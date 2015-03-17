@@ -13,7 +13,7 @@
                       atPath:(NSS*)path     { return BundlesAtPathConformingTo(path,p); }
 @end
 
-@implementation NSBundle (AtoZ)
+@Impl NSBundle (AtoZ)
 
 + resourceOfClass:(Class)rClass inBundleWithClass:(Class)k withName:(NSString*)n init:(SEL)method {
 
@@ -25,7 +25,11 @@
 
 +            infoPlist { // NOt sure whatthis does
 
+#ifdef __LP64__
   const struct section_64 *__info_plist;
+#else
+  const struct section *__info_plist;
+#endif
   if (!(__info_plist = getsectbyname("__TEXT", "__info_plist")))  return nil;
   
 	DTA    * plist = [DTA dataWithBytesNoCopy:(void*)__info_plist->addr length:__info_plist->size freeWhenDone:NO],
@@ -52,10 +56,9 @@
 //  pathsForItemsNamed:@"Info.plist" inFolder:self.bundlePath].firstObject;
 
 }
-
-+ (NSB*) bundleForApplicationName:          (NSS*)appName { return [self bundleWithIdentifier:[self bundleIdentifierForApplicationName:appName]]; }
-
 #if !TARGET_OS_IPHONE
+
++ (NSB*) bundleForApplicationName:(NSS*)appName { return [self bundleWithIdentifier:[self bundleIdentifierForApplicationName:appName]]; }
 
 + (NSS*) bundleIdentifierForApplicationName:(NSS*)appName {
   
@@ -202,26 +205,17 @@
   
   return cachedImages;
 }
-- (NSA*) imageResources {
-
-  return [[self resourcesWithExtensions:NSIMG.imageFileTypes] map:^id(id obj) {
-    return [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:obj]];
-  }];
-}
 #endif
 
 - (NSA*) resourcesWithExtensions:(NSA*)exts {
 
+  return [NSA arrayWithArrays:[exts map:^id(id obj) { NSString *file; NSMA *results = NSMA.new;
 
-  return [NSA arrayWithArrays:[exts map:^id(id obj) {
-
-    NSString *file;
-    NSMA *results = NSMA.new;
     NSDirectoryEnumerator *dirEnum = [AZFILEMANAGER enumeratorAtPath:self.resourcePath];
 
     while (file = [dirEnum nextObject]) {
 	
-      if ([[file pathExtension] caseInsensitiveCompare:obj] == NSOrderedSame)
+      if ([file.pathExtension caseInsensitiveCompare:obj] == NSOrderedSame)
         [results addObject:[self.resourcePath stringByAppendingPathComponent:file]];
     }
     return results;
@@ -247,6 +241,20 @@
 //    return sum;
 //  }];
 }
+- (NSA*) imageResources {
+
+  return [[self resourcesWithExtensions:
+#if IOS_ONLY
+  @[@"PDF", @"pdf", @"PICT", @"PIC", @"pic", @"PCT", @"pct", @"PICT", @"pict", @"EPSF", @"PS", @"ps", @"EPSI", @"epsi", @"EPSF", @"epsf", @"EPI", @"epi", @"EPS", @"eps", @"BMPf", @"'qtif'", @"PNTG", @".SGI", @"TPIC", @"BMP", @"'8BPS'", @"'icns'", @"'TIFF'", @"'jp2", @"'", @"'GIFf'", @"'PNGf'", @"'JPEG'", @"FPIX", @"fpix", @"FPX", @"fpx", @"QTI", @"qti", @"QTIF", @"qtif", @"RJPG", @"rjpg", @"RJPEG", @"rjpeg", @"PVR", @"pvr", @"PFM", @"pfm", @"PPM", @"ppm", @"PGM", @"pgm", @"PBM", @"pbm", @"MPO", @"mpo", @"HDR", @"hdr", @"EXR", @"exr", @"MAC", @"mac", @"PNT", @"pnt", @"PNTG", @"pntg", @"RGB", @"rgb", @"SGI", @"sgi", @"TARGA", @"targa", @"TGA", @"tga", @"CUR", @"cur", @"BMP", @"bmp", @"ICO", @"ico", @"PSB", @"psb", @"PSD", @"psd", @"ORF", @"orf", @"MRW", @"mrw", @"RWL", @"rwl", @"RW2", @"rw2", @"RAW", @"raw", @"RAF", @"raf", @"CRW", @"crw", @"ICNS", @"icns", @"EFX", @"efx", @"JFAX", @"jfax", @"JFX", @"jfx", @"G3", @"g3", @"FAX", @"fax", @"TIFF", @"tiff", @"DCR", @"dcr", @"ERF", @"erf", @"ARW", @"arw", @"SR2", @"sr2", @"SRF", @"srf", @"SRW", @"srw", @"PEF", @"pef", @"NRW", @"nrw", @"NEF", @"nef", @"3FR", @"3fr", @"FFF", @"fff", @"MOS", @"mos", @"CR2", @"cr2", @"DNG", @"dng", @"TIF", @"tif", @"JPF", @"jpf", @"JP2", @"jp2", @"GIF", @"gif", @"PNG", @"png", @"JPS", @"jps", @"JFIF", @"jfif", @"JPE", @"jpe", @"JPEG", @"jpeg", @"JPG", @"jpg"
+  ]]
+    map:^id(id obj) { return [NSIMG imageWithContentsOfFile:obj];  }];
+#else
+    NSIMG.imageFileTypes] map:^id(id obj) { return [NSIMG.alloc initByReferencingURL:[NSURL fileURLWithPath:obj]];  }];
+#endif
+
+}
+
+
 #if !TARGET_OS_IPHONE
 
 - _Void_ cacheNamedImages {

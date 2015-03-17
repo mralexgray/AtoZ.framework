@@ -1,5 +1,5 @@
 
-#import <AtoZ/AtoZ.h>
+@import AtoZ;
 
 @interface AZAppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate>
 

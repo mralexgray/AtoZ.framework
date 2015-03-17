@@ -45,7 +45,7 @@ CLANG_POP
 @implementation NSObject (AMAssociatedObjects)
 - _Void_ associate: (id)value with: (void*)key {			objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_RETAIN); }
 - _Void_ weaklyAssociate: (id)value with: (void*)key {	objc_setAssociatedObject(self, key, value, OBJC_ASSOCIATION_ASSIGN); }
-- (id)associatedValueFor: (void*)key {			 return va;(self, key);								 }
+- associatedValueFor: (void*)key {			 return va;(self, key);								 }
 @end
 */
 IMP impOfCallingMethod(id lookupObject, SEL selector)		{
@@ -432,10 +432,10 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 }
 #endif
 
-- (id) performString:(NSS*)string                     {
+- performString:(NSS*)string                     {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:nil];
 }
-- (id) performString:(NSS*)string withObject: obj  {
+- performString:(NSS*)string withObject: obj  {
 	return [self performSelectorWithoutWarnings:NSSelectorFromString(string) withObject:obj];
 }
 
@@ -699,7 +699,7 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 //	XX(x);
 	objc_setAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray",x,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (id)objectAtIndexedSubscript:(NSUInteger)idx {
+- objectAtIndexedSubscript:(NSUInteger)idx {
 
 	NSMD* x = objc_getAssociatedObject(self, (__bridge const void*)@"indexedSubscriptArray");
 	return [x objectForKey:@(idx)];
@@ -709,7 +709,7 @@ return [self.propertiesThatHaveBeenSet containsObject:key];	}
 */
 
 /*
-- (id)objectForKeyedSubscript: key {
+- objectForKeyedSubscript: key {
 	return [self hasPropertyForKVCKey:key] ? [self valueForKey:key] 
 														: [self vFKP:$(@"dictionary.%@",key)] 
 													  ?: objc_getAssociatedObject(self, (__bridge const void *)key)
@@ -1131,38 +1131,58 @@ static char windowPosition;
 }
 - _Void_ log { NSLog(@"%@", self); } // 	[self logInColor:RANDOMCOLOR];}
 
+/*
 //- _Void_ logInColor:(NSC *)color {	LOGCOLORS(color,[self description], nil);}
 
-//- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
-//{
-//	//inside the method implementation:
-//	Method thisMethod = class_getClassMethod([self class], selector);
-//	const char * encoding = method_getTypeEncoding(thisMethod);
-//	return [NSMethodSignature signatureWithObjCTypes: encoding];
-//	NSString *sel = NSStringFromSelector(selector);
-//	if ([sel rangeOfString:@"set"].location == 0) {
-//		return [NSMethodSignature signatureWithObjCTypes:"v@:@"];
-//	} else {
-//		return [NSMethodSignature signatureWithObjCTypes:"@@:"];
-//	}
-//}
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector
+{
+	//inside the method implementation:
+	Method thisMethod = class_getClassMethod([self class], selector);
+	const char * encoding = method_getTypeEncoding(thisMethod);
+	return [NSMethodSignature signatureWithObjCTypes: encoding];
+	NSString *sel = NSStringFromSelector(selector);
+	if ([sel rangeOfString:@"set"].location == 0) {
+		return [NSMethodSignature signatureWithObjCTypes:"v@:@"];
+	} else {
+		return [NSMethodSignature signatureWithObjCTypes:"@@:"];
+	}
+}
 
-//- _Void_ forwardInvocation:(NSInvocation *)invocation
-//{
-//	NSString *key = NSStringFromSelector([invocation selector]);
-//	if ([key rangeOfString:@"set"].location == 0) {
-//		key = [[key substringWithRange:NSMakeRange(3, [key length]-4)] lowercaseString];
-//		NSString *obj;
-//		[invocation getArgument:&obj atIndex:2];
-//		[data setObject:obj forKey:key];
-//	} else {
-//		NSString *obj = [data objectForKey:key];
-//		[invocation setReturnValue:&obj];
-//	}
-//}
+- _Void_ forwardInvocation:(NSInvocation *)invocation
+{
+	NSString *key = NSStringFromSelector([invocation selector]);
+	if ([key rangeOfString:@"set"].location == 0) {
+		key = [[key substringWithRange:NSMakeRange(3, [key length]-4)] lowercaseString];
+		NSString *obj;
+		[invocation getArgument:&obj atIndex:2];
+		[data setObject:obj forKey:key];
+	} else {
+		NSString *obj = [data objectForKey:key];
+		[invocation setReturnValue:&obj];
+	}
+}
 
+- (IBAction)showMethodsInFrameWork: (id)sender {
 
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3 {
+	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
+
+	BOOL isSelected;	NSS*label;
+	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
+		//	if (isSegmented) {
+	NSI selectedSegment = [sender selectedSegment];
+		//		 = [sender isSelectedForSegment:selectedSegment];
+	label = [sender labelForSegment:selectedSegment];
+	BOOL *optionPtr = &isSelected;
+		//	} else
+		//		label = [sender label];
+	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
+	[[sender delegate] performSelector:fabricated withValue:optionPtr];
+	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
+}
+
+*/
+
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
 		NSInvocation *invo = [NSInvocation invocationWithMethodSignature:sig];
@@ -1179,7 +1199,7 @@ static char windowPosition;
 		} else return nil;
 	} else return nil;
 }
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3 withObject: p4 {
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3 withObject: p4 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
 		NSInvocation *invo = [NSInvocation invocationWithMethodSignature:sig];
@@ -1197,7 +1217,7 @@ static char windowPosition;
 		} else return nil;
 	} else return nil;
 }
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
            withObject: p4 withObject: p5 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
@@ -1221,7 +1241,7 @@ static char windowPosition;
 		return nil;
 	}
 }
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
            withObject: p4 withObject: p5 withObject: p6 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
@@ -1246,7 +1266,7 @@ static char windowPosition;
 		return nil;
 	}
 }
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
            withObject: p4 withObject: p5 withObject: p6 withObject: p7 {
 	NSMethodSignature *sig = [self methodSignatureForSelector:selector];
 	if (sig) {
@@ -1269,23 +1289,6 @@ static char windowPosition;
 	} else return nil;
 }
 
-//- (IBAction)showMethodsInFrameWork: (id)sender {
-
-//	[NSTask launchedTaskWithLaunchPath:@"/usr/bin/say" arguments:@[s]];
-
-//	BOOL isSelected;	NSS*label;
-//	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
-//		//	if (isSegmented) {
-//	NSI selectedSegment = [sender selectedSegment];
-//		//		 = [sender isSelectedForSegment:selectedSegment];
-//	label = [sender labelForSegment:selectedSegment];
-//	BOOL *optionPtr = &isSelected;
-//		//	} else
-//		//		label = [sender label];
-//	SEL fabricated = NSSelectorFromString($(@"set%@:", label));
-//	[[sender delegate] performSelector:fabricated withValue:optionPtr];
-//	[[AZTalker sharedInstance] say:$(@"%@ is %@ selected", string, isSelected ? @"" : @"NOT")];
-//}
 
 #if !TARGET_OS_IPHONE
 - (NSS*) segmentLabel {
@@ -1302,7 +1305,7 @@ static char windowPosition;
 {	NSS* responder;
 	return (responder = [self firstResponsiveString:selectors])	? NSSelectorFromString(responder) : NULL;
 }
-- (id) responds:(NSS*)selStr do: doBlock{	__block __typeof__ (self) bSelf = self;
+- responds:(NSS*)selStr do: doBlock{	__block __typeof__ (self) bSelf = self;
 
 	id (^idBlock)(id) = doBlock;
 	return [self respondsToSelector:NSSelectorFromString(selStr)] ? idBlock(bSelf) ?: nil : nil;
@@ -1317,13 +1320,13 @@ BOOL respondsTo(id obj, SEL selector) {
 - (BOOL)respondsToString:(NSS*) string {
 	return [self respondsToSelector:NSSelectorFromString(string)];
 }
-- (id)respondsToStringThenDo:(NSS*) string {
+- respondsToStringThenDo:(NSS*) string {
 	return [self respondsToStringThenDo:string withObject:nil withObject:nil];
 }
-- (id)respondsToStringThenDo:(NSS*) string withObject: obj {
+- respondsToStringThenDo:(NSS*) string withObject: obj {
 	return [self respondsToStringThenDo:string withObject:obj withObject:nil];
 }
-- (id)respondsToStringThenDo:(NSS*) string withObject: obj withObject: objtwo {
+- respondsToStringThenDo:(NSS*) string withObject: obj withObject: objtwo {
 
 	SEL select = NSSelectorFromString(string);
 //  const char * type = [self typeOfPropertyNamed:string];
@@ -1355,6 +1358,7 @@ BOOL respondsTo(id obj, SEL selector) {
 #endif
 
 #if !TARGET_OS_IPHONE
+
 - (IBAction)increment: sender;
 {
 	BOOL isSegmented = [sender isKindOfClass:[NSSegmentedControl class]];
@@ -1541,10 +1545,10 @@ static const char * getPropertyType(objc_property_t property) {
 - _Void_ fire:(NSS*) notificationName userInfo:(NSD *)context  {
 	[AZNOTCENTER postNotificationName:notificationName object:self userInfo:context];
 }
-- (id)observeObject:(NSS*) notificationName usingBlock:(void (^)(NSNOT*n))block {
+- observeObject:(NSS*) notificationName usingBlock:(void (^)(NSNOT*n))block {
 	return [AZNOTCENTER addObserverForName:notificationName object:self queue:NSOQ.mainQueue usingBlock:block];
 }
-- (id)observeName:(NSS*) notificationName usingBlock:(void (^)(NSNOT *n))block {
+- observeName:(NSS*) notificationName usingBlock:(void (^)(NSNOT *n))block {
 	return [AZNOTCENTER addObserverForName:notificationName object:nil queue:NSOQ.mainQueue usingBlock:block];
 }
 - _Void_ observeObject:(NSObject *)object forName:(NSS*) notificationName calling:(SEL)selector {
@@ -1579,8 +1583,8 @@ static const char * getPropertyType(objc_property_t property) {
 	if (!(methodSig = [self methodSignatureForSelector:aSelector])) return NO;
 	return (strcmp(retType = methodSig.methodReturnType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0);
 }
-- (id) performSelectorIfResponds:(SEL)s { return [self respondsToSelector:s] ? [self performSelectorWithoutWarnings:s] : nil; }
-- (id)performSelectorSafely:(SEL)s {
+- performSelectorIfResponds:(SEL)s { return [self respondsToSelector:s] ? [self performSelectorWithoutWarnings:s] : nil; }
+- performSelectorSafely:(SEL)s {
 
 	NSParameterAssert(s     != NULL);
 	NSParameterAssert(self  != nil);
@@ -1595,29 +1599,29 @@ CLANG_POP
 }) :
   NSLog(@"-[%@ performSelector:@selector(%@)] shouldn't be used. The selector doesn't return an object or void", [self className], NSStringFromSelector(s)), nil;
 }
-- (id)performSelectorARC:(SEL)selector withObject: obj {
+- performSelectorARC:(SEL)selector withObject: obj {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector withObject:obj];
 #pragma clang diagnostic pop
 }
-- (id)performSelectorARC:(SEL)selector withObject: one withObject: two {
+- performSelectorARC:(SEL)selector withObject: one withObject: two {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector withObject:one withObject:two];
 #pragma clang diagnostic pop
 }
-- (id)performSelectorWithoutWarnings:(SEL)aSelector {
+- performSelectorWithoutWarnings:(SEL)aSelector {
 	return [self performSelectorSafely:aSelector];
 }
-- (id)performSelectorWithoutWarnings:(SEL)aSelector withObject: obj {
+- performSelectorWithoutWarnings:(SEL)aSelector withObject: obj {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	//	return (id)
 	return [self performSelector:aSelector withObject:obj];
 #pragma clang diagnostic pop
 }
-- (id)performSelectorWithoutWarnings:(SEL)aSelector withObject: obj withObject: obj2 {
+- performSelectorWithoutWarnings:(SEL)aSelector withObject: obj withObject: obj2 {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	//	return	(id)
@@ -1980,7 +1984,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 // Returning objects by performing selectors
-- (id)objectByPerformingSelectorWithArguments:(SEL)selector, ...
+- objectByPerformingSelectorWithArguments:(SEL)selector, ...
 {
 	id result;
 	va_list arglist;
@@ -1993,22 +1997,22 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 
- - (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
+ - objectByPerformingSelector:(SEL)selector withObject:(id) object1 withObject: (id) object2
  {
  return [self objectByPerformingSelectorWithArguments:selector, object1, object2];
  }
 
- - (id) objectByPerformingSelector:(SEL)selector withObject:(id) object1
+ - objectByPerformingSelector:(SEL)selector withObject:(id) object1
  {
  return [self objectByPerformingSelectorWithArguments:selector, object1];
  }
 
- - (id) objectByPerformingSelector:(SEL)selector
+ - objectByPerformingSelector:(SEL)selector
  {
  return [self objectByPerformingSelectorWithArguments:selector];
  } 
 
-- (id) objectByPerformingSelector:(SEL)selector withObject: object1 withObject: object2 {
+- objectByPerformingSelector:(SEL)selector withObject: object1 withObject: object2 {
 	if (![self respondsToSelector:selector]) return nil;
 
 	// Retrieve method signature and return type
@@ -2058,10 +2062,10 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	[inv getReturnValue:&l];
 	return [NSNumber numberWithLong:l];
 }
-- (id) objectByPerformingSelector:(SEL)selector withObject: object1 {
+- objectByPerformingSelector:(SEL)selector withObject: object1 {
 	return [self objectByPerformingSelector:selector withObject:object1 withObject:nil];
 }
-- (id) objectByPerformingSelector:(SEL)selector {
+- objectByPerformingSelector:(SEL)selector {
 	return [self objectByPerformingSelector:selector withObject:nil withObject:nil];
 }
 // Delayed selectors
@@ -2103,7 +2107,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 #pragma mark values
-- (id)valueByPerformingSelector:(SEL)selector withObject: object1 withObject: object2 {
+- valueByPerformingSelector:(SEL)selector withObject: object1 withObject: object2 {
 	if (![self respondsToSelector:selector]) return nil;
 
 	// Retrieve method signature and return type
@@ -2126,10 +2130,10 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 	free(bytes);
 	return returnValue;
 }
-- (id)valueByPerformingSelector:(SEL)selector withObject: object1 {
+- valueByPerformingSelector:(SEL)selector withObject: object1 {
 	return [self valueByPerformingSelector:selector withObject:object1 withObject:nil];
 }
-- (id)valueByPerformingSelector:(SEL)selector {
+- valueByPerformingSelector:(SEL)selector {
 	return [self valueByPerformingSelector:selector withObject:nil withObject:nil];
 }
 */
@@ -2273,7 +2277,7 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 }
 
 // Perform the selector if possible, returning any return value. Otherwise return nil.
-- (id)tryPerformSelector:(SEL)aSelector withObject: object1 withObject: object2 {
+- tryPerformSelector:(SEL)aSelector withObject: object1 withObject: object2 {
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -2281,10 +2285,10 @@ CG_EXTERN CFTimeInterval CGEventSourceSecondsSinceLastEventType(CGEventSourceSta
 #pragma clang diagnostic pop
 
 }
-- (id)tryPerformSelector:(SEL)aSelector withObject: object1 {
+- tryPerformSelector:(SEL)aSelector withObject: object1 {
 	return [self tryPerformSelector:aSelector withObject:object1 withObject:nil];
 }
-- (id)tryPerformSelector:(SEL)aSelector {
+- tryPerformSelector:(SEL)aSelector {
 	return [self tryPerformSelector:aSelector withObject:nil withObject:nil];
 }
 */

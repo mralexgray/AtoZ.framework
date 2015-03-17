@@ -2144,3 +2144,47 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 //WARNING_CFLAGS = -Wmost -Wextra -Wcast-align -Wchar-subscripts -Wformat-security -Wmissing-format-attribute -Wpointer-arith -Wwrite-strings -Wno-format-y2k -Wno-unused-parameter -Wbad-function-cast -Wmissing-declarations -Wnested-externs
 //WARNING_CFLAGS = $(WARNING_CFLAGS) -Wno-four-char-constants -Wno-protocol -Wno-format-security -Wno-unused-variable -Wno-unused-function -Wno-conversion	-Wno-gcc-compat	-Wno-unused-value	-Wno-newline-eof -Wno-ignored-attributes -Wno-selector	 -Wno-objc-property-no-attribute	-Wno-sign-compare
 //ATOZ_VERSION = 0.0.1
+
+
+
+// GENERATE_MASTER_OBJECT_FILE = YES
+
+//INFOPLIST_FILE = Info.plist
+
+// Whether to strip out code that isn't called from anywhere
+//DEAD_CODE_STRIPPING = NO
+
+//-umbrella AtoZ
+//-no_pie -no_compact_unwind
+
+// DEPLOYMENT_POSTPROCESSING		  = YES
+
+// Enables the framework to be included from any location as long as the
+// loader’s runpath search paths includes it. For example from an application
+// bundle (inside the "Frameworks" folder) or shared folder
+//-no_pie -no_compact_unwind
+
+//:configuration = Debug
+
+//$(HOME)/Library/Frameworks
+//INSTALL_PATH = /
+
+//:completeSettings = some
+
+//ALWAYS_SEARCH_USER_PATHS = NO  
+//HEADER_SEARCH_PATHS = Headers $(inherited) $(SDKROOT)/usr/include/libxml2
+
+//LIBRARY_SEARCH_PATHS = $(inherited) $(SDKROOT)/usr/lib
+
+//@loader_path @loader_path/.
+//SKIP_IN
+//$(AZBUILD) $(DEVELOPER_FRAMEWORKS_DIR) $(inherited)
+//LD_DYLIB_INSTALL_NAME = $(INSTALL_PATH)/$(PRODUCT_NAME).$(WRAPPER_EXTENSION)/$(PRODUCT_NAME)
+
+// When compiling this library, look for imports (written with quotes) in the
+// library's own folder first. This avoids conflicts from other headers in the
+// build folder.
+// ./**
+
+// -ObjC -headerpad_max_install_names -framework CoreData
+

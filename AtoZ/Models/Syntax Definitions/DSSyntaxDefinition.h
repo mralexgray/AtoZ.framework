@@ -85,3 +85,19 @@ FOUNDATION_EXPORT NSString *const kDSNumberSyntaxType;
 FOUNDATION_EXPORT NSString *const kDSMacroSyntaxType;
 
 FOUNDATION_EXPORT NSString *const kDSDSLKeywordSyntaxType;
+
+
+@interface DSRubySyntaxDefinition : DSSyntaxDefinition
+
+@end
+
+@interface DSPodspecSyntaxDefinition : DSRubySyntaxDefinition
+
+@end
+@interface DSPodfileSyntaxDefinition : DSRubySyntaxDefinition
+
+@end
+
+@interface DSObjectiveCSyntaxDefinition : DSSyntaxDefinition
+
+@end

@@ -7,10 +7,6 @@
 //
 #import <AtoZ/AtoZ.h>
 #import "DSSyntaxCollection.h"
-#import "DSRubySyntaxDefinition.h"
-#import "DSObjectiveCSyntaxDefinition.h"
-#import "DSPodfileSyntaxDefinition.h"
-#import "DSPodspecSyntaxDefinition.h"
 
 @implementation DSSyntaxCollection {
   NSArray *_availableSyntaxes;

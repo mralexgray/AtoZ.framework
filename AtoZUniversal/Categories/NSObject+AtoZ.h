@@ -189,8 +189,8 @@ typedef void(^bSelf)(id _self);
 - performString:(NSS*)string;
 - performString:(NSS*)string withObject:obj;
 
-//- (id)performSelectorARC:(SEL)selector withObject: obj;
-//- (id)performSelectorARC:(SEL)selector withObject: one withObject: two;
+//-- performSelectorARC:(SEL)selector withObject: obj;
+//-- performSelectorARC:(SEL)selector withObject: one withObject: two;
 
 //- (NSS*) instanceMethods;
 //- (NSA*) instanceMethodArray;
@@ -225,12 +225,12 @@ typedef void (^caseBlock)();
 /* DISABLED
 	// To add array style subscripting:
 - _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx; // setter
-- (id)objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
+- objectAtIndexedSubscript:(NSUInteger)idx;			   // getter
 
 */
 	// To add dictionary style subscripting
 //- _Void_ setObject: obj forKeyedSubscript:(id <NSCopying>)key; // setter
-//- (id)objectForKeyedSubscript: key;						   // getter
+//-- objectForKeyedSubscript: key;						   // getter
 //- _Void_ performBlock:(void (^)(void))block afterDelay:(NSTimeInterval)delay; // conflict BlocksKit
 
 - _Void_ fireBlockAfterDelay:(void (^)(void))block;
@@ -355,18 +355,17 @@ typedef void (^caseBlock)();
 
 
 /**	Additional performSelector signatures that support up to 7 arguments.	*/
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3;
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3;
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
 		   withObject: p4;
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
 		   withObject: p4 withObject: p5;
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
 		   withObject: p4 withObject: p5 withObject: p6;
-- (id)performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
+- performSelector:(SEL)selector withObject: p1 withObject: p2 withObject: p3
 		   withObject: p4 withObject: p5 withObject: p6 withObject: p7;
 
 
-- (NSS*)segmentLabel;
 
 - responds:(NSS*)selStr do: doBlock;
 
@@ -381,12 +380,16 @@ BOOL respondsToString(id obj,NSS* string);
 - respondsToStringThenDo: (NSS*)string withObject: obj;
 - respondsToStringThenDo: (NSS*)string;
 
+#if !TARGET_OS_IPHONE
+
+@prop_RO NSS* segmentLabel;
+
 - (IBAction)increment:_;
-                              - (IBAction)setFromSegmentLabel:_;
-                              - (IBAction)performActionFromSegmentLabel:_;
-                              
+- (IBAction)setFromSegmentLabel:_;
+- (IBAction)performActionFromSegmentLabel:_;
 - (IBAction)performActionFromLabel:_;
-                              
+#endif
+
 //- (BOOL) respondsToSelector:	(SEL) aSelector;
 
 //+ (NSDictionary*) classPropsFor:	(Class) klass; // COnflig AQProperties
@@ -565,10 +568,10 @@ _Pragma("clang diagnostic pop") \
 //+ instanceOfClassNamed:(NSS*)className;
 //typedef void (^KVOFullBlock)(NSString *keyPath, id object, NSDictionary *change);
 //@interface NSObject (NSObject_KVOBlock)
-//- (id)addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
+//-- addKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
 //- _Void_ removeKVOBlockForToken: inToken;
 ///// One shot blocks remove themselves after they've been fired once.
-//- (id)addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
+//-- addOneShotKVOBlockForKeyPath:(NSS*)inKeyPath options:(NSKeyValueObservingOptions)inOptions handler:(KVOFullBlock)inHandler;
 //- _Void_ KVODump;
 //@end
 

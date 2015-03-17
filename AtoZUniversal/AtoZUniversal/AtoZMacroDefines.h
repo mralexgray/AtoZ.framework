@@ -92,16 +92,27 @@
 #define      RW readwrite
 #define     STR strong
 
+
 #define   prop_ property
 #define   prop__ property (STR)
+#define   _P @prop_
 
 #define   prop_NC  prop_ (NATOM,CP)
+#define       _NC  @prop_NC
+
 #define   prop_NA  prop_ (NATOM)
+#define       _NA  @prop_NA
 #define   prop_RO  prop_ (RO)
+#define       _RO @prop_RO
 #define   prop_CP  prop_ (CP)
+#define       _CP @prop_CP
+
 #define   prop_AS  prop_ (ASS)
+#define       _AS @prop_AS
 #define   prop_WK  prop_ (WK)
+#define       _WK @prop_WK
 #define   prop_RC  prop_ (RO,CP)
+#define       _RC @prop_RC
 
 #define PROP(...) property (__VA_ARGS__)
 
@@ -1432,9 +1443,9 @@ _Pragma("clang diagnostic pop") \
 #define CGSize NSSize
 
 #define DEFAULTINIT(methodName) \
-- (id) init                       { return self = super.init ? [self methodName], self : nil; }\
-- (id) initWithFrame:(NSR)f       { return self = [super initWithFrame:f] ? [self methodName], self : nil; }\
-- (id) initWithCoder:(NSCoder*)d  { return self = [super initWithCoder:d] ? [self methodName], self : nil; }
+- init                       { return self = super.init ? [self methodName], self : nil; }\
+- initWithFrame:(NSR)f       { return self = [super initWithFrame:f] ? [self methodName], self : nil; }\
+- initWithCoder:(NSCoder*)d  { return self = [super initWithCoder:d] ? [self methodName], self : nil; }
 
 #pragma mark - General Functions
 
@@ -1545,7 +1556,7 @@ _AZUnimplementedFunction(__PRETTY_FUNCTION__,__FILE__,__LINE__)
 
 #define ARRAY_ACCESSORS(lowername, capsname) \
 	- (NSUInteger)countOf ## capsname { return [lowername count]; } \
-	- (id)objectIn ## capsname ## AtIndex: (NSUInteger)index { return [lowername objectAtIndex: index]; } \
+	-- objectIn ## capsname ## AtIndex: (NSUInteger)index { return [lowername objectAtIndex: index]; } \
 	- _Void_ insertObject: (id)obj in ## capsname ## AtIndex: (NSUInteger)index { [lowername insertObject: obj atIndex: index]; } \
 	- _Void_ removeObjectFrom ## capsname ## AtIndex: (NSUInteger)index { [lowername removeObjectAtIndex: index]; }
 

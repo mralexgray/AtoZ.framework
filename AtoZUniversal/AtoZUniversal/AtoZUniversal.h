@@ -2,7 +2,7 @@
 #ifndef AtoZ_AtoZUniversal_h
 #define AtoZ_AtoZUniversal_h
 
-#import <_ObjC.h>
+#import <AtoZUniversal/_ObjC.h>
 
 #import <AtoZUniversal/AtoZMacroDefines.h>
 #import <AtoZUniversal/metamacros.h>

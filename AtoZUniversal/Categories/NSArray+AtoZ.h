@@ -57,7 +57,7 @@ extern NSString * const NSMutableArrayDidInsertObjectNotification;
 @end
 
 @interface NSSet (AtoZ)
-- (id)filterOne:(BOOL (^)(id object))block;
+- filterOne:(BOOL (^)(id object))block;
 - (NSET*)  setByRemovingObject: x;
 @end
 @interface NSMutableArray (AtoZ)
@@ -228,7 +228,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*)nmap:(id(^)(id obj,NSUI index))blk;
 
 /*** performs consecutive calls of block for every pair of elements in this array */
-- (id)reduce:(id (^)(id a, id b))block;
+- reduce:(id (^)(id a, id b))block;
 
 /*** Returns a subArray that does not contain the argument object */
 - (NSA*)arrayWithoutObject: object;
@@ -249,23 +249,23 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 - (NSA*)filter:(BOOL (^)(id object))block;
 
 /*** Returns the first object (non-nil) from the block.  Not necessarily the object passed in, but somethig. */
-- (id)filterOneBlockObject:(id(^)(id object))block;
+- filterOneBlockObject:(id(^)(id object))block;
 
 
 // returns  the first non-nil response.
-- (id)filterNonNil:(id(^)(id))block;
+- filterNonNil:(id(^)(id))block;
 
 - (NSUI)indexOfFirstObjectPassing:(BOOL(^)(id obj))block;
 
 - (NSA*)subIndex:(NSUI)subIndex filter:   (BOOL (^)(id object))block;
-- (id)		 subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
+- 	 subIndex:(NSUI)subIndex filterOne:(BOOL (^)(id object))block;
 
 //performs block on subindex of array and returns the result of the block
-- (id)subIndex:(NSUI)subIndex block:(Obj_ObjBlk)block;
+- subIndex:(NSUI)subIndex block:(Obj_ObjBlk)block;
 //performs block on subindex of array and returns the original index object that return from the block
-- (id)subIndex:(NSUI)subIndex blockReturnsIndex:(Obj_ObjBlk)block;
+- subIndex:(NSUI)subIndex blockReturnsIndex:(Obj_ObjBlk)block;
 /*** Filters one element from the array that returns YES from the called block might not always be the same, it just will return any match! In case you are not absolutely sure that there is only ONE match better use filter and grab the result manually will return nil for no match */
-- (id)filterOne:(BOOL (^)(id object))block;
+- filterOne:(BOOL (^)(id object))block;
 /*** Returns YES when all members of the current array pass the isKindOfClass test with the given Class */
 
 /** [@[@2,@3,@4] testThatAllReturn:YES block:^BOOL(NSN*o){ return o.uIV < 4; }] -> NO.  but with 5, returns YES! */

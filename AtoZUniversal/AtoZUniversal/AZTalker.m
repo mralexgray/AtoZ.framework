@@ -90,7 +90,7 @@ AZPROP(NSSpeechSynthesizer,talker);
 
 
 //NSSpeechSynthesizer *talker;
-//- (id)init
+//-- init
 //{
 //	self = [super init];
 //	if (self) {

@@ -1,60 +1,51 @@
 
-
 #import <CommonCrypto/CommonDigest.h>
 #import <AtoZUniversal/AtoZUniversal.h>
 
-@import FunSize; // drawInContext:flipped
-//@import CocoatechCore; // stringWithString:attributes
-
+@import FunSize; // -> drawInContext:flipped  AtoZ.AtoZGeometry; -> AZIsZeroSize
 
 @implementation NSAttributedString (NTExtensions)
 
-+ (INST) stringWithString:(NSString*)inString attributes:(NSDictionary*)attributes;
-{
-	return inString ? [[NSAttributedString alloc] initWithString:inString attributes:attributes] : nil;
++ _Kind_ stringWithString:_Text_ s attributes:_Dict_ as {
+
+	return !s ? nil : [NSAttributedString.alloc initWithString:s attributes:as];
 }
 @end
 
-//@import AtoZ.AtoZGeometry; // AZIsZeroSize
+@interface LoremIpsum : NSObject @prop_RO NSArray * words; @end
 
+@implementation LoremIpsum
 
-@interface LoremIpsum : NSObject {
-  NSArray* _words;
+- init { if (!(self = [super init])) return nil;
+  _words = [NSArray arrayWithContentsOfFile:[[NSBundle bundleForClass:self.class] pathForResource:NSStringFromClass(self.class) ofType:@"plist"]];
+	return self;
+}
+- (NSString*) randomWord { return [_words objectAtIndex:random() % [_words count]]; }
+
+- (NSString*) words:(NSUInteger)count {
+
+  return !count ? @"" : [@(count) mapTimes:^id(NSNumber *num) { return[self randomWord]; }].joinedWithSpaces;
 }
 
-- (NSString*) words:(NSUInteger)count;
-- (NSString*) sentences:(NSUInteger)count;
+- (NSString*) sentences:(NSUInteger)count {
+
+  NSMutableString *result = @"".mC;
+
+  for (NSUInteger i = 0; i < count; i++) {
+    long numberOfWords = random() % 10 + 10; //range from 10-20 words
+    NSMutableString *sentence = [self words:numberOfWords].mC;
+    NSString *firstChar = [sentence substringWithRange:NSMakeRange(0, 1)];
+    firstChar = firstChar.uppercaseString;
+    [sentence replaceCharactersInRange:NSMakeRange(0, 1) withString:firstChar];
+    [result appendFormat:@"%@%@", sentence, i+1 == count ? @"." /*last sentence */ : @". "];
+  }
+  return	result;
+}
 
 @end
 
-
-//#import "NSString+SymlinksAndAliases.h"
-//
 #define kMaxFontSize 10000
-//#import "HTMLNode.h"
-//#import "NSColor+AtoZ.h"
-//#import "NSArray+AtoZ.h"
-//#import "AtoZFunctions.h"
-//#import "RuntimeReporter.h"
-//#import "NSString+AtoZ.h"
-//#import "AtoZModels.h"
 
-
-//@interface NSCharacterSet (Chars)
-//@prop_RO NSS * stringValue;
-//@end@implementation  NSCharacterSet (Chars)
-//- (NSS*)stringValue {
-//	NSInteger i;
-//	NSMutableString* string = NSMS.new;
-//	for (i=0; i<0x10000; i++) {
-//		if ([NSCharacterSet.filenameLegalMacUnixCharacterSet characterIsMember:(unichar)i]) {
-//			[string appendFormat:@"%c", (unichar)i] ;
-//		}
-//	}
-//
-//	return string;
-//}
-//@end
 
 
 @interface NSString_stripHtml_XMLParsee : NSObject <NSXMLParserDelegate>	@end
@@ -607,7 +598,7 @@ finish:
 	return [self substringToIndex:([self length] - 1)];
 }
 /*
- - (id)decodeAllPercentEscapes {
+ -- decodeAllPercentEscapes {
  NSString *cocoaWay =
  NSString* cfWay = CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, [self UTF8String], CFSTR(""));
  NSString* cocoaWay = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -711,10 +702,7 @@ finish:
 //}
 //- _Void_ drawCenteredInRect: (NSR)rect withFontNamed: (NSS*) font;
 
-#if TARGET_OS_IPHONE
-// iOS code
-#else
-// OSX code
+#if MAC_ONLY
 
 - _Void_ drawCenteredInRect:(NSR)rect withFont:(NSF *)font {
 	//- _Void_ drawCenteredInFrame:(NSRect)frame withFont:(NSF*)font {
@@ -726,11 +714,12 @@ finish:
 	//								   size.width, size.height);
 	[string drawCenteredVerticallyInRect:rect];    // withFontNamed:font.fontName andColor:WHITE];//@{font:NSFontNameAttribute }];
 }
-#endif
+
 
 - _Void_ drawInRect:(NSRect)r withFont:(NSFont *)font andColor:(NSColor *)color {
 	[self drawInRect:r withFontNamed:font.fontName andColor:color];
 }
+#endif
 
 - (NSSZ)sizeWithFont:(NSFont *)font margin:(NSSZ)size;
 {
@@ -751,14 +740,12 @@ finish:
 //	return AZRectFromSize([self sizeWithFont:font margin:NSMakeSize(font.pointSize / 2, font.pointSize / 2)]);
 }
 
-#if TARGET_OS_IPHONE
-// iOS code
-#else
-// OSX code
-
 - (CGF)widthWithFont:(NSF *)font {
-	return [self sizeWithFont:font margin:NSMakeSize(font.pointSize / 2, font.pointSize / 2)].width;
+	return [self sizeWithFont:font margin:_Size_ {font.pointSize / 2, font.pointSize / 2}].width;
 }
+
+#if MAC_ONLY
+
 
 
 - _Void_ drawInRect:(NSRect)r withFontNamed:(NSS*) fontName andColor:(NSColor *)color {
@@ -819,23 +806,22 @@ finish:
 }
 
 - (BOOL)isEmpty {
-	return (self == nil || [self isKindOfClass:[NSNull class]]
-          || [self.trim isEqualToString:@""]
-          || ([self respondsToSelector:@selector(length)] && ([(NSData *)self length] == 0))
+	return (!self || !self.length || ISA(self,NSNull) || [self.trim isEqualToString:@""]
+                || ([self respondsToSelector:@selector(length)] && ([(NSData *)self length] == 0))
           || ([self respondsToSelector:@selector(count)] && ([(NSA*)self count] == 0)));
 }
 
 /*** Actually this should be called stringByReversingThisString, but that appeared to be too much sugar-free.  Reverse ist non-destructive */
-- (NSS*)reversed  {
-	NSMutableString *re = NSMutableString.string;
-	for (NSUI i = self.length - 1; i >= 0; i--) {
-		[re appendString:[self substringWithRange:NSMakeRange(i, 1)]];
-	}
+- (NSS*) reversed  {
+
+	NSMS *re = NSMutableString.new;
+	for (NSUI i = self.length - 1; i > 0; i--) [re appendString:[self substringWithRange:NSMakeRange(i, 1)]];
 	return re;
 }
 
 - (NSUInteger)count:(NSS*)s options:(NSStringCompareOptions)mask {
-	NSUInteger re = 0;      NSRange rr, r; r = (NSRange) {0, self.length };
+
+	NSUInteger re = 0; NSRange rr, r = RNGTO(self.length);
 	while ((rr = [self rangeOfString:s options:mask range:r]).location != NSNotFound) {
 		re++;
 		r.location = rr.location + 1;   r.length = self.length - r.location;
@@ -843,13 +829,12 @@ finish:
 	return re;
 }
 
-- (NSUInteger)count:(NSS*)aString {
-	return [self count:aString options:0];
-}
+- _UInt_ count:(NSS*)_ { return [self count:_ options:0]; }
 
-- (NSUInteger)indentationLevel {
-	NSUInteger re = 0;
-	while (re < self.length && [[self substringWithRange:NSMakeRange(re, 1)] isEqualToString:@" "]) re++;
+- _UInt_ indentationLevel {
+
+	_UInt re = 0;
+	while (re < self.length && [[self substringWithRange:_Rnge_ {re, 1}] isEqualToString:@" "]) re++;
 	return re;
 }
 
@@ -1492,7 +1477,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 
  // KVC compliance stuff: This was needed for NSTreeController.  Not needed for the iPhone version.
  //- _Void_ setSubclassNames:(NSA*) names { NSLog(@"Can't set subclass names!"); }
- //- (id) valueForUndefinedKey:(NSS*) key { return self; }
+ //- valueForUndefinedKey:(NSS*) key { return self; }
  //- _Void_ setValue: value forUndefinedKey:(NSS*)key { NSLog(@"unknown key:%@", key); }
  @end
  */
@@ -1521,7 +1506,7 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 
 - (NSRNG) range { return NSMakeRange(0, self.length); }
 
-- (CGF) pointSizeForSize:(NSSZ)z {
+- _Flot_ pointSizeForSize:_Size_ z {
 
     return [self.string pointSizeForFrame:(NSRect){NSZeroPoint,z}
                           withFont:[self attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL]];
@@ -1794,20 +1779,13 @@ static NSString * SillyStringImplementation(id self, SEL _cmd, ...) {
 	return (__bridge NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""),
                                                                                        kCFStringEncodingUTF8);
 }
-#if !TARGET_OS_IPHONE
-static NSArray * _SpecialAbreviations() {
-	static NSArray *array = nil;
-	if (array == nil) {
-		OSSpinLockLock(&_staticSpinLock);
-		if (array == nil) {
-			array = [NSArray.alloc initWithObjects:@"vs", @"st", nil];
-		}
-		OSSpinLockUnlock(&_staticSpinLock);
-	}
-	return array;
-}
 
+static NSArray * _SpecialAbreviations() { AZSTATIC_OBJ(NSA, array,@[@"vs", @"st"]); return array;
+//	if (array == nil) { OSSpinLockLock(&_staticSpinLock); if (array == nil) array = [NSArray.alloc initWithObjects:, nil];
+//		OSSpinLockUnlock(&_staticSpinLock);
+}
 // http://www.attivio.com/blog/57-unified-information-access/263-doing-things-with-words-part-two-sentence-boundary-detection.html
+
 static void _ScanSentence(NSScanner *scanner) {
 	NSUInteger initialLocation = scanner.scanLocation;
 	while (1) {
@@ -2062,7 +2040,7 @@ static void _ScanSentence(NSScanner *scanner) {
 //	[s trimWhitespaceAndNewlineCharacters];
 //	return s.copy;
 //}
-#endif
+//#endif
 
 - (NSA*) sentences { return [self extractAllSentences]; }
 - (NSS*) firstSentence { return [self extractFirstSentence]; }
@@ -2514,21 +2492,19 @@ static void _ScanSentence(NSScanner *scanner) {
 - (BOOL)isCaseInsensitiveEqual:	(NSS*)s { return [self compare:s options:NSCaseInsensitiveSearch] == NSOrderedSame;	}
 @end
 @implementation NSString (additions)
-- (NSInteger)numberOfLines										{
-	NSInteger i, n;	NSUInteger eol, end;
+- (NSInteger)numberOfLines										{ _SInt i, n;	_UInt eol, end;
+
 	for (i = n = 0; i < [self length]; i = end, n++) {
 		[self getLineStart:NULL end:&end contentsEnd:&eol forRange:NSMakeRange(i, 0)];
-		if (end == eol)
-			break;
+		if (end == eol) break;
 	}
-
 	return n;
 }
 - (NSUInteger)occurrencesOfCharacter:(unichar)ch		{
+
 	NSUInteger n, i;
-	for (i = n = 0; i < [self length]; i++)
-		if ([self characterAtIndex:i] == ch)
-			n++;
+	for (i = n = 0; i < self.length; i++)
+		if ([self characterAtIndex:i] == ch) n++;
 	return n;
 }
 #if !TARGET_OS_IPHONE
@@ -3678,40 +3654,6 @@ static NSMD* cache;
 
 
 
-
-@implementation LoremIpsum
-
-- init {
-	if (!(self = [super init])) return nil;
-  _words = [NSArray arrayWithContentsOfFile:[[NSBundle bundleForClass:self.class] pathForResource:NSStringFromClass(self.class) ofType:@"plist"]];
-	return self;
-}
-- (NSString*) randomWord { return [_words objectAtIndex:random() % [_words count]]; }
-
-- (NSString*) words:(NSUInteger)count {
-
-  return !count ? @"" : [@(count) mapTimes:^id(NSNumber *num) { return[self randomWord]; }].joinedWithSpaces;
-}
-
-- (NSString*) sentences:(NSUInteger)count {
-
-  NSMutableString *result = @"".mC;
-
-  for (NSUInteger i = 0; i < count; i++) {
-    long numberOfWords = random() % 10 + 10; //range from 10-20 words
-    NSMutableString *sentence = [self words:numberOfWords].mC;
-    NSString *firstChar = [sentence substringWithRange:NSMakeRange(0, 1)];
-    firstChar = firstChar.uppercaseString;
-    [sentence replaceCharactersInRange:NSMakeRange(0, 1) withString:firstChar];
-    [result appendFormat:@"%@%@", sentence, i+1 == count ? @"." /*last sentence */ : @". "];
-  }
-  return	result;
-}
-
-@end
-
-
-
 @implementation NSCharacterSet (EmojisAddition)
 
 + (NSCharacterSet *) illegalXMLCharacterSet {
@@ -3926,7 +3868,7 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 
 	return uniqueId;
 }
-- (id) initWithChatData:(NSData *) data encoding:(NSStringEncoding) encoding {
+- initWithChatData:(NSData *) data encoding:(NSStringEncoding) encoding {
 	if( ! encoding ) encoding = NSISOLatin1StringEncoding;
 
 	// Search for CTCP/2 encoding tags and act on them
@@ -4574,3 +4516,29 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 	return NO;
 }
 @end
+
+//#import "NSString+SymlinksAndAliases.h"
+//#import "HTMLNode.h"
+//#import "NSColor+AtoZ.h"
+//#import "NSArray+AtoZ.h"
+//#import "AtoZFunctions.h"
+//#import "RuntimeReporter.h"
+//#import "NSString+AtoZ.h"
+//#import "AtoZModels.h"
+
+
+//@interface NSCharacterSet (Chars)
+//@prop_RO NSS * stringValue;
+//@end@implementation  NSCharacterSet (Chars)
+//- (NSS*)stringValue {
+//	NSInteger i;
+//	NSMutableString* string = NSMS.new;
+//	for (i=0; i<0x10000; i++) {
+//		if ([NSCharacterSet.filenameLegalMacUnixCharacterSet characterIsMember:(unichar)i]) {
+//			[string appendFormat:@"%c", (unichar)i] ;
+//		}
+//	}
+//
+//	return string;
+//}
+//@end

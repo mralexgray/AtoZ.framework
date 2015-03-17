@@ -140,10 +140,8 @@
 #import "CTGradient.h"
 #import "DateTools.h"
 #import "DefinitionController.h"
-#import "DSObjectiveCSyntaxDefinition.h"
-#import "DSPodfileSyntaxDefinition.h"
-#import "DSPodspecSyntaxDefinition.h"
-#import "DSRubySyntaxDefinition.h"
+
+
 #import "DSSyntaxCollection.h"
 #import "DSSyntaxHighlighter.h"
 #import "DSSyntaxTextView.h"

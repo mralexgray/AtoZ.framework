@@ -22,7 +22,7 @@ return  ISA(object,NSS)
 @dynamic count, reverseKeyEnumerator, keyEnumerator;
 
 
-- (id) forwardingTargetForSelector:(SEL)s {
+- forwardingTargetForSelector:(SEL)s {
 
   return  s == @selector(count)|| s== @selector(objectForKey:) ? dictionary :
           s == @selector(reverseKeyEnumerator) || s == @selector(keyEnumerator) ? keyset :
@@ -37,7 +37,7 @@ return  ISA(object,NSS)
   return self;
 }
 
-- (id)copy
+- copy
 {
     return [self mutableCopy];
 }
@@ -64,7 +64,7 @@ return  ISA(object,NSS)
 //    return [dictionary count];
 //}
 //
-//- (id)objectForKey: aKey
+//-- objectForKey: aKey
 //{
 //    return [dictionary objectForKey:aKey];
 //}
@@ -89,7 +89,7 @@ return  ISA(object,NSS)
     [dictionary setObject:anObject forKey:aKey];
 }
 
-- (id)keyAtIndex:(NSUInteger)anIndex
+- keyAtIndex:(NSUInteger)anIndex
 {
     return [keyset objectAtIndex:anIndex];
 }
@@ -101,7 +101,7 @@ return  ISA(object,NSS)
                                          count: len];
 }
 
-- (id)objectAtIndexedSubscript:(NSUInteger)idx
+- objectAtIndexedSubscript:(NSUInteger)idx
 {
     id key = [keyset objectAtIndex:idx];
 
@@ -121,7 +121,7 @@ return  ISA(object,NSS)
     [self setObject:obj forKey:key];
 }
 
-- (id)objectForKeyedSubscript: key
+- objectForKeyedSubscript: key
 {
     return [dictionary objectForKey:key];
 }
@@ -214,7 +214,7 @@ return  ISA(object,NSS)
 
 //		http://appventure.me/2011/12/fast-nsdictionary-traversal-in-objective-c.html
 @implementation NSDictionary (objectForKeyList)
-- (id)objectForKeyList: key, ...
+- objectForKeyList: key, ...
 {
   id object = self;
   va_list ap;
@@ -226,7 +226,7 @@ return  ISA(object,NSS)
   return object;
 }
 
-- (id)objectMatching: match forKeyorKeyPath: kp {
+- objectMatching: match forKeyorKeyPath: kp {
 
 	return [self.allValues filterOne:^BOOL(id object) {
 		return [object valueForKeyOrKeyPath:kp] == match;
@@ -236,7 +236,7 @@ return  ISA(object,NSS)
 @implementation NSDictionary(GetObjectForKeyPath)
 //	syntax of path similar to Java: record.array[N].item items are separated by . and array indices in []
 //	example: a.b[N][M].c.d
-- (id)objectForKeyPath:(NSS*)inKeyPath	{
+- objectForKeyPath:(NSS*)inKeyPath	{
 	NSArray	*components = [inKeyPath componentsSeparatedByString:@"."]	;
 	int		i, j, n = [components count], m	;
 	id		curContainer = self	;
@@ -346,7 +346,7 @@ return  ISA(object,NSS)
 }
 @end
 @implementation NSArray (FindDictionary)
-- (id)findDictionaryWithValue: value	{	__block id match = nil;
+- findDictionaryWithValue: value	{	__block id match = nil;
 
 	[self enumerateObjectsUsingBlock:^(NSO *obj, NSUI idx, BOOL *stop) {
   
@@ -407,7 +407,7 @@ return  ISA(object,NSS)
 */
 
 @implementation NSDictionary (Types)
-- (id)objectForKey: key ofType:(Class)type default: defaultValue;	{
+- objectForKey: key ofType:(Class)type default: defaultValue;	{
   id value = [self objectForKey:key];
   return [value isKindOfClass:type] ? value : defaultValue;
 }
@@ -433,7 +433,7 @@ return  ISA(object,NSS)
 
 //@implementation NSArray (CustomKVCOperator)
 //
-//- (id) _allValuesForKeyPath:(NSS*)keyPath {
+//- _allValuesForKeyPath:(NSS*)keyPath {
 //  id keyPathValue = [self valueForKeyPath:keyPath];
 ////  size_t instanceSize = class_getInstanceSize([NSArray class]);
 //  return [keyPathValue allValues];
@@ -442,12 +442,12 @@ return  ISA(object,NSS)
 //@end
 
 @implementation NSDictionary (CustomKVCOperator)
-- (id) _allValuesForKeyPath:(NSS*)keyPath {
+- _allValuesForKeyPath:(NSS*)keyPath {
   id keyPathValue = [self valueForKeyPath:keyPath];
 //  size_t instanceSize = class_getInstanceSize([NSArray class]);
   return [keyPathValue allValues];
 }
-- (id) _allKeysForKeyPath:(NSS*)keyPath {
+- _allKeysForKeyPath:(NSS*)keyPath {
   id keyPathValue = [self valueForKeyPath:keyPath];
 //  size_t instanceSize = class_getInstanceSize([NSArray class]);
   return [keyPathValue allKeys];
@@ -456,8 +456,8 @@ return  ISA(object,NSS)
 
 @implementation  NSDictionary (AtoZ)
 
-- (id) randomValue { return self.allValues.randomElement; }
-- (id) randomKey { return self.allKeys.randomElement; }
+- randomValue { return self.allValues.randomElement; }
+- randomKey { return self.allKeys.randomElement; }
  
 
 + (NSD*) withFile:(NSS*)p { return [self dictionaryWithContentsOfFile:p]; }
@@ -534,7 +534,7 @@ return  ISA(object,NSS)
 	}];
 }
 
-//- (id) key: x {
+//- key: x {
 //
 //	if([self.allKeys containsObject:key]) {
 //		// this dictionary contains the key, return the value
@@ -564,7 +564,7 @@ return  ISA(object,NSS)
 //
 //}
 /* fierce */
-- (id) recursiveObjectForKey:(NSS*)key {
+- recursiveObjectForKey:(NSS*)key {
 
 	if([self.allKeys containsObject:key]) {
 		// this dictionary contains the key, return the value
@@ -779,7 +779,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 #endif
 #define SAFE_ALLOCA_SIZE (8 * 8192)
 @implementation NSDictionary (OFExtensions)
-- (id)anyObject;	{
+- anyObject;	{
 	for (NSString *key in self)
 		return self[key];
 	return nil;
@@ -1022,7 +1022,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 	return [self integerForKey:key defaultValue:0];
 }
 /* COnflicts cocoatechcore
-- (id)objectForKey:(NSS*)key defaultObject: defaultObject;	{
+- objectForKey:(NSS*)key defaultObject: defaultObject;	{
 	id value = self[key];
 	if (value)
 		return value;
@@ -1054,7 +1054,7 @@ static void DynamicDictionarySetter(id self, SEL _cmd, id value)	{
 @end
 
 @implementation NSCountedSet (Votes)
-- (id)winner {
+- winner {
 	id winner = nil ;
 	NSInteger highestCount = 0 ;
 	for (id object in self) {

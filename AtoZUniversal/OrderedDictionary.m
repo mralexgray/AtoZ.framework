@@ -50,7 +50,7 @@
 @property (nonatomic, assign) NSInteger index;
 
 + enumeratorWithKeys:(NSArray *)keys values:(NSDictionary *)values;
-- (id)initWithKeys:(NSArray *)keys values:(NSDictionary *)values;
+- initWithKeys:(NSArray *)keys values:(NSDictionary *)values;
 
 @end
 
@@ -62,7 +62,7 @@
     return [[self alloc] initWithKeys:keys values:values];
 }
 
-- (id)initWithKeys:(NSArray *)keys values:(NSDictionary *)values
+- initWithKeys:(NSArray *)keys values:(NSDictionary *)values
 {
     if ((self = [super init]))
     {
@@ -73,7 +73,7 @@
     return self;
 }
 
-- (id)nextObject
+- nextObject
 {
     return (self.index < 0)? nil: self.values[self.keys[(NSUInteger)self.index--]];
 }
@@ -105,12 +105,12 @@
     return self;
 }
 
-- (id)copyWithZone:(__unused NSZone *)zone
+- copyWithZone:(__unused NSZone *)zone
 {
     return self;
 }
 
-- (id)mutableCopyWithZone:(NSZone *)zone
+- mutableCopyWithZone:(NSZone *)zone
 {
     return [[MutableOrderedDictionary allocWithZone:zone] initWithDictionary:self];
 }
@@ -120,7 +120,7 @@
     return [self.keys count];
 }
 
-- (id)objectForKey:(id)key
+- objectForKey:(id)key
 {
     return self.values[key];
 }
@@ -147,12 +147,12 @@
     }];
 }
 
-- (id)keyAtIndex:(NSUInteger)index
+- keyAtIndex:(NSUInteger)index
 {
     return self.keys[index];
 }
 
-- (id)objectAtIndex:(NSUInteger)index
+- objectAtIndex:(NSUInteger)index
 {
     return self.values[self.keys[index]];
 }
@@ -203,7 +203,7 @@
     return [[self alloc] initWithCapacity:count];
 }
 
-- (id)initWithCapacity:(NSUInteger)capacity
+- initWithCapacity:(NSUInteger)capacity
 {
     if ((self = [super init]))
     {
@@ -213,12 +213,12 @@
     return self;
 }
 
-- (id)init
+- init
 {
     return [self initWithCapacity:0];
 }
 
-- (id)copyWithZone:(NSZone *)zone
+- copyWithZone:(NSZone *)zone
 {
     return [[OrderedDictionary allocWithZone:zone] initWithDictionary:self];
 }
