@@ -162,8 +162,8 @@ EL_TYPE nodeType(xmlNode * node) {
 				for(xmlNode * child = attr->children; NULL != child; child = child->next)
 				{
 					
-					BOOL match = !partial && !strcmp((char*)child->content, classNameStr)
-                    ||  partial &&  strstr((char*)child->content, classNameStr) != NULL;
+					BOOL match = (!partial && !strcmp((char*)child->content, classNameStr))
+                    ||  (partial &&  strstr((char*)child->content, classNameStr)) != NULL;
 	
 					if (match)
 					{
@@ -195,8 +195,8 @@ EL_TYPE nodeType(xmlNode * node) {
 				for(xmlNode * child = attr->children; NULL != child; child = child->next)
 				{
 					
-					BOOL match = !partial && !strcmp((char*)child->content, classNameStr)
-                    ||  partial &&  strstr((char*)child->content, classNameStr) != NULL;
+					BOOL match = (!partial && !strcmp((char*)child->content, classNameStr))
+                    ||  (partial &&  strstr((char*)child->content, classNameStr) != NULL);
 
 					if (match)
 						return [self.class.alloc initWithXMLNode:(void*)cur_node];

@@ -558,12 +558,8 @@ static char const * const __unused ISANIMATED_KEY  = "ObjectRep";
  [layerHosting setLayer:layer];
  [layerHosting setWantsLayer:YES];
  */
--(CALayer*) azLayer {
+-(CALayer*) azLayer { CAL*l; return ((l = self.layer)) ? l : ({ l = CAL.new; l.frame = self.bounds; l.arMASK = CASIZEABLE; self.layer = l; self.wantsLayer = YES; [l setNeedsDisplay]; l; }); }
 
-	CAL*l = nil;
-	if (l = self.layer) return l;
-	else { l = CAL.new; l.frame = self.bounds; l.arMASK = CASIZEABLE; self.layer = l; self.wantsLayer = YES; [l setNeedsDisplay]; return l; }
-}
 -(CALayer*) setupHostViewNamed:(NSS*)name {
 	CAL *i = [self setupHostView];
 	i.name = name;
@@ -1060,16 +1056,18 @@ NSV* AZResizeWindowAndContent(NSWindow* window, CGF dXLeft, CGF dXRight, CGF dYT
 
 - (NSA*)  findSubviewsOfKind:(Class)kind withTag:(NSI)tag inView:(NSV*)v {
 
-  return [v.subviews reduce:!kind || ISA(v,kind) && (tag==NSNotFound || v.tag==tag) ?  @[v] : @[] withBlock:^id(id sum, id obj) {
+  return [v.subviews reduce:((!kind || ISA(v,kind)) && (tag==NSNotFound || v.tag==tag)) ?  @[v] : @[]
+                  withBlock:^id(id sum, id obj) {
 		return [sum arrayByAddingObjectsFromArray:[self findSubviewsOfKind:kind withTag:tag inView:obj]];
   }];
 }
 
-- (id) firstSubviewOfClass:(Class)k                     {
+- firstSubviewOfClass:(Class)k                     {
+
 	__block NSV* v;
 	[self.subviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		 id x = [obj isKindOfClass:k] ? obj : [obj firstSubviewOfClass:k];
-		 if (!x) return; v = x; *stop = YES;
+		 id x;
+		 if (!(x  = [obj isKindOfClass:k] ? obj : [obj firstSubviewOfClass:k])) return; v = x; *stop = YES;
 	}];
 	return v;
 }

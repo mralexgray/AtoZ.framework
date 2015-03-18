@@ -42,7 +42,7 @@
 #import "NSWindow+AtoZ.h" 
 #import "WebView+AtoZ.h"
 
-#import "NSImage+AtoZ.h" 
+//#import "NSImage+AtoZ.h" 
 
 
 //#import "SynthesizeSingleton.h"

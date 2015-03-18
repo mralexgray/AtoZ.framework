@@ -1,10 +1,10 @@
-/*
-#import "AZSizer.h"
-@import Quartz;
 
-NSIMG* AZIMGNamed(NSS *constName);
 
-APPKIT_EXTERN NSString  *const AZIMG_checkmark,       *const AZIMG_addressBook,     *const AZIMG_paperclip,
+@class AZSizer;
+
+_Pict AZIMGNamed(_Text constName);
+
+       extern NSString  *const AZIMG_checkmark,       *const AZIMG_addressBook,     *const AZIMG_paperclip,
                         *const AZIMG_checkRound,      *const AZIMG_xCircle,         *const AZIMG_off,
                         *const AZIMG_on,              *const AZIMG_lightning,       *const AZIMG_floppy,
                         *const AZIMG_folder,          *const AZIMG_globe,           *const AZIMG_jewishHand,
@@ -57,25 +57,21 @@ _S _I _SInt              get_bit ( _UChr carr, _ULng bit_num);
 CGImageRef CreateCGImageFromData (    _Data data );
 CGF                     distance (    _Cord aPnt );				// Just one function to declare...
 
-typedef void(^NSImageDrawer)(void);
-
-typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 @interface NSImage (AtoZDrawBlock)
 
-+ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
-+ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(LockedFocusWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
++ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
++ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /// [NSImage imageNamed:@"document"]
 
+#import <AtoZUniversal/SubscriptProtocols.h>
 
-@class AZFile;
+@class AZFile, PDFDocument;
 
 @interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
 
 @prop_RO _Data PNGRepresentation;
-
-+ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
 
 + (NSIMG*) gravatarForEmail:(NSS*)e;
 
@@ -165,7 +161,6 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 + (NSIMG*) reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
 
 - (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
-- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
 + (NSIMG*) az_imageNamed:	  (NSS*) name;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
 + (NSIMG*) imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
@@ -178,7 +173,7 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 + (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 
 @prop_RO NSC * quantized;
-@prop_RO NSBIR * quantizerRepresentation;
+
 
 - (NSA*)   quantize;
 
@@ -187,21 +182,21 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 @prop_RO NSS * asTempFile,
 
-/*! htmlEncodedImg  a full, HTML tagged,base 64 image..  ready to be appended.
-
-@code   [script eval:$(@"var img = $(\"%@\").appendTo($(\"body\"));",
-        [NSIMG.randomMonoIcon scaledToMax:30].htmlEncodedImg)];
-
+/// htmlEncodedImg  a full, HTML tagged,base 64 image..  ready to be appended.\
+\
+@code   [script eval:$(@"var img = $(\"%@\").appendTo($(\"body\"));", \
+        [NSIMG.randomMonoIcon scaledToMax:30].htmlEncodedImg)];\
+\
 @return <img style="width:30 px; height:30 px;" src="data:image/png;base64,iVBORw0\...CYII=">
-*/
+
   * htmlEncodedImg,
 
-/*! dataURL  the literal url, i you just want that...
-@return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
-*/
+/// dataURL  the literal url, i you just want that...\
+             @return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
+
   * dataURL;
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
-/*! ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi*/
+/// ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi
 
 - (void) 	  openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;
@@ -236,16 +231,11 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 - (void) drawFloatingRightInFrame:(NSRect)aFrame;  //ACG FLOATIAMGE
 // draws the passed image into the passed rect, centered and scaled appropriately.
 // note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
-- (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
-- (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
-			fraction:(float)delta	   method:(AGImageResizingMethod)resizeMethod;
 
 - (NSIMG*) 	filteredMonochromeEdge;
 
 - (NSIMG*)tintedImage;
 - (NSIMG*) 	tintedWithColor:(NSC*) tint ;
-- (NSBitmapImageRep*) bitmap;
-- (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y;
 - (CGImageRef) 	cgImage;
 - (NSIMG*)imageRotatedByDegrees:(CGF)degrees;
 //- (NSIMG*)imageByScalingProportionallyToSize:(NSSize)targetSize;
@@ -259,10 +249,6 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 - (NSIMG*)	imageCroppedToFitSize:(NSSize)size;
 - (NSIMG*)	imageScaledToFitSize:(NSSize)size;   // PREFERRED RESIZING METHOD
 
-- (NSImageRep*) largestRepresentation;
-- (NSSize) 		sizeLargestRepresentation;
-- (NSImageRep*) smallestRepresentation;
-- (NSSize)		sizeSmallestRepresentation;
 
 - (NSIMG*)rotated:(int)angle;
 - (NSRect) proportionalRectForTargetRect:(NSRect)targetRect;
@@ -279,26 +265,20 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 - _Void_ drawEtchedInRect:(NSRect)rect;
 - (NSIMG*) maskedWithColor:(NSC *)color;
 
-/*!
- @method	 
- @abstract   converting a CGImageRef to NSImage	*/
+/// @abstract   converting a CGImageRef to NSImage
 + (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 - (CGImageRef)cgImageRef;
 
 
-/*!	@abstract   converting the input NSImage to a new size */
+///	@abstract   converting the input NSImage to a new size
 + (NSIMG*)resizedImage:(NSIMG*)sourceImage 
 				  newSize:(NSSize)size 
 		  lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
    lockAspectRatioByWidth:(BOOL)flag; // pass YES to lock aspect ratio by width or passing NO to lock by height
 
-/*!	@abstract   returning an cropped NSIMG*/
+///	@abstract   returning an cropped NSIMG
 - (NSIMG*)croppedImage:(CGRect)bounds;
 
-/*!	@abstract   save image to disk*/
-- (BOOL)saveImage:(NSS*)path 
-		 fileName:(NSS*)name 
-		 fileType:(NSBitmapImageFileType)type;
 
 - (BOOL)saveAs:(NSS*)path;
 - (NSIMG*)scaleToFillSize:(NSSize)targetSize;
@@ -314,7 +294,6 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 @interface NSImage (CGImageConversion)
 
-- (NSBitmapImageRep*) bitmap;
 - (CGImageRef) cgImage;
 
 @end
@@ -322,8 +301,6 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 @interface NSImage (AtoZScaling)
 - (NSIMG*) imageByAdjustingHue:(float)hue;
 - (NSIMG*) imageByAdjustingHue:(float)hue saturation:(float)saturation;
-- (NSImageRep*) representationOfSize:(NSSize)theSize;
-- (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
 - _IsIt_ createRepresentationOfSize:(NSSize)newSize;
 - _IsIt_ shrinkToSize:(NSSize)newSize;
 - _IsIt_ createIconRepresentations;
@@ -350,35 +327,20 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 //+ (NSIMG*)screenShotWithinRect:(NSRect)rect;
 
-/*
-//+ (NSIMG*)imageWithWindow:(int)wid;
-//+ (NSIMG*)imageWithRect: (NSRect)rect inWindow:(int)wid;
-+ (NSIMG*)imageWithCGContextCaptureWindow: (int)wid;
-+ (NSIMG*)imageWithBitmapRep: (NSBitmapImageRep*)rep;
-+ (NSIMG*)imageWithScreenShotInRect:(NSRect)rect;
-@end
-
-@interface NSBitmapImageRep (GrabWindow)
-//+ (NSBitmapImageRep*)correctBitmap: (NSBitmapImageRep*)rep;
-//+ (NSBitmapImageRep*)bitmapRepFromNSImage:(NSIMG*)image;
-//+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
-//+ (NSBitmapImageRep*)bitmapRepWithRect: (NSRect)rect inWindow:(int)wid;
-+ (NSBitmapImageRep*)bitmapRepWithScreenShotInRect:(NSRect)rect;
-*/
 
 + (NSIMG* ) imageBelowWindow: (NSWindow *) window ;
 
 @end
 
-/* utility category on NSImage used for converting
- NSImage to jfif data.  */
+/// utility category on NSImage used for converting NSImage to jfif data.
 @interface NSImage (JFIFConversionUtils)
-/* returns jpeg file interchange format encoded data for an NSImage regardless of the
- original NSImage encoding format.  compressionVlue is between 0 and 1.
- values 0.6 thru 0.7 are fine for most purposes.  */
+/// returns jpeg file interchange format encoded data for an NSImage regardless of the original NSImage encoding format. \
+    compressionVlue is between 0 and 1. values 0.6 thru 0.7 are fine for most purposes.  
+
 - (NSData *)JFIFData:(float) compressionValue;
 @end
 
+@import QuartzCore;
 @interface CIFilter (Subscript)
 - (id)objectForKeyedSubscript:(NSS*)key;
 - _Void_ setObject: object forKeyedSubscript:(NSS*)key;
@@ -389,80 +351,24 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 @end
 
 
-@interface NSImageView (AtoZ)
-+(NSIV*)imageViewWithImage:(NSIMG*)img ;
-+(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
-@end
-
-/*	Abstract: A category on NSImage to create a thumbnail sized NSImage from an image URL.
- 	Version: 1.0 */
+/// Abstract: A category on NSImage to create a thumbnail sized NSImage from an image URL. Version: 1.0
 
 @interface NSImage (ImageThumbnailExtensions)
 
-/* 	Create an NSImage from with the contents of the url of the specified width.
- 	The height of the resulting NSImage maintains the proportions in source.
- 	NSImage loads image data from files lazily.
- 	This method forces the file to be read to create a small sized version.
- 	This can be a useful thing to do as a background operation.	*/
+///	Create an NSImage from with the contents of the url of the specified width. \
+    The height of the resulting NSImage maintains the proportions in source. \
+    NSImage loads image data from files lazily. \
+    This method forces the file to be read to create a small sized version. \
+    This can be a useful thing to do as a background operation.
+
 + thumbnailImageWithContentsOfURL:(NSURL *)url width:(CGF)width;
 
 @end
 
-/*
- This category provides methods for dealing with flipped images. These should draw images correctly regardless of
- whether the current context or the current image are flipped. Unless you know what you are doing, these should be used
- in lieu of the normal  NSImage drawing/compositing methods.
-
- For more details, check out the related blog post at http://www.noodlesoft.com/blog/2009/02/02/understanding-flipped-coordinate-systems/
- */
-/**
-@interface NSImage (NoodleExtensions)
-	!	@method	drawAdjustedAtPoint:fromRect:operation:fraction:
- 	@abstract	Draws all or part of the image at the specified point in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
- 	@param		point The location in the current coordinate system at which to draw the image.
- 	@param		srcRect The source rectangle specifying the portion of the image you want to draw. The coordinates of this rectangle are specified in the image's own coordinate system. If you pass in NSZeroRect, the entire image is drawn.
- 	@param		op The compositing operation to use when drawing the image. See the NSCompositingOperation constants.
- 	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
- 	@discussion The image content is drawn at its current resolution and is not scaled unless the CTM of the current coordinate system itself contains a scaling factor. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
-	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.
-
-- _Void_ drawAdjustedAtPoint:(NSPoint)aPoint fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
-
-	!	@method	drawAdjustedInRect:fromRect:operation:fraction:
- 	@abstract	Draws all or part of the image in the specified rectangle in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
- 	@param		dstRect The rectangle in which to draw the image, specified in the current coordinate system.
- 	@param		srcRect The source rectangle specifying the portion of the image you want to draw. The coordinates of this rectangle must be specified using the image's own coordinate system. If you pass in NSZeroRect, the entire image is drawn.
- 	@param		op The compositing operation to use when drawing the image. See the NSCompositingOperation constants.
- 	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
- 	@discussion If the srcRect and dstRect rectangles have different sizes, the source portion of the image is scaled to fit the specified destination rectangle. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
- 	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.
-- _Void_ drawAdjustedInRect:(NSRect)dstRect fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
-
-!	@method	unflippedImage
- 	@abstract	Returns a version of the receiver but unflipped.
- 	@discussion This does not actually flip the image but returns an image with the same orientation but with an unflipped coordinate system internally (isFlipped returns NO). If the image is already unflipped, this method returns self.	
-- (NSImage *)unflippedImage;
-@end
-
-*/
-@interface NSGraphicsContext (AtoZ)
-+ (void) addNoiseToContext;
-@end
 
 
 @interface NSImage (ADBImageEffects)
 
-
-//Returns the relative anchor point (from {0.0, 0.0} to {1.0, 1.0})
-//that's equivalent to the specified image alignment constant.
-+ (NSPoint) anchorForImageAlignment: (NSImageAlignment)alignment;
-
-//Returns a rect suitable for drawing this image into,
-//given the specified alignment and scaling mode. Intended
-//for NSCell/NSControl subclasses.
-- (NSRect) imageRectAlignedInRect: (NSRect)outerRect
-                        alignment: (NSImageAlignment)alignment
-                          scaling: (NSImageScaling)scaling;
 
 //Returns a new version of the image filled with the specified color at the
 //specified size, using the current image's alpha channel. The resulting image
@@ -476,13 +382,6 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 //specified size. The resulting image will be a bitmap.
 - (NSImage *) imageMaskedByImage: (NSImage *)mask atSize: (NSSize)targetSize;
 
-//Draw a template image filled with the specified gradient and rendered
-//with the specified inner and drop shadows.
-- (void) drawInRect: (NSRect)drawRect
-       withGradient: (NSGradient *)fillGradient
-         dropShadow: (NSShadow *)dropShadow
-        innerShadow: (NSShadow *)innerShadow
-     respectFlipped: (BOOL)respectContextIsFlipped;
 
 @end
 
@@ -514,6 +413,188 @@ typedef enum {
 @end
 
 
+@interface NSImage (AIImageAdditions)
+
++ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass;
++ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass loadLazily:(BOOL)flag;
+
++ (NSImage *)imageForSSL;
+
+- (NSData *)JPEGRepresentation;
+- (NSData *)JPEGRepresentationWithCompressionFactor:(float)compressionFactor;
+
+/*! @brief Obtain a JPEG representation which is sufficiently compressed to have a size <= a given size in bytes 
+
+  The image will be increasingly compressed until it fits within maxByteSize.
+  The dimensions of the image are unchanged, so for best quality results,
+  the image should be sized (via -[NSImage(AIImageDrawingAdditions) imageByScalingToSize:]) before calling this method.
+
+  @param maxByteSize The maximum size in bytes
+  @result An NSData JPEG representation whose length is <= maxByteSize, or nil if one could not be made
+*/
+- (NSData *)JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize;
+- (NSData *)PNGRepresentation;
+- (NSData *)GIFRepresentation;
+- (NSData *)BMPRepresentation;
+- (NSData *)bestRepresentationByType;
+
+@end
+
+@interface NSImage (QuickLook)
++ (NSImage *)imageWithPreviewOfFileAtPath:(NSS*)path ofSize:(NSSZ)size asIcon:(BOOL)asIcon;
+@end
+
+@interface NSImage (Base64Encoding)
+extern NSString *kXML_Base64ReferenceAttribute;
+/*! @function	+dataWithBase64EncodedString:
+    @discussion	This method returns an autoreleased NSImage object.  
+    The NSImage object is initialized with the contents of the Base 64 encoded string.  
+    This is a convenience function for -initWithBase64EncodedString:. 
+    @param	inBase64String	An NSString object that contains only Base 64 encoded data representation of an image. 
+    @result	The NSImage object.
+ */
++ (NSIMG*)imageWithBase64EncodedString:(NSS*)inBase64String;
+///	@function	-initWithBase64EncodedString: @discussion	The NSImage object is initialized with the contents of the Base 64 encoded string. This method returns self as a convenience. @param	inBase64String	An NSString object that contains only Base 64 encoded image data. @result	This method returns self.
+- initWithBase64EncodedString:(NSS*)inBase64String;
+@end
+
+@interface NSImage(ASCII)
+- (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
+@end
+
+
+
+/*
+//+ (NSIMG*)imageWithWindow:(int)wid;
+//+ (NSIMG*)imageWithRect: (NSRect)rect inWindow:(int)wid;
++ (NSIMG*)imageWithCGContextCaptureWindow: (int)wid;
++ (NSIMG*)imageWithBitmapRep: (NSBitmapImageRep*)rep;
++ (NSIMG*)imageWithScreenShotInRect:(NSRect)rect;
+@end
+
+@interface NSBitmapImageRep (GrabWindow)
+//+ (NSBitmapImageRep*)correctBitmap: (NSBitmapImageRep*)rep;
+//+ (NSBitmapImageRep*)bitmapRepFromNSImage:(NSIMG*)image;
+//+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
+//+ (NSBitmapImageRep*)bitmapRepWithRect: (NSRect)rect inWindow:(int)wid;
++ (NSBitmapImageRep*)bitmapRepWithScreenShotInRect:(NSRect)rect;
+*/
+
+/**
+
+/// This category provides methods for dealing with flipped images. \
+    These should draw images correctly regardless of whether the current context or the current image are flipped. \
+    Unless you know what you are doing, these should be used in lieu of the normal  NSImage drawing/compositing methods.\
+\
+    For more details, check out the related blog post at http://www.noodlesoft.com/blog/2009/02/02/understanding-flipped-coordinate-systems/
+
+@interface NSImage (NoodleExtensions)
+	!	@method	drawAdjustedAtPoint:fromRect:operation:fraction:
+ 	@abstract	Draws all or part of the image at the specified point in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
+ 	@param		point The location in the current coordinate system at which to draw the image.
+ 	@param		srcRect The source rectangle specifying the portion of the image you want to draw. The coordinates of this rectangle are specified in the image's own coordinate system. If you pass in NSZeroRect, the entire image is drawn.
+ 	@param		op The compositing operation to use when drawing the image. See the NSCompositingOperation constants.
+ 	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
+ 	@discussion The image content is drawn at its current resolution and is not scaled unless the CTM of the current coordinate system itself contains a scaling factor. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
+	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.
+
+- _Void_ drawAdjustedAtPoint:(NSPoint)aPoint fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
+
+	!	@method	drawAdjustedInRect:fromRect:operation:fraction:
+ 	@abstract	Draws all or part of the image in the specified rectangle in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
+ 	@param		dstRect The rectangle in which to draw the image, specified in the current coordinate system.
+ 	@param		srcRect The source rectangle specifying the portion of the image you want to draw. The coordinates of this rectangle must be specified using the image's own coordinate system. If you pass in NSZeroRect, the entire image is drawn.
+ 	@param		op The compositing operation to use when drawing the image. See the NSCompositingOperation constants.
+ 	@param		delta The opacity of the image, specified as a value from 0.0 to 1.0. Specifying a value of 0.0 draws the image as fully transparent while a value of 1.0 draws the image as fully opaque. Values greater than 1.0 are interpreted as 1.0.
+ 	@discussion If the srcRect and dstRect rectangles have different sizes, the source portion of the image is scaled to fit the specified destination rectangle. The image is otherwise positioned and oriented using the current coordinate system, except that it takes the flipped status into account, drawing right-side-up in a such a case.
+ 	Unlike the compositeToPoint:fromRect:operation: and compositeToPoint:fromRect:operation:fraction: methods, this method checks the rectangle you pass to the srcRect parameter and makes sure it does not lie outside the image bounds.
+- _Void_ drawAdjustedInRect:(NSRect)dstRect fromRect:(NSRect)srcRect operation:(NSCompositingOperation)op fraction:(CGF)delta;
+
+!	@method	unflippedImage
+ 	@abstract	Returns a version of the receiver but unflipped.
+ 	@discussion This does not actually flip the image but returns an image with the same orientation but with an unflipped coordinate system internally (isFlipped returns NO). If the image is already unflipped, this method returns self.	
+- (NSImage *)unflippedImage;
+@end
+
+*/
+
+
+#if MAC_ONLY
+
+
+@interface Pict (MacOnly)
+- (NSImageRep*) representationOfSize:(NSSize)theSize;
+- (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
+- (NSBitmapImageRep*) bitmap;
+@prop_RO NSBIR * quantizerRepresentation;
++ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
+- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
+
+- (NSSize) 		sizeLargestRepresentation;
+
+- (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
+- (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
+			fraction:(float)delta	   method:(AGImageResizingMethod)resizeMethod;
+- (NSBitmapImageRep*) bitmap;
+- (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y;
+
+- (NSImageRep*) largestRepresentation;
+- (NSImageRep*) smallestRepresentation;
+- (NSSize)		sizeSmallestRepresentation;
+
+///	@abstract   save image to disk
+- (BOOL)saveImage:(NSS*)path  fileName:(NSS*)name fileType:(NSBitmapImageFileType)type;
+
+
+//Returns the relative anchor point (from {0.0, 0.0} to {1.0, 1.0})
+//that's equivalent to the specified image alignment constant.
++ (NSPoint) anchorForImageAlignment: (NSImageAlignment)alignment;
+
+//Returns a rect suitable for drawing this image into,
+//given the specified alignment and scaling mode. Intended
+//for NSCell/NSControl subclasses.
+- (NSRect) imageRectAlignedInRect: (NSRect)outerRect
+                        alignment: (NSImageAlignment)alignment
+                          scaling: (NSImageScaling)scaling;
+
+
+//Draw a template image filled with the specified gradient and rendered
+//with the specified inner and drop shadows.
+- (void) drawInRect: (NSRect)drawRect
+       withGradient: (NSGradient *)fillGradient
+         dropShadow: (NSShadow *)dropShadow
+        innerShadow: (NSShadow *)innerShadow
+     respectFlipped: (BOOL)respectContextIsFlipped;
+
+- (NSBitmapImageRep *)largestBitmapImageRep;
+- (NSData *)representationWithFileType:(NSBitmapImageFileType)fileType
+					   maximumFileSize:(NSUInteger)maximumSize;
+
+/// Writes Application Extension Block and modifies Graphic Control Block for a GIF image
+
+- _Void_ writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
+
+/// Properties for a GIF image
+- (NSDictionary *)GIFPropertiesForRepresentation:(NSBitmapImageRep *)bitmap;
+
++ (AIBitmapImageFileType)fileTypeOfData:(NSData *)inData;
++ (NSString *)extensionForBitmapImageFileType:(AIBitmapImageFileType)inFileType;
+
+///	@function	-base64EncodingWithFileType: @discussion	This method returns a Base 64 encoded string representation of the NSImage object. @param	inFileType	The image is first converted to this file type, then encoded in Base 64. @result	The base 64 encoded image data string.
+- (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
+
+@end
+
+
+//Defined in AppKit.framework
+@interface NSImageCell(NSPrivateAnimationSupport)
+- (BOOL)_animates;
+- (void)_setAnimates:(BOOL)fp8;
+- (void)_startAnimation;
+- (void)_stopAnimation;
+- (void)_animationTimerCallback:fp8;
+@end
+
 typedef enum {
 	AIUnknownFileType = -9999,
 	AITIFFFileType = NSTIFFFileType,
@@ -525,86 +606,12 @@ typedef enum {
 } AIBitmapImageFileType;
 
 
-@interface NSImage (AIImageAdditions)
-
-+ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass;
-+ (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass loadLazily:(BOOL)flag;
-
-+ (NSImage *)imageForSSL;
-
-+ (AIBitmapImageFileType)fileTypeOfData:(NSData *)inData;
-+ (NSString *)extensionForBitmapImageFileType:(AIBitmapImageFileType)inFileType;
-
-- (NSData *)JPEGRepresentation;
-- (NSData *)JPEGRepresentationWithCompressionFactor:(float)compressionFactor;
-/*!
- * @brief Obtain a JPEG representation which is sufficiently compressed to have a size <= a given size in bytes
- *
- * The image will be increasingly compressed until it fits within maxByteSize. The dimensions of the image are unchanged,
- * so for best quality results, the image should be sized (via -[NSImage(AIImageDrawingAdditions) imageByScalingToSize:])
- * before calling this method.
- *
- * @param maxByteSize The maximum size in bytes
- *
- * @result An NSData JPEG representation whose length is <= maxByteSize, or nil if one could not be made.
- */
-- (NSData *)JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize;
-- (NSData *)PNGRepresentation;
-- (NSData *)GIFRepresentation;
-- (NSData *)BMPRepresentation;
-- (NSData *)bestRepresentationByType;
-- (NSBitmapImageRep *)largestBitmapImageRep;
-- (NSData *)representationWithFileType:(NSBitmapImageFileType)fileType
-					   maximumFileSize:(NSUInteger)maximumSize;
-
-/*
- * Writes Application Extension Block and modifies Graphic Control Block for a GIF image
- */
-- _Void_ writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
-
-/*
- * Properties for a GIF image
- */
-- (NSDictionary *)GIFPropertiesForRepresentation:(NSBitmapImageRep *)bitmap;
-
+@interface NSImageView (AtoZ)
++(NSIV*)imageViewWithImage:(NSIMG*)img ;
++(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
 @end
 
-//Defined in AppKit.framework
-@interface NSImageCell(NSPrivateAnimationSupport)
-- (BOOL)_animates;
-- (void)_setAnimates:(BOOL)fp8;
-- (void)_startAnimation;
-- (void)_stopAnimation;
-- (void)_animationTimerCallback:fp8;
+@interface NSGraphicsContext (AtoZ)
++ (void) addNoiseToContext;
 @end
-
-@interface NSImage (QuickLook)
-+ (NSImage *)imageWithPreviewOfFileAtPath:(NSS*)path ofSize:(NSSZ)size asIcon:(BOOL)asIcon;
-@end
-
-@interface NSImage (Base64Encoding)
-extern NSString *kXML_Base64ReferenceAttribute;
-/*!	@function	+dataWithBase64EncodedString:
-	@discussion	This method returns an autoreleased NSImage object.  The NSImage object is initialized with the
-				contents of the Base 64 encoded string.  This is a convenience function for
-				-initWithBase64EncodedString:.
-	@param	inBase64String	An NSString object that contains only Base 64 encoded data representation of an image.
-	@result	The NSImage object.	*/
-+ (NSIMG*)imageWithBase64EncodedString:(NSS*)inBase64String;
-/*!	@function	-initWithBase64EncodedString:
-	@discussion	The NSImage object is initialized with the contents of the Base 64 encoded string.
-				This method returns self as a convenience.
-	@param	inBase64String	An NSString object that contains only Base 64 encoded image data.
-	@result	This method returns self.	*/
-- initWithBase64EncodedString:(NSS*)inBase64String;
-/*!	@function	-base64EncodingWithFileType:
-	@discussion	This method returns a Base 64 encoded string representation of the NSImage object.
-	@param	inFileType	The image is first converted to this file type, then encoded in Base 64.
-	@result	The base 64 encoded image data string.	*/
-- (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
-@end
-
-@interface NSImage(ASCII)
-- (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
-@end
-
+#endif

@@ -65,8 +65,8 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 @import KVOMap;
 
-#import "BlocksAdditions.h"
-#import "M13OrderedDictionary.h"
+#import <AtoZ/ksAdditions.h>
+#import <AtoZ/M13OrderedDictionary.h>
 //#import <CocoaLumberjack/CocoaLumberjack.h>
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
@@ -80,134 +80,18 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 #import <AtoZ/MutableGeometry.h>
 
 /*! id x = CAL.new; [x setGeos:@"bounds", @"x",@100, @"width", @5000, nil];   NEAT! */
-#import <AtoZ/AtoZGeometry.h>
+//#import <AtoZ/AtoZGeometry.h>
 #import <AtoZ/AtoZCategories.h>
-#import <AtoZ/AZCLI.h>
+//#import <AtoZ/AZCLI.h>
+
+#import <AtoZ/AZGrid.h>
+#import <AtoZ/AZMatrix.h>
+#import <AtoZ/AZPoint.h>
+#import <AtoZ/AZSize.h>
+#import <AtoZ/AZRect.h>
 
 @import BlocksKit;
 
-/*
-#import <AtoZAppKit/AtoZAppKit.h>
-#import <AtoZBezierPath/AtoZBezierPath.h>
-#import <BWTK/BWToolkitFramework.h>
-#import <BlocksKit/A2DynamicDelegate.h>
-#import <BlocksKit/BlocksKit.h>
-#import <CFAAction/CFAAction.h>
-#import <CocoaPuffs/CocoaPuffs.h>
-#import <CocoatechCore/CocoatechCore.h>
-#import <DrawKit/DrawKit.h>
-#import <FunSize/FunSize.h>
-#import <KSHTMLWriter/KSHTMLWriter.h>
-#import <NoodleKit/NoodleKit.h>
-#import <PhFacebook/PhFacebook.h>
-#import <TwUI/TwUI.h>
-#import <UAGithubEngine/UAGithubEngine.h>
-#import <UIKit/UIKit.h>
-
-
-
-  #import <Foundation/NSObjCRuntime.h>
-  #import <QuartzCore/QuartzCore.h>
-                                                          @import Darwin;
-#import <ApplicationServices/ApplicationServices.h>   //  @import ApplicationServices;
-#import <AudioToolbox/AudioToolbox.h>                 //  @import AudioToolbox;
-#import <AVFoundation/AVFoundation.h>                 //  @import AVFoundation;
-#import <CoreServices/CoreServices.h>                 //  @import CoreServices;
-#import <Dispatch/Dispatch.h>                         //  @import Dispatch;
-#import <SystemConfiguration/SystemConfiguration.h>   //  @import SystemConfiguration;
-#import <WebKit/WebView.h>
-@import RoutingHTTPServer;
-
-
-#import <RoutingHTTPServer/RoutingHTTPServer.h>
-
-#import "AOPProxy/AOPProxy.h"
-#import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
-#import "JATemplate/JATemplate.h"
-#import <KVOMap/KVOMap.h>
-#import <ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h>
-#import <AtoZAutoBox/AtoZAutoBox.h>
-#import <MenuApp/MenuApp.h>
-#import <NMSSH/NMSSH.h>
-#import <Rebel/Rebel.h>
-
-
-#import <MapKit/MapKit.h>
-#import <RoutingHTTPServer/AZRouteResponse.h>
-
-#import "objswitch.h"
-
-#import "AutoCoding.h"
-#import "HRCoder.h"
-
-#import "AtoZAutoBox/AtoZAutoBox.h"
-
-
-#import "BoundingObject.h"
-#import "AtoZGeometry.h"
-
-*/
-/*
-//
-//  ARC Helper
-//
-//  Version 2.2
-//
-//  Created by Nick Lockwood on 05/01/2012.
-//  Copyright 2012 Charcoal Design
-//
-//  Distributed under the permissive zlib license
-//  Get the latest version from here:
-//
-//  https://gist.github.com/1563325
-//
-
-//#import <Availability.h>
-#undef ah_retain
-#undef ah_dealloc
-#undef ah_autorelease           // autorelease
-#undef ah_dealloc               // dealloc
-#if __has_feature(objc_arc)
-#define ah_retain self
-#define ah_release self
-#define ah_autorelease self
-#define ah_dealloc self
-#else
-#define ah_retain retain
-#define ah_release release
-#define ah_autorelease autorelease
-#define ah_dealloc dealloc
-#undef __bridge
-#define __bridge
-#undef __bridge_transfer
-#define __bridge_transfer
-#endif
-
-//  Weak reference support
-
-//#import <Availability.h>
-#if !__has_feature(objc_arc_weak)
-#undef ah_weak
-#define ah_weak unsafe_unretained
-#undef __ah_weak
-#define __ah_weak __unsafe_unretained
-#endif
-
-//  Weak delegate support
-
-//#import <Availability.h>
-#undef ah_weak_delegate
-#undef __ah_weak_delegate
-#if __has_feature(objc_arc_weak) && \
-(!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
-__MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
-#define ah_weak_delegate weak
-#define __ah_weak_delegate __weak
-#else
-#define ah_weak_delegate unsafe_unretained
-#define __ah_weak_delegate __unsafe_unretained
-#endif
-*/
 
 @interface NSObject (AtoZEssential)
 
@@ -508,10 +392,6 @@ AZNSIFACE(AZClassProxy)
 -  (id) initWithHostView:(NSV*)newHost frontView:(NSV*)newFrontView backView:(NSV*)newBackView;
 -(void) flip;
 @end
-
-
-
-
 
 /*!  PropertyMacros.h
 

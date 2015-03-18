@@ -284,7 +284,7 @@ typedef void (^caseBlock)();
 @end
 
 @interface NSObject (SubclassEnumeration)
-+(NSA*) subclasses;
++ _List_ subclasses;
 @end
 
 @interface NSString (VARARGLOGGING)

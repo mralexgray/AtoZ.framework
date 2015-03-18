@@ -2188,3 +2188,163 @@ static CGFloat hexCharsToFloat(char firstChar, char secondChar)
 
 // -ObjC -headerpad_max_install_names -framework CoreData
 
+
+
+
+//#define JATEMPLATE_SYNTAX_WARNINGS 1
+//@import TwUI;
+
+////#import <WebKit/WebKit.h>
+//
+////  #import <BlocksKit/BlocksKit.h>
+////  #import <CocoaPuffs/CocoaPuffs.h>
+////  #import <FunSize/FunSize.h>
+//  #import <NoodleKit/NoodleKit.h>
+
+//#define autorelease self
+//
+//#import <KVOMap/KVOMap.h>
+//#import <AtoZAutoBox/AtoZAutoBox.h>
+//#import <FunSize/FunSize.h>
+//#import "F.h"
+//#import "BlocksAdditions.h"
+
+
+//#import <AtoZAppKit/AtoZAppKit.h>
+//#import <AtoZBezierPath/AtoZBezierPath.h>
+//#import <BlocksKit/A2DynamicDelegate.h>
+//#import <BlocksKit/BlocksKit.h>
+//#import <CFAAction/CFAAction.h>
+//#import <CocoaPuffs/CocoaPuffs.h>
+//#import <CocoatechCore/CocoatechCore.h>
+//#import <DrawKit/DrawKit.h>
+//#import <KSHTMLWriter/KSHTMLWriter.h>
+//#import <NoodleKit/NoodleKit.h>
+//#import <Rebel/Rebel.h>
+//#import <UIKit/UIKit.h>
+
+#endif
+  //#import <ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h>
+  //#import <AtoZAutoBox/AtoZAutoBox.h>
+  //#import <BWTK/BWToolkitFramework.h>
+  //#import <MenuApp/MenuApp.h>
+  //#import <NMSSH/NMSSH.h>
+  //#import <PhFacebook/PhFacebook.h>
+
+  //#import <UAGithubEngine/UAGithubEngine.h>
+
+
+
+/*
+#import <AtoZAppKit/AtoZAppKit.h>
+#import <AtoZBezierPath/AtoZBezierPath.h>
+#import <BWTK/BWToolkitFramework.h>
+#import <BlocksKit/A2DynamicDelegate.h>
+#import <BlocksKit/BlocksKit.h>
+#import <CFAAction/CFAAction.h>
+#import <CocoaPuffs/CocoaPuffs.h>
+#import <CocoatechCore/CocoatechCore.h>
+#import <DrawKit/DrawKit.h>
+#import <FunSize/FunSize.h>
+#import <KSHTMLWriter/KSHTMLWriter.h>
+#import <NoodleKit/NoodleKit.h>
+#import <PhFacebook/PhFacebook.h>
+#import <TwUI/TwUI.h>
+#import <UAGithubEngine/UAGithubEngine.h>
+#import <UIKit/UIKit.h>
+
+
+
+  #import <Foundation/NSObjCRuntime.h>
+  #import <QuartzCore/QuartzCore.h>
+                                                          @import Darwin;
+#import <ApplicationServices/ApplicationServices.h>   //  @import ApplicationServices;
+#import <AudioToolbox/AudioToolbox.h>                 //  @import AudioToolbox;
+#import <AVFoundation/AVFoundation.h>                 //  @import AVFoundation;
+#import <CoreServices/CoreServices.h>                 //  @import CoreServices;
+#import <Dispatch/Dispatch.h>                         //  @import Dispatch;
+#import <SystemConfiguration/SystemConfiguration.h>   //  @import SystemConfiguration;
+#import <WebKit/WebView.h>
+@import RoutingHTTPServer;
+
+
+#import <RoutingHTTPServer/RoutingHTTPServer.h>
+
+#import "AOPProxy/AOPProxy.h"
+#import "CollectionsKeyValueFilteringX/CollectionsKeyValueFiltering.h"
+#import "JATemplate/JATemplate.h"
+#import <KVOMap/KVOMap.h>
+#import <ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h>
+#import <AtoZAutoBox/AtoZAutoBox.h>
+#import <MenuApp/MenuApp.h>
+#import <NMSSH/NMSSH.h>
+#import <Rebel/Rebel.h>
+
+
+#import <MapKit/MapKit.h>
+#import <RoutingHTTPServer/AZRouteResponse.h>
+
+#import "objswitch.h"
+
+*/
+/*
+//
+//  ARC Helper
+//
+//  Version 2.2
+//
+//  Created by Nick Lockwood on 05/01/2012.
+//  Copyright 2012 Charcoal Design
+//
+//  Distributed under the permissive zlib license
+//  Get the latest version from here:
+//
+//  https://gist.github.com/1563325
+//
+
+//#import <Availability.h>
+#undef ah_retain
+#undef ah_dealloc
+#undef ah_autorelease           // autorelease
+#undef ah_dealloc               // dealloc
+#if __has_feature(objc_arc)
+#define ah_retain self
+#define ah_release self
+#define ah_autorelease self
+#define ah_dealloc self
+#else
+#define ah_retain retain
+#define ah_release release
+#define ah_autorelease autorelease
+#define ah_dealloc dealloc
+#undef __bridge
+#define __bridge
+#undef __bridge_transfer
+#define __bridge_transfer
+#endif
+
+//  Weak reference support
+
+//#import <Availability.h>
+#if !__has_feature(objc_arc_weak)
+#undef ah_weak
+#define ah_weak unsafe_unretained
+#undef __ah_weak
+#define __ah_weak __unsafe_unretained
+#endif
+
+//  Weak delegate support
+
+//#import <Availability.h>
+#undef ah_weak_delegate
+#undef __ah_weak_delegate
+#if __has_feature(objc_arc_weak) && \
+(!(defined __MAC_OS_X_VERSION_MIN_REQUIRED) || \
+__MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_8)
+#define ah_weak_delegate weak
+#define __ah_weak_delegate __weak
+#else
+#define ah_weak_delegate unsafe_unretained
+#define __ah_weak_delegate __unsafe_unretained
+#endif
+*/

@@ -62,9 +62,10 @@
 			NSString* transformerName = bindingOptions[NSValueTransformerNameBindingOption];
 			if(transformerName && (id)transformerName != AZNULL) transformer = [NSValueTransformer valueTransformerForName:transformerName];
 		}
-		if(transformer && (id)transformer != AZNULL)
+		if(transformer && (id)transformer != AZNULL) {
       if ([transformer.class allowsReverseTransformation]) value = [transformer reverseTransformedValue:value];
       else NSLog(@"WARNING: binding \"%@\" has value transformer, but it doesn't allow reverse transformations in %s", binding, __PRETTY_FUNCTION__);
+    }
 	}
 
 	id boundObject = [bindingInfo objectForKey:NSObservedObjectKey];

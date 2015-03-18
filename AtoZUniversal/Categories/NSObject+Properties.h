@@ -28,6 +28,8 @@
 
 - _Void_  setKVs: firstKey,... NS_REQUIRES_NIL_TERMINATION;
 
+- valueForKey:_Text_ k orKey:_Text_ other;
+
 + (NSD*) classPropertiesAndTypes;
 + (NSA*) objcPropertiesWithoutSuperclass;
 + (NSA*) objcProperties;

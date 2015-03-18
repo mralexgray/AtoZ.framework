@@ -1,6 +1,6 @@
+
+@class AZSizer;
 /*
-#import "AZSizer.h"
-@import Quartz;
 
 NSIMG* AZIMGNamed(NSS *constName);
 
@@ -57,19 +57,16 @@ _S _I _SInt              get_bit ( _UChr carr, _ULng bit_num);
 CGImageRef CreateCGImageFromData (    _Data data );
 CGF                     distance (    _Cord aPnt );				// Just one function to declare...
 
-typedef void(^NSImageDrawer)(void);
-
-typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 @interface NSImage (AtoZDrawBlock)
 
-+ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(NSImageDrawer)drawBlock;
-+ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(LockedFocusWithFrame)drawBlockwithFrame;	@end // (AtoZDrawBlock)
++ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
++ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /// [NSImage imageNamed:@"document"]
 
 
-@class AZFile;
+@class AZFile, PDFDocument;
 
 @interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
 
@@ -187,21 +184,20 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 
 @prop_RO NSS * asTempFile,
 
-/*! htmlEncodedImg  a full, HTML tagged,base 64 image..  ready to be appended.
+/// ! htmlEncodedImg  a full, HTML tagged,base 64 image..  ready to be appended.
 
-@code   [script eval:$(@"var img = $(\"%@\").appendTo($(\"body\"));",
-        [NSIMG.randomMonoIcon scaledToMax:30].htmlEncodedImg)];
+/// @code   [script eval:$(@"var img = $(\"%@\").appendTo($(\"body\"));",
+///        [NSIMG.randomMonoIcon scaledToMax:30].htmlEncodedImg)];
 
-@return <img style="width:30 px; height:30 px;" src="data:image/png;base64,iVBORw0\...CYII=">
-*/
+/// @return <img style="width:30 px; height:30 px;" src="data:image/png;base64,iVBORw0\...CYII=">
+
   * htmlEncodedImg,
 
-/*! dataURL  the literal url, i you just want that...
-@return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
-*/
+//// dataURL  the literal url, i you just want that... @return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
+
   * dataURL;
 + (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
-/*! ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi*/
+/// ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi
 
 - (void) 	  openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;
@@ -279,23 +275,21 @@ typedef void(^LockedFocusWithFrame)(NSR dRect);
 - _Void_ drawEtchedInRect:(NSRect)rect;
 - (NSIMG*) maskedWithColor:(NSC *)color;
 
-/*!
- @method	 
- @abstract   converting a CGImageRef to NSImage	*/
+/// @abstract   converting a CGImageRef to NSImage
 + (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 - (CGImageRef)cgImageRef;
 
 
-/*!	@abstract   converting the input NSImage to a new size */
+///	@abstract   converting the input NSImage to a new size
 + (NSIMG*)resizedImage:(NSIMG*)sourceImage 
 				  newSize:(NSSize)size 
 		  lockAspectRatio:(BOOL)lock // pass YES if you want to lock aspect ratio
    lockAspectRatioByWidth:(BOOL)flag; // pass YES to lock aspect ratio by width or passing NO to lock by height
 
-/*!	@abstract   returning an cropped NSIMG*/
+///	@abstract   returning an cropped NSIMG
 - (NSIMG*)croppedImage:(CGRect)bounds;
 
-/*!	@abstract   save image to disk*/
+///	@abstract   save image to disk
 - (BOOL)saveImage:(NSS*)path 
 		 fileName:(NSS*)name 
 		 fileType:(NSBitmapImageFileType)type;

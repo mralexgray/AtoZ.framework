@@ -738,16 +738,16 @@ NSArray *getFormatHelpers(NSString *format) {
     if (dict == nil)
         return @"";
     address = [NSMutableString string];
-    if (value = [dict objectForKey: kABAddressStreetKey]) {
+    if ((value = [dict objectForKey: kABAddressStreetKey])) {
         [address appendFormat: @"%@, ", value];
     }
-    if (value = [dict objectForKey: kABAddressCityKey]) {
+    if ((value = [dict objectForKey: kABAddressCityKey])) {
         [address appendFormat: @"%@, ", value];
     }
-    if (value = [dict objectForKey: kABAddressStateKey]) {
+    if ((value = [dict objectForKey: kABAddressStateKey])) {
         [address appendFormat: @"%@ ", value];
     }
-    if (value = [dict objectForKey: kABAddressZIPKey]) {
+    if ((value = [dict objectForKey: kABAddressZIPKey])) {
         [address appendFormat: @"%@", value];
     }
     return [NSString stringWithString: address];

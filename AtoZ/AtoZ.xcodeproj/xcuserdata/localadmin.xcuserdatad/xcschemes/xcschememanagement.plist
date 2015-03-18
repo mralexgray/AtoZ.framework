@@ -7,77 +7,77 @@
 		<key>AZPrompt.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>31</integer>
+			<integer>25</integer>
 		</dict>
 		<key>AtoZ.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>9</integer>
 		</dict>
 		<key>AtoZAgent.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>27</integer>
+			<integer>20</integer>
 		</dict>
 		<key>AtoZCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>24</integer>
 		</dict>
 		<key>AtoZDocumentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>32</integer>
+			<integer>26</integer>
 		</dict>
 		<key>AtoZHelper.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>28</integer>
+			<integer>21</integer>
 		</dict>
 		<key>AtoZPlus.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>17</integer>
 		</dict>
 		<key>AtoZPrefs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>19</integer>
 		</dict>
 		<key>AtoZTestBed.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>23</integer>
 		</dict>
 		<key>AtoZTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>10</integer>
 		</dict>
 		<key>AtoZTouchDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>23</integer>
+			<integer>16</integer>
 		</dict>
 		<key>AtoZTouchTester.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>15</integer>
 		</dict>
 		<key>AtoZ_SwiftREPL.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>37</integer>
+			<integer>31</integer>
 		</dict>
 		<key>Deps.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>11</integer>
 		</dict>
 		<key>Frameworks.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>12</integer>
 		</dict>
 		<key>Install AtoZTouch.xcscheme</key>
 		<dict>
@@ -87,37 +87,37 @@
 		<key>KVOMap.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>33</integer>
 		</dict>
 		<key>Libs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>14</integer>
 		</dict>
 		<key>OCLint.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>36</integer>
+			<integer>30</integer>
 		</dict>
 		<key>ObjectiveCLI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>34</integer>
+			<integer>28</integer>
 		</dict>
 		<key>Router.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>35</integer>
+			<integer>29</integer>
 		</dict>
 		<key>StaticFrameworks.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>13</integer>
 		</dict>
 		<key>WindowPoppers.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>33</integer>
+			<integer>27</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

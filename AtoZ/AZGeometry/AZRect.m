@@ -15,33 +15,6 @@
 }
 @end
 
-@implementation AZRect { NSR _rect; } // @synthesize rect =
-@synthesize frame = _rect;
-// STOPGAP  BELOW
-- (NSR) bounds { return AZRectFromSizeOfRect(_rect); }
-- (void) setBounds:(NSR)bounds { _rect = AZRectExceptSize(_rect,bounds.size); }
-
-//- (NSR) frame { return _rect; }
-//- (void) setFrame:(NSR)frame { _rect = frame; }
-
-// STOPGAP  END
-
-
-
-// @synthesize bounds, origin; position, orient, anchor;
-
--(INST) shiftedX:(CGF)xx y:(CGF)yy w:(CGF)w h:(CGF)h {
-
-	NSR r = _rect;
-	r.origin.x +=xx;
-	r.origin.y +=yy;
-	r.size.width +=w;
-	r.size.height+=h;
-	return [self.class withRect:r];
-}
-static AZRect *screnFrameUnderMenu = nil;
-+ (AZRect*)screnFrameUnderMenu { return screnFrameUnderMenu = screnFrameUnderMenu ?: [AZRect withRect:AZScreenFrameUnderMenu()]; }
-
 //-  (CGF) leftEdge 				{	return [self rect].origin.x ;	}
 //- (void) setLeftEdge: (CGF)t 	{ NSR frame = self.rect ;	frame.origin.x = t ;	[self setRect:frame] ;	}
 //-  (CGF) rightEdge 				{	return [self rect].origin.x + [self width] ;	}
@@ -455,8 +428,6 @@ static AZRect *screnFrameUnderMenu = nil;
 	return self;
 }
 */
-@end
-
 
 //- (AZA) alignInsideInDirection:(NSSZ)delta { }
 //- (AZA) alignInside:(NSR)outerRect {

@@ -31,12 +31,10 @@
 
 - (id)initWithRect:(SSRect *)inRect
 {
-  if ((self == [super init])) {
-    rect = inRect;
-    x = rect.x;
-    y = rect.y;
-  }
-
+  if (!(self = [super init])) return nil;
+  rect = inRect;
+  x = rect.x;
+  y = rect.y;
   return self;
 }
 

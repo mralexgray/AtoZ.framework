@@ -1,25 +1,22 @@
 
-#import <AtoZTouch/AtoZiMacroDefines.h>
+@import AtoZUniversal;
 
-typedef NS_ENUM(NSUInteger,AZApplicationIconSize){  AZApplicationIconSizeSmall = 29,
-                                                    AZApplicationIconSizeLarge = 59  };
+_Type NS_ENUM(_UInt,AZAppIconSize){  AZAppIconSizeSmall = 29,
+                                     AZAppIconSizeLarge = 59  };
 
+@Desc AZAppList : NSO + _Kind_ list; _RO _Dict apps;
 
-@interface AZApplicationList : NSObject + (instancetype) sharedApplicationList;
+- _List_ appsFilteredUsingPredicate:(NSPredicate*)predicate;
 
-@property (readonly) NSDictionary *applications;
+- valueForKeyPath:_Text_ kp forDisplayIdentifier:_Text_ dispID;
+-     valueForKey:_Text_ kp forDisplayIdentifier:_Text_ dispID;
 
-- (NSDictionary*) applicationsFilteredUsingPredicate:(NSPredicate*)predicate;
+- _Pict_           iconOfSize:(AZAppIconSize)_ forDisplayIdentifier:_Text_ dispID;
+- _IsIt_  hasCachedIconOfSize:(AZAppIconSize)_ forDisplayIdentifier:_Text_ dispID;
+- (CGImageRef) copyIconOfSize:(AZAppIconSize)_ forDisplayIdentifier:_Text_ dispID CF_RETURNS_RETAINED;
 
--             valueForKeyPath:(NSString*)kp            forDisplayIdentifier:(NSString*)dispID;
--                 valueForKey:(NSString*)kp            forDisplayIdentifier:(NSString*)dispID;
+@Stop
 
-- (UIImage*)       iconOfSize:(AZApplicationIconSize)_ forDisplayIdentifier:(NSString*)dispID;
-- (CGImageRef) copyIconOfSize:(AZApplicationIconSize)_ forDisplayIdentifier:(NSString*)dispID CF_RETURNS_RETAINED;
-- (BOOL)  hasCachedIconOfSize:(AZApplicationIconSize)_ forDisplayIdentifier:(NSString*)dispID;
-
-@end
-
-extern NSString *const ALIconLoadedNotification,
-                *const ALDisplayIdentifierKey,
-                *const ALIconSizeKey;
+extern Text *const ALIconLoadedNotification,
+            *const ALDisplayIdentifierKey,
+            *const ALIconSizeKey;

@@ -1,5 +1,5 @@
 
-#import "AZApplicationList.h"
+#import "AZAppList.h"
 
 #import <ImageIO/ImageIO.h>
 #import <SpringBoard/SpringBoard.h>
@@ -15,28 +15,19 @@ CHDeclareClass(SBApplicationController);
 CHDeclareClass(SBIconModel);
 CHDeclareClass(SBIconViewMap);
 
-@interface SBIconViewMap : NSObject { SBIconModel *_model; }
-+ (SBIconViewMap*) switcherMap;
-+ (SBIconViewMap*) homescreenMap;
-- (SBIconModel*) iconModel;
-@end
+@interface SBIconViewMap : NSObject { SBIconModel *_model; } _RO SBIconModel* iconModel; + _Kind_ switcherMap; + _Kind_ homescreenMap; @end
 
 @interface UIImage (Private)
-+ (UIImage*) _applicationIconImageForBundleIdentifier:(NSString*)bundleID format:(int)fmt scale:(CGFloat)s;
-+ (UIImage*) _applicationIconImageForBundleIdentifier:(NSString*)bundleID roleIdentifier:(NSString*)_ format:(int)fmt scale:(CGFloat)s;
++ _Kind_ _applicationIconImageForBundleIdentifier:_Text_ bid                         format:(int)fmt scale:_Flot_ s;
++ _Kind_ _applicationIconImageForBundleIdentifier:_Text_ bid roleIdentifier:_Text_ _ format:(int)fmt scale:_Flot_ s;
 @end
 
+Text *const ALIconLoadedNotification = @"ALIconLoadedNotification",
+     *const ALDisplayIdentifierKey   = @"ALDisplayIdentifier",
+     *const ALIconSizeKey            = @"ALIconSize";
 
-NSString *const ALIconLoadedNotification = @"ALIconLoadedNotification";
-NSString *const ALDisplayIdentifierKey = @"ALDisplayIdentifier";
-NSString *const ALIconSizeKey = @"ALIconSize";
-
-enum {
-	ALMessageIdGetApplications,
-	ALMessageIdIconForSize,
-	ALMessageIdValueForKey,
-	ALMessageIdValueForKeyPath,
-	ALMessageIdGetApplicationCount
+enum {  ALMessageIdGetApplications, ALMessageIdIconForSize, ALMessageIdValueForKey,
+        ALMessageIdValueForKeyPath, ALMessageIdGetApplicationCount
 };
 
 static LMConnection connection = { MACH_PORT_NULL, "applist.datasource" };
@@ -47,9 +38,9 @@ static LMConnection connection = { MACH_PORT_NULL, "applist.datasource" };
 
 @end
 
-__attribute__((visibility("hidden"))) @interface AZApplicationListImpl : AZApplicationList @end
+__attribute__((visibility("hidden"))) @interface AZAppListImpl : AZAppList @end
 
-static AZApplicationList *sharedApplicationList;
+static AZAppList *sharedApplicationList;
 
 typedef NS_ENUM(int, LADirectAPI) {
 	LADirectAPINone,
@@ -59,7 +50,7 @@ typedef NS_ENUM(int, LADirectAPI) {
 
 static LADirectAPI supportedDirectAPI;
 
-@implementation AZApplicationList
+@implementation AZAppList
 {
 @private
 	NSMutableDictionary *cachedIcons;
@@ -69,7 +60,7 @@ static LADirectAPI supportedDirectAPI;
 + (instancetype) sharedApplicationList { static dispatch_once_t onceToken;
 
   dispatch_once(&onceToken, ^{
-    if (self == [AZApplicationList class] && !CHClass(SBIconModel)) sharedApplicationList = [[self alloc] init];
+    if (self == [AZAppList class] && !CHClass(SBIconModel)) sharedApplicationList = [[self alloc] init];
   });
   return sharedApplicationList;
 }
@@ -89,11 +80,11 @@ static BOOL IsIpad(void) {
 	return result;
 }
 
-- init { if (!(self = [super init])) return nil;
+- init { if (!(self = super.init)) return nil;
 
   if (sharedApplicationList) {
     [self release];
-    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Only one instance of AZApplicationList is permitted at a time! Use [AZApplicationList sharedApplicationList] instead." userInfo:nil];
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Only one instance of AZAppList is permitted at a time! Use [AZAppList sharedApplicationList] instead." userInfo:nil];
   }
   @autoreleasepool {
     cachedIcons = @{}.mutableCopy;
@@ -125,7 +116,7 @@ static BOOL IsIpad(void) {
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"<AZApplicationList: %p applicationCount=%ld>", self, (long)self.applicationCount];
+	return [NSString stringWithFormat:@"<AZAppList: %p applicationCount=%ld>", self, (long)self.applicationCount];
 }
 
 - (void)didReceiveMemoryWarning
@@ -171,7 +162,7 @@ static BOOL IsIpad(void) {
 	[NSNotificationCenter.defaultCenter postNotificationName:ALIconLoadedNotification object:self userInfo:userInfo];
 }
 
-- (CGImageRef)copyIconOfSize:(AZApplicationIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
+- (CGImageRef)copyIconOfSize:(AZAppIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
 {
 	if (iconSize <= 0)
 		return NULL;
@@ -184,7 +175,7 @@ static BOOL IsIpad(void) {
 		return result;
 	}
 	OSSpinLockUnlock(&spinLock);
-	if (iconSize == AZApplicationIconSizeSmall) {
+	if (iconSize == AZAppIconSizeSmall) {
 		switch (supportedDirectAPI) {
 			case LADirectAPINone:
 				break;
@@ -219,7 +210,7 @@ skip:
 	return CGImageRetain(result);
 }
 
-- (UIImage *)iconOfSize:(AZApplicationIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
+- (UIImage *)iconOfSize:(AZAppIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
 {
 	CGImageRef image; if (!(image = [self copyIconOfSize:iconSize forDisplayIdentifier:displayIdentifier])) return nil;
 
@@ -232,7 +223,7 @@ skip:
 	return result;
 }
 
-- (BOOL)hasCachedIconOfSize:(AZApplicationIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
+- (BOOL)hasCachedIconOfSize:(AZAppIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
 {
 	NSString *key = [displayIdentifier stringByAppendingFormat:@"#%f", (CGFloat)iconSize];
 	OSSpinLockLock(&spinLock);
@@ -243,7 +234,7 @@ skip:
 
 @end
 
-@implementation AZApplicationListImpl
+@implementation AZAppListImpl
 
 static void processMessage(SInt32 messageId, mach_port_t replyPort, CFDataRef data)
 {
@@ -385,7 +376,7 @@ static void machPortCallback(CFMachPortRef port, void *bytes, CFIndex size, void
 	return [/* SBApplication */ [CHSharedInstance(SBApplicationController) applicationWithDisplayIdentifier:displayID] valueForKey:kp];
 }
 
-- (CGImageRef)copyIconOfSize:(AZApplicationIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
+- (CGImageRef)copyIconOfSize:(AZAppIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
 {
 
 	SBIconModel *iconModel = [CHClass(SBIconViewMap) instancesRespondToSelector:@selector(iconModel)] ?
@@ -403,7 +394,7 @@ static void machPortCallback(CFMachPortRef port, void *bytes, CFIndex size, void
 	BOOL  getIconImage = [icon respondsToSelector:@selector(getIconImage:)];
 	SBApplication *app = [CHSharedInstance(SBApplicationController) applicationWithDisplayIdentifier:displayIdentifier];
 
-	if (iconSize <= AZApplicationIconSizeSmall) {
+	if (iconSize <= AZAppIconSizeSmall) {
 
 		if ((image = getIconImage ? [icon getIconImage:0] : [icon smallIcon])) goto finish;
 
@@ -431,6 +422,6 @@ CHConstructor
 	if (CHLoadLateClass(SBIconModel)) {
 		CHLoadLateClass(SBIconViewMap);
 		CHLoadLateClass(SBApplicationController);
-		sharedApplicationList = [[AZApplicationListImpl alloc] init];
+		sharedApplicationList = [[AZAppListImpl alloc] init];
 	}
 }

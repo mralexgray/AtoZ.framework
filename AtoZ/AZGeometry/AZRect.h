@@ -11,29 +11,6 @@
 #import "BoundingObject.h"
 
 
-@interface AZRect : NSO <RectLike>
-// {  CGF width, height;	}
-
-- (INST) shiftedX:(CGF)x y:(CGF)y w:(CGF)w h:(CGF)h;
-
-//@prop_RO NSR r;
-
-#ifdef UNIMPLENETED 
-+ (INST) screnFrameUnderMenu;
-@prop_RO CGF 	area;
-- (BOOL)     contains:(id)obj;
-//- (BOOL)    contaiNSP:(NSP)p;
-- (BOOL) containsRect:(NSR)r;
-#endif
-
-@end
-
-#define AZR             AZRect
-
-#define $AZR(_r_)       [AZR withRect:_r_]
-#define AZRBy(_x_,_y_)  $AZR(AZRectBy(_x_,_y_))
-#define AZRDim(_d_)     $AZR(AZRectFromDim(_d_))
-#define AZRUNDERMENU     AZR.screenFrameUnderMenu
 
 
 //+ (INST) rect:(NSR)r inside:(NSR)outer;

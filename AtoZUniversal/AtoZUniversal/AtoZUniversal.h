@@ -2,10 +2,16 @@
 #ifndef AtoZ_AtoZUniversal_h
 #define AtoZ_AtoZUniversal_h
 
+#import <AtoZUniversal/metamacros.h>
+#import <AtoZUniversal/EXTSynthesize.h>
+#import <AtoZUniversal/EXTBlockMethod.h>
+#import <AtoZUniversal/EXTRuntimeExtensions.h>
+#import <AtoZUniversal/EXTConcreteProtocol.h>
+#import <AtoZUniversal/NSMethodSignature+EXT.h>
+
 #import <AtoZUniversal/_ObjC.h>
 
 #import <AtoZUniversal/AtoZMacroDefines.h>
-#import <AtoZUniversal/metamacros.h>
 #import <AtoZUniversal/JREnum.h>
 #import <AtoZUniversal/AtoZTypes.h>
 #import <AtoZUniversal/BaseModel.h>
@@ -17,9 +23,6 @@
 #import <AtoZUniversal/OrderedDictionary.h>
 #import <AtoZUniversal/ObjcAssociatedObjectHelpers.h>
 
-#import <AtoZUniversal/EXTSynthesize.h>
-#import <AtoZUniversal/EXTConcreteProtocol.h>
-#import <AtoZUniversal/NSMethodSignature+EXT.h>
 #import <AtoZUniversal/SubscriptProtocols.h>
 
 #import <AtoZUniversal/Protocols.h>
@@ -36,6 +39,8 @@
 #import <AtoZUniversal/NSObject+Properties.h>
 #import <AtoZUniversal/NSBundle+AtoZ.h>
 #import <AtoZUniversal/NSImage+AtoZ.h>
+#import <AtoZUniversal/AtoZGeometry.h>
+
 
 #if TARGET_OS_IPHONE
 

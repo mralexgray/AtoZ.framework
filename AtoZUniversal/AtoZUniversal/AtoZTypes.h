@@ -6,13 +6,15 @@
 #import <AtoZUniversal/AtoZMacroDefines.h>
 #endif
 
-typedef void (^Blk)         (         );
-typedef void (^VBlk)        ( void    );
-typedef void (^ObjBlk)      (   id   x);
-typedef void (^DTABlk)      (  DTA * d);
-typedef void (^URLBlk)      (NSURL * u);
-typedef void (^NumBlk)      (  NSN * n);
-typedef void (^DBlk)        (  NSD * d);
+typedef void (^Blk)         ();
+typedef void (^VBlk)        _Void_;
+typedef void (^ObjBlk)      (_ObjC x);
+typedef void (^DTABlk)      (_Data d);
+typedef void (^URLBlk)      (_NUrl u);
+typedef void (^NumBlk)      (_Numb n);
+typedef void (^DBlk)        (_Dict d);
+typedef void (^RBlk)        (_Rect r);
+
 
 typedef void (^ObjObjBlk)   (id x1, id x2);
 typedef void (^ObjIntBlk)   (id x, NSI i);
@@ -31,6 +33,15 @@ typedef BOOL (^Bool_ObjObjBlk)(id x1, id x2);
 
 typedef NSComparisonResult (^CompareArrayBlock) (id a, id b);
 typedef NSComparisonResult (^CompareDictBlock) (id k1, id v1 , id k2, id v2);
+
+#if MAC_ONLY
+typedef void(^MItemBlk)     (NSMI* m);
+#endif
+
+typedef NSP AZAnchorPt;
+#define AZR AZRect
+#define AZP AZPoint
+#define AZAP AZAnchorPt 
 
 
 /*! The Bitwise operators supported by Objective-C language are listed in the following table.

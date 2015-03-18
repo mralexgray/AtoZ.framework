@@ -1,5 +1,48 @@
 #!/usr/bin/env zsh
 
+
+
+#DIRTY="$(dirname $0)/dirty"
+#/bin/cat /dev/null >! "$DIRTY"
+
+#FLAGS=''  #'-0 --event-flags --follow-links'
+INC=(
+'/a2Z/*'
+'/sd/dev/AtoZIO/*'
+)
+EXC=(
+'xcuserdata'
+'.git'
+)
+
+IGNORE=(
+lock
+xcuserdata
+)
+#--event-flags 
+CMD=( /usr/local/bin/fswatch --follow-links --event-flags)
+CMD+="${INC[@]/#/ -i }"
+CMD+="${IGNORE[@]/#/ -e }"
+
+#a line: /Volumes/2T/ServiceData/AtoZ.framework/com.mrgray.at
+#CMD="$FLAGS -i $(echo ${(j: -i :)INC}) -e $(echo ${(j: -e :)EXC})"
+
+echo "cmd is $CMD"
+
+while read line; do
+
+  [[ "$line" =~ "AtoZIO" ]] && PROJ=AtoZIO || \
+  [[ "$line" =~ "AtoZ"   ]] && PROJ=AtoZ
+
+  echo "ptoj: $PROJ  for $line"
+
+
+done < <( eval "$CMD" )
+
+#fswatch $CMD | xargs -I{} echo "saving " {}
+
+
+
 export UNIVERSAL_ARCHS="arm64" "armv7" "i386" "x86_64"
 
 installTouchFramework() {
@@ -60,24 +103,6 @@ installTouchFramework() {
 
 # /usr/local/bin/fswatch -iL /dd/AtoZ/**  | xargs -I{} say rebuilding {}
 
-DIRTY="$(dirname $0)/dirty"
-/bin/cat /dev/null >! "$DIRTY"
-
-FLAGS=''  #'-0 --event-flags --follow-links'
-INC=(
-'/a2Z/**'
-'/sd/dev/AtoZIO/**'
-)
-EXC=(
-'xcuserdata'
-'.git'
-)
-
-
-CMD="$FLAGS -i $(echo ${(j: -i :)INC}) -e $(echo ${(j: -e :)EXC})"
-echo "cmd is $CMD"
-
-fswatch $CMD | xargs -I{} echo "saving " {}
 
 # $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
 

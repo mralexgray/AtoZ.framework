@@ -692,9 +692,9 @@ __attribute__((constructor)) static void setupLogger() {
 	[[[AZFILEMANAGER pathsOfContentsOfDirectory:[AZFWRESOURCES withPath:@"/Fonts"]]URLsForPaths] map:^id(NSURL* obj) {
 		if (!obj) return nil; __unused NSError *err; FSRef fsRef; OSStatus status;
 		CFURLGetFSRef((CFURLRef)obj, &fsRef);
-		if (status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal,
+		if ((status = ATSFontActivateFromFileReference(	&fsRef, 	kATSFontContextLocal,
                                                   kATSFontFormatUnspecified, NULL,
-                                                  kATSOptionFlagsDefault, 	NULL) != noErr)
+                                                  kATSOptionFlagsDefault, 	NULL) != noErr))
 			AZLOG($(@"Error: %@\nFailed to acivate font at %@!", [NSERR errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil], obj));
 		CFArrayRef desc = CTFontManagerCreateFontDescriptorsFromURL((__bridge CFURLRef)obj);
 		return [((NSA*)CFBridgingRelease(desc))[0] objectForKey:@"NSFontNameAttribute"] ?: (id)nil;

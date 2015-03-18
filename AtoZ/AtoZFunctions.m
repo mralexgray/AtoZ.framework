@@ -741,33 +741,11 @@ static NSS *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
   //else if (strcmp(ptr,@encode(_Bool))               == 0) return @"";
    else                                                    return @"";
 }
+#define AZWindowPositionToString AZAlignToString
 
 //NSS * AZTypeOfValInBlock(NSString* (^)(void))blk {
 //	const char* typecod
 //}
-NSS * AZStringForTypeOfValue(id *obj) {
-  return (NSS*)AZToStringFromTypeAndValue((const char *)@encode(__typeof__(obj)), (void*)obj);
-}
-#define AZWindowPositionToString AZAlignToString
-// Key to AZString
-
-
-NSS * AZToStringFromTypeAndValue(const char *typeCode, void *val) {
-  //  Compare
-  return  SameChar(typeCode, @encode(  NSP)) ? AZStringFromPoint(*(NSP*)   val)
-  : SameChar(typeCode, @encode(NSRNG)) ? NSStringFromRange(*(NSRNG*) val)
-  // 		    : SameChar(typeCode, @encode(  RNG)) ?   AZRangeToString(*(RNG*)   val)
-  : SameChar(typeCode, @encode( NSSZ)) ?  AZStringFromSize(*(NSSZ*)  val)
-  : SameChar(typeCode, @encode(  NSR)) ?  AZStringFromRect(*(NSR*)   val)
-  : SameChar(typeCode, @encode( BOOL)) ?    StringFromBOOL(*(BOOL*)  val)
-  : SameChar(typeCode, @encode(  CGF)) ? $(@"%2.f",        *((CGF*)  val))
-  : SameChar(typeCode, @encode( NSUI)) ? $(@"%lu",         *((NSUI*) val))
-  : SameChar(typeCode, @encode(  int)) ? $(@"%d",          *((int*)  val))
-  : SameChar(typeCode, @encode(  NSI)) ? $(@"%ld",         *((NSI*)  val))
-  : SameChar(typeCode, @encode(   id)) ? $(@"%@", (__bridge NSO*)val)
-  : SameChar(typeCode, @encode( CGCR)) ? $(@"cg%@", [NSC colorWithCGColor:*((CGCR*)val)].name)
-  : nil;
-}
 //		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
 
 NSS * bitString(NSUInteger mask) {
@@ -825,18 +803,6 @@ id LogAndReturnWithCaller(id toLog, SEL caller) {
 //	return [[NSArray alloc]initWithObjects:AZWindowPositionTypeArray][enumVal];
 //}
 
-NSS * AZStringFromPoint(NSP p) {
-  return $(@"[x.%0.f y.%0.f]", p.x, p.y);
-}
-NSS * AZStringFromSize(NSSZ sz) {
-  return $(@"[w.%1.f h.%1.f]", sz.width, sz.height);
-}
-
-NSS * AZStringFromRect(NSR r) { return $($(@"{{%%%@ld x %%%@ld},{%%%@ld x %%%@ld}}", r.origin.x > 100 ? @"3" : @"2",
-                                           r.origin.y   > 100 ? @"3" : @"2",
-                                           r.size.width > 100 ? @"3" : @"2",
-                                           r.size.width > 100 ? @"-3" : @"-2"),
-                                         (NSI)r.origin.x,(NSI)r.origin.y, (NSI)r.size.width, (NSI)r.size.height); }
 //	NSS *demo=[NSS.alloc initWithData:[NSData dataWithBytes:"✖" length:0] encoding:NSUnicodeStringEncoding];
 // good, but...	return $(@"[x.%0.f y.%0.f [%0.f x %0.f]]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 //	NSP o, tl, apex, br; o = rect.origin;  tl = AZTopLeftPoint(rect); apex = AZTopRightPoint(rect);  br = AZBotRightPoint(rect);

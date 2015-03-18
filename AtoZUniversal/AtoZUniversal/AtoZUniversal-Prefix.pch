@@ -15,6 +15,7 @@
     #import <AtoZUniversal/F.h>
     #import <AtoZUniversal/EXTConcreteProtocol.h>
     #import <AtoZUniversal/objswitch.h>
+    #import <AtoZUniversal/AtoZGeometry.h>
 
   #endif // __OBJC__
 

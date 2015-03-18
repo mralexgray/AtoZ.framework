@@ -93,9 +93,9 @@ static const CGF notClickedTopColor = .9921, notClickedBotColor = .9019, clicked
 - (BOOL) shouldDrag:(CGF)dx     {
   
   // if delta negative and already to far left exit...
-  return dx < 0 && theSwitch.x <= 0  ||
+  return (dx < 0 && theSwitch.x <= 0)  ||
   // if delta positive and already to far right exit...
-        dx > 0 && theSwitch.x >= self.width - theSwitch.width
+        (dx > 0 && theSwitch.x >= self.width - theSwitch.width)
         ? NO : YES;
 }
 - (void) moveSwitch:(CGP)point  {

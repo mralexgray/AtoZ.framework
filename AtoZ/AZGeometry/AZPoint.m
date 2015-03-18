@@ -7,7 +7,7 @@
 //
 
 #import <AtoZ/AtoZ.h>
-//#import <AtoZ/AZPoint.h>
+#import <AtoZ/AZPoint.h>
 //#import "AZSize.h"
 //#import "AZRect.h"
 

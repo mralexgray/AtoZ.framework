@@ -5,9 +5,6 @@
       location = "group:../dev/AtoZIO/AtoZIO.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AtoZUniversal/AtoZUniversal.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:../WORK/dispatch/dispatch.xcodeproj">
    </FileRef>
    <FileRef

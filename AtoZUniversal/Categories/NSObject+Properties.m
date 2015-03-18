@@ -95,6 +95,9 @@ const char * property_getRetentionMethod (objc_property_t property) {
 - _Void_         incrementKey:(NSS*)k by:(NSN*)v { id n = [self vFK:k]; if(ISA(n,NSN)) [self sV:[n plus:v] fK:k]; }
 - (INST) objectByIncrementing:(NSS*)k by:(NSN*)v { [self incrementKey:k by:v]; return self; }
 
+
+- valueForKey:_Text_ k orKey:_Text_ other { return [self hasPropertyNamed:k] ? [self vFK:k] : [self vFK:other]; }
+
 - _Void_  setKVs: firstKey,... { id item = nil, key = firstKey; va_list list; va_start(list, firstKey);
 
   while (!!key && (item = va_arg(list, id))) { [self sV:item fK:key]; key = va_arg(list, id); } va_end(list);

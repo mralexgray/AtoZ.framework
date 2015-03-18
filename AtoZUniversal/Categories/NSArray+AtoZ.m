@@ -1713,8 +1713,10 @@ static NSUI _AZCurrentUserID;
 
 void(^fillInTheBlanks)() = ^{
 
-  char buf[256]; BOOL ok; uid_t _uid;
+//  char buf[256]; //BOOL ok;
+  uid_t _uid;
   SCDynamicStoreRef store = SCDynamicStoreCreate(NULL, CFSTR("GetConsoleUser"), NULL, NULL);
+
   assert(store != NULL);
 //  CFStringRef name =
   _AZCurrentUser = (__bridge NSS*)SCDynamicStoreCopyConsoleUser(store, &_uid, NULL);

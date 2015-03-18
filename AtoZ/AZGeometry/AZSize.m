@@ -7,11 +7,8 @@
 //
 
 #import <AtoZ/AtoZ.h>
-//#import "AZSize.h"
-//#import "AtoZGeometry.h"
 
-//#import "AZPoint.h"
-//#import "AZRect.h"
+
 @implementation AZSize
 
 + (AZSize*) size {

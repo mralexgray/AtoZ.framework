@@ -1,7 +1,7 @@
 
 //#import <GHUnit/GHUnit.h>
 #import <XCTest/XCTest.h>
-#import <AtoZ/AtoZ.h>
+@import AtoZ;
 
 @interface      ArrayLikeClass : NSO <ArrayLike> @end
 CLANG_IGNORE_PROTOCOL

@@ -6,6 +6,35 @@
 //  Copyright (c) 2012 mrgray.com, inc. All rights reserved.
 //
 
+@interface NSMenu (Dark)
+@property (nonatomic) BOOL dark;
+@end
+
+#define MENUBLK void(^)(NSMenuItem * menuItem)
+#define PERFORMSELNIL(A,B) [A performSelector:@selector(B) withObject:nil]
+
+@interface NSMenu (AtoZ)
+
++ _Kind_ menuWithTitlesAndActions:_Text_ firstTitle,...;
+
+@end
+
+@interface	NSMenuItem   (AtoZ)
+
+- initWithTitle:_Text_ tit target:t action:_Meth_ s keyEquivalent:_Text_ k representedObject:x;
+
++ itemWithTitle:_Text_ title keyEquivalent:_Text_ key block:(MENUBLK)block;
+
+@prop_NC MItemBlk actionBlock;
+
++ _Kind_ menuWithTitle:_Text_ tit key:_Text_ k action:blck;
+
+@end
+
+@interface NSControl (ActionBlock)
+@prop_NC ObjBlk actionBlock;
+@end
+
 
 @interface NSMenu (SBAdditions)
 
@@ -15,14 +44,9 @@
 - (NSMI*) selectedItem;
 -  (void) selectItem:(NSMI*)menuItem;
 - (NSMI*) selectItemWithRepresentedObject: representedObject;
-- (void) seselectItem;
+- (void) deselectItems;
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString target: target action:(SEL)aSelector tag:(NSInteger)tag;
 - (NSMenuItem *)addItemWithTitle:(NSString *)aString representedObject: representedObject target: target action:(SEL)aSelector;
-@end
-@interface NSMenuItem (AtoZ)
-
-- initWithTitle:(NSString*)aString target: target action:(SEL)aSelector keyEquivalent:(NSString*)keyEquivalent representedObject: representedObject;
-
 @end
 
 OBJC_EXPORT void SetDockIconImage(NSIMG *i);

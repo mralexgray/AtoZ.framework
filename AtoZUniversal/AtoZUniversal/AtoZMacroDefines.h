@@ -39,11 +39,25 @@
 #define dV doubleValue
 #define fV floatValue
 #define iV integerValue
-#define pV pointValue
 #define rngV rangeValue
-#define rV rectValue
 #define strV stringValue
 #define uIV unsignedIntegerValue
+
+#if IOS_ONLY
+#define rV CGRectValue
+#define pV CGPointValue
+#define NSMakeSize CGSizeMake
+#define NSMakePoint CGPointMake
+#define NSMakeSize CGSizeMake
+#define NSMakeRect CGRectMake
+#define NSEqualSizes CGSizeEqualToSize
+#define NSEqualPoints CGPointEqualToPoint
+#define NSEqualRects CGRectEqualToRect
+#define NSPointInRect(P,R) CGRectContainsPoint(R,P)
+#else
+#define pV pointValue
+#define rV rectValue
+#endif
 
 #define    kOpacity  @"opacity"
 #define    kPhase @"phase"
@@ -114,6 +128,8 @@
 #define   prop_RC  prop_ (RO,CP)
 #define       _RC @prop_RC
 
+#define P(...) id<__VA_ARGS__>
+
 #define PROP(...) property (__VA_ARGS__)
 
 #define AZPROPERTY(_kind_,_arc_,...)  @property (_arc_)  _kind_   __VA_ARGS__;
@@ -124,6 +140,11 @@
 #define    IDCP id<NSCopying>
 
 #define 	CCHAR const char*
+
+#define SizeableObject SizeLike 
+#define BoundingObject RectLike
+#define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
+
 
 #define AZSTRSTR(A)    @property (nonatomic, strong) NSString* A
 #define AZPROPSTR(z,x)  @property (nonatomic, strong) z *x
@@ -264,6 +285,7 @@
 #define NSO NSObject
 #define NSP NSPoint
 #define NSPInRect NSPointInRect
+
 #define NSPLS NSPropertyListSerialization
 #define NSPSC NSPersistentStoreCoordinator
 #define NSR NSRect
@@ -279,7 +301,8 @@
 #define NSURLREQ NSURLRequest
 #define NSVAL NSValue
 #define NSVT NSValueTransformer
-#define rV rectValue
+
+
 #define TMR NSTimer
 #define uiV unsignedIntegerValue
 #define VAL NSVAL
@@ -370,10 +393,9 @@ X,OBJC_ASSOCIATION_COPY_NONATOMIC);
 #define StringFromBOOL(b) (b?@"YES":@"NO")
 #define $B(b) StringFromBOOL(b)
 
-#define       P(x,y)  CGPointMake(x, y)
-#define       R(x,y)  CGRectMake(0,0,x, y)
-#define       S(w,h)  NSMakeSize(w,h)
-#define       RAND01()  ((random() / (float)0x7fffffff ))     // returns float in range 0 - 1.0f
+//#define       R(x,y)  CGRectMake(0,0,x, y)
+//#define       S(w,h)  NSMakeSize(w,h)
+//#define       RAND01()  ((random() / (float)0x7fffffff ))     // returns float in range 0 - 1.0f
           //usage RAND01()*3, or (int)RAND01()*3 , so there is no risk of dividing by zero
 #pragma mark - arc4random()
 
@@ -759,7 +781,6 @@ id compareto = [metamacro_head(__VA_ARGS__) class];\
 #define NSAssertFail(x) do { NSAssert(0, x); } while(0)  // ( do { NSAssert(0, x); } while(0) )   ///((nil)NSAssert(0, x)) //
 
 #define                                         AZNOTCENTER (NSNotificationCenter*)NSNotificationCenter.defaultCenter
-#define                                                  pV pointValue
 #define                                         sepByString componentsSeparatedByString
     #define            NSV NSView
 
@@ -827,6 +848,7 @@ NS_INLINE void PLATFORM_OPEN(id url) { [AZWORKSPACE openURL:url]; }
 #define AZUNIVERSALRESOURCES [[NSBundle bundleWithIdentifier:@"com.mrgray.AtoZUniversal"] resourcePath]
 #if TARGET_OS_IPHONE
 
+#define     NSAT NSAffineTransform
 
 
 
@@ -981,7 +1003,6 @@ NS_INLINE void PLATFORM_OPEN(id url) { [AZWORKSPACE openURL:url]; }
 #define           NSTA NSTrackingArea
 #define         NSTXTF NSTextField
 #define        NSBRWSR NSBrowser
-#define           NSAT NSAffineTransform
 #define           NSCL NSColorList
 #define           NSTC NSTableColumn
 #define       NSPUBUTT NSPopUpButton
@@ -1643,3 +1664,287 @@ typedef void (^AZVA_ArrayBlock)(NSArray* values);
 
 #endif /* END AtoZ_AtoZMacroDefines_h */
 
+
+
+#if IOS_ONLY
+
+/*	NSGeometry.h
+	Copyright (c) 1994-2014, Apple Inc. All rights reserved.
+*/
+
+//#import <AvailabilityMacros.h>
+//#import <Foundation/NSValue.h>
+//#import <Foundation/NSCoder.h>
+//
+//#if TARGET_OS_WIN32
+//#import <CGCompat.h>
+//#else
+//#import <CoreGraphics/CGBase.h>
+//#import <CoreGraphics/CGGeometry.h>
+//#endif
+
+#if __LP64__ || TARGET_OS_EMBEDDED || TARGET_OS_IPHONE || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
+
+typedef CGPoint NSPoint;
+
+typedef NSPoint *NSPointPointer;
+typedef NSPoint *NSPointArray;
+
+typedef CGSize NSSize;
+
+typedef NSSize *NSSizePointer;
+typedef NSSize *NSSizeArray;
+
+typedef CGRect NSRect;
+
+typedef NSRect *NSRectPointer;
+typedef NSRect *NSRectArray;
+
+#define NSMinXEdge CGRectMinXEdge
+#define NSMinYEdge CGRectMinYEdge
+#define NSMaxXEdge CGRectMaxXEdge
+#define NSMaxYEdge CGRectMaxYEdge
+
+typedef NSUInteger NSRectEdge;
+
+#define NSGEOMETRY_TYPES_SAME_AS_CGGEOMETRY_TYPES 1
+
+//#else
+//
+//typedef struct _NSPoint {
+//    CGFloat x;
+//    CGFloat y;
+//} NSPoint;
+//
+//typedef NSPoint *NSPointPointer;
+//typedef NSPoint *NSPointArray;
+//
+//typedef struct _NSSize {
+//    CGFloat width;		/* should never be negative */
+//    CGFloat height;		/* should never be negative */
+//} NSSize;
+//
+//typedef NSSize *NSSizePointer;
+//typedef NSSize *NSSizeArray;
+//
+//typedef struct _NSRect {
+//    NSPoint origin;
+//    NSSize size;
+//} NSRect;
+//
+//typedef NSRect *NSRectPointer;
+//typedef NSRect *NSRectArray;
+//
+//typedef enum {
+//    NSMinXEdge = 0,
+//    NSMinYEdge = 1,
+//    NSMaxXEdge = 2,
+//    NSMaxYEdge = 3	
+//} NSRectEdge;
+//
+#endif
+
+#define NSEDGEINSETS_DEFINED 1
+typedef struct NSEdgeInsets {
+    CGFloat top;
+    CGFloat left;
+    CGFloat bottom;
+    CGFloat right;
+} NSEdgeInsets;
+
+typedef NS_OPTIONS(unsigned long long, NSAlignmentOptions) {
+    NSAlignMinXInward   = 1ULL << 0,
+    NSAlignMinYInward   = 1ULL << 1,
+    NSAlignMaxXInward   = 1ULL << 2,
+    NSAlignMaxYInward   = 1ULL << 3,
+    NSAlignWidthInward  = 1ULL << 4,
+    NSAlignHeightInward = 1ULL << 5,
+    
+    NSAlignMinXOutward   = 1ULL << 8,
+    NSAlignMinYOutward   = 1ULL << 9,
+    NSAlignMaxXOutward   = 1ULL << 10,
+    NSAlignMaxYOutward   = 1ULL << 11,
+    NSAlignWidthOutward  = 1ULL << 12,
+    NSAlignHeightOutward = 1ULL << 13,
+    
+    NSAlignMinXNearest   = 1ULL << 16,
+    NSAlignMinYNearest   = 1ULL << 17,
+    NSAlignMaxXNearest   = 1ULL << 18,
+    NSAlignMaxYNearest   = 1ULL << 19,
+    NSAlignWidthNearest  = 1ULL << 20,
+    NSAlignHeightNearest = 1ULL << 21,
+    
+    NSAlignRectFlipped = 1ULL << 63, // pass this if the rect is in a flipped coordinate system. This allows 0.5 to be treated in a visually consistent way.
+
+    // convenience combinations
+    NSAlignAllEdgesInward = NSAlignMinXInward|NSAlignMaxXInward|NSAlignMinYInward|NSAlignMaxYInward,
+    NSAlignAllEdgesOutward = NSAlignMinXOutward|NSAlignMaxXOutward|NSAlignMinYOutward|NSAlignMaxYOutward,
+    NSAlignAllEdgesNearest = NSAlignMinXNearest|NSAlignMaxXNearest|NSAlignMinYNearest|NSAlignMaxYNearest,
+};
+
+//@class NSString;
+
+//FOUNDATION_EXPORT const NSPoint NSZeroPoint;
+//FOUNDATION_EXPORT const NSSize NSZeroSize;
+//FOUNDATION_EXPORT const NSRect NSZeroRect;
+//FOUNDATION_EXPORT const NSEdgeInsets NSEdgeInsetsZero NS_AVAILABLE(10_10, 8_0);
+
+//NS_INLINE NSPoint NSMakePoint(CGFloat x, CGFloat y) {
+//    NSPoint p;
+//    p.x = x;
+//    p.y = y;
+//    return p;
+//}
+//
+//NS_INLINE NSSize NSMakeSize(CGFloat w, CGFloat h) {
+//    NSSize s;
+//    s.width = w;
+//    s.height = h;
+//    return s;
+//}
+//
+//NS_INLINE NSRect NSMakeRect(CGFloat x, CGFloat y, CGFloat w, CGFloat h) {
+//    NSRect r;
+//    r.origin.x = x;
+//    r.origin.y = y;
+//    r.size.width = w;
+//    r.size.height = h;
+//    return r;
+//}
+
+NS_INLINE CGFloat NSMaxX(NSRect aRect) {
+    return (aRect.origin.x + aRect.size.width);
+}
+
+NS_INLINE CGFloat NSMaxY(NSRect aRect) {
+    return (aRect.origin.y + aRect.size.height);
+}
+
+NS_INLINE CGFloat NSMidX(NSRect aRect) {
+    return (aRect.origin.x + aRect.size.width * (CGFloat)0.5);
+}
+
+NS_INLINE CGFloat NSMidY(NSRect aRect) {
+    return (aRect.origin.y + aRect.size.height * (CGFloat)0.5);
+}
+
+NS_INLINE CGFloat NSMinX(NSRect aRect) {
+    return (aRect.origin.x);
+}
+
+NS_INLINE CGFloat NSMinY(NSRect aRect) {
+    return (aRect.origin.y);
+}
+
+NS_INLINE CGFloat NSWidth(NSRect aRect) {
+    return (aRect.size.width);
+}
+
+NS_INLINE CGFloat NSHeight(NSRect aRect) {
+    return (aRect.size.height);
+}
+
+NS_INLINE NSRect NSRectFromCGRect(CGRect cgrect) {
+    union _ {NSRect ns; CGRect cg;};
+    return ((union _ *)&cgrect)->ns;
+}
+
+NS_INLINE CGRect NSRectToCGRect(NSRect nsrect) {
+    union _ {NSRect ns; CGRect cg;};
+    return ((union _ *)&nsrect)->cg;
+}
+
+NS_INLINE NSPoint NSPointFromCGPoint(CGPoint cgpoint) {
+    union _ {NSPoint ns; CGPoint cg;};
+    return ((union _ *)&cgpoint)->ns;
+}
+
+NS_INLINE CGPoint NSPointToCGPoint(NSPoint nspoint) {
+    union _ {NSPoint ns; CGPoint cg;};
+    return ((union _ *)&nspoint)->cg;
+}
+
+NS_INLINE NSSize NSSizeFromCGSize(CGSize cgsize) {
+    union _ {NSSize ns; CGSize cg;};
+    return ((union _ *)&cgsize)->ns;
+}
+
+NS_INLINE CGSize NSSizeToCGSize(NSSize nssize) {
+    union _ {NSSize ns; CGSize cg;};
+    return ((union _ *)&nssize)->cg;
+}
+
+NS_INLINE NSEdgeInsets NSEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+    NSEdgeInsets e;
+    e.top = top;
+    e.left = left;
+    e.bottom = bottom;
+    e.right = right;
+    return e;
+}
+
+//FOUNDATION_EXPORT BOOL NSEqualPoints(NSPoint aPoint, NSPoint bPoint);
+//FOUNDATION_EXPORT BOOL NSEqualSizes(NSSize aSize, NSSize bSize);
+//FOUNDATION_EXPORT BOOL NSEqualRects(NSRect aRect, NSRect bRect);
+//FOUNDATION_EXPORT BOOL NSIsEmptyRect(NSRect aRect);
+//FOUNDATION_EXPORT BOOL NSEdgeInsetsEqual(NSEdgeInsets aInsets, NSEdgeInsets bInsets) NS_AVAILABLE(10_10, 8_0);
+//
+//FOUNDATION_EXPORT NSRect NSInsetRect(NSRect aRect, CGFloat dX, CGFloat dY);
+//FOUNDATION_EXPORT NSRect NSIntegralRect(NSRect aRect);
+//FOUNDATION_EXPORT NSRect NSIntegralRectWithOptions(NSRect aRect, NSAlignmentOptions opts) NS_AVAILABLE(10_7, 5_0);
+//FOUNDATION_EXPORT NSRect NSUnionRect(NSRect aRect, NSRect bRect);
+//FOUNDATION_EXPORT NSRect NSIntersectionRect(NSRect aRect, NSRect bRect);
+//FOUNDATION_EXPORT NSRect NSOffsetRect(NSRect aRect, CGFloat dX, CGFloat dY);
+//FOUNDATION_EXPORT void NSDivideRect(NSRect inRect, NSRect *slice, NSRect *rem, CGFloat amount, NSRectEdge edge);
+//FOUNDATION_EXPORT BOOL NSPointInRect(NSPoint aPoint, NSRect aRect);
+//FOUNDATION_EXPORT BOOL NSMouseInRect(NSPoint aPoint, NSRect aRect, BOOL flipped);
+//FOUNDATION_EXPORT BOOL NSContainsRect(NSRect aRect, NSRect bRect);
+//FOUNDATION_EXPORT BOOL NSIntersectsRect(NSRect aRect, NSRect bRect);
+//
+//FOUNDATION_EXPORT NSString *NSStringFromPoint(NSPoint aPoint);
+//FOUNDATION_EXPORT NSString *NSStringFromSize(NSSize aSize);
+//FOUNDATION_EXPORT NSString *NSStringFromRect(NSRect aRect);
+//FOUNDATION_EXPORT NSPoint NSPointFromString(NSString *aString);
+//FOUNDATION_EXPORT NSSize NSSizeFromString(NSString *aString);
+//FOUNDATION_EXPORT NSRect NSRectFromString(NSString *aString);
+//
+//@interface NSValue (NSValueGeometryExtensions)
+//
+//+ (NSValue *)valueWithPoint:(NSPoint)point;
+//+ (NSValue *)valueWithSize:(NSSize)size;
+//+ (NSValue *)valueWithRect:(NSRect)rect;
+//+ (NSValue *)valueWithEdgeInsets:(NSEdgeInsets)insets NS_AVAILABLE(10_10, 8_0);
+//
+//@property (readonly) NSPoint pointValue;
+//@property (readonly) NSSize sizeValue;
+//@property (readonly) NSRect rectValue;
+//@property (readonly) NSEdgeInsets edgeInsetsValue NS_AVAILABLE(10_10, 8_0);
+//
+//@end
+//
+//@interface NSCoder (NSGeometryCoding)
+//
+//- (void)encodePoint:(NSPoint)point;
+//- (NSPoint)decodePoint;
+//
+//- (void)encodeSize:(NSSize)size;
+//- (NSSize)decodeSize;
+//
+//- (void)encodeRect:(NSRect)rect;
+//- (NSRect)decodeRect;
+//
+//@end
+//
+//@interface NSCoder (NSGeometryKeyedCoding)
+//
+//- (void)encodePoint:(NSPoint)point forKey:(NSString *)key;
+//- (void)encodeSize:(NSSize)size forKey:(NSString *)key;
+//- (void)encodeRect:(NSRect)rect forKey:(NSString *)key;
+//
+//- (NSPoint)decodePointForKey:(NSString *)key;
+//- (NSSize)decodeSizeForKey:(NSString *)key;
+//- (NSRect)decodeRectForKey:(NSString *)key;
+//
+//@end
+
+#endif

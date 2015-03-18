@@ -253,11 +253,6 @@ NS_INLINE	NSW* AZBORDLESSWINDOWINIT	(NSR frame) {
 
 #define AZBORDERLESSWIN AZBORDLESSWINDOWINIT(AZRectFromDim(100))
 
-NSS * AZStringForTypeOfValue		(id *obj); 				 //(NSString* (^)(void))blk;
-NSS * AZToStringFromTypeAndValue	(const char *typeCode, void *value);
-NSS * AZStringFromRect						(NSRect rect);
-NSS * AZStringFromPoint				(NSP p);
-NSS * AZStringFromSize(NSSZ sz);
 NSA * ApplicationPathsInDirectory			(NSString *searchPath);
 
 void DrawLabelAtCenterPoint (NSS* string, NSPoint center);

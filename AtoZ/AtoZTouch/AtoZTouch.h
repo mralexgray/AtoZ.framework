@@ -17,7 +17,7 @@
 #import <AtoZTouch/UITableView+AtoZ.h>
 
 #import <AtoZTouch/JTTableViewGestureRecognizer.h>
-#import <AtoZTouch/AZApplicationList.h>
+#import <AtoZTouch/AZAppList.h>
 
 #import <AtoZTouch/Color+AtoZ.h>
 

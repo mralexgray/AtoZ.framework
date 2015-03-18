@@ -31,7 +31,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <AtoZUniversal/metamacros.h>
+@import AtoZUniversal;
 #import "CWTask.h"
 //#import "Zangetsu.h"
 //#import <extobjc_OSX/EXTScope.h>
@@ -123,7 +123,7 @@
  @param error a NSError object to be written to if something fails
  @return (BOOL) NO if the task fails any validation test, YES otherwise
  */
-- (BOOL) _validateTask:(NSError **)error {
+- (BOOL) _validateTask: (_Errr __autoreleasing *) error {
     if (![self _validateExecutable:error] ||
 		![self _validateDirectoryPathIfApplicable:error] ||
 		![self _validateTaskHasRun:error]) {
@@ -142,7 +142,7 @@
  @param error a NSError object to be written to if something fails
  @return (BOOL) NO is the executable specified doesn't exist otherwise YES
  */
-- (BOOL) _validateExecutable:(NSError **)error {
+- (BOOL) _validateExecutable:(_Errr __autoreleasing *)error {
     if ((!self.executable) || ![[NSFileManager defaultManager] fileExistsAtPath:self.executable]) {
 		if (error) {
 			*error = [NSError errorWithDomain:kCWTaskErrorDomain
@@ -162,7 +162,7 @@
  @param error a NSError object to be written to if something fails
  @return (BOOL) YES if the directory path exists otherwise returns NO
  */
-- (BOOL) _validateDirectoryPathIfApplicable:(NSError **)error {
+- (BOOL) _validateDirectoryPathIfApplicable:(_Errr __autoreleasing *)error {
     if (self.directoryPath) {
         if (![[NSFileManager defaultManager] fileExistsAtPath:self.directoryPath]) {
 			if (error) {
@@ -185,7 +185,7 @@
  @param error a NSError object to be written to if something fails
  @return (BOOL) YES if the task has not been run, otherwise returns NO
  */
-- (BOOL) _validateTaskHasRun:(NSError **)error {
+- (BOOL) _validateTaskHasRun:(_Errr __autoreleasing *)error {
     if (self.taskHasRun) {
 		if (error) {
 			*error = [NSError errorWithDomain:kCWTaskErrorDomain
@@ -197,7 +197,7 @@
     return YES;
 }
 
-- (NSString *) launchTask:(NSError **)error {
+- (NSString *) launchTask:(_Errr __autoreleasing *)error {
     if (![self _validateTask:error]) return nil;
 	
     NSString * resultsString = nil;
@@ -217,7 +217,7 @@
  
  @return a NSString object with the contents of the lauched tasks output
  */
-- (NSString *) _resultsStringFromLaunchedTask:(NSError **)error {
+- (NSString *) _resultsStringFromLaunchedTask:(_Errr __autoreleasing *)error {
     NSData * returnedData = nil;
     NSString * taskOutput = nil;
 

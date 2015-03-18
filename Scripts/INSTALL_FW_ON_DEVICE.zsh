@@ -1,12 +1,19 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-EXE="$CODESIGNING_FOLDER_PATH/$TARGET_NAME"  #/a2z/Scripts/INSTALL_FW_ON_DEVICE.zsh
+# This script is /a2z/Scripts/INSTALL_FW_ON_DEVICE.zsh
+
+EXE="$CODESIGNING_FOLDER_PATH/$TARGET_NAME"
 
 otool -L "$EXE" || { say "$TARGET_NAME build failed" && return 9 }
 
 [[ "$EFFECTIVE_PLATFORM_NAME" =~ "iphoneos" ]] && { # we are building for device!
 
-  [[ "$WRAPPER_EXTENSION" == "framework" ]] && {
+  [[ "$WRAPPER_EXTENSION" != "framework" ]] && {
+
+    /xbin/installapp   "$BUILT_PRODUCTS_DIR/$WRAPPER_NAME" \
+              && say "installed $TARGET_NAME on device" \
+              || say "$TARGET_NAME install failed"
+  } || {
 
     INSTALLED="$(defaults read com.mrgray.AtoZ $TARGET_NAME)"
          HASH="$(md5 -q $EXE)"
@@ -17,9 +24,7 @@ otool -L "$EXE" || { say "$TARGET_NAME build failed" && return 9 }
      && say "installed $TARGET_NAME framework" \
      || say "copy to device failed for $TARGET_NAME. $(cat /tmp/ERR)"
 
-  } || /xbin/installapp   "$BUILT_PRODUCTS_DIR/$WRAPPER_NAME" \
-                 && say "installed $TARGET_NAME on device" \
-                 || say "$TARGET_NAME install failed"
+  }
   
 } || rsync --delete -r -t -v --progress -c -l -s "$BUILT_PRODUCTS_DIR/$WRAPPER_NAME" "$USER_FWKS"
 

@@ -42,6 +42,7 @@
 		7B2EF4371AB0493400382535 /* ObjcAssociatedObjectHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF4341AB0493400382535 /* ObjcAssociatedObjectHelpers.m */; };
 		7B313A2F1AADC0AD00179E72 /* objswitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A271AADC0AD00179E72 /* objswitch.m */; };
 		7B313A301AADC0AD00179E72 /* objswitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A281AADC0AD00179E72 /* objswitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B4ADB821AB8A50F00CFCC91 /* AssociatedObjectHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF4351AB0493400382535 /* AssociatedObjectHelpers.h */; };
 		7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B582C2B1AA6DC9800C450C3 /* F+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582C241AA6DC9800C450C3 /* F+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7B582C2C1AA6DC9800C450C3 /* F.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582C251AA6DC9800C450C3 /* F.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,7 +76,10 @@
 		7BBD2D861AA7536A00CD9477 /* NSMethodSignature+EXT.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D811AA7536A00CD9477 /* NSMethodSignature+EXT.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D871AA7536A00CD9477 /* NSMethodSignature+EXT.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD2D821AA7536A00CD9477 /* NSMethodSignature+EXT.m */; };
 		7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BD3CAE31AB8350A00E05319 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */; };
+		7BD3CAE71AB843F300E05319 /* AtoZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAE51AB843F300E05319 /* AtoZGeometry.m */; };
+		7BD3CAE81AB843F300E05319 /* AtoZGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BD3CAEC1AB8469E00E05319 /* Rectlike.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAEA1AB8469E00E05319 /* Rectlike.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BD3CAED1AB8469E00E05319 /* Rectlike.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAEB1AB8469E00E05319 /* Rectlike.m */; };
 		7BD522BD1AB6B7BB00FC79DF /* _ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD522B51AB6B74700FC79DF /* _ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE12B661AA917DC001AF7CE /* NSBundle+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE12B641AA917DC001AF7CE /* NSBundle+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE12B671AA917DC001AF7CE /* NSBundle+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE12B651AA917DC001AF7CE /* NSBundle+AtoZ.m */; };
@@ -180,6 +184,10 @@
 		7BBD2D821AA7536A00CD9477 /* NSMethodSignature+EXT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMethodSignature+EXT.m"; sourceTree = "<group>"; };
 		7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+AtoZ.h"; path = "Categories/NSImage+AtoZ.h"; sourceTree = "<group>"; };
 		7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+AtoZ.m"; path = "Categories/NSImage+AtoZ.m"; sourceTree = "<group>"; };
+		7BD3CAE51AB843F300E05319 /* AtoZGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZGeometry.m; sourceTree = "<group>"; };
+		7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZGeometry.h; sourceTree = "<group>"; };
+		7BD3CAEA1AB8469E00E05319 /* Rectlike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rectlike.h; path = Protocols/Rectlike.h; sourceTree = "<group>"; };
+		7BD3CAEB1AB8469E00E05319 /* Rectlike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Rectlike.m; path = Protocols/Rectlike.m; sourceTree = "<group>"; };
 		7BD522B41AB6B74700FC79DF /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		7BD522B51AB6B74700FC79DF /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = "<group>"; };
 		7BD522B61AB6B74700FC79DF /* _ObjC.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = _ObjC.podspec.json; sourceTree = "<group>"; };
@@ -220,6 +228,7 @@
 		7B582BBB1AA6A4F300C450C3 = {
 			isa = PBXGroup;
 			children = (
+				7BD3CAE91AB845CB00E05319 /* Protocols */,
 				7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */,
 				7BE12B681AA918A6001AF7CE /* AtoZUniversal-Prefix.pch */,
 				7B582C341AA6DCDF00C450C3 /* AtoZMacroDefines.h */,
@@ -277,6 +286,8 @@
 		7B89AE9E1AA9A7670036EC09 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */,
+				7BD3CAE51AB843F300E05319 /* AtoZGeometry.m */,
 				7B2EF3E81AB0319600382535 /* OrderedDictionary.h */,
 				7B2EF3E91AB0319600382535 /* OrderedDictionary.m */,
 				7B2EF4331AB0493400382535 /* ObjcAssociatedObjectHelpers.h */,
@@ -293,10 +304,6 @@
 				7B89AE981AA961BE0036EC09 /* JREnum.h */,
 				7B0A4F101AA94D94008FB45A /* NSBag.h */,
 				7B0A4F0F1AA94D94008FB45A /* NSBag.m */,
-				7B0A4F051AA92A54008FB45A /* Protocols.h */,
-				7B0A4F061AA92A54008FB45A /* Protocols.m */,
-				7B582C351AA6DCDF00C450C3 /* SubscriptProtocols.h */,
-				7B582C361AA6DCDF00C450C3 /* SubscriptProtocols.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -327,6 +334,19 @@
 				7BBD2D771AA74C8700CD9477 /* EXTRuntimeExtensions.m */,
 			);
 			name = EXT;
+			sourceTree = "<group>";
+		};
+		7BD3CAE91AB845CB00E05319 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7B0A4F051AA92A54008FB45A /* Protocols.h */,
+				7B0A4F061AA92A54008FB45A /* Protocols.m */,
+				7B582C351AA6DCDF00C450C3 /* SubscriptProtocols.h */,
+				7B582C361AA6DCDF00C450C3 /* SubscriptProtocols.m */,
+				7BD3CAEA1AB8469E00E05319 /* Rectlike.h */,
+				7BD3CAEB1AB8469E00E05319 /* Rectlike.m */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		7BD522B31AB6B74600FC79DF /* _ObjC */ = {
@@ -390,12 +410,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */,
 				7B89AE991AA961BE0036EC09 /* JREnum.h in Headers */,
 				7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */,
+				7B4ADB821AB8A50F00CFCC91 /* AssociatedObjectHelpers.h in Headers */,
 				7B0A4F071AA92A54008FB45A /* Protocols.h in Headers */,
 				7BD522BD1AB6B7BB00FC79DF /* _ObjC.h in Headers */,
 				7B313A301AADC0AD00179E72 /* objswitch.h in Headers */,
 				7B0A4F121AA94D94008FB45A /* NSBag.h in Headers */,
+				7BD3CAE81AB843F300E05319 /* AtoZGeometry.h in Headers */,
 				7B0A4F0A1AA92CB0008FB45A /* AtoZTypes.h in Headers */,
 				7B582C2C1AA6DC9800C450C3 /* F.h in Headers */,
 				7B582C431AA6DFF000C450C3 /* BaseModel.h in Headers */,
@@ -410,12 +433,12 @@
 				7B582C3A1AA6DCDF00C450C3 /* SubscriptProtocols.h in Headers */,
 				7B0A4F021AA92986008FB45A /* NSDictionary+AtoZ.h in Headers */,
 				7B582C391AA6DCDF00C450C3 /* AtoZMacroDefines.h in Headers */,
-				7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */,
 				7BE12BB81AA91D0D001AF7CE /* NSObject+AtoZ.h in Headers */,
 				7BBD2D851AA7536A00CD9477 /* EXTSynthesize.h in Headers */,
 				7B964E531AAD815000F866D3 /* NSString+AtoZ.h in Headers */,
 				7B89AE9C1AA9666C0036EC09 /* AZRange.h in Headers */,
 				7B2EF3EE1AB032CE00382535 /* NSString-Utilities.h in Headers */,
+				7BD3CAEC1AB8469E00E05319 /* Rectlike.h in Headers */,
 				7B582C371AA6DCDF00C450C3 /* AZTalker.h in Headers */,
 				7B2EF3EA1AB0319600382535 /* OrderedDictionary.h in Headers */,
 				7BF46B541AB0CEFB0029068F /* NSFileManager+AtoZ.h in Headers */,
@@ -569,6 +592,7 @@
 				7B2EF4371AB0493400382535 /* ObjcAssociatedObjectHelpers.m in Sources */,
 				7B0A4F0E1AA947A6008FB45A /* Functions.m in Sources */,
 				7B964E501AAD7EB800F866D3 /* NSObject+Properties.m in Sources */,
+				7BD3CAED1AB8469E00E05319 /* Rectlike.m in Sources */,
 				7B582C301AA6DC9800C450C3 /* NSNumber+F.m in Sources */,
 				7B89AE9D1AA9666C0036EC09 /* AZRange.m in Sources */,
 				7BBD2D841AA7536A00CD9477 /* EXTBlockMethod.m in Sources */,
@@ -577,10 +601,10 @@
 				7BE12BBF1AA925E8001AF7CE /* NSNumber+AtoZ.m in Sources */,
 				7B0A4F081AA92A54008FB45A /* Protocols.m in Sources */,
 				7BBD2D7B1AA74C8700CD9477 /* EXTRuntimeExtensions.m in Sources */,
-				7BD3CAE31AB8350A00E05319 /* NSImage+AtoZ.m in Sources */,
 				7B582C2E1AA6DC9800C450C3 /* NSArray+F.m in Sources */,
 				7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */,
 				7B313A2F1AADC0AD00179E72 /* objswitch.m in Sources */,
+				7BD3CAE71AB843F300E05319 /* AtoZGeometry.m in Sources */,
 				7BE12BC41AA92743001AF7CE /* NSData+AtoZ.m in Sources */,
 				7B582C381AA6DCDF00C450C3 /* AZTalker.m in Sources */,
 				7B2EF3EB1AB0319600382535 /* OrderedDictionary.m in Sources */,
@@ -617,13 +641,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B2EF3D51AB01AC800382535 /* Universal.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				CURRENT_PROJECT_VERSION = 5;
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUniversal/AtoZUniversal-Prefix.pch";
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = AtoZUniversal/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -636,13 +659,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B2EF3D51AB01AC800382535 /* Universal.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				CURRENT_PROJECT_VERSION = 5;
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUniversal/AtoZUniversal-Prefix.pch";
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = AtoZUniversal/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;

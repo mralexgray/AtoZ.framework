@@ -4,6 +4,10 @@
 <dict>
 	<key>Disabled</key>
 	<true/>
+	<key>Disabled 2</key>
+	<true/>
+	<key>Disabled 3</key>
+	<true/>
 	<key>Label</key>
 	<string>com.mrgray.atoz.watchpaths</string>
 	<key>Program</key>
@@ -13,6 +17,6 @@
 	<key>StandardErrorPath</key>
 	<string>/tmp/com.mrgray.atoz.watchpaths.err</string>
 	<key>StandardOutPath</key>
-	<string>/tmp/com.mrgray.atoz.watchpaths.out</string>
+	<string>/lsslstmp/com.mrgray.atoz.watchpaths.out</string>
 </dict>
 </plist>
