@@ -6,20 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		7B582C731AA6F48C00C450C3 /* Make Universe */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 7B582C741AA6F48C00C450C3 /* Build configuration list for PBXAggregateTarget "Make Universe" */;
-			buildPhases = (
-				7B89AE9F1AA9CDD60036EC09 /* Run Script */,
-			);
-			dependencies = (
-			);
-			name = "Make Universe";
-			productName = Universak;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		7B0A4F011AA92986008FB45A /* NSDictionary+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A4EFD1AA92986008FB45A /* NSDictionary+AtoZ.m */; };
 		7B0A4F021AA92986008FB45A /* NSDictionary+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0A4EFE1AA92986008FB45A /* NSDictionary+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,8 +22,6 @@
 		7B2EF3EB1AB0319600382535 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF3E91AB0319600382535 /* OrderedDictionary.m */; };
 		7B2EF3EE1AB032CE00382535 /* NSString-Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF3EC1AB032CE00382535 /* NSString-Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2EF3EF1AB032CE00382535 /* NSString-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF3ED1AB032CE00382535 /* NSString-Utilities.m */; };
-		7B2EF3F21AB0395000382535 /* GaySlang.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B2EF3F01AB0395000382535 /* GaySlang.plist */; };
-		7B2EF3F31AB0395000382535 /* BadWords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B2EF3F11AB0395000382535 /* BadWords.plist */; };
 		7B2EF4361AB0493400382535 /* ObjcAssociatedObjectHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF4331AB0493400382535 /* ObjcAssociatedObjectHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2EF4371AB0493400382535 /* ObjcAssociatedObjectHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF4341AB0493400382535 /* ObjcAssociatedObjectHelpers.m */; };
 		7B313A2F1AADC0AD00179E72 /* objswitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A271AADC0AD00179E72 /* objswitch.m */; };
@@ -64,7 +48,7 @@
 		7B964E501AAD7EB800F866D3 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B964E4E1AAD7EB800F866D3 /* NSObject+Properties.m */; };
 		7B964E531AAD815000F866D3 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B964E511AAD815000F866D3 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B964E521AAD815000F866D3 /* NSString+AtoZ.m */; };
-		7B964E561AAD8A4E00F866D3 /* LoremIpsum.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */; };
+		7B9BC4F61ABA5FB300E381B4 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */; };
 		7BBD2D781AA74C8700CD9477 /* EXTConcreteProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD2D751AA74C8700CD9477 /* EXTConcreteProtocol.m */; };
 		7BBD2D7A1AA74C8700CD9477 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D761AA74C8700CD9477 /* EXTRuntimeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -91,9 +75,15 @@
 		7BE12BC01AA925E8001AF7CE /* NSNumber+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE12BBE1AA925E8001AF7CE /* NSNumber+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE12BC31AA92743001AF7CE /* NSData+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE12BC11AA92743001AF7CE /* NSData+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BE12BC41AA92743001AF7CE /* NSData+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE12BC21AA92743001AF7CE /* NSData+AtoZ.m */; };
+		7BEA68FF1ABC7D2E0040B76A /* NSFont+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BEA68FD1ABC7D2D0040B76A /* NSFont+AtoZ.m */; };
+		7BEA69001ABC7D2E0040B76A /* NSFont+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BEA68FE1ABC7D2E0040B76A /* NSFont+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7BEA69181ABCD4600040B76A /* Dicksonisms.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BEA69141ABCA09C0040B76A /* Dicksonisms.plist */; };
+		7BEA69191ABCD4600040B76A /* LoremIpsum.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */; };
+		7BEA691A1ABCD4600040B76A /* GaySlang.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B2EF3F01AB0395000382535 /* GaySlang.plist */; };
+		7BEA691B1ABCD4600040B76A /* BadWords.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B2EF3F11AB0395000382535 /* BadWords.plist */; };
+		7BEA691C1ABCD4670040B76A /* black.people.sweat.aif in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BF46B571AB1D8A90029068F /* black.people.sweat.aif */; };
 		7BF46B531AB0CEFB0029068F /* NSFileManager+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF46B511AB0CEFB0029068F /* NSFileManager+AtoZ.m */; };
 		7BF46B541AB0CEFB0029068F /* NSFileManager+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BF46B521AB0CEFB0029068F /* NSFileManager+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7BF46B581AB1D8A90029068F /* black.people.sweat.aif in Resources */ = {isa = PBXBuildFile; fileRef = 7BF46B571AB1D8A90029068F /* black.people.sweat.aif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,76 +110,93 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7BEA69171ABCD44F0040B76A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				7BEA691C1ABCD4670040B76A /* black.people.sweat.aif in CopyFiles */,
+				7BEA69181ABCD4600040B76A /* Dicksonisms.plist in CopyFiles */,
+				7BEA69191ABCD4600040B76A /* LoremIpsum.plist in CopyFiles */,
+				7BEA691A1ABCD4600040B76A /* GaySlang.plist in CopyFiles */,
+				7BEA691B1ABCD4600040B76A /* BadWords.plist in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		7B0A4EFD1AA92986008FB45A /* NSDictionary+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSDictionary+AtoZ.m"; path = "Categories/NSDictionary+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7B0A4EFE1AA92986008FB45A /* NSDictionary+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSDictionary+AtoZ.h"; path = "Categories/NSDictionary+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7B0A4EFE1AA92986008FB45A /* NSDictionary+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSDictionary+AtoZ.h"; path = "Categories/NSDictionary+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B0A4EFF1AA92986008FB45A /* NSArray+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSArray+AtoZ.m"; path = "Categories/NSArray+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7B0A4F001AA92986008FB45A /* NSArray+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSArray+AtoZ.h"; path = "Categories/NSArray+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7B0A4F051AA92A54008FB45A /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
+		7B0A4F001AA92986008FB45A /* NSArray+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSArray+AtoZ.h"; path = "Categories/NSArray+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7B0A4F051AA92A54008FB45A /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B0A4F061AA92A54008FB45A /* Protocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Protocols.m; sourceTree = "<group>"; };
-		7B0A4F091AA92CB0008FB45A /* AtoZTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AtoZTypes.h; path = AtoZUniversal/AtoZTypes.h; sourceTree = "<group>"; };
-		7B0A4F0B1AA947A6008FB45A /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Functions.h; path = AtoZUniversal/Functions.h; sourceTree = "<group>"; };
+		7B0A4F091AA92CB0008FB45A /* AtoZTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AtoZTypes.h; path = AtoZUniversal/AtoZTypes.h; sourceTree = "<group>"; wrapsLines = 1; };
+		7B0A4F0B1AA947A6008FB45A /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Functions.h; path = AtoZUniversal/Functions.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B0A4F0C1AA947A6008FB45A /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Functions.m; path = AtoZUniversal/Functions.m; sourceTree = "<group>"; };
 		7B0A4F0F1AA94D94008FB45A /* NSBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSBag.m; path = AtoZUniversal/NSBag.m; sourceTree = "<group>"; };
-		7B0A4F101AA94D94008FB45A /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSBag.h; path = AtoZUniversal/NSBag.h; sourceTree = "<group>"; };
+		7B0A4F101AA94D94008FB45A /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSBag.h; path = AtoZUniversal/NSBag.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B2EF3D51AB01AC800382535 /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = ../../xcconfigs/Base/Universal.xcconfig; sourceTree = "<group>"; };
-		7B2EF3E81AB0319600382535 /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
+		7B2EF3E81AB0319600382535 /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B2EF3E91AB0319600382535 /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
-		7B2EF3EC1AB032CE00382535 /* NSString-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-Utilities.h"; path = "Categories/NSString-Utilities.h"; sourceTree = "<group>"; };
+		7B2EF3EC1AB032CE00382535 /* NSString-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-Utilities.h"; path = "Categories/NSString-Utilities.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7B2EF3ED1AB032CE00382535 /* NSString-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-Utilities.m"; path = "Categories/NSString-Utilities.m"; sourceTree = "<group>"; };
 		7B2EF3F01AB0395000382535 /* GaySlang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GaySlang.plist; path = ../Resources/GaySlang.plist; sourceTree = "<group>"; };
 		7B2EF3F11AB0395000382535 /* BadWords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = BadWords.plist; path = ../Resources/BadWords.plist; sourceTree = "<group>"; };
-		7B2EF4331AB0493400382535 /* ObjcAssociatedObjectHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjcAssociatedObjectHelpers.h; path = ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h; sourceTree = "<group>"; };
+		7B2EF4331AB0493400382535 /* ObjcAssociatedObjectHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjcAssociatedObjectHelpers.h; path = ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B2EF4341AB0493400382535 /* ObjcAssociatedObjectHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjcAssociatedObjectHelpers.m; path = ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers.m; sourceTree = "<group>"; };
-		7B2EF4351AB0493400382535 /* AssociatedObjectHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AssociatedObjectHelpers.h; path = ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers/AssociatedObjectHelpers.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7B2EF4351AB0493400382535 /* AssociatedObjectHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AssociatedObjectHelpers.h; path = ObjcAssociatedObjectHelpers/ObjcAssociatedObjectHelpers/AssociatedObjectHelpers.h; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B313A271AADC0AD00179E72 /* objswitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = objswitch.m; sourceTree = "<group>"; };
-		7B313A281AADC0AD00179E72 /* objswitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objswitch.h; sourceTree = "<group>"; };
+		7B313A281AADC0AD00179E72 /* objswitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objswitch.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B313A291AADC0AD00179E72 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		7B582BC51AA6A4F400C450C3 /* AtoZUniversal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZUniversal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B582BC91AA6A4F400C450C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AtoZUniversal.h; path = AtoZUniversal/AtoZUniversal.h; sourceTree = "<group>"; };
+		7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AtoZUniversal.h; path = AtoZUniversal/AtoZUniversal.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B582BD71AA6A4F800C450C3 /* AtoZUniversalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AtoZUniversalTests.m; path = AtoZUniversalTests/AtoZUniversalTests.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7B582C241AA6DC9800C450C3 /* F+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "F+Private.h"; sourceTree = "<group>"; };
-		7B582C251AA6DC9800C450C3 /* F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F.h; sourceTree = "<group>"; };
+		7B582C241AA6DC9800C450C3 /* F+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "F+Private.h"; sourceTree = "<group>"; wrapsLines = 1; };
+		7B582C251AA6DC9800C450C3 /* F.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B582C261AA6DC9800C450C3 /* F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F.m; sourceTree = "<group>"; };
 		7B582C271AA6DC9800C450C3 /* NSArray+F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+F.m"; sourceTree = "<group>"; };
 		7B582C281AA6DC9800C450C3 /* NSDictionary+F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+F.m"; sourceTree = "<group>"; };
 		7B582C291AA6DC9800C450C3 /* NSNumber+F.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+F.m"; sourceTree = "<group>"; };
 		7B582C2A1AA6DC9800C450C3 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
-		7B582C321AA6DCDF00C450C3 /* AZTalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZTalker.h; path = AtoZUniversal/AZTalker.h; sourceTree = SOURCE_ROOT; };
+		7B582C321AA6DCDF00C450C3 /* AZTalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZTalker.h; path = AtoZUniversal/AZTalker.h; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 		7B582C331AA6DCDF00C450C3 /* AZTalker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZTalker.m; path = AtoZUniversal/AZTalker.m; sourceTree = SOURCE_ROOT; };
-		7B582C341AA6DCDF00C450C3 /* AtoZMacroDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AtoZMacroDefines.h; path = AtoZUniversal/AtoZMacroDefines.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		7B582C351AA6DCDF00C450C3 /* SubscriptProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubscriptProtocols.h; path = AtoZUniversal/SubscriptProtocols.h; sourceTree = SOURCE_ROOT; };
+		7B582C341AA6DCDF00C450C3 /* AtoZMacroDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AtoZMacroDefines.h; path = AtoZUniversal/AtoZMacroDefines.h; sourceTree = SOURCE_ROOT; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7B582C351AA6DCDF00C450C3 /* SubscriptProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubscriptProtocols.h; path = AtoZUniversal/SubscriptProtocols.h; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 		7B582C361AA6DCDF00C450C3 /* SubscriptProtocols.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubscriptProtocols.m; path = AtoZUniversal/SubscriptProtocols.m; sourceTree = SOURCE_ROOT; };
-		7B582C3F1AA6DFF000C450C3 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BaseModel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7B582C3F1AA6DFF000C450C3 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BaseModel.h; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B582C401AA6DFF000C450C3 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BaseModel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B582C7D1AA6F4FE00C450C3 /* UniversalFrameworkAggregate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = UniversalFrameworkAggregate.sh; path = ../UniversalFrameworkAggregate.sh; sourceTree = "<group>"; };
-		7B89AE981AA961BE0036EC09 /* JREnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JREnum.h; path = JREnum/JREnum.h; sourceTree = "<group>"; };
-		7B89AE9A1AA9666C0036EC09 /* AZRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZRange.h; path = AtoZUniversal/AZRange.h; sourceTree = "<group>"; };
+		7B89AE981AA961BE0036EC09 /* JREnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JREnum.h; path = JREnum/JREnum.h; sourceTree = "<group>"; wrapsLines = 1; };
+		7B89AE9A1AA9666C0036EC09 /* AZRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZRange.h; path = AtoZUniversal/AZRange.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B89AE9B1AA9666C0036EC09 /* AZRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AZRange.m; path = AtoZUniversal/AZRange.m; sourceTree = "<group>"; };
-		7B964E4D1AAD7EB800F866D3 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Properties.h"; path = "Categories/NSObject+Properties.h"; sourceTree = "<group>"; };
+		7B964E4D1AAD7EB800F866D3 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Properties.h"; path = "Categories/NSObject+Properties.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7B964E4E1AAD7EB800F866D3 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Properties.m"; path = "Categories/NSObject+Properties.m"; sourceTree = "<group>"; };
-		7B964E511AAD815000F866D3 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AtoZ.h"; path = "Categories/NSString+AtoZ.h"; sourceTree = "<group>"; };
+		7B964E511AAD815000F866D3 /* NSString+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+AtoZ.h"; path = "Categories/NSString+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7B964E521AAD815000F866D3 /* NSString+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AtoZ.m"; path = "Categories/NSString+AtoZ.m"; sourceTree = "<group>"; };
 		7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = LoremIpsum.plist; path = ../Categories/LoremIpsum.plist; sourceTree = "<group>"; };
-		7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTConcreteProtocol.h; sourceTree = "<group>"; };
+		7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTConcreteProtocol.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BBD2D751AA74C8700CD9477 /* EXTConcreteProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTConcreteProtocol.m; sourceTree = "<group>"; };
-		7BBD2D761AA74C8700CD9477 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		7BBD2D761AA74C8700CD9477 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BBD2D771AA74C8700CD9477 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTRuntimeExtensions.m; sourceTree = "<group>"; };
-		7BBD2D7C1AA74CBD00CD9477 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
-		7BBD2D7E1AA7536A00CD9477 /* EXTBlockMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTBlockMethod.h; sourceTree = "<group>"; };
+		7BBD2D7C1AA74CBD00CD9477 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; wrapsLines = 1; };
+		7BBD2D7E1AA7536A00CD9477 /* EXTBlockMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTBlockMethod.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BBD2D7F1AA7536A00CD9477 /* EXTBlockMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTBlockMethod.m; sourceTree = "<group>"; };
-		7BBD2D801AA7536A00CD9477 /* EXTSynthesize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTSynthesize.h; sourceTree = "<group>"; };
-		7BBD2D811AA7536A00CD9477 /* NSMethodSignature+EXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMethodSignature+EXT.h"; sourceTree = "<group>"; };
+		7BBD2D801AA7536A00CD9477 /* EXTSynthesize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTSynthesize.h; sourceTree = "<group>"; wrapsLines = 1; };
+		7BBD2D811AA7536A00CD9477 /* NSMethodSignature+EXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMethodSignature+EXT.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7BBD2D821AA7536A00CD9477 /* NSMethodSignature+EXT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMethodSignature+EXT.m"; sourceTree = "<group>"; };
-		7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+AtoZ.h"; path = "Categories/NSImage+AtoZ.h"; sourceTree = "<group>"; };
-		7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+AtoZ.m"; path = "Categories/NSImage+AtoZ.m"; sourceTree = "<group>"; };
+		7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSImage+AtoZ.h"; path = "Categories/NSImage+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; };
+		7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSImage+AtoZ.m"; path = "Categories/NSImage+AtoZ.m"; sourceTree = "<group>"; wrapsLines = 1; };
 		7BD3CAE51AB843F300E05319 /* AtoZGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtoZGeometry.m; sourceTree = "<group>"; };
-		7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZGeometry.h; sourceTree = "<group>"; };
-		7BD3CAEA1AB8469E00E05319 /* Rectlike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rectlike.h; path = Protocols/Rectlike.h; sourceTree = "<group>"; };
+		7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtoZGeometry.h; sourceTree = "<group>"; wrapsLines = 1; };
+		7BD3CAEA1AB8469E00E05319 /* Rectlike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rectlike.h; path = Protocols/Rectlike.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BD3CAEB1AB8469E00E05319 /* Rectlike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Rectlike.m; path = Protocols/Rectlike.m; sourceTree = "<group>"; };
 		7BD522B41AB6B74700FC79DF /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
-		7BD522B51AB6B74700FC79DF /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = "<group>"; };
+		7BD522B51AB6B74700FC79DF /* _ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ObjC.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BD522B61AB6B74700FC79DF /* _ObjC.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = _ObjC.podspec.json; sourceTree = "<group>"; };
 		7BD522B71AB6B74700FC79DF /* _ObjC_migration_tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _ObjC_migration_tool.m; sourceTree = "<group>"; };
 		7BD522B81AB6B74700FC79DF /* INSTALL.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = INSTALL.command; sourceTree = "<group>"; };
@@ -198,19 +205,22 @@
 		7BD522BB1AB6B74700FC79DF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7BD522BC1AB6B74700FC79DF /* scratch.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = scratch.sh; sourceTree = "<group>"; };
 		7BDADDF71AB0726E00581B83 /* FunSize.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FunSize.xcodeproj; path = ../../Frameworks/FunSize.framework/FunSize.xcodeproj; sourceTree = "<group>"; };
-		7BE12B641AA917DC001AF7CE /* NSBundle+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+AtoZ.h"; path = "Categories/NSBundle+AtoZ.h"; sourceTree = SOURCE_ROOT; };
+		7BE12B641AA917DC001AF7CE /* NSBundle+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+AtoZ.h"; path = "Categories/NSBundle+AtoZ.h"; sourceTree = SOURCE_ROOT; wrapsLines = 1; };
 		7BE12B651AA917DC001AF7CE /* NSBundle+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+AtoZ.m"; path = "Categories/NSBundle+AtoZ.m"; sourceTree = SOURCE_ROOT; };
 		7BE12B681AA918A6001AF7CE /* AtoZUniversal-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AtoZUniversal-Prefix.pch"; path = "AtoZUniversal/AtoZUniversal-Prefix.pch"; sourceTree = "<group>"; };
 		7BE12BB51AA91D0D001AF7CE /* NSObject+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+AtoZ.m"; path = "Categories/NSObject+AtoZ.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7BE12BB61AA91D0D001AF7CE /* NSObject+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+AtoZ.h"; path = "Categories/NSObject+AtoZ.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		7BE12BB61AA91D0D001AF7CE /* NSObject+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+AtoZ.h"; path = "Categories/NSObject+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7BE12BB91AA9222F001AF7CE /* AZObserversAndBinders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AZObserversAndBinders.m; path = THObserversAndBinders/THObserversAndBinders/AZObserversAndBinders.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		7BE12BBA1AA9222F001AF7CE /* AZObserversAndBinders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZObserversAndBinders.h; path = THObserversAndBinders/THObserversAndBinders/AZObserversAndBinders.h; sourceTree = "<group>"; };
+		7BE12BBA1AA9222F001AF7CE /* AZObserversAndBinders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZObserversAndBinders.h; path = THObserversAndBinders/THObserversAndBinders/AZObserversAndBinders.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BE12BBD1AA925E8001AF7CE /* NSNumber+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+AtoZ.m"; path = "Categories/NSNumber+AtoZ.m"; sourceTree = "<group>"; };
-		7BE12BBE1AA925E8001AF7CE /* NSNumber+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+AtoZ.h"; path = "Categories/NSNumber+AtoZ.h"; sourceTree = "<group>"; };
-		7BE12BC11AA92743001AF7CE /* NSData+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+AtoZ.h"; path = "Categories/NSData+AtoZ.h"; sourceTree = "<group>"; };
+		7BE12BBE1AA925E8001AF7CE /* NSNumber+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+AtoZ.h"; path = "Categories/NSNumber+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; };
+		7BE12BC11AA92743001AF7CE /* NSData+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+AtoZ.h"; path = "Categories/NSData+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7BE12BC21AA92743001AF7CE /* NSData+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+AtoZ.m"; path = "Categories/NSData+AtoZ.m"; sourceTree = "<group>"; };
+		7BEA68FD1ABC7D2D0040B76A /* NSFont+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFont+AtoZ.m"; path = "Categories/NSFont+AtoZ.m"; sourceTree = "<group>"; };
+		7BEA68FE1ABC7D2E0040B76A /* NSFont+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFont+AtoZ.h"; path = "Categories/NSFont+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; };
+		7BEA69141ABCA09C0040B76A /* Dicksonisms.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = Dicksonisms.plist; path = Resources/Dicksonisms.plist; sourceTree = SOURCE_ROOT; };
 		7BF46B511AB0CEFB0029068F /* NSFileManager+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+AtoZ.m"; path = "Categories/NSFileManager+AtoZ.m"; sourceTree = "<group>"; };
-		7BF46B521AB0CEFB0029068F /* NSFileManager+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+AtoZ.h"; path = "Categories/NSFileManager+AtoZ.h"; sourceTree = "<group>"; };
+		7BF46B521AB0CEFB0029068F /* NSFileManager+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager+AtoZ.h"; path = "Categories/NSFileManager+AtoZ.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7BF46B571AB1D8A90029068F /* black.people.sweat.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = black.people.sweat.aif; path = ../black.people.sweat.aif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,6 +321,7 @@
 		7BA729881AB703F900BFD612 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7BEA69141ABCA09C0040B76A /* Dicksonisms.plist */,
 				7BF46B571AB1D8A90029068F /* black.people.sweat.aif */,
 				7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */,
 				7B2EF3F01AB0395000382535 /* GaySlang.plist */,
@@ -377,6 +388,8 @@
 		7BE12B631AA917B8001AF7CE /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7BEA68FD1ABC7D2D0040B76A /* NSFont+AtoZ.m */,
+				7BEA68FE1ABC7D2E0040B76A /* NSFont+AtoZ.h */,
 				7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */,
 				7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */,
 				7BF46B511AB0CEFB0029068F /* NSFileManager+AtoZ.m */,
@@ -424,6 +437,7 @@
 				7B582C431AA6DFF000C450C3 /* BaseModel.h in Headers */,
 				7B0A4F0D1AA947A6008FB45A /* Functions.h in Headers */,
 				7BBD2D7D1AA74CBD00CD9477 /* metamacros.h in Headers */,
+				7BEA69001ABC7D2E0040B76A /* NSFont+AtoZ.h in Headers */,
 				7BBD2D7A1AA74C8700CD9477 /* EXTRuntimeExtensions.h in Headers */,
 				7BBD2D831AA7536A00CD9477 /* EXTBlockMethod.h in Headers */,
 				7BBD2D781AA74C8700CD9477 /* EXTConcreteProtocol.h in Headers */,
@@ -460,8 +474,8 @@
 			buildPhases = (
 				7B582BC21AA6A4F300C450C3 /* Headers */,
 				7B582BC01AA6A4F300C450C3 /* Sources */,
-				7B582BC31AA6A4F300C450C3 /* Resources */,
-				7B2EF3F41AB039BA00382535 /* ShellScript */,
+				7B2EF3F41AB039BA00382535 /* INSTALL_FW_ON_DEVICE.zsh */,
+				7BEA69171ABCD44F0040B76A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -485,9 +499,6 @@
 					7B582BC41AA6A4F300C450C3 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
-					7B582C731AA6F48C00C450C3 = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
 				};
 			};
 			buildConfigurationList = 7B582BBF1AA6A4F300C450C3 /* Build configuration list for PBXProject "AtoZUniversal" */;
@@ -509,7 +520,6 @@
 			projectRoot = "";
 			targets = (
 				7B582BC41AA6A4F300C450C3 /* AtoZUniversal */,
-				7B582C731AA6F48C00C450C3 /* Make Universe */,
 			);
 		};
 /* End PBXProject section */
@@ -531,47 +541,20 @@
 		};
 /* End PBXReferenceProxy section */
 
-/* Begin PBXResourcesBuildPhase section */
-		7B582BC31AA6A4F300C450C3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7BF46B581AB1D8A90029068F /* black.people.sweat.aif in Resources */,
-				7B2EF3F21AB0395000382535 /* GaySlang.plist in Resources */,
-				7B964E561AAD8A4E00F866D3 /* LoremIpsum.plist in Resources */,
-				7B2EF3F31AB0395000382535 /* BadWords.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXShellScriptBuildPhase section */
-		7B2EF3F41AB039BA00382535 /* ShellScript */ = {
+		7B2EF3F41AB039BA00382535 /* INSTALL_FW_ON_DEVICE.zsh */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = INSTALL_FW_ON_DEVICE.zsh;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = /a2z/Scripts/INSTALL_FW_ON_DEVICE.zsh;
-		};
-		7B89AE9F1AA9CDD60036EC09 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = /Volumes/2T/ServiceData/AtoZ.framework/AtoZUniversal/UniversalFrameworkAggregate.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -602,12 +585,14 @@
 				7B0A4F081AA92A54008FB45A /* Protocols.m in Sources */,
 				7BBD2D7B1AA74C8700CD9477 /* EXTRuntimeExtensions.m in Sources */,
 				7B582C2E1AA6DC9800C450C3 /* NSArray+F.m in Sources */,
+				7B9BC4F61ABA5FB300E381B4 /* NSImage+AtoZ.m in Sources */,
 				7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */,
 				7B313A2F1AADC0AD00179E72 /* objswitch.m in Sources */,
 				7BD3CAE71AB843F300E05319 /* AtoZGeometry.m in Sources */,
 				7BE12BC41AA92743001AF7CE /* NSData+AtoZ.m in Sources */,
 				7B582C381AA6DCDF00C450C3 /* AZTalker.m in Sources */,
 				7B2EF3EB1AB0319600382535 /* OrderedDictionary.m in Sources */,
+				7BEA68FF1ABC7D2E0040B76A /* NSFont+AtoZ.m in Sources */,
 				7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */,
 				7B582C3B1AA6DCDF00C450C3 /* SubscriptProtocols.m in Sources */,
 				7B2EF3EF1AB032CE00382535 /* NSString-Utilities.m in Sources */,
@@ -628,12 +613,14 @@
 		7B582BD91AA6A4F800C450C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 			};
 			name = Debug;
 		};
 		7B582BDA1AA6A4F800C450C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 			};
 			name = Release;
 		};
@@ -673,26 +660,6 @@
 			};
 			name = Release;
 		};
-		7B582C751AA6F48C00C450C3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = "";
-				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
-				VALID_ARCHS = "i386 x86_64 armv7s arm64";
-			};
-			name = Debug;
-		};
-		7B582C761AA6F48C00C450C3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = "";
-				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator";
-				VALID_ARCHS = "i386 x86_64 armv7s arm64";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -710,15 +677,6 @@
 			buildConfigurations = (
 				7B582BDC1AA6A4F800C450C3 /* Debug */,
 				7B582BDD1AA6A4F800C450C3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		7B582C741AA6F48C00C450C3 /* Build configuration list for PBXAggregateTarget "Make Universe" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7B582C751AA6F48C00C450C3 /* Debug */,
-				7B582C761AA6F48C00C450C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

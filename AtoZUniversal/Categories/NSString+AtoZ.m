@@ -71,8 +71,10 @@
 }
 @end
 
+CLANG_IGNORE(-Wincomplete-implementation)
 
 @implementation NSString (AtoZ)
+
 
 + _Text_ fromFile:_Text_ file { return [self.alloc initWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil]; }
 
@@ -315,7 +317,9 @@
 	return [self stringFromArray:[self.dicksonPhrases.shuffeled withMaxItems:sentences]];
 }
 + (NSA*) dicksonPhrases {
-	return [self.dicksonBible extractAllSentences];
+
+  AZSTATIC_OBJ(List, bible, [List arrayFromPlist:[[NSBundle bundleWithIdentifier:@"com.mrgray.AtoZUniversal"] pathForResource:@"Dicksonisms" ofType:@"plist"]]);
+	return bible; // [self.dicksonBible extractAllSentences];
 }
 + (NSA*) dicksonisms { AZSTATIC_OBJ(NSA,dicks,self.dicksonBible.sentences); return dicks;
 
@@ -326,9 +330,8 @@
 }
 
 
-+ (NSS*) dicksonBible							 		{
-	return @"When do I look at the camera?  When do I look? <gasp> Hi, what a surprise that you're here.  Welcome, my bathroom.  My fingers are fused together. My thumb was broken in an acting accident.  I can't wait to show you more of my face. Look at my face. There's my face, there's my face!  That's not my body, but this is my, FACE. Here are four looks. I have four different emotions - they may seem the same (oh there's my high school grad picture, and my picture from Woolworth's!). I like to stare blankly into space.  That's something I do. When I was 10 years old - I wore this dress; I just keep getting it altered.  See, I still fit into my 10-year-old clothing. Look at that! Oh, is that me on the wall? I drew it myself - with chalk!  I can't move, but boy, can I ever pose!  I wish there was a close up on my face - there it is! Wow, looking better and better all the time. That's a - beret - it's from Europe.  I really shouldn't be doing this; but I'm going to have an ad for IKEA right now.  This is a complete IKEA closet.  The bed is underneath my pants. If you have a look - you can see that everything fits - into this particle board.   You just paint it white, pull it out, oh gold and silver (those are my two signature colors)!	What are legs good for? They're not good for pants - they're good for sitting!   It's after Labor Day and I am wearing white. This is a very comfortable pose. This is how all the models do it. This is called boobies.		And this is another picture of my FACE. I liked putting Vaseline on the lens; it erases all lines that one may have on their face.  It's a fashion face; a face full of fashion.	I eat so much fowl - I shit feathers! It's winter - so I wear pantyhose with my open-toed sandals. I hope I never get arrested for not leaving a premises which is no longer mine!	I still I look like a teenager, don't I?  Well, thankfully my herpes is in remission, right now - Look, no blisters, not one - Just a cold sore (Oh, that's herpes, Oh, It's back).	I like to fill my breasts with photos of myself; one's bigger than the other, because my hair is - greater on one side.  This is live video footage of me. I don't blink; that's a huge part of fashion. Breathe in my eye - just some air, nothing.  I do not blink.  Not at all.  Good for me!		Here's what happens when I go down on my knees. I'm bending down right now, and I'm on my knees. There, I'm on my knees right now. I can really stay on my knees a very long time - huge part of fashion.		The look this season is clothes that don't fit correctly. These pants are way too tight, not my size. This top is completely not my size.  Isn't it fashion?!		This top doesn't fit at all <<awkward chuckle>>		These boots don't fit.  I wonder if belts fit?  No, the belt does not fit either.  <<sigh>>		Oh, these boots fit, but the purse is the wrong size (I got this from Pic-N-Save)  I'll tell you, their Halloween collection - not a lot to be desired <<creepy sigh>>.	This is an oversized top. These are my breasts. I have two of them.  I even 'out' my breasts on my own; it's still the same Wol-Co. photo from earlier.  I just cropped it to make it larger; oh I cropped it again (I'm really, really good with scissors). I'll tell you that much.		Here's what I wear too bed. It's, it's like a trap - a spider trap. I get them into my bu'drow; and then I - I eat their head off.  They're absolutely delicious!		I always wanted to be on dynasty... but here's two things: and nipple and a tertiary nipple.  I have two nipples. Uh, My tummy does not have any support right now - that's just me.  And white shoes - It's before - and after Labor Day.		I wanted to show you this necklace.  I'm wearing a gold necklace - umm, with diamonds - I wear it every single shot - every single one.  Watch this - Prest-o Change-o!  Let's go up a little bit - Let me get on my knees - I'm going down.  Look what's there! It's a heart diamond necklace! If you see on my left- umm right-hand side; that's My kitty cat - I named it Chester.. and I.. he was absolutely delicious.		And and I'm also part of a Chipapean tribe. I thought I looked very native - North American - in this. Uh, I like to bring out my culture, my taste (oh, uh, when you open your legs, ladies - watch the Seaguls; sometimes they come a-flock and - they're your friends, too!)  I, could, make a hat out of most of them.		Let's open the microwave and see what I've made. Enjoy some popcorn - absolutely yumms. Yes, I do eat solid foods. But I have four microwaves stacked on top of each other for when company comes over. My door is always welcome to you.   For Halloween I'm going to dress up as - a Hooker - won't that be fun!? Look at all the choices that I have!  Oh, the kids just love it, ABCDEF,GHIJKL,M,N,OPQRS, oh what's next, I can't remember what's next, UVWX,Y,Z! I wish I was Jacqueline Smith - but I'm not - so here's my face double.  Okay - I like to put makeup over my makeup.. and then tattoo my makeup on. I got it from Pic-N-Save. I'm already tattooed, but you can never have enough, you know, can you?  awkakwaka.		My schedule is free so I'm available for donkey shows - for grand openings - for sales (I'm good at telemarketing - and flourishes - watch the hand). So - you know, for Halloween this is how we're going to look. Some people use it as a daily look.  It's Halloween everday in my house - every single day!Welcome, Sorry I'm late, I gave myself a camel toe - and not the Dorothy Hamill kind.";
-}
++ (NSS*) dicksonBible							 		{ return self.dicksonPhrases.joinedWithSpaces; }
+
 + (NSS*) randomWord 									{
 	NSURLRequest *request = [NSURLRequest requestWithURL:$URL(@"http://randomword.setgetgo.com/get.php") cachePolicy:0 timeoutInterval:5];
 	NSURLResponse *response = nil;    NSError *error = nil;
@@ -387,9 +390,10 @@
 + (NSS*) randomGaySlang { return self.gaySlang.randomElement; }
 
 + (NSS*) randomAppPath 								{
-#if !TARGET_OS_IPHONE
+#if MAC_ONLY
 	return [[AZWORKSPACE.runningApplications valueForKeyPath:@"executableURL.path"] randomElement];
 #endif
+  return (id)nil;
 }
 + (NSS*) randomDicksonism 						{	return self.dicksonisms.randomElement;
 }
@@ -1339,6 +1343,9 @@ finish:
 
 
 @end
+
+CLANG_POP
+
 //	[NSGraphicsContext saveGraphicsState];
 //	[NSBezierPath clipRect: box];   // Make sure we don't draw outside our cell.
 //	NSDictionary *attrs = $map(
@@ -1522,6 +1529,15 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //  [self drawInRect:rr withContrastingBackground:c];
 }
 #if !TARGET_OS_IPHONE
+
+
+- _Void_ draw {
+
+  [NSGC drawInContext:AZGRAPHICSCTX.graphicsPort flipped:YES actions:^{
+    [self drawAtPoint:NSZeroPoint];
+  }];
+}
+
 - _Void_ drawInRect:(NSR)r withBackground:(NSC*)c {
   [c set];
   NSRectFill(r);
@@ -1537,14 +1553,6 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //                                         : [self stringBySettingAttributes:@{NSForegroundColorAttributeName:contraster}]
 //    drawInRect:r withBackground:c];
 }
-#if !TARGET_OS_IPHONE
-- _Void_ draw {
-
-  [NSGC drawInContext:AZGRAPHICSCTX.graphicsPort flipped:YES actions:^{
-    [self drawAtPoint:NSZeroPoint];
-  }];
-}
-#endif
 - (NSMD*) attributes {
 
   __block NSMD* attr = NSMD.new;
@@ -1559,17 +1567,47 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
   [s setAttributes:[self.attributes dictionaryByAddingEntriesFromDictionary:attr] range:self.string.range];
   return s;
 }
-#if !TARGET_OS_IPHONE
+
 + (NSD*) defaults {
 
-  AZSTATIC_OBJ(NSD, ds, @{ NSForegroundColorAttributeName:WHITE,
-//                          NSFontAttributeName:[[Str2CLS(AtoZ) performString:@"controlFont"] fontWithSize:16],
-                          NSParagraphStyleAttributeName:[NSParagraphStyle defaultParagraphStyleWithDictionary:@{@"alignment":@(NSCenterTextAlignment)}]
+  AZSTATIC_OBJ(Dict, ds, @{ NSForegroundColorAttributeName:WHITE,
+                            NSFontAttributeName: ({
+
+                            id x = [_Font_ [STR2CLS(AtoZ) performString:@"controlFont"] fontWithSize:16];
+                            x ?: [Font systemFontOfSize:16];
+                         })
+                         #if MAC_ONLY
+                         , NSParagraphStyleAttributeName:[NSParagraphStyle defaultParagraphStyleWithDictionary:@{@"alignment":@(NSCenterTextAlignment)}]
+                         #endif
                         })
   return ds;
 }
+#if MAC_ONLY
+- (NSC*)color {
+	NSUI len = [self length];
+	NSRange range = NSMakeRange(0, MIN(len, 1));     // take color from first char
+	NSDictionary *attrs = [self fontAttributesInRange:range];
+	NSColor *textColor = [NSColor controlTextColor];
+	if (attrs) {
+		textColor = [attrs objectForKey:NSForegroundColorAttributeName];
+	}
+	return textColor;
+}
+
 #endif
 - (NSFont*) font { return [self.attributes objectForKey:NSFontAttributeName]; }
+
+- (NSAS*)attributedStringWithColor:(NSC*)color {
+	NSMutableAttributedString *attrTitle = [NSMutableAttributedString.alloc 														 initWithAttributedString:self];
+	int len = [attrTitle length];
+	NSRange range = NSMakeRange(0, len);
+	[attrTitle addAttribute:NSForegroundColorAttributeName
+                    value:color
+                    range:range];
+	[attrTitle fixAttributesInRange:range];
+	return attrTitle;
+}
+
 
 @end
 
@@ -2430,32 +2468,7 @@ static void _ScanSentence(NSScanner *scanner) {
 
 @end
 
-@implementation NSAttributedString (SNRAdditions)
 
-- (NSAS*)attributedStringWithColor:(NSC*)color {
-	NSMutableAttributedString *attrTitle = [NSMutableAttributedString.alloc 														 initWithAttributedString:self];
-	int len = [attrTitle length];
-	NSRange range = NSMakeRange(0, len);
-	[attrTitle addAttribute:NSForegroundColorAttributeName
-                    value:color
-                    range:range];
-	[attrTitle fixAttributesInRange:range];
-	return attrTitle;
-}
-
-#if !TARGET_OS_IPHONE
-- (NSC*)color {
-	NSUI len = [self length];
-	NSRange range = NSMakeRange(0, MIN(len, 1));     // take color from first char
-	NSDictionary *attrs = [self fontAttributesInRange:range];
-	NSColor *textColor = [NSColor controlTextColor];
-	if (attrs) {
-		textColor = [attrs objectForKey:NSForegroundColorAttributeName];
-	}
-	return textColor;
-}
-#endif
-@end
 
 @implementation NSString (IngredientsUtilities)
 
@@ -4517,15 +4530,6 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 }
 @end
 
-//#import "NSString+SymlinksAndAliases.h"
-//#import "HTMLNode.h"
-//#import "NSColor+AtoZ.h"
-//#import "NSArray+AtoZ.h"
-//#import "AtoZFunctions.h"
-//#import "RuntimeReporter.h"
-//#import "NSString+AtoZ.h"
-//#import "AtoZModels.h"
-
 
 //@interface NSCharacterSet (Chars)
 //@prop_RO NSS * stringValue;
@@ -4542,3 +4546,26 @@ static NSUInteger levenshteinDistanceBetweenStrings(char *string, char *otherStr
 //	return string;
 //}
 //@end
+
+@implementation NSRegularExpression (Additions)
+
++ (NSRegularExpression *) cachedRegularExpressionWithPattern:_Text_ pattern options:(NSRegularExpressionOptions) options error:(NSError *__autoreleasing*) error {
+	static NSMutableDictionary *dangerousCache = nil;
+	static dispatch_once_t pred;
+	dispatch_once(&pred, ^{
+		dangerousCache = [[NSMutableDictionary alloc] init];
+	});
+
+	NSString *key = [NSString stringWithFormat:@"%ld-%@", options, pattern];
+	NSRegularExpression *regularExpression = dangerousCache[key];
+
+	if (regularExpression)
+		return regularExpression;
+
+	regularExpression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:nil];
+
+	dangerousCache[key] = regularExpression;
+
+	return regularExpression;
+}
+@end

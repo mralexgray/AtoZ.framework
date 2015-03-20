@@ -50,14 +50,9 @@ typedef NS_ENUM(int, LADirectAPI) {
 
 static LADirectAPI supportedDirectAPI;
 
-@implementation AZAppList
-{
-@private
-	NSMutableDictionary *cachedIcons;
-	OSSpinLock spinLock;
-}
+@implementation AZAppList { @private NSMutableDictionary *cachedIcons; OSSpinLock spinLock; }
 
-+ (instancetype) sharedApplicationList { static dispatch_once_t onceToken;
++ (instancetype) list { static dispatch_once_t onceToken;
 
   dispatch_once(&onceToken, ^{
     if (self == [AZAppList class] && !CHClass(SBIconModel)) sharedApplicationList = [[self alloc] init];
@@ -102,8 +97,7 @@ static BOOL IsIpad(void) {
 	return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
 	[NSNotificationCenter.defaultCenter removeObserver:self];
 	[cachedIcons release];
 	[super dealloc];
@@ -114,24 +108,19 @@ static BOOL IsIpad(void) {
 	return (LMConnectionSendTwoWay(&connection, ALMessageIdGetApplicationCount, NULL, 0, &buffer)) ? 0 : LMResponseConsumeInteger(&buffer);
 }
 
-- (NSString *)description
-{
+- (NSString*) description {
 	return [NSString stringWithFormat:@"<AZAppList: %p applicationCount=%ld>", self, (long)self.applicationCount];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
 	OSSpinLockLock(&spinLock);
 	[cachedIcons removeAllObjects];
 	OSSpinLockUnlock(&spinLock);
 }
 
-- (NSDictionary *)applications
-{
-	return [self applicationsFilteredUsingPredicate:nil];
-}
+- (NSDictionary*) apps { return [self appsFilteredUsingPredicate:nil]; }
 
-- (NSDictionary *)applicationsFilteredUsingPredicate:(NSPredicate*)predi { LMResponseBuffer buffer; id result;
+- (NSDictionary*) appsFilteredUsingPredicate:(NSPredicate*)predi { LMResponseBuffer buffer; id result;
 
 	return (LMConnectionSendTwoWayData(&connection, ALMessageIdGetApplications,
                                     (CFDataRef)[NSKeyedArchiver archivedDataWithRootObject:predi], &buffer)) ? nil :
@@ -223,8 +212,7 @@ skip:
 	return result;
 }
 
-- (BOOL)hasCachedIconOfSize:(AZAppIconSize)iconSize forDisplayIdentifier:(NSString *)displayIdentifier
-{
+- (BOOL)hasCachedIconOfSize:(AZAppIconSize)iconSize forDisplayIdentifier:(NSString*)displayIdentifier {
 	NSString *key = [displayIdentifier stringByAppendingFormat:@"#%f", (CGFloat)iconSize];
 	OSSpinLockLock(&spinLock);
 	id result = cachedIcons[key];
@@ -236,18 +224,17 @@ skip:
 
 @implementation AZAppListImpl
 
-static void processMessage(SInt32 messageId, mach_port_t replyPort, CFDataRef data)
-{
+static void   processMessage(SInt32 messageId, mach_port_t replyPort, CFDataRef data) {
 	switch (messageId) {
 		case ALMessageIdGetApplications: {
 			NSDictionary *result;
 			if (data && CFDataGetLength(data)) {
-				NSPredicate *predicate = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData *)data];
+				NSPredicate *predicate = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)data];
 				@try {
-					result = [predicate isKindOfClass:[NSPredicate class]] ? [sharedApplicationList applicationsFilteredUsingPredicate:predicate] : [sharedApplicationList applications];
+					result = ISA(predicate,NSPredicate) ? [sharedApplicationList appsFilteredUsingPredicate:predicate] : [sharedApplicationList applications];
 				}
 				@catch (NSException *exception) {
-					NSLog(@"AppList: In call to applicationsFilteredUsingPredicate:%@ trapped %@", predicate, exception);
+					NSLog(@"AppList: In call to appsFilteredUsingPredicate:%@ trapped %@", predicate, exception);
 					break;
 				}
 			} else {
@@ -313,9 +300,7 @@ static void processMessage(SInt32 messageId, mach_port_t replyPort, CFDataRef da
 	}
 	LMSendReply(replyPort, NULL, 0);
 }
-
-static void machPortCallback(CFMachPortRef port, void *bytes, CFIndex size, void *info)
-{
+static void machPortCallback(CFMachPortRef port, void*bytes, CFIndex size, void*info) {
 	LMMessage *request = bytes;
 	if (size < sizeof(LMMessage)) {
 		LMSendReply(request->head.msgh_remote_port, NULL, 0);
@@ -344,7 +329,7 @@ static void machPortCallback(CFMachPortRef port, void *bytes, CFIndex size, void
 	return self;
 }
 
-- (NSDictionary *)applications {
+- (NSDictionary *)apps {
 
 	NSMutableDictionary *result = @{}.mutableCopy;
 	for (SBApplication *app in CHSharedInstance(SBApplicationController).allApplications)
@@ -352,9 +337,9 @@ static void machPortCallback(CFMachPortRef port, void *bytes, CFIndex size, void
 	return result;
 }
 
-- (NSInteger)applicationCount { return CHSharedInstance(SBApplicationController).allApplications.count; }
+- (NSInteger) appCount { return CHSharedInstance(SBApplicationController).allApplications.count; }
 
-- (NSDictionary *)applicationsFilteredUsingPredicate:(NSPredicate *)predicate
+- (NSDictionary *)appsFilteredUsingPredicate:(NSPredicate *)predicate
 {
 	NSMutableDictionary *result = @{}.mutableCopy;
 
@@ -380,7 +365,7 @@ static void machPortCallback(CFMachPortRef port, void *bytes, CFIndex size, void
 {
 
 	SBIconModel *iconModel = [CHClass(SBIconViewMap) instancesRespondToSelector:@selector(iconModel)] ?
-                           [CHClass(SBIconViewMap) homescreenMap].iconModel :
+                           [[CHClass(SBIconViewMap) homescreenMap] iconModel] :
                            CHSharedInstance(SBIconModel);
 
   SBIcon *icon = [iconModel respondsToSelector:@selector(applicationIconForDisplayIdentifier:)] ?

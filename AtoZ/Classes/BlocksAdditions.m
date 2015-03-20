@@ -67,7 +67,9 @@ void Parallelized(int count, void (^block)(int i)) {
 
 - (void)addObserverForName: (NSString *)name object: (id)object block: (void (^)(NSNotification *note))block
 {
-	[self addObserver: [block copy] selector: @selector(my_callBlockWithObject:) name: name object: object];
+	[self addObserverForName:name object:object queue:NSOQMQ usingBlock:block];
+
+//  addObserver: [block copy] selector: @selector(my_callBlockWithObject:) name: name object: object];
 }
 
 @end

@@ -42,6 +42,8 @@ _Pict AZIMGNamed(_Text constName);
 @end
 
 
+/*
+
 _IFCE AZImageCache : NSCache	+ (AZImageCache*) sharedCache;
 
 AZPROP(Text,cacheDirectory);
@@ -58,18 +60,14 @@ CGImageRef CreateCGImageFromData (    _Data data );
 CGF                     distance (    _Cord aPnt );				// Just one function to declare...
 
 
-@interface NSImage (AtoZDrawBlock)
-
-+ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
-+ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
-
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /// [NSImage imageNamed:@"document"]
 
 #import <AtoZUniversal/SubscriptProtocols.h>
 
 @class AZFile, PDFDocument;
 
-@interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
+@interface NSImage (AtoZ) <ClassKeyGet,
+                          AZDynamicImages>
 
 @prop_RO _Data PNGRepresentation;
 
@@ -85,7 +83,6 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 //@property (NATOM) CGF width, height;
 @prop_RO NSAS *attributedString;
 
-+ (NSIMG*) isometricShelfInRect:(NSR)rect;
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
 - (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
 -   (void) lockFocusBlock:(void(^)(NSIMG*))block;
@@ -342,7 +339,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @import QuartzCore;
 @interface CIFilter (Subscript)
-- (id)objectForKeyedSubscript:(NSS*)key;
+- objectForKeyedSubscript:(NSS*)key;
 - _Void_ setObject: object forKeyedSubscript:(NSS*)key;
 @end
 
@@ -423,7 +420,7 @@ typedef enum {
 - (NSData *)JPEGRepresentation;
 - (NSData *)JPEGRepresentationWithCompressionFactor:(float)compressionFactor;
 
-/*! @brief Obtain a JPEG representation which is sufficiently compressed to have a size <= a given size in bytes 
+/ *! @brief Obtain a JPEG representation which is sufficiently compressed to have a size <= a given size in bytes
 
   The image will be increasingly compressed until it fits within maxByteSize.
   The dimensions of the image are unchanged, so for best quality results,
@@ -431,7 +428,7 @@ typedef enum {
 
   @param maxByteSize The maximum size in bytes
   @result An NSData JPEG representation whose length is <= maxByteSize, or nil if one could not be made
-*/
+* /
 - (NSData *)JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize;
 - (NSData *)PNGRepresentation;
 - (NSData *)GIFRepresentation;
@@ -446,13 +443,13 @@ typedef enum {
 
 @interface NSImage (Base64Encoding)
 extern NSString *kXML_Base64ReferenceAttribute;
-/*! @function	+dataWithBase64EncodedString:
+/ *! @function	+dataWithBase64EncodedString:
     @discussion	This method returns an autoreleased NSImage object.  
     The NSImage object is initialized with the contents of the Base 64 encoded string.  
     This is a convenience function for -initWithBase64EncodedString:. 
     @param	inBase64String	An NSString object that contains only Base 64 encoded data representation of an image. 
     @result	The NSImage object.
- */
+ * /
 + (NSIMG*)imageWithBase64EncodedString:(NSS*)inBase64String;
 ///	@function	-initWithBase64EncodedString: @discussion	The NSImage object is initialized with the contents of the Base 64 encoded string. This method returns self as a convenience. @param	inBase64String	An NSString object that contains only Base 64 encoded image data. @result	This method returns self.
 - initWithBase64EncodedString:(NSS*)inBase64String;
@@ -462,9 +459,7 @@ extern NSString *kXML_Base64ReferenceAttribute;
 - (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
 @end
 
-
-
-/*
+/ *
 //+ (NSIMG*)imageWithWindow:(int)wid;
 //+ (NSIMG*)imageWithRect: (NSRect)rect inWindow:(int)wid;
 + (NSIMG*)imageWithCGContextCaptureWindow: (int)wid;
@@ -478,9 +473,9 @@ extern NSString *kXML_Base64ReferenceAttribute;
 //+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
 //+ (NSBitmapImageRep*)bitmapRepWithRect: (NSRect)rect inWindow:(int)wid;
 + (NSBitmapImageRep*)bitmapRepWithScreenShotInRect:(NSRect)rect;
-*/
+* /
 
-/**
+/ **
 
 /// This category provides methods for dealing with flipped images. \
     These should draw images correctly regardless of whether the current context or the current image are flipped. \
@@ -516,74 +511,25 @@ extern NSString *kXML_Base64ReferenceAttribute;
 - (NSImage *)unflippedImage;
 @end
 
-*/
+* /
 
 
 #if MAC_ONLY
 
+@interface NSImage (AtoZDrawBlock)
 
-@interface Pict (MacOnly)
-- (NSImageRep*) representationOfSize:(NSSize)theSize;
-- (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
-- (NSBitmapImageRep*) bitmap;
-@prop_RO NSBIR * quantizerRepresentation;
-+ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
-- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
-
-- (NSSize) 		sizeLargestRepresentation;
-
-- (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
-- (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
-			fraction:(float)delta	   method:(AGImageResizingMethod)resizeMethod;
-- (NSBitmapImageRep*) bitmap;
-- (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y;
-
-- (NSImageRep*) largestRepresentation;
-- (NSImageRep*) smallestRepresentation;
-- (NSSize)		sizeSmallestRepresentation;
-
-///	@abstract   save image to disk
-- (BOOL)saveImage:(NSS*)path  fileName:(NSS*)name fileType:(NSBitmapImageFileType)type;
++ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
++ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
 
-//Returns the relative anchor point (from {0.0, 0.0} to {1.0, 1.0})
-//that's equivalent to the specified image alignment constant.
-+ (NSPoint) anchorForImageAlignment: (NSImageAlignment)alignment;
-
-//Returns a rect suitable for drawing this image into,
-//given the specified alignment and scaling mode. Intended
-//for NSCell/NSControl subclasses.
-- (NSRect) imageRectAlignedInRect: (NSRect)outerRect
-                        alignment: (NSImageAlignment)alignment
-                          scaling: (NSImageScaling)scaling;
-
-
-//Draw a template image filled with the specified gradient and rendered
-//with the specified inner and drop shadows.
-- (void) drawInRect: (NSRect)drawRect
-       withGradient: (NSGradient *)fillGradient
-         dropShadow: (NSShadow *)dropShadow
-        innerShadow: (NSShadow *)innerShadow
-     respectFlipped: (BOOL)respectContextIsFlipped;
-
-- (NSBitmapImageRep *)largestBitmapImageRep;
-- (NSData *)representationWithFileType:(NSBitmapImageFileType)fileType
-					   maximumFileSize:(NSUInteger)maximumSize;
-
-/// Writes Application Extension Block and modifies Graphic Control Block for a GIF image
-
-- _Void_ writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
-
-/// Properties for a GIF image
-- (NSDictionary *)GIFPropertiesForRepresentation:(NSBitmapImageRep *)bitmap;
-
-+ (AIBitmapImageFileType)fileTypeOfData:(NSData *)inData;
-+ (NSString *)extensionForBitmapImageFileType:(AIBitmapImageFileType)inFileType;
-
-///	@function	-base64EncodingWithFileType: @discussion	This method returns a Base 64 encoded string representation of the NSImage object. @param	inFileType	The image is first converted to this file type, then encoded in Base 64. @result	The base 64 encoded image data string.
-- (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
-
-@end
+JREnumDeclare(AIBitmapImageFileType,
+    AIUnknownFileType = -9999,
+    AITIFFFileType    = NSTIFFFileType,
+    AIBMPFileType     = NSBMPFileType,
+    AIGIFFileType     = NSGIFFileType,
+    AIJPEGFileType    = NSJPEGFileType,
+    AIPNGFileType       = NSPNGFileType,
+    AIJPEG2000FileType  = NSJPEG2000FileType)
 
 
 //Defined in AppKit.framework
@@ -594,18 +540,6 @@ extern NSString *kXML_Base64ReferenceAttribute;
 - (void)_stopAnimation;
 - (void)_animationTimerCallback:fp8;
 @end
-
-typedef enum {
-	AIUnknownFileType = -9999,
-	AITIFFFileType = NSTIFFFileType,
-    AIBMPFileType = NSBMPFileType,
-    AIGIFFileType = NSGIFFileType,
-    AIJPEGFileType = NSJPEGFileType,
-    AIPNGFileType = NSPNGFileType,
-    AIJPEG2000FileType = NSJPEG2000FileType
-} AIBitmapImageFileType;
-
-
 @interface NSImageView (AtoZ)
 +(NSIV*)imageViewWithImage:(NSIMG*)img ;
 +(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
@@ -615,3 +549,5 @@ typedef enum {
 + (void) addNoiseToContext;
 @end
 #endif
+*/
+

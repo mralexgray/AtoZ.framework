@@ -149,3 +149,13 @@ BOOL            AZIsEqualToObject (const char * typeCode, void * value, id obj) 
            [obj class] == NSNumber.class  ? [obj isEqualToNumber:x] :
            [obj class] == NSValue.class   ? [obj isEqualToValue:x]  : [obj isEqual:x];
 }
+
+#if MAC_ONLY
+NSString* NSStringFromCGRect(CGRect rect) {
+	return NSStringFromRect(NSRectFromCGRect(rect));
+}
+
+NSString* NSStringFromCGPoint(CGPoint p) {
+	return NSStringFromPoint(NSPointFromCGPoint(p));
+}
+#endif

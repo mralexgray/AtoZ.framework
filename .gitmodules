@@ -334,3 +334,6 @@
 [submodule "AtoZUniversal/Modules/_ObjC"]
 	path = AtoZUniversal/_ObjC
 	url = https://github.com/mralexgray/_ObjC.git
+[submodule "AtoZ/AtoZTouch/modules/RNFrostedSidebar"]
+	path = AtoZ/AtoZTouch/modules/RNFrostedSidebar
+	url = https://github.com/rnystrom/RNFrostedSidebar.git

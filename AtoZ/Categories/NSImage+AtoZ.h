@@ -1,45 +1,5 @@
 
 @class AZSizer;
-/*
-
-NSIMG* AZIMGNamed(NSS *constName);
-
-APPKIT_EXTERN NSString  *const AZIMG_checkmark,       *const AZIMG_addressBook,     *const AZIMG_paperclip,
-                        *const AZIMG_checkRound,      *const AZIMG_xCircle,         *const AZIMG_off,
-                        *const AZIMG_on,              *const AZIMG_lightning,       *const AZIMG_floppy,
-                        *const AZIMG_folder,          *const AZIMG_globe,           *const AZIMG_jewishHand,
-                        *const AZIMG_calendar,        *const AZIMG_cylinder,        *const AZIMG_document,
-                        *const AZIMG_textDocument,    *const AZIMG_blinkingPlus,    *const AZIMG_blinkingMinus,
-                        *const AZIMG_printer,         *const AZIMG_lock,            *const AZIMG_magnifyingGlass,
-                        *const AZIMG_wavyDocument,    *const AZIMG_computerScreen,  *const AZIMG_foldedEdgeoc,
-                        *const AZIMG_volume,          *const AZIMG_starFilled,      *const AZIMG_starEmpty,
-                        *const AZIMG_textsymbol,      *const AZIMG_bold,            *const AZIMG_italic,
-                        *const AZIMG_strikethrough,   *const AZIMG_trashcan,        *const AZIMG_tag,
-                        *const AZIMG_envelope,        *const AZIMG_plus,            *const AZIMG_minus,
-                        *const AZIMG_recycle,         *const AZIMG_umbrella,        *const AZIMG_XMark,
-                        *const AZIMG_roundX,          *const AZIMG_roundCheck,      *const AZIMG_check,
-                        *const AZIMG_safari,          *const AZIMG_pointer,         *const AZIMG_forbidden,
-                        *const AZIMG_forbiddenLight,  *const AZIMG_atSymbol;
-
-@protocol AZDynamicImages <NSO>
-@optional
-+ (NSIMG*) checkmark;       + (NSIMG*) addressBook;       + (NSIMG*) paperclip;
-+ (NSIMG*) checkRound;      + (NSIMG*) xCircle;           + (NSIMG*) off;
-+ (NSIMG*) on;              + (NSIMG*) lightning;         + (NSIMG*) floppy;
-+ (NSIMG*) folder;          + (NSIMG*) globe;             + (NSIMG*) jewishHand;
-+ (NSIMG*) calendar;        + (NSIMG*) cylinder;          + (NSIMG*) document;
-+ (NSIMG*) textDocument;    + (NSIMG*) blinkingPlus;      + (NSIMG*) blinkingMinus;
-+ (NSIMG*) printer;         + (NSIMG*) lock;              + (NSIMG*) magnifyingGlass;
-+ (NSIMG*) wavyDocument;    + (NSIMG*) computerScreen;    + (NSIMG*) foldedEdgeoc;
-+ (NSIMG*) volume;          + (NSIMG*) starFilled;        + (NSIMG*) starEMpty;
-+ (NSIMG*) textsymbol;      + (NSIMG*) bold;              + (NSIMG*) italic;
-+ (NSIMG*) strikethrough;   + (NSIMG*) trashcan;          + (NSIMG*) tag;
-+ (NSIMG*) envelope;        + (NSIMG*) plus;              + (NSIMG*) minus;
-+ (NSIMG*) recycle;         + (NSIMG*) umbrella;          + (NSIMG*) XMark;
-+ (NSIMG*) roundX;          + (NSIMG*) roundCheck;        + (NSIMG*) check;
-+ (NSIMG*) safari;          + (NSIMG*) pointer;           + (NSIMG*) forbidden;
-+ (NSIMG*) forbiddenLight;  + (NSIMG*) atSymbol;
-@end
 
 
 _IFCE AZImageCache : NSCache	+ (AZImageCache*) sharedCache;
@@ -339,7 +299,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 - (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
 @end
 
-@interface NSImage (GrabWindow)
+//@interface NSImage (GrabWindow)
 //+ (NSIMG*) captureScreenImageWithFrame: (NSRect) frame;
 
 //+ (NSIMG*)screenShotWithinRect:(NSRect)rect;
@@ -358,23 +318,21 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 //+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
 //+ (NSBitmapImageRep*)bitmapRepWithRect: (NSRect)rect inWindow:(int)wid;
 + (NSBitmapImageRep*)bitmapRepWithScreenShotInRect:(NSRect)rect;
-*/
-
 + (NSIMG* ) imageBelowWindow: (NSWindow *) window ;
 
 @end
 
-/* utility category on NSImage used for converting
- NSImage to jfif data.  */
+
+
+/* utility category on NSImage used for converting NSImage to jfif data.  */
 @interface NSImage (JFIFConversionUtils)
-/* returns jpeg file interchange format encoded data for an NSImage regardless of the
- original NSImage encoding format.  compressionVlue is between 0 and 1.
+/// returns jpeg file interchange format encoded data for an NSImage regardless of the original NSImage encoding format.  compressionVlue is between 0 and 1.
  values 0.6 thru 0.7 are fine for most purposes.  */
 - (NSData *)JFIFData:(float) compressionValue;
 @end
 
 @interface CIFilter (Subscript)
-- (id)objectForKeyedSubscript:(NSS*)key;
+- objectForKeyedSubscript:(NSS*)key;
 - _Void_ setObject: object forKeyedSubscript:(NSS*)key;
 @end
 
@@ -602,3 +560,58 @@ extern NSString *kXML_Base64ReferenceAttribute;
 - (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
 @end
 
+
+
+@interface Pict (MacOnly)
+
++ (NSIMG*) isometricShelfInRect:(NSR)rect;
+- (NSImageRep*) representationOfSize:(NSSize)theSize;
+- (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
+- (NSBitmapImageRep*) bitmap;
+@prop_RO NSBIR * quantizerRepresentation;
++ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
+- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
+
+- (NSSize) 		sizeLargestRepresentation;
+
+- (void) drawCenteredinRect:(NSRect) inRect operation:(NSCompositingOperation)op fraction:(float)delta;
+- (void) drawInRect:(NSRect)dstRect operation:(NSCompositingOperation)op
+			fraction:(float)delta	   method:(AGImageResizingMethod)resizeMethod;
+- (NSBitmapImageRep*) bitmapBy:(CGF)x y:(CGF)y;
+
+- (NSImageRep*) largestRepresentation;
+- (NSImageRep*) smallestRepresentation;
+- (NSSize)		sizeSmallestRepresentation;
+
+///	@abstract   save image to disk
+- (BOOL)saveImage:(NSS*)path  fileName:(NSS*)name fileType:(NSBitmapImageFileType)type;
+
+//Returns the relative anchor point (from {0.0, 0.0} to {1.0, 1.0}) that's equivalent to the specified image alignment constant.
++ (NSPoint) anchorForImageAlignment: (NSImageAlignment)alignment;
+
+//Returns a rect suitable for drawing this image into, given the specified alignment and scaling mode. Intended for NSCell/NSControl subclasses.
+- (NSRect) imageRectAlignedInRect: (NSRect)outerRect
+                        alignment: (NSImageAlignment)alignment
+                          scaling: (NSImageScaling)scaling;
+
+
+//Draw a template image filled with the specified gradient and rendered
+//with the specified inner and drop shadows.
+- (void) drawInRect: (NSRect)drawRect
+       withGradient: (NSGradient *)fillGradient
+         dropShadow: (NSShadow *)dropShadow
+        innerShadow: (NSShadow *)innerShadow
+     respectFlipped: (BOOL)respectContextIsFlipped;
+
+- (NSBitmapImageRep *)largestBitmapImageRep;
+- (NSData *)representationWithFileType:(NSBitmapImageFileType)fileType maximumFileSize:(NSUInteger)maximumSize;
+/// Writes Application Extension Block and modifies Graphic Control Block for a GIF image
+- _Void_ writeGIFExtensionBlocksInData:(NSMutableData *)data forRepresenation:(NSBitmapImageRep *)bitmap;
+/// Properties for a GIF image
+- (NSDictionary *)GIFPropertiesForRepresentation:(NSBitmapImageRep *)bitmap;
++ (AIBitmapImageFileType)fileTypeOfData:(NSData *)inData;
++ (NSString *)extensionForBitmapImageFileType:(AIBitmapImageFileType)inFileType;
+///	@function	-base64EncodingWithFileType: @discussion	This method returns a Base 64 encoded string representation of the NSImage object. @param	inFileType	The image is first converted to this file type, then encoded in Base 64. @result	The base 64 encoded image data string.
+- (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
+
+@end

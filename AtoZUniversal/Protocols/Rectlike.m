@@ -1,7 +1,7 @@
 
-#import "AtoZUniversal.h"
-#import "NSImage+AtoZ.h"
-#import "Rectlike.h"
+#import <AtoZUniversal/AtoZUniversal.h>
+#import <AtoZUniversal/NSImage+AtoZ.h>
+#import <AtoZUniversal/Rectlike.h>
 
 #define SHOULDBERECTLIKEALREADY if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 #define SHOULDBESIZEABLE if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
@@ -9,9 +9,11 @@
 #if MAC_ONLY
 
 @implementation NSIMG   (RectLike) @dynamic bounds; // /*! @todo */ anchorPoint;
-- (NSR)      frame              { return AZRectFromSize(self.size); }
-- (void)  setFrame:(NSR)f       { [self isSmallerThanRect:f] ? [self scaleToFillSize:f.size] : nil; }
-- (void) setOrigin:(CGP)origin  {}
+
+- _Rect_    frame                { return AZRectFromSize(self.size); }
+- _Void_ setFrame:_Rect_ f       {/* FIX  [self isSmallerThanRect:f] ? [self scaleToFillSize:f.size] : nil; */ }
+- _Void_ setOrigin:_Cord_ origin  {}
+
 @end
 
 @implementation NSWindow   (RectLike) // @dynamic /*! @todo */ anchorPoint;

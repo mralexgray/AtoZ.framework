@@ -1698,7 +1698,7 @@ NSR	AZNormalizedRect			(const NSR r )									{
 		return nr;
 }
 #if MAC_ONLY
-NSAT*	RotationTransform			(const CGF angle,   const NSP cp 	 )	{
+NSAffineTransform*	RotationTransform			(const CGF angle,   const NSP cp 	 )	{
 	// return a transform that will cause a rotation about the point given at the angle given
 	NSAffineTransform*	xfm = [NSAffineTransform transform];
 	[xfm translateXBy:cp.x yBy:cp.y];

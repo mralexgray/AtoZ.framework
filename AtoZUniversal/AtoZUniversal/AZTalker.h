@@ -27,4 +27,11 @@
 
 //+(NSData*) sayToData:(NSStringtring*)thing;
 //- _Void_ say:(NSStringtring*)thing;
+#else 
+
+@interface AZiTalker : NSObject
+
+@end
+
 #endif
+

@@ -65,7 +65,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 @import KVOMap;
 
-#import <AtoZ/ksAdditions.h>
+#import <AtoZ/BlocksAdditions.h>
 #import <AtoZ/M13OrderedDictionary.h>
 //#import <CocoaLumberjack/CocoaLumberjack.h>
 
@@ -78,6 +78,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 
 #import <AtoZ/BoundingObject.h>
 #import <AtoZ/MutableGeometry.h>
+
+#import <AtoZ/NSImage+AtoZ.h>
 
 /*! id x = CAL.new; [x setGeos:@"bounds", @"x",@100, @"width", @5000, nil];   NEAT! */
 //#import <AtoZ/AtoZGeometry.h>

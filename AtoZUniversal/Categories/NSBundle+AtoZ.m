@@ -205,6 +205,46 @@
   
   return cachedImages;
 }
+- _Void_ cacheNamedImages {
+	AZNew(NSCS,typesCounter);
+	AZNewVal(types,NSIMG.imageFileTypes);
+
+	NSENUM *e = types.objectEnumerator; NSS *type;
+
+	while (!!(type = e.nextObject)) {
+  
+		NSA *files = [self recursivePathsForResourcesOfType:type inDirectory:self.resourcePath];
+		NSEnumerator *e2 = files.objectEnumerator; NSS *imagepath;
+		while ((imagepath = e2.nextObject) != nil) {
+      NSString *name = [imagepath.lastPathComponent stringByDeletingPathExtension];
+      NSImage *image = [NSImage imageNamed:name];
+      if (image || !(image = [NSImage.alloc  initByReferencingFile:imagepath])) continue;
+			[image          setName:name];
+      [typesCounter addObject:type];
+		}
+  }	NSLog(@"Named Images:%@",typesCounter);
+}
+
+- (NSS*) appIconPath {
+	// Oddly, I can't find a constant for the bundle icon file.
+	// Compare to kCFBundleNameKey, which is apparently "CFBundleName".
+	NSString* iconFilename = AZAPPINFO[@"CFBundleIconFile"] ;
+	// I do not use -pathForImageResource, in case the Resources also contains
+	// an image file, for example a png, with the same name.  I want the .icns.
+	NSString* iconBasename = [iconFilename stringByDeletingPathExtension] ;
+	NSString* iconExtension = [iconFilename pathExtension] ;  // Should be "icns", but for some reason it's in Info.plist
+	return [[NSBundle mainBundle] pathForResource:iconBasename
+                                         ofType:iconExtension] ;
+}
+
+- (IMG*) appIcon {
+
+  return [NSIMG imageNamed:AZAPPINFO[@"CFBundleIconFile"]];
+
+//	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
+//	return appIcon ;
+}
+
 #endif
 
 - (NSA*) resourcesWithExtensions:(NSA*)exts {
@@ -253,50 +293,6 @@
 #endif
 
 }
-
-
-#if !TARGET_OS_IPHONE
-
-- _Void_ cacheNamedImages {
-	AZNew(NSCS,typesCounter);
-	AZNewVal(types,NSIMG.imageFileTypes);
-
-	NSENUM *e = types.objectEnumerator; NSS *type;
-
-	while (!!(type = e.nextObject)) {
-  
-		NSA *files = [self recursivePathsForResourcesOfType:type inDirectory:self.resourcePath];
-		NSEnumerator *e2 = files.objectEnumerator; NSS *imagepath;
-		while ((imagepath = e2.nextObject) != nil) {
-      NSString *name = [imagepath.lastPathComponent stringByDeletingPathExtension];
-      NSImage *image = [NSImage imageNamed:name];
-      if (image || !(image = [NSImage.alloc  initByReferencingFile:imagepath])) continue;
-			[image          setName:name];
-      [typesCounter addObject:type];
-		}
-  }	NSLog(@"Named Images:%@",typesCounter);
-}
-
-- (NSS*) appIconPath {
-	// Oddly, I can't find a constant for the bundle icon file.
-	// Compare to kCFBundleNameKey, which is apparently "CFBundleName".
-	NSString* iconFilename = AZAPPINFO[@"CFBundleIconFile"] ;
-	// I do not use -pathForImageResource, in case the Resources also contains
-	// an image file, for example a png, with the same name.  I want the .icns.
-	NSString* iconBasename = [iconFilename stringByDeletingPathExtension] ;
-	NSString* iconExtension = [iconFilename pathExtension] ;  // Should be "icns", but for some reason it's in Info.plist
-	return [[NSBundle mainBundle] pathForResource:iconBasename
-                                         ofType:iconExtension] ;
-}
-
-- (IMG*) appIcon {
-
-  return [NSIMG imageNamed:AZAPPINFO[@"CFBundleIconFile"]];
-
-//	NSImage* appIcon = [NSImage.alloc initWithContentsOfFile:[self appIconPath]] ;
-//	return appIcon ;
-}
-#endif
 
 + (NSA*) allFrameworkPaths { return self.allFrameworks[@"bundlePath"]; }
 

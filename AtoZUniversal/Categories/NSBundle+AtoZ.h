@@ -20,22 +20,26 @@
 + (NSS*) bundleIdentifierForApplicationName:(NSS*)appName;
 
 /*! @brief	Returns the path to the application's icon file, derived from the .icns file specified by "CFBundleIconFile" in the application's Info.plist.	*/
-@prop_RO NSS * appIconPath;
+_RO NSS * appIconPath;
 /*!
  @brief	Returns the image in the file specified by -appIconPath.	*/
-@prop_RO NSIMG * appIcon;
+_RO NSIMG * appIcon;
 
+_RO NSA* cacheImages;
+
+- _Void_ cacheNamedImages;
 
 #endif
 
-//- (NSD*)     infoDictionaryWithIdentifier:(NSS*)identifier;
+/// - (NSD*)     infoDictionaryWithIdentifier:(NSS*)identifier;
 
-/*! from "__ARCLite__" to ZoneTotalDiff  ALL exported symbols.  Useless. */
+/// from "__ARCLite__" to ZoneTotalDiff  ALL exported symbols.  Useless.
+
 - _List_ definedClasses;
 
-/*! ( ..., "/System/Library/Frameworks/AVFoundation.framework",
+/// ( ..., "/System/Library/Frameworks/AVFoundation.framework", \
            "/Volumes/4X4/DerivedData/AtoZ-hfqteqfcvjfinlajqwkydsqyzpiz/Build/Products/Debug/Zangetsu.framework"
-) */
+
 + _List_ allFrameworkPaths;
 
 + _Text_ appSuppDir;
@@ -46,14 +50,10 @@
 /*! Tries to figure out bundle from path...
 @c [NSBundle calulatedBundleIDForPath:@"/Applications/TextMate.app"] -> com.macromates.textmate */
 + _Text_ calulatedBundleIDForPath: (NSS*)path;
-
+  
 + _Kind_ bundleForExecutable:(NSS*)path;
 
 + resourceOfClass:(Class)rClass inBundleWithClass:(Class)k withName:(NSString*)n init:(SEL)method;
-#if !TARGET_OS_IPHONE
-- (NSA*) cacheImages;
-#endif
-- _Void_ cacheNamedImages;
 - (NSA*) recursivePathsForResourcesOfType:(NSS*)type inDirectory:(NSS*)directoryPath;
 - (NSS*) recursiveSearchForPathOfResourceNamed:(NSS*)name;
 

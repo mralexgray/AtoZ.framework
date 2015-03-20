@@ -1,61 +1,17 @@
 
 #import "AZSizer.h"
+
 @import SVGKit;
 @import Quartz;
 @import QuickLook;
-#import "AtoZ.h"
 
-_IMPL CIFilter (WithDefaults)
+#import "NSImage+AtoZ.h"
 
-+ (CIFilter*) filterWithDefaultsNamed:(NSString*) name { id cc; return [(cc= [CIFilter filterWithName:name]) setDefaults], cc; }
-
-_FINI
-
-_Pict AZIMGNamed(_Text constName) {  return objc_msgSend(NSIMG.class, NSSelectorFromString(constName)); }
-
-Text        *const AZIMG_checkmark = @"checkmark",              *const AZIMG_addressBook = @"addressBook",
-            *const AZIMG_paperclip = @"paperclip",              *const AZIMG_checkRound = @"checkRound",
-            *const AZIMG_xCircle = @"xCircle",                  *const AZIMG_off = @"off",
-            *const AZIMG_on = @"on",                            *const AZIMG_lightning = @"lightning",
-            *const AZIMG_floppy = @"floppy",                    *const AZIMG_folder = @"folder",
-            *const AZIMG_globe = @"globe",                      *const AZIMG_jewishHand = @"jewishHand",
-            *const AZIMG_calendar = @"calendar",                *const AZIMG_cylinder = @"cylinder",
-            *const AZIMG_document = @"document",                *const AZIMG_textDocument = @"textDocument",
-            *const AZIMG_blinkingPlus = @"blinkingPlus",        *const AZIMG_blinkingMinus = @"blinkingMinus",
-            *const AZIMG_printer = @"printer",                  *const AZIMG_lock = @"lock",
-            *const AZIMG_magnifyingGlass = @"magnifyingGlass",  *const AZIMG_wavyDocument = @"wavyDocument",
-            *const AZIMG_computerScreen = @"computerScreen",    *const AZIMG_foldedEdgeoc = @"foldedEdgeoc",
-            *const AZIMG_volume = @"volume",                    *const AZIMG_starFilled = @"starFilled",
-            *const AZIMG_starEmpty = @"starEmpty",              *const AZIMG_textsymbol = @"textsymbol",
-            *const AZIMG_bold = @"bold",                        *const AZIMG_italic = @"italic",
-            *const AZIMG_strikethrough = @"strikethrough",      *const AZIMG_trashcan = @"trashcan",
-            *const AZIMG_tag = @"tag",                          *const AZIMG_envelope = @"envelope",
-            *const AZIMG_plus = @"plus",                        *const AZIMG_minus = @"minus",
-            *const AZIMG_recycle = @"recycle",                  *const AZIMG_umbrella = @"umbrella",
-            *const AZIMG_XMark = @"XMark",                      *const AZIMG_roundX = @"roundX",
-            *const AZIMG_roundCheck = @"roundCheck",            *const AZIMG_check = @"check",
-            *const AZIMG_safari = @"safari",                    *const AZIMG_pointer = @"pointer",
-            *const AZIMG_forbidden = @"forbidden",              *const AZIMG_forbiddenLight = @"forbiddenLight",
-            *const AZIMG_atSymbol = @"atSymbol";
-
-
-static _Text _systemIconsFolder;
-static _List _systemIcons;
-
-_S _I _SInt get_bit(_UChr arr, _ULng bit_num) { return (arr[(bit_num / 8)] & (1 << (bit_num % 8))); }
-
-typedef NS_ENUM(_UInt, pixelComponents) { red, green, blue, alpha };
-
-_Flot distance(NSP aPoint) {
-  return sqrt(aPoint.x * aPoint.x +
-              aPoint.y * aPoint.y); /* Stole this from some guy named
-                                       Pythagoras..  Returns the distance of
-                                       aPoint from the origin. */
-}
 
 static void BitmapReleaseCallback(void *info, const void *data, size_t size) {
   __unused id bir = (__bridge_transfer NSBIR*) info;
 }
+
 /*	 from http://developer.apple.com/technotes/tn2005/tn2143.html
 
 CGImageRef CreateCGImageFromData(NSData* data)

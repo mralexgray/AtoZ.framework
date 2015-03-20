@@ -2,15 +2,18 @@
 //#import "AZSizer.h"
 //@import SVGKit;
 
-
+#if MAC_ONLY
 @import Quartz;
+#else
+@import QuartzCore;
+#endif
 
-#import "AtoZUniversal/AtoZGeometry.h"
-#import "AtoZUniversal/AtoZUniversal.h"
+#import <AtoZUniversal/AtoZGeometry.h>
+#import <AtoZUniversal/AtoZUniversal.h>
 
 _IMPL CIFilter (WithDefaults)
 
-+ (CIFilter*) filterWithDefaultsNamed:(NSString*) name { id cc; return [(cc= [CIFilter filterWithName:name]) setDefaults], cc; }
++ (CIFilter*) filterWithDefaultsNamed:_Text_ n { id f; return [(f = [CIFilter filterWithName:n]) setDefaults], f; }
 
 _FINI
 
@@ -42,8 +45,8 @@ Text        *const AZIMG_checkmark = @"checkmark",              *const AZIMG_add
             *const AZIMG_atSymbol = @"atSymbol";
 
 
-static _Text _systemIconsFolder;
-static _List _systemIcons;
+_S _Text _systemIconsFolder;
+_S _List _systemIcons;
 
 _S _I _SInt get_bit(_UChr arr, _ULng bit_num) { return (arr[(bit_num / 8)] & (1 << (bit_num % 8))); }
 
@@ -56,57 +59,13 @@ _Flot distance(NSP aPoint) {
                                        aPoint from the origin. */
 }
 
-static void BitmapReleaseCallback(void *info, const void *data, size_t size) {
-  __unused id bir = (__bridge_transfer NSBIR*) info;
-}
-/*	 from http://developer.apple.com/technotes/tn2005/tn2143.html
 
-CGImageRef CreateCGImageFromData(NSData* data)
-{
-  CGImageRef		imageRef = NULL;
-  CGImageSourceRef  sourceRef;
 
-  sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-  if(sourceRef) {
-    imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
-    CFRelease(sourceRef);
-  }
-
-  return imageRef;
-}
 //	NSA sizes = [items[0] valueForKey:@"size"] ? [items valueForKeyPath:@"size"]
-: [obj respondsToString:@"frame"] ? [obj sizeForKey:@"frame"] :  [obj
-respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
-*/
+// : [obj respondsToString:@"frame"] ? [obj sizeForKey:@"frame"] :  [obj
+// respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 
-@implementation NSImage (AtoZDrawBlock)
-
-+ _Pict_ imageWithSize: _Size_ s drawnUsingBlock:(Blk)dBlk {
-
-  if (NSEqualSizes(s, NSZeroSize)) return self.new;
-
-  NSImage *newer = [self imageWithSize:s named:@"AtoZNSImageDrawBlockImage"];
-
-  if (!newer) return self.new;
-
-  [newer lockFocus]; dBlk(); [newer unlockFocus]; return newer;
-}
-
-+ _Pict_  imageInFrame: _Rect_ f withBlock:(RBlk)blk {
-
-  NSR originRect = AZRectFromSize(f.size);
-  NSSZ s = originRect.size;
-  NSIMG *newImg =
-      [self imageWithSize:s named:@"AtoZNSImageDrawBlockImageWithFrame"];
-  [newImg lockFocus];
-  CLANG_IGNORE(-Wunused - value) blk(originRect);
-  CLANG_POP;
-  [newImg unlockFocus];
-  return newImg;
-}
-
-@end
-
+/*
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSImage (AtoZ)
@@ -124,10 +83,6 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 #endif
 }
 
-+ _Pict_ imageWithBitmapRep:(NSBIR*)rep { if(!rep) return nil; NSIMG*image = NSImage.new;
-
-  return [image addRepresentation: rep], image;
-}
 
 + _Pict_ gravatarForEmail: _Text_ e {
 
@@ -142,7 +97,7 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 			result[8],  result[9],  result[10], result[11],	result[12], result[13], result[14], result[15]); //md5email
 
   return ((id)self)[gravatarEndPoint];
-  XX(gravatarEndPoint);
+//  XX(gravatarEndPoint);
 //  return [self from:gravatarEndPoint];
 }
 
@@ -151,56 +106,16 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
 //- (CGF)height {	return self.size.height ;	}
 //- _Void_ setWidth:(CGF)t {  self.scalesWhenResized = YES; [self setSize:AZSizeExceptWide(self.size, t)]; }
 //- _Void_ setHeight:(CGF)t 	{ self.scalesWhenResized = YES; [self setSize:AZSizeExceptHigh(self.size, t)]; }
-
+*/
+/*
 -  (NSAS*) attributedString {
 
   NSTextAttachment *attachment = NSTextAttachment.new;
   attachment.attachmentCell = [NSTextAttachmentCell.alloc initImageCell:self];
   return [NSAttributedString attributedStringWithAttachment:attachment];
 }
-
-+ _Pict_ isometricShelfInRect: _Rect_ rect { return [self isometricShelfInRect:rect color:[NSC r:.58 g:.81 b:.782 a:1.]]; }
-
-+ _Pict_ isometricShelfInRect: _Rect_ rect color: _Colr_ c {
-
-  return [self imageWithSize:(AZScaleRect(rect, .5)).size drawnUsingBlock:^{
-
-          [NSGraphicsContext state:^{
-              [NSGC.currentContext
-                  setImageInterpolation:NSImageInterpolationHigh];
-              CGF height = rect.size.height - 1.0f;
-              CGF width = rect.size.width - 1.0f;
-              CGF pcp = 10.0f;
-              CGF shelfH = 10.0f; /* shelf Height */
-              NSBP *path = NSBP.new;
-              path.lineJoinStyle = NSRoundLineJoinStyle;
-              [path moveToPoint:(NSP) {0, shelfH}];
-              [path lineToPoint:(NSP) {width, shelfH}];
-              [path lineToPoint:(NSP) {width - pcp, height}];
-              [path lineToPoint:(NSP) {pcp, height}];
-              [path fill];
-              [[NSG gradientFrom:[c colorWithBrightnessOffset:-.4] to:c]
-                  drawInBezierPath:path
-                             angle:90.0f];
-              //			  [NSC r:0.85f g:0.66f b:0.45f a:1.0f] to:[NSC r:0.78f
-              // g:0.61f b:0.42f a:1.0f]]drawInBezierPath:path angle:90.0f];
-              [[NSG gradientFrom:[c colorWithBrightnessOffset:-1]
-                              to:[c colorWithBrightnessOffset:-.5]]
-                  drawInBezierPath:[NSBezierPath
-                                       bezierPathWithRect:NSMakeRect(0.0f, 0.0f,
-                                                                     width,
-                                                                     shelfH)]
-                             angle:90.0f];
-              // [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC r:0.48f g:0.30f
-              // b:0.16f a:1.0f]] ;
-              //[[NSG gradientFrom: [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC
-              // r:0.48f g:0.30f b:0.16f a:1.0f]] drawInBezierPath:[NSBezierPath
-              // bezierPathWithRect:NSMakeRect(0.0f, 0.0f, width, shelfH)]
-              // angle:90.0f];
-          }];
-      }];
-}
-
+*/
+/*
 + _Pict_ imageFromLockedFocusSize: _Size_ sz lock:(_Pict(^)(_Pict))block {
 
   _Pict newI = [self.alloc initWithSize:sz]; newI = block(newI); return newI;
@@ -377,6 +292,7 @@ return compositeImage;
   //	}
   //	return images;
 }
+*/
 
 /*		LOG_EXPR(tags.count);
     NSA* urls = [tags map:^id(HTMLNode *object) {	return [object
@@ -398,7 +314,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
   } else	[@"problem fetching URL" log];
 
 */
-
+/*
 + _Void_ loadImage:(NSURL*) url andDisplay:(void (^)(NSImage *i))b {
 
   //  __block NSImage *image = nil;
@@ -453,7 +369,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
   }];
   return webI;
 }
-
+*/
 /*
 
 	__strong ASIHTTPRequest *requester						 = [ASIHTTPRequest.alloc
@@ -517,6 +433,7 @@ allowPartial:YES]
   return webI;
 */
 
+/*
 #pragma mark - ClassKeyGet
 
 + objectForKeyedSubscript:x {
@@ -633,7 +550,7 @@ static _List frameworkImageNames_ = nil, frameworkImagePaths_ = nil;
 //+ _Pict_ monoIconNamed:(NSS*)name { return [self.monoIcons filterOne:^BOOL(NSIMG*icon) { return SameS(icon.name, name); }]; }
 
 + _Pict_ randomMonoIcon {   return self.monoIcons.randomElement; }
-
+*/
 /*
 	NSUI monoCt = self.monoIcons.count;//monoPDF.pageCount -1;
  	NSUI rand = RAND_INT_VAL(0, monoCt-1);
@@ -744,6 +661,8 @@ NSIMG* resolve(id self, SEL _cmd) {
   }); monos; }));
 */
 
+/*
+
 static NSMutableIndexSet *namedMonos;
 
 + _List_ namedMonoIcons { return [self.monoIcons objectsAtIndexes:namedMonos]; }
@@ -794,11 +713,11 @@ static NSMutableIndexSet *namedMonos;
   [render addRepresentation:[NSPDFImageRep imageRepWithData:[doc pageAtIndex:page].dataRepresentation]];
   return render;
 }
-
+*/
 /*+ (NSA*) iconStrings {		NSBundle *aBundle = [NSBundle bundleForClass:
  * [DummyClass class]];	return [aBundle pathsForResourcesOfType:@"pdf"
  * inDirectory:@"picol"]; NSLog(@"%@", imagePaths); } */
-
+/*
 + _Pict_ systemIconNamed: _Text_  name {
 
   return [self.systemIcons filterOne:^BOOL(NSIMG *o) {
@@ -816,7 +735,7 @@ static NSMutableIndexSet *namedMonos;
   return picolStrings_;
 }
 + _List_ icons { return [NSA arrayWithArrays:@[ self.monoIcons, self.systemIcons ]]; }
-
+*/
 /*	return 	[[[NSImage picolStrings] map:^id(id obj) {		NSIMG*u =[[NSImage
 alloc]initWithContentsOfFile:[[self
 picolFolderPath]stringByAppendingPathComponent:obj]];		u.name = [obj
@@ -825,6 +744,8 @@ stringByDeletingPathExtension]; return u;	}]filter:^BOOL(id object) {		return
 //	return  [[[self class] picolStrings] map:^id(id obj) {		NSIMG*i = [NSImage
 az_imageNamed:obj];		NSLog(@"loading %@  aka %@", [obj lastPathComponent], i);
 return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
+/*
+
 + _Pict_ forFile:(AZFile*) file {
 
   NSSZ theSize = AZSizeFromDim(512);
@@ -910,7 +831,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
                  [string drawInRect:AZInsetRect(centerRect, inset)
                       withFontNamed:@"PrintBold"
                            andColor:contraster];
-                 /*Ubuntu Mono Bold"*/ /*Nexa Bold" Ivolkswagen DemiBold"*/
+                 // Ubuntu Mono Bold // Nexa Bold" Ivolkswagen DemiBold"
              }();
   [badge unlockFocus];
   return badge;
@@ -937,7 +858,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
       drawInRect:
           quadrant(
               rect,
-              quad)]; /* alignRectInRect(AZRectFromDim(rect.size.width/2),rect,quad)];*/
+              quad)]; /// alignRectInRect(AZRectFromDim(rect.size.width/2),rect,quad)];
 }
 + (void)drawInQuadrants:(NSA*) images inRect:(NSR)frame {
 
@@ -945,8 +866,8 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
       [obj drawInRect:quadrant(frame, idx)];
   }];
 }
-/*alignRectInRect( AZRectFromDim( frame.size.width/2 ), frame, (QUAD)idx);
- * NSRectFillWithColor(thisQ, RANDOMCOLOR); */
+//  alignRectInRect( AZRectFromDim( frame.size.width/2 ), frame, (QUAD)idx);/
+//  NSRectFillWithColor(thisQ, RANDOMCOLOR);
 - _Pict_ reflected:(float)amountFraction {
 
   return [self.class reflectedImage:self amountReflected:amountFraction];
@@ -975,13 +896,13 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
   float targetWidth = targetSize.width;
   float targetHeight = targetSize.height;
 
-  /* scaleFactor will be the fraction that we'll use to adjust the size. For
-    example, if we shrink an image by half, scaleFactor will be 0.5. the
-    scaledWidth and scaledHeight will be the original, multiplied by the
-    scaleFactor.
-    IMPORTANT: the "targetHeight" is the size of the space we're drawing into.
-    The "scaledHeight" is the height that the image actually is drawn at, once
-    we take into account the idea of maintaining proportions */
+/// scaleFactor will be the fraction that we'll use to adjust the size. \
+  For example, if we shrink an image by half, scaleFactor will be 0.5. \
+  the scaledWidth and scaledHeight will be the original, \
+  multiplied by the scaleFactor. \
+  IMPORTANT: the "targetHeight" is the size of the space we're drawing into. \
+  The "scaledHeight" is the height that the image actually is drawn at, \
+  once we take into account the idea of maintaining proportions
 
   float scaleFactor = 0.0;
   float scaledWidth = targetWidth;
@@ -1547,7 +1468,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
     objc_getAssociatedObject(self, _cmd);
   });
 }
-
+*/
 /*
 	[imageRep bitmapImageRepByConvertingToColorSpace:NSColorSpace.deviceRGBColorSpace
  renderingIntent:NSColorRenderingIntentDefault];
@@ -1604,7 +1525,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
 	NSBIR *imageRep = (NSBIR *)[self smallestRepresentation];
 */
-
+/*
 - _Pict_ generateQuantizedSwatch {
 
   NSA *q = self.quantize;
@@ -1722,25 +1643,26 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 }
 
 #ifdef RETARDO
-/*!
-~ ❯❯❯ jp2a --colors -f file:///tmp/quantization.A3CB1F74-FD32-4A04-A785-B1117D27D6CB.jpg
 
-NNNNNNNNNOddddddddxXXXXXXXXXkoxxxOKXXXXXK00Okkdl:;;,,
-NNNNNNNNNOddddddddxXXXXXXXXXOxkkxk0KKXXXXK0koddc::;;,.
-NNNNNNNNNOddddddddxXXXXXXXXXOk00xxkO0KKXkl,..;clcc::;'.
-xxxxxxxxxdooooooood0KKKKKKKKOO0OxxOXXXKK'    ':ooollo;.
-         'cccccccclxxxxxxxxxxOOkxkKXXXKKc ..;.;dx0kk0;
-         'cccccccclxxxxxxxxxdxkl  ;lxOKX0 ,   ,kkkO0Kc.
-         ,llllllllldddddddddxkOk;. ...;o0o,..:O0OOkk0c.
-kkkkkkkkkkxxxxxxxxx.........:OOkOkl'   .cNXc..;0OOxdd.
-kkkkkkkkkkxxxxxxxxx.........;xkkkO0d  ;lkN0Kl.;OOkdol'
-kkkkkkkkkkxxxxxxxxx.........;oxkOO0O, ',',,;, .kkkdlo'.
-oooooooooONNNNNNNNNK00000000kodxxkkOx'klddld; .dddolc'.
-lllllllll0MMMMMMMMMMMMMMMMMMx.,..'..;,,.........,,,'.;,,;
-lllllllll0MMMMMMMMMMMMMMMMMMKxxxxdoxo;oddko;.,;.c,k:,Oddd
-lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
+/// ~ ❯❯❯ jp2a --colors -f file:///tmp/quantization.A3CB1F74-FD32-4A04-A785-B1117D27D6CB.jpg \
+\
+NNNNNNNNNOddddddddxXXXXXXXXXkoxxxOKXXXXXK00Okkdl:;;,,\
+NNNNNNNNNOddddddddxXXXXXXXXXOxkkxk0KKXXXXK0koddc::;;,.\
+NNNNNNNNNOddddddddxXXXXXXXXXOk00xxkO0KKXkl,..;clcc::;'.\
+xxxxxxxxxdooooooood0KKKKKKKKOO0OxxOXXXKK'    ':ooollo;.\
+         'cccccccclxxxxxxxxxxOOkxkKXXXKKc ..;.;dx0kk0;\
+         'cccccccclxxxxxxxxxdxkl  ;lxOKX0 ,   ,kkkO0Kc.\
+         ,llllllllldddddddddxkOk;. ...;o0o,..:O0OOkk0c.\
+kkkkkkkkkkxxxxxxxxx.........:OOkOkl'   .cNXc..;0OOxdd.\
+kkkkkkkkkkxxxxxxxxx.........;xkkkO0d  ;lkN0Kl.;OOkdol'\
+kkkkkkkkkkxxxxxxxxx.........;oxkOO0O, ',',,;, .kkkdlo'.\
+oooooooooONNNNNNNNNK00000000kodxxkkOx'klddld; .dddolc'.\
+lllllllll0MMMMMMMMMMMMMMMMMMx.,..'..;,,.........,,,'.;,,;\
+lllllllll0MMMMMMMMMMMMMMMMMMKxxxxdoxo;oddko;.,;.c,k:,Oddd\
+lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'\
+\
 
-*/
+
 #endif
 
 - _Void_ drawFloatingRightInFrame:(NSRect)aFrame {
@@ -1755,9 +1677,9 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
                operation:NSCompositeSourceOver];
 }
 
-/*! draws the passed image into the passed rect, centered and scaled appropriately.
+/// draws the passed image into the passed rect, centered and scaled appropriately.
     @note that this method doesn't know anything about the current focus, so the focus must be locked outside this method
- */
+
 - _Void_ drawCenteredinRect:(NSRect)inRect
                  operation:(NSCompositingOperation)op
                   fraction:(float)delta {
@@ -1935,53 +1857,6 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   }];
   return offscreenRep;
 
-  /*	//creating an NSImage setting whatever we drew above to be it's
-    representation
-    NSImage *image = [[NSImage.alloc init] autorelease];
-    [image addRepresentation:offscreenRep];
-
-    //this allows us to create an image thats content is transparent (see the
-    'fraction') parameter below
-    NSImage *dragImage = [[NSImage.alloc initWithSize:[image size]]
-    autorelease];
-    [dragImage lockFocus];
-    [image compositeToPoint:NSMakePoint(0, 0) operation:NSCompositeSourceOver
-    fraction:0.5];
-    [dragImage unlockFocus];
-
-
-    // returns a 32-bit bitmap rep of the receiver, whatever its original
-    format. The image rep is not added to the image.
-    NSSZ size = NSMakeSize(x, y);
-    int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) & ~0x0000000F; //
-    16-byte aligned
-    int bps=8, spp=4, bpp=bps*spp;
-    // NOTE: These settings affect how pixels are converted to NSColors
-    NSBIR *imageRep = [NSBIR.alloc
-    initWithBitmapDataPlanes:nil
-                                       pixelsWide:size.width
-                                       pixelsHigh:size.height
-                                      bitsPerSample:bps
-                                    samplesPerPixel:spp
-                                         hasAlpha:YES
-                                         isPlanar:NO
-                                     colorSpaceName:NSCalibratedRGBColorSpace
-                                       bitmapFormat:NSAlphaFirstBitmapFormat
-                                      bytesPerRow:rowBytes
-                                       bitsPerPixel:bpp];
-    if (!imageRep) return nil;
-
-    NSGraphicsContext* imageContext = [NSGraphicsContext
-    graphicsContextWithBitmapImageRep:imageRep];
-
-    [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:imageContext];
-    [self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeCopy
-    fraction:1.0];
-    [NSGraphicsContext restoreGraphicsState];
-
-    return imageRep;
-    */
 }
 
 - (CGImageRef)cgImage {
@@ -2008,6 +1883,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
   //
   //	return img;
 }
+*/
 /*!
  @brief	Rotates an image around its center by a given
  angle in degrees and returns the new image.
@@ -2016,7 +1892,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
  respectively, the height and width of the receiver.
 
  I have not yet tested this with a non-square image.	*/
-
+/*
 - _Pict_ imageRotatedByDegrees:(CGF)degrees {
   NSSZ rotatedSize = NSMakeSize(self.size.height, self.size.width);
   NSIMG *rotatedImage = [NSImage.alloc initWithSize:rotatedSize];
@@ -2095,7 +1971,7 @@ lllllllll0MMMMMMMMMMMMMMMMMMK:,,;,;;,';,,;,..''.c:'',;,'
 
   return newImage;
 }
-
+*/
 /*- (NSIMG*)imageByScalingProportionallyToSize:(NSSZ)targetSize
 {
   NSIMG* sourceImage = self;
@@ -2148,7 +2024,7 @@ scaledHeight)];
 
   return newImage;
 }*/
-
+/*
 - _Void_ drawInRect:(NSRect)dstRect
          operation:(NSCompositingOperation)op
           fraction:(float)delta
@@ -2312,32 +2188,6 @@ scaledHeight)];
 }
 
 - _Pict_ rotated:(int)angle
-/*{
-if (angle == 0 || ![self isValid])
-return self;
-
-NSSZ beforeSize = [self size];
-
-NSSZ afterSize = (angle == 90 || angle == -90) ? NSMakeSize(beforeSize.height,
-beforeSize.width : beforeSize;
-
-NSAffineTransform* trans = [NSAffineTransform transform];
-[trans translateXBy:afterSize.width * 0.5 yBy:afterSize.height * 0.5];
-[trans rotateByDegrees:angle];
-[trans translateXBy:-beforeSize.width * 0.5 yBy:-beforeSize.height * 0.5];
-
-NSIMG* newImage = [NSImage.alloc initWithSize:afterSize];
-
-[newImage lockFocus];
-
-[trans set];
-[self drawAtPoint:NSZeroPoint fromRect:NSMakeRect(0, 0, beforeSize.width,
-beforeSize.height) operation:NSCompositeSourceOver fraction:1.0];
-
-[newImage unlockFocus];
-
-return [newImage autorelease];
-}*/
 {
   if (angle != 90 && angle != 270)
     return self;
@@ -2345,9 +2195,9 @@ return [newImage autorelease];
   NSIMG *existingImage = self;
   NSSZ existingSize;
 
-  /**  Get the size of the original image in its raw bitmap format.  The
-   * bestRepresentationForDevice: nil tells the NSImage to just give us the raw
-   * image instead of it's wacky DPI-translated version.   */
+  /// Get the size of the original image in its raw bitmap format.  \
+      The bestRepresentationForDevice: nil tells the NSImage to just \
+      give us the raw image instead of it's wacky DPI-translated version.
   //	 NSBIR = [existingImage bitmap];
 
   existingSize.width =
@@ -2362,15 +2212,11 @@ return [newImage autorelease];
   NSIMG *rotatedImage = [NSImage.alloc initWithSize:newSize];
   [rotatedImage lockFocus];
 
-  /**
-   * Apply the following transformations:
-   *
-   * - bring the rotation point to the centre of the image instead of
-   *   the default lower, left corner (0,0).
-   * - rotate it by 90 degrees, either clock or counter clockwise.
-   * - re-translate the rotated image back down to the lower left corner
-   *   so that it appears in the right place.
-   */
+  // Apply the following transformations:\
+    - bring the rotation point to the centre of the image instead of the default lower, left corner (0,0). \
+   - rotate it by 90 degrees, either clock or counter clockwise. \
+   - re-translate the rotated image back down to the lower left corner so that it appears in the right place.
+
   NSAffineTransform *rotateTF = [NSAffineTransform transform];
   NSP centerPoint = NSMakePoint(newSize.width / 2, newSize.height / 2);
 
@@ -2379,11 +2225,9 @@ return [newImage autorelease];
   [rotateTF translateXBy:-centerPoint.y yBy:-centerPoint.x];
   [rotateTF concat];
 
-  /**
-   * We have to get the image representation to do its drawing directly,
-   * because otherwise the stupid NSImage DPI thingie bites us in the butt
-   * again.
-   */
+  /// We have to get the image representation to do its drawing directly, \
+      because otherwise the stupid NSImage DPI thingie bites us in the butt again.\
+
   NSRect r1 = NSMakeRect(0, 0, newSize.height, newSize.width);
   [existingImage bestRepresentationForRect:r1
                                    context:nil
@@ -2686,33 +2530,6 @@ rightDone:
 
   return imageWithReflection;
 }
-
-/*+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image {
-	NSIMG* newImage = nil;
-//#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-	NSBIR*	newRep = [[NSBIR alloc]initWithCGImage:image];
-	NSSZ imageSize;
-	// Get the image dimensions.
-	imageSize.height = CGImageGetHeight(image);
-	imageSize.width = CGImageGetWidth(image);
-	newImage = [NSImage.alloc initWithSize:imageSize];
-	[newImage addRepresentation:newRep];
-//#else
-//	NSRect imageRect = NSMakeRect(0.0, 0.0, 0.0, 0.0);
-//	CGContextRef imageContext = nil;
-//	// Get the image dimensions.
-//	imageRect.size.height = CGImageGetHeight(image);
-//	imageRect.size.width = CGImageGetWidth(image);
-//	// Create a new image to receive the Quartz image data.
-//	newImage = [NSImage.alloc initWithSize:imageRect.size];
-//	[newImage lockFocus];
-//	// Get the Quartz context and draw.
-//	imageContext = (CGContextRef)[AZGRAPHICSCTXgraphicsPort];
-//	CGContextDrawImage(imageContext, *(CGRect*)&imageRect, image);
-//	[newImage unlockFocus];
-//#endif
-	return newImage;
-}*/
 
 - _Pict_ etched {
   NSIMG *etched = [NSIMG.alloc initWithSize:self.size];
@@ -3142,73 +2959,6 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 @end
 
-@implementation NSImage (CGImageConversion)
-
-- (NSBIR*) bitmap   {
-  // returns a 32-bit bitmap rep of the receiver, whatever its original format.
-  // The image rep is not added to the image.
-  NSSZ size = [self size];
-  int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) &
-                 ~0x0000000F; // 16-byte aligned
-  int bps = 8, spp = 4, bpp = bps * spp;
-
-  // NOTE: These settings affect how pixels are converted to NSColors
-  NSBIR *imageRep =
-      [NSBIR.alloc initWithBitmapDataPlanes:nil
-                                            pixelsWide:size.width
-                                            pixelsHigh:size.height
-                                         bitsPerSample:bps
-                                       samplesPerPixel:spp
-                                              hasAlpha:YES
-                                              isPlanar:NO
-                                        colorSpaceName:NSCalibratedRGBColorSpace
-                                          bitmapFormat:NSAlphaFirstBitmapFormat
-                                           bytesPerRow:rowBytes
-                                          bitsPerPixel:bpp];
-
-  if (!imageRep)
-    return nil;
-
-  NSGraphicsContext *imageContext =
-      [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
-
-  [NSGraphicsContext saveGraphicsState];
-  [NSGraphicsContext setCurrentContext:imageContext];
-  [self drawAtPoint:NSZeroPoint
-           fromRect:NSZeroRect
-          operation:NSCompositeCopy
-           fraction:1.0];
-  [NSGraphicsContext restoreGraphicsState];
-
-  return imageRep;
-}
-
-- (CGIREF) cgImage  {
-  NSBIR *bm = [self bitmap]; // data provider will release this
-  int rowBytes, width, height;
-
-  rowBytes = [bm bytesPerRow];
-  width = [bm pixelsWide];
-  height = [bm pixelsHigh];
-
-  CGDataProviderRef provider =
-      CGDataProviderCreateWithData((__bridge void*) bm, [bm bitmapData],
-                                   rowBytes * height, BitmapReleaseCallback);
-  CGColorSpaceRef colorspace =
-      CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
-  CGBitmapInfo bitsInfo = kCGImageAlphaLast;
-
-  CGImageRef img =
-      CGImageCreate(width, height, 8, 32, rowBytes, colorspace, bitsInfo,
-                    provider, NULL, NO, kCGRenderingIntentDefault);
-
-  CGDataProviderRelease(provider);
-  CGColorSpaceRelease(colorspace);
-
-  return img;
-}
-
-@end
 
 @implementation NSImage (AtoZScaling)
 
@@ -3226,58 +2976,6 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   return [bestRep size];
 }
 
-- (NSIR*) bestRepresentationForSize:(NSSZ)theSize {
-  NSIR *bestRep = [self representationOfSize:theSize];
-  //[self setCacheMode:NSImageCacheNever];
-  if (bestRep) {
-
-    //	QSLog(@"getRep? %f", theSize.width);
-    return bestRep;
-
-  } else {
-    //	QSLog(@"getRex? %f", theSize.width);
-  }
-  NSA *reps = [self representations];
-  // if (theSize.width == theSize.height) {
-  // ***warning   * handle other sizes
-  float repDistance = 65536.0;
-  // ***warning   * this is totally not the highest, but hey...
-  NSIR *thisRep;
-  float thisDistance;
-  int i;
-  for (i = 0; i < (int)[reps count]; i++) {
-    thisRep = reps[i];
-    thisDistance = MIN(theSize.width - [thisRep size].width,
-                       theSize.height - [thisRep size].height);
-
-    if (repDistance < 0 && thisDistance > 0)
-      continue;
-    if (ABS(thisDistance) < ABS(repDistance) ||
-        (thisDistance < 0 && repDistance > 0)) {
-      repDistance = thisDistance;
-      bestRep = thisRep;
-    }
-  }
-  /// QSLog(@"   Rex? %@", bestRep);
-  return bestRep =
-             bestRep
-                 ? bestRep
-                 : [self bestRepresentationForRect:AZMakeRectFromSize(theSize)
-                                           context:AZGRAPHICSCTX
-                                             hints:nil]; //   QSLog(@"unable to
-                                                         // find reps %@",
-                                                         // reps);
-  return nil;
-}
-
-- (NSIR*) representationOfSize:(NSSZ)theSize {
-  NSA *reps = [self representations];
-  int i;
-  for (i = 0; i < (int)[reps count]; i++)
-    if (NSEqualSizes([(NSBIR*) reps[i] size], theSize))
-      return reps[i];
-  return nil;
-}
 
 - (BOOL)createIconRepresentations {
   [self setFlipped:NO];
@@ -3476,7 +3174,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
   }
   [tempImage unlockFocus];
   // QSLog(@"%@", tempImage);
-  return [NSImage.alloc initWithData:[tempImage TIFFRepresentation]]; //*** UGH!
+  return [NSImage.alloc initWithData:[tempImage TIFFRepresentation]]; //// UGH!
   // why do I
   // have to do
   // this to
@@ -3579,7 +3277,7 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage) {
 //	return [image bitmap];
 //}
 //@end
-
+*/
 /*+ (NSA*) picolStrings {		static NSA*_picolSrtrings;
                 if (_picolSrtrings == nil)	{ // This will only be true the
 first time the method is called...
@@ -3764,8 +3462,8 @@ _picolSrtrings = [@[@"xml_document.pdf", @"xml.pdf", @"zoom_in.pdf",
 @end
 */
 
-@implementation NSImage (GrabWindow)
 /*
+@implementation NSImage (GrabWindow)
 + _Pict_ captureScreenImageWithFrame: (NSRect) frame
 {
   // Fetch a graphics port of the screen
@@ -3900,6 +3598,7 @@ dataWithBytes:(*picHandle)
   return image;// autorelease];
 }
 */
+/*
 + _Pict_ imageBelowWindow:(NSWindow*) window {
 
   // Get the CGWindowID of supplied window
@@ -3993,11 +3692,12 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   [v addSubview:u];
 }
 @end
-
+*/
+/*
 @implementation NSImage (NSImageThumbnailExtensions)
 
-/* Create an NSImage from with the contents of the url of the specified width.
- * The height of the resulting NSImage maintains the proportions in source.	*/
+/// Create an NSImage from with the contents of the url of the specified width. The height of the resulting NSImage maintains the proportions in source.
+
 + thumbnailImageWithContentsOfURL:(NSURL*) url width:(CGF)width {
   NSIMG *thumbnailImage = nil;
   NSIMG *image = [NSImage.alloc initWithContentsOfURL:url];
@@ -4017,21 +3717,10 @@ CGImageRef CreateCGImageFromData(NSData *data) {
           fraction:1.0];
     [thumbnailImage unlockFocus];
 
-    /* In general, the accessibility description is a localized description of
-     the image.  In this app, and in the Desktop & Screen Saver preference pane,
-     the name of the desktop picture file is what is used as the localized
-     description in the user interface, and so it is appropriate to use the file
-     name in this case.
+    /// In general, the accessibility description is a localized description of the image.  In this app, and in the Desktop & Screen Saver preference pane, the name of the desktop picture file is what is used as the localized description in the user interface, and so it is appropriate to use the file name in this case.
 
-     When an accessibility description is set on an image, the description is
-     automatically reported to accessibility when that image is displayed in
-     image views/cells, buttons/button cells, segmented controls, etc.  In this
-     case the description is set programatically.  For images retrieved by name,
-     using +imageNamed:, you can use a strings file named
-     AccessibilityImageDescriptions.strings, which uses the names of the images
-     as keys and the description as the string value, to automatically provide
-     accessibility descriptions for named images in your application.
-     */
+    /// When an accessibility description is set on an image, the description is automatically reported to accessibility when that image is displayed in image views/cells, buttons/button cells, segmented controls, etc.  In this case the description is set programatically.  For images retrieved by name, using +imageNamed:, you can use a strings file named AccessibilityImageDescriptions.strings, which uses the names of the images as keys and the description as the string value, to automatically provide accessibility descriptions for named images in your application.
+
     NSString *imageName =
         [[url lastPathComponent] stringByDeletingPathExtension];
     [thumbnailImage setAccessibilityDescription:imageName];
@@ -4040,10 +3729,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
     //		[image release];
   }
 
-  /* This is a sample code feature that delays the creation of the thumbnail for
-   demonstration purposes only.
-   Hold down the control key to extend thumnail creation by 2 seconds.
-   */
+  /// This is a sample code feature that delays the creation of the thumbnail for demonstration purposes only. Hold down the control key to extend thumnail creation by 2 seconds.
   if ([NSEvent modifierFlags] & NSControlKeyMask) {
     usleep(2000000);
   }
@@ -4077,9 +3763,8 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 
 @end
 
-/*
- *  Copyright (c) 2013, Alun Bestor (alun.bestor@gmail.com)
- */
+// Copyright (c) 2013, Alun Bestor (alun.bestor@gmail.com)
+
 
 //#import "NSImage+ADBImageEffects.h"
 //#import "ADBGeometry.h"
@@ -4964,7 +4649,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
     if (!strncmp((char*) data, "GIF8", 4))
       fileType = AIGIFFileType;
     else if (!strncmp((char*) data, "\xff\xd8\xff",
-                      3)) /* 4th may be e0 through ef */
+                      3)) // 4th may be e0 through ef
       fileType = AIJPEGFileType;
     else if (!strncmp((char*) data, "\x89PNG", 4))
       fileType = AIPNGFileType;
@@ -5085,11 +4770,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 }
 
 - (NSData*) JPEGRepresentationWithCompressionFactor:(float)compressionFactor {
-  /* JPEG does not support transparency, but NSImage does. We need to create a
-   * non-transparent NSImage
-   * before creating our representation or transparent parts will become black.
-   * White is preferable.
-   */
+  /// JPEG does not support transparency, but NSImage does. We need to create a non-transparent NSImage. before creating our representation or transparent parts will become black. White is preferabl
   return ([[self opaqueBitmapImageRep]
       representationUsingType:NSJPEGFileType
                    properties:
@@ -5100,11 +4781,8 @@ CGImageRef CreateCGImageFromData(NSData *data) {
                                          forKey:NSImageCompressionFactor]]);
 }
 - (NSData*) JPEGRepresentationWithMaximumByteSize:(NSUInteger)maxByteSize {
-  /* JPEG does not support transparency, but NSImage does. We need to create a
-   * non-transparent NSImage
-   * before creating our representation or transparent parts will become black.
-   * White is preferable.
-   */
+  /// JPEG does not support transparency, but NSImage does. We need to create a non-transparent NSImage. before creating our representation or transparent parts will become black. White is preferable.
+
   NSBIR *opaqueBitmapImageRep = [self opaqueBitmapImageRep];
   NSData *data = nil;
 
@@ -5128,8 +4806,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 }
 
 - (NSData*) PNGRepresentation {
-  /* PNG is easy; it supports everything TIFF does, and NSImage's PNG support is
-   * great. */
+  /// PNG is easy; it supports everything TIFF does, and NSImage's PNG support is great.
   NSBIR *bitmapRep = [self largestBitmapImageRep];
 
   return ([bitmapRep representationUsingType:NSPNGFileType properties:nil]);
@@ -5186,20 +4863,14 @@ CGImageRef CreateCGImageFromData(NSData *data) {
 }
 
 - (NSData*) BMPRepresentation {
-  /* BMP does not support transparency, but NSImage does. We need to create a
-   * non-transparent NSImage
-   * before creating our representation or transparent parts will become black.
-   * White is preferable.
-   */
+  /// BMP does not support transparency, but NSImage does. We need to create a non-transparent NSImage before creating our representation or transparent parts will become black. White is preferable.
 
   return ([[self opaqueBitmapImageRep] representationUsingType:NSBMPFileType
                                                     properties:nil]);
 }
 
-/*!
- * @brief Returns a GIF representation for GIFs, and PNG represenation for all
- * other types
- */
+/// @brief Returns a GIF representation for GIFs, and PNG represenation for all other types
+
 - (NSData*) bestRepresentationByType {
   NSData *data = nil;
   NSBIR *bitmap = nil;
@@ -5228,16 +4899,12 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   return bm;
 }
 
-/*!
- * @brief Retrieve an image rep with a maximum size
- *
- * Returns the NSData of an image representation.
- *
- * @param fileType The NSBitmapImageFileType to be outputted for sizing
- * @param maximumSize The maximum size in bytes for the image
- *
- * @return the NSData representation using fileType
- */
+/// @brief Retrieve an image rep with a maximum size \
+    Returns the NSData of an image representation.\
+    @param fileType The NSBitmapImageFileType to be outputted for sizing\
+    @param maximumSize The maximum size in bytes for the image\
+    @return the NSData representation using fileType
+
 - (NSData*) representationWithFileType:(NSBitmapImageFileType)fileType
                        maximumFileSize:(NSUInteger)maximumSize {
   NSBIR *imageRep = [self largestBitmapImageRep];
@@ -5449,7 +5116,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AZImageCache, sharedCache);
 - (void) setImage:(NSIMG*)i forKey:(NSS*)k { IF_RETURNV(!i || !k);
 
   [self setObject:i forKey:k];
-  dispatch_async(_queue, ^{ [i saveAs:[self pathForImage:i key:k]]; /* path */ });
+  dispatch_async(_queue, ^{ [i saveAs:[self pathForImage:i key:k]];  }); // path
 
 //  NSLog(@"%@", path); NSData *imageD = NSIMGPNGRepresentation(image);
 //  if (imageD) [imageData writeToFile:path atomically:NO];
@@ -5491,27 +5158,248 @@ NSString *stringForBrightness( CGF brightness )	{	return
 	return string;
 }
 @end
-
+*/
 
 #if MAC_ONLY
 
+///	 from http://developer.apple.com/technotes/tn2005/tn2143.html
 
-@interface Pict (MacOnly)
-- (NSImageRep*) representationOfSize:(NSSize)theSize;
-- (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
-- (NSBitmapImageRep*) bitmap;
-@prop_RO NSBIR * quantizerRepresentation;
-+ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
-- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
+CGImageRef CreateCGImageFromData(NSData* data) {
+
+  CGImageRef imageRef = NULL;
+  CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+  if(sourceRef) {
+    imageRef = CGImageSourceCreateImageAtIndex(sourceRef, 0, NULL);
+    CFRelease(sourceRef);
+  }
+
+  return imageRef;
+}
+
+/*
+@implementation NSImage (AtoZDrawBlock)
+
++ _Pict_ imageWithSize: _Size_ s drawnUsingBlock:(Blk)dBlk {
+
+  if (NSEqualSizes(s, NSZeroSize)) return self.new;
+
+  NSImage *newer = [self imageWithSize:s named:@"AtoZNSImageDrawBlockImage"];
+
+  if (!newer) return self.new;
+
+  [newer lockFocus]; dBlk(); [newer unlockFocus]; return newer;
+}
+
++ _Pict_  imageInFrame: _Rect_ f withBlock:(RBlk)blk {
+
+  NSR originRect = AZRectFromSize(f.size);
+  NSSZ s = originRect.size;
+  NSIMG *newImg =
+      [self imageWithSize:s named:@"AtoZNSImageDrawBlockImageWithFrame"];
+  [newImg lockFocus];
+  CLANG_IGNORE(-Wunused - value) blk(originRect);
+  CLANG_POP;
+  [newImg unlockFocus];
+  return newImg;
+}
 
 @end
 
-@interface NSImageView (AtoZ)
-+(NSIV*)imageViewWithImage:(NSIMG*)img ;
-+(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
+JREnumDefine(AIBitmapImageFileType);
+
+*/
+static void BitmapReleaseCallback(void *info, const void *data, size_t size) {
+  __unused id bir = (__bridge_transfer NSBIR*) info;
+}
+
+
+@implementation Pict (MacOnly)
+
+/*
++ _Pict_ isometricShelfInRect: _Rect_ rect { return [self isometricShelfInRect:rect color:[NSC r:.58 g:.81 b:.782 a:1.]]; }
+
++ _Pict_ isometricShelfInRect: _Rect_ rect color: _Colr_ c {
+
+  return [self imageWithSize:(AZScaleRect(rect, .5)).size drawnUsingBlock:^{
+
+          [NSGraphicsContext state:^{
+              [NSGC.currentContext
+                  setImageInterpolation:NSImageInterpolationHigh];
+              CGF height = rect.size.height - 1.0f;
+              CGF width = rect.size.width - 1.0f;
+              CGF pcp = 10.0f;
+              CGF shelfH = 10.0f; // shelf Height
+              NSBP *path = NSBP.new;
+              path.lineJoinStyle = NSRoundLineJoinStyle;
+              [path moveToPoint:(NSP) {0, shelfH}];
+              [path lineToPoint:(NSP) {width, shelfH}];
+              [path lineToPoint:(NSP) {width - pcp, height}];
+              [path lineToPoint:(NSP) {pcp, height}];
+              [path fill];
+              [[NSG gradientFrom:[c colorWithBrightnessOffset:-.4] to:c]
+                  drawInBezierPath:path
+                             angle:90.0f];
+              //			  [NSC r:0.85f g:0.66f b:0.45f a:1.0f] to:[NSC r:0.78f
+              // g:0.61f b:0.42f a:1.0f]]drawInBezierPath:path angle:90.0f];
+              [[NSG gradientFrom:[c colorWithBrightnessOffset:-1]
+                              to:[c colorWithBrightnessOffset:-.5]]
+                  drawInBezierPath:[NSBezierPath
+                                       bezierPathWithRect:NSMakeRect(0.0f, 0.0f,
+                                                                     width,
+                                                                     shelfH)]
+                             angle:90.0f];
+              // [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC r:0.48f g:0.30f
+              // b:0.16f a:1.0f]] ;
+              //[[NSG gradientFrom: [NSC r:0.29f g:0.16f b:0.04f a:1.0f] to:[NSC
+              // r:0.48f g:0.30f b:0.16f a:1.0f]] drawInBezierPath:[NSBezierPath
+              // bezierPathWithRect:NSMakeRect(0.0f, 0.0f, width, shelfH)]
+              // angle:90.0f];
+          }];
+      }];
+}
+
+
++ _Pict_ imageWithBitmapRep:(NSBIR*)rep { if(!rep) return nil; NSIMG*image = NSImage.new;
+
+  return [image addRepresentation: rep], image;
+}
+- (NSIR*) representationOfSize:(NSSZ)theSize {
+  NSA *reps = [self representations];
+  int i;
+  for (i = 0; i < (int)[reps count]; i++)
+    if (NSEqualSizes([(NSBIR*) reps[i] size], theSize))
+      return reps[i];
+  return nil;
+}
+- (NSIR*) bestRepresentationForSize:(NSSZ)theSize {
+  NSIR *bestRep = [self representationOfSize:theSize];
+  //[self setCacheMode:NSImageCacheNever];
+  if (bestRep) {
+
+    //	QSLog(@"getRep? %f", theSize.width);
+    return bestRep;
+
+  } else {
+    //	QSLog(@"getRex? %f", theSize.width);
+  }
+  NSA *reps = [self representations];
+  // if (theSize.width == theSize.height) {
+  // ***warning   * handle other sizes
+  float repDistance = 65536.0;
+  // ***warning   * this is totally not the highest, but hey...
+  NSIR *thisRep;
+  float thisDistance;
+  int i;
+  for (i = 0; i < (int)[reps count]; i++) {
+    thisRep = reps[i];
+    thisDistance = MIN(theSize.width - [thisRep size].width,
+                       theSize.height - [thisRep size].height);
+
+    if (repDistance < 0 && thisDistance > 0)
+      continue;
+    if (ABS(thisDistance) < ABS(repDistance) ||
+        (thisDistance < 0 && repDistance > 0)) {
+      repDistance = thisDistance;
+      bestRep = thisRep;
+    }
+  }
+  /// QSLog(@"   Rex? %@", bestRep);
+  return bestRep =
+             bestRep
+                 ? bestRep
+                 : [self bestRepresentationForRect:AZMakeRectFromSize(theSize)
+                                           context:AZGRAPHICSCTX
+                                             hints:nil]; //   QSLog(@"unable to
+                                                         // find reps %@",
+                                                         // reps);
+  return nil;
+}
+
+
+//- (NSBitmapImageRep*) bitmap;
+//@prop_RO NSBIR * quantizerRepresentation;
+//- (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
+
 @end
 
-@interface NSGraphicsContext (AtoZ)
-+ (void) addNoiseToContext;
+@implementation NSImage (CGImageConversion)
+
+- (NSBIR*) bitmap   {
+  // returns a 32-bit bitmap rep of the receiver, whatever its original format.
+  // The image rep is not added to the image.
+  NSSZ size = [self size];
+  int rowBytes = ((int)(ceil(size.width)) * 4 + 0x0000000F) &
+                 ~0x0000000F; // 16-byte aligned
+  int bps = 8, spp = 4, bpp = bps * spp;
+
+  // NOTE: These settings affect how pixels are converted to NSColors
+  NSBIR *imageRep =
+      [NSBIR.alloc initWithBitmapDataPlanes:nil
+                                            pixelsWide:size.width
+                                            pixelsHigh:size.height
+                                         bitsPerSample:bps
+                                       samplesPerPixel:spp
+                                              hasAlpha:YES
+                                              isPlanar:NO
+                                        colorSpaceName:NSCalibratedRGBColorSpace
+                                          bitmapFormat:NSAlphaFirstBitmapFormat
+                                           bytesPerRow:rowBytes
+                                          bitsPerPixel:bpp];
+
+  if (!imageRep)
+    return nil;
+
+  NSGraphicsContext *imageContext =
+      [NSGraphicsContext graphicsContextWithBitmapImageRep:imageRep];
+
+  [NSGraphicsContext saveGraphicsState];
+  [NSGraphicsContext setCurrentContext:imageContext];
+  [self drawAtPoint:NSZeroPoint
+           fromRect:NSZeroRect
+          operation:NSCompositeCopy
+           fraction:1.0];
+  [NSGraphicsContext restoreGraphicsState];
+
+  return imageRep;
+}
+
+- (CGIREF) cgImage  {
+  NSBIR *bm = [self bitmap]; // data provider will release this
+  int rowBytes, width, height;
+
+  rowBytes = [bm bytesPerRow];
+  width = [bm pixelsWide];
+  height = [bm pixelsHigh];
+
+  CGDataProviderRef provider =
+      CGDataProviderCreateWithData((__bridge void*) bm, [bm bitmapData],
+                                   rowBytes * height, BitmapReleaseCallback);
+  CGColorSpaceRef colorspace =
+      CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
+  CGBitmapInfo bitsInfo = kCGImageAlphaLast;
+
+  CGImageRef img =
+      CGImageCreate(width, height, 8, 32, rowBytes, colorspace, bitsInfo,
+                    provider, NULL, NO, kCGRenderingIntentDefault);
+
+  CGDataProviderRelease(provider);
+  CGColorSpaceRelease(colorspace);
+
+  return img;
+}
+*/
 @end
+
+//@interface NSImageView (AtoZ)
+//+(NSIV*)imageViewWithImage:(NSIMG*)img ;
+//+(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
+//@end
+//
+//@interface NSGraphicsContext (AtoZ)
+//+ (void) addNoiseToContext;
+//@end
+
+
 #endif
+
+

@@ -1,25 +1,24 @@
 
-@import             AtoZTouch ;
-@interface RootViewController : UITableViewController             @end
-@interface        AppDelegate : NSObject <UIApplicationDelegate>; @end
-
-@implementation AppDelegate { UIWindow *_window; }
+@import        AtoZTouch ;
+@Desc RootViewController : UITableViewController       @Stop
+@Desc        AppDelegate : NSO <UIApplicationDelegate> @Stop
+@Impl        AppDelegate { _Wind _window; }
 
 - _IsIt_ application:_Appl_ app didFinishLaunchingWithOptions:_Dict_ lopts {
 
-	_window = [Wind.alloc initWithFrame:UIScreen.mainScreen.bounds];
-	RootViewController *rootViewController = [RootViewController.alloc initWithStyle:UITableViewStylePlain];
-	UINavigationController *navigationController = [UINavigationController.alloc initWithRootViewController:rootViewController];
-	_window.rootViewController = navigationController;
+                        _window = INIT_(Wind,WithFrame:AZScreenFrame());
+	RootViewController     * root = INIT_(RootViewController,WithStyle:UITableViewStylePlain);
+	UINavigationController * navC = INIT_(UINavigationController,WithRootViewController:root);
+	_window.rootViewController = navC;
 	[_window makeKeyAndVisible];
 
   dispatch_async(dispatch_get_main_queue(), ^{
 
-    fprintf(stderr,"Hay %lu applications!\n", _ULng_ AZApplicationList.sharedApplicationList.applications.allKeys.count);
-    [rootViewController.tableView reloadData];
+    NSLog(@"Hay %@ applications!\n", @(AZAppList.list.apps.allKeys.count));
+    [root.tableView reloadData];
 
     AtoZTouchWelcome();
-    fprintf(stderr,"classes: %s", NSO.subclasses.joinedByNewlines.UTF8String);
+    NSLog(@"classes: %@", NSO.subclasses.joinedByNewlines);
   });
 
 	return YES;

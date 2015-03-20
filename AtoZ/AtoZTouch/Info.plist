@@ -20,6 +20,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>201503131144</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSPrincipalClass</key>
 	<string></string>
 	<key>TIMESTAMP</key>

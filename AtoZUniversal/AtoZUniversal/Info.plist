@@ -19,8 +19,10 @@
 	<key>CFBundleSignature</key>
 	<string>ATOZ</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>3</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 Alex Gray. All rights reserved.</string>
+	<key>__TIMESTAMP__</key>
+	<string>Fri Mar 20 19:42:18 EDT 2015</string>
 </dict>
 </plist>

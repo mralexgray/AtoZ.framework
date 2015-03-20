@@ -4,7 +4,7 @@
 _Type NS_ENUM(_UInt,AZAppIconSize){  AZAppIconSizeSmall = 29,
                                      AZAppIconSizeLarge = 59  };
 
-@Desc AZAppList : NSO + _Kind_ list; _RO _Dict apps;
+@Desc AZAppList : NSO + _Kind_ list; _RO _Dict apps; _RO _UInt appCount;
 
 - _List_ appsFilteredUsingPredicate:(NSPredicate*)predicate;
 

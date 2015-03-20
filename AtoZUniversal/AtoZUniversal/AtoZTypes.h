@@ -14,6 +14,7 @@ typedef void (^URLBlk)      (_NUrl u);
 typedef void (^NumBlk)      (_Numb n);
 typedef void (^DBlk)        (_Dict d);
 typedef void (^RBlk)        (_Rect r);
+typedef void (^QBlk)        (_IsIt QBlk);
 
 
 typedef void (^ObjObjBlk)   (id x1, id x2);

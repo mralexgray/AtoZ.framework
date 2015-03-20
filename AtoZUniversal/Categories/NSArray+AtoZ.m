@@ -48,7 +48,7 @@
 
 #pragma mark -  FakeArray
 
-- (int) indexOfObject: x { return [_storage keyForObjectEqualTo:x].intValue; }
+- _UInt_ indexOfObject: x { return [_storage keyForObjectEqualTo:x].intValue; }
 
 /*
 + (void) test {
@@ -469,10 +469,12 @@ NSA* SortersForKeysAsc(NSString*sort, BOOL order, ...) {
   [self eachWithIndex:^(id obj, NSI idx) {                NSLog(@"Index %ld: %@", (long)idx, obj);  }];
 }
 + (NSA*) arrayFromPlist:(NSS*) path {
-  return [NSPropertyListSerialization propertyListWithData:
-          [NSData dataWithContentsOfFile:path] options:NSPropertyListImmutable format:nil error:nil];
+//  NSParameterAssert(path);
+//  NSParameterAssert([FM fileExistsAtPath:path]);
+  id d = [NSData dataWithContentsOfFile:path];
+  NSAssert(d, @"couldnt get data from supposed plist, %@!", path);
+  return [NSPropertyListSerialization propertyListWithData:d options:NSPropertyListImmutable format:nil error:nil] ?: @[];
           //  mutabilityOption:NSPropertyListImmutable
-//                                                     format:nil  errorDescription:nil];
 }
 - _Void_ saveToPlistAtPath:(NSS*) path {
   //	[HRCoder archiveRootObject:self toFile:path];

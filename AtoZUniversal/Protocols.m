@@ -27,19 +27,24 @@
 @end
 
 @concreteprotocol(FakeArray)
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
+
+- _UInt_ countByEnumeratingWithState:(NSFastEnumerationState*)state objects:(id __unsafe_unretained [])buffer count:_UInt_ len {
 
   return [self.enumerator countByEnumeratingWithState:state objects:buffer count:len];
 }
-- (id<NSFastEnumeration>)enumerator { DEMAND_CONFORMANCE; return (id)nil; }
-- (int) indexOfObject:(id)x { DEMAND_CONFORMANCE; return NSNotFound; }
-/*! @required - (int) idexOfObject:(id)x; */
+
+- (P(NSFastEnumeration))enumerator { DEMAND_CONFORMANCE; return (id)nil; }
+
+- _UInt_ indexOfObject:_ { DEMAND_CONFORMANCE; return NSNotFound; }
+
+/// @note @required - (int) idexOfObject:(id)x;
 
 - _Void_ eachWithIndex:(ObjIntBlk)block {
 
-    for (id x in self) { int idx = [self indexOfObject:x]; if (idx != (int)NSNotFound) block(x,idx); }
+    for (_ObjC x in self) { _UInt idx;  if ((idx = [self indexOfObject:x]) != NSNotFound) block(x,idx); }
 }
 - _Void_ do:(void(^)(id obj))block { for (id z in self) block(z); }
+
 @end
 
 

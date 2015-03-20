@@ -1,7 +1,5 @@
 
 
-#import <UIKit/UIKit.h>
-
 #ifndef AtoZ_AZTMacroDefines_h
 #define AtoZ_AZTMacroDefines_h
 
@@ -50,21 +48,6 @@ int main(int argc, char **argv) {	int ret;	@autoreleasepool { \
 #else
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #endif

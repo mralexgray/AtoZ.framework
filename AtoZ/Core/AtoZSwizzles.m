@@ -317,7 +317,7 @@ __attribute__((constructor)) static void do_the_swizzles() {
   if(path && ((nameToImageDict[name] = (image = [NSImage.alloc initByReferencingFile:path]))))		// file really exists
     [image setName:name];	// will save in __nameToImageDict - and increment retain count   [image autorelease];	// don't leak if everything is released - unfortunately we are never deleted from the image cache
 
-  image = image ?: [self.class.monoIcons objectWithValue:name forKey:@"name"];
+  image = image ?: [[self monoIcons] objectWithValue:name forKey:@"name"];
 
   if(!image)	nameToImageDict[name] = AZNULL;	// save a tag that we don't know the image
 

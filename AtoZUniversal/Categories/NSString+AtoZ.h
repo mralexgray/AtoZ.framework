@@ -2,16 +2,17 @@
 
 #import <AtoZUniversal/AtoZMacroDefines.h>
 
-@interface NSAttributedString (NTExtensions)
+@Category(NSAS,NTExtensions)
 
-+ (INST) stringWithString:_Text_ inString attributes:_Dict_ attributes;
++ _Kind_ stringWithString:_Text_ _ attributes:_Dict_ attrs;
 
-@end
+@CategoryEnd(NSAS,NTExtensions)
 
 /// @see NSString-Utilities.h in CocoaTechCore!!
 
 @class AZDefinition;
-@interface NSString (AtoZ)
+
+@Category(Text,AtoZ)
 
 _RO Class classified;
 
@@ -20,17 +21,15 @@ _RO Class classified;
 + _List_ lettersAndNumbers; /// A-Z + 1-9
 
 _RO  _IsIt    isInteger,
-             isValidURL;
-
+              isValidURL;
 _P   _Rnge	  subRange;
-_RO _Rnge    range;
+_RO  _Rnge    range;
 
 - _Void_ openInTextMate;
 
 - _Comp_ compareNumberStrings: _Text_ str;
 - _Text_ justifyRight: _UInt_ col;
 - _Text_   withFormat: _Text_ format,...;
-
 
 #pragma mark - Parsing / Cleaning
 @prop_RO _Text JSONRepresentation,
@@ -39,6 +38,7 @@ _RO _Rnge    range;
 							 stringByStrippingHTML,
 							 unescapeQuotes,
 							 stripHtml,
+               tidyHTML,
 							 decodeHTMLCharacterEntities,
 							 encodeHTMLCharacterEntities,
 							 escapeUnicodeString,
@@ -55,8 +55,6 @@ _RO _Rnge    range;
 
 - _Text_ parseXMLTag: _Text_ tag;
 
-//- (NSS*)decodeAllPercentEscapes;
-
 #pragma mark - LEXICONS
 
 + _Text_ newUniqueIdentifier;
@@ -64,12 +62,9 @@ _RO _Rnge    range;
 + _List_ testDomains;
 + _List_ weirdUnicodes;
 
-@property (readonly) NSA* letters;
+_RC _List letters;
 
 - _Text_ times:(int)count;
-- _Text_ tidyHTML;
-- _Text_ decodeHTMLCharacterEntities;
-- _Text_ encodeHTMLCharacterEntities;
 
 + _Text_ dicksonBible;
 + _List_ dicksonisms;
@@ -85,22 +80,20 @@ _RO _Rnge    range;
 
 + _Dict_ properNamesByLetter;
 + _List_ properNames;
-/** A "random" Wiipedia definition.. from some list of words I rustle up, from somewhere..
-  * @exception Still gives you a string, but it will say something like "No Wikipedia Entry for adenomyxosarcoma!"
 
+/*! A "random" Wiipedia definition.. from some list of words I rustle up, from somewhere..
+  * @exception Still gives you a string, but it will say something like "No Wikipedia Entry for adenomyxosarcoma!"
     NSString.randomWiki ->
     subinfeudation: In English law, subinfeudation is the practice by which tenants, holding land under the king or other superior lord, carved out new and distinct tenures in their turn by sub-letting or alienating a part of their lands. The tenants were termed "mesne-lords," with regard to those holding from them, the immediate tenant being tenant in capite. The lowest tenant of all was the freeholder, or, as he was sometimes termed tenant paravail. The Crown, who in theory owned all lands, was lord paramount.
 */
 + _Text_ randomWiki;
 
-/** A smartly parsed + concise "Wikipedia" "definition" of an NSString instance.
- *  @see NSString wikiDescription
-    @"apple".wikiDescription ->
-    Apple Inc. is an American multinational corporation that designs and sells consumer electronics, computer software, and personal computers. The company's best-known hardware products are the Macintosh line of computers, the iPod, the iPhone and the iPad.
+/*! A cleverly parsed + concise "Wikipedia" "definition" of an NSString instance.  Feature it, honey! CHIC. @see NSString wikiDescription
+    @c @"apple".wikiDescription -> Apple Inc. is an American multinational corporation that designs and sells consumer electronics, computer software, and personal computers. The company's best-known hardware products are the Macintosh line of computers, the iPod, the iPhone and the iPad.
 */
-@prop_RO _Text wikiDescription;
+_RO _Text wikiDescription;
 
-/** @return A "random" word, like _dehydrogenate_ fetched from the kind folks at http://randomword.setgetgo.com/get.php */
+/// A "random" word, like _dehydrogenate_ fetched from the kind folks at http://randomword.setgetgo.com/get.php
 + _Text_ randomWord;
 
 
@@ -139,20 +132,21 @@ _RO _Rnge    range;
 - _Text_ stringByReplacingAnyOf:(NSA*)strings withString:(NSS*)fix;
 - _Text_ stringByReplacingAllOccurancesOfString: _Text_ search withString: _Text_ replacement;
 
-- _Text_ substringToLastCharacter;
 - (NSN*) numberValue;
 
-AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
+_RC _Text firstLetter,
+          lastLetter,
+          language,
+          substringToLastCharacter,
+          trim,           // Returns the string cleaned from leading and trailing whitespaces */
+          reversed,       // Returns the reverse version of the string */
+          shifted,        // Returns the substring after the first character in this string */
+          popped,         // Returns the substring not containing the last character of this string */
+          chopped,        // Combination of shifted and popped, removes the first and last character */
+          camelized,      // Returns a CamelCase Version of this string */
+          hyphonized,
+          underscored;
 
-
-@prop_RO	NSS * trim,				/*** Returns the string cleaned from leading and trailing whitespaces */
-							 * reversed,		/*** Returns the reverse version of the string */
-							 *	shifted,			/*** Returns the substring after the first character in this string */
-							 * popped,			/*** Returns the substring not containing the last character of this string */
-							 * chopped,			/*** Combination of shifted and popped, removes the first and last character */
-							 * camelized,		/*** Returns a CamelCase Version of this string */
-							 * hyphonized,
-							 * underscored;
 @prop_RO BOOL   isHexString,
                          isEmpty;		/*** Returns YES if this string is nil or contains nothing but whitespaces */
 @prop_RO NSUI   indentationLevel;									/*** Counts the whitespace chars that prefix this string */
@@ -160,33 +154,29 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 - (NSUI)count:(NSS*)aString options:(NSStringCompareOptions)flags; 	/*** Cunts occurrences of a given string with sone compare options */
 
 /* NOTICE nil and @"" are never part of any compared string */
-- (BOOL)      contains:(NSS*)s; /*! YES when aString is part of the this string. */
-- (BOOL) containsAnyOf:(NSA*)a;	/*! YES when this string contains ANY of the strings defined in the array */
-- (BOOL) containsAllOf:(NSA*)a; /*! YES when this string contains ALL of the strings defined in the array */
-- (BOOL)    startsWith:(NSS*)s;	/*! YES when this string starts with aString, just a synonym for hasPrefix */
-- (BOOL)      endsWith:(NSS*)s;	/*! YES when this string ends with aString, just a synonym for hasSuffix */
-- (BOOL)     hasPrefix:(NSS*)p
+- _IsIt_      contains:(NSS*)s; /*! YES when aString is part of the this string. */
+- _IsIt_ containsAnyOf:(NSA*)a;	/*! YES when this string contains ANY of the strings defined in the array */
+- _IsIt_ containsAllOf:(NSA*)a; /*! YES when this string contains ALL of the strings defined in the array */
+- _IsIt_    startsWith:(NSS*)s;	/*! YES when this string starts with aString, just a synonym for hasPrefix */
+- _IsIt_      endsWith:(NSS*)s;	/*! YES when this string ends with aString, just a synonym for hasSuffix */
+- _IsIt_     hasPrefix:(NSS*)p
              andSuffix:(NSS*)s; /*! YES when this string has both given prefix and suffix */
 
 /*** Substring between prefix and suffix. If either prefix or suffix cannot be matched nil will be returned */
-- (NSS*) substringBetweenPrefix:(NSS*)p andSuffix:(NSS*)s;
+- _Text_ substringBetweenPrefix:(NSS*)p andSuffix:(NSS*)s;
 /*** Oldscool indexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
--  (NSI) indexOf:(NSS*)s;
--  (NSI) indexOf:(NSS*)s afterIndex:(NSI)i;
+- _SInt_ indexOf:(NSS*)s;
+- _SInt_ indexOf:(NSS*)s afterIndex:(NSI)i;
 /*** Oldscool lastIndexOf, if you do not want to handle NSRange objects will return -1 instead of NSNotFound */
--  (NSI) lastIndexOf:(NSS*)aString;
+- _SInt_ lastIndexOf:(NSS*)aString;
 /*** Returns the first NSRange of any matching substring in this string that is part of the strings set */
-- (NSRNG) rangeOfAny:(NSSet*)strings;
-/*** Returns this string splitted by lines. * Shortcut for componentsSeperatedByString:@"\n" */
-@prop_RO NSA * lines;
-/*** Returns this string splitted by carriage return + newline. * Shortcut for componentsSeperatedByString:@"\r\n" */
-@prop_RO NSA *eolines;
+- _Rnge_ rangeOfAny:(NSSet*)strings;
 
+_RC _List lines,    // this string splitted by lines. * Shortcut for componentsSeperatedByString:@"\n"
+          eolines,  // this string splitted by carriage return + newline. * Shortcut for componentsSeperatedByString:@"\r\n"
+          words,    // this string splitted by whitespaces.  Shortcut for componentsSeperatedByString:@" " Empty elements will not be part of the array
+          wordsWithRanges;
 
-
-/*** Returns this string splitted by whitespaces.  Shortcut for componentsSeperatedByString:@" " Empty elements will not be part of the array */
-@prop_RO NSA * words;
-@prop_RO NSA * wordsWithRanges;
 /*** Returns a set with all unique elements of this String, separated by whitespaces */
 @prop_RO NSSet *wordSet;
 
@@ -219,11 +209,11 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 //- (NSAS*) attributedWithSize: (NSUI)size andColor: (NSC*)color;
 - (NSAS*) attributedWith:(NSD*)attrs;
 - (NSAS*) attributedWithFont:(NSF *)font andColor:(NSC *)color;
-- (NSMAS*) attributedParagraphWithSpacing:(CGF)spacing;
+- (NSMAS*) attributedParagraphWithSpacing:_Flot_ spacing;
 - _Text_ truncatedForRect:(NSR)frame withFont:(NSF *)font;
-//-(NSMutableAttributedString *) attributedParagraphWithSpacing:(CGF)spacing
+//-(NSMutableAttributedString *) attributedParagraphWithSpacing:_Flot_ spacing
 
-- _Text_ truncateInMiddleForWidth:(CGF)overall;
+- _Text_ truncateInMiddleForWidth:_Flot_ overall;
 - _Text_ truncateInMiddleToCharacters:(NSUI)chars;
 
 #if MAC_ONLY
@@ -233,7 +223,7 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 - _Size_ sizeWithFont: _Font_ font;
 - _Size_ sizeWithFont: _Font_ font margin: _Size_ size;
 
-- (CGF)widthWithFont: _Font_ font;
+- _Flot_ widthWithFont: _Font_ font;
 - (NSR)frameWithFont: _Font_ font;
 
 //@prop_RO NSC *colorValue;
@@ -244,6 +234,8 @@ AZPROPERTY(NSS, RO, *firstLetter, *lastLetter, *language);
 - _Void_ drawCenteredInRect:(NSR)rect withFont: _Font_ font;
 
 #endif
+//- _Text_ decodeAllPercentEscapes;
+
 @end
 // Truncate a string by inserting an ellipsis ("..."). truncateMode can be NSLineBreakByTruncatingHead, NSLineBreakByTruncatingMiddle or NSLineBreakByTruncatingTail.
 NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float wid, NSLineBreakMode truncateMode);
@@ -263,7 +255,7 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 @end
 /**
 @interface NSString (RuntimeReporting)
-- (BOOL) hasSubclasses;
+- _IsIt_ hasSubclasses;
 - (NSA*) subclassNames;
 - (NSA*) methodNames;
 - (NSA*) ivarNames;
@@ -272,25 +264,34 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 @end
 */
 
-@Kind NSMutableAttributedString (AtoZ)
+@Category(NSMAS,AtoZ)
+
 - _Void_ resizeTo:_Flot_ size;
 - _Void_ setFont:(NSFont*)f;
-@Stop
 
-@Kind NSAttributedString (AtoZ)
-@prop_RO NSRNG range;
+@CategoryEnd(NSMAS,AtoZ)
+
+@Category(NSAS, AtoZ)
+
+_RO _Rnge range;
+_RO _Font font;
+_RO NSMD * attributes;
+
 - _Flot_ pointSizeForSize:_Size_ z;
-- _Void_ drawInRect:_Rect_ r withBackground:_Colr_ c;
 - _Void_ drawInRect:_Rect_ r withContrastingBackground:_Colr_ c;
 - _Void_ drawInRect:_Rect_ r aligned:(AZA)a bgC:_Colr_ c;
+#if MAC_ONLY
+- _Void_ drawInRect:_Rect_ r withBackground:_Colr_ c;
 - _Void_ draw;
-
-@prop_RO NSFont * font;
-@prop_RO   NSMD * attributes;
-
+- _Colr_ color;
+#endif
 + _Dict_ defaults;
+
 - (NSAS*) stringBySettingAttributes:(NSD*)attr;
-@end
+
+- (NSAS*)attributedStringWithColor:_Colr_ color;
+
+@CategoryEnd(NSAS, AtoZ)
 
 
 /* SUMMARY
@@ -341,26 +342,26 @@ extern int gNSStringGeometricsTypesetterBehavior;
 - _Void_ drawCenteredVerticallyInRect:(NSRect)rect;
 
 // Measuring Attributed Strings
-- (NSSize)sizeForWidth:	(CGF)width height:(CGF)height;
-- (CGF)heightForWidth:(CGF)width;
-- (CGF)widthForHeight:(CGF)height;
+- (NSSize)sizeForWidth:	(CGF)width height:_Flot_ height;
+- _Flot_ heightForWidth:_Flot_ width;
+- _Flot_ widthForHeight:_Flot_ height;
 
 @end
 
 @interface NSString (Geometrics)
 
 // Measuring a String With Attributes
-- (NSSize)sizeForWidth: (CGF)width
-					 height: (CGF)height attributes:(NSD*)attributes;
-- (CGF)heightForWidth:(CGF)width  attributes:(NSD*)attributes;
-- (CGF)widthForHeight:(CGF)height attributes:(NSD*)attributes;
+- (NSSize)sizeForWidth:_Flot_ width
+					 height:_Flot_ height attributes:(NSD*)attributes;
+- _Flot_ heightForWidth:_Flot_ width  attributes:(NSD*)attributes;
+- _Flot_ widthForHeight:_Flot_ height attributes:(NSD*)attributes;
 
 // Measuring a String with a constant Font
 //- (NSSize)sizeInSize: (NSSize)size      font: (NSFont*)font;
 
-- (NSSize)sizeForWidth:(CGF)width height:(CGF)height font:(NSFont *)font;
-- (CGF)heightForWidth:(CGF)width font:(NSFont *)font;
-- (CGF)widthForHeight:(CGF)height font:(NSFont *)font;
+- (NSSize)sizeForWidth:_Flot_ width height:_Flot_ height font:(NSFont *)font;
+- _Flot_ heightForWidth:_Flot_ width font:(NSFont *)font;
+- _Flot_ widthForHeight:_Flot_ height font:(NSFont *)font;
 
 @end
 
@@ -404,20 +405,20 @@ extern int gNSStringGeometricsTypesetterBehavior;
 @interface NSString (Extensions)
 
 -  (BOOL) hasCaseInsensitivePrefix:(NSS*) prefix;
--  (NSS*) urlEscapedString;                      // Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
--  (NSS*) unescapeURLString;                     // Uses UTF-8 encoding
--  (NSS*) extractFirstSentence;
+- _Text_ urlEscapedString;                      // Uses UTF-8 encoding and also escapes characters that can confuse the parameter string part of the URL
+- _Text_ unescapeURLString;                     // Uses UTF-8 encoding
+- _Text_ extractFirstSentence;
 -  (NSA*) extractAllSentences;
 - (NSIS*) extractSentenceIndices;
--  (NSS*) stripParenthesis;                      // Remove all parenthesis and their content
+- _Text_ stripParenthesis;                      // Remove all parenthesis and their content
 -  (BOOL) containsString:(NSS*) string;
 -  (NSA*) extractAllWords;
 - (NSRNG) rangeOfWordAtLocation:(NSUI)location;
 - (NSRNG) rangeOfNextWordFromLocation:(NSUI)location;
--  (NSS*) stringByDeletingPrefix:(NSS*) prefix;
--  (NSS*) stringByDeletingSuffix:(NSS*) suffix;
--  (NSS*) stringByReplacingPrefix:(NSS*) prefix withString:(NSS*) string;
--  (NSS*) stringByReplacingSuffix:(NSS*) suffix withString:(NSS*) string;
+- _Text_ stringByDeletingPrefix:(NSS*) prefix;
+- _Text_ stringByDeletingSuffix:(NSS*) suffix;
+- _Text_ stringByReplacingPrefix:(NSS*) prefix withString:(NSS*) string;
+- _Text_ stringByReplacingSuffix:(NSS*) suffix withString:(NSS*) string;
 
 @prop_RO NSA *sentences;
 @prop_RO NSS *firstSentence;
@@ -429,12 +430,12 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 // Utility function to convert KVC values into property-style values
 @interface NSString (AQPropertyKVC)
-- (NSS*) propertyStyleString;
+- _Text_ propertyStyleString;
 @end
 
 @interface NSString (SGSAdditions)
 
-- (NSS*) truncatedToWidth:(CGF)width withAttributes:(NSD *)attributes;
+- _Text_ truncatedToWidth:_Flot_ width withAttributes:(NSD *)attributes;
 
 @end
 
@@ -534,7 +535,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [stringWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
-- (NSS*)format: first, ...;
+- _Text_ format: first, ...;
 /*!
  *  @brief Returns a string made by using self as a format string template into which the remaining argument values are substituted.
  *  @param dummyLikeNil Do nothing. Value will be ignored. This is placeholder
@@ -545,7 +546,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [stringWithFormat:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/clm/NSString/stringWithFormat:
  */
-- (NSS*)format0: dummyLikeNil, ...;
+- _Text_ format0: dummyLikeNil, ...;
 
 /*! @name Range */
 
@@ -564,7 +565,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [substringWithRange:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
  */
-- (NSS*)substringFromIndex:(NSUInteger)from length:(NSUInteger)length;
+- _Text_ substringFromIndex:(NSUInteger)from length:(NSUInteger)length;
 /*!
  *  @brief Returns a new string containing the characters of the receiver from the one at a given index to the other given index.
  *  @param from An index. The value must lie within the bounds of the receiver, or be equal to the length of the receiver.
@@ -573,7 +574,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @see [substringWithRange:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/substringWithRange:
  */
-- (NSS*)substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
+- _Text_ substringFromIndex:(NSUInteger)from toIndex:(NSUInteger)to;
 
 @end
 
@@ -588,20 +589,20 @@ extern int gNSStringGeometricsTypesetterBehavior;
  *  @brief Creates and returns an NSString object initialized by converting given data into Unicode characters using UTF8 encoding.
  *  @see @ref NSString(Creations)::stringWithData:encoding:
  */
-+ (NSS*)stringWithUTF8Data:(NSData *)data;
++ _Text_ stringWithUTF8Data:(NSData *)data;
 
 /*!
  *  @brief Returns a representation of the receiver using UTF8 encoding to determine the percent escapes necessary to convert the receiver into a legal URL string.
  *  @see [stringByAddingPercentEscapesUsingEncoding:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
  */
-- (NSS*)stringByAddingPercentEscapesUsingUTF8Encoding;
+- _Text_ stringByAddingPercentEscapesUsingUTF8Encoding;
 /*!
  *  @brief Returns a new string made by replacing in the receiver all percent escapes with the matching characters as determined by UTF8 encoding.
  *  @see [stringByReplacingPercentEscapesUsingEncoding:][0]
  *	  [0]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByAddingPercentEscapesUsingEncoding:
  */
-- (NSS*)stringByReplacingPercentEscapesUsingUTF8Encoding;
+- _Text_ stringByReplacingPercentEscapesUsingUTF8Encoding;
 
 /*!
  *  @brief Returns an NSData object containing a representation of the receiver encoded using UTF8 encoding.
@@ -642,29 +643,25 @@ extern int gNSStringGeometricsTypesetterBehavior;
 @prop_RO NSS * stringWithoutSpaces,  * stringByRemovingExtraneousWhitespace, * MD5, * URLEncodedString,
                       * normalizedString,     * upperBoundsString,                    * spaceSeparatedComponents;
 
-- (NSS*)stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
-- (NSS*)stringByRemovingNonAlphanumbericCharacters;
-+ (NSS*)stringFromFileSize:(NSUInteger)theSize;
-- (NSS*)URLEncodedStringForCharacters:(NSS*)characters;
-+ (NSS*)timeStringForTimeInterval:(NSTimeInterval)interval;
-+ (NSS*)humanReadableStringForTimeInterval:(NSTimeInterval)interval;
-+ (NSS*)randomUUID;
+- _Text_ stringByFilteringToCharactersInSet:(NSCharacterSet *)set;
+- _Text_ stringByRemovingNonAlphanumbericCharacters;
++ _Text_ stringFromFileSize:(NSUInteger)theSize;
+- _Text_ URLEncodedStringForCharacters:(NSS*)characters;
++ _Text_ timeStringForTimeInterval:(NSTimeInterval)interval;
++ _Text_ humanReadableStringForTimeInterval:(NSTimeInterval)interval;
++ _Text_ randomUUID;
 + (NSData*)HMACSHA256EncodedDataWithKey:(NSS*)key data:(NSS*)data;
 @end
 
-@interface NSAttributedString (SNRAdditions)
-- (NSAttributedString *)attributedStringWithColor:(NSColor *)color;
-- (NSColor *)color;
-@end
 
 @interface NSString (IngredientsUtilities)
 
-- (BOOL) startsWith:(NSS*)s;
-- (BOOL) containsString:(NSS*)s;
-- (BOOL) caseInsensitiveContainsString:(NSS*)s;
-- (BOOL) caseInsensitiveHasPrefix:(NSS*)s;
-- (BOOL) caseInsensitiveHasSuffix:(NSS*)s;
-- (BOOL) isCaseInsensitiveEqual:(NSS*)s;
+- _IsIt_ startsWith:(NSS*)s;
+- _IsIt_ containsString:(NSS*)s;
+- _IsIt_ caseInsensitiveContainsString:(NSS*)s;
+- _IsIt_ caseInsensitiveHasPrefix:(NSS*)s;
+- _IsIt_ caseInsensitiveHasSuffix:(NSS*)s;
+- _IsIt_ isCaseInsensitiveEqual:(NSS*)s;
 
 @end
 
@@ -688,13 +685,13 @@ extern int gNSStringGeometricsTypesetterBehavior;
  * @param keyCode The key code to make into a string.
  * @returns The string representation of the key code.
  */
-+ (NSS*)stringWithKeyCode:(NSInteger)keyCode;
++ _Text_ stringWithKeyCode:(NSInteger)keyCode;
 
 /** Return the string representation of a key sequence.
  * @param keySequence An array of NSNumbers representing key codes.
  * @returns The string representation of the key codes.
  */
-+ (NSS*)stringWithKeySequence:(NSA*)keySequence;
++ _Text_ stringWithKeySequence:(NSA*)keySequence;
 
 /**
  * @returns YES if the string is in uppercase.
@@ -706,7 +703,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 @prop_RO NSA * keyCodes;
 
-+ (NSS*) visualStringWithKeySequence:(NSA*)keySequence;
++ _Text_ visualStringWithKeySequence:(NSA*)keySequence;
 @end
 
 
@@ -724,40 +721,24 @@ enum {
 };
 typedef int HFSplitRule;
 
-@interface NSString (HFExtension)
-/** @name Method Aliases */
+@interface NSString (HFExtension) /** @name Method Aliases */
 
-/** Method alias for method `uppercaseString`.
- */
-- (NSS*)toUpper;
+_RO _Text toUpper,        // alias for `uppercaseString`.
+          toLower,        // `lowercaseString`.
+          upCase,         // `uppercaseString`.
+          downCase,       // `lowercaseString`.
+          capitalize,     // `capitalizedString`.
+          decapitalized,  // decapitalies FIRST letter. useful for getting the getter from a setter!
+          baseName,       // alias for `lastPathComponent`. This is also a convenient method for baseNameWithExtension: when `YES` is passed to parameter `ext`.
+          dirName,        // Return the containing directory for a specific path.
+          strip,          //  Get rid of blank characters at the beginning and the end of a string object.
+          lstrip,         // Get rid of blank characters at the beginning of a string object. */
+          rstrip,         // Get rid of blank characters at the end of a string object.
 
-/** Method alias for method `lowercaseString`.
- */
-- (NSS*)toLower;
+          stringByDeletingPathComponentsWithoutExtensions;
 
-/** Method alias for method `uppercaseString`.
- */
-- (NSS*)upCase;
-
-/** Method alias for method `lowercaseString`.
- */
-- (NSS*)downCase;
-
-/** Method alias for method `capitalizedString`.
- */
-- (NSS*)capitalize;
-
-/** Method decapitalies FIRST letter. useful for getting the getter from a setter!
- */
-- (NSS*)decapitalized;
-
-/** Method alias for method `length`.
- */
-- (NSUInteger)size;
-
-/** Method alias for method `length`.
- */
-- (NSUInteger)count;
+_RO _UInt size,           // `length`.
+          count;          // `length`.
 
 /** @name Convinent Methods */
 
@@ -781,19 +762,12 @@ typedef int HFSplitRule;
  */
 - (NSA*)split:(NSS*)separator rule:(HFSplitRule)rule;
 
-/*! Method alias for `lastPathComponent`. This is also a convenient method for baseNameWithExtension: when `YES` is passed to parameter `ext`.
- */ @prop_RO NSS * baseName;
-/*! Return the containing directory for a specific path. 
- */ @prop_RO NSS * dirName;
-
-/*
-*/ @prop_RO NSS *stringByDeletingPathComponentsWithoutExtensions;
 @prop_RO NSIMG * iconForFile;
 
 /** Return the last path component with or without the file extension.
  @param ext A `BOOL` value which decide whether show the file extension or not.
  */
-- (NSS*) baseNameWithExtension:(BOOL)ext;
+- _Text_ baseNameWithExtension:(BOOL)ext;
 
 
 /** Return the character at the index of a string.
@@ -803,22 +777,13 @@ typedef int HFSplitRule;
  @param index The index inside a string.
  @return A string containing the characer at the specific `index`, or return `nil`.
  */
-- (NSS*)charStringAtIndex:(NSUInteger)index;
+- _Text_ charStringAtIndex:(NSUInteger)index;
 
 /** This method is used to found out whether the string only contains blank characers or nothing(a blank string).
 
  Since `nil` is not a `NSString` instance, this method can not be used to judge whether a string object is `nil`.
  */
 - (BOOL)isBlank;
-
-/** Get rid of blank characters at the beginning and the end of a string object. */
-- (NSS*)strip;
-
-/** Get rid of blank characters at the beginning of a string object. */
-- (NSS*)lstrip;
-
-/** Get rid of blank characters at the end of a string object. */
-- (NSS*)rstrip;
 
 @end
 
@@ -853,7 +818,7 @@ Implements fuzzy matching for strings.
  Returns 0.0 <= x <= 1.0.  0.0 == not equal (or error), 1.0 == equal.
  Uses Search Kit (a.k.a. AIAT, V-Twin) technology.
  */
-- (CGF)isSimilarToString:(NSS*)aString;
+- _Flot_ isSimilarToString:(NSS*)aString;
 
 @end
 
@@ -865,48 +830,50 @@ Implements fuzzy matching for strings.
 
 @interface NSString (DSCategory)
 /// @name General
-@property (nonatomic, readonly) NSRange range;
--(BOOL)isValid;
+_RO NSRange range;
+_RO BOOL isValid;
+
 /// @name White spaces
-- (NSString*)indentation;
-/// @name Regular Expressions
-/** Returns the substring matched by a regular expression pattern.
+_RO _Text indentation;
+
+/*!  @name Regular Expressions
+ @return the substring matched by a regular expression pattern.
  @param pattern The pattern to use for the match.
  @return Returns the substring of the pattern.
  @exception NSException Thrown if the pattern is `nil` or empty.
  */
-- (NSString*)matchForPattern:(NSString*)pattern;
+- _Text_ matchForPattern:(NSString*)pattern;
 
 /** Returns an array contianing the matches of a regular expression pattern.
  @param pattern The pattern to use for the match.
  @return An array of NSTextCheckingResult.
  @exception NSException Thrown if the pattern is `nil` or empty.
  */
-- (NSArray*)matchesForPattern:(NSString*)pattern;
+- _List_ matchesForPattern:(NSString*)pattern;
 /// @name Derived from Ruby
 @end
 
 
 @interface NSCharacterSet (GetCharacters)
 
-@prop_RO NSS * name;
-@prop_RO NSA * characters;
+_RO _Text name;
+_RO _List characters;
 
-+ (NSA*) alphanumericCharacters;
-+ (NSA*) capitalizedLetterCharacters;
-+ (NSA*) controlCharacters;
-+ (NSA*) decimalDigitCharacters;
-+ (NSA*) decomposableCharacters;
-+ (NSA*) illegalCharacters;
-+ (NSA*) letterCharacters;
-+ (NSA*) lowercaseLetterCharacters;
-+ (NSA*) newlineCharacters;
-+ (NSA*) nonBaseCharacters;
-+ (NSA*) punctuationCharacters;
-+ (NSA*) symbolCharacters;
-+ (NSA*) uppercaseLetterCharacters;
-+ (NSA*) whitespaceAndNewlineCharacters;
-+ (NSA*) whitespaceCharacters;
++ _List_ alphanumericCharacters;
++ _List_ capitalizedLetterCharacters;
++ _List_ controlCharacters;
++ _List_ decimalDigitCharacters;
++ _List_ decomposableCharacters;
++ _List_ illegalCharacters;
++ _List_ letterCharacters;
++ _List_ lowercaseLetterCharacters;
++ _List_ newlineCharacters;
++ _List_ nonBaseCharacters;
++ _List_ punctuationCharacters;
++ _List_ symbolCharacters;
++ _List_ uppercaseLetterCharacters;
++ _List_ whitespaceAndNewlineCharacters;
++ _List_ whitespaceCharacters;
 
 /** Print out all characters of any of these sets:
  + alphanumericCharacterSet
@@ -937,7 +904,7 @@ Implements fuzzy matching for strings.
 @end
 
 @interface NSScanner (NSScannerAdditions)
-- (BOOL) scanCharactersFromSet:(NSCharacterSet *) scanSet maxLength:(NSUInteger) length intoString:(NSS**) stringValue;
+- _IsIt_ scanCharactersFromSet:(NSCharacterSet *) scanSet maxLength:(NSUInteger) length intoString:(NSS**) stringValue;
 @end
 
 BOOL isValidUTF8( const char *string, NSUInteger length );
@@ -956,39 +923,39 @@ BOOL isValidUTF8( const char *string, NSUInteger length );
 #define isUTF8Cont(ch) (((ch) & 0xC0) == 0x80)
 
 @interface NSString (NSStringAdditions)
-+ (NSS*) locallyUniqueString;
++ _Text_ locallyUniqueString;
 - initWithChatData:(NSData *) data encoding:(NSStringEncoding) encoding;
-- (BOOL) isCaseInsensitiveEqualToString:(NSS*) string;
-- (BOOL) hasCaseInsensitivePrefix:(NSS*) prefix;
-- (BOOL) hasCaseInsensitiveSuffix:(NSS*) suffix;
-- (BOOL) hasCaseInsensitiveSubstring:(NSS*) substring;
-- (NSS*) stringByEncodingXMLSpecialCharactersAsEntities;
-- (NSS*) stringByDecodingXMLSpecialCharacterEntities;
-- (NSS*) stringByEscapingCharactersInSet:(NSCharacterSet *) set;
-- (NSS*) stringByReplacingCharactersInSet:(NSCharacterSet *) set withString:(NSS*) string;
-- (NSS*) stringByEncodingIllegalURLCharacters;
-- (NSS*) stringByDecodingIllegalURLCharacters;
-- (NSS*) stringByStrippingIllegalXMLCharacters;
-- (NSS*) stringByStrippingXMLTags;
+- _IsIt_ isCaseInsensitiveEqualToString:(NSS*) string;
+- _IsIt_ hasCaseInsensitivePrefix:(NSS*) prefix;
+- _IsIt_ hasCaseInsensitiveSuffix:(NSS*) suffix;
+- _IsIt_ hasCaseInsensitiveSubstring:(NSS*) substring;
+- _Text_ stringByEncodingXMLSpecialCharactersAsEntities;
+- _Text_ stringByDecodingXMLSpecialCharacterEntities;
+- _Text_ stringByEscapingCharactersInSet:(NSCharacterSet *) set;
+- _Text_ stringByReplacingCharactersInSet:(NSCharacterSet *) set withString:(NSS*) string;
+- _Text_ stringByEncodingIllegalURLCharacters;
+- _Text_ stringByDecodingIllegalURLCharacters;
+- _Text_ stringByStrippingIllegalXMLCharacters;
+- _Text_ stringByStrippingXMLTags;
 
-+ (NSS*) stringByReversingString:(NSS*) normalString;
-- (NSS*) stringWithDomainNameSegmentOfAddress;
-- (NSS*) fileName;
-- (BOOL) isValidIRCMask;
-- (NSS*) IRCNickname;
-- (NSS*) IRCUsername;
-- (NSS*) IRCHostname;
-- (NSS*) IRCRealname;
-- (BOOL) isMatchedByRegex:(NSS*) regex;
-- (BOOL) isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(_Errr __autoreleasing*) error;
-- (NSRange) rangeOfRegex:(NSS*) regex inRange:(NSRange) range;
-- (NSRange) rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(_Errr __autoreleasing*) error;
-- (NSS*) stringByMatching:(NSS*) regex capture:(NSInteger) capture;
-- (NSS*) stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(_Errr __autoreleasing*) error;
-- (NSArray *) captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(_Errr __autoreleasing*) error;
-- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement;
-- (NSS*) stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(_Errr __autoreleasing*) error;
-- (NSUInteger) levenshteinDistanceFromString:(NSS*) string;
++ _Text_ stringByReversingString:(NSS*) normalString;
+- _Text_ stringWithDomainNameSegmentOfAddress;
+- _Text_ fileName;
+- _IsIt_ isValidIRCMask;
+- _Text_ IRCNickname;
+- _Text_ IRCUsername;
+- _Text_ IRCHostname;
+- _Text_ IRCRealname;
+- _IsIt_ isMatchedByRegex:(NSS*) regex;
+- _IsIt_ isMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range error:(_Errr __autoreleasing*) error;
+- _Rnge_ rangeOfRegex:(NSS*) regex inRange:(NSRange) range;
+- _Rnge_ rangeOfRegex:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(_Errr __autoreleasing*) error;
+- _Text_ stringByMatching:(NSS*) regex capture:(NSInteger) capture;
+- _Text_ stringByMatching:(NSS*) regex options:(NSRegularExpressionOptions) options inRange:(NSRange) range capture:(NSInteger) capture error:(_Errr __autoreleasing*) error;
+- _List_ captureComponentsMatchedByRegex:(NSS*) regex options:(NSRegularExpressionOptions) options range:(NSRange) range error:(_Errr __autoreleasing*) error;
+- _Text_ stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement;
+- _Text_ stringByReplacingOccurrencesOfRegex:(NSS*) regex withString:(NSS*) replacement options:(NSRegularExpressionOptions) options range:(NSRange) searchRange error:(_Errr __autoreleasing*) error;
+- _UInt_ levenshteinDistanceFromString:(NSS*) string;
 @end
 
 @interface NSMutableString (NSMutableStringAdditions)

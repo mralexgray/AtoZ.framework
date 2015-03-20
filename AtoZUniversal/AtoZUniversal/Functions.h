@@ -6,8 +6,6 @@
 
 NSCharacterSet* _GetCachedCharacterSet(CharacterSet set);
 
-
-
 BOOL SameChar     (const char*,const char*);
 BOOL SameStringI  (NSS*,NSS*);
 BOOL SameString   (id,id);
@@ -31,3 +29,8 @@ NSS * AZStringFromSize            (_Size sz);
 
 _IsIt AZIsEqualToObject (const char * typCd, void * val, id x);
 //_ObjC  AZEncodeToObject (const char * typCd, void * val);
+
+#if MAC_ONLY
+NSString* NSStringFromCGRect(CGRect rect);
+NSString* NSStringFromCGPoint(CGPoint p);
+#endif

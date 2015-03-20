@@ -12,14 +12,7 @@
 
 - (void) update:(void(^)(UITableView*t)) block {
 
-  __block typeof(self) bSelf = self;
-
-  [bSelf beginUpdates];
-  {
-    block(bSelf);
-  }
-  [bSelf endUpdates];
-
+  __block UITableView* bSelf = self; [bSelf beginUpdates]; block(bSelf); [bSelf endUpdates];
 }
 
 
