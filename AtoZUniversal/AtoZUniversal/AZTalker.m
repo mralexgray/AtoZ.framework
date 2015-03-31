@@ -110,10 +110,10 @@ AZPROP(NSSpeechSynthesizer,talker);
 @interface VSSpeechSynthesizer : NSObject
 @property(assign) id delegate;
 @property(assign) float rate,volume;
--startSpeakingString:(NSString*)_;
--startSpeakingString:(NSString*)_ toURL:(CFURLRef)URL;
--startSpeakingString:(NSString*)_ toURL:(CFURLRef)URL error:(NSError*)e;
--startSpeakingString:(NSString*)_                     error:(NSError*)e;
+-startSpeakingString:(NSString*)__ _
+-startSpeakingString:(NSString*)__ toURL:(CFURLRef)URL;
+-startSpeakingString:(NSString*)__ toURL:(CFURLRef)URL error:(NSError*)e;
+-startSpeakingString:(NSString*)__                     error:(NSError*)e;
 @end
 
 @interface SpeechSynthesizerDelegate : NSObject @end @implementation SpeechSynthesizerDelegate

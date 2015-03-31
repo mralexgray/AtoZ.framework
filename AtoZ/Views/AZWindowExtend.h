@@ -21,9 +21,9 @@
 //@property (nonatomic, retain) IBOutlet NSTextField *coordinates;
 @property (weak) IBOutlet NSTextField *coordinates;
 
-@property (NATOM, ASS) 	 CGPoint point;
-@property (STR, NATOM) NSHashTable *eventViews;
-@property (STR, NATOM) NSView	*contentV;
+@property (NA, ASS) 	 CGPoint point;
+@property (STR, NA) NSHashTable *eventViews;
+@property (STR, NA) NSView	*contentV;
 
 //- (void)addEventView:(NSView *)aView;
 - (void)setAcceptsMouseMovedEvents:(BOOL)acceptMouseMovedEvents screen:(BOOL)anyWhere;

@@ -73,12 +73,12 @@
 	BOOL unselectOnMouseUp;
 	BOOL updatingData, calledReloadData;
 }
-@property (NATOM, ASS) BOOL magicSizing;
-@property (NATOM, ASS) float boxInset;
-@property (NATOM, ASS) float boxRadius;
-@property (NATOM, ASS) float scalar;
-@property (NATOM, ASS) NSUInteger numberOfColumns;
-@property (NATOM, ASS) NSUInteger numberOfRows;
+@property (NA, ASS) BOOL magicSizing;
+@property (NA, ASS) float boxInset;
+@property (NA, ASS) float boxRadius;
+@property (NA, ASS) float scalar;
+@property (NA, ASS) NSUInteger numberOfColumns;
+@property (NA, ASS) NSUInteger numberOfRows;
 
 //- (void)mouseDown:(NSEvent *)event;
 //- (void)mouseDragged:(NSEvent *)event;

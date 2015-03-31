@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 mrgray.com, inc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import AtoZUniversal;
 
 @interface AZIndexedObjects : NSObject
 
--   (id) objectAtIndex:	(NSUI)idx;
--  (NSI) indexOfObject:	(id)x;
-- (void) addObject:		(id)x;
-- (void) addObject:		(id)x 					atIndex:(NSI)idx;
-- (void) setObject:		(id)value atIndexedSubscript:(NSI)idx;
--   (id) objectAtIndexedSubscript:						  (NSI)idx;
+-   objectAtIndex:_UInt_ idx;
+- _SInt_ indexOfObject:x;
+- _Void_ addObject:x;
+- _Void_ addObject:x 					      atIndex:_SInt_ idx;
+- _Void_ setObject:value atIndexedSubscript:_SInt_ idx;
+-                  objectAtIndexedSubscript:_SInt_ idx;
 
 @end

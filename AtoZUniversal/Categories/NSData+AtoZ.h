@@ -1,27 +1,38 @@
 
-@IFCE Data (AtoZ)
-@prop_RO _Text UTF8String, UTF16String, ASCIIString;
-@FINI
 
-@IFCE Text (FromAtoZ)
 
-+ _Text_ stringFromArray: _List_ a;
-+ _Text_ stringFromArray: _List_ a    withSpaces: _IsIt_ spaces onePerline: _IsIt_ newl;
-+ _Text_ stringFromArray: _List_ a withDelimeter: _Text_ del         last: _Text_ last; // needs blockskit
+@Xtra(Data,AtoZ) _RO _Text UTF8String, UTF16String, ASCIIString; @end
 
-@prop_RO _IsIt  isIntegerNumber,
-                isFloatNumber;
+@Xtra(Text,FromAtoZ)
 
-- _Text_ withString: _Text_ s;
-- _Text_   withPath: _Text_ p;
-- _Text_    withExt: _Text_ x;
++ _Text_ stringFromArray:_List_ __ _
++ _Text_ stringFromArray:_List_ __    withSpaces:_IsIt_ spcs onePerline:_IsIt_ newl _
++ _Text_ stringFromArray:_List_ __ withDelimeter:_Text_ deli       last:_Text_ last _ // needs blockskit
 
-@FINI
+_RO _IsIt  isIntegerNumber, isFloatNumber _
 
-@IFCE NSParagraphStyle (AtoZ)
-+ _PStl_ defaultParagraphStyleWithDictionary: _Dict_ d;
-@FINI
+- _Text_ withString:_Text_ __ _
+- _Text_   withPath:_Text_ __ _
+- _Text_    withExt:_Text_ __ _
 
-@IFCE NSC (AtoZRefugee)
-+ (NSC*) r:(CGF)r g:(CGF)g b:(CGF)b a:(CGF)a;
-@FINI
+@end
+
+@Xtra(NSParagraphStyle,AtoZ)
+
++ _PStl_ defaultParagraphStyleWithDictionary: _Dict_ __ _
+
+@end
+
+@Xtra(Colr,AtoZRefugee) + _Kind_ r:_Flot_ r g:_Flot_ g b:_Flot_ b a:_Flot_ a _ @end
+
+
+
+JREnumDeclare(AZChecksumType, AZChecksumTypeMD5,
+                              AZChecksumTypeSha512) /*...any CC algo can be used*/
+
+@Xtra(Data,AZChecksum)
+
+- _Text_ checksum:(AZChecksumType)type;
+
+@XtraStop(AZChecksum)
+

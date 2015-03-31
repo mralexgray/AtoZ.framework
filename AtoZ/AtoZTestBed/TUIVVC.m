@@ -4,7 +4,7 @@
 @interface TUIVVC ()
 @property TUIButton 		*button, *removeButton;
 @property BOOL 			collapsed;
-@property (NATOM) NSMA 	*vertObjects,  *horizObjects;
+@property (NA) NSMA 	*vertObjects,  *horizObjects;
 @end
 
 @implementation TUIVVC

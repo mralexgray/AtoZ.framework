@@ -21,7 +21,6 @@
 
 
 @import AtoZUniversal;
-#import "BoundingObject.h"
 
 #define WSSRVR        AZWebSocketServer
 #define AZRANDOMPORT  RAND_INT_VAL(2500,55000)
@@ -52,10 +51,10 @@ JREnumDeclare(WebSocketMessageType, WSText, WSImage, WSJSCode);
 
 /** Data is passed to you as it was received from the socket, ie. with header & masked. We disconnect the connection immediately after your delegate call returns.
 		This always disconnect behavior sucks and should be fixed, but requires more intelligent error handling, so feel free to fix that. */
-@property (CP,NATOM) void(^couldNotParseRawDataFromCnxnWithError)	(NSData*,GCDAsyncSocket*,NSERR*);
-@property (CP,NATOM) void(^didReceiveDataFromCnxn)								(NSData*,GCDAsyncSocket*);
-@property (CP,NATOM) void(^clientDisconnected)										(GCDAsyncSocket*);
-@property (CP,NATOM) void(^didAcceptCnxn)													(GCDAsyncSocket*);
+@property (CP,NA) void(^couldNotParseRawDataFromCnxnWithError)	(NSData*,GCDAsyncSocket*,NSERR*);
+@property (CP,NA) void(^didReceiveDataFromCnxn)								(NSData*,GCDAsyncSocket*);
+@property (CP,NA) void(^clientDisconnected)										(GCDAsyncSocket*);
+@property (CP,NA) void(^didAcceptCnxn)													(GCDAsyncSocket*);
 
 @end
 

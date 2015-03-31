@@ -175,10 +175,10 @@
 	
 	delta = (alpha > omega && delta) || (alpha < omega && delta < 0) ? -delta : delta;
 
-	BOOL (^_)(double) = delta ? ^(double g){ return (BOOL) (g <= omega); }
-                            : ^(double g){ return (BOOL) (g >= omega); };
+	BOOL (^__)(double) = delta ? ^(double g){ return (BOOL) (g <= omega); }
+                             : ^(double g){ return (BOOL) (g >= omega); };
 
-	for (double gamma = alpha; _(gamma); gamma += delta) [re addObject:@(gamma)];
+	for (double gamma = alpha;__(gamma); gamma += delta) [re addObject:@(gamma)];
 	return re;
 }
 

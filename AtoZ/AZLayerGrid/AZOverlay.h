@@ -179,12 +179,12 @@
 /** Select all overlays.
  
  @param sender Typically the object that sent the message.	*/
-- (IBAction)selectAllOverlays:_;
+- (IBAction)selectAllOverlays:__ _
                               
 /** Deselect all overlays.
  
  @param sender Typically the object that sent the message.	*/
-- (IBAction)deselectAllOverlays:_;
+- (IBAction)deselectAllOverlays:__ _
                               
 /// ---------------------------------
 /// @name Setting Display Attributes

@@ -33,9 +33,9 @@
   return [self.enumerator countByEnumeratingWithState:state objects:buffer count:len];
 }
 
-- (P(NSFastEnumeration))enumerator { DEMAND_CONFORMANCE; return (id)nil; }
+- (P(NSFastEnumeration))enumerator { DEMAND_CONFORMANCE; return _ObjC_ nil; }
 
-- _UInt_ indexOfObject:_ { DEMAND_CONFORMANCE; return NSNotFound; }
+- _UInt_ indexOfObject:__ { DEMAND_CONFORMANCE; return NSNotFound; }
 
 /// @note @required - (int) idexOfObject:(id)x;
 

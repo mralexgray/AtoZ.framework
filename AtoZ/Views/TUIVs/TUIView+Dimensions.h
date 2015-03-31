@@ -25,7 +25,7 @@
 @end
 
 @interface TUIView (BezierPaths)
-@property (NATOM, STR) NSBP *path;
+@property (NA, STR) NSBP *path;
 - (void) setPath:(NSBP*) path;
 @end
 

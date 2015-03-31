@@ -72,14 +72,14 @@ NSAnimationBlockingMode AZDefaultAnimationBlockingMode  = NSAnimationNonblocking
   return [NSKeyedUnarchiver unarchiveObjectWithData:archivedView.copy];
 }
 
+- (void) setOnEndLiveResize:(ObjBlk)b {
 
-- (void) setOnEndLiveResize:(ObjBlk)b { static dispatch_once_t onLive;
+  dispatch_uno(
 
-  dispatch_once(&onLive, ^{ [self az_overrideSelector:@selector(viewDidEndLiveResize) withBlock:(__bridge void *)^(id _self){
-
-      VoidBlock xx; if ((xx = objc_getAssociatedObject(_self,@selector(viewDidEndLiveResize)))) xx(_self);
-
-  }]; });
+    [self az_overrideSelector:@selector(viewDidEndLiveResize) withBlock:(__bridge void *)^(id _self){
+      Blk xx; if ((xx = objc_getAssociatedObject(_self,@selector(viewDidEndLiveResize)))) xx(_self);
+    }];
+  );
 
   [self triggerKVO:@"onEndLiveResize" block:^(id _self) {  objc_setAssociatedObject(_self, @selector(viewDidEndLiveResize), [b copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC); }];
 }

@@ -30,7 +30,7 @@ typedef void (^KVONewInstanceBlock)( id newInstance );
 
 + (NSS*) saveSharedFile;	+ (NSS*) saveFolder;
 
-@property (NATOM,ASS) 	BOOL 	 convertToXML;
+@property (NA,ASS) 	BOOL 	 convertToXML;
 -   (id) objectForKeyedSubscript:					(id)  key;
 -   (id) objectAtIndexedSubscript:					(NSUI)idx;
 - (void) setObject: (id)obj atIndexedSubscript: (NSUI)idx;
@@ -54,7 +54,7 @@ AZPROPRDO (NSMA, defaultCollection);
 //@prop_RO NSA 	*allClassInstances;//, *superProperties;
 
 //@prop_RO NSN 	*instanceCt, 	*instanceNumber;
-//@property (NATOM,ASS) 	BOOL 	defaultCollectionIsMethods;
+//@property (NA,ASS) 	BOOL 	defaultCollectionIsMethods;
 // Key that maps the "default" cillection backing store.  defaults to @"items".  Settable.
 
 

@@ -45,8 +45,8 @@
 @interface AZSizer ()
 @property (RW)  NSUI		   rows,  columns;
 @property (RW)  CGF		   width, height;
-//@property (NATOM, RW) NSSZ  size;
-@property (NATOM, STR) NSMA *candidates;
+//@property (NA, RW) NSSZ  size;
+@property (NA, STR) NSMA *candidates;
 @end
 
 @implementation AZSizer

@@ -9,16 +9,16 @@
 typedef NSRNG (*htmlProcessor)(NSData *arg, const char *classMatch);
 
 @interface WebFetcher : ConcurrentOperation
-@property (NATOM,CP) 			      NSS 	*urlStr;
-@property (NATOM) 		    NSERR   *error;
-@property (NATOM,CP) 			      NSS 	*errorMessage;
-@property (NATOM,CP)	 			      NSS 	*runMessage;	// debugging
+@property (NA,CP) 			      NSS 	*urlStr;
+@property (NA) 		    NSERR   *error;
+@property (NA,CP) 			      NSS 	*errorMessage;
+@property (NA,CP)	 			      NSS 	*runMessage;	// debugging
 @prop_RO    NSURLC  	*connection;
 @prop_RO   NSMDATA 	*webData;
-@property (NATOM) 		NSMURLREQ  	*request;	// superclass might want to fiddle with it
-@property (NATOM) 			     NSUI	 htmlStatus;
+@property (NA) 		NSMURLREQ  	*request;	// superclass might want to fiddle with it
+@property (NA) 			     NSUI	 htmlStatus;
 #ifndef NDEBUG
-@property (NATOM) 			BOOL 		 forceFailure;	// testing
+@property (NA) 			BOOL 		 forceFailure;	// testing
 #endif
 @end
 

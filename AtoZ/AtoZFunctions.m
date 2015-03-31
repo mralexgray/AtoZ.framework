@@ -9,19 +9,6 @@
 //#define DefineAllOf(...) metamacro_foreach
 
 
-JREnumDefine(azkColor);
-JREnumDefine(AZEvent);
-JREnumDefine(AZParity);
-JREnumDefine(AZQuad);
-JREnumDefine(AZConstraintMask);
-JREnumDefine(AZAlign);
-JREnumDefine(AZOrient);
-JREnumDefine(AZCompass);
-JREnumDefine(AZState);
-JREnumDefine(AZSectionState);
-JREnumDefine(AZSelectState);
-JREnumDefine(AZOutlineCellStyle);
-
 //JROptionsDefine	(AZ_arc);
 
 void drawResizeHandleInRect(NSR frame) {
@@ -637,14 +624,7 @@ CGFloat AZDeviceScreenScale(void) {
 #endif
 }
 
-
-
-
-
-
-BOOL areSameThenDo(id a, id b, VoidBlock doBlock) {
-  BOOL same = Same(a, b); if (same) doBlock(); return same;
-}
+BOOL areSameThenDo(id a, id b, Blk doBlock) { BOOL same = Same(a, b); !same ?: doBlock(); return same; }
 
 /*
  void setValueForKeypathFromObject (NSS *keyPath, id reference, id target) {

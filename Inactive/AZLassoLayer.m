@@ -6,7 +6,7 @@
 @interface AZLassoLayer ()
 @property (STR)	 		CAL  *root;
 @property (STR) 		CASHL *blk, *wht;
-@property (NATOM,ASS) 	CGF 	 dynamicStroke;
+@property (NA,ASS) 	CGF 	 dynamicStroke;
 @end
 
 @implementation AZLassoLayer

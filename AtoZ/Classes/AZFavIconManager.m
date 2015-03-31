@@ -13,8 +13,8 @@ CGSize sizeInPixels(NSIMG *icon) {
 }
 
 @interface AZFavIconManager ()
-@property (STR,NATOM) NSOQ *opQueue;
-@property (STR,NATOM) NSMD *opsPerURL;
+@property (STR,NA) NSOQ *opQueue;
+@property (STR,NA) NSMD *opsPerURL;
 @end
 
 @implementation AZFavIconManager

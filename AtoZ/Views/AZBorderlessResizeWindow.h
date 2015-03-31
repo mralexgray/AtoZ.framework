@@ -45,7 +45,7 @@ typedef void (^WindowFrameChange)(id owner, AZBorderlessResizeWindow * w);
 
 @interface AZEdgeAwareWindow : AZBorderlessResizeWindow
 
-@property (NATOM,CP) WindowFrameChange frameChanged;
+@property (NA,CP) WindowFrameChange frameChanged;
 - (void) setFrameChanged:(WindowFrameChange)frameChanged;
 
 @property (WK) id owner;

@@ -114,7 +114,7 @@
 /**
 @interface AZPropellerView()
 @property (ASS) BOOL isSpinning;
-@property (NATOM, ASS) NSIMG* badge;
+@property (NA, ASS) NSIMG* badge;
 - (CAAnimation*)rotateAnimation;
 @end
 

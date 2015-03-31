@@ -10,7 +10,7 @@ static NotificationCenterSpy *sharedInstance = nil;
 
 @interface NotificationCenterSpy ()
 
-@property (NATOM, STR) NSA *ignoredNotes, *defaultIgnores;
+@property (NA, STR) NSA *ignoredNotes, *defaultIgnores;
 
 @property (nonatomic, assign, getter=isSpying) BOOL spying;
 - (void)toggleSpyingAllNotifications;

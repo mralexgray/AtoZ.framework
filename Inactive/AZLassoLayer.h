@@ -7,7 +7,7 @@
 @interface AZLassoLayer : NSObject// AtoZSingleton
 
 @property (ASS)		CGF strokeMultiplier;
-@property (NATOM,WK) CAL *layer;
+@property (NA,WK) CAL *layer;
 
 +(void) setLayer:(CAL*)layer;
 + (NSR) frame;

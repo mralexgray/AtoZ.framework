@@ -2,17 +2,17 @@
 
 #import <AtoZUniversal/AtoZMacroDefines.h>
 
-@Category(NSAS,NTExtensions)
+@Xtra(NSAS,NTExtensions)
 
-+ _Kind_ stringWithString:_Text_ _ attributes:_Dict_ attrs;
++ _Kind_ stringWithString:_Text_ __ attributes:_Dict_ attrs;
 
-@CategoryEnd(NSAS,NTExtensions)
+@XtraStop(NSAS,NTExtensions)
 
 /// @see NSString-Utilities.h in CocoaTechCore!!
 
 @class AZDefinition;
 
-@Category(Text,AtoZ)
+@Xtra(Text,AtoZ)
 
 _RO Class classified;
 
@@ -38,7 +38,6 @@ _RO  _Rnge    range;
 							 stringByStrippingHTML,
 							 unescapeQuotes,
 							 stripHtml,
-               tidyHTML,
 							 decodeHTMLCharacterEntities,
 							 encodeHTMLCharacterEntities,
 							 escapeUnicodeString,
@@ -98,14 +97,14 @@ _RO _Text wikiDescription;
 
 
 /** Provides a limitless bountry of nonsense words!
-    @param The number of words you want.
+    @param number number of words you want.
     [NSString randomWords:10] -> neque lacus morbi a lacinia nonummy bibendum cras iaculis nunc mollis
 */
 
 
 + _Text_ randomWords:(NSI)number;
 /** A gramatically-sound, entirely incompreghensible number of complete "phrases".
-    @param The number of "sentences" you want.
+    @param number of "sentences" you want.
     [NSString randomSentences:2] = Lacus morbi a lacinia nonummy bibendum cras iaculis nunc mollis ac nec et sem. Nibh cum vitae leo tellus in eget penatibus neque sed taciti velit ipsum integer in augue sapien.
 */
 + _Text_ randomSentences:(NSI)number;
@@ -217,6 +216,8 @@ _RC _List lines,    // this string splitted by lines. * Shortcut for componentsS
 - _Text_ truncateInMiddleToCharacters:(NSUI)chars;
 
 #if MAC_ONLY
+_RC _Text tidyHTML;
+;
 + _Text_ clipboard;
 - _Void_ copyToClipboard;
 
@@ -253,7 +254,7 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 - (NSMS*) underscorize;
 - (NSMS*) replaceAll:(NSS*)needle withString:(NSS*)replacement;
 @end
-/**
+/*
 @interface NSString (RuntimeReporting)
 - _IsIt_ hasSubclasses;
 - (NSA*) subclassNames;
@@ -264,14 +265,14 @@ NSS *   StringByTruncatingStringWithAttributesForWidth(NSS *s, NSD *attrs, float
 @end
 */
 
-@Category(NSMAS,AtoZ)
+@Xtra(NSMAS,AtoZ)
 
 - _Void_ resizeTo:_Flot_ size;
 - _Void_ setFont:(NSFont*)f;
 
-@CategoryEnd(NSMAS,AtoZ)
+@XtraStop(NSMAS,AtoZ)
 
-@Category(NSAS, AtoZ)
+@Xtra(NSAS, AtoZ)
 
 _RO _Rnge range;
 _RO _Font font;
@@ -291,7 +292,7 @@ _RO NSMD * attributes;
 
 - (NSAS*)attributedStringWithColor:_Colr_ color;
 
-@CategoryEnd(NSAS, AtoZ)
+@XtraStop(NSAS, AtoZ)
 
 
 /* SUMMARY
@@ -338,14 +339,16 @@ _RO NSMD * attributes;
 extern int gNSStringGeometricsTypesetterBehavior;
 
 @interface NSAttributedString (Geometrics)
-
+#if MAC_ONLY
 - _Void_ drawCenteredVerticallyInRect:(NSRect)rect;
+
 
 // Measuring Attributed Strings
 - (NSSize)sizeForWidth:	(CGF)width height:_Flot_ height;
+
 - _Flot_ heightForWidth:_Flot_ width;
 - _Flot_ widthForHeight:_Flot_ height;
-
+#endif
 @end
 
 @interface NSString (Geometrics)
@@ -527,7 +530,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 /*!
  *  @brief Returns a string made by using self as a format string template into which the argument values are substituted.
- *  @param first, ... A comma-separated list of arguments to substitute into format. first should be id type.
+ *  @param first ... A comma-separated list of arguments to substitute into format. first should be id type.
  *  @return A string created by using self as a template into which the argument values are substituted according to the canonical locale.
  *  @details This requires first argument type to be id. To avoid this problems, use @link format0: @endlink.
  *  @warning Implementation of this method is not optimized enough so this is slow for some case.
@@ -587,7 +590,7 @@ extern int gNSStringGeometricsTypesetterBehavior;
 
 /*!
  *  @brief Creates and returns an NSString object initialized by converting given data into Unicode characters using UTF8 encoding.
- *  @see @ref NSString(Creations)::stringWithData:encoding:
+ *  @see NSString(Creations)::stringWithData:encoding:
  */
 + _Text_ stringWithUTF8Data:(NSData *)data;
 
@@ -681,17 +684,24 @@ extern int gNSStringGeometricsTypesetterBehavior;
  */
 - (NSUInteger)occurrencesOfCharacter:(unichar)ch;
 
+#if MAC_ONLY
++ _Text_ visualStringWithKeySequence:(NSA*)keySequence;
+
 /** Return the string representation of a key code.
  * @param keyCode The key code to make into a string.
  * @returns The string representation of the key code.
  */
 + _Text_ stringWithKeyCode:(NSInteger)keyCode;
 
+_RO _List keyCodes;
+
 /** Return the string representation of a key sequence.
  * @param keySequence An array of NSNumbers representing key codes.
  * @returns The string representation of the key codes.
  */
 + _Text_ stringWithKeySequence:(NSA*)keySequence;
+
+#endif
 
 /**
  * @returns YES if the string is in uppercase.
@@ -701,9 +711,8 @@ extern int gNSStringGeometricsTypesetterBehavior;
 /*** @returns YES if the string is in lowercase */
                         isLowercase;
 
-@prop_RO NSA * keyCodes;
 
-+ _Text_ visualStringWithKeySequence:(NSA*)keySequence;
+
 @end
 
 
@@ -805,13 +814,15 @@ _RO _UInt size,           // `length`.
                         intoString:(NSString **)string;
 - (BOOL)scanShellVariableIntoString:(NSString **)intoString;
 - (BOOL)scanString:(NSS*)aString;
-- (BOOL)scanKeyCode:(NSInteger *)intoKeyCode;
 - _Void_ skipWhitespace;
+#if MAC_ONLY
+- (BOOL)scanKeyCode:(NSInteger *)intoKeyCode;
+#endif
 @end
 
-/*
-Implements fuzzy matching for strings.
-*/
+#if MAC_ONLY
+/// Implements fuzzy matching for strings.
+
 @interface NSString (Similiarity)
 
 /*
@@ -821,7 +832,7 @@ Implements fuzzy matching for strings.
 - _Flot_ isSimilarToString:(NSS*)aString;
 
 @end
-
+#endif
 
 @interface NSMutableString (DSCategory)
 /// @name White spaces

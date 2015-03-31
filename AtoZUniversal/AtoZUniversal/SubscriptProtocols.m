@@ -49,11 +49,11 @@
   return path && z ? [z valueForKeyPath:path] : z ? z : nil;
 }
 
-+ (void) setObject:_  forKeyedSubscript:(id<NSCopying>)k {
++ (void) setObject:__  forKeyedSubscript:(id<NSCopying>)k {
 
   if (![self respondsToSelector:NSSelectorFromString((id)k)]) return;
 
-  ((void(*)(id, SEL,id))objc_msgSend)(self, NSSelectorFromString((id)k),_);
+  ((void(*)(id, SEL,id))objc_msgSend)(self, NSSelectorFromString((id)k),__);
 }
 
 @end

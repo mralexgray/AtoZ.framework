@@ -3,31 +3,31 @@
 
 @interface AZQuadCarousel : NSObject <iCarouselDataSource, iCarouselDelegate, NSWindowDelegate>
 
-@property (NATOM, STR) AZTW 	*track_N, 	*track_S, 	*track_E, 	*track_W;
-@property (NATOM, STR) iC 		 *menu_N, 	 *menu_S, 	 *menu_E, 	 *menu_W;
-@property (NATOM) iC *activeMenu;
+@property (NA, STR) AZTW 	*track_N, 	*track_S, 	*track_E, 	*track_W;
+@property (NA, STR) iC 		 *menu_N, 	 *menu_S, 	 *menu_E, 	 *menu_W;
+@property (NA) iC *activeMenu;
 
-@property (NATOM) iCarouselType cType;
-@property (NATOM) CGF 	fontSize;
-@property (NATOM) NSUI 	iconStyle, 	selectedIndex, 	tilt;
+@property (NA) iCarouselType cType;
+@property (NA) CGF 	fontSize;
+@property (NA) NSUI 	iconStyle, 	selectedIndex, 	tilt;
 @prop_RO NSRNG selectedRange;
-@property (NATOM, STR) NSS 		*activeMenuID,	*activeTrackID;
-@property (NATOM, STR) NSD 		*windowLog;
+@property (NA, STR) NSS 		*activeMenuID,	*activeTrackID;
+@property (NA, STR) NSD 		*windowLog;
 @prop_RO 			 NSA 		*menus, 			*tracks;
 
-@property (NATOM) Option option;
+@property (NA) Option option;
 @property (UNSF) id refToSelf;
 
-@property (NATOM, STR) NSMutableArray 	*items;
-@property (NATOM, STR) NSD 					*quads;
-@property (NATOM, STR) AZSegmentedRect 	*seg;
+@property (NA, STR) NSMutableArray 	*items;
+@property (NA, STR) NSD 					*quads;
+@property (NA, STR) AZSegmentedRect 	*seg;
 
 - (IBAction) toggleQuadFlip: _;
                               //- (IBAction) toggleQuad:	 _;
                               //- (IBAction) setType:		 _;
                               
--(IBAction)advance:_;
-                              -(IBAction)rewind:_;
+-(IBAction)advance:__ _
+                              -(IBAction)rewind:__ _
                               
 @end
 

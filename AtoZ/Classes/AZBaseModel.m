@@ -272,7 +272,7 @@ NSString *const AZBaseModelSharedInstanceUpdatedNotification = @"AZBaseModelShar
 static NSMutableDictionary *keyNames = nil, *nillableKeyNames = nil;
 
 @interface AZBaseModel ()
-@property (NATOM, ASS) BOOL usesBackingStore;
+@property (NA, ASS) BOOL usesBackingStore;
 @end
 
 @implementation AZBaseModel

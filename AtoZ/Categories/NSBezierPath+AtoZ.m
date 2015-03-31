@@ -1,4 +1,5 @@
 
+@import AtoZUniversal;
 #import "NSBezierPath+AtoZ.h"
 #import <AtoZ/AtoZ.h>
 
@@ -456,7 +457,7 @@ static void bilinearShadedColor	(void *info, const CGFloat *in, CGFloat *out)	{
 - (NSBP*)  scaledToSize:(NSSZ)size  { return [self scaledToFrame:AZRectFromSize(size)]; }
 - (NSBP*) scaledToFrame:(NSR)rect   {
 
-  NSAT *transform = NSAffineTransform.new;
+  NSAffineTransform* transform = NSAffineTransform.new;
   CGF ratio     = 1.0;
   // get the ratio
   ratio = MIN(rect.size.width  / self.bounds.size.width,
@@ -1184,7 +1185,7 @@ static void CGPathCallback(void *info, const CGPathElement *element) {
 
   offset.height += bounds.size.height;
   shadow.shadowOffset = offset;
-  NSAffineTransform *transform = NSAT.transform;
+  NSAffineTransform *transform = [NSAffineTransform transform];
 
   [AZCURRENTCTX isFlipped] ? [transform translateXBy:0 yBy:bounds.size.height]
   : [transform translateXBy:0 yBy:-bounds.size.height];

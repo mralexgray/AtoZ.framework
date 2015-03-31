@@ -13,16 +13,16 @@ JREnumDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggi
 @property NSTrackingRectTag 	trackingRectTag;
 @property               CAL * glowBar;
 @property               NSP 	eventStartPoint, lastDragPoint;
-@property (NATOM)     AZPOS 	align;
-@property (NATOM)      NSSZ 	dragThreshold, maxSize, minSize;
+@property (NA)     AZPOS 	align;
+@property (NA)      NSSZ 	dragThreshold, maxSize, minSize;
 @end
 
 @interface StickyNote : BaseModel 
 + (instancetype) instanceWithFrame: (NSR)rect;
 @property 	  	  (RO)	NSW	*window;
-@property    (CP, NATOM)  	NSS	*placeholderString;
-@property (STR, NATOM)	NSC	*noteColor, *textColor;
-@property (STR, NATOM) StickyNoteView *sticky;
+@property    (CP, NA)  	NSS	*placeholderString;
+@property (STR, NA)	NSC	*noteColor, *textColor;
+@property (STR, NA) StickyNoteView *sticky;
 
 @end
 

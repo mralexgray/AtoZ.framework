@@ -10,17 +10,17 @@
 
 @interface NSBag : NSObject
 
-+ (instancetype) bagWithArray:(NSA*)a;
-+ (instancetype) bag;
-+ (instancetype) bagWithObjects:_, ...;
++ (instancetype) bagWithArray:(NSA*)a _
++ (instancetype) bag _
++ (instancetype) bagWithObjects:__, ... _
 
-- _Void_           add:_;
-- _Void_    addObjects:_, ...;
+- _Void_           add:__ _
+- _Void_    addObjects:__, ... _
 
-- _Void_        remove:_;
--  (NSI) occurrencesOf:_;
+- _Void_        remove:__ _
+- _SInt_ occurrencesOf:__ _
 
-@prop_RO NSA * objects, * uniqueObjects, * sortedObjects;
+_RO _List objects, uniqueObjects, sortedObjects;
 
 @end
 

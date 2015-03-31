@@ -28,59 +28,47 @@ void mouseMove(int posX, int posY) {
 }
 
 void moveVia( int x, int y ) {	moveTo(CGPointMake(x,y)); }
-void moveTo ( CGPoint dest ) {
-	CGPoint currLoc = mouseLoc();
-	CGPoint destLoc = dest;
-	CGF x = currLoc.x;
-	CGF y = currLoc.y;
-	CGF xrat, yrat;
 
-	NSI diffX = abs(currLoc.x - destLoc.x);
-	NSI diffY = abs(currLoc.y - destLoc.y);
+void moveTo ( CGPoint dest ) {
+
+	CGP currLoc = mouseLoc(), destLoc = dest;
+	CGF x = currLoc.x, y = currLoc.y, xrat, yrat;
+
+	NSI diffX = ABS(currLoc.x - destLoc.x);
+	NSI diffY = ABS(currLoc.y - destLoc.y);
 	NSI dirX = currLoc.x > destLoc.x ? -1 : 1;
 	NSI dirY = currLoc.y > destLoc.y ? -1 : 1;
 
-	if (diffX == 0 && diffY == 0) {
-		return;
-	}
+	if (diffX == 0 && diffY == 0)		return;
 
 	if (diffX > diffY) {
 		xrat = MOUSE_RESOLUTION * dirX;
-		if (diffY == 0) {
-			yrat = 0;
-		} else {
-			yrat = (((float)diffY / diffX) * dirY) * MOUSE_RESOLUTION;
-		}
+		if (diffY == 0) yrat = 0;
+    else yrat = (((float)diffY / diffX) * dirY) * MOUSE_RESOLUTION;
 	} else {
 		yrat = MOUSE_RESOLUTION * dirY;
-		if (diffX == 0) {
-			xrat = 0;
-		} else {
-			xrat = (((float)diffX / diffY) * dirX) * MOUSE_RESOLUTION;
-		}
+		xrat = !diffX ? 0 : (((float)diffX / diffY) * dirX) * MOUSE_RESOLUTION;
 	}
 
 	NSI xArrived = 0, yArrived = 0, diff;
 	CGF accelerant;
 	while (!xArrived && !yArrived) {
-		diffX = abs(destLoc.x - x);
-		diffY = abs(destLoc.y - y);
+		diffX = ABS(destLoc.x - x);
+		diffY = ABS(destLoc.y - y);
 		diff = diffX > diffY ? diffX : diffY;
 		accelerant = diff > 70 ? diff / 40 : (diff > 40 ? diff / 20 : 1);
 
-		if (!xArrived && diffX < abs(xrat)) {
+		if (!xArrived && diffX < ABS(xrat)) {
 			xArrived = 1;
 			x = destLoc.x;
 		} else {
 			x += xrat * accelerant;
 		}
 
-		if (!yArrived && diffY < abs(yrat)) {
+		if (!yArrived && diffY < ABS(yrat)) {
 			yArrived = 1;
 			y = destLoc.y;
-		} else {
-			y += yrat * accelerant;
-		}
+		} else y += yrat * accelerant;
 
 		mouseMove((int)x, (int)y);
 		usleep((int)(bMouseSpeed * (MOUSE_SPEED * MOUSE_RESOLUTION)));

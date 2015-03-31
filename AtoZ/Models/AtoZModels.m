@@ -68,9 +68,11 @@ SetKPfVA(Definition, @"results");
 
 + (INST) define:(NSS*)term ofType:(AZLexicon)lex timeout:(NSTI)ti completion:(DefinedBlock)blk {
 
-  AZDefinition *n = self.class.new; n.lexicon = lex; if (blk) n.completion = [blk copy]; n.timeout = ti; n.word = term;
-
-  [n definition]; return n;
+  AZDefinition *n = self.new;
+                n.lexicon = lex; !blk ?: [n setCompletion:[blk copy]];
+                n.timeout = ti;
+                n.word    = term; // [n definition];
+                return n;
 }
 
 - (void)         setCompletion:(DefinedBlock)c  {

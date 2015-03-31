@@ -77,7 +77,7 @@ typedef void (^AZCAAnimationCompletionBlock)();
 + (CAA*) backgroundColorAnimationFrom:	(NSC*)color1 to:(NSC*)color2 duration:(NSTI)dur;
 + (CAA*) backgroundColorAnimationTo:	(NSC*)color 					  duration:(NSTI)dur;
 
-@property (NATOM, CP) AZCAAnimationCompletionBlock az_completionBlock;
+@property (NA, CP) AZCAAnimationCompletionBlock az_completionBlock;
 @end
 
 

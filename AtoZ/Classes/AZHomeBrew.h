@@ -30,8 +30,8 @@ typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
 @property 						BOOL	 googleGenerated;
 @property 					   AZIS	 installStatus;
 @property 		 (RO) 	 NSS * info;
-@property (NATOM,STR) 	NSAS * fancyDesc;
-@property (NATOM,STR) 	 NSS * url,
+@property (NA,STR) 	NSAS * fancyDesc;
+@property (NA,STR) 	 NSS * url,
 									     * name,
 										  * desc,
 										  * version;
@@ -44,16 +44,16 @@ typedef NS_OPTIONS(NSUInteger, AZInstallationStatus) {
 @interface 			 AZHomeBrew : NSTreeController 
 
 @property 		  (RO)  NSD * commands;
-@property 		  (NATOM) BOOL   shouldExit,
+@property 		  (NA) BOOL   shouldExit,
 										  shouldLog;
 @property 					  NSI   exitCode;
 @property (STR)  		  NSS * brewPath,
 										* savePath;
 
-@property (NATOM, STR) NSTN * available;
+@property (NA, STR) NSTN * available;
 
-@property (NATOM, STR) NSMD * entriesToAdd;
-@property (NATOM, STR)  NSD * reference;
+@property (NA, STR) NSMD * entriesToAdd;
+@property (NA, STR)  NSD * reference;
 
 -(void) setInfoForFormula:(AZBrewFormula*)formula;
 

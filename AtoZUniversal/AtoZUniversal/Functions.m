@@ -2,6 +2,21 @@
 #import <AtoZUniversal/AtoZUniversal.h>
 #include <libkern/OSAtomic.h>
 
+
+JREnumDefine(azkColor);
+JREnumDefine(AZEvent);
+JREnumDefine(AZParity);
+JREnumDefine(AZQuad);
+JREnumDefine(AZConstraintMask);
+JREnumDefine(AZAlign);
+JREnumDefine(AZOrient);
+JREnumDefine(AZCompass);
+JREnumDefine(AZState);
+JREnumDefine(AZSectionState);
+JREnumDefine(AZSelectState);
+JREnumDefine(AZOutlineCellStyle);
+
+
 NSCharacterSet * _GetCachedCharacterSet(CharacterSet set) {
   static NSCharacterSet *cache[kNumCharacterSets] = { 0 };
 

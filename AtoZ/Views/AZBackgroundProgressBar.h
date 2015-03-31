@@ -3,7 +3,7 @@
 
 @interface AZBackgroundProgressBar : NSView
 
-//@property (NATOM, ASS) BOOL shouldStop, onDark, highContrast;
+//@property (NA, ASS) BOOL shouldStop, onDark, highContrast;
 
 @property (nonatomic, retain) NSC *primaryColor;
 
@@ -11,6 +11,6 @@
 - (void) stopProgressAnimation;
 //, *secondaryColor;
 
-//- (IBAction)startAnimation:_;
-                              //- (IBAction)stopAnimation:_;
+//- (IBAction)startAnimation:__ _
+                              //- (IBAction)stopAnimation:__ _
                               @end

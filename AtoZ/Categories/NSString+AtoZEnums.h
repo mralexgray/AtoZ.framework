@@ -83,8 +83,8 @@ void test()
     id _previousWrappingEnum;		id _nextWrappingEnum;
     BOOL _isFirstEnum, _isLastEnum, _isCacheValid;
 }
-@property (NATOM,STR) NSS *name;
-@property (NATOM,	 ASS) int ordinal;
+@property (NA,STR) NSS *name;
+@property (NA,	 ASS) int ordinal;
 
 + enumFromName: (NSString *) name;
 + enumFromOrdinal: (int) ordinal;
@@ -92,10 +92,10 @@ void test()
 // note the use of id make these no longer type safe
 + firstEnum;
 + lastEnum;
-@property (NATOM,RO) id previousEnum;
-@property (NATOM,RO) id nextEnum;
-@property (NATOM,RO) id previousWrappingEnum;
-@property (NATOM,RO) id nextWrappingEnum;
+@property (NA,RO) id previousEnum;
+@property (NA,RO) id nextEnum;
+@property (NA,RO) id previousWrappingEnum;
+@property (NA,RO) id nextWrappingEnum;
 - (id) deltaEnum: (NSI) delta wrapping: (BOOL) wrapping;
 // this should only be called from with the enum declaration methods
 - (id) initWithName:(NSS*)n ordinal:(int)o properties:(NSD*)props;
@@ -125,7 +125,7 @@ return retval;\
 + (Color *) RED;
 + (Color *) GREEN;
 + (Color *) BLUE;
-@property (NATOM,readonly) float hue;
+@property (NA,readonly) float hue;
 @end
 
 // ...
@@ -162,7 +162,7 @@ ENUM_TYPENAME ENUM_TYPENAME##
 + (Colore *) eRED;
 + (Colore *) eGREEN;
 + (Colore *) eBLUE;
-@property (NATOM,readonly) float hue;
+@property (NA,readonly) float hue;
 @end
 
 	typedef NS_OPTIONS(NSUInteger, ENUM_TYPENAME) { ENUM_CONSTANTS	};									\

@@ -16,9 +16,9 @@
 #import <AtoZ/AtoZ.h>
 
 @interface TaskOutputReader :	NSObject
-@property (NATOM, STR) 	NSMutableData *standardOutput, *standardError;
-@property (NATOM, ASS) 		BOOL taskComplete, outputClosed, errorClosed;
-@property (NATOM, STR)	NSTask *task;
+@property (NA, STR) 	NSMutableData *standardOutput, *standardError;
+@property (NA, ASS) 		BOOL taskComplete, outputClosed, errorClosed;
+@property (NA, STR)	NSTask *task;
 @end
 
 @implementation TaskOutputReader

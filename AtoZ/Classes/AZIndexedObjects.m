@@ -24,10 +24,10 @@
 	return (![_map.allValues containsObject:x]) ? NSNotFound : 
           [[_map keyForObjectEqualTo:x] iV];
 }
-- (void) addObject:		(id)x {	_map[[_map.allKeys maxNumberInArray].stringValue] = x;	}
-- (void) addObject:		(id)x 			  atIndex:(NSI)idx { _map[IDX(idx)] = x; 				}
-- (void) setObject:		(id)x atIndexedSubscript:(NSI)idx { _map[IDX(idx)] = x; 				}
--   (id) objectAtIndexedSubscript:					 (NSI)idx { return _map[IDX(idx)];			}
+- (void) addObject:x                              {	_map[[_map.allKeys maxNumberInArray].stringValue] = x;	}
+- (void) addObject:x atIndex:_SInt_ i             { _map[IDX(i)] = x; 				}
+- (void) setObject:x atIndexedSubscript:_SInt_ i  { _map[IDX(i)] = x; 				}
+-   (id) objectAtIndexedSubscript:_SInt_ i        { return _map[IDX(i)];			}
 
 
 @end

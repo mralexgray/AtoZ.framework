@@ -18,8 +18,6 @@
 #define   _____ @property
 #define _RONLY _____ (readonly)
 
-#define INIT_(K,...) [[K alloc] init##__VA_ARGS__]
-#define NEW(A,B) A *B = A.new
 
 #if TARGET_OS_IPHONE
 #define MakeColor(r,g,b) [Colr           colorWithRed:r/255. green:g/255. blue:b/255. alpha:1.]
@@ -27,37 +25,6 @@
 #define MakeColor(r,g,b) [Colr colorWithCalibratedRed:r/255. green:g/255. blue:b/255. alpha:1.]
 #endif
 
-#define oFK objectForKey
-
-#define vFK valueForKey
-#define vFKP valueForKeyPath
-#define mC mutableCopy
-#define mAVFK  mutableArrayValueForKey
-#define bFK boolForKey
-
-#define bV boolValue
-#define dV doubleValue
-#define fV floatValue
-#define iV integerValue
-#define rngV rangeValue
-#define strV stringValue
-#define uIV unsignedIntegerValue
-
-#if IOS_ONLY
-#define rV CGRectValue
-#define pV CGPointValue
-#define NSMakeSize CGSizeMake
-#define NSMakePoint CGPointMake
-#define NSMakeSize CGSizeMake
-#define NSMakeRect CGRectMake
-#define NSEqualSizes CGSizeEqualToSize
-#define NSEqualPoints CGPointEqualToPoint
-#define NSEqualRects CGRectEqualToRect
-#define NSPointInRect(P,R) CGRectContainsPoint(R,P)
-#else
-#define pV pointValue
-#define rV rectValue
-#endif
 
 #define    kOpacity  @"opacity"
 #define    kPhase @"phase"
@@ -83,7 +50,9 @@
 #define NSENUM NSEnumerator
 #define FM   NSFileManager.defaultManager
 #define UDEFS  NSUserDefaults.standardUserDefaults
+#define    AZRUNLOOP NSRunLoop.currentRunLoop
 
+#define AZRUNFOREVER [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
 
 // END NEEDHOMES
 
@@ -97,24 +66,28 @@
 
 #define      CP copy
 #define      WK weak
+#define      RO readonly
+#define      NA nonatomic
+#define     STR strong
 #define     ASS assign
 #define     GET getter
 #define    SETR setter
 #define    UNSF unsafe_unretained
-#define   NATOM nonatomic
-#define      RO readonly
 #define      RW readwrite
-#define     STR strong
 
 
 #define   prop_ property
 #define   prop__ property (STR)
+
 #define   _P @prop_
 
-#define   prop_NC  prop_ (NATOM,CP)
+#define   prop_AT  prop_
+#define       _AT  @prop_AT
+
+#define   prop_NC  prop_ (NA,CP)
 #define       _NC  @prop_NC
 
-#define   prop_NA  prop_ (NATOM)
+#define   prop_NA  prop_ (NA)
 #define       _NA  @prop_NA
 #define   prop_RO  prop_ (RO)
 #define       _RO @prop_RO
@@ -129,6 +102,7 @@
 #define       _RC @prop_RC
 
 #define P(...) id<__VA_ARGS__>
+#define INTERFACE(X,...)    @interface X : __VA_ARGS__ + (instancetype)
 
 #define PROP(...) property (__VA_ARGS__)
 
@@ -145,6 +119,7 @@
 #define BoundingObject RectLike
 #define DECLARECONFORMANCE(_CLASS_,_PROTOCOL_) @interface _CLASS_ (_PROTOCOL_) <_PROTOCOL_> @end
 
+#define  AZPROCINFO  NSProcessInfo.processInfo
 
 #define AZSTRSTR(A)    @property (nonatomic, strong) NSString* A
 #define AZPROPSTR(z,x)  @property (nonatomic, strong) z *x
@@ -175,18 +150,18 @@
 #pragma mark - Quartz
 
 #define CAMASK enum CAAutoresizingMask
-#define       CGP CGPoint
+#define       CGP _Cord
 #define      CGCR CGColorRef
-#define       CGF CGFloat
-#define       CGS CGSize
+#define       CGF _Flot
+#define       CGS _Size
 #define       CIF CIFilter
 #define    CGCREF CGContextRef
-#define      CGSZ CGSize
+#define      CGSZ _Size
 #define     CGRGB CGColorCreateGenericRGB
 #define CGPATH(A) CGPathCreateWithRect(R)
 #define    JSCREF JSContextRef
 #define      CGPR CGPathRef
-#define       CGR CGRect
+#define       CGR _Rect
 #define      CGWL CGWindowLevel
 #define      CFTI CFTimeInterval
 
@@ -643,7 +618,7 @@ OBJC_EXPORT BOOL AZEqualToAnyObject(id x, ...);
 //#define AZINTERFACE(_name_,...) @interface _name_ : __VA_ARGS__ ?: NSObject   // AZINTERFACE(NSMA,Alex) -> @interface Alex : NSMutableArray
 
 #define AZSTRONGSTRING(A) @property (nonatomic, strong) NSString* A
-//AZPROPASS(_kind_...) @property (NATOM,ASS) _kind_ __VA_ARGS__ //#QUALIFIER_FROM_BITMASK(_arc_)
+//AZPROPASS(_kind_...) @property (NA,ASS) _kind_ __VA_ARGS__ //#QUALIFIER_FROM_BITMASK(_arc_)
 
 
 /// Also in AutoBox (redundancy needs fix)
@@ -950,8 +925,6 @@ NS_INLINE void PLATFORM_OPEN(id url) { [AZWORKSPACE openURL:url]; }
 #define   TUIVC TUIViewController
 #define      WV WebView
 #define    AHLT AHLayoutTransaction
-#define    Blk VoidBlock
-#define    Blk VoidBlock
 
 #pragma mark - AZ
 
@@ -961,10 +934,9 @@ NS_INLINE void PLATFORM_OPEN(id url) { [AZWORKSPACE openURL:url]; }
 #define    AZCACHigh AZConstRelSuper ( kCAConstraintHeight )
 #define    AZCACMinX AZConstRelSuper( kCAConstraintMinX   )
 #define    AZCACMaxX AZConstRelSuper ( kCAConstraintMaxX   )
-#define    AZRUNLOOP NSRunLoop.currentRunLoop
+
 #define    AZCACMinY AZConstRelSuper ( kCAConstraintMinY   )
 #define     AZLOGCMD LOGCOLORS($UTF8(__PRETTY_FUNCTION__), AZCLSSTR, RANDOMPAL, nil)
-#define AZRUNFOREVER [AZRUNLOOP runMode:NSDefaultRunLoopMode beforeDate:NSDate.distantFuture]
 #define AZRANDOMICON [NSIMG randomMonoIcon]
 
 #pragma mark - VIEWS
@@ -1058,11 +1030,11 @@ NS_INLINE void PLATFORM_OPEN(id url) { [AZWORKSPACE openURL:url]; }
 #define                               CASLNH CAShapeLayerNoHit
 #define  CATransform3DPerspective( t, x, y ) (CATransform3DConcat(t, CATransform3DMake(1,0,0,x,0,1,0,y,0,0,1,0,0,0,0,1)))
 
-#define QUALIFIER_FROM_BITMASK(q) q&AZ_arc_NATOM      ? nonatomic    :\
-q&AZ_arc_NATOM|AZ_arc_STRNG  ? nonatomic,strong  :\
+#define QUALIFIER_FROM_BITMASK(q) q&AZ_arc_NA      ? nonatomic    :\
+q&AZ_arc_NA|AZ_arc_STRNG  ? nonatomic,strong  :\
 q&AZ_arc_RO      ? readonly     :\
 q&AZ_arc__COPY      ? copy      :\
-q&AZ_arc_NATOM|AZ_arc__COPY  ? nonatomic,copy   :\
+q&AZ_arc_NA|AZ_arc__COPY  ? nonatomic,copy   :\
 q&AZ_arc__WEAK      ? weak    : assign
 
 #define INV NSInvocation
@@ -1194,7 +1166,7 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
 #define         AZAPPVIEW ((NSView*)[AZAPPWINDOW contentView])
 #define     AZCONTENTVIEW(V) ((NSView*)[V contentView])
 #define      AZWEBPREFS  WebPreferences.standardPreferences
-//#define      AZPROCINFO  NSProcessInfo.processInfo
+
 #define      AZPROCNAME  [NSProcessInfo.processInfo processName]
 #define      AZPROCARGS NSProcessInfo.processInfo.arguments
 #define      AZARGS      [AZPROCARGS after:0]
@@ -1241,7 +1213,7 @@ _SELFBLK_(self); [NSProcessInfo.processInfo enableSuddenTermination];
  _CLS_ *_INSTANCENAME_  = [objs objectWithClass:[_CLS_ class]]; \
 } while(0)
 
-//#define AZPROPASS (A,B...)  @property (NATOM,ASS) A B
+//#define AZPROPASS (A,B...)  @property (NA,ASS) A B
 //#define AZPROPIBO (A,B...)  @property (ASS) IBOutlet A B
 // static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS;  \
 
@@ -1845,33 +1817,33 @@ NS_INLINE CGFloat NSHeight(NSRect aRect) {
 }
 
 NS_INLINE NSRect NSRectFromCGRect(CGRect cgrect) {
-    union _ {NSRect ns; CGRect cg;};
-    return ((union _ *)&cgrect)->ns;
+    union __ {NSRect ns; CGRect cg;};
+    return ((union __ *)&cgrect)->ns;
 }
 
 NS_INLINE CGRect NSRectToCGRect(NSRect nsrect) {
-    union _ {NSRect ns; CGRect cg;};
-    return ((union _ *)&nsrect)->cg;
+    union __ {NSRect ns; CGRect cg;};
+    return ((union __ *)&nsrect)->cg;
 }
 
 NS_INLINE NSPoint NSPointFromCGPoint(CGPoint cgpoint) {
-    union _ {NSPoint ns; CGPoint cg;};
-    return ((union _ *)&cgpoint)->ns;
+    union __ {NSPoint ns; CGPoint cg;};
+    return ((union __ *)&cgpoint)->ns;
 }
 
 NS_INLINE CGPoint NSPointToCGPoint(NSPoint nspoint) {
-    union _ {NSPoint ns; CGPoint cg;};
-    return ((union _ *)&nspoint)->cg;
+    union __ {NSPoint ns; CGPoint cg;};
+    return ((union __ *)&nspoint)->cg;
 }
 
 NS_INLINE NSSize NSSizeFromCGSize(CGSize cgsize) {
-    union _ {NSSize ns; CGSize cg;};
-    return ((union _ *)&cgsize)->ns;
+    union __ {NSSize ns; CGSize cg;};
+    return ((union __ *)&cgsize)->ns;
 }
 
 NS_INLINE CGSize NSSizeToCGSize(NSSize nssize) {
-    union _ {NSSize ns; CGSize cg;};
-    return ((union _ *)&nssize)->cg;
+    union __ {NSSize ns; CGSize cg;};
+    return ((union __ *)&nssize)->cg;
 }
 
 NS_INLINE NSEdgeInsets NSEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {

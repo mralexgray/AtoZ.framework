@@ -5,7 +5,7 @@
   #ifdef __OBJC__
 
     #import <AtoZUniversal/_ObjC.h>
-    
+    #import <AtoZUniversal/ObjcAssociatedObjectHelpers.h>
     #import <AtoZUniversal/metamacros.h>
     #import <AtoZUniversal/AtoZMacroDefines.h>
     #import <AtoZUniversal/JREnum.h>
@@ -17,6 +17,8 @@
     #import <AtoZUniversal/objswitch.h>
     #import <AtoZUniversal/AtoZGeometry.h>
 
+    #import <AtoZUniversal/Protocols.h>
+    
   #endif // __OBJC__
 
 #endif // AtoZUniversal_AtoZUniversal_Prefix_pch

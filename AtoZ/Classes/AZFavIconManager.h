@@ -25,8 +25,8 @@ extern CGSize sizeInPixels(NSIMG *image);
 @class  AZFavIconCache;
 @interface AZFavIconManager : NSObject								/** AZFavIconManager is a complete solution for managing Favicons.*/
 + (AZFavIconManager*) sharedInstance;
-@property (NATOM,STR) NSIMG 			*placehoder;			/** Placeholder image for favicons. Defaults to [UIImage imageNamed:@"favicon"]. */
-@property (NATOM,STR) AZFavIconCache *cache;					/** The AZFavIconCache instance used b current manager. Defaults to [AZFavIconCache sharedCache] */
+@property (NA,STR) NSIMG 			*placehoder;			/** Placeholder image for favicons. Defaults to [UIImage imageNamed:@"favicon"]. */
+@property (NA,STR) AZFavIconCache *cache;					/** The AZFavIconCache instance used b current manager. Defaults to [AZFavIconCache sharedCache] */
 
 /** Are requests for icons with URLs already in queue discarded? (useful in tables). Defaults to false. */
 @property BOOL discardRequestsForIconsWithPendingOperation;
@@ -58,9 +58,9 @@ extern  NSS * const kAZFavIconOperationDidEndNetworkActivity;
 
 @interface AZFavIconOperation : NSOperation
 
-@property (NATOM,STR) NSURL *url;
-@property (NATOM,STR) NSA	*defaultNames;
-@property (NATOM,STR) NSS	*relationshipsRegex;
+@property (NA,STR) NSURL *url;
+@property (NA,STR) NSA	*defaultNames;
+@property (NA,STR) NSS	*relationshipsRegex;
 @property (nonatomic, copy) AZFavIconOperationCompletionBlock completion;
 @property (nonatomic, copy) AZFavIconOperationAcceptanceBlock acceptanceBlock;
 @property (nonatomic, copy) AZFavIconOperationPreflightBlock  preFlightBlock;

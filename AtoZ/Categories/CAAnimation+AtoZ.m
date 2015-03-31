@@ -1177,8 +1177,8 @@ NSString *AZCAAnimationCompletionBlockAssociatedObjectKey =
  void (^_start)();
  }
 
- @property (NATOM, CP) void (^completion)(BOOL);
- @property (NATOM, CP) void (^start)();
+ @property (NA, CP) void (^completion)(BOOL);
+ @property (NA, CP) void (^start)();
 
  - _Void_ animationDidStart:(CAAnimation *)anim;
  - _Void_ animationDidStop:(CAAnimation *)anim finished:(BOOL)flag;

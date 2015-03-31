@@ -35,7 +35,7 @@
 
 @class  AtoZColorPicker;
 @interface AtoZColorWell()
-@property (NATOM) AtoZColorPicker *colorPicker;
+@property (NA) AtoZColorPicker *colorPicker;
 - (void) updateColorFromColorPicker:(id)sender;
 - (void) setUpColorPickerMenu;
 @end

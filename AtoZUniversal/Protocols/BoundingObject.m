@@ -1,9 +1,63 @@
 
-#import <AtoZ/AtoZ.h>
-//#import <AtoZ/AtoZGeometry.h>
-#import "BoundingObject.h"
+#import <AtoZUniversal/AtoZUniversal.h>
+
+#pragma mark - GRIDLIKE   //GridIteratorStep step,
+
+//_Void _IterateGridWithBlockStep(RNG *r1, RNG *r2, id block, BOOL sendIndex){
+//
+//  __block _UInt overAllIndex = 0;
+//
+//  [[@(r1.location) to:@(r1.max)] each:^(_Numb range1) {
+//    [[@(r2.location) to:@(r2.max)] each:^(_Numb range2) {
+//
+//      sendIndex ? ((RowColBlkIdx)block)( range1.iV, range2.iV,overAllIndex )
+//                :    ((RowColBlk)block)( range1.iV, range2.iV );
+//
+//      overAllIndex++;
+//    }];
+//  }];
+//}
+//    if (step) step(range1);
+//  for (int range1 = r1.location; range1 < r1.max; range1++)
+//  {
+//    for (int range2 = r2.location; range2 < r2.max; range2++)
+//    {
+//      sendIndex ? ((GridIteratorIdx)block)(range1,range2,idx)
+//                :    ((GridIterator)block)(range1,range2);
+//      idx++;
+//    }
+//    idx++;
+//  }
+//}
+
+//_Void      IterateGridWithBlock(RNG *r1, RNG *r2,    RowColBlk b) { _IterateGridWithBlockStep(r1, r2, b,  NO); }
+//_Void IterateGridWithBlockIndex(RNG *r1, RNG *r2, RowColBlkIdx b) { _IterateGridWithBlockStep(r1, r2, b, YES); }
+//
+//@concreteprotocol(GridLike)
+
+//@dynamic rows, cols;
+//
+//- _Void_ setRows:_UInt_ r { self.dimensions = _Size_{self.cols,r}; }
+//- _Void_ setCols:_UInt_ c { self.dimensions = _Size_{c,self.rows}; }
+//
+//- _UInt_ rows { return self.dimensions.height; } SetKPfVA( Rows, @"dimensions" );
+//- _UInt_ cols { return self.dimensions.width;  } SetKPfVA( Cols, @"dimensions" );
+//
+//SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( dimensions, setDimensions, _Size, ^{}, ^{
+//
+//  (NSEqualSizes(value, self.dimensions) || !self.onChangeDimensions) ?: // else
+//                                            self.onChangeDimensions(self.dimensions, value)_
+//})
+//
+//SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(colSpan, setColSpan, ^{}, ^{})
+//SYNTHESIZE_ASC_OBJ_ASSIGN_BLOCK(rowSpan, setRowSpan, ^{}, ^{})
 
 
+//- _Void_ iterate:            (RowColBlk)b { _IterateGridWithBlockStep($RNG(self.minX,self.maxX),$RNG(self.minY,self.maxY), b,  NO); }
+//- _Void_ iterateWithIndex:(RowColBlkIdx)b { _IterateGridWithBlockStep($RNG(self.minX,self.maxX),$RNG(self.minY,self.maxY), b, YES); }
+//
+//SYNTHESIZE_ASC_CAST_BLOCK(sizeChanged, setSizeChanged, SizeChange, ^{},^{})
+//￭
 
 
 @implementation NSO (AZAZA) @dynamic owner, hovered, selected, orientation;
@@ -38,33 +92,6 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(   spanCollapsed,   setSpanCollapsed,             C
 @concreteprotocol(Drawable) SetKPfVA( Span, @"spanCollapsed", @"spanExpanded", @"expanded") @end
 
 
-#pragma mark - GRIDLIKE
-
-void _IterateGridWithBlockStep(RNG *r1, RNG *r2, id block, GridIteratorStep step, BOOL sendIndex){
-
-  NSUI idx = 0;
-  for (int range1 = r1.location; range1 < r1.max; range1++)
-  {
-    for (int range2 = r2.location; range2 < r2.max; range2++)
-    {
-      sendIndex ? ((GridIteratorIdx)block)(range1,range2,idx)
-                :    ((GridIterator)block)(range1,range2);
-      idx++;
-    }
-    idx++;
-    if (step) step(range1);
-  }
-}
-
-void      IterateGridWithBlock(RNG *r1, RNG *r2, GridIterator block)    { _IterateGridWithBlockStep(r1, r2, block,nil, NO); }
-void IterateGridWithBlockIndex(RNG *r1, RNG *r2, GridIteratorIdx block) { _IterateGridWithBlockStep(r1, r2, block,nil, YES); }
-
-@concreteprotocol(GridLike) @dynamic rows, cols;
-
-- (void) iterateGrid:(GridIterator)b { _IterateGridWithBlockStep($RNG(0,self.rows),$RNG(0,self.cols),b,nil,NO); }
-
-- (void) iterateGridWithIndex:(GridIteratorIdx)b { _IterateGridWithBlockStep($RNG(0,self.rows),$RNG(0,self.cols),b,nil,YES); }
-
 
 //^{ ({
 //  NSSZ truesize; if(!NSEqualSizes(value,truesize=(NSSZ){self.rows, self.cols})) [self setDimensions:value = truesize]; });},
@@ -89,11 +116,6 @@ void IterateGridWithBlockIndex(RNG *r1, RNG *r2, GridIteratorIdx block) { _Itera
     objc_msgSendSuper(&superInfo, _cmd, k); });
 }
 */
-- (void) setRows:(NSUInteger)rows { self.dimensions = (NSSZ){self.cols,rows}; }
-- (void) setCols:(NSUInteger)cols { self.dimensions = (NSSZ){cols,self.rows}; }
-
-- (NSUInteger)rows { return self.dimensions.height; }
-- (NSUInteger)cols { return self.dimensions.width; }
 
  // if dims not set, but rows and cols are..
 
@@ -103,20 +125,9 @@ void IterateGridWithBlockIndex(RNG *r1, RNG *r2, GridIteratorIdx block) { _Itera
 //                                                     ^{({ self.dimensions = (NSSZ){self.cols,value}; }); });
 //SYNTHESIZE_ASC_PRIMITIVE_KVO(cols,setCols,NSUI);//,^{ value = value ?: (NSUI)self.dimenensions.height;  },^{ self.dimensions = (NSSZ){self.rows,value}; });
 
-SetKPfVA(Rows, @"dimensions");
-SetKPfVA(Cols, @"dimensions");
 //SetKPfVA(Dimensions, @"rows", @"cols");
 
 
-SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(dimensions,setDimensions,NSSZ, ^{},^{
-
-  if (NSEqualSizes(value, self.dimensions)) return;
-  !self.onChangeDimensions ?: self.onChangeDimensions(self.dimensions, value);
-})
-
-SYNTHESIZE_ASC_CAST_BLOCK(sizeChanged, setSizeChanged, SizeChange, ^{},^{})
-
-@end
 
 
 //- (void)   setOriginX:(CGF)x  {	self.frameMinX = x; }

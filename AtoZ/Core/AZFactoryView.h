@@ -13,8 +13,8 @@ CAGradientLayer* greyGradLayer();
 
 @interface 		   AZOutlineLayer : CALayer
 
-@property (NATOM,STR)       NSA * nodeRects;
-@property (NATOM,WK) NSTreeNode * rootNode,
+@property (NA,STR)       NSA * nodeRects;
+@property (NA,WK) NSTreeNode * rootNode,
                                   * selectedNode;
 
 //+ (INST)  layerWithNode:(NSTreeNode*)node inLayer:(CAL*)layer withFrame:(NSR)frame;
@@ -24,7 +24,7 @@ CAGradientLayer* greyGradLayer();
 @interface 			AZOutlineLayerNode : CALayer
 
 @property (WK)				  NSTreeNode * representedNode;
-@property (NATOM) AZOutlineCellStyle   cellStyle;
+@property (NA) AZOutlineCellStyle   cellStyle;
 
 //+ (instancetype) layerForNode:AZNODEPRO node style:(AZOutlineCellStyle)style;					
 @end
@@ -36,7 +36,7 @@ CAGradientLayer* greyGradLayer();
 
 - (id) initWithFrame:(NSRect)f rootNode:(NSTreeNode*)node;
 
-@property (NATOM)  			   	NSR   nodeRect;
+@property (NA)  			   	NSR   nodeRect;
 @property (STR)  	  		  NSTreeNode * rootNode;  // DefinitionController *
 @property (STR) 		 AZOutlineLayer * outlineLayer;
 @property (STR)	     NSSearchField * searchField;
@@ -51,8 +51,8 @@ CAGradientLayer* greyGradLayer();
 //@property (weak) 	NSO<AtoZNodeProtocol> * reprsentedNode;
 
 
-//@property (NATOM,STR) NSO<AtoZNodeProtocol>* representedNode;
-//@property (NATOM,WK)  NSO<AtoZNodeProtocol>* selectedNode;
+//@property (NA,STR) NSO<AtoZNodeProtocol>* representedNode;
+//@property (NA,WK)  NSO<AtoZNodeProtocol>* selectedNode;
 
 //@property (nonatomic)  				  CGFloat   unitHeight;
 //@property (nonatomic,copy)			  CALayer * (^listLayerWithNodes)(NSA*);

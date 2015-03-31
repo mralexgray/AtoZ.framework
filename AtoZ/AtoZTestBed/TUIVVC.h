@@ -15,5 +15,5 @@
 
 @prop_RO NSArray* visibleViews;
 @prop_RO AHLayoutHandler reloadHandler;
-- (IBAction)clearFaviconCache:_;
+- (IBAction)clearFaviconCache:__ _
                               @end

@@ -24,8 +24,8 @@
 @property (nonatomic, strong) NSString 	*uniqueID;
 @property (nonatomic, strong) AZFile	*file;
 
-@property (NATOM, ASS) float radius;
-@property (NATOM, ASS) float inset;
+@property (NA, ASS) float radius;
+@property (NA, ASS) float inset;
 @property (nonatomic, strong) id 	representedObject;
 @property (nonatomic, readonly) NSString *cellIdentifier;
 

@@ -5,7 +5,7 @@
 @import Quartz;
 @import QuickLook;
 
-#import "NSImage+AtoZ.h"
+#import <AtoZ/AtoZ.h>
 
 
 static void BitmapReleaseCallback(void *info, const void *data, size_t size) {
@@ -535,15 +535,16 @@ static _List frameworkImageNames_ = nil, frameworkImagePaths_ = nil;
   return i;
 }
 
-+ _Pict_ imageWithSize: _Size_ size named: _Text_ name {
-  return [NSIMG.alloc initWithSize:size named:name];
-}
++ _Kind_ imageWithSize:_Size_ z named:_Text_ n { return [self.alloc initWithSize:z named:n]; }
 
-- _Pict_ initWithSize:(NSSZ)size named:(NSS*) name {
-  return [[NSIMG.alloc initWithSize:size] named:name];
-}
+- _Pict_ initWithSize:_Size_ z named:_Text_ n { return [[NSIMG.alloc initWithSize:z] named:n]; }
+
+_S _Text _systemIconsFolder; _S _List _systemIcons;
 
 + _List_ systemIcons      {
+
+
+
   _systemIconsFolder = _systemIconsFolder ?: @"/System/Library/CoreServices/"
                            @"CoreTypes.bundle/Contents/" @"Resources/";
   return _systemIcons =
@@ -1402,11 +1403,12 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
 - _Pict_ resizeWhenScaledImage { return [self setScalesWhenResized:YES], self; }
 
+typedef NS_ENUM(_UInt, pixelComponents) { red, green, blue, alpha };
+
 + _Pict_ prettyGradientImage {
 
   NSSZ gradientSize = AZSizeFromDim(256);
-  NSImage *newImage =
-      [self.alloc initWithSize:gradientSize]; // In this case, the pixel
+  NSImage *newImage = [self.alloc initWithSize:gradientSize]; // In this case, the pixel
                                               // dimensions match the image
                                               // size.
 
@@ -1482,13 +1484,15 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
 //    if ([[self.representations.firstObject colorSpac] )
     NSBag *satchel = NSBag.bag;
+
     NSBIR *imageRep = self.quantizerRepresentation;
 
-    IterateGridWithBlock($RNG(0, 16), $RNG(0, 16), ^(NSI i, NSI j) { NSC *thisPx;
+    [[AZR x:0 y:0 w:16 h:16] iterate:^(_Cord p) { /// } IterateGridWithBlock($RNG0(16), $RNG0(16), ^(NSI i, NSI j) {
+      NSC *thisPx;
 
-      !(thisPx = [imageRep colorAtX:i y:j]).alphaComponent ?: [satchel add:thisPx];
+      !(thisPx = [imageRep colorAtX:p.x y:p.y]).alphaComponent ?: [satchel add:thisPx];
 
-    });
+    }];
 
 //    NSUI ctr = satchel.objects.count < 10 ? satchel.objects.count : 10;
 //

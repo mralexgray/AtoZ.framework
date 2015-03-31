@@ -111,14 +111,14 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 
 - (NSS*) swizzleNSValueDescription {
 
-  NSValue *_ = (id)self;
+  NSValue *__ = (id)self;
 
-  if (strcmp([_ objCType],@encode(AZPOS)) == 0 ) {
+  if (strcmp([__ objCType],@encode(AZPOS)) == 0 ) {
     NSUInteger pos = NSNotFound;
-    [_ getValue:&pos];
+    [__ getValue:&pos];
     return AZPositionToString(pos);
   }
-  NSA *raw = _.swizzleNSValueDescription.words;
+  NSA *raw = __.swizzleNSValueDescription.words;
   NSA*left = [NSA arrayWithArrays:[(NSA*)raw map:^id(id obj) {
     return [obj rangeOfString:@"{"].location != NSNotFound ? [obj split:@"{"] : @[obj]; }]];
   NSA*right = [NSA arrayWithArrays:[left map:^id(id obj) {

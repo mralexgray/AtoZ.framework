@@ -163,7 +163,7 @@ EL_TYPE nodeType(xmlNode * node) {
 				{
 					
 					BOOL match = (!partial && !strcmp((char*)child->content, classNameStr))
-                    ||  (partial &&  strstr((char*)child->content, classNameStr)) != NULL;
+                    ||  (partial &&  strstr((char*)child->content, classNameStr)/*)*/ != NULL);
 	
 					if (match)
 					{

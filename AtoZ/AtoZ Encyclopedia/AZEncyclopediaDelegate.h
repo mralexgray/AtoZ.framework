@@ -29,17 +29,17 @@
 	NSMutableArray *noteControllers;
 }
 
-@property (NATOM, ASS) 	IBOutlet NSProgressIndicator *pIndi;
-@property (NATOM, ASS)   IBOutlet TransparentWindow *controlWindow;
+@property (NA, ASS) 	IBOutlet NSProgressIndicator *pIndi;
+@property (NA, ASS)   IBOutlet TransparentWindow *controlWindow;
 //@property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
 
-- (IBAction) addNote:_;
-                              - (IBAction) removeAllNotes:_;
-                              - (IBAction) goMouseTest:_;
-                              - (IBAction) reload:_;
+- (IBAction) addNote:__ _
+                              - (IBAction) removeAllNotes:__ _
+                              - (IBAction) goMouseTest:__ _
+                              - (IBAction) reload:__ _
                               - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
-@property (NATOM, ASS) CGRect scaledUnit;
+@property (NA, ASS) CGRect scaledUnit;
 @property (nonatomic, strong) IBOutlet iCarouselViewController *vc;
 //@property (nonatomic, retain) IBOutlet AtoZInfinity *infinityView;
 //@property (nonatomic, strong) AZWindowExtend *window;
@@ -63,7 +63,7 @@
 
 @property (nonatomic, strong) IBOutlet AZToggleArrayView   *sortToggle;
 
-//-(IBAction)toggleShake:_;
+//-(IBAction)toggleShake:__ _
                               
 @end
 /*

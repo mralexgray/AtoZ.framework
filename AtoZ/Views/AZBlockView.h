@@ -67,7 +67,7 @@ typedef void(^NSImageDrawer)(void);
 typedef void(^AZCellBlockDrawer)	(BLKCELL*cell, NSR cF, NSV*cV);
 @interface BLKCELL : NSButtonCell
 + (instancetype) inView:(NSV*)v withBlock:(void(^)(BLKCELL*,NSR,NSV*))blk;
-@property (NATOM, CP) AZCellBlockDrawer 			dBlock;
+@property (NA, CP) AZCellBlockDrawer 			dBlock;
 @end
 
 @class AZBlockView;
@@ -80,7 +80,7 @@ typedef void(^AZBlockViewDrawer)(AZBlockView *view, NSRect dirtyRect);
 + (AZBlockView *)viewWithFrame:(NSRect)frame
 						 opaque:(BOOL)opaque
 				drawnUsingBlock:(AZBlockViewDrawer)drawBlock;
-@property (NATOM, CP) AZBlockViewDrawer drawBlock;
+@property (NA, CP) AZBlockViewDrawer drawBlock;
 @property (nonatomic, assign) BOOL opaque;
 @end
 

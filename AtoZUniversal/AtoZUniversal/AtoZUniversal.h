@@ -29,8 +29,9 @@
 
 #import <AtoZUniversal/Protocols.h>
 #import <AtoZUniversal/Functions.h>
+#import <AtoZUniversal/BoundingObject.h>
 
-
+#import <AtoZUniversal/Color+AtoZ.h>
 #import <AtoZUniversal/AtoZGeometry.h>
 #import <AtoZUniversal/NSArray+AtoZ.h>
 #import <AtoZUniversal/NSBundle+AtoZ.h>
@@ -46,6 +47,7 @@
 #import <AtoZUniversal/NSString-Utilities.h>
 
 #import <AtoZUniversal/AZTalker.h>
+#import <AtoZUniversal/DatabaseStorage.h>
 
 
 FOUNDATION_EXPORT              double AtoZUniversalVersionNumber;   //! Project version number

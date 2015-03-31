@@ -1,14 +1,14 @@
 //@interface AZWindowTab () { CGP	_drgStrt, _wOrig, _offset; NSView *_view, *_handle; }
 //
 //@property AZWindowTabViewPrivate *tab;
-//@property (NATOM)		       AZR * inFrame, * outFrame, * grabRect, * outerRect;
+//@property (NA)		       AZR * inFrame, * outFrame, * grabRect, * outerRect;
 //
-////@property (NATOM) AZSlideState 	slideState; // !!!
+////@property (NA) AZSlideState 	slideState; // !!!
 //@prop_RO OSCornerType 	outsideCorners;
 //@end
 
 #import <AtoZ/AtoZ.h>
-#import "BoundingObject.h"
+
 #import "AZWindowTab.h"
 
 @implementation AZWindowTab  static NSMA *allTabs = nil; static NSPoint mDragOffset;
@@ -591,6 +591,6 @@ x	}
 	}];
 	id last = self.tabRects.last; NSR thRect = last ? [last rectValue] :
 + (INST) instanceInWindow:(AZWT*)w withView:(NSV*)v {		return [self.alloc initInWindow:w withView:v]; }
-@property (NATOM)             CGF	grabInset;
+@property (NA)             CGF	grabInset;
 
 */

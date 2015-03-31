@@ -20,8 +20,8 @@
 //@property (nonatomic, assign) IBOutlet NSString *point2y;
 @property (weak) IBOutlet iCarouselViewController *carrie;
 
-- (IBAction) goMouseTest:_;
-                              - (IBAction) reload:_;
+- (IBAction) goMouseTest:__ _
+                              - (IBAction) reload:__ _
                               - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
 

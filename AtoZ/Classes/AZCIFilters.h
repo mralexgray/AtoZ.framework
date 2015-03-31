@@ -14,9 +14,9 @@
 @interface AZIrisOpenFilter : CIFilter
 
 
-@property (NATOM, retain) CIImage* inputImage;
-@property (NATOM, retain) CIImage* inputTargetImage;
-@property (NATOM, retain) NSNumber* inputTime;
+@property (NA, retain) CIImage* inputImage;
+@property (NA, retain) CIImage* inputTargetImage;
+@property (NA, retain) NSNumber* inputTime;
 
 + (CIFilter*) filterWithName: (NSString *)name;
 + (CIKernel*) kernel;

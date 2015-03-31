@@ -23,9 +23,9 @@
 	@endverbatim																		*/
 
 @interface AZToggleControlLayer : CALayer
-@property (NATOM,STR)	NSG		*onBackGradient, 	*offBackGradient;
+@property (NA,STR)	NSG		*onBackGradient, 	*offBackGradient;
 @property (CP) 			NSS		*onStateText, 		*offStateText;
-@property (NATOM,ASS)		BOOL 		toggleState;
+@property (NA,ASS)		BOOL 		toggleState;
 
 + (AZToggleControlLayer*)toggleWithOn:(NSS*)on off:(NSS*)off;
 
@@ -117,8 +117,8 @@ extern NSS *const AZToggleState;
 - (CATXTL*) itemTextLayerWithName:(NSS*)name;
 //- (CAL*)		itemLayerWithName:	 (NSS*)name	relativeTo:(NSS*)relative index:(NSUI)index;
 
-@property (NATOM,STR) NSA *questions;
-@property (NATOM,ASS)				AZOrient orientation;
+@property (NA,STR) NSA *questions;
+@property (NA,ASS)				AZOrient orientation;
 @property (UNSF) IBOutlet id<AZToggleArrayViewDelegate> delegate;
 @property (UNSF) IBOutlet id<AZToggleArrayViewDatasource> datasource;
 //- (void)  setTogglesAndStatesWithArrayOfDictionaries (AZToggleArrayView *) view;

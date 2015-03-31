@@ -1,82 +1,39 @@
 
 #import <AtoZUniversal/AtoZUniversal.h>
-#import <AtoZUniversal/NSImage+AtoZ.h>
-#import <AtoZUniversal/Rectlike.h>
 
 #define SHOULDBERECTLIKEALREADY if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 #define SHOULDBESIZEABLE if(EQUAL2ANYOF(self.class,CAL.class,NSV.class,nil)) COMPLAIN;
 
 #if MAC_ONLY
 
-@implementation NSIMG   (RectLike) @dynamic bounds; // /*! @todo */ anchorPoint;
-
-- _Rect_    frame                { return AZRectFromSize(self.size); }
-- _Void_ setFrame:_Rect_ f       {/* FIX  [self isSmallerThanRect:f] ? [self scaleToFillSize:f.size] : nil; */ }
-- _Void_ setOrigin:_Cord_ origin  {}
-
-@end
-
-@implementation NSWindow   (RectLike) // @dynamic /*! @todo */ anchorPoint;
-//- (NSR) frame; Provided by NWINdow
--  (NSR)      bounds            { return AZRectFromSizeOfRect(self.frame); }
-
-- (void) setFrame:(NSR)f    { [self setContentSize:f.size]; } // display:YES]; } //self.isVisible animate:NO]; }
-
-- (void)   setBounds:(NSR)b { [self setFrame:AZRectExceptSize(self.frame, b.size) display:YES animate:YES]; }
-
-// setFramesize = AZSizeFromRect(b); }
-
-@end
-
-//-  (NSP)    position            { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
-//- (void) setPosition:(NSP)p     { /*! @todo */ NSAssertFail(@"neeed to fix");  }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));
-@implementation CALayer   (RectLike) //@dynamic alignment;
-
-//-  (NSP)     origin {return self.frame.origin; }
-//- (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
-
-@end
-
-@implementation NSV   (RectLike) //@dynamic alignment, position,anchorPoint;
-
-//-  (NSP)    origin        {return self.frame.origin; }
-//- (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
-//-  (NSR) superframe       { return self.superview.bounds; }
-@end
-
+＜(Pict, RectLike) @dynamic bounds; // /*! @todo */ anchorPoint;
+- _Rect_     frame            { return AZRectFromSize(self.size); }
+- _Void_  setFrame:_Rect_ f   {/* FIX  [self isSmallerThanRect:f] ? [self scaleToFillSize:f.size] : nil; */ }
+- _Void_ setOrigin:_Cord_ o   {}
+￭
+＜(Wind,RectLike) // @dynamic /*! @todo */ anchorPoint frame; Provided by NWINdow
+- _Void_  setFrame:_Rect_ f { [self setContentSize:f.size]; } // display:YES]; } //self.isVisible animate:NO]; }
+- _Void_ setBounds:_Rect_ b { [self setFrame:AZRectExceptSize(self.frame, b.size) display:YES animate:YES]; } // setFramesize = AZSizeFromRect(b); }
+- _Rect_    bounds          { return AZRectFromSizeOfRect(self.frame); }
+￭
 @implementation NSIMG (SizeLike)
 - (void) setBounds:(NSR)b { self.size = AZSizeFromRect(b); }
 -  (NSR)    bounds        { return AZRectFromSize(self.size); }
-@end
+￭
 #endif
 
+@concreteprotocol(RectLike) /*! required */ // @dynamic bounds;
 
-@concreteprotocol(RectLike) /*! required */ //@dynamic bounds;
+- _Rect_ frame { return [NSException raise:@"Unmet <RectLike> protocol requirement!" format:@"y'all need to implement %@",AZSELSTR], NSZeroRect; }
 
+- _Rect_ bounds { return self.frame; }
 
-//+ (void) initialize {
-//
-//  unsigned count = 0;
-//  Class *classes = ext_copyClassListConformingToProtocol (@protocol(RectLike),&count);
-//  NSLog(@"what a delight.. there are %u RectLike Classes!", count);
-//  free(classes);
-////  for (int i = 0; i < count; i++ ) {
-////    Class c = classes[i];
-////
-//}
+- _Void_ setSuperframe:_Rect_ r { SAVE(@selector(superframe), AZVrect(r)); }
 
-- _Void_ setSuperframe:(NSR)r { SAVE(@selector(superframe), AZVrect(r)); }
 - _Rect_ superframe { id x = FETCH;  return x ? [x rV] :
 
-  ISA(self, NSW) ? AZScreenFrameUnderMenu()       : ISA(self,NSV) ? ((NSV*)self).superview.bounds :
-  ISA(self,CAL)  ? ((CAL*)self).superlayer.bounds : self.r; }
-
-//-(id) valueForUndefinedKey:(NSS*)key{
-//
-//  printf("requested %s's undefined key:%s", self.cDesc,key.UTF8String); return nil;
-//}
-//SetKPfVA(Origin, @"x", @"y") SetKPfVA(X,@"origin") SetKPfVA(Y,@"origin")
-//SetKPfVA(Size, @"bounds", @"width", @"height") SetKPfVA(Width, @"size") SetKPfVA(Height, @"size")
+  ISA(self,Wind) ? AZScreenFrameUnderMenu()       : ISA(self,View) ? (_View_ self).superview.bounds :
+  ISA(self,Layr)  ? (_Layr_ self).superlayer.bounds : self.r; }
 
 -  (CGR)         r          { return self.frame; }
 - (void)      setR:(NSR)r   { self.frame = r; }
@@ -129,7 +86,7 @@
 -  (CGP)      centerPt        { return self.midXmidY; }
 - (void)   setCenterPt:(NSP)c { self.r = AZCenterRectOnPoint(self.r, c);  }
 
-      SYNTHESIZE_ASC_PRIMITIVE_KVO(  position,  setPosition, _Cord)
+      SYNTHESIZE_ASC_PRIMITIVE_KVO( position, setPosition, _Cord)
 
 #if MAC_ONLY
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO( alignment, setAlignment, NSAlignmentOptions, ^{}, ^{ })      
@@ -203,7 +160,18 @@ SetKPfVA(InsideEdge, @"frame", @"superframe");
 - (NSSZ)  scaleWithSize:(NSSZ)z { self.w *= z.width; self.h *= z.height; return self.size; }
 - (NSSZ) resizeWithSize:(NSSZ)z { self.w += z.width; self.h += z.height; return self.size; }
 
-@end
+
+- _Void_ iterate:(CordBlk)b {
+
+  [[@(self.x) to:@(self.maxX-1)] each:^(_Numb r) {
+    [[@(self.y) to:@(self.maxY-1)] each:^(_Numb c) { b(_Cord_{ r.iV, c.iV }); }]; }];
+}
+
+￭
+
+//-(id) valueForUndefinedKey:(NSS*)key{ printf("requested %s's undefined key:%s", self.cDesc,key.UTF8String); return nil; }
+//SetKPfVA(Origin, @"x", @"y") SetKPfVA(X,@"origin") SetKPfVA(Y,@"origin")
+//SetKPfVA(Size, @"bounds", @"width", @"height") SetKPfVA(Width, @"size") SetKPfVA(Height, @"size")
 
 //  NSSZ superRect = NSZeroSize;
 //  if (!SameChar([sizes.lastObject objCType], @encode(NSSZ))) {
@@ -263,5 +231,30 @@ SetKPfVA(InsideEdge, @"frame", @"superframe");
 	return [self.class withRect:r];
 }
 + (AZRect*)screnFrameUnderMenu { return [AZRect withRect:AZScreenFrameUnderMenu()]; }
-
 @Stop
+
+
+
+//-  (NSP)    position            { return AZCenter(self.frame); }  // (NSP){self.originX + (self.width/2), self.originY + (self.height/2));
+//- (void) setPosition:(NSP)p     { /*! @todo */ NSAssertFail(@"neeed to fix");  }        //	frame.origin = NSMakePoint(midpoint.x - (frame.size.width/2), midpoint.y - (frame.size.height/2));
+@XtraPlan(CALayer,RectLike) //@dynamic alignment;
+//-  (NSP)     origin {return self.frame.origin; }
+//- (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
+￭
+@implementation NSV   (RectLike) //@dynamic alignment, position,anchorPoint;
+//-  (NSP)    origin        {return self.frame.origin; }
+//- (void) setOrigin:(NSP)p { self.frame = (NSR){p, self.bounds.size}; }
+//-  (NSR) superframe       { return self.superview.bounds; }
+￭
+
+
+//+ (void) initialize {
+//
+//  unsigned count = 0;
+//  Class *classes = ext_copyClassListConformingToProtocol (@protocol(RectLike),&count);
+//  NSLog(@"what a delight.. there are %u RectLike Classes!", count);
+//  free(classes);
+////  for (int i = 0; i < count; i++ ) {
+////    Class c = classes[i];
+////
+//}

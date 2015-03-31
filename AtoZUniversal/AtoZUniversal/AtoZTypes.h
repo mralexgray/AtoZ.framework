@@ -6,15 +6,23 @@
 #import <AtoZUniversal/AtoZMacroDefines.h>
 #endif
 
-typedef void (^Blk)         ();
-typedef void (^VBlk)        _Void_;
-typedef void (^ObjBlk)      (_ObjC x);
-typedef void (^DTABlk)      (_Data d);
-typedef void (^URLBlk)      (_NUrl u);
-typedef void (^NumBlk)      (_Numb n);
-typedef void (^DBlk)        (_Dict d);
-typedef void (^RBlk)        (_Rect r);
-typedef void (^QBlk)        (_IsIt QBlk);
+_Type _Void (^Blk)         ();
+_Type _Void (^VBlk)        _Void_;
+_Type _Void (^ObjBlk)      (_ObjC x);
+_Type _Void (^DTABlk)      (_Data d);
+_Type _Void (^URLBlk)      (_NUrl u);
+_Type _Void (^NumBlk)      (_Numb n);
+_Type _Void (^DBlk)        (_Dict d);
+_Type _Void (^RBlk)        (_Rect r);
+_Type _Void (^QBlk)        (_IsIt QBlk);
+_Type _Void (^CordBlk)     (_Cord p);
+
+
+#define _Blk_ (Blk)
+#define _VBlk_ (VBlk)
+#define _ObjBlk_ (ObjBlk)
+#define _ObjObjBlk_ (ObjObjBlk)
+#define _ObjIntBlk_ (ObjIntBlk)
 
 
 typedef void (^ObjObjBlk)   (id x1, id x2);
@@ -109,15 +117,15 @@ NS_INLINE NSString* AZEnumToBinary(int num) {  char str[9] = {0};
 #define 	AZPositionOutside       AZAlignOutside
 
 
+typedef _Void ( ^    RectBlock ) (_Rect rect);
+typedef _Void ( ^ ObjRectBlock ) (id _self, _Rect rect);
+
 #if !TARGET_OS_IPHONE
 
 @class BLKVIEW;
 typedef void(^ViewBlock)(NSView *v);
 typedef void(^BlkViewRectBlock) (BLKVIEW *v, NSRect r);
 typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
-
-typedef void(^RectBlock) (NSR rect);
-typedef void(^ObjRectBlock) (id _self, NSR rect);
 
 #endif
 
@@ -177,12 +185,11 @@ JREnumDeclare(azkColor, azkColorNone, azkColorRed, azkColorOrange, azkColorYello
 typedef void (^AZObjIdxStopBlock)         (id obj, NSUI idx, BOOL *stop);
 typedef   id (^AZIndexedAccumulationBlock)(id sum,   id obj, NSUI   idx);
 
-/*! 
-@param NSControlActionBlock 
-@code
-  @property (UNSF) IBOutlet NSButton 	*someButton;
-  [_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
-  
+/*  @param NSControlActionBlock
+    @code
+          @property (UNSF) IBOutlet NSButton 	*someButton;
+          [_someButton setActionBlock:(NSControlActionBlock) ^(id inSender) { AZLOG(@"xlisidud"); [self doSomeBullshit:nil];	}];
+          
 */
 
 typedef void(^SenderEvent)               (id sender, NSEvent* e);

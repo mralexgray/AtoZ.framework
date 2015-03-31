@@ -73,7 +73,6 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
 //  [self setAssociatedValue:nameOfColor forKey:@"associatedName" policy:OBJC_ASSOCIATION_RETAIN_NONATOMIC];
 //}
 
-SYNTHESIZE_ASC_OBJ(name, setName);
 - (NSG*) gradient {
 
   return [self associatedValueForKey:@"_gradient" orSetTo:

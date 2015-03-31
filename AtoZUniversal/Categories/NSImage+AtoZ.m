@@ -45,12 +45,8 @@ Text        *const AZIMG_checkmark = @"checkmark",              *const AZIMG_add
             *const AZIMG_atSymbol = @"atSymbol";
 
 
-_S _Text _systemIconsFolder;
-_S _List _systemIcons;
-
 _S _I _SInt get_bit(_UChr arr, _ULng bit_num) { return (arr[(bit_num / 8)] & (1 << (bit_num % 8))); }
 
-typedef NS_ENUM(_UInt, pixelComponents) { red, green, blue, alpha };
 
 _Flot distance(NSP aPoint) {
   return sqrt(aPoint.x * aPoint.x +

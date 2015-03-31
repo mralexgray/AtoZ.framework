@@ -54,21 +54,20 @@
 - (NSArray*) attributesOfProp:(NSString*)propName;
 
 // instance convenience accessors for above routines (who likes to type [myObj class] all the time ?)
-- (BOOL) hasPropertyNamed: 			 		(NSS*) name;
-- (BOOL) hasPropertyNamed: 			 		(NSS*) name ofType: (const char *) type;
-- (BOOL) hasPropertyForKVCKey: 	 	 		(NSS*) key;
-- (const char*) typeOfPropertyNamed: 		(NSS*) name;
--  (SEL) getterForPropertyNamed: 	 		(NSS*) name;
--  (SEL) setterForPropertyNamed: 	 	 	(NSS*) name;
-- (NSS*) retentionMethodOfPropertyNamed:  (NSS*) name;
+- (BOOL) hasPropertyNamed: 			 		    _Text_ name;
+- (BOOL) hasPropertyNamed: 			 		    _Text_ name ofType: (const char *) type;
+- (BOOL) hasPropertyForKVCKey: 	 	      _Text_ key;
+- (const char*) typeOfPropertyNamed:    _Text_ name;
+-  (SEL) getterForPropertyNamed: 	      _Text_ name;
+-  (SEL) setterForPropertyNamed:        _Text_ name;
+- _Text_ retentionMethodOfPropertyNamed:_Text_ name;
 
 + (NSA*) az_propertyNames;
 + (NSD*) az_propertyNamesAndTypes;
 - (NSA*) az_properties;
-+ (NSS*) az_getPropertyType:(NSS*)attributeString;
++ _Text_ az_getPropertyType:(NSS*)attributeString;
 
-- (NSA*) objectKeys;
-- (NSA*) primitiveKeys;
+_RO _List objectKeys, primitiveKeys;
 
 @end
 
@@ -80,13 +79,19 @@
 @end
 
 
-// Pure C API, adding to the existing API in objc/runtime.h.  The functions above are implemented in terms of these.
-// returns a static buffer - copy the string to retain it, as it will be overwritten on the next call to this function
+/*! Pure C API addition to the existing API in objc/runtime.h.
+    The functions above are implemented in terms of these. 
+    
+    @return a static buffer 
+    @note copy the string to retain it, as it will be overwritten on the next call to this function
+ */
 const char * property_getTypeString( objc_property_t property );
-// getter/setter functions: unlike those above, these will return NULL unless a getter/setter is EXPLICITLY defined
-SEL property_getGetter( objc_property_t property );
-SEL property_getSetter( objc_property_t property );
-// this returns a static (data-segment) string, so the caller does not need to call free() on the result
+
+/// getter/setter functions: unlike those above, these return NULL unless a getter/setter is EXPLICITLY defined
+SEL property_getGetter( objc_property_t p );
+SEL property_getSetter( objc_property_t p );
+
+/// this returns a static (data-segment) string, so the caller does not need to call free() on the result
 const char * property_getRetentionMethod( objc_property_t property );
 
 

@@ -14,8 +14,8 @@
 
 + (AZP*) randomPalette;
 
-@property (strong, NATOM) 	NSA *indexed;
-@property (strong, NATOM) 	NSMA *feeder;
+@property (strong, NA) 	NSA *indexed;
+@property (strong, NA) 	NSMA *feeder;
 
 
 - (NSC*) nextColor;

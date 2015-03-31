@@ -833,7 +833,7 @@ finish:
 	return re;
 }
 
-- _UInt_ count:(NSS*)_ { return [self count:_ options:0]; }
+- _UInt_ count:(NSS*)__ { return [self count:__ options:0]; }
 
 - _UInt_ indentationLevel {
 
@@ -1643,7 +1643,6 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 	}
 	return answer;
 }
-#endif
 - (CGF)heightForWidth:(CGF)width {
 	return [self sizeForWidth:width height:FLT_MAX].height;
 }
@@ -1652,12 +1651,17 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 	return [self sizeForWidth:FLT_MAX height:height].width;
 }
 
-
 - _Void_ drawCenteredVerticallyInRect:(NSR)rect {
 	CGF strHeight = [self heightForWidth:rect.size.width] * 1.4;
 	CGF      orgY = rect.origin.y + (rect.size.height / 2) - (strHeight / 2);
 	[self drawInRect:(NSR){rect.origin.x, orgY, rect.size.width, strHeight}];
 }
+#else
+
+
+#endif
+
+//#endif
 
 #pragma mark Measure Attributed String
 //- (NSSize)sizeForWidth:(CGF)width height:(CGF)height		{	NSSize answer = NSZeroSize ;
@@ -1691,7 +1695,10 @@ int gNSStringGeometricsTypesetterBehavior = NSTypesetterLatestBehavior;
 	return [self sizeForWidth:size.width height:size.height font:font];
 }
 - (NSSize)sizeForWidth:(CGF)width height:(CGF)height attributes:(NSD*)attributes {
-	return [[NSAttributedString.alloc initWithString:self attributes:attributes] sizeForWidth:width height:height];
+
+	return [[NSAttributedString.alloc initWithString:self attributes:attributes]
+        sizeWithSize:(CGSize){width, height}];
+//  sizeForWidth:width height:height];
 }
 
 - (CGF)heightForWidth:(CGF)width attributes:(NSD*)attributes {
@@ -2648,7 +2655,6 @@ static void _ScanSentence(NSScanner *scanner) {
 	NSLog(@"encodedKey = %@", encodedKey);
 	return encodedKey;
 }
-#endif
 
 + (NSS*)stringWithKeySequence:(NSA*)keySequence			{
 	NSMutableString *s = [NSMutableString string];
@@ -2656,6 +2662,9 @@ static void _ScanSentence(NSScanner *scanner) {
 		[s appendString:[self stringWithKeyCode:[n integerValue]]];
 	return s;
 }
+
+#endif
+
 
 + stringWithCharacter:(unichar)c { return [self stringWithCharacters:(unichar[]){c} length:1]; }
 
@@ -2835,29 +2844,19 @@ static void _ScanSentence(NSScanner *scanner) {
 }
 @end
 @implementation NSScanner (additions) //#include "logging.h"
+
 - (unichar)peek	{
-	if ([self isAtEnd])
-		return 0;
-	return [[self string] characterAtIndex:[self scanLocation]];
+  return self.isAtEnd ? 0 : [self.string characterAtIndex:self.scanLocation];
 }
-- _Void_ inc			{
-	if (![self isAtEnd])
-		[self setScanLocation:[self scanLocation] + 1];
-}
-- (BOOL)expectCharacter:(unichar)ch	{
-	if ([self peek] == ch) {
-		[self inc];
-		return YES;
-	}
-	return NO;
-}
+- _Void_ inc			{ self.isAtEnd ?: [self setScanLocation:self.scanLocation + 1]; }
+
+- (BOOL)expectCharacter:(unichar)ch	{ return  self.peek == ch ? [self inc], YES : NO; }
+
 - (BOOL)scanCharacter:(unichar *)ch	{
-	if ([self isAtEnd])
-		return NO;
-	if (ch)
-		*ch = [[self string] characterAtIndex:[self scanLocation]];
-	[self inc];
-	return YES;
+
+	if ([self isAtEnd]) return NO; if (ch) *ch = [self.string characterAtIndex:self.scanLocation];
+
+	[self inc]; return YES;
 }
 - (BOOL)scanUpToUnescapedCharacterFromSet:(NSCharacterSet *)toCharSet
                            appendToString:(NSMutableString *)s
@@ -3079,8 +3078,9 @@ static void _ScanSentence(NSScanner *scanner) {
 	[self scanCharactersFromSet:[NSCharacterSet whitespaceCharacterSet] intoString:nil];
 }
 @end
+#if MAC_ONLY
 @implementation NSString (Similiarity)
-#if !TARGET_OS_IPHONE
+
 float ScoreForSearchAsync(SKIndexRef inIndex, CFStringRef inQuery)		{
 	// Create search
 	SKSearchRef search = SKSearchCreate(inIndex, inQuery, kSKSearchOptionFindSimilar);
@@ -3149,8 +3149,8 @@ catch_error:
 
 	return outScore;
 }
-#endif
 @end
+#endif
 
 
 /*

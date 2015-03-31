@@ -1,5 +1,6 @@
 
 
+
 @interface NSAffineTransform (RectMapping)
 /* initialize the NSAffineTransform so it maps points in srcBounds proportionally to points in dstBounds */
 - (NSAffineTransform*)mapFrom:(NSRect) srcBounds to: (NSRect) dstBounds;
@@ -38,7 +39,7 @@
 -  (void) linearGradientFillWithStartColor:  (NSC*)startColor   endColor:(NSC*)endColor;
 -  (void) bilinearGradientFillWithOuterColor:(NSC*)outerColor innerColor:(NSC*)innerColor;
 
-@property (NATOM) CGF width, height;
+@property (NA) CGF width, height;
 
 + (NSBP*) diagonalLinesInRect:(NSR)rect phase:(CGF)phase; // background progress bar
 -   (NSR)	nonEmptyBounds;
@@ -56,7 +57,7 @@
 - (void) fillGradientFrom: (NSC*)start to:(NSC*)end angle:(float)inAngle;
 - _Void_ fillGradientFrom:(NSC*)c1 to:(NSC*)c2 startAlign:(AZAlign)align;
 
-@property (STR,NATOM) NSA* dashPattern;
+@property (STR,NA) NSA* dashPattern;
 //- (NSA*) dashPattern;
 //- (void) setDashPattern:(NSA*)newPattern;
 

@@ -12,20 +12,20 @@
 
 @interface GeneralVC : NSViewController
 
-@property (NATOM) IBOutlet AZBackgroundProgressBar *pBar;
-@property (NATOM) IBOutlet NSSegmentedControl *segments;
-@property (NATOM) IBOutlet NSView 			*targetView;
+@property (NA) IBOutlet AZBackgroundProgressBar *pBar;
+@property (NA) IBOutlet NSSegmentedControl *segments;
+@property (NA) IBOutlet NSView 			*targetView;
 
-@property (NATOM) AZMedallionView 	*medallion;
-@property (NATOM) BLKVIEW	   	 		*blockView;
-@property (NATOM) AZDebugLayerView  	*debugLayers;
-@property (NATOM, STR) NSIV	 			*badges, *imageNamed;
-@property (NATOM) NSSCRLV 				*contactSheet;
-@property (NATOM) AtoZGridViewAuto   	*picol;
-@property (NATOM) AtoZGridViewAuto	*autoGrid;
-@property (NATOM) AZHostView			*hostView;
-@property (NATOM) AZGrid				*azGrid;
-@property (NATOM) AZPrismView 			*prism;
-@property (NATOM) LetterView			*letterView;
+@property (NA) AZMedallionView 	*medallion;
+@property (NA) BLKVIEW	   	 		*blockView;
+@property (NA) AZDebugLayerView  	*debugLayers;
+@property (NA, STR) NSIV	 			*badges, *imageNamed;
+@property (NA) NSSCRLV 				*contactSheet;
+@property (NA) AtoZGridViewAuto   	*picol;
+@property (NA) AtoZGridViewAuto	*autoGrid;
+@property (NA) AZHostView			*hostView;
+@property (NA) AZGrid				*azGrid;
+@property (NA) AZPrismView 			*prism;
+@property (NA) LetterView			*letterView;
 
 @end

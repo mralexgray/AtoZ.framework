@@ -138,7 +138,7 @@ return [[self.class.alloc initWithFrame:frame] wVsfKs:c,@"backgroundColor", nil]
 	self.grid = self.layer;
 
 	self.grid.backgroundColor = cgRANDOMCOLOR;
-	self.dimensions = (NSSize){8,8};
+	self.size = (NSSize){8,8};
 	self.grid.layoutManager = self;
   [self.layer disableResizeActions];
 

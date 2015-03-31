@@ -31,8 +31,8 @@
 
 @interface NSObject (AtoZBindings)
 
-- (void) setWindowPosition:	(AZWindowPosition) pos;
-- (AZWindowPosition) windowPosition;
+//- (void) setWindowPosition:	(AZWindowPosition) pos;
+//- (AZWindowPosition) windowPosition;
 
 - (void) bind:(NSA*)paths toObject: o withKeyPaths:(NSA*)objKps;
 - (void) bindToObject: o withKeyPaths:(NSA*)objKps;

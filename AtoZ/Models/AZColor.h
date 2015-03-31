@@ -27,9 +27,9 @@
 //															count:(NSUI)ct
 //															total:(NSUI)tot;
 
-//@property (NATOM)	 NSS * name;
+//@property (NA)	 NSS * name;
 @property (CP)     NSC * color;
-//@property (NATOM)	NSUI 	 total,
+//@property (NA)	NSUI 	 total,
 //												 count;
 @property CGF   brightness,
                 saturation,

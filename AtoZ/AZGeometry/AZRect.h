@@ -8,8 +8,7 @@
 //+ (INST) rect;
 
 //#import <Zangetsu/Zangetsu.h>
-#import "BoundingObject.h"
-
+//#import "BoundingObject.h"
 
 
 
@@ -29,12 +28,12 @@
 //- (id) initFromPoint:(NSP)ptOne toPoint:(NSP)ptTwo;
 //- (id) initWithFrame:(NSR)frame inFrame:(NSR)superframe;
 
-//@property (NATOM) CGP 		anchor;//, position;
-//@property (NATOM) CGF 		 maxX, maxY, minY, minX;//, w, h;width, height,
-//@property (NATOM) NSP 		origin, center, apex;
-//@property (NATOM) NSSZ 	size;
-//@property (NATOM) NSR 		 r; // rect,
-//@property (NATOM) AZA	orient;
+//@property (NA) CGP 		anchor;//, position;
+//@property (NA) CGF 		 maxX, maxY, minY, minX;//, w, h;width, height,
+//@property (NA) NSP 		origin, center, apex;
+//@property (NA) NSSZ 	size;
+//@property (NA) NSR 		 r; // rect,
+//@property (NA) AZA	orient;
 
 //- (void) setApex:(NSP)p move1Scale2:(NSN*)n;
 
@@ -80,9 +79,9 @@ static inline NSR AZCenteredRect(NSSize aSize, NSR inRect)
 
 @interface AZEdge : NSObject
 + (INST) rect:(AZRect*)r along:(AZRect*)outer inside:(BOOL)isinide;
-@property (NATOM) AZA alignment;
-@property (NATOM) AZOrient orient;
-@property (NATOM) CGF cornerTreshHold, snapThreshold;
+@property (NA) AZA alignment;
+@property (NA) AZOrient orient;
+@property (NA) CGF cornerTreshHold, snapThreshold;
 //- (void) moveInDirection:(NSSZ)sz;
 @end
 

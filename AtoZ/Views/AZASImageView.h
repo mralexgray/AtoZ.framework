@@ -11,7 +11,7 @@
 @property (nonatomic) NSString *URL;
 //@property (nonatomic, strong) NSURL* properURL;
 
-@property (NATOM) NSString * toolTipWhileLoading,
+@property (NA) NSString * toolTipWhileLoading,
                            * toolTipWhenFinished,
                            * toolTipWhenFinishedWithError;
 

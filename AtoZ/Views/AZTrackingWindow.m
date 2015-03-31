@@ -414,7 +414,7 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 
 //	 key values for dictionary in NSTrackingAreas's userInfo, which tracking area is being tracked
 @interface CornerClipView : NSView
-@property (NATOM, ASS, getter = getPair) AZTriPair t;
+@property (NA, ASS, getter = getPair) AZTriPair t;
 @property (weak) AZTrackingWindow *windy;
 + initInWindow:(AZTrackingWindow*)windy;
 @end

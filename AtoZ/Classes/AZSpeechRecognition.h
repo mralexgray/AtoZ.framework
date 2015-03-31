@@ -6,8 +6,8 @@
 
 AZPROP(NSString,whatever);
 
-- (IBAction) recognizerForLabel:_;
-                              - (IBAction) record:_;
+- (IBAction) recognizerForLabel:__ _
+                              - (IBAction) record:__ _
                               @end
 
 
@@ -35,7 +35,7 @@ extern BOOL const useSox;
 @end
 
 
-//@property (NATOM,CP)	void (^handler)(NSS *text, NSS* wavpath);
+//@property (NA,CP)	void (^handler)(NSS *text, NSS* wavpath);
 //typedef void (^TTSDoneBlock) 			(NSString *text,  NSString* wavpath);
 //- (void) getText:(NSS*)text withCompletion:(void (^)(NSS *text, NSS* wavpath))block;
 //+ (void) getSynthesizedText:(NSS*)text ((^)())block;

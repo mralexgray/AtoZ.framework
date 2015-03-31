@@ -4,7 +4,7 @@
 @interface AZProgressBar : NSProgressIndicator
 
 @property NSC * color;
-@property (NATOM) CGF stripeWidth;
+@property (NA) CGF stripeWidth;
 @property  double   progressOffset;
 @property BOOL clickable;
 
@@ -41,7 +41,7 @@
 -  (void)	setProgressTextAlign:(int)pos;
 -   (int)		progressTextAlignt;
 - (float)	alignTextOnProgress:(NSRect)rect fontSize:(NSSize)size;
--  (void)	startAnimation:_;
-                              -  (void)	stopAnimation:_;
+-  (void)	startAnimation:__ _
+                              -  (void)	stopAnimation:__ _
                               -  (void)	animateInBackgroundThread;
 @end

@@ -1,6 +1,5 @@
 
 #import <AtoZ/AtoZ.h>
-#import "BoundingObject.h"
 #import "CALayer+AtoZ.h"
 
 @interface EventCoordinator : BaseModel
@@ -2382,9 +2381,9 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(debug,setDebug, BOOL, ^{}, ^{
 
 - (NSS*) infoString {  NSMS *ret = @"{\n".mutableCopy; static NSS *baseFormat = @"\t%@\n";
 
-  [self cornerRadius];
-  [self needsDisplayOnBoundsChange];
-  [self backgroundColor];
+//  [self cornerRadius];
+//  [self needsDisplayOnBoundsChange];
+//  [self backgroundColor];
 
   [ret appendFormat:baseFormat,$(@"animationKeys = %@", self.animationKeys)];
   [ret appendFormat:baseFormat,$(@"actions = %@", self.actions)];

@@ -631,7 +631,7 @@ void resolveHSV(float *color1, float *color2);
 	
   	float rangle = angle * pi/180;	//convert the angle to radians
 	
-  	if(fabsf(tan(rangle))<=1)	//for range [-45,45], [135,225]
+  	if(fabs(tan(rangle))<=1)	//for range [-45,45], [135,225]
 		{
 		x = NSWidth(rect);
 		y = NSHeight(rect);

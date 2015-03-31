@@ -39,15 +39,15 @@
 //+ (AZLayer*)withFrame:(NSRect)frame forObject:(id)file atIndex:(NSUInteger)index;
 //- (void) rientWithX: (CGFloat)x andY: (CGFloat)y;
 
-@property (NATOM, ASS) AZPOS 	orient;
+@property (NA, ASS) AZPOS 	orient;
 
-@property (NATOM, ASS) RNG 		range;
-@property (NATOM, ASS) NSI 		index;
+@property (NA, ASS) RNG 		range;
+@property (NA, ASS) NSI 		index;
 
-@property (NATOM, ASS) CGF		offset;
+@property (NA, ASS) CGF		offset;
 //								unit;
 
-@property (NATOM, ASS) BOOL 		flipped,
+@property (NA, ASS) BOOL 		flipped,
 								hovered,
 								selected;
 

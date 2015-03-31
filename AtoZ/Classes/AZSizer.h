@@ -26,12 +26,12 @@ NS_INLINE NSI gcdr ( NSI a, NSI b ){ if ( a==0 ) return b; return gcdr ( b%a, a 
 @prop_RO NSSZ	size;
 @prop_RO NSS	*aspectRatio;
 
-@property (NATOM) AZOrient		orient;
-@property (NATOM) NSR		  outerFrame;
+@property (NA) AZOrient		orient;
+@property (NA) NSR		  outerFrame;
 @property (WK) 		NSA	*objects;
-@property (NATOM) 	NSUI 	quantity;
+@property (NA) 	NSUI 	quantity;
 AZPROP (NSA, rects);
-@property (NATOM,CP) NSMA 	*positions;
+@property (NA,CP) NSMA 	*positions;
 
 @end
 

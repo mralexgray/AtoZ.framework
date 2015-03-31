@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 
 @interface 			AZGoogleImagesTests : XCTestCase 
-@property (NATOM) NSA* results;
+@property (NA) NSA* results;
 @end
 @implementation 	AZGoogleImagesTests
 

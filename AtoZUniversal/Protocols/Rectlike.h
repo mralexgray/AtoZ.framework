@@ -1,63 +1,81 @@
-/*! Useful protocol for any object that implements both setter and getters for both FRAME and BOUNDS.  
+
+/*! Useful protocol for any object that implements both setter and getters for both FRAME and BOUNDS.
     and that can be genuinely represented in those terms.
  */
-@protocol RectLike <NSO>
 
-@required _P    _Rect   frame,          ///     -frame  & -setFrame:    MUST be implemented (in a category is OK)
-                        bounds;         /// AND -bounds & -setBounds:   AND shoould accurately reflect those values.
+@Vows RectLike
+@Reqd _RO _Rect frame _  // MUST be implemented (in a category is OK)
+@Optn
 
-@optional _P    _Cord   anchorPoint,    /// If unimplemented
-                         position;
-          _P    _Rect   superframe;     /// WILL store these, for you, if unimplemented.. and make anchorPoint & position calculations meaningful.
+//- _Void_ setFrame:_Rect_ r; ///     -frame  & -setFrame:
 
-@concrete @prop_RO  AZA   insideEdge;                     // !!!
-          @prop_RO  NSS * insideEdgeHex;
-          @prop_NA NSUI   arMASK;
-          @prop_NA  NSR   r;                        // alias [frame]
-          @prop_NA NSSZ   size;
-          @prop_NA  CGF   w,        h,              // alias [size/width]
-                            width,    height,         // bounds
-                            x,        y,              // position
-                            minX,     minY,           // frame ...
-                            midX,     maxX,
-                            midY,     maxY,
-                            posX,     posY,
-                            anchX,    anchY;
-@prop_NA              CGP   minXmaxY, midXmaxY, maxXmaxY,
-                            minXmidY, midXmidY, maxXmidY,
-                            minXminY, midXminY, maxXminY,
-                            centerPt, apex, origin, bOrigin;
+_AT _Rect bounds _            /// AND -bounds & -setBounds:   AND shoould accurately reflect those values.
 
-@prop_RO              CGF   perimeter, area;              // 2 * (width + height)
+- _Void_ setFrame:_Rect_ r _
 
-- (BOOL)  isLargerThan:(id<RectLike>)r;
-- (BOOL) isSmallerThan:(id<RectLike>)r;
-- (BOOL)     isRectLke:(id<RectLike>)r;
-- (BOOL)  isLargerThanRect:(NSR)r;
-- (BOOL) isSmallerThanRect:(NSR)r;
-- (BOOL)        isSameRect:(NSR)r;
+_AT _Cord   anchorPoint,    /// If unimplemented
+               position _
+_AT _Rect    superframe _     /// WILL store these, for you, if unimplemented.. and make anchorPoint & position calculations meaningful.
+
+@concrete
+
+_RO  AZA   insideEdge;                     // !!!
+_RO _Text insideEdgeHex;
+_NA _UInt   arMASK;
+_NA _Rect   r;                        // alias [frame]
+_NA _Size   size;
+
+_NA _Flot w,        h,              // alias [size/width]
+          x,        y,              // position
+          width,    height,         // bounds
+          midX,     maxX,
+          midY,     maxY,
+          posX,     posY,
+          anchX,    anchY;
+_NA _Cord minXmaxY, midXmaxY, maxXmaxY,
+          minXmidY, midXmidY, maxXmidY,
+          minXminY, midXminY, maxXminY,
+          centerPt,
+          bOrigin,
+          origin,
+          apex _
+
+_RO _Flot perimeter, area;              // 2 * (width + height)
+
+- _IsIt_      isLargerThan:(P(RectLike))r _
+- _IsIt_     isSmallerThan:(P(RectLike))r _
+- _IsIt_         isRectLke:(P(RectLike))r _
+- _IsIt_  isLargerThanRect:_Rect_ r _
+- _IsIt_ isSmallerThanRect:_Rect_ r _
+- _IsIt_        isSameRect:_Rect_ r _
 
 /*! Protocol factory methods for all conformant classes! */
 
 /*! CAL *l = [CAL x:23 y:33 w:100 h:9]; -> l: CALayer #-1 of -1!  AZNotFound f:{{23 x 33},{100 x 9 }} b:{{ 0 x  0},{100 x 9 }} */
-+ (INST) x:(CGF)x
-         y:(CGF)y
-         w:(CGF)w
-         h:(CGF)h;
++ _Kind_ x:_Flot_ x
+         y:_Flot_ y
+         w:_Flot_ w
+         h:_Flot_ h _
 
 // 0 - 4 * NSNumber.. dims + optional NSValue rect for superframe.
-+ (INST) rectLike:(NSN*)d1, ... NS_REQUIRES_NIL_TERMINATION;
-+ (INST) withRect:(NSR)r;                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
-@end
++ _Kind_ rectLike:_Numb_ d1, ... NS_REQUIRES_NIL_TERMINATION _
++ _Kind_ withRect:_Rect_ r _                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
+
+
+- _Void_ iterate:(CordBlk)b;
+￭
+
+//  _CP  SizeChange onChangeDimensions;
+//- _Void_ setOnChangeDimensions:(_Void(^)(_Size oldSz,_Size newSz))c;
+//- _Void_ iterateWithIndex:(RowColBlkIdx)b;
 
 //@prop_ NSAlignmentOptions   alignment;
 
-
+DECLARECONFORMANCE( View,    RectLike )
+DECLARECONFORMANCE( CAL,     RectLike )
 
 #if MAC_ONLY
-DECLARECONFORMANCE( NSV,     RectLike )
 DECLARECONFORMANCE( NSW,     RectLike )
-DECLARECONFORMANCE( CAL,     RectLike )
 DECLARECONFORMANCE( NSScreen,RectLike )
 DECLARECONFORMANCE( NSIMG,   RectLike )
 #endif

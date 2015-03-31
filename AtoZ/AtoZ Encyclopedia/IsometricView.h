@@ -11,7 +11,7 @@
 void DrawBluePrintInRectWithScale(NSR r,CGF gridSize);
 
 @interface BlueprintView : NSView
-@property  (NATOM) CGF gridSize;
+@property  (NA) CGF gridSize;
 @end
 
 @interface IsometricView : NSView {
@@ -25,11 +25,11 @@ void DrawBluePrintInRectWithScale(NSR r,CGF gridSize);
 
 @property (weak) IBOutlet NSMatrix *editorSelector;
 
-- (IBAction)new:_;
+- (IBAction)new:__ _
                               - (void)enableShadows:(BOOL)hasShadows;
 
-- (IBAction)toggleShadows:_;
-                              - (IBAction)appearWithRotation:_;
-                              - (IBAction)appearWithTranslation:_;
-                              - (IBAction)appearWithScale:_;
+- (IBAction)toggleShadows:__ _
+                              - (IBAction)appearWithRotation:__ _
+                              - (IBAction)appearWithTranslation:__ _
+                              - (IBAction)appearWithScale:__ _
                               @end

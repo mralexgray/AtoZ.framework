@@ -4,23 +4,22 @@
 #import <AtoZUniversal/AtoZUniversal.h>
 #import <mach-o/getsect.h>
 
-@implementation NSBundle (AtoZBundles)
+@XtraPlan(NSBundle,AtoZBundles)
 
-+ (NSA*) bundlesFromStdin { return BundlesFromStdin(); }
-- (NSA*)          plugins { return BundlePlugins(self); }
-- (NSA*) pluginsConformingTo:(Protocol*)p   { return BundlePluginsConformingTo(self, p); }
-+ (NSA*) bundlesConformingTo:(Protocol*)p
++ _List_ bundlesFromStdin { return BundlesFromStdin(); }
+- _List_          plugins { return BundlePlugins(self); }
+- _List_ pluginsConformingTo:(Protocol*)p   { return BundlePluginsConformingTo(self, p); }
++ _List_ bundlesConformingTo:(Protocol*)p
                       atPath:(NSS*)path     { return BundlesAtPathConformingTo(path,p); }
-@end
+￭
 
-@Impl NSBundle (AtoZ)
+@XtraPlan(NSBundle,AtoZ)
 
 + resourceOfClass:(Class)rClass inBundleWithClass:(Class)k withName:(NSString*)n init:(SEL)method {
 
-  NSB *b = [self bundleForClass:k];
-  NSS* path = [b pathForResource:n ofType:nil];
-  if (!path) return nil;
-  return [rClass.alloc performSelectorWithoutWarnings:method withObject:path];
+  _Bndl b = [self bundleForClass:k];
+  _Text path = [b pathForResource:n ofType:nil];
+  return !path ? nil : [rClass.alloc performSelectorWithoutWarnings:method withObject:path];
 }
 
 +            infoPlist { // NOt sure whatthis does

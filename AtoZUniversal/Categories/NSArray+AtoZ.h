@@ -68,8 +68,8 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 - reduce:initial withBlock:(id(^)(id sum, id obj))block;
 
--(NSArray*) arrayByRemovingObject:_;
--(NSArray*) arrayByRemovingObjectsFromArray:(NSArray*)_;
+-(NSArray*) arrayByRemovingObject:__ _
+-(NSArray*) arrayByRemovingObjectsFromArray:(NSArray*)__ _
 
 - (NSMA*) mapM:(id(^)(id))block;
 
@@ -80,12 +80,12 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 @prop_RO NSA* jumbled, *splitByParity;
 
-/*! @param pairs the array to be "mixed in"
+/*! @param secondVal the array to be "mixed in"
     @code   [@[@1, @2, @3] pairedWith:@[@"a", @"b", @"c"]] -> @[@[@1,@"a"],@[@2,@"b"],@[@3,@"c"]]
 */
 - (NSA*) pairedWith:(NSA*)secondVal;
 
-/*! @param combines the array to be "mixed in"
+/*! @param another the array to be "mixed in"
     @code   [@[@1, @2, @3] pairedWith:@[@"a", @"b", @"c"]] -> @[@1,@"a",@2,@"b",@3,@"c"] 
 */
 - (NSA*) combinedWith:(NSA*)another;
@@ -211,7 +211,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 -   (id) objectsWithValue: v forKey: k;
 /**	@return the first object with the given class.	*/
 -   (id) objectWithClass:(Class)cls;
-/**	@param selector Required format: - (NSNumber*)method: object;	*/
+/**	@param sel Required format: - (NSNumber*)method: object;	*/
 - (BOOL) containsObject: obj withSelector:(SEL)sel;
 /*** Returns an array of the same size as the original one with the result of performing the selector on each object */
 - (NSA*) arrayPerformingSelector:(SEL)sel;
@@ -510,7 +510,9 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 @interface NSMutableArray (UtilityExtensions)
 -  (void) moveObjectFromIndex:(NSI)oldIndex toIndex:(NSI)newIndex;
-@prop_RO                 NSMA * removeFirstObject, * reverse, *scramble;
+- _ObjC_ takeFirstObject;
+- _Kind_ reverse;
+- _Kind_ scramble;
 @property (RO, getter=reverse) NSMA * reversed;
 @end
 
@@ -535,7 +537,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /** Adds recursive lookup to traditional Key-Value Coding  */
 @interface NSObject (RecursiveKVC)
 /** Returns the result of recursively invoking `valueForKey:` on each returned object until it reaches a `nil` value. 
- @param key The name of one of the receiver's properties.
+ @param k The name of one of the receiver's properties.
  @return The objects returned by recursively calling the `valueForKey:` method on objects returned by `valueForKey:`
 */
 - (NSA*)recursiveValueForKey:(NSS*)k;
@@ -544,7 +546,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 /** Returns an array containing the results of invoking `recursiveValueForKey:` using `key` on each of the array's objects. 
  Importantly, this method does not follow the `valueForKey:` approach of adding `NSNull` objects to the 
  returned array when `nil` is returned. It merely does not add these objects to the array.
- @param key The key to retrieve.
+ @param k The key to retrieve.
  @return An array
  */
 - (NSA*)recursiveValueForKey:(NSS*)k;

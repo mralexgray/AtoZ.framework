@@ -23,10 +23,10 @@ static const CGS  CAWindowShadowOffset      = (CGS){ 0, -30 };
 /*! When we want to move the window off-screen to take the screen shot, we want to make sure we aren't being constrained.
   @discussion Although the documentation does not state that it constrains windows when moved using -setFrame:display:, such is the case. 
 */
-@property (NATOM) BOOL 	 disableConstrainedWindow;
+@property (NA) BOOL 	 disableConstrainedWindow;
 @prop_RO  CGR   shadowRect;
-@property (NATOM)  NSW * fullScreenWindow;
-@property (NATOM)  CAL * windowRepresentationLayer;
+@property (NA)  NSW * fullScreenWindow;
+@property (NA)  CAL * windowRepresentationLayer;
 @end
 
 @implementation CAWindow

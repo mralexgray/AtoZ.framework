@@ -80,7 +80,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 +(INST)missing;
 
 //+ objectForKeyedSubscript: k;
-//@property (NATOM) CGF width, height;
+//@property (NA) CGF width, height;
 @prop_RO NSAS *attributedString;
 
 + (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;

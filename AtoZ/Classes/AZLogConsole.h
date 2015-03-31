@@ -23,8 +23,8 @@ void			NSLogPostLog(char* file, int line);
 @property (WK)	IBO	id					window;
 @property (WK)	IBO	AZLogConsoleView*	webView;
 @property (WK)	IBO	id 				searchField;
-@property (NATOM,STR)		NSS				*fakeStdin;
-@property (NATOM,STR)		NSMAS				*terminal;
+@property (NA,STR)		NSS				*fakeStdin;
+@property (NA,STR)		NSMAS				*terminal;
 @property (WK) 		id <AZLogConsoleDelegate> delegate;
 @property (STR) 				NSMA				*tokensForCompletion;
 @property 				BOOL				autoOpens;
@@ -35,11 +35,11 @@ void			NSLogPostLog(char* file, int line);
 @prop_RO 	NSA 				*classes;
 @property (STR)		NSS				*windowTitle, *logPath;
 + (instancetype) sharedConsole __attribute__((const));;
-- (void) open;
-- (void) close;
-- (BOOL) isOpen;
--  (IBA) clear:			_;
-                              -  (IBA) searchChanged:_;
+- (void) open _
+- (void) close _
+- (BOOL) isOpen _
+-  (IBA) clear:__ _
+                              -  (IBA) searchChanged:__ _
                               - (void) logData:		(NSData*)data 			file:(char*)file lineNumber:(int)line;
 - (void) updateLogWithFile:(char*)file lineNumber:(int)line;
 @end

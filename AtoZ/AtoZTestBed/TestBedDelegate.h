@@ -12,7 +12,7 @@
 @property (UNSF) IBOutlet MenuAppController * menu;          // MENU BAR
 @property (UNSF) IBOutlet     AtoZColorWell * colorWell;
 
-- (IBAction)newTab:_;
+- (IBAction)newTab:__ _
                               
 @property    GeneralVC * genVC;
 @property         UIVC * uiVC;
@@ -30,26 +30,26 @@
 //@property (ASS) IBOutlet NSView		*scrollTestHost;
 //@property (ASS) IBOutlet CAScrollView*scrollTest;
 
-//- (IBAction) setViewFromPopUp:_;
-                              //- (IBAction) reZhuzhScrollLayer:_;
+//- (IBAction) setViewFromPopUp:__ _
+                              //- (IBAction) reZhuzhScrollLayer:__ _
                               /*
 @property (STR) IBOutlet NSBUTT *holdOntoViews;
 
 @property (STR)	BLKVIEW  *host;
 @property (STR) CASCRLL  *scrlr;
-@property (NATOM) CAGL	   *hit;
-@property (NATOM) NSMD	   *model;
+@property (NA) CAGL	   *hit;
+@property (NA) NSMD	   *model;
 @prop_RO NSRNG 	visible, front, back;
 @prop_RO NSS	   *fixState;
 @prop_RO ScrollFix scrollFix;
 @prop_RO NSS 		*visibleSubsString;
-@property (NATOM) CGF 		off;
-@property (NATOM)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
+@property (NA) CGF 		off;
+@property (NA)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
 @property (STR) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
 
-- (IBAction)scrollFromSegment:_;
+- (IBAction)scrollFromSegment:__ _
                               */
-//@property (NATOM, STR)  AZFileGridView 			*fileGrid;
+//@property (NA, STR)  AZFileGridView 			*fileGrid;
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;
 //@property (weak) IBOutlet NSView	*scrollTest;
 //@property (weak) IBOutlet CAScrollView 	*scrollTestLayerView;
@@ -59,14 +59,14 @@
 //@prop_RO NSS* visiRect;
 
 //@property (weak) 		 id  					activeView;
-//@property (NATOM, STR) WeakMutableArray		*vcs;
+//@property (NA, STR) WeakMutableArray		*vcs;
 
 
-//@property (STR, NATOM) AtoZ 					*propeller;
-//@property (STR, NATOM) NASpinSeque 			*seque;
-//@property (STR, NATOM) AZSemiResponderWindow	*semiWindow;
+//@property (STR, NA) AtoZ 					*propeller;
+//@property (STR, NA) NASpinSeque 			*seque;
+//@property (STR, NA) AZSemiResponderWindow	*semiWindow;
 
-//@property (STR, NATOM) NSS	 *semiLog;
+//@property (STR, NA) NSS	 *semiLog;
 
 //#import <AtoZUI/AtoZUI.h>
 
@@ -82,14 +82,14 @@
 
 
 
-//-(IBAction)scrollLowerRight:_;
-                              //-(IBAction)scrollRight:_;
-                              //-(IBAction)scrollUp:_;
-                              //-(IBAction)scrollDown:_;
-                              //-(IBAction)scrollLeft:_;
-                              //-(IBAction)scrollUpperLeft:_;
-                              //-(IBAction)scrollUpperRight:_;
-                              //-(IBAction)scrollLowerLeft:_;
+//-(IBAction)scrollLowerRight:__ _
+                              //-(IBAction)scrollRight:__ _
+                              //-(IBAction)scrollUp:__ _
+                              //-(IBAction)scrollDown:__ _
+                              //-(IBAction)scrollLeft:__ _
+                              //-(IBAction)scrollUpperLeft:__ _
+                              //-(IBAction)scrollUpperRight:__ _
+                              //-(IBAction)scrollLowerLeft:__ _
                               //extern NSS* stringForScrollFix(ScrollFix val);
 
 

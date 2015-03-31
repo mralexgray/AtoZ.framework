@@ -59,12 +59,12 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @class AZWT;
 @interface NSView  (AtoZ) <NSCopying>
 
-@property (NATOM) ObjBlk onEndLiveResize;
+@property (NA) ObjBlk onEndLiveResize;
 @property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..
 
-@property (NATOM) NSI tag;
+@property (NA) NSI tag;
 @prop_RO NSIMG* captureFrame;
-@property (NATOM) BOOL faded;
+@property (NA) BOOL faded;
 @prop_RO NSA* visibleSubviews;
 @prop_RO CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
 
@@ -101,7 +101,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 - (CGP) layerPoint: (NSE*)event;
 - (CGP) layerPoint: (NSE*)event toLayer: (CAL*)layer;
 
-@property (NATOM) BOOL postsRectChangedNotifications;
+@property (NA) BOOL postsRectChangedNotifications;
 
 - (void) observeFrameChange: (void(^)(NSV*))block;
 - (void) observeFrameChangeUsingBlock: (void(^)(void))block;
@@ -121,13 +121,14 @@ typedef void (^viewFrameDidChangeBlock)(void);
 //- (void) centerOriginInFrame;
 //- (void) centerOriginInRect: (NSR)aRect;
 
-@property (readonly) CAL * azLayer,
-                         * zLayer,
-                         * setupHostView,
-                         * setupHostViewNoHit,
-                         * guaranteedLayer;
+- _Layr_ setupHostView;
 
-- (CAL*) setupHostViewNamed:(NSS*)name;
+_RO _Layr azLayer,
+          zLayer,
+          setupHostViewNoHit,
+          guaranteedLayer;
+
+- _Layr_ setupHostViewNamed:_Text_ name;
 
 @prop_RO NSA * allSubviews, *subviewsRecursive;
 @property id firstSubview;
@@ -137,7 +138,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @prop_RO NSIMG* snapshot;
 - (NSIMG*) snapshotFromRect:(NSR) sourceRect;
 - _IsIt_  requestFocus;
-@prop_RO NSTA* trackFullView;
+- (NSTA*) trackFullView;
 - (NSTA*) trackAreaWithRect:(NSR)rect;
 - (NSTA*) trackAreaWithRect:(NSR)rect  userInfo:(NSD*)context;
 

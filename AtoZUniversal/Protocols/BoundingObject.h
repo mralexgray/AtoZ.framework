@@ -1,48 +1,53 @@
 
+//_Type _Void( ^RowColBlk    )(_SInt r, _SInt c);
+//_Type _Void( ^RowColBlkIdx )(_SInt r, _SInt c, NSUI idx);
 
-@import AtoZUniversal;
+//_Type _Void( ^GridIteratorStep )(_SInt r1Loc);
+//_Type _Void(       ^SizeChange )(_Size oldSz,_Size newSz);
+
+//_Void IterateGridWithBlockStep(RNG * rows, RNG *cols, RowColBlk b, GridIteratorStep step);
+//_Void     IterateGridWithBlock(RNG * rows, RNG *cols, RowColBlk b);
 
 
-@interface NSO (AZAZA) @prop_ NSO* owner; @prop_ BOOL expanded, selected, hovered; @prop_ NSUI orientation;   @end
+//@Vows GridLike <NSObject> @concrete
+//
+//
+//￭
+
+//  _NA _Size  dimensions;
+//  _NA  _UInt  rows,
+//              cols;
+//  _NA  RNG  *colSpan, *rowSpan;
 
 
-@protocol Drawable   <RectLike> @prop_CP ObjRectBlock /*ObjRectBlock*/ drawObjectBlock;
+@Xtra (NObj, AZAZA)
+   _P _ObjC owner _
+   _P _IsIt expanded,
+            selected,
+            hovered _
+   _P _UInt orientation _
+￭
+
+
+@Vows Drawable <RectLike>
+
+  _CP ObjRectBlock /*ObjRectBlock*/ drawObjectBlock;
+
 @concrete
-@prop_RO        CGF   span, expansionDelta;
-@prop_          CGF   spanExpanded, spanCollapsed;
-- (void) setSpanCollapsed:(CGF)c expanded:(CGF)x;
-@end
 
-typedef void(^GridIterator)(NSI r, NSI c);
-typedef void(^GridIteratorIdx)(NSI r, NSI c, NSUI idx);
+  _RO _Flot  span,
+             expansionDelta _
+   _P _Flot  spanExpanded,
+             spanCollapsed _
 
-typedef void(^GridIteratorStep)(NSI r1Loc);
-typedef void(^SizeChange)(NSSZ oldSz,NSSZ newSz);
+- _Void_ setSpanCollapsed:_Flot_ c expanded:_Flot_ x _
+￭
 
 
-void IterateGridWithBlockStep(RNG *r1, RNG *yRange, GridIterator block, GridIteratorStep step);
-void     IterateGridWithBlock(RNG * r1, RNG *r2, GridIterator block);
 
-
-typedef struct  { NSUI  rows;
-                  NSUI  cols; } AZTable;
-
-@protocol  GridLike <NSO> @concrete
-
-@prop_NA       NSSZ  dimensions;
-@prop_RO    AZTable  table;
-@prop_NA       NSUI  rows,
-                     cols;
-@prop_CP  SizeChange onChangeDimensions;
-
-- (void) iterateGrid:(GridIterator)b;
-- (void) iterateGridWithIndex:(GridIteratorIdx)b;
-
-- (void) setOnChangeDimensions:(void(^)(NSSZ oldSz,NSSZ newSz))c;
-
-@end
-
-
+//_Type struct  { _UInt rows;
+//                _UInt cols; } AZTable;
+//_RO AZTable  table;
 //@protocol     GridLike <NSO> @concrete
 //@prop_CP SizeChange sizeChanged;
 //- (void) setSizeChanged:(void(^)(NSSZ oldSz,NSSZ newSz))c;

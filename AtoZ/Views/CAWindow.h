@@ -41,9 +41,9 @@ OR
 typedef CAL*(^CALAyerSetupBlock)(CAL* layer);
 
 @interface CAWindow : NSWindow
-@property (NATOM,ASS,RO)     CALayer	* layer;
-@property (NATOM,CP) 	CALAyerSetupBlock   setupBlock;
-@property (NATOM)                  BOOL   fullScreen;
+@property (NA,ASS,RO)     CALayer	* layer;
+@property (NA,CP) 	CALAyerSetupBlock   setupBlock;
+@property (NA)                  BOOL   fullScreen;
 
 /*! Destroys the layer and fake window. Only necessary for use if the layer is animated manually.
     If the convenience methods are used below, calling this is not necessary as it is done automatically. */

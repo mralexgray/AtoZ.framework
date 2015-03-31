@@ -12,7 +12,7 @@
 @class GIF;
 @protocol ORGIFSource <NSObject>
 
-- (void) setTumblrURLOrSearchString:(NSString*)_;
+- (void) setTumblrURLOrSearchString:(NSString*)__ _
 - (void) gotGIF:(void(^)(GIF*))block;
 //- (void) getNextGIFs;
 //- (NSInteger) numberOfGifs;

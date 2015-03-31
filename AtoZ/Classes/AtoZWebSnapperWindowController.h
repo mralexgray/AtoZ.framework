@@ -55,20 +55,20 @@
 
 + (AtoZWebSnapperWindowController *)controller;
 
-- (IBAction)fetch:_;
+- (IBAction)fetch:__ _
                               - (IBAction)urlFieldEnter:(id)sender; // Workaround for the button not being pressed on return key push just after launch.
-- (void)cancel:_;
+- (void)cancel:__ _
                               
 - (void)fetchUsingPaparazziURL:(NSURL *)url;
 - (void)fetchUsingString: (NSS*) string;
-- (IBAction)takeURLFromMyBrowser:_;
+- (IBAction)takeURLFromMyBrowser:__ _
                               
-- (IBAction)saveDocumentAs:_;
-                              - (IBAction)setFileFormat:_;
-                              - (IBAction)toggleSaveThumbnail:_;
-                              //- (IBAction)toggleFullsize:_;
+- (IBAction)saveDocumentAs:__ _
+                              - (IBAction)setFileFormat:__ _
+                              - (IBAction)toggleSaveThumbnail:__ _
+                              //- (IBAction)toggleFullsize:__ _
                               
-- (IBAction)showPreferences:_;
-                              - (IBAction)sendFeedback:_;
+- (IBAction)showPreferences:__ _
+                              - (IBAction)sendFeedback:__ _
                               
 @end

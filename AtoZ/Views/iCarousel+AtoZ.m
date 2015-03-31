@@ -37,7 +37,7 @@
     CGFloat factor = 1.f;
     if (!self.wrapEnabled && self.bounces)
 
-      factor = 1.0f - fminf(fabsf(self.scrollOffset - [self az_clampedOffset:self.scrollOffset]), self.bounceDistance) / self.bounceDistance;
+      factor = 1.0f - fminf(fabs(self.scrollOffset - [self az_clampedOffset:self.scrollOffset]), self.bounceDistance) / self.bounceDistance;
     NSTimeInterval thisTime = [theEvent timestamp];
     self.startVelocity = -(translation / (thisTime - self.startTime)) * factor * self.scrollSpeed / self.itemWidth;
     self.startTime = thisTime;

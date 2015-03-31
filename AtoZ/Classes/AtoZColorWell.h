@@ -60,7 +60,7 @@
 
 @property    (CP) void(^selectionBlock)(NSColor*);
 
-@property (NATOM) 		NSMenu *colorPickerMenu;
+@property (NA) 		NSMenu *colorPickerMenu;
 @property    (CP)     		NSS *title;
 @property 			NSBorderType borderType; // suported borderType values: NSNoBorder / NSLineBorder / NSBezelBorder
 

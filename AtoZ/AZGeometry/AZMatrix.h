@@ -11,7 +11,7 @@
 	NSMA *data;
 }
 
-@property (NATOM,ASS) NSUI width, height;
+@property (NA,ASS) NSUI width, height;
 
 - (id) objectAtX:(NSUInteger)x y:(NSUInteger)y;
 

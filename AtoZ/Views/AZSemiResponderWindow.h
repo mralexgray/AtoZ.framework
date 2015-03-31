@@ -33,7 +33,7 @@ typedef void (^animationCompletionBlock)(void);
 @prop_NA     NSA 					*palette;
 @prop_NA id /* NSOrderedDictionary*/ 	tabs;
 @prop_NA  AZSizer 				*sizer;
-// @property (ASS,   NATOM) AZRange 					 range;
+// @property (ASS,   NA) AZRange 					 range;
 @prop_NA AZOrient				 orient;
 @prop_NA      CGF						 offset;
 @prop_NA     NSBP 					*scrollPath;
@@ -42,9 +42,9 @@ typedef void (^animationCompletionBlock)(void);
 
 @end
 
-//@property (NATOM, STR) BLKVIEW *contentBlock;
-//@property (NATOM, ASS) NSR perfectRect;
-//@property (STR, NATOM) AZSemiResponderWindow  *window;
+//@property (NA, STR) BLKVIEW *contentBlock;
+//@property (NA, ASS) NSR perfectRect;
+//@property (STR, NA) AZSemiResponderWindow  *window;
 
 //@property (nonatomic,retain) NSMD *spots;
 //@property (nonatomic,retain) CAL *scrollLayer;

@@ -6,18 +6,18 @@ JREnum(ScrollFix, LayerInsertFront,	LayerInsertEnd, LayerRemoveFront, LayerRemov
 JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 
 @interface CAScrollView ()
-@property (NATOM) 	CAL *hostlayer;
-@property (NATOM) 	NSA 	*shroudedLayers, *originalQueue;
-@property (NATOM) ScrollFix fixState;
-@property (NATOM)	 CGF 		offset;
-@property (NATOM) NSUI 		normalizedCopyIndex;
-@property (NATOM) BOOL 		recursiveFix, scrolling;
+@property (NA) 	CAL *hostlayer;
+@property (NA) 	NSA 	*shroudedLayers, *originalQueue;
+@property (NA) ScrollFix fixState;
+@property (NA)	 CGF 		offset;
+@property (NA) NSUI 		normalizedCopyIndex;
+@property (NA) BOOL 		recursiveFix, scrolling;
 @prop_RO	CAL	*lastLayer, *firstLayer;
 @prop_RO NSA 	*scrollLayersByAscendingPosition, *sSubs;
 @prop_RO 	BOOL 	isVRT;
 //@property (STR) CWStack *stack;
 @property (STR) CAScrollLayer *sclr;
-@property (NATOM)		StateStyle 	hoverStyle, selectedStyle;
+@property (NA)		StateStyle 	hoverStyle, selectedStyle;
 @end
 
 #define WATCHDOGMAX  100

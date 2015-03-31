@@ -611,14 +611,14 @@ extern "C" {
 
 @interface AZPoint : NSObject <AZScalar>
 
-@property (NATOM) NSP point;
-@property (NATOM) CGF x, y;
+@property (NA) NSP point;
+@property (NA) CGF x, y;
 
 @end
 
 @interface AZSize : NSObject  <AZScalar>
-@property (NATOM) CGF 	width, height;
-@property (NATOM) NSSZ  size;
+@property (NA) CGF 	width, height;
+@property (NA) NSSZ  size;
 @end
 */
 

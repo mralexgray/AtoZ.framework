@@ -5,16 +5,16 @@
 
 @interface AZFile : BaseModel //<AtoZNodeProtocol> // Base abstract class that wraps a file system URL
 
-@property (NATOM)   NSS * path,
+@property (NA)   NSS * path,
 									    	* itemKind;
-@property (NATOM)   NSC * color,
+@property (NA)   NSC * color,
 									 	    * customColor;
-@property (NATOM)   NSA * colors;
-@property (NATOM)  NSS * name,
+@property (NA)   NSA * colors;
+@property (NA)  NSS * name,
 								 		    * calulatedBundleID;
 @prop_RO   NSC * labelColor;
-@property (NATOM) NSIMG * image;
-@property (NATOM)   AZA   position;
+@property (NA) NSIMG * image;
+@property (NA)   AZA   position;
 @prop_RO  NSUI  	labelNumber;
 @prop_RO   CGF   hue;
 @prop_RO  BOOL   hasLabel;
@@ -32,7 +32,7 @@
 
 @interface AZFolder : AZFile// <AtoZNodeProtocol> //AZFile
 //@prop_RO NSUI count;
-//	@property(NATOM, readonly) NSMutableArray *children;
+//	@property(NA, readonly) NSMutableArray *children;
 //	@prop_RO NSUI capacity;
 - (id) initWithArray:(NSArray*)array;
 + appFolder;
@@ -48,17 +48,17 @@
 
 + (instancetype)instanceWithPath:(NSString *)path;
 
-@property (NATOM, assign) 	CGPoint		dockPoint;
-@property (NATOM, assign) 	CGPoint		dockPointNew;
-@property (NATOM, assign) 	NSUInteger	spot;
-@property (NATOM, assign) 	NSUInteger 	spotNew;
+@property (NA, assign) 	CGPoint		dockPoint;
+@property (NA, assign) 	CGPoint		dockPointNew;
+@property (NA, assign) 	NSUInteger	spot;
+@property (NA, assign) 	NSUInteger 	spotNew;
 @prop_RO			BOOL		isRunning;
 @end
 
 @interface AZDock : BaseModel
 @prop_RO NSA *dock;
 @prop_RO NSA *dockSorted;
-@property (NATOM) AZDockSort sortOrder;
+@property (NA) AZDockSort sortOrder;
 @end
 
 
@@ -121,6 +121,6 @@ extern NSString *const ATEntityPropertyNamedThumbnailImage;
 
 	//	@property (weak)	id itunesDescription;
 	//	@property (weak)	id itunesResults;
-	//	@property (NATOM, STR)	AJSiTunesResult *itunesInfo;
-	//	@property (NATOM, STR)  	NSImage	 * 	icon;
+	//	@property (NA, STR)	AJSiTunesResult *itunesInfo;
+	//	@property (NA, STR)  	NSImage	 * 	icon;
 

@@ -24,8 +24,8 @@ typedef void(^openURL)(NSS*url, WebView *w);
 //@property AZWebSocketServer *socketServer;
 //@property (STR) AZAddressBook *ab;
 //
-//- (IBAction)getFB:_;
-                              //- (IBAction)getColorList:_;
+//- (IBAction)getFB:__ _
+                              //- (IBAction)getColorList:__ _
                               //
 //@property (ASS) IBOutlet NSWindow 					*window;
 //@property (ASS) IBOutlet WebView 					*webView;

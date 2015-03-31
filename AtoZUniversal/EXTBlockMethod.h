@@ -63,7 +63,7 @@ void ext_replaceBlockMethod (Class aClass, SEL name, id block, const char *types
  * default.
  *
  * @note \a type should be an Objective-C type encoding, such as the result of
- * an \c @encode() directive.
+ * an \c \@encode() directive.
  */
 void ext_synthesizeBlockProperty (const char *type, ext_propertyMemoryManagementPolicy memoryManagementPolicy, BOOL atomic, ext_blockGetter *getter, ext_blockSetter *setter);
 

@@ -133,9 +133,9 @@ typedef void(^OutlineViewSelectionDidChangeBlock)(NSOV * ov);
 @end
 
 @interface NSTextView (BlockChange) <NSTextViewDelegate>
-@property (CP,NATOM) void(^shouldChangeTextInRangeWithReplacement)(NSRNG,NSS*);
+@property (CP,NA) void(^shouldChangeTextInRangeWithReplacement)(NSRNG,NSS*);
 -(void) setShouldChangeTextInRangeWithReplacement:(void (^)(NSRange rng, NSString *rplcmnt))shouldChangeTextInRangeWithReplacement;
-@property (CP,NATOM) void(^textDidChange)(NSText*);
+@property (CP,NA) void(^textDidChange)(NSText*);
 @end
 
 JREnumDeclare( NSOVBlockDelegate,  NSOVBlockDelegateDisclosureTriangle,
@@ -158,13 +158,13 @@ typedef NSTableRowView*(^RowViewForItem)(NSOutlineView *ov,id x);
 @interface  NSOutlineViewBlockDelegate : NSO <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 @property (WK) 						 NSOV * ov;
-@property (NATOM,CP) 					id   block;
+@property (NA,CP) 					id   block;
 @property 				NSOVBlockDelegate   blockType;
 
-@property (NATOM,STR) 				 NSMD	* toggleActionReference;
-@property (NATOM,CP)  NSIMG*(^disclosureImage) (id cell, NSTC *tc, id item);
-@property (NATOM,CP)	 void  (^toggleItemAction)(id item);
-@property (NATOM,CP)  BOOL  (^isgroupItem)	  (NSOV*v,id x);
+@property (NA,STR) 				 NSMD	* toggleActionReference;
+@property (NA,CP)  NSIMG*(^disclosureImage) (id cell, NSTC *tc, id item);
+@property (NA,CP)	 void  (^toggleItemAction)(id item);
+@property (NA,CP)  BOOL  (^isgroupItem)	  (NSOV*v,id x);
 + (instancetype) delegateFor:(NSOV*)v ofType:(NSOVBlockDelegate)type withBlock:(id)block;
 - 			 (BOOL) outlineView:(NSOV*)v isGroupItem:(id)x;
 - 			 (void) outlineView:(NSOV*)v willDisplayOutlineCell:(id)cell forTableColumn:(NSTC*)c item:(id)x;

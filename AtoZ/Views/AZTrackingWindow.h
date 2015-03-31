@@ -17,7 +17,7 @@
 @prop_RO NSRect	 	outFrame;
 @prop_RO AZOrient 	orientation;
 @prop_RO NSUInteger capacity;
-@property (NATOM, ASS) NSRange range;
+@property (NA, ASS) NSRange range;
 
 - (void) slideOut;
 - (void) slideIn;

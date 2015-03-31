@@ -7,7 +7,7 @@
 #define NOHITLAYER(RAW) [CANoHitLayer noHitLayerOfClass:[RAW class]]
 #define NOHITLAYERFRAME(RAWTYPE,FRAME) [NOHITLAYER(RAWTYPE) objectBySettingValue:AZVrect(FRAME) forKey:@"frame"]
 
-@interface CAL (AtoZLayerFactory) <GridLike>
+@interface CAL (AtoZLayerFactory)
 
 + (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt;
 + (CAL*) gridLayerWithFrame:(NSR)r rows:(NSUI)rowCt cols:(NSUI)colCt palette:(NSA*)pal;

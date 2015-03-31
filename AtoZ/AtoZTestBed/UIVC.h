@@ -20,14 +20,14 @@
 @property (nonatomic, strong) XLDragDropView 			*xl;
 
 
-@property (NATOM,strong) NSColor *baseColor;
+@property (NA,strong) NSColor *baseColor;
 @property (weak) IBOutlet NSW *window;
 @property (strong) 		  NSMA *items;
 
-- (IBAction)doSegmentStuff:_;
-                              - (IBAction)itemSizeSliderAction:_;
+- (IBAction)doSegmentStuff:__ _
+                              - (IBAction)itemSizeSliderAction:__ _
                               
-- (IBAction)showXFLDragDrop:_;
+- (IBAction)showXFLDragDrop:__ _
                               
 @property (assign, nonatomic) BOOL spinning;
 @property (assign, nonatomic) double progress;

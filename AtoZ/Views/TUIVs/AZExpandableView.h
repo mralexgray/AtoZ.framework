@@ -8,12 +8,12 @@
 @prop_RO	NSURL	* url;
 @prop_RO	 NSAS	* attrString;
 @prop_RO	 BOOL   faviconOK;
-@property (NATOM)  NSMD * dictionary;
+@property (NA)  NSMD * dictionary;
 
 @end
 
 
 /*
-@property (NATOM,   WK) NSMA  	*objects;
-@property (NATOM, ASS)	BOOL	   expanded, selected;
+@property (NA,   WK) NSMA  	*objects;
+@property (NA, ASS)	BOOL	   expanded, selected;
 */

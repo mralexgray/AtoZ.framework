@@ -23,7 +23,7 @@
 
 @import AtoZUniversal;
 
-@interface AtoZContacts : AtoZSingleton <AZDataSource> - (id) find:_;
+@interface AtoZContacts : AtoZSingleton <AZDataSource> - (id) find:__ _
                               @end
 
 @interface   AtoZContacts (Proxied)

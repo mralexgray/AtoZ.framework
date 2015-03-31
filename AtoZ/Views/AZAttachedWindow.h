@@ -39,13 +39,13 @@
 	NSRect _viewFrame;
 	BOOL _resizing;
 }
-@property (NATOM) NSC * borderColor;
-@property (NATOM) CGF   borderWidth,
+@property (NA) NSC * borderColor;
+@property (NA) CGF   borderWidth,
                         viewMargin,
                         arrowBaseWidth,
                         arrowHeight,
                         cornerRadius;
-@property (NATOM) BOOL  hasArrow,
+@property (NA) BOOL  hasArrow,
                         drawsRoundCornerBesideArrow;
 /*
  Initialization methods

@@ -7,9 +7,13 @@
   //
 
 #import "GoogleTTS.h"
+@import AtoZUniversal;
 
-@interface            Phrase : NSObject <NSURLConnectionDataDelegate> + (instancetype) instanceWithString:(NSString*)_;
-@property      NSMutableData * downloadedData;
+@Kind(Phrase,<NSURLConnectionDataDelegate>)
+
++ _Kind_ instanceWithString:_Text_ s _
+
+_P      NSMutableData * downloadedData;
 @property               BOOL   ready;
 @end
 
@@ -118,9 +122,9 @@ static NSUInteger              phrasesSpoken = 0,
 
 @implementation Phrase
 
-+ (instancetype) instanceWithString:(NSString*)_ { Phrase *x = self.class.new;
++ (instancetype) instanceWithString:(NSString*)__ { Phrase *x = self.class.new;
 
-  NSString *search = [[NSString stringWithFormat:@"http://translate.google.com/translate_tts?tl=en&q=%@",_]
+  NSString *search = [[NSString stringWithFormat:@"http://translate.google.com/translate_tts?tl=en&q=%@",__]
                       stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
 
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:search]];

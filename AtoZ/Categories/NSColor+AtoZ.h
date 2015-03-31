@@ -82,7 +82,6 @@
                          * inverted,
                          * inRGB;// just guarantees colorspace.ie for white
 
-@property            NSS * name; // settable, but auto_gets
 
 @prop_RO    NSS * crayonName, * toHex;
 

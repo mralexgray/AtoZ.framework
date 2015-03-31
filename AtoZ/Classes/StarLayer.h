@@ -8,8 +8,8 @@
 #import <AtoZ/AtoZ.h>
 @interface StarLayer : CALayer
 
-@property (STR, NATOM) NSC* color, *outlineColor;
-@property (ASS, NATOM) 	AZState spinState;
+@property (STR, NA) NSC* color, *outlineColor;
+@property (ASS, NA) 	AZState spinState;
 
 
 -(void) toggleSpin: (AZState)state;

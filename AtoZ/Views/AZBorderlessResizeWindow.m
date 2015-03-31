@@ -50,7 +50,7 @@
 @end
 
 
-@implementation AZBorderlessResizeWindow //@property (NATOM)  NSP   mouseLocation, dragStart;  @property (NATOM) BOOL   dragging, resizing, mouseDown; @property (NATOM)  NSR   dragFrame;
+@implementation AZBorderlessResizeWindow //@property (NA)  NSP   mouseLocation, dragStart;  @property (NA) BOOL   dragging, resizing, mouseDown; @property (NA)  NSR   dragFrame;
 
 + (NSD*) codableProperties {
 
@@ -402,14 +402,14 @@ static NSR screenFrame, windowFrame;
 	}
 }
 
-@property (NATOM)  NSP initialMouseLocation, initialLocationOnScreen, initialLocation,  currentLocation,  newOrigin;
-@property (NATOM)  NSR initialWindowFrame,   windowFrame,             screenFrame,      initialFrame;
-@property (NATOM) BOOL isResizeOperation,    shouldRedoInitials,      shouldDrag;
+@property (NA)  NSP initialMouseLocation, initialLocationOnScreen, initialLocation,  currentLocation,  newOrigin;
+@property (NA)  NSR initialWindowFrame,   windowFrame,             screenFrame,      initialFrame;
+@property (NA) BOOL isResizeOperation,    shouldRedoInitials,      shouldDrag;
 @property CGF minY;
 
-@property (NATOM) NSP initialMouseLocation;
-@property (NATOM) NSR initialWindowFrame;
-@property (NATOM) BOOL isResizeOperation;
+@property (NA) NSP initialMouseLocation;
+@property (NA) NSR initialWindowFrame;
+@property (NA) BOOL isResizeOperation;
 
 @synthesize  initialMouseLocation, initialWindowFrame, isResizeOperation ;
 

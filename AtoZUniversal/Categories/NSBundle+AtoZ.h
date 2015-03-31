@@ -1,14 +1,15 @@
 
-@import Foundation;
 
-@Kind NSBundle (AtoZBundles)
+#import "NSString+AtoZ.h"
+
+@Xtra(NSBundle,AtoZBundles)
 + _List_ bundlesFromStdin;
 + _List_ bundlesConformingTo:(Protocol*)p atPath:(NSS*)path;
 - _List_ pluginsConformingTo:(Protocol*)p;
-@prop_RO _List plugins;
-@Fini
+_RO _List plugins;
+￭
 
-@interface NSBundle (AtoZ)
+@Xtra(NSBundle,AtoZ)
 
 #if MAC_ONLY
 /*! @see __TEXT", "__info_plist etc */ + infoPlist;
@@ -60,11 +61,10 @@ _RO NSA* cacheImages;
 // [AZFWORKBUNDLE resourcesWithExtensions:@[@"caf"]]; ->  ( ...,  "/Users/localadmin/Library/Frameworks/AtoZ.framework/Resources/Sounds/short_low_high.caf", ... )
 - (NSA*) resourcesWithExtensions:(NSA*)exts; // OK
 
-
-@prop_RO NSA* imageResources; // BROKEN
+_RO NSA* imageResources; // BROKEN
 // Returns first Info.plist found in bundle.
-@prop_RO NSS * infoPlistPath;
-@end
+_RO NSS * infoPlistPath;
+￭
 
 
 //- (NSA*) frameworkClasses;
@@ -99,9 +99,9 @@ NS_INLINE NSA *        BundlesFromStdin() {
   return [bundles copy];
 }
 
-NS_INLINE NSA *       FilesAt(NSString*p) {   NSMutableArray *ps = NSMutableArray.new;
-  [[NSFileManager.defaultManager contentsOfDirectoryAtPath:p error:nil]
-    enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) { [ps addObject:[p stringByAppendingPathComponent:obj]]; }]; return ps;
+NS_INLINE NSA *       FilesAt(_Text p) {   NSMutableArray *ps = NSMutableArray.new;
+  [[FM contentsOfDirectoryAtPath:p error:nil]
+    enumerateObjectsUsingBlock:^(id obj, _UInt idx, BOOL *stop) { [ps addObject:[p stringByAppendingPathComponent:obj]]; }]; return ps;
 }
 NS_INLINE NSA * BundlePlugins(NSBundle*b) {   NSMutableArray *bundles = NSMutableArray.new;
 

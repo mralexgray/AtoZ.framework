@@ -14,7 +14,7 @@
 
 @end
 
-@interface AZSimpleGridView : NSView <GridLike>
+@interface AZSimpleGridView : NSView 
 //@prop_NA               NSSZ   dimensions;
 //@prop_NA               NSUI   rows, columns;
 @prop_NA                CAL * grid;

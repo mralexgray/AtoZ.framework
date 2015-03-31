@@ -138,7 +138,7 @@
 //		cell.shadowColor = cgBLACK;
 //		cell.shadowRadius = 10;
 //		cell.name = [NSString stringWithFormat:@"%u", c];
-		cell.Constraints = @[ 	AZConstRelSuperScaleOff(kCAConstraintWidth,	1.0 / columns, 0),
+		cell.constraints = @[ 	AZConstRelSuperScaleOff(kCAConstraintWidth,	1.0 / columns, 0),
 								AZConstRelSuperScaleOff(kCAConstraintHeight, 1, 0),
 							 	AZConstAttrRelNameAttrScaleOff(kCAConstraintMinX, @"superlayer", kCAConstraintMaxX, ( c / (float)columns), 0)];
 

@@ -14,18 +14,18 @@
 
 @interface AtoZInfinity : NSScrollView // <NSWindowDelegate, AJSiTunesAPIDelegate>
 
-@property (NATOM, ASS) NSTrackingArea *trackingArea;
+@property (NA, ASS) NSTrackingArea *trackingArea;
 
-@property (NATOM, ASS) NSSize totalBar;
-@property (NATOM, ASS) NSRect barUnit;
-@property (NATOM, ASS) NSRect totalBarFrame;
+@property (NA, ASS) NSSize totalBar;
+@property (NA, ASS) NSRect barUnit;
+@property (NA, ASS) NSRect totalBarFrame;
 
 @property (retain, nonatomic) InfiniteDocumentView *docV;
 @property (retain, nonatomic) InfiniteImageView *imageViewBar;
 
-@property (NATOM, ASS) NSRect unit;
-@property (NATOM, ASS) AZInfiteScale scale;
-@property (NATOM, ASS) AZOrient orientation;
+@property (NA, ASS) NSRect unit;
+@property (NA, ASS) AZInfiteScale scale;
+@property (NA, ASS) AZOrient orientation;
 @property (retain, nonatomic) NSArray *infiniteObjects;
 - (void) setupInfiniBar;
 

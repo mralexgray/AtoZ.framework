@@ -1,339 +1,364 @@
 [submodule "AtoZAutoBox"]
-	path = Frameworks/AtoZAutoBox
-	url = https://github.com/mralexgray/AtoZAutoBox.git
-	ignore = dirty
+	  path = Frameworks/AtoZAutoBox
+	   url = https://github.com/mralexgray/AtoZAutoBox.git
+  ignore = dirty
 [submodule "AtoZWebkit"]
-	path = AtoZWebkit
-	url = https://github.com/mralexgray/AtoZWebkit.git
-	ignore = dirty
+	  path = AtoZWebkit
+	   url = https://github.com/mralexgray/AtoZWebkit.git
+  ignore = dirty
 [submodule "Functional"]
-	path = AtoZUniversal/Functional
-	url = https://github.com/mralexgray/Functional.m.git
-	ignore = dirty
+	  path = AtoZUniversal/Functional
+	   url = https://github.com/mralexgray/Functional.m.git
+  ignore = dirty
 [submodule "FunSize.framework"]
-	path = Frameworks/FunSize.framework
-	url = https://github.com/mralexgray/FunSize.git
-	ignore = dirty
+	  path = Frameworks/FunSize.framework
+	   url = https://github.com/mralexgray/FunSize.git
+  ignore = dirty
 [submodule "Frameworks/CoreScroll"]
-	path = Frameworks/CoreScroll
-	url = https://github.com/mralexgray/CoreScroll.git
-	ignore = dirty
+	  path = Frameworks/CoreScroll
+	   url = https://github.com/mralexgray/CoreScroll.git
+  ignore = dirty
 [submodule "AtoZ/Classes/Lorem-Ipsum"]
-	path = AtoZ/Classes/Lorem-Ipsum
-	url = https://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
-	ignore = dirty
+	  path = AtoZ/Classes/Lorem-Ipsum
+	   url = https://github.com/dav/Objective-C-Lorem-Ipsum-Generator.git
+  ignore = dirty
 [submodule "Frameworks/NanoStore"]
-	path = Frameworks/NanoStore
-	url = https://github.com/mralexgray/NanoStore.git
-	ignore = dirty
+	  path = Frameworks/NanoStore
+	   url = https://github.com/mralexgray/NanoStore.git
+  ignore = dirty
 [submodule "AtoZ/Categories/NSScreen-PointConversion"]
-	path = AtoZ/Categories/NSScreen-PointConversion
-	url = https://github.com/oscardelben/NSScreen-PointConversion.git
-	ignore = dirty
+	  path = AtoZ/Categories/NSScreen-PointConversion
+	   url = https://github.com/oscardelben/NSScreen-PointConversion.git
+  ignore = dirty
 [submodule "Frameworks/PLWeakCompatibility"]
-	path = Frameworks/PLWeakCompatibility
-	url = https://github.com/mralexgray/PLWeakCompatibility.git
-	ignore = dirty
+	  path = Frameworks/PLWeakCompatibility
+	   url = https://github.com/mralexgray/PLWeakCompatibility.git
+  ignore = dirty
 [submodule "AtoZ/Categories/NSUserDefaults-Subscript"]
-	path = AtoZ/Categories/NSUserDefaults-Subscript
-	url = https://github.com/asmallteapot/NSUserDefaults-Subscript.git
-	ignore = dirty
+	  path = AtoZ/Categories/NSUserDefaults-Subscript
+	   url = https://github.com/asmallteapot/NSUserDefaults-Subscript.git
+  ignore = dirty
 [submodule "Frameworks/CocoaPuffs"]
-	path = Frameworks/CocoaPuffs
-	url = https://github.com/macprog-guy/CocoaPuffs.git
-	ignore = dirty
+	  path = Frameworks/CocoaPuffs
+	   url = https://github.com/macprog-guy/CocoaPuffs.git
+  ignore = dirty
 [submodule "Frameworks/Zangetsu"]
-	path = Frameworks/Zangetsu
-	url = https://github.com/mralexgray/Zangetsu.git
-	ignore = dirty
+	  path = Frameworks/Zangetsu
+	   url = https://github.com/mralexgray/Zangetsu.git
+  ignore = dirty
 [submodule "Frameworks/MAKVONotificationCenter"]
-	path = Frameworks/MAKVONotificationCenter
-	url = https://github.com/mikeash/MAKVONotificationCenter.git
-	ignore = dirty
+	  path = Frameworks/MAKVONotificationCenter
+	   url = https://github.com/mikeash/MAKVONotificationCenter.git
+  ignore = dirty
 [submodule "Frameworks/Rebel"]
-	path = Frameworks/Rebel
-	url = https://github.com/mralexgray/Rebel.git
-	ignore = dirty
+	  path = Frameworks/Rebel
+	   url = https://github.com/mralexgray/Rebel.git
+  ignore = dirty
 [submodule "Frameworks/AtoZBezierPath"]
-	path = Frameworks/AtoZBezierPath
-	url = https://github.com/mralexgray/AtoZBezierPath.git
-	ignore = dirty
+	  path = Frameworks/AtoZBezierPath
+	   url = https://github.com/mralexgray/AtoZBezierPath.git
+  ignore = dirty
 [submodule "Frameworks/QuickSilver"]
-	path = Frameworks/QuickSilver
-	url = https://github.com/quicksilver/Quicksilver.git
-	ignore = dirty
+	  path = Frameworks/QuickSilver
+	   url = https://github.com/quicksilver/Quicksilver.git
+  ignore = dirty
 [submodule "Frameworks/ConciseKit"]
-	path = Frameworks/ConciseKit
-	url = https://github.com/mralexgray/ConciseKit.git
-	ignore = dirty
+	  path = Frameworks/ConciseKit
+	   url = https://github.com/mralexgray/ConciseKit.git
+  ignore = dirty
 [submodule "Frameworks/AtoZHUD"]
-	path = Frameworks/AtoZHUD
-	url = https://github.com/mralexgray/BGHUDAppKit.git
-	ignore = dirty
+	  path = Frameworks/AtoZHUD
+	   url = https://github.com/mralexgray/BGHUDAppKit.git
+  ignore = dirty
 [submodule "Frameworks/DrawKit"]
-	path = Frameworks/DrawKit
-	url = https://github.com/mralexgray/DrawKit.git
-	ignore = dirty
+	  path = Frameworks/DrawKit
+	   url = https://github.com/mralexgray/DrawKit.git
+  ignore = dirty
 [submodule "Frameworks/AtoZUI"]
-	path = Frameworks/AtoZUI
-	url = https://github.com/mralexgray/AtoZUI.git
-	ignore = dirty
+	  path = Frameworks/AtoZUI
+	   url = https://github.com/mralexgray/AtoZUI.git
+  ignore = dirty
 [submodule "Frameworks/MapKit"]
-	path = Frameworks/MapKit
-	url = https://github.com/mralexgray/MacMapKit.git
-	ignore = dirty
+	  path = Frameworks/MapKit
+	   url = https://github.com/mralexgray/MacMapKit.git
+  ignore = dirty
 [submodule "ContactFlow"]
-	path = ContactFlow
-	url = https://github.com/mralexgray/ContactFlow.git
-	ignore = dirty
+	  path = ContactFlow
+	   url = https://github.com/mralexgray/ContactFlow.git
+  ignore = dirty
 [submodule "Frameworks/SVGKit"]
-	path = Frameworks/SVGKit
-	url = https://github.com/mralexgray/SVGKit.git
-	ignore = dirty
+	  path = Frameworks/SVGKit
+	   url = https://github.com/mralexgray/SVGKit.git
+  ignore = dirty
 [submodule "Frameworks/SDToolKit"]
-	path = Frameworks/SDToolKit
-	url = https://github.com/mralexgray/SDToolkit.git
-	ignore = dirty
+	  path = Frameworks/SDToolKit
+	   url = https://github.com/mralexgray/SDToolkit.git
+  ignore = dirty
 [submodule "DeskLabels"]
-	path = DeskLabels
-	url = https://github.com/mralexgray/DeskLabels.git
-	ignore = dirty
+	  path = DeskLabels
+	   url = https://github.com/mralexgray/DeskLabels.git
+  ignore = dirty
 [submodule "AtoZ/Classes/CPAccelerationTimer"]
-	path = AtoZ/Classes/CPAccelerationTimer
-	url = https://github.com/mralexgray/CPAccelerationTimer.git
-	ignore = dirty
+	  path = AtoZ/Classes/CPAccelerationTimer
+	   url = https://github.com/mralexgray/CPAccelerationTimer.git
+  ignore = dirty
 [submodule "Frameworks/PXListView"]
-	path = Frameworks/PXListView
-	url = https://github.com/mralexgray/PXListView.git
-	ignore = dirty
+	  path = Frameworks/PXListView
+	   url = https://github.com/mralexgray/PXListView.git
+  ignore = dirty
 [submodule "Frameworks/AFNetworking"]
-	path = Frameworks/AFNetworking
-	url = https://github.com/mralexgray/AFNetworking.git
-	ignore = dirty
+	  path = Frameworks/AFNetworking
+	   url = https://github.com/mralexgray/AFNetworking.git
+  ignore = dirty
 [submodule "AtoZ/Classes/StandardPaths"]
-	path = AtoZ/Classes/StandardPaths
-	url = https://github.com/nicklockwood/StandardPaths.git
-	ignore = dirty
+	  path = AtoZ/Classes/StandardPaths
+	   url = https://github.com/nicklockwood/StandardPaths.git
+  ignore = dirty
 [submodule "Frameworks/PhFacebook"]
-	path = Frameworks/PhFacebook
-	url = https://github.com/mralexgray/PhFacebook.git
-	ignore = dirty
+	  path = Frameworks/PhFacebook
+	   url = https://github.com/mralexgray/PhFacebook.git
+  ignore = dirty
 [submodule "Frameworks/KSHTMLWriter"]
-	path = Frameworks/KSHTMLWriter
-	url = https://github.com/mralexgray/KSHTMLWriter.git
-	ignore = dirty
+	  path = Frameworks/KSHTMLWriter
+	   url = https://github.com/mralexgray/KSHTMLWriter.git
+  ignore = dirty
 [submodule "AtoZ/Models/StackAPI"]
-	path = AtoZ/Models/StackAPI
-	url = https://github.com/mralexgray/StackInbox.git
-	ignore = dirty
+	  path = AtoZ/Models/StackAPI
+	   url = https://github.com/mralexgray/StackInbox.git
+  ignore = dirty
 [submodule "Frameworks/NSOperationStack"]
-	path = Frameworks/NSOperationStack
-	url = https://github.com/mralexgray/NSOperationStack.git
-	ignore = dirty
+	  path = Frameworks/NSOperationStack
+	   url = https://github.com/mralexgray/NSOperationStack.git
+  ignore = dirty
 [submodule "Frameworks/CocoatechCore"]
-	path = Frameworks/CocoatechCore
-	url = https://github.com/mralexgray/CocoatechCore.git
-	ignore = dirty
+	  path = Frameworks/CocoatechCore
+	   url = https://github.com/mralexgray/CocoatechCore.git
+  ignore = dirty
 [submodule "Frameworks/TwUI"]
-	path = Frameworks/TwUI
-	url = https://github.com/mralexgray/twui.git
-	ignore = dirty
+	  path = Frameworks/TwUI
+	   url = https://github.com/mralexgray/twui.git
+  ignore = dirty
 [submodule "AtoZ/Views/TUIVs/AHLayout"]
-	path = AtoZ/Views/TUIVs/AHLayout
-	url = https://github.com/mralexgray/AHLayout.git
-	ignore = dirty
+	  path = AtoZ/Views/TUIVs/AHLayout
+	   url = https://github.com/mralexgray/AHLayout.git
+  ignore = dirty
 [submodule "Frameworks/SNRHUDKit"]
-	path = Frameworks/SNRHUDKit
-	url = https://github.com/mralexgray/SNRHUDKit.git
-	ignore = dirty
+	  path = Frameworks/SNRHUDKit
+	   url = https://github.com/mralexgray/SNRHUDKit.git
+  ignore = dirty
 [submodule "Frameworks/nu"]
-	path = Frameworks/nu
-	url = https://github.com/mralexgray/nu.git
-	ignore = dirty
+	  path = Frameworks/nu
+	   url = https://github.com/mralexgray/nu.git
+  ignore = dirty
 [submodule "Frameworks/NoodleKit"]
-	path = Frameworks/NoodleKit
-	url = https://github.com/mralexgray/NoodleKit.git
-	ignore = dirty
+	  path = Frameworks/NoodleKit
+	   url = https://github.com/mralexgray/NoodleKit.git
+  ignore = dirty
 [submodule "AtoZ/Core/JREnum"]
-	path = AtoZUniversal/JREnum
-	url = https://github.com/mralexgray/JREnum.git
-	ignore = dirty
+	  path = AtoZUniversal/JREnum
+	   url = https://github.com/mralexgray/JREnum.git
+  ignore = dirty
 [submodule "Frameworks/BWToolKit"]
-	path = Frameworks/BWToolKit
-	url = https://github.com/mralexgray/bwtoolkit
-	ignore = dirty
+	  path = Frameworks/BWToolKit
+	   url = https://github.com/mralexgray/bwtoolkit
+  ignore = dirty
 [submodule "Frameworks/NSLogger-CocoaLumberjack-connector"]
-	path = Frameworks/NSLogger-CocoaLumberjack-connector
-	url = https://github.com/steipete/NSLogger-CocoaLumberjack-connector.git
-	ignore = dirty
+	  path = Frameworks/NSLogger-CocoaLumberjack-connector
+	   url = https://github.com/steipete/NSLogger-CocoaLumberjack-connector.git
+  ignore = dirty
 [submodule "Frameworks/StatusBarApp.framework"]
-	path = Frameworks/StatusBarApp.framework
-	url = https://github.com/mralexgray/StatusBarApp.framework.git
-	ignore = dirty
+	  path = Frameworks/StatusBarApp.framework
+	   url = https://github.com/mralexgray/StatusBarApp.framework.git
+  ignore = dirty
 [submodule "AtoZ/Views/AGNSSplitView"]
-	path = AtoZ/Views/AGNSSplitView
-	url = https://github.com/mralexgray/AGNSSplitView.git
-	ignore = dirty
+	  path = AtoZ/Views/AGNSSplitView
+	   url = https://github.com/mralexgray/AGNSSplitView.git
+  ignore = dirty
 [submodule "www/jqm"]
-	path = www/jqm
-	url = https://github.com/jquery/jquery-mobile.git
-	ignore = dirty
+	  path = www/jqm
+	   url = https://github.com/jquery/jquery-mobile.git
+  ignore = dirty
 [submodule "Frameworks/TransformerKit"]
-	path = Frameworks/TransformerKit
-	url = https://github.com/mralexgray/TransformerKit.git
-	ignore = dirty
+	  path = Frameworks/TransformerKit
+	   url = https://github.com/mralexgray/TransformerKit.git
+  ignore = dirty
 [submodule "Frameworks/Adium"]
-	path = Frameworks/Adium
-	url = https://github.com/mralexgray/adium.git
-	ignore = dirty
+	  path = Frameworks/Adium
+	   url = https://github.com/mralexgray/adium.git
+  ignore = dirty
 [submodule "www/Flat-UI"]
-	path = www/Flat-UI
-	url = https://github.com/mralexgray/Flat-UI.git
-	ignore = dirty
+	  path = www/Flat-UI
+	   url = https://github.com/mralexgray/Flat-UI.git
+  ignore = dirty
 [submodule "www/jquery-mobile-square-ui-theme"]
-	path = www/jquery-mobile-square-ui-theme
-	url = https://github.com/mralexgray/jquery-mobile-square-ui-theme.git
-	ignore = dirty
+	  path = www/jquery-mobile-square-ui-theme
+	   url = https://github.com/mralexgray/jquery-mobile-square-ui-theme.git
+  ignore = dirty
 [submodule "AtoZ/AtoZCLI/NSTerminal"]
-	path = AtoZ/AtoZCLI/NSTerminal
-	url = https://github.com/mralexgray/NSTerminal.git
-	ignore = dirty
+	  path = AtoZ/AtoZCLI/NSTerminal
+	   url = https://github.com/mralexgray/NSTerminal.git
+  ignore = dirty
 [submodule "Frameworks/NSMenu-Dark"]
-	path = Frameworks/NSMenu-Dark
-	url = https://github.com/mralexgray/NSMenu-Dark.git
-	ignore = dirty
+	  path = Frameworks/NSMenu-Dark
+	   url = https://github.com/mralexgray/NSMenu-Dark.git
+  ignore = dirty
 [submodule "Frameworks/ObjectMatcher"]
-	path = AtoZUniversal/ObjectMatcher
-	url = https://github.com/mralexgray/ObjectMatcher.git
-	ignore = dirty
+	  path = AtoZUniversal/ObjectMatcher
+	   url = https://github.com/mralexgray/ObjectMatcher.git
+  ignore = dirty
 [submodule "Frameworks/NullSafe"]
-	path = Frameworks/NullSafe
-	url = https://github.com/mralexgray/NullSafe.git
-	ignore = dirty
+	  path = Frameworks/NullSafe
+	   url = https://github.com/mralexgray/NullSafe.git
+  ignore = dirty
 [submodule "Frameworks/THObserversAndBinders"]
-	path = AtoZUniversal/THObserversAndBinders
-	url = https://github.com/mralexgray/THObserversAndBinders.git
-	ignore = dirty
-[submodule "Frameworks/libextobjc"]
-	path = AtoZUniversal/EX.whatevs
-	url = https://github.com/mralexgray/libextobjc.git
-	ignore = dirty
+	  path = AtoZUniversal/THObserversAndBinders
+	   url = https://github.com/mralexgray/THObserversAndBinders.git
+  ignore = dirty
+# [submodule "Frameworks/libextobjc"]
+#     path = AtoZUniversal/EX.whatevs
+#      url = https://github.com/mralexgray/libextobjc.git
+#   ignore = dirty
 [submodule "Frameworks/KVO-Notification-Manager"]
-	path = Frameworks/KVO-Notification-Manager
-	url = https://github.com/mralexgray/KVO-Notification-Manager.git
-	ignore = dirty
+	  path = Frameworks/KVO-Notification-Manager
+	   url = https://github.com/mralexgray/KVO-Notification-Manager.git
+  ignore = dirty
 [submodule "Frameworks/CTObjectiveCRuntimeAdditions"]
-	path = Frameworks/CTObjectiveCRuntimeAdditions
-	url = https://github.com/mralexgray/CTObjectiveCRuntimeAdditions.git
-	ignore = dirty
+	  path = Frameworks/CTObjectiveCRuntimeAdditions
+	   url = https://github.com/mralexgray/CTObjectiveCRuntimeAdditions.git
+  ignore = dirty
 [submodule "Frameworks/Kiwi"]
-	path = Frameworks/Kiwi
-	url = https://github.com/mralexgray/Kiwi.git
-	ignore = dirty
+	  path = Frameworks/Kiwi
+	   url = https://github.com/mralexgray/Kiwi.git
+  ignore = dirty
 [submodule "Frameworks/BlocksKit"]
-	path = Frameworks/BlocksKit
-	url = https://github.com/mralexgray/BlocksKit.git
-	ignore = dirty
+	  path = Frameworks/BlocksKit
+	   url = https://github.com/mralexgray/BlocksKit.git
+  ignore = dirty
 [submodule "Frameworks/MASShortcut"]
-	path = Frameworks/MASShortcut
-	url = https://github.com/mralexgray/MASShortcut.git
-	ignore = dirty
+	  path = Frameworks/MASShortcut
+	   url = https://github.com/mralexgray/MASShortcut.git
+  ignore = dirty
 [submodule "Frameworks/KeyValueObjectMapping"]
-	path = Frameworks/KeyValueObjectMapping
-	url = https://github.com/mralexgray/KeyValueObjectMapping.git
-	ignore = dirty
+	  path = Frameworks/KeyValueObjectMapping
+	   url = https://github.com/mralexgray/KeyValueObjectMapping.git
+  ignore = dirty
 [submodule "Frameworks/GRMustache"]
-	path = Frameworks/GRMustache
-	url = https://github.com/mralexgray/GRMustache.git
-	ignore = dirty
+	  path = Frameworks/GRMustache
+	   url = https://github.com/mralexgray/GRMustache.git
+  ignore = dirty
 [submodule "cocoadocs.org"]
-	path = cocoadocs.org
-	url = https://github.com/mralexgray/cocoadocs.org.git
-	ignore = dirty
+	  path = cocoadocs.org
+	   url = https://github.com/mralexgray/cocoadocs.org.git
+  ignore = dirty
 [submodule "xcconfigs"]
-	path = xcconfigs
-	url = https://github.com/mralexgray/xcconfigs.git
-	ignore = dirty
+	  path = xcconfigs
+	   url = https://github.com/mralexgray/xcconfigs.git
+  ignore = dirty
 [submodule "Frameworks/CFAAction"]
-	path = Frameworks/CFAAction
-	url = https://github.com/CodaFi/CFAAction.git
-	ignore = dirty
+	  path = Frameworks/CFAAction
+	   url = https://github.com/CodaFi/CFAAction.git
+  ignore = dirty
 [submodule "Frameworks/UAGithubEngine"]
-	path = Frameworks/UAGithubEngine
-	url = https://github.com/mralexgray/UAGithubEngine.git
-	ignore = dirty
+	  path = Frameworks/UAGithubEngine
+	   url = https://github.com/mralexgray/UAGithubEngine.git
+  ignore = dirty
 [submodule "AtoZ/Categories/StrictProtocols"]
-	path = AtoZ/Categories/StrictProtocols
-	url = https://github.com/mralexgray/StrictProtocols.git
-	ignore = dirty
+	  path = AtoZ/Categories/StrictProtocols
+	   url = https://github.com/mralexgray/StrictProtocols.git
+  ignore = dirty
 [submodule "AtoZ/Classes/BETaskHelper"]
-	path = AtoZ/Classes/BETaskHelper
-	url = https://github.com/mralexgray/BETaskHelper.git
-	ignore = dirty
+	  path = AtoZ/Classes/BETaskHelper
+	   url = https://github.com/mralexgray/BETaskHelper.git
+  ignore = dirty
 [submodule "Frameworks/RoutingHTTPServerFramework"]
-	path = Frameworks/RoutingHTTPServerFramework
-	url = https://github.com/mralexgray/RoutingHTTPServerFramework.git
-	ignore = dirty
+	  path = Frameworks/RoutingHTTPServerFramework
+	   url = https://github.com/mralexgray/RoutingHTTPServerFramework.git
+  ignore = dirty
 [submodule "Frameworks/twitter_bootstrap_admin"]
-	path = Frameworks/twitter_bootstrap_admin
-	url = https://github.com/mralexgray/twitter_bootstrap_admin
-	ignore = dirty
+	  path = Frameworks/twitter_bootstrap_admin
+	   url = https://github.com/mralexgray/twitter_bootstrap_admin
+  ignore = dirty
 [submodule "Frameworks/NMSSH"]
-	path = Frameworks/NMSSH
-	url = https://github.com/mralexgray/NMSSH.git
-	ignore = dirty
+	  path = Frameworks/NMSSH
+	   url = https://github.com/mralexgray/NMSSH.git
+  ignore = dirty
 [submodule "FrameWorks/AutoCoding"]
-	path = FrameWorks/AutoCoding
-	url = https://github.com/mralexgray/AutoCoding.git
-	ignore = dirty
+	  path = FrameWorks/AutoCoding
+	   url = https://github.com/mralexgray/AutoCoding.git
+  ignore = dirty
 [submodule "Frameworks/UIKit"]
-	path = Frameworks/UIKit
-	url = https://github.com/mralexgray/UIKit.git
+	  path = Frameworks/UIKit
+	   url = https://github.com/mralexgray/UIKit.git
+  ignore = dirty
 [submodule "AtoZ/Classes/M13OrderedDictionary"]
-	path = AtoZ/Classes/M13OrderedDictionary
-	url = https://github.com/mralexgray/M13OrderedDictionary.git
+	  path = AtoZ/Classes/M13OrderedDictionary
+	   url = https://github.com/mralexgray/M13OrderedDictionary.git
+  ignore = dirty
 [submodule "AtoZ/Views/iCarousel"]
-	path = AtoZ/Views/iCarousel
-	url = https://github.com/mralexgray/iCarousel.git
+	  path = AtoZ/Views/iCarousel
+	   url = https://github.com/mralexgray/iCarousel.git
+  ignore = dirty
 [submodule "Scripts/xclint"]
-	path = Scripts/xclint
-	url = https://gist.github.com/e15d9d2efb24d8b6ceb0.git
+	  path = Scripts/xclint
+	   url = https://gist.github.com/e15d9d2efb24d8b6ceb0.git
 [submodule "Frameworks/GRNavigationController"]
-	path = Frameworks/GRNavigationController
-	url = https://github.com/mralexgray/GRNavigationController
+	  path = Frameworks/GRNavigationController
+	   url = https://github.com/mralexgray/GRNavigationController
+  ignore = dirty
 [submodule "Frameworks/color-names"]
-	path = Frameworks/color-names
-	url = https://github.com/mralexgray/color-names.git
+	  path = Frameworks/color-names
+	   url = https://github.com/mralexgray/color-names.git
+  ignore = dirty
 [submodule "Frameworks/RXPreprocessing"]
-	path = Frameworks/RXPreprocessing
-	url = https://github.com/mralexgray/RXPreprocessing.git
+	  path = Frameworks/RXPreprocessing
+	   url = https://github.com/mralexgray/RXPreprocessing.git
+  ignore = dirty
 [submodule "AtoZ/AtoZAutoBox/RXConcreteProtocol"]
-	path = AtoZ/AtoZAutoBox/RXConcreteProtocol
-	url = git@github.com:mralexgray/RXConcreteProtocol.git
+	  path = AtoZ/AtoZAutoBox/RXConcreteProtocol
+	   url = git@github.com:mralexgray/RXConcreteProtocol.git
+  ignore = dirty
 [submodule "Frameworks/JNWCollectionView"]
-	path = Frameworks/JNWCollectionView
-	url = https://github.com/mralexgray/JNWCollectionView.git
+	  path = Frameworks/JNWCollectionView
+	   url = https://github.com/mralexgray/JNWCollectionView.git
+  ignore = dirty
 [submodule "Frameworks/SoundManager"]
-	path = Frameworks/SoundManager
-	url = https://github.com/mralexgray/SoundManager.git
+	  path = Frameworks/SoundManager
+	   url = https://github.com/mralexgray/SoundManager.git
+  ignore = dirty
 [submodule "Frameworks/DateTools"]
-	path = Frameworks/DateTools
-	url = https://github.com/mralexgray/DateTools.git
+	  path = Frameworks/DateTools
+	   url = https://github.com/mralexgray/DateTools.git
+  ignore = dirty
 [submodule "AtoZ/Classes/Tesseract"]
-	path = AtoZ/Classes/Tesseract
-	url = https://github.com/jinahadam/SimpleTesseract.git
+	  path = AtoZ/Classes/Tesseract
+	   url = https://github.com/jinahadam/SimpleTesseract.git
+  ignore = dirty
 [submodule "Frameworks/Butter"]
-	path = Frameworks/Butter
-	url = git@github.com:mralexgray/Butter.git
+	  path = Frameworks/Butter
+	   url = git@github.com:mralexgray/Butter.git
+  ignore = dirty
 [submodule "AtoZ/AtoZTouch/modules/JTGestureBasedTableView"]
-	path = AtoZ/AtoZTouch/modules/JTGestureBasedTableView
-	url = git@github.com:mralexgray/JTGestureBasedTableViewDemo.git
+	  path = AtoZ/AtoZTouch/modules/JTGestureBasedTableView
+	   url = git@github.com:mralexgray/JTGestureBasedTableViewDemo.git
+  ignore = dirty
 [submodule "AtoZUniversal/BaseModel"]
-	path = AtoZUniversal/BaseModel
-	url = https://github.com/mralexgray/BaseModel.git
+	  path = AtoZUniversal/BaseModel
+	   url = https://github.com/mralexgray/BaseModel.git
+  ignore = dirty
 [submodule "AtoZUniversal/Modules/_ObjC"]
-	path = AtoZUniversal/_ObjC
-	url = https://github.com/mralexgray/_ObjC.git
+	  path = AtoZUniversal/_ObjC
+	   url = https://github.com/mralexgray/_ObjC.git
+  ignore = dirty
 [submodule "AtoZ/AtoZTouch/modules/RNFrostedSidebar"]
-	path = AtoZ/AtoZTouch/modules/RNFrostedSidebar
-	url = https://github.com/rnystrom/RNFrostedSidebar.git
+	  path = AtoZ/AtoZTouch/modules/RNFrostedSidebar
+	   url = https://github.com/rnystrom/RNFrostedSidebar.git
+  ignore = dirty
+[submodule "AtoZ/Views/Controls/KBButton"]
+  	path = AtoZ/Views/Controls/KBButton  
+	   url = https://github.com/kwbock/KBButton.git
+[submodule "AtoZUniversal/DatabaseStorage"]
+	  path = AtoZUniversal/DatabaseStorage
+	   url = https://github.com/mralexgray/DatabaseStorage.git
+[submodule "AtoZUniversal/ObjcAssociatedObjectHelpers"]
+    path = AtoZUniversal/ObjcAssociatedObjectHelpers
+     url = https://github.com/mralexgray/ObjcAssociatedObjectHelpers.git

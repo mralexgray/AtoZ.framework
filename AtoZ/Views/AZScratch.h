@@ -18,7 +18,7 @@
  @interface AZTaskResponder: BaseModel
  @property (copy) BKReturnBlock     returnBlock;
  @property (copy) asyncTaskCallback   asyncTask;
- @property (NATOM,STR) id response;
+ @property (NA,STR) id response;
  //Atoz
  + (void) aSyncTask:(asyncTaskCallback)handler;
  - (void) parseAsyncTaskResponse;
@@ -389,7 +389,7 @@
 #define 				  RO 	readonly
 #define 				  RW	readwrite
 #define 				  ASSGN 	assign
-#define 				  NATOM 	nonatomic
+#define 				  NA 	nonatomic
 #define 				  STR 	strong
 #define 				    STR 	strong
 
@@ -748,7 +748,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 
 //JREnumDeclare (AZAlign,
 
-//JROptionsDeclare(AZ_arc, 	AZ_arc_NATOM	       	= 0x00000001,
+//JROptionsDeclare(AZ_arc, 	AZ_arc_NA	       	= 0x00000001,
 //					  AZ_arc_RO 	     		= 0x00000010,
 //					  AZ_arc_STRNG	        	= 0x00000100,
 //					  AZ_arc_ASSGN  		   	= 0x00001000,
@@ -959,22 +959,7 @@ oldValue = newValue;
 //#import <SystemConfiguration/SystemConfiguration.h>
 //#import <CoreServices/CoreServices.h>
 
-
-//#import <CoreData/CoreData.h>
-//@import ApplicationServices;
-//@import AudioToolbox;
-//#import <AudioToolbox/AudioToolbox.h>
-//@import AVFoundation;
-//@import Cocoa;
-//@import CoreServices;
-//#import <Dispatch/Dispatch.h>
-//#import <objc/runtime.h>
-//  #import "BaseModel.h"
-//
-//  @import AtoZUniversal;
-//  //  #import "BoundingObject.h"
 //  #import "AtoZGeometry.h"
-//  #import "AtoZCategories.h"
 
 
 //#define release self

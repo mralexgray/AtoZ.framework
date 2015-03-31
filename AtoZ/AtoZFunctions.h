@@ -47,7 +47,7 @@ Method GetImplementedInstanceMethod		  (Class aClass, SEL sel);
    IMP SwizzleImplementedInstanceMethods (Class aClass, const SEL origS, const SEL altS);
 
 /** BLOCKS!  */
-void profile (const char *name, VoidBlock block); 		// usage	 profile("Long Task", ^{ performLongTask() } );
+void profile (const char *name, Blk block); 		// usage	 profile("Long Task", ^{ performLongTask() } );
 
 
 
@@ -207,7 +207,7 @@ NSS*	googleSearchFor( NSS* string );   // broken!
 
 NSS* 	bitString		( NSUI  bMask );
 
-BOOL 	areSameThenDo					( id a, id b, VoidBlock doBlock);
+BOOL 	areSameThenDo					( id a, id b, Blk doBlock);
 
 NSS* 	AZToStringFromTypeAndValue	( const char *typeCode, void *value );
 

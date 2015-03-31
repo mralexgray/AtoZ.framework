@@ -159,7 +159,7 @@ CLANG_POP
 
 @interface          AZASLLogger : NSObject <NSOutlineViewDataSource,NSOutlineViewDelegate>
 
-@property (NATOM)           NSW * show;        // NSOutlineView in a window.
+@property (NA)           NSW * show;        // NSOutlineView in a window.
 @property NSMD* log;
 //NSTreeController      // Watch ASL logg without blocking!  Via "watchlog"
 //- (void)                  watch ;

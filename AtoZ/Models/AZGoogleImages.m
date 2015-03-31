@@ -14,7 +14,7 @@ typedef void(^GoogleImagesUrlsBlock)(NSA*imageURLs);
 
 @interface AZGoogleQuery : NSO  - (void) loadMoreURLs;
 
-@property   (NATOM) 	NSUI   start;	
+@property   (NA) 	NSUI   start;	
 
 @property 		(CP) void(^imageUrlsBlock)(NSA*); 
 

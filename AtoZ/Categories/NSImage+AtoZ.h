@@ -18,7 +18,7 @@ CGImageRef CreateCGImageFromData (    _Data data );
 CGF                     distance (    _Cord aPnt );				// Just one function to declare...
 
 
-@interface NSImage (AtoZDrawBlock)
+@Xtra (NSImage, AtoZDrawBlock)
 
 + (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
 + (NSIMG*)  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
@@ -28,7 +28,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @class AZFile, PDFDocument;
 
-@interface NSImage (AtoZ) <ClassKeyGet, AZDynamicImages>
+@Xtra (NSImage, AtoZ) <ClassKeyGet, AZDynamicImages>
 
 @prop_RO _Data PNGRepresentation;
 
@@ -43,7 +43,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 +(INST)missing;
 
 //+ objectForKeyedSubscript: k;
-//@property (NATOM) CGF width, height;
+//@property (NA) CGF width, height;
 @prop_RO NSAS *attributedString;
 
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
@@ -258,7 +258,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 - (NSIMG*)scaleToFillSize:(NSSize)targetSize;
 @end
 
-@interface CIImage (ToNSImage)
+@Xtra (CIImage, ToNSImage)
 
 - (NSIMG*) toNSImageFromRect:(CGRect)r;
 - (NSIMG*) toNSImage;
@@ -266,14 +266,14 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @end
 
-@interface NSImage (CGImageConversion)
+@Xtra (NSImage, CGImageConversion)
 
 - (NSBitmapImageRep*) bitmap;
 - (CGImageRef) cgImage;
 
 @end
 
-@interface NSImage (AtoZScaling)
+@Xtra (NSImage, AtoZScaling)
 - (NSIMG*) imageByAdjustingHue:(float)hue;
 - (NSIMG*) imageByAdjustingHue:(float)hue saturation:(float)saturation;
 - (NSImageRep*) representationOfSize:(NSSize)theSize;
@@ -286,20 +286,20 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 - (NSIMG*)duplicateOfSize:(NSSize)newSize;
 @end
 
-@interface NSImage (AtoZTrim)
+@Xtra (NSImage, AtoZTrim)
 - (NSRect) usedRect;
 - (NSIMG*) scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp;
 @end
 
-@interface NSImage (AtoZAverage)
+@Xtra (NSImage, AtoZAverage)
 -(NSC*) averageColor;
 + (NSIMG*) maskImage:(NSIMG*)image withMask:(NSIMG*)maskImage;
 @end
-@interface NSImage (Matrix)
+@Xtra (NSImage, Matrix)
 - (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
 @end
 
-//@interface NSImage (GrabWindow)
+//@Xtra (NSImage, GrabWindow)
 //+ (NSIMG*) captureScreenImageWithFrame: (NSRect) frame;
 
 //+ (NSIMG*)screenShotWithinRect:(NSRect)rect;
@@ -312,7 +312,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 + (NSIMG*)imageWithScreenShotInRect:(NSRect)rect;
 @end
 
-@interface NSBitmapImageRep (GrabWindow)
+@Xtra (NSBitmapImageRep, GrabWindow)
 //+ (NSBitmapImageRep*)correctBitmap: (NSBitmapImageRep*)rep;
 //+ (NSBitmapImageRep*)bitmapRepFromNSImage:(NSIMG*)image;
 //+ (NSBitmapImageRep*)bitmapRepWithWindow:(int)wid;
@@ -322,34 +322,32 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @end
 
+*/
 
-
-/* utility category on NSImage used for converting NSImage to jfif data.  */
-@interface NSImage (JFIFConversionUtils)
-/// returns jpeg file interchange format encoded data for an NSImage regardless of the original NSImage encoding format.  compressionVlue is between 0 and 1.
- values 0.6 thru 0.7 are fine for most purposes.  */
+// utility category on NSImage used for converting NSImage to jfif data.
+@Xtra(NSImage, JFIFConversionUtils)
+// returns jpeg file interchange format encoded data for an NSImage regardless of the original NSImage encoding format.  compressionVlue is between 0 and 1. values 0.6 thru 0.7 are fine for most purposes.
 - (NSData *)JFIFData:(float) compressionValue;
 @end
 
-@interface CIFilter (Subscript)
+@Xtra(CIFilter, Subscript)
 - objectForKeyedSubscript:(NSS*)key;
 - _Void_ setObject: object forKeyedSubscript:(NSS*)key;
 @end
 
-@interface CIFilter (WithDefaults)
+@Xtra(CIFilter, WithDefaults)
 + (CIFilter*) filterWithDefaultsNamed: (NSString*) name;
 @end
 
-
-@interface NSImageView (AtoZ)
-+(NSIV*)imageViewWithImage:(NSIMG*)img ;
-+(void) addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
+@Xtra(NSIV, AtoZ)
++ _Kind_ imageViewWithImage:(NSIMG*)img ;
++ _Void_ addImageViewWithImage:(NSIMG*)img toView:(NSV*)v;
 @end
 
 /*	Abstract: A category on NSImage to create a thumbnail sized NSImage from an image URL.
  	Version: 1.0 */
 
-@interface NSImage (ImageThumbnailExtensions)
+@Xtra (NSImage, ImageThumbnailExtensions)
 
 /* 	Create an NSImage from with the contents of the url of the specified width.
  	The height of the resulting NSImage maintains the proportions in source.
@@ -368,7 +366,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
  For more details, check out the related blog post at http://www.noodlesoft.com/blog/2009/02/02/understanding-flipped-coordinate-systems/
  */
 /**
-@interface NSImage (NoodleExtensions)
+@Xtra (NSImage, NoodleExtensions)
 	!	@method	drawAdjustedAtPoint:fromRect:operation:fraction:
  	@abstract	Draws all or part of the image at the specified point in the current coordinate system. Unlike other methods in NSImage, this will orient the image properly in flipped coordinate systems.
  	@param		point The location in the current coordinate system at which to draw the image.
@@ -397,12 +395,12 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 @end
 
 */
-@interface NSGraphicsContext (AtoZ)
+@Xtra (NSGraphicsContext, AtoZ)
 + (void) addNoiseToContext;
 @end
 
 
-@interface NSImage (ADBImageEffects)
+@Xtra (NSImage, ADBImageEffects)
 
 
 //Returns the relative anchor point (from {0.0, 0.0} to {1.0, 1.0})
@@ -446,7 +444,7 @@ typedef enum {
 } IMAGE_POSITION;
 
 
-@interface NSImage (AIImageDrawingAdditions)
+@Xtra (NSImage, AIImageDrawingAdditions)
 
 - _Void_ tileInRect:(NSRect)rect;
 - (NSImage *)imageByScalingToSize:(NSSize)size;
@@ -477,7 +475,7 @@ typedef enum {
 } AIBitmapImageFileType;
 
 
-@interface NSImage (AIImageAdditions)
+@Xtra (NSImage, AIImageAdditions)
 
 + (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass;
 + (NSImage *)imageNamed:(NSString *)name forClass:(Class)inClass loadLazily:(BOOL)flag;
@@ -522,7 +520,7 @@ typedef enum {
 @end
 
 //Defined in AppKit.framework
-@interface NSImageCell(NSPrivateAnimationSupport)
+@Xtra (NSImageCell, NSPrivateAnimationSupport)
 - (BOOL)_animates;
 - (void)_setAnimates:(BOOL)fp8;
 - (void)_startAnimation;
@@ -530,11 +528,11 @@ typedef enum {
 - (void)_animationTimerCallback:fp8;
 @end
 
-@interface NSImage (QuickLook)
+@Xtra (NSImage, QuickLook)
 + (NSImage *)imageWithPreviewOfFileAtPath:(NSS*)path ofSize:(NSSZ)size asIcon:(BOOL)asIcon;
 @end
 
-@interface NSImage (Base64Encoding)
+@Xtra (NSImage, Base64Encoding)
 extern NSString *kXML_Base64ReferenceAttribute;
 /*!	@function	+dataWithBase64EncodedString:
 	@discussion	This method returns an autoreleased NSImage object.  The NSImage object is initialized with the
@@ -556,13 +554,13 @@ extern NSString *kXML_Base64ReferenceAttribute;
 - (NSS*)base64EncodingWithFileType:(NSBitmapImageFileType)inFileType;
 @end
 
-@interface NSImage(ASCII)
+@Xtra (NSImage, ASCII)
 - (NSString *)asciiArtWithWidth:(NSInteger)width height:(NSInteger)height;
 @end
 
 
 
-@interface Pict (MacOnly)
+@Xtra (Pict, MacOnly)
 
 + (NSIMG*) isometricShelfInRect:(NSR)rect;
 - (NSImageRep*) representationOfSize:(NSSize)theSize;

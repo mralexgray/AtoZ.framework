@@ -13,13 +13,13 @@ const CGF framesPerSecond = 10.0;
 //The number of pixels to translate right
 
 //The time interval from the reference date when the progress bar was last phased. Used to update phase
-//@property (NATOM, ASS) NSTimeInterval lastUpdate;
+//@property (NA, ASS) NSTimeInterval lastUpdate;
 //@end
 
 @interface AZBackgroundProgressBar ()
-@property (NATOM,STR) NSBP *bp;
-@property (NATOM		 ) BOOL  shouldAnimate;
-@property (NATOM,  ASS) CGF   phase;
+@property (NA,STR) NSBP *bp;
+@property (NA		 ) BOOL  shouldAnimate;
+@property (NA,  ASS) CGF   phase;
 @end
 
 @implementation AZBackgroundProgressBar

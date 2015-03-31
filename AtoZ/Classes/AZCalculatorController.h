@@ -18,13 +18,13 @@
 + (AZCalculatorController *)sharedCalc;
 + (NSString *)nibName;
 
-- (IBAction)add:_;
-                              //- (IBAction)subtract:_;
-                              //- (IBAction)multiply:_;
-                              //- (IBAction)divide:_;
-                              //- (IBAction)calculate:_;
-                              //- (IBAction)clear:_;
-                              - (IBAction)getValue:_;
+- (IBAction)add:__ _
+                              //- (IBAction)subtract:__ _
+                              //- (IBAction)multiply:__ _
+                              //- (IBAction)divide:__ _
+                              //- (IBAction)calculate:__ _
+                              //- (IBAction)clear:__ _
+                              - (IBAction)getValue:__ _
                               - (void) setLabel;
 @property (assign) IBOutlet NSTextField *label;
 //NSString *labelValue;

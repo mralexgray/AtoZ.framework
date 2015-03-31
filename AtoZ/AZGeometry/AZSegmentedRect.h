@@ -18,13 +18,13 @@
 + (AZSegmentedRect*) rectWithRect: (NSR) rect	cubicSize: (NSUInteger) size;
 + (AZSegmentedRect*) rectWithRect: (NSR) rect	width: 	   (NSUInteger) width 	height: (NSUInteger) height;
 
-@property (NATOM,ASS)  AZOrient *orientation;
-@property (NATOM,ASS)  BOOL emptyBorder;
-@property (NATOM,ASS)  NSUI horizontalSegments;
-@property (NATOM,ASS)  NSUI verticalSegments;
+@property (NA,ASS)  AZOrient *orientation;
+@property (NA,ASS)  BOOL emptyBorder;
+@property (NA,ASS)  NSUI horizontalSegments;
+@property (NA,ASS)  NSUI verticalSegments;
 
-@property (NATOM,ASS)  NSSZ minimumSegmentSize;
-@property (NATOM,ASS)  NSSZ maximumSegmentSize;
+@property (NA,ASS)  NSSZ minimumSegmentSize;
+@property (NA,ASS)  NSSZ maximumSegmentSize;
 
 @prop_RO  NSUI segmentCount;
 @prop_RO  NSSZ 	 segmentSize;

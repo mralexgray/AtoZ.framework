@@ -18,10 +18,10 @@ AZNSIFACEDECL(AZLaunchServices)
 
 /* Application abilities */
 
-+ (NSA*)               allApplicationsFormattedAs:(AZItemsViewFormat)_;
++ (NSA*)               allApplicationsFormattedAs:(AZItemsViewFormat)__ _
 
 + (NSA*)   allApplicationsAbleToOpenFileExtension:(NSS*)ext
-                                   responseFormat:(AZItemsViewFormat)_;
+                                   responseFormat:(AZItemsViewFormat)__ _
 
 + (NSA*)      allAvailableFileTypesForApplication:(NSS*)full_path;
 

@@ -86,8 +86,8 @@
 @property (RO,CP)                    NSS * name;
 @prop_RO                       NSU * url;
 @property (RO,getter = isPlaying)   BOOL   playing;
-@property (NATOM,getter = isLooping)   BOOL   looping;
-@property (NATOM,CP) SoundCompletionHandler   completionHandler;
+@property (NA,getter = isLooping)   BOOL   looping;
+@property (NA,CP) SoundCompletionHandler   completionHandler;
 
 @prop_NA                                CGF   baseVolume,
                                             volume;
