@@ -369,3 +369,6 @@
 [submodule "AtoZUniversal/OrderedDictionary"]
 	path = AtoZUniversal/OrderedDictionary
 	url = https://github.com/nicklockwood/OrderedDictionary.git
+[submodule "AtoZUniversal/FunSize"]
+	path = AtoZUniversal/FunSize.xcodeproj
+	url = https://github.com/mralexgray/FunSize.git
