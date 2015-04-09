@@ -6,14 +6,6 @@
 	  path = AtoZWebkit
 	   url = https://github.com/mralexgray/AtoZWebkit.git
   ignore = dirty
-[submodule "Functional"]
-	  path = AtoZUniversal/Functional
-	   url = https://github.com/mralexgray/Functional.m.git
-  ignore = dirty
-[submodule "FunSize.framework"]
-	  path = Frameworks/FunSize.framework
-	   url = https://github.com/mralexgray/FunSize.git
-  ignore = dirty
 [submodule "Frameworks/CoreScroll"]
 	  path = Frameworks/CoreScroll
 	   url = https://github.com/mralexgray/CoreScroll.git
@@ -154,10 +146,6 @@
 	  path = Frameworks/NoodleKit
 	   url = https://github.com/mralexgray/NoodleKit.git
   ignore = dirty
-[submodule "AtoZ/Core/JREnum"]
-	  path = AtoZUniversal/JREnum
-	   url = https://github.com/mralexgray/JREnum.git
-  ignore = dirty
 [submodule "Frameworks/BWToolKit"]
 	  path = Frameworks/BWToolKit
 	   url = https://github.com/mralexgray/bwtoolkit
@@ -202,18 +190,9 @@
 	  path = Frameworks/NSMenu-Dark
 	   url = https://github.com/mralexgray/NSMenu-Dark.git
   ignore = dirty
-[submodule "Frameworks/ObjectMatcher"]
-	  path = AtoZUniversal/ObjectMatcher
-	   url = https://github.com/mralexgray/ObjectMatcher.git
-  ignore = dirty
 [submodule "Frameworks/NullSafe"]
 	  path = Frameworks/NullSafe
 	   url = https://github.com/mralexgray/NullSafe.git
-  ignore = dirty
-
-[submodule "Frameworks/THObserversAndBinders"]
-	  path = AtoZUniversal/THObserversAndBinders
-	   url = https://github.com/mralexgray/THObserversAndBinders.git
   ignore = dirty
 # [submodule "Frameworks/libextobjc"]
 #     path = AtoZUniversal/EX.whatevs
@@ -342,14 +321,6 @@
 	  path = AtoZ/AtoZTouch/modules/JTGestureBasedTableView
 	   url = git@github.com:mralexgray/JTGestureBasedTableViewDemo.git
   ignore = dirty
-[submodule "AtoZUniversal/BaseModel"]
-	  path = AtoZUniversal/BaseModel
-	   url = https://github.com/mralexgray/BaseModel.git
-  ignore = dirty
-[submodule "AtoZUniversal/Modules/_ObjC"]
-	  path = AtoZUniversal/_ObjC
-	   url = https://github.com/mralexgray/_ObjC.git
-  ignore = dirty
 [submodule "AtoZ/AtoZTouch/modules/RNFrostedSidebar"]
 	  path = AtoZ/AtoZTouch/modules/RNFrostedSidebar
 	   url = https://github.com/rnystrom/RNFrostedSidebar.git
@@ -357,18 +328,3 @@
 [submodule "AtoZ/Views/Controls/KBButton"]
   	path = AtoZ/Views/Controls/KBButton  
 	   url = https://github.com/kwbock/KBButton.git
-[submodule "AtoZUniversal/DatabaseStorage"]
-	  path = AtoZUniversal/DatabaseStorage
-	   url = https://github.com/mralexgray/DatabaseStorage.git
-[submodule "AtoZUniversal/ObjcAssociatedObjectHelpers"]
-    path = AtoZUniversal/ObjcAssociatedObjectHelpers
-     url = https://github.com/mralexgray/ObjcAssociatedObjectHelpers.git
-[submodule "AtoZUniversal/libextobjc"]
-	path = AtoZUniversal/libextobjc
-	url = https://github.com/mralexgray/libextobjc.git
-[submodule "AtoZUniversal/OrderedDictionary"]
-	path = AtoZUniversal/OrderedDictionary
-	url = https://github.com/nicklockwood/OrderedDictionary.git
-[submodule "AtoZUniversal/FunSize"]
-	path = AtoZUniversal/FunSize.xcodeproj
-	url = https://github.com/mralexgray/FunSize.git
