@@ -14,19 +14,19 @@
 @interface DSSyntaxTextView : NSTextView
 
 /** The syntax highlighter used by the text view. */
-@property (nonatomic, strong) DSSyntaxHighlighter* syntaxHighlighter;
+_NA DSSyntaxHighlighter* syntaxHighlighter;
 /** The color theme used by the syntax highlighter. */
-@property (nonatomic, strong) 			AZSyntaxTheme *theme;
+_NA 			AZSyntaxTheme *theme;
 /** The syntax definition used by the syntax highlighter. */
-@property (nonatomic, strong) DSSyntaxDefinition *syntaxDefinition;
+_NA DSSyntaxDefinition *syntaxDefinition;
 /** The view used to display the line numbers. */
-@property (nonatomic, readonly) NoodleLineNumberView *lineNumberView;
+_RO NoodleLineNumberView *lineNumberView;
 
 /// @name Code editing options  
 
 /** Indicates if the line number ruler is visible. */
-@property BOOL lineNumbersVisible;
+_AT BOOL lineNumbersVisible;
 /** The number of spaces for tab expansion.  A value of 0 indicates no tab expansion. */
-@property (nonatomic) NSInteger tabWidth;
+_NA NSInteger tabWidth;
 
 @end

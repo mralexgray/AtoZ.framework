@@ -539,7 +539,7 @@ static _List frameworkImageNames_ = nil, frameworkImagePaths_ = nil;
 
 - _Pict_ initWithSize:_Size_ z named:_Text_ n { return [[NSIMG.alloc initWithSize:z] named:n]; }
 
-_S _Text _systemIconsFolder; _S _List _systemIcons;
+static _Text _systemIconsFolder; static _List _systemIcons;
 
 + _List_ systemIcons      {
 
@@ -1338,7 +1338,7 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
     return self;
 }
 
-+ _Pict_ imageWithFileName:(NSS*) fileName inBundle:(NSBundle*) aBundle {
++ _Pict_ imageWithFileName _ _Text_ fileName inBundle:_Bndl_ aBundle {
   NSIMG *img = nil;
   if (aBundle != nil) {
     NSString *imagePath;
@@ -1370,24 +1370,27 @@ return i;	}];	 filter:^BOOL(id obj) {	return obj ? YES:  NO;	}];} */
 
 + _Pict_ swatchWithColors:(NSA*)cs size:(NSSZ)z oriented:(AZO)o {
 
-//  [NSC.randomColor
   //[AZSizer forQuantity:cs.count ofSize:z withColumns:isVertical(o) ? 1 : cs.count];
   return [self imageForSize:z withDrawingBlock:^{
 
     AZSizer *szr = [AZSizer forQuantity:cs.count inRect:AZRectFromSize(z)];
     [szr.rects eachWithIndex:^(NSVAL*v, NSI idx){
-      NSRectFillWithColor(v.rV, [cs normal:idx]);
+      NSRectFillWithColor(v.rV, [cs normal:idx]); id name;
+      if ((name = [cs[idx] vFK:@"name"])) {
+        id string = [name attributedWithDefaults];
+        [string drawInRect:v.rV aligned:AZAlignBottom backgroundColor:[cs[idx] complement]];
+      }
     }];
   }]; //  [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
 }
 
 
 + _Pict_ swatchWithColor:(NSC*) color size:(NSSZ)size {
-  NSIMG *image = [NSImage.alloc initWithSize:size];
-  [image lockFocus];
-  [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
-  [image unlockFocus];
-  return image;
+
+  return [self imageForSize:size withDrawingBlock:^{
+
+    [color drawSwatchInRect:NSMakeRect(0, 0, size.width, size.height)];
+  }];
 }
 
 + _Pict_ swatchWithGradientColor:(NSC*) color size:(NSSZ)size {

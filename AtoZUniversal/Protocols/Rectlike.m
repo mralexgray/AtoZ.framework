@@ -6,12 +6,13 @@
 
 #if MAC_ONLY
 
-＜(Pict, RectLike) @dynamic bounds; // /*! @todo */ anchorPoint;
+@XtraPlan(Pict, RectLike) @dynamic bounds; // /*! @todo */ anchorPoint;
 - _Rect_     frame            { return AZRectFromSize(self.size); }
 - _Void_  setFrame:_Rect_ f   {/* FIX  [self isSmallerThanRect:f] ? [self scaleToFillSize:f.size] : nil; */ }
 - _Void_ setOrigin:_Cord_ o   {}
 ￭
-＜(Wind,RectLike) // @dynamic /*! @todo */ anchorPoint frame; Provided by NWINdow
+@XtraPlan(Wind,RectLike) // @dynamic /*! @todo */ anchorPoint frame; Provided by NWINdow
+//＜(Wind,RectLike) // @dynamic /*! @todo */ anchorPoint frame; Provided by NWINdow
 - _Void_  setFrame:_Rect_ f { [self setContentSize:f.size]; } // display:YES]; } //self.isVisible animate:NO]; }
 - _Void_ setBounds:_Rect_ b { [self setFrame:AZRectExceptSize(self.frame, b.size) display:YES animate:YES]; } // setFramesize = AZSizeFromRect(b); }
 - _Rect_    bounds          { return AZRectFromSizeOfRect(self.frame); }

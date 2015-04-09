@@ -1,4 +1,4 @@
-[submodule "MTTokenField"]
+[submodule "submodules/MTTokenField"]
 	path = submodules/MTTokenField
 	url = https://github.com/mralexgray/MTTokenField.git
 	ignore = dirty
@@ -8,7 +8,7 @@
 	ignore = dirty
 [submodule "submodules/BPODial"]
 	path = submodules/BPODial
-	url = https://github.com/mralexgray/BPODial
+	url = https://github.com/mralexgray/BPODial.git
 	ignore = dirty
 [submodule "submodules/SNRHUDKit"]
 	path = submodules/SNRHUDKit

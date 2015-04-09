@@ -59,7 +59,7 @@
 
 
 @prop_RO  	BOOL	 isBoring,   isExciting,
-                           isBright,   isDark,
+                              isDark,
                            isBlueish,  isRedish,   isGreenish,   isYellowish;
 
 @prop_RO 	 CGF	 luminance, relativeBrightness,
@@ -70,13 +70,12 @@
 @prop_RO 	 NSC * closestWebColor, * closestNamedColor,  * closestColorListColor,
                          * lessOpaque,      * opaque,             * moreOpaque,
                          * darker,          * dark,               * muchDarker,
-                         * deviceRGBColor,  * calibratedRGBColor,
+                         * deviceRGBColor, 
                          * deviceWhiteColor,
                          * brighter,        * bright,
                          * redshift,        * blueshift,
                          * whitened,        * blackened,
                          * rgbComplement,   *	complement,
-                         * contrastingForegroundColor,
                          * translucent,
                          * watermark,
                          * inverted,
@@ -133,10 +132,6 @@ typedef void(^colorFadeBlock)(NSC*c);
 + (NSA*) allSystemColorNames; // i guess this is names of installed clr names;
 //+ (NSC*) colorNamed:(NSS*)string;
 + (NSA*) boringColors;
-+ (NSC*) randomLightColor;
-+ (NSC*) randomBrightColor;
-+ (NSC*) randomDarkColor;
-+ (NSC*) randomColor;
 + (NSA*) randomColors:(NSUI)ct;
 + (void) drawColors:(NSA*)colors inRect:(NSR)r;
 + (NSC*) randomOpaqueColor;

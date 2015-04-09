@@ -8,15 +8,15 @@
 
 - init { 	return self = super.init ? dict = NSMD.new, self : nil;	}
 
-- _Void_ add:__ { NSParameterAssert(__); NSN*ct; dict[__] = @(((ct = dict[__]) ? ct.iV : 0) + 1); }
+- _Void_ add: x  { NSParameterAssert(x); NSN*ct; dict[x] = @(((ct = dict[x]) ? ct.iV : 0) + 1); }
 
-+ (NSBag *) bagWithObjects:__, ... {
++ (NSBag *) bagWithObjects:z __ ... {
 
-	NSBag *bag = self.bag; if (!__) return bag;
+	NSBag *bag = self.bag; if (!z) return bag;
 
-  [bag add:__];
+  [bag add _ z] ___
 
-	va_list objects;  va_start(objects,__);  id obj;
+	va_list objects;  va_start(objects, z);  id obj ___
 
 	while ((obj = va_arg(objects, id)))	{		[bag add:obj]; }
 
@@ -25,12 +25,12 @@
   return bag;
 }
 
-- _Void_ addObjects:__, ... {
+- _Void_ addObjects:z __ ... {
 
-	if (!__) return;
-	[self add:__];
+	if (!z) return;
+	[self add:z];
 
-	va_list objects;	va_start(objects,__); id obj;
+	va_list objects;	va_start(objects,z); id obj;
 
 	while ((obj = va_arg(objects, id))) [self add:obj];
 

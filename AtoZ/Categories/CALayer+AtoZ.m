@@ -581,7 +581,7 @@ static char ORIENT_IDENTIFIER, ROOT_IDENTIFIER, TEXT_IDENTIFIER;
 	shapeLayer.lineWidth    = half;
 	shapeLayer.lineJoin	  = kCALineJoinRound;
 	shapeLayer.lineDashPattern = @[ @(20), @(20)];
-	shapeLayer.path = [[NSBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:self.cornerRadius] quartzPath];
+	shapeLayer.path = [NSBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:self.cornerRadius].quartzPath;
 	shapeLayer.zPosition = 3300;
 	CABA *dashAnimation = [CABA animationWithKeyPath:@"lineDashPhase"];
 	[dashAnimation setValuesForKeysWithDictionary:@{        @"fromValue": @(0.0),    @"toValue": @(40.0),

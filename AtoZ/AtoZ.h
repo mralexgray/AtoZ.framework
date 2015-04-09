@@ -208,6 +208,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 #import <AtoZ/CTGradient.h>
 #import <AtoZ/CWTask.h>
 #import <AtoZ/CalcModel.h>
+#import <AtoZ/ColorExplorer.h>
 #import <AtoZ/DSSyntaxCollection.h>
 #import <AtoZ/DSSyntaxHighlighter.h>
 #import <AtoZ/DSSyntaxTextView.h>
@@ -275,8 +276,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 -              objectForKeyedSubscript:k;
 - (void) setObject:x forKeyedSubscript:(id<NSCopying>)k;
 
-@prop_NA BOOL   faded;  // implementations for CALayer, NSView, NSWindow
-@prop_NA   id   representedObject;
+_NA BOOL   faded;  // implementations for CALayer, NSView, NSWindow
+_NA   id   representedObject;
 
 @end
 
@@ -432,13 +433,13 @@ AZNSIFACE(AZClassProxy)
 //@property (readonly) NSMA *delegates;
 //+ (NSMA*) delegates;
 
-@prop_NA MASShortcutView  * azHotKeyView;
-@prop_NA MASShortcut    * azHotKey;
-@prop_NA    BOOL            azHotKeyEnabled;
+_NA MASShortcutView  * azHotKeyView;
+_NA MASShortcut    * azHotKey;
+_NA    BOOL            azHotKeyEnabled;
 
-@prop_NA  NSW * azWindow;
-@prop_NA  NSC * logColor;
-@prop_NA  NSA * fonts,          /// 13 font... names.
+_NA  NSW * azWindow;
+_NA  NSC * logColor;
+_NA  NSA * fonts,          /// 13 font... names.
               * cachedImages;   /// nil.
 @prop_RO  NSB * bundle;
 

@@ -3,6 +3,7 @@
 #define AtoZ_MacroDefines
 
 
+
 //#define DECALREIT(orig,short) \
 //  _Type  orig * _#short;      \
 //  #define orig short          \
@@ -15,8 +16,8 @@
 #define _CAT(K,NAME,...) _IFCE K (NAME) __VA_ARGS__; @end
 
 
-#define   _____ @property
-#define _RONLY _____ (readonly)
+//#define  _____ @property
+//#define _RONLY _____ (readonly)
 
 
 #if TARGET_OS_IPHONE
@@ -35,10 +36,11 @@
 #define zSPC @" "
 #define zNIL @""
 
-#pragma mark - ACTIVE NSLOG
+#pragma mark - ACTIVE NSLOG -- SEE _OBJC
 
-#define  NSLog(fmt...)  ((void)printf("%s %s\n",__PRETTY_FUNCTION__,[[NSString.alloc initWithFormat:fmt]UTF8String]))
 #define NSLogC(fmt...)  NSLog(fmt)
+
+#define  🍎 SEXY
 
 #define APPLE_MAIN int main(int argc, char **argv, char **envp, char **apple)
 
@@ -46,7 +48,7 @@
 
 // START NEEDHOMES
 
-#define    WORD definition
+#define WORD definition
 #define NSENUM NSEnumerator
 #define FM   NSFileManager.defaultManager
 #define UDEFS  NSUserDefaults.standardUserDefaults
@@ -64,42 +66,31 @@
 #define    IFCE interface
 #define    IMPL implementation
 
-#define      CP copy
-#define      WK weak
-#define      RO readonly
-#define      NA nonatomic
-#define     STR strong
-#define     ASS assign
-#define     GET getter
-#define    SETR setter
-#define    UNSF unsafe_unretained
-#define      RW readwrite
 
+#define    SETR setter
+//#define     GET getter
 
 #define   prop_ property
 #define   prop__ property (STR)
 
-#define   _P @prop_
+#define   _P @property
+
+
 
 #define   prop_AT  prop_
-#define       _AT  @prop_AT
-
 #define   prop_NC  prop_ (NA,CP)
-#define       _NC  @prop_NC
 
-#define   prop_NA  prop_ (NA)
-#define       _NA  @prop_NA
+
 #define   prop_RO  prop_ (RO)
-#define       _RO @prop_RO
+
 #define   prop_CP  prop_ (CP)
-#define       _CP @prop_CP
+
 
 #define   prop_AS  prop_ (ASS)
-#define       _AS @prop_AS
+
 #define   prop_WK  prop_ (WK)
-#define       _WK @prop_WK
+
 #define   prop_RC  prop_ (RO,CP)
-#define       _RC @prop_RC
 
 #define P(...) id<__VA_ARGS__>
 #define INTERFACE(X,...)    @interface X : __VA_ARGS__ + (instancetype)
@@ -1817,33 +1808,33 @@ NS_INLINE CGFloat NSHeight(NSRect aRect) {
 }
 
 NS_INLINE NSRect NSRectFromCGRect(CGRect cgrect) {
-    union __ {NSRect ns; CGRect cg;};
-    return ((union __ *)&cgrect)->ns;
+    union urect {NSRect ns; CGRect cg;};
+    return ((union urect *)&cgrect)->ns;
 }
 
 NS_INLINE CGRect NSRectToCGRect(NSRect nsrect) {
-    union __ {NSRect ns; CGRect cg;};
-    return ((union __ *)&nsrect)->cg;
+    union urect {NSRect ns; CGRect cg;};
+    return ((union urect *)&nsrect)->cg;
 }
 
 NS_INLINE NSPoint NSPointFromCGPoint(CGPoint cgpoint) {
-    union __ {NSPoint ns; CGPoint cg;};
-    return ((union __ *)&cgpoint)->ns;
+    union upoint {NSPoint ns; CGPoint cg;};
+    return ((union upoint *)&cgpoint)->ns;
 }
 
 NS_INLINE CGPoint NSPointToCGPoint(NSPoint nspoint) {
-    union __ {NSPoint ns; CGPoint cg;};
-    return ((union __ *)&nspoint)->cg;
+    union upoint {NSPoint ns; CGPoint cg;};
+    return ((union upoint *)&nspoint)->cg;
 }
 
 NS_INLINE NSSize NSSizeFromCGSize(CGSize cgsize) {
-    union __ {NSSize ns; CGSize cg;};
-    return ((union __ *)&cgsize)->ns;
+    union usize {NSSize ns; CGSize cg;};
+    return ((union usize *)&cgsize)->ns;
 }
 
 NS_INLINE CGSize NSSizeToCGSize(NSSize nssize) {
-    union __ {NSSize ns; CGSize cg;};
-    return ((union __ *)&nssize)->cg;
+    union usize {NSSize ns; CGSize cg;};
+    return ((union usize *)&nssize)->cg;
 }
 
 NS_INLINE NSEdgeInsets NSEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {

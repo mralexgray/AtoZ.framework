@@ -56,13 +56,13 @@ JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
 + (INST) withFrame:(NSR)r mask:(NSUI)m;
 #pragma mark - THE MISSING ACCESSORS
 
-@prop_NA NSA * childWindows;
-@prop_RO NSV * frameView;
-@prop_   NSV * view;
-@prop_RO CAL * windowLayer,
+_NA NSA * childWindows;
+_RO NSV * frameView;
+_AT   NSV * view;
+_RO CAL * windowLayer,
              * contentLayer;
-@prop_RO CGR   contentRect;
-@prop_RO CGF   heightOfTitleBar, toolbarHeight;
+_RO CGR   contentRect;
+_RO CGF   heightOfTitleBar, toolbarHeight;
 
 - (void) toggleVisibility;
 

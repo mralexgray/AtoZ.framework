@@ -41,7 +41,7 @@
 -  (void)	setProgressTextAlign:(int)pos;
 -   (int)		progressTextAlignt;
 - (float)	alignTextOnProgress:(NSRect)rect fontSize:(NSSize)size;
--  (void)	startAnimation:__ _
-                              -  (void)	stopAnimation:__ _
+-  (void)	startAnimation:a ___
+                              -  (void)	stopAnimation _ a ___
                               -  (void)	animateInBackgroundThread;
 @end

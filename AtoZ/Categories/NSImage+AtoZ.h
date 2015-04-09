@@ -13,15 +13,14 @@ AZPROP(Text,cacheDirectory);
 
 _FINI
 
-_S _I _SInt              get_bit ( _UChr carr, _ULng bit_num);
+static inline _SInt              get_bit ( _UChr carr, _ULng bit_num);
 CGImageRef CreateCGImageFromData (    _Data data );
 CGF                     distance (    _Cord aPnt );				// Just one function to declare...
 
-
 @Xtra (NSImage, AtoZDrawBlock)
 
-+ (NSIMG*) imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
-+ (NSIMG*)  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
++ _Kind_ imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
++ _Kind_  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /// [NSImage imageNamed:@"document"]
 
@@ -32,81 +31,81 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @prop_RO _Data PNGRepresentation;
 
-+ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
++ _Kind_ imageWithBitmapRep:(NSBIR*)rep;
 
-+ (NSIMG*) gravatarForEmail:(NSS*)e;
++ _Kind_ gravatarForEmail:(NSS*)e;
 
-+ (NSIMG *)imageFromPDF:(PDFDocument *)doc
++ _Kind_ imageFromPDF:(PDFDocument *)doc
                    page:(NSUI)page
                    size:(NSSZ)size
                   named:(NSS *)name;
-+(INST)missing;
++ _Kind_ missing;
 
 //+ objectForKeyedSubscript: k;
 //@property (NA) CGF width, height;
-@prop_RO NSAS *attributedString;
+_RO NSAS *attributedString;
 
-+ (NSIMG*) isometricShelfInRect:(NSR)rect;
-+ (NSIMG*) imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
-- (NSIMG*) lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
--   (void) lockFocusBlock:(void(^)(NSIMG*))block;
-+ (NSIMG*) faviconForDomain:(NSS*)domainAsString;
-+ (NSIMG*) imageWithData:(NSData*)data;
--   (NSS*)   saveToWeb;
++ _Kind_ isometricShelfInRect:(NSR)rect;
++ _Kind_ imageFromLockedFocusSize:(NSSZ)sz lock:(NSIMG*(^)(NSIMG*))block;
+- _Kind_ lockFocusBlockOut:(NSIMG*(^)(NSIMG*))block;
+- _Void_ lockFocusBlock:(void(^)(NSIMG*))block;
++ _Kind_ faviconForDomain:(NSS*)domainAsString;
++ _Kind_ imageWithData:(NSData*)data;
+- _Text_ saveToWeb;
 
-+ (NSIMG*) glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
++ _Kind_ glowingSphereImageWithScaleFactor:(CGF)scale coreColor:(NSC*)core glowColor:(NSC*)glow;
 
-//+ (NSIMG*) imageFromURL:(NSS*)url;
-+ (NSIMG*) randomWebImage;
+//+ _Kind_ imageFromURL:(NSS*)url;
++ _Kind_ randomWebImage;
 
-+ (void) random:(void(^)(NSImage*))display;
-+ (void) loadImage:(NSURL*)url andDisplay:(void(^)(NSImage* i))b;
++ _Void_ random:(void(^)(NSImage*))display;
++ _Void_ loadImage:(NSURL*)url andDisplay:(void(^)(NSImage* i))b;
 
-//+ (NSIMG*) randomFunny; needs mrgray.com
+//+ _Kind_ randomFunny; needs mrgray.com
 
-+ (NSA*) randomWebImages:(NSUI)ct;
-+ (NSIMG*) googleImage:(NSS*)query;
++ _List_ randomWebImages:(NSUI)ct;
++ _Kind_ googleImage:(NSS*)query;
 
-//+ (NSA*) googleImages:(NSS*)query ct:(NSUI)ct;
-+ (NSIMG*) googleImages:(NSS*)query ct:(NSUI)ct eachBlock:(void(^)(NSIMG*results))block;
+//+ _List_ googleImages:(NSS*)query ct:(NSUI)ct;
++ _Kind_ googleImages:(NSS*)query ct:(NSUI)ct eachBlock:(void(^)(NSIMG*results))block;
 
-+ (NSIMG*) randomFunnyImage;
++ _Kind_ randomFunnyImage;
 	
-+ (NSIMG*) blackBadgeForRect:(NSR)frame;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke  withString:(NSS*)string;
-+ (NSIMG*) badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke	  withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock;
++ _Kind_ blackBadgeForRect:(NSR)frame;
++ _Kind_ badgeForRect:(NSR)frame withColor:(NSC*)color;
++ _Kind_ badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke;
++ _Kind_ badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke  withString:(NSS*)string;
++ _Kind_ badgeForRect:(NSR)frame withColor:(NSC*)color stroked:(NSC*) stroke	  withString:(NSS*)string orDrawBlock:(void(^)(NSR))drawBlock;
 
-+ (NSIMG*) screenShot;
-//+ (NSA*) iconsTintedWith:(NSC*)color;
-+ (NSA*) icons;
-+ (NSA*) systemIcons;
-+ (NSA*) randomImages:(NSUI)count;
-+ (NSA*) systemImages;
++ _Kind_ screenShot;
+//+ _List_ iconsTintedWith:(NSC*)color;
++ _List_ icons;
++ _List_ systemIcons;
++ _List_ randomImages:(NSUI)count;
++ _List_ systemImages;
 
-//+ (NSIMG*) monoIconNamed:(NSS*)name;
-+ (NSIMG*) randomMonoIcon;
-+ (NSA*)   monoIcons;
-+ (NSA*)   namedMonoIcons;
-+ (NSIMG*) randomIcon;
-+ (NSIMG*) forFile:(AZFile*)file;
+//+ _Kind_ monoIconNamed:(NSS*)name;
++ _Kind_ randomMonoIcon;
++ _List_   monoIcons;
++ _List_   namedMonoIcons;
++ _Kind_ randomIcon;
++ _Kind_ forFile:(AZFile*)file;
 
 - (NSIMG*) initWithSize:(NSSZ)size named:(NSS*)name;
-+ (NSIMG*) imageWithSize:(NSSZ)size named:(NSS*)name;
++ _Kind_ imageWithSize:(NSSZ)size named:(NSS*)name;
 
 - (NSIMG*) initWithFile:(NSS*)file named:(NSS*)name;
-+ (NSIMG*) imageWithFile:(NSS*)file named:(NSS*)name;
++ _Kind_ imageWithFile:(NSS*)file named:(NSS*)name;
 
 + (INST) withFile:x;
 
-+ (NSIMG*) systemIconNamed:(NSS*)name;
-+ (NSIMG*) frameworkImageNamed:(NSS*)string;
-+ (NSA*) frameworkImageNames;
-+ (NSA*) frameworkImagePaths;
-+ (NSA*) frameworkImages;
-+ (NSA*) picolStrings;
-//+ (NSA*) iconStrings;
++ _Kind_ systemIconNamed:(NSS*)name;
++ _Kind_ frameworkImageNamed:(NSS*)string;
++ _List_ frameworkImageNames;
++ _List_ frameworkImagePaths;
++ _List_ frameworkImages;
++ _List_ picolStrings;
+//+ _List_ iconStrings;
 
 - (NSIMG*) named:(NSS*)name;
 - (NSIMG*) scaledToMax:(CGF)f;
@@ -117,32 +116,32 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 - (void) drawinQuadrant: (QUAD)quad inRect:(NSR)rect;
 + (void) drawInQuadrants:	  (NSA*)images inRect:(NSR)frame;
 
-+ (NSIMG*) imagesInQuadrants:(NSA*)images inRect:(NSR)frame;
++ _Kind_ imagesInQuadrants:(NSA*)images inRect:(NSR)frame;
 - (NSIMG*) reflected:(float)amountFraction;
-+ (NSIMG*) reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
++ _Kind_ reflectedImage:(NSIMG*)sourceImage amountReflected:(float)fraction;
 
 - (NSIMG*) coloredWithColor:	  	(NSC*) inColor;
 - (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
-+ (NSIMG*) az_imageNamed:	  (NSS*) name;
-+ (NSIMG*) imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
-+ (NSIMG*) imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
++ _Kind_ az_imageNamed:	  (NSS*) name;
++ _Kind_ imageWithFileName: (NSS*) fileName inBundle:(NSB*)aBundle;
++ _Kind_ imageWithFileName: (NSS*) fileName inBundleForClass:(Class) aClass;
 
 + (NSIMG *)swatchWithColors:(NSA*)cs size:(NSSZ)z oriented:(AZO)o;
-+ (NSIMG*) swatchWithColor:			(NSC*)color size:(NSSize)size;
-+ (NSIMG*) swatchWithGradientColor: (NSC*)color size:(NSSize)size;
++ _Kind_ swatchWithColor:			(NSC*)color size:(NSSize)size;
++ _Kind_ swatchWithGradientColor: (NSC*)color size:(NSSize)size;
 
-- (NSIMG*) resizeWhenScaledImage;
-+ (NSIMG*) prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
+- _Kind_ resizeWhenScaledImage;
++ _Kind_ prettyGradientImage;  // Generates a 256 by 256 pixel image with a complicated gradient in it.
 
-@prop_RO NSC * quantized;
-@prop_RO NSBIR * quantizerRepresentation;
+_RO _Colr quantized;
+_RO NSBIR * quantizerRepresentation;
 
-- (NSA*)   quantize;
+_RO _List quantize;
 
-+ (NSIMG*) desktopImage;
-- (void) openInPreview;
++ _Kind_ desktopImage;
+- _Void_ openInPreview;
 
-@prop_RO NSS * asTempFile,
+_RO NSS * asTempFile,
 
 /// ! htmlEncodedImg  a full, HTML tagged,base 64 image..  ready to be appended.
 
@@ -156,7 +155,8 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 //// dataURL  the literal url, i you just want that... @return data:image/png;base64,iVBORw0KGgoAAAAN...JRU5ErkJggg==
 
   * dataURL;
-+ (NSIMG*) svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
+
++ _Kind_ svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
 /// ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi
 
 - (void) 	  openQuantizedSwatch;
@@ -179,13 +179,13 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 - (NSIMG*) imageByFillingVisibleAlphaWithColor:(NSC*)fillColor;
 - (NSIMG*) imageByConvertingToBlackAndWhite;
 
-- (NSIMG*) inverted;
-- (NSImage *)blackWhite;
+- _Pict_ inverted;
+- _Pict_ blackWhite;
 
 - (NSIMG*) maskWithColor:(NSC*)c;
 
-+ (NSIMG*) createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
-+ (NSIMG*) createImageFromView:	(NSView*) view;
++ _Kind_ createImageFromSubView:(NSView*) view	rect:(NSRect)rect;
++ _Kind_ createImageFromView:	(NSView*) view;
 
 //NOTE BROKEN
 - (NSIMG*) scaleImageToFillSize:	(NSSize) targetSize; //
@@ -225,7 +225,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 - (CIImage *)toCIImage;
 
 - (NSIMG*) imageByRemovingTransparentAreasWithFinalRect: (NSRect*)outBox;
-//+ (NSIMG*) fromSVG:(NSS*)documentName withAlpha:(BOOL)hasAlpha;
+//+ _Kind_ fromSVG:(NSS*)documentName withAlpha:(BOOL)hasAlpha;
 //+ (NSIMG*)imageFromCGImageRef:(CGImageRef)image;
 
 - (NSIMG*) addReflection:(CGF)percentage;
@@ -293,14 +293,14 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @Xtra (NSImage, AtoZAverage)
 -(NSC*) averageColor;
-+ (NSIMG*) maskImage:(NSIMG*)image withMask:(NSIMG*)maskImage;
++ _Kind_ maskImage:(NSIMG*)image withMask:(NSIMG*)maskImage;
 @end
 @Xtra (NSImage, Matrix)
 - (NSIMG*) addPerspectiveMatrix:(CIPerspectiveMatrix)matrix; //8PointMatrix
 @end
 
 //@Xtra (NSImage, GrabWindow)
-//+ (NSIMG*) captureScreenImageWithFrame: (NSRect) frame;
+//+ _Kind_ captureScreenImageWithFrame: (NSRect) frame;
 
 //+ (NSIMG*)screenShotWithinRect:(NSRect)rect;
 
@@ -562,12 +562,12 @@ extern NSString *kXML_Base64ReferenceAttribute;
 
 @Xtra (Pict, MacOnly)
 
-+ (NSIMG*) isometricShelfInRect:(NSR)rect;
++ _Kind_ isometricShelfInRect:(NSR)rect;
 - (NSImageRep*) representationOfSize:(NSSize)theSize;
 - (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
 - (NSBitmapImageRep*) bitmap;
 @prop_RO NSBIR * quantizerRepresentation;
-+ (NSIMG*) imageWithBitmapRep:(NSBIR*)rep;
++ _Kind_ imageWithBitmapRep:(NSBIR*)rep;
 - (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
 
 - (NSSize) 		sizeLargestRepresentation;

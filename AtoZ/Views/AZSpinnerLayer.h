@@ -13,7 +13,7 @@
 - (void)toggle;
 
 // Properties and Accessors
-@prop_NA BOOL running;
+_NA BOOL running;
 @property NSColor *color;  // "copy" because we don't retain it -- we create a CGColor from it
 
 @end

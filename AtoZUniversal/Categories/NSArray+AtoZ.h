@@ -68,8 +68,8 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 
 - reduce:initial withBlock:(id(^)(id sum, id obj))block;
 
--(NSArray*) arrayByRemovingObject:__ _
--(NSArray*) arrayByRemovingObjectsFromArray:(NSArray*)__ _
+-(NSArray*) arrayByRemovingObject:x ___
+-(NSArray*) arrayByRemovingObjectsFromArray:(NSArray*)xs ___
 
 - (NSMA*) mapM:(id(^)(id))block;
 
@@ -152,7 +152,7 @@ VOID(addObjectsIfMissing:(id<NSFastEnumeration>)x);
 //- (NSA<NSN>*) ascending; - (NSA<NSN>*) descending;
 
 - (NSA*) sorted:(AZOrder)o;
-@prop_RO NSA * sorted;
+_RO NSA * sorted;
 
 //- _Void_ logEachPropertiesPlease;  FIX
 //- _Void_ logEachProperties; FIX

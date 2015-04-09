@@ -13,6 +13,6 @@ extern int system(const char *string);
 @interface AZAXAuthorization : NSObject
 - (NSString *)BundleName;
 - (BOOL)RunCommand:(NSString *)cmd;
-- (IBAction)Restart:__ _
+- (IBAction)Restart _ r ___
                               
 @end

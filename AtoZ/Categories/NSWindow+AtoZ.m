@@ -347,13 +347,15 @@ typedef void (^notificationObserver_block)(NSNotification *);
 	lace.borderColor = cgRANDOMCOLOR;
 	CGContextRef	context = NULL;
 	CGColorSpaceRef colorSpace;
-	int bitmapByteCount;				int bitmapBytesPerRow;
+	//int bitmapByteCount;
+  int bitmapBytesPerRow;
 	int pixelsHigh = (int) v.layer.height;
 	int pixelsWide = (int) v.layer.width;
-	bitmapBytesPerRow   = (pixelsWide * 4);			bitmapByteCount	 = (bitmapBytesPerRow * pixelsHigh);
+	bitmapBytesPerRow   = (pixelsWide * 4);
+//  bitmapByteCount	 = (bitmapBytesPerRow * pixelsHigh);
 	colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGB);
 	context = CGBitmapContextCreate (NULL, pixelsWide, pixelsHigh,	8, bitmapBytesPerRow,	colorSpace,	kCGImageAlphaPremultipliedLast);
-	if (context== NULL)	{	NSLog(@"Failed to create context."); return nil;	}
+	if (context== NULL)	{	NSLog(@"Failed to create context."); if (colorSpace) CGColorSpaceRelease( colorSpace ); return nil;	}
 	CGColorSpaceRelease( colorSpace );
 	[v.layer.presentationLayer renderInContext:context];
 	//	[[[view layer] presentationLayer] recursivelyRenderInContext:context];

@@ -11,6 +11,6 @@
 - (void) stopProgressAnimation;
 //, *secondaryColor;
 
-//- (IBAction)startAnimation:__ _
-                              //- (IBAction)stopAnimation:__ _
+//- (IBAction)startAnimation _ A ___
+                              //- (IBAction)stopAnimation _ A ___
                               @end

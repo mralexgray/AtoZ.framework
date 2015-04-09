@@ -19,14 +19,14 @@
 		7B0A4F111AA94D94008FB45A /* NSBag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A4F0F1AA94D94008FB45A /* NSBag.m */; };
 		7B0A4F121AA94D94008FB45A /* NSBag.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B0A4F101AA94D94008FB45A /* NSBag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2EF3EA1AB0319600382535 /* OrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF3E81AB0319600382535 /* OrderedDictionary.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B2EF3EB1AB0319600382535 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF3E91AB0319600382535 /* OrderedDictionary.m */; };
 		7B2EF3EE1AB032CE00382535 /* NSString-Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF3EC1AB032CE00382535 /* NSString-Utilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2EF3EF1AB032CE00382535 /* NSString-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF3ED1AB032CE00382535 /* NSString-Utilities.m */; };
 		7B2EF4361AB0493400382535 /* ObjcAssociatedObjectHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF4331AB0493400382535 /* ObjcAssociatedObjectHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B2EF4371AB0493400382535 /* ObjcAssociatedObjectHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2EF4341AB0493400382535 /* ObjcAssociatedObjectHelpers.m */; };
 		7B313A2F1AADC0AD00179E72 /* objswitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B313A271AADC0AD00179E72 /* objswitch.m */; };
 		7B313A301AADC0AD00179E72 /* objswitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B313A281AADC0AD00179E72 /* objswitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B4ADB821AB8A50F00CFCC91 /* AssociatedObjectHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2EF4351AB0493400382535 /* AssociatedObjectHelpers.h */; };
+		7B380C851ACA2FC000285B4E /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B380C841ACA2FC000285B4E /* OrderedDictionary.m */; };
+		7B380C871ACA559900285B4E /* OrderedDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B380C861ACA559900285B4E /* OrderedDictionaryTests.m */; };
 		7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B582C2B1AA6DC9800C450C3 /* F+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582C241AA6DC9800C450C3 /* F+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7B582C2C1AA6DC9800C450C3 /* F.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B582C251AA6DC9800C450C3 /* F.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,7 +52,6 @@
 		7B964E501AAD7EB800F866D3 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B964E4E1AAD7EB800F866D3 /* NSObject+Properties.m */; };
 		7B964E531AAD815000F866D3 /* NSString+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B964E511AAD815000F866D3 /* NSString+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B964E541AAD815000F866D3 /* NSString+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B964E521AAD815000F866D3 /* NSString+AtoZ.m */; };
-		7B9B40831AC17E53002EDD01 /* _ObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B9B40821AC17E53002EDD01 /* _ObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B9BC4F61ABA5FB300E381B4 /* NSImage+AtoZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAE11AB8350900E05319 /* NSImage+AtoZ.m */; };
 		7BBD2D781AA74C8700CD9477 /* EXTConcreteProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD2D751AA74C8700CD9477 /* EXTConcreteProtocol.m */; };
@@ -64,7 +63,7 @@
 		7BBD2D851AA7536A00CD9477 /* EXTSynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D801AA7536A00CD9477 /* EXTSynthesize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D861AA7536A00CD9477 /* NSMethodSignature+EXT.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BBD2D811AA7536A00CD9477 /* NSMethodSignature+EXT.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BBD2D871AA7536A00CD9477 /* NSMethodSignature+EXT.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBD2D821AA7536A00CD9477 /* NSMethodSignature+EXT.m */; };
-		7BCD26351ABE59B300F1D563 /* FunSize.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7BDADDFD1AB0726E00581B83 /* FunSize.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7BCD26351ABE59B300F1D563 /* FunSize.framework in Copy Files */ = {isa = PBXBuildFile; fileRef = 7BDADDFD1AB0726E00581B83 /* FunSize.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAE01AB8350900E05319 /* NSImage+AtoZ.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BD3CAE71AB843F300E05319 /* AtoZGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD3CAE51AB843F300E05319 /* AtoZGeometry.m */; };
 		7BD3CAE81AB843F300E05319 /* AtoZGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -96,20 +95,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7B5DC2231AC794A70063D701 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B9B402C1AC14E7D002EDD01 /* _ObjC.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7B3835791AC681C700D617B9;
-			remoteInfo = _migrate;
-		};
-		7B5DC2271AC794A80063D701 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7B9B402C1AC14E7D002EDD01 /* _ObjC.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7B38357A1AC681C700D617B9;
-			remoteInfo = _migrate;
-		};
 		7B5DC2851AC932CA0063D701 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7B582BBC1AA6A4F300C450C3 /* Project object */;
@@ -123,6 +108,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 7B9B40331AC14EB6002EDD01;
 			remoteInfo = _ObjC_Tests;
+		};
+		7BB4153B1ACEBFF30024D285 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B9B402C1AC14E7D002EDD01 /* _ObjC.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BC2C9A41AD5EBCB00D3923D;
+			remoteInfo = _ObjC;
+		};
+		7BC459531AD6BB0E0097F508 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B9B402C1AC14E7D002EDD01 /* _ObjC.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7BC4594A1AD68DAA0097F508;
+			remoteInfo = _ObjC_Tool;
 		};
 		7BDADDFC1AB0726E00581B83 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -141,14 +140,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7BCD26341ABE59A600F1D563 /* CopyFiles */ = {
+		7BCD26341ABE59A600F1D563 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7BCD26351ABE59B300F1D563 /* FunSize.framework in CopyFiles */,
+				7BCD26351ABE59B300F1D563 /* FunSize.framework in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7BEA69171ABCD44F0040B76A /* CopyFiles */ = {
@@ -178,10 +178,9 @@
 		7B0A4F0B1AA947A6008FB45A /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Functions.h; path = AtoZUniversal/Functions.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B0A4F0C1AA947A6008FB45A /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Functions.m; path = AtoZUniversal/Functions.m; sourceTree = "<group>"; };
 		7B0A4F0F1AA94D94008FB45A /* NSBag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSBag.m; path = AtoZUniversal/NSBag.m; sourceTree = "<group>"; };
-		7B0A4F101AA94D94008FB45A /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSBag.h; path = AtoZUniversal/NSBag.h; sourceTree = "<group>"; wrapsLines = 1; };
+		7B0A4F101AA94D94008FB45A /* NSBag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = NSBag.h; path = AtoZUniversal/NSBag.h; sourceTree = "<group>"; wrapsLines = 1; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		7B2EF3D51AB01AC800382535 /* Universal.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Universal.xcconfig; path = ../../xcconfigs/Base/Universal.xcconfig; sourceTree = "<group>"; };
-		7B2EF3E81AB0319600382535 /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; wrapsLines = 1; };
-		7B2EF3E91AB0319600382535 /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
+		7B2EF3E81AB0319600382535 /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderedDictionary.h; path = OrderedDictionary/OrderedDictionary/OrderedDictionary.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B2EF3EC1AB032CE00382535 /* NSString-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-Utilities.h"; path = "Categories/NSString-Utilities.h"; sourceTree = "<group>"; wrapsLines = 1; };
 		7B2EF3ED1AB032CE00382535 /* NSString-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-Utilities.m"; path = "Categories/NSString-Utilities.m"; sourceTree = "<group>"; };
 		7B2EF3F01AB0395000382535 /* GaySlang.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GaySlang.plist; path = ../Resources/GaySlang.plist; sourceTree = "<group>"; };
@@ -192,6 +191,8 @@
 		7B313A271AADC0AD00179E72 /* objswitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = objswitch.m; sourceTree = "<group>"; };
 		7B313A281AADC0AD00179E72 /* objswitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objswitch.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7B313A291AADC0AD00179E72 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		7B380C841ACA2FC000285B4E /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderedDictionary.m; path = OrderedDictionary/OrderedDictionary/OrderedDictionary.m; sourceTree = "<group>"; };
+		7B380C861ACA559900285B4E /* OrderedDictionaryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderedDictionaryTests.m; path = OrderedDictionary/Tests/UnitTests/OrderedDictionaryTests.m; sourceTree = SOURCE_ROOT; };
 		7B582BC51AA6A4F400C450C3 /* AtoZUniversal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AtoZUniversal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B582BC91AA6A4F400C450C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AtoZUniversal.h; path = AtoZUniversal/AtoZUniversal.h; sourceTree = "<group>"; wrapsLines = 1; };
@@ -224,7 +225,6 @@
 		7B964E521AAD815000F866D3 /* NSString+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+AtoZ.m"; path = "Categories/NSString+AtoZ.m"; sourceTree = "<group>"; };
 		7B964E551AAD8A4E00F866D3 /* LoremIpsum.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = LoremIpsum.plist; path = ../Categories/LoremIpsum.plist; sourceTree = "<group>"; };
 		7B9B402C1AC14E7D002EDD01 /* _ObjC.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = _ObjC.xcodeproj; path = _ObjC/_ObjC.xcodeproj; sourceTree = "<group>"; };
-		7B9B40821AC17E53002EDD01 /* _ObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _ObjC.h; path = _ObjC/_ObjC.h; sourceTree = "<group>"; };
 		7BBD2D741AA74C8700CD9477 /* EXTConcreteProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTConcreteProtocol.h; sourceTree = "<group>"; wrapsLines = 1; };
 		7BBD2D751AA74C8700CD9477 /* EXTConcreteProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTConcreteProtocol.m; sourceTree = "<group>"; };
 		7BBD2D761AA74C8700CD9477 /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTRuntimeExtensions.h; sourceTree = "<group>"; wrapsLines = 1; };
@@ -290,22 +290,17 @@
 		7B582BBB1AA6A4F300C450C3 = {
 			isa = PBXGroup;
 			children = (
-				7B9B40821AC17E53002EDD01 /* _ObjC.h */,
 				7B9B402C1AC14E7D002EDD01 /* _ObjC.xcodeproj */,
 				7B582C341AA6DCDF00C450C3 /* AtoZMacroDefines.h */,
 				7B0A4F091AA92CB0008FB45A /* AtoZTypes.h */,
 				7BE12B681AA918A6001AF7CE /* AtoZUniversal-Prefix.pch */,
 				7B582BCA1AA6A4F400C450C3 /* AtoZUniversal.h */,
-				7BF6EB9B1AC5DD8B003E21DF /* DatabaseStorage */,
 				7B89AE9E1AA9A7670036EC09 /* Base */,
-				7B582C3C1AA6DFF000C450C3 /* BaseModel */,
+				7BC459571AD6BB250097F508 /* Modules */,
 				7BE12B631AA917B8001AF7CE /* Categories */,
-				7BBD2D881AA7537300CD9477 /* EXT */,
-				7B582C231AA6DC9800C450C3 /* Functional */,
-				7B313A231AADC0AD00179E72 /* ObjectMatcher */,
 				7BD3CAE91AB845CB00E05319 /* Protocols */,
 				7B582BC81AA6A4F400C450C3 /* Support */,
-				7B5DC27F1AC932CA0063D701 /* AtoZUniversal Tests */,
+				7B5DC27F1AC932CA0063D701 /* AtoZUni Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -315,10 +310,9 @@
 				7BA729881AB703F900BFD612 /* Resources */,
 				7B2EF3D51AB01AC800382535 /* Universal.xcconfig */,
 				7B582C7D1AA6F4FE00C450C3 /* UniversalFrameworkAggregate.sh */,
-				7B5DC27E1AC932CA0063D701 /* AtoZUniversal Tests.xctest */,
+				7BC2C99F1AD5E4D500D3923D /* Products */,
 				7BDADDF71AB0726E00581B83 /* FunSize.xcodeproj */,
 				7B582BC91AA6A4F400C450C3 /* Info.plist */,
-				7B582BC51AA6A4F400C450C3 /* AtoZUniversal.framework */,
 				7B582BD71AA6A4F800C450C3 /* AtoZUniversalTests.m */,
 			);
 			name = Support;
@@ -349,19 +343,21 @@
 			path = BaseModel/BaseModel;
 			sourceTree = "<group>";
 		};
-		7B5DC27F1AC932CA0063D701 /* AtoZUniversal Tests */ = {
+		7B5DC27F1AC932CA0063D701 /* AtoZUni Tests */ = {
 			isa = PBXGroup;
 			children = (
+				7B380C861ACA559900285B4E /* OrderedDictionaryTests.m */,
 				7B5DC2D91AC933CB0063D701 /* RectLikeTests.m */,
 			);
+			name = "AtoZUni Tests";
 			path = "AtoZUniversal Tests";
 			sourceTree = "<group>";
 		};
 		7B7D95F41AC1A6EB00F5504D /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				7BC459541AD6BB0E0097F508 /* _ObjC_Tool */,
 				7B7D95F81AC1A6EB00F5504D /* _ObjC_Tests.xctest */,
-				7B5DC2281AC794A80063D701 /* _ObjC_Tool */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -372,7 +368,7 @@
 				7BD3CAE61AB843F300E05319 /* AtoZGeometry.h */,
 				7BD3CAE51AB843F300E05319 /* AtoZGeometry.m */,
 				7B2EF3E81AB0319600382535 /* OrderedDictionary.h */,
-				7B2EF3E91AB0319600382535 /* OrderedDictionary.m */,
+				7B380C841ACA2FC000285B4E /* OrderedDictionary.m */,
 				7B2EF4331AB0493400382535 /* ObjcAssociatedObjectHelpers.h */,
 				7B2EF4341AB0493400382535 /* ObjcAssociatedObjectHelpers.m */,
 				7B2EF4351AB0493400382535 /* AssociatedObjectHelpers.h */,
@@ -380,8 +376,6 @@
 				7BE12BB91AA9222F001AF7CE /* AZObserversAndBinders.m */,
 				7B89AE9A1AA9666C0036EC09 /* AZRange.h */,
 				7B89AE9B1AA9666C0036EC09 /* AZRange.m */,
-				7B582C321AA6DCDF00C450C3 /* AZTalker.h */,
-				7B582C331AA6DCDF00C450C3 /* AZTalker.m */,
 				7B0A4F0B1AA947A6008FB45A /* Functions.h */,
 				7B0A4F0C1AA947A6008FB45A /* Functions.m */,
 				7B89AE981AA961BE0036EC09 /* JREnum.h */,
@@ -420,9 +414,32 @@
 			name = EXT;
 			sourceTree = "<group>";
 		};
+		7BC2C99F1AD5E4D500D3923D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B5DC27E1AC932CA0063D701 /* AtoZUniversal Tests.xctest */,
+				7B582BC51AA6A4F400C450C3 /* AtoZUniversal.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BC459571AD6BB250097F508 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				7B582C321AA6DCDF00C450C3 /* AZTalker.h */,
+				7B582C331AA6DCDF00C450C3 /* AZTalker.m */,
+				7BF6EB9B1AC5DD8B003E21DF /* DatabaseStorage */,
+				7B582C3C1AA6DFF000C450C3 /* BaseModel */,
+				7B582C231AA6DC9800C450C3 /* Functional */,
+				7B313A231AADC0AD00179E72 /* ObjectMatcher */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
 		7BD3CAE91AB845CB00E05319 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7BBD2D881AA7537300CD9477 /* EXT */,
 				7B0A4F051AA92A54008FB45A /* Protocols.h */,
 				7B0A4F061AA92A54008FB45A /* Protocols.m */,
 				7B582C351AA6DCDF00C450C3 /* SubscriptProtocols.h */,
@@ -497,7 +514,6 @@
 				7BD3CAE21AB8350900E05319 /* NSImage+AtoZ.h in Headers */,
 				7B89AE991AA961BE0036EC09 /* JREnum.h in Headers */,
 				7B582BCB1AA6A4F400C450C3 /* AtoZUniversal.h in Headers */,
-				7B4ADB821AB8A50F00CFCC91 /* AssociatedObjectHelpers.h in Headers */,
 				7B0A4F071AA92A54008FB45A /* Protocols.h in Headers */,
 				7B313A301AADC0AD00179E72 /* objswitch.h in Headers */,
 				7B0A4F121AA94D94008FB45A /* NSBag.h in Headers */,
@@ -532,7 +548,6 @@
 				7BE12BC31AA92743001AF7CE /* NSData+AtoZ.h in Headers */,
 				7B2EF4361AB0493400382535 /* ObjcAssociatedObjectHelpers.h in Headers */,
 				7BE12B661AA917DC001AF7CE /* NSBundle+AtoZ.h in Headers */,
-				7B9B40831AC17E53002EDD01 /* _ObjC.h in Headers */,
 				7BE12BBC1AA9222F001AF7CE /* AZObserversAndBinders.h in Headers */,
 				7B582C2B1AA6DC9800C450C3 /* F+Private.h in Headers */,
 				7BBD2D861AA7536A00CD9477 /* NSMethodSignature+EXT.h in Headers */,
@@ -546,16 +561,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B582BDB1AA6A4F800C450C3 /* Build configuration list for PBXNativeTarget "AtoZUniversal" */;
 			buildPhases = (
+				7BC4595C1AD6BF7A0097F508 /* Copy _ObjC Header */,
 				7B582BC21AA6A4F300C450C3 /* Headers */,
 				7B582BC01AA6A4F300C450C3 /* Sources */,
 				7BEA69171ABCD44F0040B76A /* CopyFiles */,
+				7BCD26341ABE59A600F1D563 /* Copy Files */,
 				7B2EF3F41AB039BA00382535 /* INSTALL_FW_ON_DEVICE.zsh */,
-				7BCD26341ABE59A600F1D563 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7B5DC2241AC794A70063D701 /* PBXTargetDependency */,
+				7BB4153C1ACEBFF30024D285 /* PBXTargetDependency */,
 			);
 			name = AtoZUniversal;
 			productName = AtoZUniversal;
@@ -625,18 +641,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		7B5DC2281AC794A80063D701 /* _ObjC_Tool */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = _ObjC_Tool;
-			remoteRef = 7B5DC2271AC794A80063D701 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7B7D95F81AC1A6EB00F5504D /* _ObjC_Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = _ObjC_Tests.xctest;
 			remoteRef = 7B7D95F71AC1A6EB00F5504D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7BC459541AD6BB0E0097F508 /* _ObjC_Tool */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = _ObjC_Tool;
+			remoteRef = 7BC459531AD6BB0E0097F508 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7BDADDFD1AB0726E00581B83 /* FunSize.framework */ = {
@@ -662,13 +678,31 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/../Scripts/INSTALL_FW_ON_DEVICE.zsh",
 			);
 			name = INSTALL_FW_ON_DEVICE.zsh;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ../Scripts/INSTALL_FW_ON_DEVICE.zsh;
+			shellScript = "\n[[ -a \"${SCRIPT_INPUT_FILE_0}\" ]] && \"${SCRIPT_INPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BC4595C1AD6BF7A0097F508 /* Copy _ObjC Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/_ObjC.h",
+			);
+			name = "Copy _ObjC Header";
+			outputPaths = (
+				"$(CODESIGNING_FOLDER_PATH)/Headers/_ObjC.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -fv \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -686,6 +720,7 @@
 				7B582C2D1AA6DC9800C450C3 /* F.m in Sources */,
 				7BE12BBB1AA9222F001AF7CE /* AZObserversAndBinders.m in Sources */,
 				7B582C441AA6DFF000C450C3 /* BaseModel.m in Sources */,
+				7B380C851ACA2FC000285B4E /* OrderedDictionary.m in Sources */,
 				7B0A4F031AA92986008FB45A /* NSArray+AtoZ.m in Sources */,
 				7B2EF4371AB0493400382535 /* ObjcAssociatedObjectHelpers.m in Sources */,
 				7B0A4F0E1AA947A6008FB45A /* Functions.m in Sources */,
@@ -708,7 +743,6 @@
 				7BE12BC41AA92743001AF7CE /* NSData+AtoZ.m in Sources */,
 				7B582C381AA6DCDF00C450C3 /* AZTalker.m in Sources */,
 				7BF6EBA01AC5DD8B003E21DF /* DatabaseStorage.m in Sources */,
-				7B2EF3EB1AB0319600382535 /* OrderedDictionary.m in Sources */,
 				7BEA68FF1ABC7D2E0040B76A /* NSFont+AtoZ.m in Sources */,
 				7BBD2D791AA74C8700CD9477 /* EXTConcreteProtocol.m in Sources */,
 				7B582C3B1AA6DCDF00C450C3 /* SubscriptProtocols.m in Sources */,
@@ -721,21 +755,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B5DC2DA1AC933CB0063D701 /* RectLikeTests.m in Sources */,
+				7B380C871ACA559900285B4E /* OrderedDictionaryTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B5DC2241AC794A70063D701 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = _migrate;
-			targetProxy = 7B5DC2231AC794A70063D701 /* PBXContainerItemProxy */;
-		};
 		7B5DC2861AC932CA0063D701 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7B582BC41AA6A4F300C450C3 /* AtoZUniversal */;
 			targetProxy = 7B5DC2851AC932CA0063D701 /* PBXContainerItemProxy */;
+		};
+		7BB4153C1ACEBFF30024D285 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = _ObjC;
+			targetProxy = 7BB4153B1ACEBFF30024D285 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -765,10 +800,15 @@
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUniversal/AtoZUniversal-Prefix.pch";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/dd/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
 				INFOPLIST_FILE = AtoZUniversal/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-lsqlite3",
 					"-ObjC",
@@ -788,10 +828,15 @@
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZUniversal/AtoZUniversal-Prefix.pch";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Volumes/dd/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"$(BUILT_PRODUCTS_DIR)",
+				);
 				INFOPLIST_FILE = AtoZUniversal/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
 					"-lsqlite3",
 					"-ObjC",
@@ -921,6 +966,7 @@
 				7B5DC2881AC932CA0063D701 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

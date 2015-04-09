@@ -4,18 +4,18 @@
  */
 
 @Vows RectLike
-@Reqd _RO _Rect frame _  // MUST be implemented (in a category is OK)
+@Reqd _RO _Rect frame ___  // MUST be implemented (in a category is OK)
 @Optn
 
 //- _Void_ setFrame:_Rect_ r; ///     -frame  & -setFrame:
 
-_AT _Rect bounds _            /// AND -bounds & -setBounds:   AND shoould accurately reflect those values.
+_AT _Rect bounds ___            /// AND -bounds & -setBounds:   AND shoould accurately reflect those values.
 
-- _Void_ setFrame:_Rect_ r _
+- _Void_ setFrame:_Rect_ r ___
 
 _AT _Cord   anchorPoint,    /// If unimplemented
-               position _
-_AT _Rect    superframe _     /// WILL store these, for you, if unimplemented.. and make anchorPoint & position calculations meaningful.
+               position ___
+_AT _Rect    superframe ___     /// WILL store these, for you, if unimplemented.. and make anchorPoint & position calculations meaningful.
 
 @concrete
 
@@ -38,16 +38,16 @@ _NA _Cord minXmaxY, midXmaxY, maxXmaxY,
           centerPt,
           bOrigin,
           origin,
-          apex _
+          apex ___
 
 _RO _Flot perimeter, area;              // 2 * (width + height)
 
-- _IsIt_      isLargerThan:(P(RectLike))r _
-- _IsIt_     isSmallerThan:(P(RectLike))r _
-- _IsIt_         isRectLke:(P(RectLike))r _
-- _IsIt_  isLargerThanRect:_Rect_ r _
-- _IsIt_ isSmallerThanRect:_Rect_ r _
-- _IsIt_        isSameRect:_Rect_ r _
+- _IsIt_      isLargerThan:(P(RectLike))r ___
+- _IsIt_     isSmallerThan:(P(RectLike))r ___
+- _IsIt_         isRectLke:(P(RectLike))r ___
+- _IsIt_  isLargerThanRect:_Rect_ r ___
+- _IsIt_ isSmallerThanRect:_Rect_ r ___
+- _IsIt_        isSameRect:_Rect_ r ___
 
 /*! Protocol factory methods for all conformant classes! */
 
@@ -55,11 +55,11 @@ _RO _Flot perimeter, area;              // 2 * (width + height)
 + _Kind_ x:_Flot_ x
          y:_Flot_ y
          w:_Flot_ w
-         h:_Flot_ h _
+         h:_Flot_ h ___
 
 // 0 - 4 * NSNumber.. dims + optional NSValue rect for superframe.
-+ _Kind_ rectLike:_Numb_ d1, ... NS_REQUIRES_NIL_TERMINATION _
-+ _Kind_ withRect:_Rect_ r _                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
++ _Kind_ rectLike:_Numb_ d1, ... NS_REQUIRES_NIL_TERMINATION ___
++ _Kind_ withRect:_Rect_ r ___                     /*! NSV *r = [NSV withRect:AZRectBy(100,200)];  */
 
 
 - _Void_ iterate:(CordBlk)b;

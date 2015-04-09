@@ -33,10 +33,10 @@
 @property (NA, ASS)   IBOutlet TransparentWindow *controlWindow;
 //@property (nonatomic, retain)  IBOutlet NSWindow *attachedWindow;
 
-- (IBAction) addNote:__ _
-                              - (IBAction) removeAllNotes:__ _
-                              - (IBAction) goMouseTest:__ _
-                              - (IBAction) reload:__ _
+- (IBAction) addNote _ N ___
+                              - (IBAction) removeAllNotes _ N ___
+                              - (IBAction) goMouseTest _ T ___
+                              - (IBAction) reload:__ ___
                               - (IBAction) moveThemAll:(id) sender;
 - (IBAction) cancel:(id) sender;
 @property (NA, ASS) CGRect scaledUnit;
@@ -63,7 +63,7 @@
 
 @property (nonatomic, strong) IBOutlet AZToggleArrayView   *sortToggle;
 
-//-(IBAction)toggleShake:__ _
+//-(IBAction)toggleShake _ S ___
                               
 @end
 /*

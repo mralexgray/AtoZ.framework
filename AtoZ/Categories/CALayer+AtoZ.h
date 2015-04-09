@@ -39,8 +39,8 @@
 
 //- (void) on:(NSEventMask)mask do:(SenderEvent)b; // FIX
 
-@prop_NA id eventMonitor;
-@prop_NA NSEventMask eventMask;
+_NA id eventMonitor;
+_NA NSEventMask eventMask;
 //@prop_RO IndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
 
 /*! @see swizzleHitTest for swizled implementation enablig this! */

@@ -144,9 +144,16 @@ NSMS* html = $(@"<html>\
 
 + (NSA*) namedColors { AZSTATIC_OBJ(NSA, cs, [self.namedColorDictionary mapToArray:^id(id k, id v) { return [[NSC colorWithHex:v[@"hex"]] objectBySettingValue:k forKey:@"name"]; }]); return cs;
 }
-+ (NSD*) namedColorDictionary {  static NSD* d; return d = d ?: ({ id path = [AZFILEMANAGER pathsOfFilesIn:AZFWRESOURCES matchingPattern:@"colors.json"]; path ?
++ (NSD*) namedColorDictionary {  AZSTATIC_OBJ(NSD, d, ({
 
-    [NSJSONS JSONObjectWithData:[DATA dataWithContentsOfFile:path[0] options:0 error:nil] options:0 error:nil] : nil; });
+  id path = [AZFWBUNDLE pathForResource:@"colors" ofType:@"json"];
+  // [AZFILEMANAGER pathsOfFilesIn:AZFWRESOURCES matchingPattern:@"colors.json"];
+  NSAssert(path != nil, @"Uh oh, cannot find colors.json");
+  id data = [DATA dataWithContentsOfFile:path[0] options:0 error:nil];
+  NSAssert(data != nil, @"couldn't make data from colors.json");
+  [NSJSONS JSONObjectWithData:data options:0 error:nil];
+
+  })); return d;
 }
 @end
 

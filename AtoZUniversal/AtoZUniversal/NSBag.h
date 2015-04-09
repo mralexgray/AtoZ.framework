@@ -1,4 +1,4 @@
-//
+
 //  NSBag.h
 //  AtoZ
 //
@@ -8,19 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSBag : NSObject
+  _Kind           NSBag _ NObj
 
-+ (instancetype) bagWithArray:(NSA*)a _
-+ (instancetype) bag _
-+ (instancetype) bagWithObjects:__, ... _
++ _Kind_   bagWithArray _ _List_ a ___
++ _Kind_            bag ___
++ _Kind_ bagWithObjects _ z __ ... ___
 
-- _Void_           add:__ _
-- _Void_    addObjects:__, ... _
+- _Void_            add _ x ___
+- _Void_     addObjects _ z __ ... ___
 
-- _Void_        remove:__ _
-- _SInt_ occurrencesOf:__ _
+- _Void_         remove _ x ___
+- _SInt_  occurrencesOf _ x ___
 
-_RO _List objects, uniqueObjects, sortedObjects;
+_RO _List objects __ uniqueObjects __ sortedObjects ___
 
-@end
+@Stop
 

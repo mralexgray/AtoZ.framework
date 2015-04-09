@@ -17,12 +17,12 @@ static NSString * const kImageDataKey = @"image";
 @property (strong) ABPerson *ref;
 @end
 
-void x (){
+//void x (){
 
 //  id z = [@[] filterOneBlockObject:^id(id object) {
 
 //  }
-}
+//}
 //- (id)initWithImage:(NSImage*)image imageID:(NSString*)imageID andImageSubtitle:(NSString*) subtitle   andPersonUID:(NSString*) pUID
 
 @implementation AZContact

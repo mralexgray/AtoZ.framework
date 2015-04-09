@@ -11,7 +11,7 @@
 
 @Kind(Phrase,<NSURLConnectionDataDelegate>)
 
-+ _Kind_ instanceWithString:_Text_ s _
++ _Kind_ instanceWithString:_Text_ s ___
 
 _P      NSMutableData * downloadedData;
 @property               BOOL   ready;
@@ -122,9 +122,9 @@ static NSUInteger              phrasesSpoken = 0,
 
 @implementation Phrase
 
-+ (instancetype) instanceWithString:(NSString*)__ { Phrase *x = self.class.new;
++ (instancetype) instanceWithString:(NSString*)s { Phrase *x = self.class.new;
 
-  NSString *search = [[NSString stringWithFormat:@"http://translate.google.com/translate_tts?tl=en&q=%@",__]
+  NSString *search = [[NSString stringWithFormat:@"http://translate.google.com/translate_tts?tl=en&q=%@",s]
                       stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
 
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:search]];

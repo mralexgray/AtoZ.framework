@@ -1584,12 +1584,14 @@ static const char * getPropertyType(objc_property_t property) {
 	return (strcmp(retType = methodSig.methodReturnType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0);
 }
 - performSelectorIfResponds:(SEL)s { return [self respondsToSelector:s] ? [self performSelectorWithoutWarnings:s] : nil; }
+
 - performSelectorSafely:(SEL)s {
 
-	NSParameterAssert(s     != NULL);
-	NSParameterAssert(self  != nil);
-	NSParameterAssert([self respondsToSelector:s]);
-	NSMethodSignature *methodSig; const char *retType;
+	NSParameterAssert(s);
+	NSAssert(self,@"no self!");
+  NSAssert([self respondsToSelector:s], @"Instances of %@ do not respond to %@", self.className, NSStringFromSelector(s));
+
+  NSMethodSignature *methodSig; const char *retType;
   return !(methodSig = [self methodSignatureForSelector:s]) ? nil :
          strcmp(retType = methodSig.methodReturnType, @encode(id)) == 0 || strcmp(retType, @encode(void)) == 0 ? (id) ({
 

@@ -1,5 +1,5 @@
 
-#import   "AtoZUmbrella.h"
+
 
 @interface NSO (AtoZObjectLog)
 - (void) log;

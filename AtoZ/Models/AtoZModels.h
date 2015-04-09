@@ -25,23 +25,23 @@ typedef void (^DefinedBlock)(AZDefinition *def);
 + (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon                  completion:(DefinedBlock)block;
 + (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon timeout:(NSTI)ti completion:(DefinedBlock)block;
 
-@prop_NA    AZLexicon   lexicon;
+_NA    AZLexicon   lexicon;
 @prop_NC DefinedBlock   completion;
-@prop_NA         NSTI   timeout;
+_NA         NSTI   timeout;
 @prop_RO           id   rawResult;
 @prop_RO         BOOL   fromTheWeb;
 @prop_CP        NSERR * error;
 @prop_RO          NSU * query;
 @prop_RO          NSA * results;
-@prop_NA          NSS * word;
+_NA          NSS * word;
 @prop_RO          NSS * definition,
                       * formatted;
 @end
 
 extern NSS * TagsDefaultsKey;
 AZIFACEDECL(Tweet,NSO)
-@prop_NA    DATE * createdAtDate;
-@prop_NA    NSS  *screenNameString, *createdAtString, *tweetTextString;
+_NA    DATE * createdAtDate;
+_NA    NSS  *screenNameString, *createdAtString, *tweetTextString;
 
 + (INST) tweetFromJSON:(NSD*)dict;
 @end

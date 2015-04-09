@@ -18,8 +18,8 @@ CHDeclareClass(SBIconViewMap);
 @interface SBIconViewMap : NSObject { SBIconModel *_model; } _RO SBIconModel* iconModel; + _Kind_ switcherMap; + _Kind_ homescreenMap; @end
 
 @interface UIImage (Private)
-+ _Kind_ _applicationIconImageForBundleIdentifier:_Text_ bid                          format:(int)fmt scale:_Flot_ s _
-+ _Kind_ _applicationIconImageForBundleIdentifier:_Text_ bid roleIdentifier:_Text_ __ format:(int)fmt scale:_Flot_ s _
++ _Kind_ _applicationIconImageForBundleIdentifier:_Text_ bid                          format:(int)fmt scale:_Flot_ s ___
++ _Kind_ _applicationIconImageForBundleIdentifier:_Text_ bid roleIdentifier:_Text_ ri format:(int)fmt scale:_Flot_ s ___
 @end
 
 Text *const ALIconLoadedNotification = @"ALIconLoadedNotification",

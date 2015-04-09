@@ -1,5 +1,4 @@
 
-#import <AtoZ/AtoZUmbrella.h>
 
 @interface InfiniteDocumentView : NSView
 @end
@@ -16,17 +15,17 @@
 
 @property (NA, ASS) NSTrackingArea *trackingArea;
 
-@property (NA, ASS) NSSize totalBar;
-@property (NA, ASS) NSRect barUnit;
-@property (NA, ASS) NSRect totalBarFrame;
+_NA NSSize totalBar;
+_NA NSRect barUnit, totalBarFrame;
 
-@property (retain, nonatomic) InfiniteDocumentView *docV;
-@property (retain, nonatomic) InfiniteImageView *imageViewBar;
+_NA InfiniteDocumentView *docV;
+_NA InfiniteImageView *imageViewBar;
 
-@property (NA, ASS) NSRect unit;
-@property (NA, ASS) AZInfiteScale scale;
-@property (NA, ASS) AZOrient orientation;
-@property (retain, nonatomic) NSArray *infiniteObjects;
+_NA NSRect unit;
+_NA AZInfiteScale scale;
+_NA AZOrient orientation;
+_NA NSArray *infiniteObjects;
+
 - (void) setupInfiniBar;
 
 //- (void) stack;

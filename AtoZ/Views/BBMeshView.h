@@ -39,7 +39,7 @@
 - (void) findHitTriangle:(CGPoint)p;
 - (void) meshHitNotification:(NSNotification*)note;
 - (void) postHitNotification;
-- (void) setupGrid:__ _
+- (void) setupGrid _ G ___
                               
 // 19 methods
 

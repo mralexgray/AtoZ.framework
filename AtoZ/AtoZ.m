@@ -173,8 +173,8 @@ SYNTHESIZE_ASC_OBJ_LAZY(classProxy, AZClassProxy);
 
 
 @interface AToZFuntion	: BaseModel
-@prop_NA NSS* name;
-@prop_NA NSIMG* icon;
+_NA NSS* name;
+_NA NSIMG* icon;
 @end
 
 /*

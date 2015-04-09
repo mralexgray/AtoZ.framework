@@ -195,8 +195,7 @@
 
 @interface NSObject (AZOverride)
 
-
-@prop_NA NSS * description;
+_NA NSS * description;
 
 - _IsIt_ az_overrideBoolMethod:(SEL)selector returning:(BOOL)newB;
 

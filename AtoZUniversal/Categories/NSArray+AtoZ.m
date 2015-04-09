@@ -1316,7 +1316,7 @@ static NSI comparatorForSortingUsingArray(id object1, id object2, void *context)
   if (self.count == 0) return;      //there is no object to move, return
   [self moveObjectAtIndex:self.count - 1 toIndex:0];
 }
--  (void) setFirst: x  { !x ?: [self triggerKVO:@"first" block:^(id __) { [__ insertObject:x atIndex:0]; }]; }
+-  (void) setFirst: x  { !x ?: [self triggerKVO:@"first" block:^(id x) { [x insertObject:x atIndex:0]; }]; }
 
 -  (void) removeFirstObject { __unused id x = [self shift]; }
 

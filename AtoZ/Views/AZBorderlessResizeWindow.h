@@ -1,7 +1,7 @@
 
 
 @interface          ClearWin : NSW + withFrame:(NSR)r; // Designated!
-@prop_NA BOOL debug, needsDisplay;
+_NA BOOL debug, needsDisplay;
 @end
 
 @interface        AZHandlebarWindow : ClearWin
@@ -12,7 +12,7 @@
 @interface AZBorderlessResizeWindow : ClearWin
 
 
-@prop_NA    CGF cornerRadius,   // Rounded corners by this amount.  Defaults to 5.
+_NA    CGF cornerRadius,   // Rounded corners by this amount.  Defaults to 5.
                 handleInset;    // How big are the "hot" edges?   Defaults to 30.
 
 @prop_RO  AZPOS screenEdge,
@@ -35,7 +35,7 @@
 #pragma mark - SUBCLASSES
 
 @interface AZMagneticEdgeWindow : AZBorderlessResizeWindow
-@prop_NA   NSSZ   fullSize;
+_NA   NSSZ   fullSize;
 @prop_RO AZRect * inFrame,
                 * outFrame;
 @prop_RO   CRNR   outsideCorners;

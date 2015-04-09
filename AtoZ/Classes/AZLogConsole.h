@@ -35,12 +35,12 @@ void			NSLogPostLog(char* file, int line);
 @prop_RO 	NSA 				*classes;
 @property (STR)		NSS				*windowTitle, *logPath;
 + (instancetype) sharedConsole __attribute__((const));;
-- (void) open _
-- (void) close _
-- (BOOL) isOpen _
--  (IBA) clear:__ _
-                              -  (IBA) searchChanged:__ _
-                              - (void) logData:		(NSData*)data 			file:(char*)file lineNumber:(int)line;
+- (void) open ___
+- (void) close ___
+- (BOOL) isOpen ___
+-  (IBA) clear _ x ___
+-  (IBA) searchChanged _ x ___
+- (void) logData:(NSData*)data 			file:(char*)file lineNumber:(int)line;
 - (void) updateLogWithFile:(char*)file lineNumber:(int)line;
 @end
 

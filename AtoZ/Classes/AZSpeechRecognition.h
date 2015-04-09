@@ -6,8 +6,8 @@
 
 AZPROP(NSString,whatever);
 
-- (IBAction) recognizerForLabel:__ _
-                              - (IBAction) record:__ _
+- (IBAction) recognizerForLabel _ l ___
+                              - (IBAction) record: r ___
                               @end
 
 

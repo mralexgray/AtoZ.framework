@@ -25,7 +25,7 @@ _Type struct  { _SInt rangeMin; _SInt rangeMax; _SInt currentIndex; } _Indx;
 
 @Reqd _RO P(NSFastEnumeration) enumerator;
 
-  - _UInt_ indexOfObject:__ _
+  - _UInt_ indexOfObject _ x ___
 
 @concrete - _UInt_ countByEnumeratingWithState:(NSFastEnumerationState*)state
                                        objects:(_ObjC __unsafe_unretained [])buffer
@@ -40,10 +40,10 @@ _Type struct  { _SInt rangeMin; _SInt rangeMax; _SInt currentIndex; } _Indx;
 @concrete _P   List <Indexed> *storage;
           _RO _UInt count;
 
-- _Void_     addObject:__ _
-- _Void_  removeObject:__ _
-- _Void_    addObjects:_List_ __ _
-- _Void_ removeObjects:_List_ __ _
+- _Void_     addObject _ x ___
+- _Void_  removeObject _ x ___
+- _Void_    addObjects _ _List_ x ___
+- _Void_ removeObjects _ _List_ x ___
 
 @Stop
 

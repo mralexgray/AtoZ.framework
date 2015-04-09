@@ -23,7 +23,7 @@
 @prop_RO CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
 @prop_RO NSUI  sublayerCt;
 
-- (IBAction)toggleOrientation:__ _
+- (IBAction)toggleOrientation _ O ___
                               
 //@property (NA, ASS)	BOOL 	needsLayout;
 

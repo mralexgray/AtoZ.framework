@@ -31,9 +31,9 @@
 
 + (PreferencesController *)controller;
 
-- (IBAction)setFilenameFormat:__ _
-                              - (IBAction)setMaxHistory:__ _
-                              - (IBAction)setUseGMT:__ _
-                              - (IBAction)setThumbnailSuffix:__ _
+- (IBAction)setFilenameFormat _ x ___
+                              - (IBAction)setMaxHistory _ x ___
+                              - (IBAction)setUseGMT _ x ___
+                              - (IBAction)setThumbnailSuffix _ x ___
                               
 @end

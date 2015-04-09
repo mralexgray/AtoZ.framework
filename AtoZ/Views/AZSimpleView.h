@@ -6,7 +6,7 @@
 @interface AZSimpleView : NSV
 
 @prop_  BOOL clear, glossy, gradient, checkerboard;
-@prop_NA NSC *backgroundColor;
+_NA NSC *backgroundColor;
 
 + (instancetype) vWF:(NSR)f c:(NSC*)c;
 + (instancetype) withFrame:(NSR)f      color:(NSC*)c;
@@ -17,7 +17,7 @@
 @interface AZSimpleGridView : NSView 
 //@prop_NA               NSSZ   dimensions;
 //@prop_NA               NSUI   rows, columns;
-@prop_NA                CAL * grid;
+_NA                CAL * grid;
 
 @end
 

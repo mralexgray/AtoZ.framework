@@ -89,7 +89,7 @@
 @property (NA,getter = isLooping)   BOOL   looping;
 @property (NA,CP) SoundCompletionHandler   completionHandler;
 
-@prop_NA                                CGF   baseVolume,
+_NA                                CGF   baseVolume,
                                             volume;
 - (void)   fadeTo:(CGF)volume
          duration:(NSTI)duration;

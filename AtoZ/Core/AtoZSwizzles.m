@@ -59,21 +59,22 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 + (BOOL)      swizzleMethod:(SEL)sel1 with:(SEL)sel2                              { return [self swizzleMethod:sel1 in:self with:sel2 in:self]; }
 + (BOOL)      swizzleMethod:(SEL)sel1 with:(SEL)sel2                in:(Class)k1  { return [self swizzleMethod:sel1 in:k1 with:sel2 in:k1]; }
 + (BOOL)      swizzleMethod:(SEL)sel1   in:(Class)k1 with:(SEL)sel2 in:(Class)k2  {
+
   Method originalMethod = class_getInstanceMethod(k1, sel1);
   Method anotherMethod  = class_getInstanceMethod(k2, sel2);
-  if(!originalMethod || !anotherMethod) {
-    return NO;
-  }
+
+  if(!originalMethod || !anotherMethod) return NO;
+
   IMP originalMethodImplementation = class_getMethodImplementation(k1, sel1);
   IMP anotherMethodImplementation  = class_getMethodImplementation(k2, sel2);
-  if(class_addMethod(k1, sel1, originalMethodImplementation, method_getTypeEncoding(originalMethod))) {
+
+  if(class_addMethod(k1, sel1, originalMethodImplementation, method_getTypeEncoding(originalMethod)))
     originalMethod = class_getInstanceMethod(k1, sel1);
-  }
-  if(class_addMethod(k2, sel2,  anotherMethodImplementation,  method_getTypeEncoding(anotherMethod))) {
+
+  if(class_addMethod(k2, sel2,  anotherMethodImplementation,  method_getTypeEncoding(anotherMethod)))
     anotherMethod = class_getInstanceMethod(k2, sel2);
-  }
-  method_exchangeImplementations(originalMethod, anotherMethod);
-  return YES;
+
+  return method_exchangeImplementations(originalMethod, anotherMethod), YES;
 }
 + (BOOL) swizzleClassMethod:(SEL)sel1 with:(SEL)sel2                in:(Class)k1  {
   return [self swizzleClassMethod:sel1 in:k1 with:sel2 in:k1];
@@ -81,21 +82,20 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 + (BOOL) swizzleClassMethod:(SEL)sel1   in:(Class)k1 with:(SEL)sel2 in:(Class)k2  {
   Method originalMethod = class_getClassMethod(k1, sel1);
   Method anotherMethod  = class_getClassMethod(k2, sel2);
-  if(!originalMethod || !anotherMethod) {
-    return NO;
-  }
+
+  if(!originalMethod || !anotherMethod) return NO;
+
   Class metaClass = objc_getMetaClass(class_getName(k1));
   Class anotherMetaClass = objc_getMetaClass(class_getName(k2));
   IMP originalMethodImplementation = class_getMethodImplementation(metaClass, sel1);
   IMP anotherMethodImplementation  = class_getMethodImplementation(anotherMetaClass, sel2);
-  if(class_addMethod(metaClass, sel1, originalMethodImplementation, method_getTypeEncoding(originalMethod))) {
+  if(class_addMethod(metaClass, sel1, originalMethodImplementation, method_getTypeEncoding(originalMethod)))
     originalMethod = class_getClassMethod(k1, sel1);
-  }
-  if(class_addMethod(anotherMetaClass, sel2,  anotherMethodImplementation,  method_getTypeEncoding(anotherMethod))) {
+
+  if(class_addMethod(anotherMetaClass, sel2,  anotherMethodImplementation,  method_getTypeEncoding(anotherMethod)))
     anotherMethod = class_getClassMethod(k2, sel2);
-  }
-  method_exchangeImplementations(originalMethod, anotherMethod);
-  return YES;
+
+  return method_exchangeImplementations(originalMethod, anotherMethod), YES;
 }
 
 + (void) waitUntil:(BOOL(^)(void))cond {  [self waitUntil:cond timeOut:10.0 interval:0.1];}
@@ -111,14 +111,14 @@ void AZSwizzleWithBlockFallback( NSS *className, SEL selector, BOOL isClassMetho
 
 - (NSS*) swizzleNSValueDescription {
 
-  NSValue *__ = (id)self;
+  NSValue *v = (id)self;
 
-  if (strcmp([__ objCType],@encode(AZPOS)) == 0 ) {
+  if (strcmp([v objCType],@encode(AZPOS)) == 0 ) {
     NSUInteger pos = NSNotFound;
-    [__ getValue:&pos];
+    [v getValue:&pos];
     return AZPositionToString(pos);
   }
-  NSA *raw = __.swizzleNSValueDescription.words;
+  NSA *raw = v.swizzleNSValueDescription.words;
   NSA*left = [NSA arrayWithArrays:[(NSA*)raw map:^id(id obj) {
     return [obj rangeOfString:@"{"].location != NSNotFound ? [obj split:@"{"] : @[obj]; }]];
   NSA*right = [NSA arrayWithArrays:[left map:^id(id obj) {
@@ -332,33 +332,33 @@ __attribute__((constructor)) static void do_the_swizzles() {
 
 @implementation AtoZ (AtoZSwizzles)
 
-+ (void) load { //AZLOGCMD;
++ (void) load { // AZLOGCMD;
 
   [NSO swizzleClassMethod:@selector(imageNamed:)                in:NSIMG.class
                      with:@selector(swizzledImageNamed:)        in:NSIMG.class];
 
-  [self swizzleMethod:@selector(description)                   in:NSC.class
-                 with:@selector(swizzleColorDescription)          in:self];
+  [self swizzleMethod:@selector(description)                     in:NSC.class
+                 with:@selector(swizzleColorDescription)         in:self.class];
 
-  [self swizzleMethod:@selector(description)  in:NSJSONSerialization.class
-                 with:@selector(swizzleJSONDescription)          in:self];
+  [self swizzleMethod:@selector(description)                     in:NSJSONSerialization.class
+                 with:@selector(swizzleJSONDescription)          in:self.class];
 
   [self swizzleMethod:@selector(description)
                  with:@selector(swizzleDescription) in:NSD.class];
 
-  [self swizzleMethod:@selector(setWantsLayer:)                  in:NSView.class
-                 with:@selector(swizzleSetWantsLayer:)           in:NSView.class];
-  [self swizzleMethod:@selector(didMoveToWindow)                 in:NSView.class
-                 with:@selector(swizzleDidMoveToWindow)          in:NSView.class];
+  [self swizzleMethod:@selector(setWantsLayer:)                  in:View.class
+                 with:@selector(swizzleSetWantsLayer:)           in:View.class];
+  [self swizzleMethod:@selector(didMoveToWindow)                 in:View.class
+                 with:@selector(swizzleDidMoveToWindow)          in:View.class];
 
-  [self swizzleMethod:@selector(description)                     in:CAL.class
-                 with:@selector(swizzleDescription)              in:CAL.class];
-  [self swizzleMethod:@selector(hitTest:)                        in:CAL.class
-                 with:@selector(swizzleHitTest:)                 in:CAL.class];
-  [self swizzleMethod:@selector(containsPoint:)                  in:CAL.class
-                 with:@selector(swizzleContainsPoint:)           in:CAL.class];
+  [self swizzleMethod:@selector(description)                     in:Layr.class
+                 with:@selector(swizzleDescription)              in:Layr.class];
+  [self swizzleMethod:@selector(hitTest:)                        in:Layr.class
+                 with:@selector(swizzleHitTest:)                 in:Layr.class];
+  [self swizzleMethod:@selector(containsPoint:)                  in:Layr.class
+                 with:@selector(swizzleContainsPoint:)           in:Layr.class];
   [self swizzleMethod:@selector(addSublayer:)
-                 with:@selector(swizzleAddSublayer:)             in:CAL.class];
+                 with:@selector(swizzleAddSublayer:)             in:Layr.class];
   //	[NSO swizzleClassMethod:@selector(needsDisplayForKey:)        in:CAL.class
   //                   with:@selector(swizzleNeedsDisplayForKey:) in:CAL.class];
 

@@ -26,8 +26,8 @@
                               //- (IBAction) toggleQuad:	 _;
                               //- (IBAction) setType:		 _;
                               
--(IBAction)advance:__ _
-                              -(IBAction)rewind:__ _
+-(IBAction)advance:__ ___
+                              -(IBAction)rewind:__ ___
                               
 @end
 

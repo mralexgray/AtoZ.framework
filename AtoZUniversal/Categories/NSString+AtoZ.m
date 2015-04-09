@@ -833,7 +833,7 @@ finish:
 	return re;
 }
 
-- _UInt_ count:(NSS*)__ { return [self count:__ options:0]; }
+- _UInt_ count:(NSS*) x { return [self count:x options:0]; }
 
 - _UInt_ indentationLevel {
 
@@ -1522,13 +1522,13 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
 //                                                   range:[(NSS*)maString range]];
 
 
-- _Void_ drawInRect:(NSR)r aligned:(AZA)a bgC:(NSC*)c {
+#if MAC_ONLY
+- _Void_ drawInRect _ _Rect_ r aligned:(AZA)a bgC _ _Colr_ c {
 
-[NSException raise:@"you need AtoZGeomtry!" format:@""];
-//  NSR rr = AZCornerRectPositionedWithSize(r, a, self.size);
-//  [self drawInRect:rr withContrastingBackground:c];
+  // [NSException raise:@"you need AtoZGeomtry!" format:@""];
+  NSR rr = AZCornerRectPositionedWithSize(r, a, self.size);
+  [self drawInRect:rr withContrastingBackground:c];
 }
-#if !TARGET_OS_IPHONE
 
 
 - _Void_ draw {
@@ -1543,16 +1543,18 @@ NSString *   StringByTruncatingStringWithAttributesForWidth(NSString *s, NSDicti
   NSRectFill(r);
 //  NSRectFillWithColor(r,c);
   [self drawInRect:r]; }
-#endif
+
 - _Void_ drawInRect:(NSR)r withContrastingBackground:(NSC*)c {
 
-  [NSException raise:@"you need NSColor+AtoZ!" format:@""];
+//  [NSException raise:@"you need NSColor+AtoZ!" format:@""];
 
-//  NSC* contraster = [c contrastingForegroundColor], *mine = [self.attributes objectForKey:NSForegroundColorAttributeName];
-//  [!!mine && [mine isEqual:contraster] ? self
-//                                         : [self stringBySettingAttributes:@{NSForegroundColorAttributeName:contraster}]
-//    drawInRect:r withBackground:c];
+  NSC* contraster = [c contrastingForegroundColor],
+            *mine = [self.attributes objectForKey:NSForegroundColorAttributeName];
+  [!!mine && [mine isEqual:contraster] ? self
+                                       : [self stringBySettingAttributes:@{NSForegroundColorAttributeName:contraster}]
+    drawInRect:r withBackground:c];
 }
+#endif
 - (NSMD*) attributes {
 
   __block NSMD* attr = NSMD.new;

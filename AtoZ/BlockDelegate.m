@@ -174,7 +174,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CAAnimationDelegate, sharedDelegator);
 	[d.ani sV:d fK:@"aniDelegate"];
 	return d;
 }
-- 	 (id) init															{	return self = super.init ? _andSet=YES,_completion=nil, _start=nil,self : nil;	}
+- init															{	return (self = super.init) ? _andSet=YES,_completion=nil, _start=nil,self : nil;	}
 - (void) animationDidStart:(CAA*)anim       {
 
 	_start ? _start(_layer,_ani) : nil;

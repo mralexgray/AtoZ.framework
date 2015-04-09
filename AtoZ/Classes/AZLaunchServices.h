@@ -18,10 +18,10 @@ AZNSIFACEDECL(AZLaunchServices)
 
 /* Application abilities */
 
-+ (NSA*)               allApplicationsFormattedAs:(AZItemsViewFormat)__ _
++ (NSA*)               allApplicationsFormattedAs:(AZItemsViewFormat) f ___
 
 + (NSA*)   allApplicationsAbleToOpenFileExtension:(NSS*)ext
-                                   responseFormat:(AZItemsViewFormat)__ _
+                                   responseFormat:(AZItemsViewFormat) f ___
 
 + (NSA*)      allAvailableFileTypesForApplication:(NSS*)full_path;
 
@@ -83,9 +83,9 @@ AZNSIFACEDECL(AZLaunchServices)
 
 
 @interface AZLaunchServicesListItem : NSObject
-@prop_NA NSString *name;
-@prop_NA NSURL *url;
-@prop_NA NSImage *icon;
+_NA NSString *name;
+_NA NSURL *url;
+_NA NSImage *icon;
 @end
 
 /*

@@ -3,7 +3,7 @@
 @class Asset;
 @interface Bootstrap : BaseModel
 
-@prop_NA NSAC *availJS, *availCSS, *headers, *footers, *body;
+_NA NSAC *availJS, *availCSS, *headers, *footers, *body;
 
 - (NSS*) htmlWithBody:(NSS*)bod;
 

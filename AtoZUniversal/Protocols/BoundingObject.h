@@ -21,11 +21,11 @@
 
 
 @Xtra (NObj, AZAZA)
-   _P _ObjC owner _
+   _P _ObjC owner ___
    _P _IsIt expanded,
             selected,
-            hovered _
-   _P _UInt orientation _
+            hovered ___
+   _P _UInt orientation ___
 ￭
 
 
@@ -36,11 +36,11 @@
 @concrete
 
   _RO _Flot  span,
-             expansionDelta _
+             expansionDelta ___
    _P _Flot  spanExpanded,
-             spanCollapsed _
+             spanCollapsed ___
 
-- _Void_ setSpanCollapsed:_Flot_ c expanded:_Flot_ x _
+- _Void_ setSpanCollapsed:_Flot_ c expanded:_Flot_ x ___
 ￭
 
 

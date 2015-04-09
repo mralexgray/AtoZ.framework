@@ -35,7 +35,7 @@
 
 - (P(NSFastEnumeration))enumerator { DEMAND_CONFORMANCE; return _ObjC_ nil; }
 
-- _UInt_ indexOfObject:__ { DEMAND_CONFORMANCE; return NSNotFound; }
+- _UInt_ indexOfObject _ x { DEMAND_CONFORMANCE; return NSNotFound; }
 
 /// @note @required - (int) idexOfObject:(id)x;
 

@@ -14,9 +14,9 @@
 @end
 
 @interface NSObject (GCD)
-- _Void_ performAsynchronous:_Blk_ __ _
-- _Void_ performOnMainThread:_Blk_ __         wait:_IsIt_ wait _
-- _Void_        performAfter:(NSTimeInterval)sec block:_Blk_ __ _
+- _Void_ performAsynchronous:_Blk_ b ___
+- _Void_ performOnMainThread:_Blk_ b         wait:_IsIt_ wait ___
+- _Void_        performAfter:(NSTimeInterval)sec block:_Blk_ b ___
 @end
 
 @interface NSObject (ClassAssociatedReferences)
@@ -384,10 +384,10 @@ BOOL respondsToString(id obj,NSS* string);
 
 @prop_RO NSS* segmentLabel;
 
-- (IBAction)increment:__ _
-- (IBAction)setFromSegmentLabel:__ _
-- (IBAction)performActionFromSegmentLabel:__ _
-- (IBAction)performActionFromLabel:__ _
+- (IBAction)increment:i ___
+- (IBAction)setFromSegmentLabel:l ___
+- (IBAction)performActionFromSegmentLabel _ l ___
+- (IBAction)performActionFromLabel _ l ___
 #endif
 
 //- (BOOL) respondsToSelector:	(SEL) aSelector;

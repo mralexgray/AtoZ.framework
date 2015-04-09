@@ -210,6 +210,7 @@
 	  path = Frameworks/NullSafe
 	   url = https://github.com/mralexgray/NullSafe.git
   ignore = dirty
+
 [submodule "Frameworks/THObserversAndBinders"]
 	  path = AtoZUniversal/THObserversAndBinders
 	   url = https://github.com/mralexgray/THObserversAndBinders.git
@@ -362,3 +363,9 @@
 [submodule "AtoZUniversal/ObjcAssociatedObjectHelpers"]
     path = AtoZUniversal/ObjcAssociatedObjectHelpers
      url = https://github.com/mralexgray/ObjcAssociatedObjectHelpers.git
+[submodule "AtoZUniversal/libextobjc"]
+	path = AtoZUniversal/libextobjc
+	url = https://github.com/mralexgray/libextobjc.git
+[submodule "AtoZUniversal/OrderedDictionary"]
+	path = AtoZUniversal/OrderedDictionary
+	url = https://github.com/nicklockwood/OrderedDictionary.git

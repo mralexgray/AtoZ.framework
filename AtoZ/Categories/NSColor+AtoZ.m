@@ -240,13 +240,6 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
 + (NSC*) linen      {
   return [NSC colorWithPatternImage: [NSImage imageNamed:@"linen.png"]];
 }
-+ (NSC*) randomColor    {
-  int red = rand() % 255; int green = rand() % 255; int blue = rand() % 255;
-  return [NSC colorWithCalibratedRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0];
-}
-+ (NSC*) randomLightColor   { return [RANDOMCOLOR colorWithBrightnessMultiplier:.9]; }
-+ (NSC*) randomBrightColor  { NSC *c; while ( !(c = RANDOMCOLOR).isBright ) {}  return c; }
-+ (NSC*) randomDarkColor    { NSC *c; while ( !(c = RANDOMCOLOR).isDark   ) {}  return c; }
 
 + (NSC*) linenTintedWithColor:     (NSC*)color {
   static NSIMG *theLinen = nil;  theLinen = theLinen ?: [NSImage imageNamed:@"linen.png"];
@@ -739,10 +732,6 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
 - (NSC*)  deviceRGBColor    {
   return [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
 }
-- (NSC*) calibratedRGBColor {
-  NSC* cali = [self colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
-  return cali;
-}
 - (NSS*) toHex            {
   CGFloat r,g,b,a;
   [[self calibratedRGBColor] getRed:&r green:&g blue:&b alpha:&a];
@@ -830,14 +819,6 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
   // 0.3086 + 0.6094 + 0.0820 = 1.0
   return (0.3086f*r) + (0.6094f*g) + (0.0820f*b);
 }
--  (CGF) relativeBrightness   {
-  CGFloat r, g, b, a;
-  [[self calibratedRGBColor] getRed:&r green:&g blue:&b alpha:&a];
-  return sqrt((r * r * 0.241) + (g * g * 0.691) + (b * b * 0.068));
-}
-- _IsIt_ isBright         {
-  return self.relativeBrightness > 0.57;
-}
 - (NSC*) bright           {
   return [NSC colorWithDeviceHue:self.hueComponent
                 saturation:0.3
@@ -867,9 +848,6 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
                 saturation:s
                 brightness:MAX(0.0, MIN(b * 0.7, b - 0.1))
                    alpha:a];
-}
-- _IsIt_ isDark           {
-  return self.relativeBrightness < 0.42;
 }
 - (NSC*) dark             {
   return [NSC colorWithDeviceHue:self.hueComponent
@@ -904,17 +882,6 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
 }
 - (NSC*) blackened        {
   return [self blend:NSColor.blackColor];
-}
-- (NSC*) contrastingForegroundColor {
-  NSC*c = self.calibratedRGBColor;
-  if (!c) {
-    NSLog(@"Cannot create contrastingForegroundColor for color %@", self);
-    return NSColor.blackColor;
-  }
-  if (!c.isBright) {
-    return NSColor.whiteColor;
-  }
-  return NSColor.blackColor;
 }
 - (NSC*) complement         {
   NSC*c = self.colorSpaceName == NSPatternColorSpace ? [self.patternImage quantize][0] : self.calibratedRGBColor;

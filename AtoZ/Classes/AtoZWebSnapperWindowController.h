@@ -24,28 +24,18 @@
 
 	IBOutlet NSScrollView			*scrollView;
 	IBOutlet NSImageView			*imageView;
-	IBOutlet NSTextField			*minWidthField;
-	IBOutlet NSTextField			*minHeightField;
-	IBOutlet NSTextField			*maxWidthField;
-	IBOutlet NSTextField			*maxHeightField;
+	IBOutlet NSTextField			*minWidthField, *minHeightField, *maxWidthField, *maxHeightField;
 	IBOutlet NSTextField			*delayField;
-	
 	IBOutlet NSProgressIndicator	*pageLoadProgress;
-	IBOutlet NSButton				*saveButton;
-	IBOutlet NSButton				*captureCancelButton;
-	IBOutlet NSTextField			*previewField;
-	
-	
-	IBOutlet NSMenuItem		*openRecentMenuItem;
-	IBOutlet NSMenuItem		*captureFromMenuItem;
+
+	IBOutlet NSMenuItem		*openRecentMenuItem, *captureFromMenuItem;
 	
 	NSSavePanel				*savePanel;
 	IBOutlet NSView			*accessoryView;
 	IBOutlet NSPopUpButton	*fileFormatPopUp;
 	IBOutlet NSSlider		*qualitySlider;
-	IBOutlet NSButton		*saveImageSwitch;
-	IBOutlet NSButton		*saveThumbnailSwitch;
-	IBOutlet NSTextField	*thumbnailScaleField;
+	IBOutlet NSButton		*saveImageSwitch, *saveThumbnailSwitch, *saveButton, *captureCancelButton;
+	IBOutlet NSTextField	*thumbnailScaleField, *previewField;
 	
 	//IBOutlet NSMenuItem		*scriptMenuItem;
 //	NSMutableArray			*history;
@@ -53,22 +43,22 @@
 
 @property (assign) IBOutlet AtoZWebSnapper *snapper;
 
-+ (AtoZWebSnapperWindowController *)controller;
++ (AtoZWebSnapperWindowController *) controller;
 
-- (IBAction)fetch:__ _
-                              - (IBAction)urlFieldEnter:(id)sender; // Workaround for the button not being pressed on return key push just after launch.
-- (void)cancel:__ _
+- (IBAction)urlFieldEnter:(id)sender; // Workaround for the button not being pressed on return key push just after launch.
+- (void) cancel _ x ___
+- (void) fetchUsingPaparazziURL:(NSURL *)url;
+
+- (IBAction) fetch: x ___
+- (void) fetchUsingString: (NSS*) string;
+- (IBAction) takeURLFromMyBrowser _ x ___
                               
-- (void)fetchUsingPaparazziURL:(NSURL *)url;
-- (void)fetchUsingString: (NSS*) string;
-- (IBAction)takeURLFromMyBrowser:__ _
-                              
-- (IBAction)saveDocumentAs:__ _
-                              - (IBAction)setFileFormat:__ _
-                              - (IBAction)toggleSaveThumbnail:__ _
-                              //- (IBAction)toggleFullsize:__ _
-                              
-- (IBAction)showPreferences:__ _
-                              - (IBAction)sendFeedback:__ _
+//- (IBAction)saveDocument _ d ___
+//- (IBAction)toggleFullsize _ F ___
+
+- (IBAction) setFileFormat _ x ___
+- (IBAction) toggleSaveThumbnail _ t ___
+- (IBAction) showPreferences _ p ___
+                              - (IBAction)sendFeedback _ d ___
                               
 @end

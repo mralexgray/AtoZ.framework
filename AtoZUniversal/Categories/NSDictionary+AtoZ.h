@@ -4,23 +4,23 @@
 
 @interface AZDict : NSMutableDictionary
 
-- _Void_ setObject: anObject forKey: aKey;
+- _Void_ setObject _ x forKey _ k ___
 
-@prop_NA BOOL sortByValues;
-@prop_RO NSUInteger count;
-@prop_RO NSEnumerator* reverseKeyEnumerator, *keyEnumerator;
+_NA BOOL sortByValues;
+_RO NSUInteger count;
+_RO NSEnumerator* reverseKeyEnumerator, *keyEnumerator;
 
 //+ (instancetype) dictWithSortedDict:(NSD*)dict byValues:(BOOL)byV;
 
 //-- objectForKey: aKey;
 
-- objectAtIndexedSubscript:(NSUInteger)idx;
-- _Void_ setObject: obj atIndexedSubscript:(NSUInteger)idx;
-- _Void_ setObject: obj forKeyedSubscript:(id <NSCopying>)key;
-- objectForKeyedSubscript: key;
+- objectAtIndexedSubscript _ _UInt_ idx ___
+- _Void_ setObject _ obj atIndexedSubscript _ _UInt_ idx ___
+- _Void_ setObject _ obj forKeyedSubscript _ (id <NSCopying>)key ___
+- objectForKeyedSubscript _ k ___
 
-- _Void_ insertObject: anObject forKey: aKey atIndex:(NSUInteger)anIndex;
-- keyAtIndex:(NSUInteger)anIndex;
+- _Void_ insertObject _ x forKey _ k atIndex _ _UInt_ i ___
+- keyAtIndex _ _UInt_ i ___
 
 @end
 

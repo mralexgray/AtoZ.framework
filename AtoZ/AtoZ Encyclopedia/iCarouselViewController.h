@@ -24,14 +24,14 @@ typedef  enum {
 @property (nonatomic, assign) float multi;
 @property (nonatomic, assign) float space;
 
-- (IBAction)readFormAndReload:__ _
+- (IBAction)readFormAndReload _ R ___
                               
-- (IBAction)setOffsets:__ _
-                              - (IBAction)switchCarouselType:__ _
-                              - (IBAction)toggleVertical:__ _
-                              - (IBAction)toggleWrap:__ _
-                              - (IBAction)insertItem:__ _
-                              - (IBAction)removeItem:__ _
+- (IBAction)setOffsets _ O ___
+                              - (IBAction)switchCarouselType _ T ___
+                              - (IBAction)toggleVertical _ V ___
+                              - (IBAction)toggleWrap _ W ___
+                              - (IBAction)insertItem _ I ___
+                              - (IBAction)removeItem _ I ___
                               
 @property (assign) IBOutlet NSForm *form;
 

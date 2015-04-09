@@ -4,7 +4,7 @@
 
 @Xtra(NSAS,NTExtensions)
 
-+ _Kind_ stringWithString:_Text_ __ attributes:_Dict_ attrs;
++ _Kind_ stringWithString:_Text_ s attributes:_Dict_ attrs;
 
 @XtraStop(NSAS,NTExtensions)
 
@@ -279,9 +279,9 @@ _RO _Font font;
 _RO NSMD * attributes;
 
 - _Flot_ pointSizeForSize:_Size_ z;
-- _Void_ drawInRect:_Rect_ r withContrastingBackground:_Colr_ c;
-- _Void_ drawInRect:_Rect_ r aligned:(AZA)a bgC:_Colr_ c;
 #if MAC_ONLY
+- _Void_ drawInRect:_Rect_ r aligned:(AZA)a bgC:_Colr_ c;
+- _Void_ drawInRect:_Rect_ r withContrastingBackground:_Colr_ c;
 - _Void_ drawInRect:_Rect_ r withBackground:_Colr_ c;
 - _Void_ draw;
 - _Colr_ color;

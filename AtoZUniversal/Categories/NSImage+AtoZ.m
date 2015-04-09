@@ -45,7 +45,7 @@ Text        *const AZIMG_checkmark = @"checkmark",              *const AZIMG_add
             *const AZIMG_atSymbol = @"atSymbol";
 
 
-_S _I _SInt get_bit(_UChr arr, _ULng bit_num) { return (arr[(bit_num / 8)] & (1 << (bit_num % 8))); }
+static inline _SInt get_bit(_UChr arr, _ULng bit_num) { return (arr[(bit_num / 8)] & (1 << (bit_num % 8))); }
 
 
 _Flot distance(NSP aPoint) {

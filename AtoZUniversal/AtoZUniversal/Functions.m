@@ -2,6 +2,9 @@
 #import <AtoZUniversal/AtoZUniversal.h>
 #include <libkern/OSAtomic.h>
 
+#import <AtoZUniversal.h>
+
+@Plan _ObjC_Load @end
 
 JREnumDefine(azkColor);
 JREnumDefine(AZEvent);

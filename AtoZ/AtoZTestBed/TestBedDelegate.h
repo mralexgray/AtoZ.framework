@@ -12,7 +12,7 @@
 @property (UNSF) IBOutlet MenuAppController * menu;          // MENU BAR
 @property (UNSF) IBOutlet     AtoZColorWell * colorWell;
 
-- (IBAction)newTab:__ _
+- (IBAction)newTab _ T ___
                               
 @property    GeneralVC * genVC;
 @property         UIVC * uiVC;
@@ -30,8 +30,8 @@
 //@property (ASS) IBOutlet NSView		*scrollTestHost;
 //@property (ASS) IBOutlet CAScrollView*scrollTest;
 
-//- (IBAction) setViewFromPopUp:__ _
-                              //- (IBAction) reZhuzhScrollLayer:__ _
+//- (IBAction) setViewFromPopUp _ U ___
+                              //- (IBAction) reZhuzhScrollLayer _ L ___
                               /*
 @property (STR) IBOutlet NSBUTT *holdOntoViews;
 
@@ -47,7 +47,7 @@
 @property (NA)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
 @property (STR) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
 
-- (IBAction)scrollFromSegment:__ _
+- (IBAction)scrollFromSegment _ S ___
                               */
 //@property (NA, STR)  AZFileGridView 			*fileGrid;
 //@property (weak) IBOutlet  AZGeometryViewController *geoVC;
@@ -82,14 +82,14 @@
 
 
 
-//-(IBAction)scrollLowerRight:__ _
-                              //-(IBAction)scrollRight:__ _
-                              //-(IBAction)scrollUp:__ _
-                              //-(IBAction)scrollDown:__ _
-                              //-(IBAction)scrollLeft:__ _
-                              //-(IBAction)scrollUpperLeft:__ _
-                              //-(IBAction)scrollUpperRight:__ _
-                              //-(IBAction)scrollLowerLeft:__ _
+//-(IBAction)scrollLowerRight _ R ___
+                              //-(IBAction)scrollRight _ R ___
+                              //-(IBAction)scrollUp _ U ___
+                              //-(IBAction)scrollDown _ D ___
+                              //-(IBAction)scrollLeft _ L ___
+                              //-(IBAction)scrollUpperLeft _ L ___
+                              //-(IBAction)scrollUpperRight _ R ___
+                              //-(IBAction)scrollLowerLeft _ L ___
                               //extern NSS* stringForScrollFix(ScrollFix val);
 
 

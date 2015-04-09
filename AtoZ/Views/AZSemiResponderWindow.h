@@ -10,14 +10,14 @@ typedef void (^animationCompletionBlock)(void);
 @class  AZDynamicTabLayer, AZSizer;
 @interface AZSemiResponderWindow : NSW
 
-@prop_NA AZDynamicTabLayer 	*tabs;
-@prop_NA CAL 				*content,
+_NA AZDynamicTabLayer 	*tabs;
+_NA CAL 				*content,
 											*root;
-@prop_NA NSR  inactiveRect;
-@prop_NA NSP  scrollPoint, 	dragStart, 	dragDiff;
-@prop_NA BOOL dragging, 	noHit;
-@prop_NA NSI  unitOffset;
-@prop_NA CGF  unit;
+_NA NSR  inactiveRect;
+_NA NSP  scrollPoint, 	dragStart, 	dragDiff;
+_NA BOOL dragging, 	noHit;
+_NA NSI  unitOffset;
+_NA CGF  unit;
 
 @property (weak) id <AZSemiResponder> 	semiResponder;
 @property (weak)              AZLayer * hit;
@@ -30,13 +30,13 @@ typedef void (^animationCompletionBlock)(void);
 
 @interface AZDynamicTabLayer : CAL <AZSemiResponder>
 
-@prop_NA     NSA 					*palette;
-@prop_NA id /* NSOrderedDictionary*/ 	tabs;
-@prop_NA  AZSizer 				*sizer;
+_NA     NSA 					*palette;
+_NA id /* NSOrderedDictionary*/ 	tabs;
+_NA  AZSizer 				*sizer;
 // @property (ASS,   NA) AZRange 					 range;
-@prop_NA AZOrient				 orient;
-@prop_NA      CGF						 offset;
-@prop_NA     NSBP 					*scrollPath;
+_NA AZOrient				 orient;
+_NA      CGF						 offset;
+_NA     NSBP 					*scrollPath;
 
 //+ (id<CAAction>)defaultActionForKey:(NSS*)event;
 

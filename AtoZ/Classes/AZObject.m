@@ -70,7 +70,7 @@ static NSString* const kAZObjectNameKey = @"name", *const kAZObjectClassKey = @"
   if (pairs.count) [pairs eachWithVariadicPairs:^(id a, id b) { ((AZObject*)x)->store[a] = b; }];
   return x;
 }
-- (id) init { return self = super.init ? store = NSMD.new, self : nil; }
+- (id) init { return (self = super.init) ? store = NSMD.new, self : nil; }
 
 - (id) forwardingTargetForSelector:(SEL)s { return store = store ?: NSMD.new; }
 

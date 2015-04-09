@@ -10,8 +10,8 @@
 @interface AZWindowTab : CAWindow
 
 @prop_RO AZTabView * handle;
-@prop_NA       AZR * inFrame, * outFrame, * grabRect, * outerRect;
-@prop_NA      NSSZ   inSize,
+_NA       AZR * inFrame, * outFrame, * grabRect, * outerRect;
+_NA      NSSZ   inSize,
                      outSize;
 @prop_RO OSCornerType 	outsideCorners;
 
