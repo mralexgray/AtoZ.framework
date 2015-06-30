@@ -13,7 +13,7 @@
 @property (STR) TUIV* rootView;
 @property AHLayout *horizontalLayout, *verticalLayout;
 
-@prop_RO NSArray* visibleViews;
-@prop_RO AHLayoutHandler reloadHandler;
+_RO NSArray* visibleViews;
+_RO AHLayoutHandler reloadHandler;
 - (IBAction)clearFaviconCache _ C ___
                               @end

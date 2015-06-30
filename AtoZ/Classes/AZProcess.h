@@ -23,7 +23,7 @@ enum {
 @constant AZProcessStateZombie          The process has exited but the parent has not yet waited for it.
 @constant AZProcessStateExited          The process has exited.
 */
-JREnumDeclare(AZProcessState, 	AZProcessStateUnknown,					AZProcessStateRunnable,
+_EnumKind(AZProcessState, 	AZProcessStateUnknown,					AZProcessStateRunnable,
                                 AZProcessStateUninterruptible,	AZProcessStateSleeping,
                                 AZProcessStateIdle,             AZProcessStateSuspended,
                                 AZProcessStateZombie,           AZProcessStateExited)
@@ -77,88 +77,88 @@ The level of information an AZProcess can return depends on the user's permissio
 + (NSA*) processesForCommandInsensitive:(NSString*)comm;
 
 /// The process identifier.
-@prop_RO int processIdentifier;
+_RO int processIdentifier;
 
 /// The parent process identifier.
-@prop_RO  int parentProcessIdentifier;
+_RO int parentProcessIdentifier;
 
 /// he process group.
-@prop_RO int processGroup;
+_RO int processGroup;
 
 /// The terminal device number.
-@prop_RO int terminal;
+_RO int terminal;
 
 /// the terminal process group.
-@prop_RO int terminalProcessGroup;
+_RO int terminalProcessGroup;
 
 /// The user identifier.
-@prop_RO int userIdentifier;
+_RO int userIdentifier;
 
 /// The real user identifier.
-@prop_RO int realUserIdentifier;
+_RO int realUserIdentifier;
 
 /// The current CPU usage in the range 0.0 - 1.0.
-@prop_RO double percentCPUUsage;
+_RO double percentCPUUsage;
 
 /// The accumulated CPU time in seconds.
-@prop_RO double totalCPUTime;
+_RO double totalCPUTime;
 
 /// The accumulated user CPU time in seconds.
-@prop_RO double userCPUTime;
+_RO double userCPUTime;
 
 /// The accumulated system CPU time in seconds.
-@prop_RO double systemCPUTime;
+_RO double systemCPUTime;
 
 /// Tresident memory usage as a fraction of the host's physical memory in the range 0.0 - 1.0.
-@prop_RO double percentMemoryUsage;
+_RO double percentMemoryUsage;
 
 /// The virtual memory size in bytes.
-@prop_RO unsigned virtualMemorySize;
+_RO unsigned virtualMemorySize;
 
 /// The resident memory size in bytes.
-@prop_RO unsigned residentMemorySize;
+_RO unsigned residentMemorySize;
 
 /// The current state. Possible values are defined by AZProcessState.
-@prop_RO AZProcessState state;
+_RO AZProcessState state;
 
 /// The current priority.
-@prop_RO int priority;
+_RO int priority;
 
 /// The base priority.
-@prop_RO int basePriority;
+_RO int basePriority;
 
 /// The number of threads.
-@prop_RO int threadCount;
+_RO int threadCount;
 
 /*! Attempts to return the command that was called to execute the process. 
     @note If that fails, attempts to return the accounting name. If that fails, returns an empty string. 
  */
-@prop_RO NSS * command;
+_RO NSS * command;
 
-@prop_RO NSS * path;
+_RO NSS * path;
 
 /*! An annotation that can be used to distinguish multiple instances of a process name.
     @note The current implementation does this by examining the command line arguments for "DashboardClient" and "java" processes. If there is no annotation, the method returns nil. 
  */
-@prop_RO NSS * annotation;
+_RO NSS * annotation;
 
 /// Returns a composite string consisting of the command name and its annotation
-@prop_RO NSS * annotatedCommand;
+_RO NSS * annotatedCommand;
 
 /// An array containing the command line arguments called to execute the process. This method is not perfectly reliable.
-@prop_RO NSA * arguments;
+_RO NSA * arguments;
 
 /// Dictionary containing the environment variables of the process. This method is not perfectly reliable.
-@prop_RO NSD * environment;
+_RO NSD * environment;
 
 /// The parent process.
 - (INST) parent;
 
 /// An array containing the process's children, if any.
-@prop_RO NSA * children;
+_RO NSA * children;
 
 /// An array containing the process's siblings, if any.
-@prop_RO NSA* siblings;
+_RO NSA* siblings;
 
 + process:(NSString*) property;
 
@@ -192,27 +192,27 @@ The level of information an AZProcess can return depends on the user's permissio
 @interface AZProcess (MachTaskEvents)
 
 /// The number of page faults.
-@prop_RO int faults;
+_RO int faults;
 
 /// The number of pageins.
-@prop_RO int pageins;
+_RO int pageins;
 
 /// The number of copy on write faults.
-@prop_RO int copyOnWriteFaults;
+_RO int copyOnWriteFaults;
 
 /// The number of Mach messages sent.
-@prop_RO int messagesSent;
+_RO int messagesSent;
 
 /// The number of Mach messages received.
-@prop_RO int messagesReceived;
+_RO int messagesReceived;
 
 /// The number of Mach system calls.
-@prop_RO int machSystemCalls;
+_RO int machSystemCalls;
 
 /// The number of Unix system calls.
-@prop_RO int unixSystemCalls;
+_RO int unixSystemCalls;
 
 /// The number of context switches.
-@prop_RO int contextSwitches;
+_RO int contextSwitches;
 
 @end

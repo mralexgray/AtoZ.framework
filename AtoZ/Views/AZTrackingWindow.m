@@ -31,7 +31,11 @@ typedef struct AZTriPair {	AZTri uno;	AZTri duo;  				}AZTriPair;
 //	w.view 			= w.contentView;
 //	w.view.backgroundColor = CLEAR;
 	[ @{  NSApplicationWillBecomeActiveNotification 	:	@"slideIn",
-	 		NSApplicationDidResignActiveNotification 	: 	@"slideOut" }	each:^( id key, id obj ) {
+        NSApplicationDidResignActiveNotification 	: 	@"slideOut" }	each:^( id key, id obj ) {
+
+//    [NSApp addObserver:w keyPath:key selector:NSSelectorFromString ( obj ) userInfo:nil options:NSKeyValueObservingOptionNew];
+//  }];
+
 				[w observeObject:NSApp forName:obj calling: NSSelectorFromString ( obj ) ];	}];
 //	[NSEEVENTLOCALMASK:NSLeftMouseDownMask handler:^NSEvent *(NSEvent *e) {	[w shake];		return e; }];
 	return w;

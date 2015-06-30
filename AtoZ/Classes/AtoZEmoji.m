@@ -312,8 +312,7 @@ static const struct EmojiEmoticonPair emoticonToEmojiList[] = {
 + (NSCharacterSet*) emojiCharacterSet {
     
   return [NSCharacterSet characterSetWithCharactersInString:
-                   [((DTA*)[DTA dataWithBytes:emoji6 length:sizeof(emoji6)]).UTF16String
-                                    stringByAppendingString:@"\u20e3"]];
+                   [[Data dataWithBytes:emoji6 length:sizeof(emoji6)].toUTF16String withString:@"\u20e3"]];
 
   // Add keyring character
 }

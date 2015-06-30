@@ -20,7 +20,7 @@
 
 @interface NSOutlineView (AtoZ)
 
-@prop_RO id selectedObject;
+_RO id selectedObject;
 @end
 
 extern NSString* const kAZTreeNodeChildNodesKey;
@@ -32,13 +32,13 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 	NSMutableArray * _childNodes;
 }
 @property (readonly,nonatomic) id parentNode;
-@prop_RO  NSA * childNodes;
-@prop_RO NSMA * mutableChildNodes; // returns a proxy through mutableArrayValueForKey:
-@prop_RO BOOL   isLeaf;
-@prop_RO NSUI   countOfChildNodes;
-@prop_RO  NSA * descendantNodes;
-@prop_RO  NSA * descendantNodesInclusive;
-@prop_RO  NSA * descendantLeafNodes,
+_RO NSA * childNodes;
+_RO NSMA * mutableChildNodes; // returns a proxy through mutableArrayValueForKey:
+_RO BOOL   isLeaf;
+_RO NSUI   countOfChildNodes;
+_RO NSA * descendantNodes;
+_RO NSA * descendantNodesInclusive;
+_RO NSA * descendantLeafNodes,
               * descendantLeafNodesInclusive,
               * descendantGroupNodes,
               * descendantGroupNodesInclusive;
@@ -60,7 +60,7 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 @end
 
 @interface NSTreeController (ESExtensions)
-@prop_RO NSA * rootNodes, *flattenedNodes, *flattenedContent;
+_RO NSA * rootNodes, *flattenedNodes, *flattenedContent;
 - (void) selectNone;
 - (void) selectParentFromSelection;
 - (NSIP*) indexPathForInsertion;
@@ -99,7 +99,7 @@ extern NSString* const kAZTreeNodeChildNodesKey;
 
 
 @interface NSBrowser (AtoZ)
-@prop_RO NSA * selectedObjects;
+_RO NSA * selectedObjects;
 @end
 
 

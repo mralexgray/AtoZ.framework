@@ -22,9 +22,9 @@ typedef NSBP*(^PathBlock)(id shp);
 
 - (void) setPathForRect:(PathBlock)pathForRect;
 @property (CP) PathBlock   pathForRect;
-@prop_RO   CGPR   calculatedPath;
-@prop_RO    CGF   dynamicStroke;
-@prop_RO    NSA * dynamicDash;
+_RO  CGPR   calculatedPath;
+_RO   CGF   dynamicStroke;
+_RO   NSA * dynamicDash;
 
 @end
 
@@ -36,8 +36,8 @@ typedef NSBP*(^PathBlock)(id shp);
 
 @interface  CATextLayer (AtoZ)
 
-@prop_RO NSAS * attributedString;
-@prop_RO  NSR   stringBounds;
+_RO NSAS * attributedString;
+_RO NSR   stringBounds;
 @property BOOL  sizeToFit;
 
 - (void) adjustBoundsToFit;

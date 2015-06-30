@@ -77,8 +77,8 @@ NS_INLINE NSD * AZObjCVars (void) { return @{
 	@"OBJC_DISABLE_TAGGED_POINTERS"			: @"disable tagged pointer optimization of NSNumber et al."	};
 }
 
-//@prop_RO NSA 	*names, *colors;
-//@prop_RO NSC 	*next;
+//_RO NSA 	*names, *colors;
+//_RONSC 	*next;
 //@property (STR) NSS	*name;
 //
 //- (id) objectAtIndexedSubscript:(NSUI)idx;

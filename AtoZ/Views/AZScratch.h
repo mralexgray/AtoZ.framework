@@ -690,17 +690,17 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 //#define AZWindowPositionTypeArray @[@"Left",@"Bottom",@"Right",@"Top",@"TopLeft",@"BottomLeft",@"TopRight",@"BottomRight",@"Automatic"]
 //#endif
 
-//JREnumDeclare(AZQuad, AZQuadTopLeft, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
+//_EnumKind(AZQuad, AZQuadTopLeft, AZQuadTopRight, AZQuadBotRight, AZQuadBotLeft);
 //#define QUAD AZQuad
 
 
-//JREnum() is fine for when you have an enum that lives solely in an .m file. But if you're exposing an enum in a header file, you'll have to use the alternate macros. In your .h, use JREnumDeclare():
-//	JREnumDeclare(StreamState,	   Stream_Disconnected,   	Stream_Connecting,                                                    										Stream_Connected, 		Stream_Disconnecting);
-//And then use JREnumDefine() in your .m:
-//	JREnumDefine(StreamState); for Free!!
-// NSString* AZQuadrantToString(int value);
+//JREnum() is fine for when you have an enum that lives solely in an .m file. But if you're exposing an enum in a header file, you'll have to use the alternate macros. In your .h, use _EnumKind():
+//	_EnumKind(StreamState,	   Stream_Disconnected,   	Stream_Connecting,                                                    										Stream_Connected, 		Stream_Disconnecting);
+//And then use _EnumKind() in your .m:
+//	_EnumKind(StreamState); for Free!!
+// NSString* AZQuadrant2Text(int value);
 
-//JREnumDeclare( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad);
+//_EnumKind( AZQuadrant, AZTopLeftQuad = 0, AZTopRightQuad, AZBotRightQuad, AZBotLeftQuad);
 
 //typedef NS_ENUM(NSUInteger, AZQuadrant){
 //	AZTopLeftQuad = 0,
@@ -724,7 +724,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
  AZPositionAutomatic	 	= 8
  };// AZWindowPosition;
  */
-//JREnumDeclare(AZPosition,
+//_EnumKind(AZPosition,
 //	AZLft 			= 0,// NSMinXEdge, // 0  NSDrawer
 //	AZRgt			= 2, //NSMaxXEdge, // 2  preferredEdge
 //	AZTop		   	= 3, //NSMaxYEdge, // 3  compatibility
@@ -757,7 +757,7 @@ typedef struct {	CAConstraintAttribute constraint;	CGFloat scale;	CGFloat offset
 //);
 
 
-//JREnumDeclare (AZAlign,
+//_EnumKind (AZAlign,
 
 //JROptionsDeclare(AZ_arc, 	AZ_arc_NA	       	= 0x00000001,
 //					  AZ_arc_RO 	     		= 0x00000010,
@@ -975,8 +975,8 @@ oldValue = newValue;
 
 //#define release self
 //
-//#define JROptionsDeclare(ENUM_TYPENAME...) JREnumDeclare(ENUM_TYPENAME,__VA_ARGS__)
-//#define JROptionsDefine(X) JREnumDefine(X)
+//#define JROptionsDeclare(ENUM_TYPENAME...) _EnumKind(ENUM_TYPENAME,__VA_ARGS__)
+//#define JROptionsDefine(X) _EnumKind(X)
 
 
 

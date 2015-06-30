@@ -72,7 +72,7 @@ AZTESTCASE(CALayerTests)
 - (void) testDependentPropertyBinding { CAL *hoster = CAL.new, *l = CAL.new;
 
    XCTAssertNil(l.name, @"name should be nil, was %@", l.name);
-  XCTAssertTrue(l.siblingIndexParity == AZUndefined, @"indexParity should be undefined, got %@", AZParityToString(l.siblingIndexParity));
+  XCTAssertTrue(l.siblingIndexParity == AZUndefined, @"indexParity should be undefined, got %@", AZParity2Text(l.siblingIndexParity));
   XCTAssertTrue(l.siblingIndex == -1, @"");
 
   // binding to a tree-dependent property should still update.. later..  when actuall added to the heirarchy.
@@ -81,7 +81,7 @@ AZTESTCASE(CALayerTests)
   [hoster addSublayer:l];  // finally, add to layer tree.
 
   XCTAssertNotNil(l.name, @"name should have been set, but was %@", l.name);
-    XCTAssertTrue(l.siblingIndexParity == AZEven, @"indexParity should be even, got %@", AZParityToString(l.siblingIndexParity));
+    XCTAssertTrue(l.siblingIndexParity == AZEven, @"indexParity should be even, got %@", AZParity2Text(l.siblingIndexParity));
     XCTAssertTrue(l.siblingIndexIsEven, @"should be Even at 0");
     XCTAssertTrue(SameString(@"EVEN", l.name), @"should be named EVEN, but she is %@", l.name);
 }

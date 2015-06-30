@@ -8,8 +8,15 @@
 
 @implementation NSTableRowView (AtoZ)
 
-SYNTHESIZE_ASC_OBJ_BLOCK(color, setColor, ^{ if (!value) value = AtoZ.globalPalette.nextNormalObject ?:  self.backgroundColor; }, ^{})
-SYNTHESIZE_ASC_OBJ_BLOCK(altColor, setAltColor, ^{ if (!value) value = self.color.darker.darker.darker; }, ^{})
+SYNTHESIZE_ASC_OBJ_BLOCK(color, setColor, ^{
+
+  value = value ?: (AtoZ.globalPalette.nextNormalObject ?: self.backgroundColor);
+
+  [self setNeedsDisplay:YES]; }, ^{})
+
+SYNTHESIZE_ASC_OBJ_BLOCK(altColor, setAltColor, ^{
+
+  if (!value) value = self.color.darker.darker.darker; }, ^{})
 
 - (NSC*) colorForAlternation { return self.isAlternate ? self.altColor: self.color; }
 

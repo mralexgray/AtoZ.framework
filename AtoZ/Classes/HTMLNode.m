@@ -8,7 +8,7 @@
 #import <libxml/HTMLparser.h>
 #import <libxml/parser.h>
 
-JREnumDefine ( HTMLNodeType )
+_EnumPlan(HTMLNodeType )
 
 EL_TYPE nodeType(xmlNode * node) {
 
@@ -57,10 +57,11 @@ EL_TYPE nodeType(xmlNode * node) {
 
 		if (!strcmp((char*)attr->name, nameStr))	{
 
-			for(xmlNode * child = attr->children; NULL != child; child = child->next)
+			for(xmlNode * child = attr->children; NULL != child; child = child->next) {
 
-				return [NSString stringWithCString:(void*)child->content encoding:NSUTF8StringEncoding];
-
+        if ((void*)child->content != NULL)
+          return [NSString stringWithCString:(void*)child->content encoding:NSUTF8StringEncoding];
+      }
 			break;
 		}
 	return NULL;
@@ -71,11 +72,13 @@ EL_TYPE nodeType(xmlNode * node) {
 
 	for(xmlAttrPtr attr = node->properties; NULL != attr; attr = attr->next)
 
-		if (!strcmp((char*)attr->name, nameStr)) {
+		if (!strcmp((char*)attr->name, nameStr)) {  // AG GUESSing here...
 
-			for(xmlNode * child = attr->children; NULL != child; child = child->next) {
+			for(xmlNode * child = attr->children; child != NULL; child = child->next) {
 
-				free(child->content);	child->content = (xmlChar*)newVal; break;
+        if (child->content != NULL) {
+          free(child->content);	child->content = (xmlChar*)newVal; break;
+        }
 			}
 			break;
 		}

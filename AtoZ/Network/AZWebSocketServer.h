@@ -4,7 +4,7 @@
 //@protocol		AZWebSocketServerDelegate ;
 //@property    (WK)				  SOCKSRVRD   delegate;
 //#define SOCKSRVRD     id<AZWebSocketServerDelegate>
-//@prop_RO  clientCount;
+//_RO clientCount;
 
 //+ (NSS*) baseHTML;
 
@@ -28,10 +28,10 @@
 #define ASOCK GCDAsyncSocket
 #endif
 
-JREnumDeclare(WebSocketMessageType, WSText, WSImage, WSJSCode);
+_EnumKind(WebSocketMessageType, WSText, WSImage, WSJSCode);
 
 @protocol WebSocketFrame <NSO>
-@prop_RO id webSocketDataValue;
+_RO id webSocketDataValue;
 @property WebSocketMessageType type;
 @end
 @interface NSString (WebsocketData) <WebSocketFrame> @end

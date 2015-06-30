@@ -328,3 +328,12 @@
 [submodule "AtoZ/Views/Controls/KBButton"]
   	path = AtoZ/Views/Controls/KBButton  
 	   url = https://github.com/kwbock/KBButton.git
+[submodule "AtoZUniversal"]
+	path = AtoZUniversal
+	url = https://github.com/mralexgray/AtoZUniversal.git
+[submodule "Frameworks/AHLaunchCtl"]
+	path = AtoZ/Classes/AHLaunchCtl
+	url = https://github.com/mralexgray/AHLaunchCtl.git
+[submodule "Frameworks/CurlHandle"]
+	path = Frameworks/CurlHandle
+	url = git@github.com:karelia/CurlHandle.git

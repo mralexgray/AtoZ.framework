@@ -5,7 +5,7 @@
 NSString * const AZThemeDidUpdateNotification = @"AZThemeDidUpdateNotification";
 
 @implementation BGTheme		@synthesize  baseColor = _baseColor;
-- 			(id) init 										{ return self=super.init ? 
+- 			(id) init 										{ self=super.init;   return self ?
 
 	[self setUseAlpha:YES],[self setBaseColor:NSColor.redColor], self : nil; 
 }

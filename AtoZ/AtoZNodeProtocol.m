@@ -13,8 +13,8 @@
 #endif
 
 #ifdef JRENUM 
-JREnumDefine(AZMethod);
-JREnumDefine(AZOutlineCellStyle);
+_EnumPlan(AZMethod);
+_EnumPlan(AZOutlineCellStyle);
 #endif
 
 @interface  AZNode()

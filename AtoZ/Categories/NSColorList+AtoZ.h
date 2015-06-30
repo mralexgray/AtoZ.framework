@@ -3,7 +3,7 @@
 
 @interface NSColorList (AtoZ) <Random, ClassKeyGet, KeyGet> // [((id)NSCL.class)[@"csscolors"] -> csscolors
 
-@prop_RO NSA * colors;  @prop_RO NSC * randomColor; @prop_RO  NSS*html;
+_RO NSA * colors;  _RO _Colr randomColor; _RO _Text html;
 
 + (NSA*) availableColorListNames;
 + (NSA*) frameworkColorLists;
@@ -35,14 +35,14 @@
 - darkenAndAdjustSaturationBy:(double)arg1;
 - darkenBy:(double)arg1;
 
-@prop_RO BOOL colorIsMedium, colorIsDark;
+_RO BOOL colorIsMedium, colorIsDark;
 
 #pragma mark -  AIColorAdditions_HLS
 - (id)adjustHue:(double)arg1 saturation:(double)arg2 brightness:(double)arg3;
 
 #pragma mark -  AIColorAdditions_RepresentingColors
 
-@prop_RO NSS* hexString, *stringRepresentation;
+_RO NSS* hexString, *stringRepresentation;
 
 #pragma mark - AIColorAdditions_RepresentingColors
 

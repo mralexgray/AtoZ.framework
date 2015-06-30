@@ -2,7 +2,7 @@
 
 #pragma mark - IOS UI
 
-@import AtoZIO;
+#import <IO/IO.h>
 
 #import <AtoZTouch/AtoZiMacros.h>
 

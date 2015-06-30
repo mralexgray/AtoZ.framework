@@ -238,7 +238,7 @@ NSOQ       * AZSharedOperationQueue (void) 	{	return ATOZ.sharedQ; }
 NSOQ * AZSharedSingleOperationQueue (void)	{	return ATOZ.sharedSQ; }
 
 
-//@prop_RO M13OrderedDictionary * sortedByValue;
+//_ROM13OrderedDictionary * sortedByValue;
 
 @implementation NSD (M13)
 - (M13OrderedDictionary *)sortedByValue {

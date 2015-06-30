@@ -29,7 +29,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 
 @Xtra (NSImage, AtoZ) <ClassKeyGet, AZDynamicImages>
 
-@prop_RO _Data PNGRepresentation;
+_RO _Data PNGRepresentation;
 
 + _Kind_ imageWithBitmapRep:(NSBIR*)rep;
 
@@ -566,7 +566,7 @@ extern NSString *kXML_Base64ReferenceAttribute;
 - (NSImageRep*) representationOfSize:(NSSize)theSize;
 - (NSImageRep*) bestRepresentationForSize:(NSSize)theSize;
 - (NSBitmapImageRep*) bitmap;
-@prop_RO NSBIR * quantizerRepresentation;
+_RO NSBIR * quantizerRepresentation;
 + _Kind_ imageWithBitmapRep:(NSBIR*)rep;
 - (NSIMG*) coloredWithColor:		(NSC*) inColor	composite:(NSCompositingOperation)comp;
 

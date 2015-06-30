@@ -4,7 +4,7 @@
 
 @interface NSApplication (Undocumented) - (NSA*)_orderedWindowsWithPanels:(BOOL)panels; @end
 
-JREnumDefine(NSWindowResize);
+_EnumPlan(NSWindowResize);
 id(^findWin)(NSP) = ^id(NSP p){	NSA* windows; 
 
 	return windows = [[NSApp _orderedWindowsWithPanels:YES] filter:^BOOL(id o){ 
@@ -271,7 +271,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 	(observer2 = 	[AZNOTCENTER addObserverForName:NSWindowDidMoveNotification 	object:nil queue:nil usingBlock:^(NSNOT *n) { 
 					[self setInsideEdge:99];  [AZNOTCENTER removeObserver:observer2];	}]),
 	AZPOS pos = AZOutsideEdgeOfRectInRect(self.frame, AZScreenFrameUnderMenu()); 
-	NSLog(@"gotInsideEdge:%@", AZPositionToString(pos));
+	NSLog(@"gotInsideEdge:%@", AZPosition2Text(pos));
 
 		zR.center = (NSP){zR.origin.x, NSE.mouseLocation.y} : (NSP){NSE.mouseLocation.x, zR.origin.y};
 		[zR setOrigin:NSMakePoint( MAX( 0, zR.origin.x ), MAX( 0, zR.origin.y ))];
@@ -281,7 +281,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 
 	[AZNOTCENTER addobser :NSWindowDidUpdateNotification usingBlock:^(NSNotification *m) {
 		if (m.object == self) [self setInsideEdge:99]; }];
-	LOGCOLORS(AZString(self.frame), @" on edge: ", AZPositionToString(edge),  BLUE, GREEN, YELLOW,nil);
+	LOGCOLORS(AZString(self.frame), @" on edge: ", AZPosition2Text(edge),  BLUE, GREEN, YELLOW,nil);
 	LOGCOLORS(@"WINDOWSHOULDSBE:", AZString(windowShouldBe), zTAB,@"offset", AZString(distanceFromStart), zTAB,$(@"%3.fx  %3.f", e.deltaX, e.deltaY), zTAB, @"WIND setTo:", r.description,zNL,zNL,NSC.randomPalette, nil);
  LOGCOLORS(@"MOUSEDRAGGED:", RED,zNL, $(@"%3.fx  %3.f", e.deltaX, e.deltaY),YELLOW,zNL, nil);
 
@@ -315,7 +315,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 //}
 
 		NSP windowShouldBe	= AZPointOffset(windowOrigin, AZSubtractPoints(NSE.mouseLocation, dragStart));
-		NSLog(@"setting pos from Drag: %@", AZPositionToString(loc));
+		NSLog(@"setting pos from Drag: %@", AZPosition2Text(loc));
 		dragWin.insideEdge = loc;
 		if (!NSEqualPoints(dragWin.frame.origin, windowShouldBe))  {
 		AZRect *newRect		= [AZRect rectWithOrigin:windowShouldBe andSize:dragWin.size];

@@ -14,7 +14,7 @@
 @prop_RO	 BOOL   hasImage;
 @property  BOOL   cached;
 @prop_NC 	NSIMG * image;
-@prop_RO 	  NSS * fullName;
+_RO 	  NSS * fullName;
 @prop_NC 	  NSS * firstName,
                 * lastName,
                 * company,

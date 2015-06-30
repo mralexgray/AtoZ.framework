@@ -19,7 +19,7 @@ OSStatus LaunchPrivilegedProcess(NSString *path) {	AuthorizationRef  authRef;	OS
 					AuthorizationFree(authRef, kAuthorizationFlagDestroyRights);
 }	return status; 	}
 
-static bool amIAuthorized () {			bool returner = false;
+static __unused bool amIAuthorized () {			bool returner = false;
 	if (AXIsProcessTrusted() == 1) { 	NSLog(@"Main App Bundle Trusted!  TRUE"); returner = true; }
 		else 							NSLog(@"Main App Bundle ** NOT ** Trusted.  Testing System AX.");
 	if (AXAPIEnabled() == 1) { 			NSLog(@"System AX Enabled AOK! ** TRUE **"); returner = true; }

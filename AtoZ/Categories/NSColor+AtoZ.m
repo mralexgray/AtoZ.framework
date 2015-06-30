@@ -4,7 +4,7 @@
 #import "NSColor+AtoZ.h"
 #import "AZNamedColors.h"
 
-JREnumDefine(AZeColor);
+_EnumPlan(AZeColor);
 
 static NSC * ColorWithUnsignedLong(unsigned long value, BOOL hasAlpha) {
 
@@ -14,7 +14,7 @@ static NSC * ColorWithUnsignedLong(unsigned long value, BOOL hasAlpha) {
   g = (float)(0x00FF & (value >> 8))  / 255.0,
   b = (float)(0x00FF & value)       / 255.0;    return [NSC r:r g:g b:b a:a];
 }
-static NSC * ColorWithHexDigits(NSS *str) {    NSString *hexStr;
+static __unused NSC * ColorWithHexDigits(NSS *str) {    NSString *hexStr;
 
   NSScanner     *scanner = [NSScanner      scannerWithString:           str.lowercaseString];
   NSCharacterSet *hexSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"];
@@ -27,7 +27,7 @@ static NSC * ColorWithHexDigits(NSS *str) {    NSString *hexStr;
   unsigned long value = strtoul(hexStr.UTF8String, NULL, 16);
   return ColorWithUnsignedLong(value, hasAlpha);
 }
-static NSC * ColorWithCSSString(NSS *str) {
+static __unused NSC * ColorWithCSSString(NSS *str) {
 
   NSString  *trimmed = [str stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
   NSString *lowerStr = trimmed.lowercaseString;
@@ -50,7 +50,7 @@ static NSC * ColorWithCSSString(NSS *str) {
 
   return nil;
 }
-static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] + .6094f*rgb[1] + .0820f*rgb[2]; /* 0.3086 + 0.6094 + 0.0820 = 1.0 */ }
+static __unused CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] + .6094f*rgb[1] + .0820f*rgb[2]; /* 0.3086 + 0.6094 + 0.0820 = 1.0 */ }
 
 @implementation NSColor (AtoZ) static NSMD *bestMatches, *colorsFromStruct; static NSCL *safe, *named;
 
@@ -234,7 +234,7 @@ static CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] +
   // If the string contains some hex digits, try to convert #RRGGBB or #RRGGBBAA  rgb(r,g,b) or rgba(r,g,b,a)
 //  return idx >= count ? ColorWithHexDigits(name) : ColorWithCSSString(name) ?: ColorWithUnsignedLong(sColorTable[idx].value, NO);
 }
-+ (NSC*) colorFromAZeColor:(AZeColor)c { return [self colorWithString:[AZeColorToString(c)stringByRemovingPrefix:@"AZeColor"].lowercaseString];
++ (NSC*) colorFromAZeColor:(AZeColor)c { return [self colorWithString:[AZeColor2Text(c)stringByRemovingPrefix:@"AZeColor"].lowercaseString];
   //  return [self colorFromString:$UTF8(sColorTable[c])];
 }
 + (NSC*) linen      {

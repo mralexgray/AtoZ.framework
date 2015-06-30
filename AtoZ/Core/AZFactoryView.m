@@ -2,7 +2,7 @@
 #import "AZFactoryView.h"
 #import "AtoZFunctions.h"
 
-//JREnumDefine(AZOutlineCellStyle);
+//_EnumPlan(AZOutlineCellStyle);
 
 @implementation AZFactoryView 		{ NSA*palette_; NSTextField *matchField_; NSButton* rezhuzhButt_; NSView*UIView_; CAL *scrollBar_, *hostLayer_; } /* IVARS */
 

@@ -19,10 +19,10 @@
 - (void) testLogEnv	{		setenv("XCODE_COLORS", "YES", 0);
 
 	XCTAssertEqual(AZLOGSHARED.logEnv, LogEnvXcodeColor,
-	@"Xcode should return true, with colors... got %@", LogEnvToString(AZLOGSHARED.logEnv));
+	@"Xcode should return true, with colors... got %@", LogEnv2Text(AZLOGSHARED.logEnv));
 //	setenv("XCODE_COLORS", "NO", 0);
 //	XCTAssertEqual(AZLOGSHARED.logEnv, LogEnvXcodeNOColor,
-//	@"Xcode with XcodeCOlors off should return LogEnvXcodeNOColor ... got %@", LogEnvToString(AZLOGSHARED.logEnv)]);
+//	@"Xcode with XcodeCOlors off should return LogEnvXcodeNOColor ... got %@", LogEnv2Text(AZLOGSHARED.logEnv)]);
 
 }
 

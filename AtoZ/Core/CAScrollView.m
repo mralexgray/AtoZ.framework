@@ -2,8 +2,8 @@
 #import <AtoZ/AtoZ.h>
 #import "CAScrollView.h"
 
-JREnum(ScrollFix, LayerInsertFront,	LayerInsertEnd, LayerRemoveFront, LayerRemoveEnd, LayerStateOK,	LayerStateUnresolved,	LayerStateUnset);
-JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
+_Enum(ScrollFix, LayerInsertFront,	LayerInsertEnd, LayerRemoveFront, LayerRemoveEnd, LayerStateOK,	LayerStateUnresolved,	LayerStateUnset);
+_Enum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 
 @interface CAScrollView ()
 @property (NA) 	CAL *hostlayer;
@@ -13,8 +13,8 @@ JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 @property (NA) NSUI 		normalizedCopyIndex;
 @property (NA) BOOL 		recursiveFix, scrolling;
 @prop_RO	CAL	*lastLayer, *firstLayer;
-@prop_RO NSA 	*scrollLayersByAscendingPosition, *sSubs;
-@prop_RO 	BOOL 	isVRT;
+_RO NSA 	*scrollLayersByAscendingPosition, *sSubs;
+_RO 	BOOL 	isVRT;
 //@property (STR) CWStack *stack;
 @property (STR) CAScrollLayer *sclr;
 @property (NA)		StateStyle 	hoverStyle, selectedStyle;
@@ -112,7 +112,7 @@ JREnum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 }
 -(void) setFixState:(ScrollFix)f
 {
-	LOGWARN(@"Fix:%@ dog:%ld subs:%ld q:%ld",ScrollFixToString(f),_fixWatchdog,self.sublayerCt,layerQueue.count);
+	LOGWARN(@"Fix:%@ dog:%ld subs:%ld q:%ld",ScrollFix2Text(f),_fixWatchdog,self.sublayerCt,layerQueue.count);
 	
 	if (f == LayerStateOK || f == LayerStateUnresolved) { 	_fixWatchdog = 0; _recursiveFix = NO; 
 																				[scrollLayer setNeedsLayout]; return; }

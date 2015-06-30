@@ -73,7 +73,7 @@ static NSColorWell *hiddenWell = nil;
 #pragma mark - Initialization & Destruction
 - (id)initWithFrame:(NSRect)frame
 {
-	if (self != [super initWithFrame:frame]) return  nil;
+	if (!(self = [super initWithFrame:frame])) return  nil;
 	_dragging  = _multipleSelection = NO;
 	_itemWidth 	= 32.0f;
 	_selectedIndexes = NSMutableIndexSet.new;
@@ -388,7 +388,7 @@ static NSColorWell *hiddenWell = nil;
 	dispatch_once(&onceToken, ^{		sharedPopover = BFColorPickerPopover.new; 	});
 	return sharedPopover;
 }
-- (id)init	{ return self = [super init] ? self.behavior = NSPopoverBehaviorSemitransient, _color = [NSColor whiteColor], self : nil; }
+- (id)init	{ self = [super init];   return self ? self.behavior = NSPopoverBehaviorSemitransient, _color = [NSColor whiteColor], self : nil; }
 
 #pragma mark - Getters & Setters
 - (NSColorPanel *)colorPanel {	return ((BFColorPickerViewController *)self.contentViewController).colorPanel;	}
@@ -484,7 +484,7 @@ static NSColorWell *hiddenWell = nil;
 @end
 
 static inline float pow2(float x) {return x*x;}
-static inline NSString * NSStringFromNSEdgeInsets(NSEdgeInsets i) {return [NSString stringWithFormat:@"top: %f, left: %f, bottom: %f, right: %f", i.top, i.left, i.bottom, i.right];}
+static inline __unused NSString * NSStringFromNSEdgeInsets(NSEdgeInsets i) {return [NSString stringWithFormat:@"top: %f, left: %f, bottom: %f, right: %f", i.top, i.left, i.bottom, i.right];}
 @interface BFColorPickerViewController ()
 @property (nonatomic) BFIconTabBar *tabbar;
 @property (nonatomic, weak) NSView *colorPanelView;

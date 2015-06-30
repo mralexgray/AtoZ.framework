@@ -10,7 +10,7 @@
 -          initWithData:(DTA*)d error:(NSERR*__autoreleasing*)e;
 -        initWithString:(NSS*)s error:(NSERR*__autoreleasing*)e;
 
-@prop_RO HTMLNode * doc,		// Returns the doc  tag
+_RO HTMLNode * doc,		// Returns the doc  tag
                   * body,	//	Returns the body tag
                   * html, 	//	Returns the html tag
                   * head;	//	Returns the head tag

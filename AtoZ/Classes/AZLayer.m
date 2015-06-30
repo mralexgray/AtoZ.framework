@@ -23,7 +23,7 @@ const NSString* ztimeF = @"timingFunction";
 // Ghetto support for -actionFor<Key>
 static CFMutableDictionaryRef ActionNameToSelector = NULL;
 
-static SEL ActionSelectorForKey(NSString *key)
+static __unused SEL ActionSelectorForKey(NSString *key)
 {
 	// TODO: Locking, if you need it.
 	// OBPRECONDITION([NSThread isMainThread]);
@@ -39,14 +39,14 @@ static SEL ActionSelectorForKey(NSString *key)
 	return sel;
 }
 
-static Boolean _equalStrings(const void *value1, const void *value2)
-{
-	return [(__bridge NSString *)value1 isEqualToString:(__bridge NSString *)value2];
-}
-static CFHashCode _hashString(const void *value)
-{
-	return CFHash((CFStringRef)value);
-}
+//static Boolean _equalStrings(const void *value1, const void *value2)
+//{
+//	return [(__bridge NSString *)value1 isEqualToString:(__bridge NSString *)value2];
+//}
+//static CFHashCode _hashString(const void *value)
+//{
+//	return CFHash((CFStringRef)value);
+//}
 
 @implementation AZLayer
 

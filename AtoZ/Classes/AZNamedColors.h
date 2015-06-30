@@ -7,7 +7,7 @@
 //
 
 
-@interface  NSColorList (Dictionary) @prop_RO NSD *dictionary;  @end
+@interface  NSColorList (Dictionary) _RO NSD *dictionary;  @end
 
 @interface AZNamedColors : NSColorList
 
@@ -17,7 +17,7 @@
 + (NSS*) nameOfColor:(NSC*)color savingDistance:(NSC**)distance;
 + (NSC*) normal:(NSUI)idx;
 
-@prop_RO NSA* colors;
+_RO NSA* colors;
 
 @end
 

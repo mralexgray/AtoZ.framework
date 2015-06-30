@@ -2,7 +2,7 @@
 
 #define AssetDataType @"AssetDataTypeForTableViewDrag"
 
-JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS,  AssetTypeHTML5,
+_EnumKind(AssetType, 	AssetTypeJS, 	AssetTypeCSS,  AssetTypeHTML5,
                           AssetTypePHP, AssetTypeBASH, AssetTypeObjC, AssetTypeTXT,
                           AssetTypeUNKNOWN = 99,
                           AssetTypeNotFound = NSNotFound );
@@ -17,7 +17,7 @@ JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS,  AssetTypeHTML5,
 @interface AssetCollection : NSMA
 
 - (void) addFolder: (NSS*)path matchingType:(AssetType)fileType	printInline:(BOOL)printI;
-@prop_RO AssetType assetType;
+_RO AssetType assetType;
 + (instancetype) instanceWithFolder:(NSS*)path matchingType:(AssetType)fileType printInline:(BOOL)isit;
 @end
 
@@ -38,7 +38,7 @@ JREnumDeclare(AssetType, 	AssetTypeJS, 	AssetTypeCSS,  AssetTypeHTML5,
 @interface AssetTypeTransformer: NSValueTransformer	@end
 
 @interface NSString (AssetType)
-@prop_RO NSS * wrapInHTML;
+_RO NSS * wrapInHTML;
 @end
 
 

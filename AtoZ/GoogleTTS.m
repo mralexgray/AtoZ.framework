@@ -13,7 +13,7 @@
 
 + _Kind_ instanceWithString:_Text_ s ___
 
-_P      NSMutableData * downloadedData;
+_AT      NSMutableData * downloadedData;
 @property               BOOL   ready;
 @end
 

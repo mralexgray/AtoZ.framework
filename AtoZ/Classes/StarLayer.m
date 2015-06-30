@@ -6,7 +6,7 @@
 #import <AtoZ/AtoZ.h>//#import <DrawKit/DrawKit.h>
 
 @interface StarLayer ()
-@prop_RO 		CALayer *root;
+_RO 		CALayer *root;
 @property (STR) 	 	CALayer *star, *text;
 
 @end

@@ -112,7 +112,7 @@
 /** Specifies the index of the overlay the user clicked to trigger an action message.
  
  @see target	*/
-@prop_RO NSInteger clickedOverlay;
+_RO NSInteger clickedOverlay;
 
 /// ---------------------------------
 /// @name Selecting Overlays

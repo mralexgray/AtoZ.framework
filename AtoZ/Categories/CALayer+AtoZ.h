@@ -39,9 +39,9 @@
 
 //- (void) on:(NSEventMask)mask do:(SenderEvent)b; // FIX
 
-_NA id eventMonitor;
-_NA NSEventMask eventMask;
-//@prop_RO IndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
+//_NA id eventMonitor;
+//_NA NSEventMask eventMask;
+//_ROIndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
 
 /*! @see swizzleHitTest for swizled implementation enablig this! */
 @prop_CP  ObjBlk onHit, onHover; // SenderEvent
@@ -60,25 +60,25 @@ _NA NSEventMask eventMask;
 
 - (NSP) layerPoint:(NSE*)e;
 
-@prop_RO  CAL * permaPresentation;
+_RO CAL * permaPresentation;
 @property         BOOL   animatesResize;
 @property          NSC * backgroundNSColor;
 
-@prop_RO  NSA * siblings;            // SUPER -> @[A,B,C]  B.siblings            = @[A,C]
-@prop_RO AZ01   siblingIndexParity;
-@prop_RO  NSI   siblingIndex,        // SUPER -> @[A,B,C]  B.siblingIndex        = 1
+_RO NSA * siblings;            // SUPER -> @[A,B,C]  B.siblings            = @[A,C]
+_RO AZ01   siblingIndexParity;
+_RO NSI   siblingIndex,        // SUPER -> @[A,B,C]  B.siblingIndex        = 1
                          siblingIndexMax;     // SUPER -> @[A,B,C]  B.siblingIndexMax     = 2 (C)
-@prop_RO BOOL   siblingIndexIsEven;  // SUPER -> @[A,B,C]  B.siblingIndexIsEven  = NO
-@prop_RO  CAL * siblingNext,
+_RO BOOL   siblingIndexIsEven;  // SUPER -> @[A,B,C]  B.siblingIndexIsEven  = NO
+_RO CAL * siblingNext,
                        * siblingPrev,
                        * hostLayer; // View's layer. Handles all events.
 @property (WK)     NSV * hostView;
 
-@prop_RO  NSA * sublayersRecursive,
+_RO NSA * sublayersRecursive,
                        * sublayersAscending,
                        * visibleSublayers;
-@prop_RO  CAL * lastSublayer;
-@prop_RO  NSR   actuallyVisibleRect;
+_RO CAL * lastSublayer;
+_RO NSR   actuallyVisibleRect;
 
 /*! @see setNeedsLayoutForKey: */
 @property          NSA * needsLayoutForKeys,
@@ -225,7 +225,7 @@ _NA NSEventMask eventMask;
 
 @interface CAL (SHouldBeInProtocol)
 @property          BOOL  isListItem;
-@prop_RO  NSS * sisterName;
+_RO NSS * sisterName;
 @end
 
 @interface CAL (SwizzledCanImplement)
@@ -236,7 +236,7 @@ _NA NSEventMask eventMask;
 @interface CAL (AtoZDebug)
 + (NSW*) debugTest;
 @property         BOOL  debug;
-@prop_RO  NSS * infoString,
+_RO NSS * infoString,
                        * debugDescription,
                        * debugLayerTree;
                        

@@ -4,7 +4,7 @@
 //@property (NA)		       AZR * inFrame, * outFrame, * grabRect, * outerRect;
 //
 ////@property (NA) AZSlideState 	slideState; // !!!
-//@prop_RO OSCornerType 	outsideCorners;
+//_ROOSCornerType 	outsideCorners;
 //@end
 
 #import <AtoZ/AtoZ.h>
@@ -41,7 +41,7 @@
     XX(b);
     NSR newB = AZRectInsideRectOnEdge(b, self.superframe,self.insideEdge);
     XX(newB);
-    XX(AZAlignToString(self.insideEdge));
+    XX(AZAlign2Text(self.insideEdge));
     [self setFrame:newB display:YES];
 
 //AZOutsideEdgeOfPointInRect ( NSE.mouseLocation, AZScreenFrameUnderMenu());
@@ -84,7 +84,7 @@
 	self.contentView  = [BLKVIEW viewWithFrame:self.contentRect drawBlock:^(BNRBlockView *v, NSRect r) {
     AZWT *tab = (id)v.window;
     NSRectFillWithColor(r, GREEN);
-    NSString *s = AZAlignToString(tab.insideEdge);
+    NSString *s = AZAlign2Text(tab.insideEdge);
     [s drawAtPoint:r.origin withAttributes:NSAS.defaults];
   }];
 
@@ -171,8 +171,8 @@
 @interface AZWindowTabViewPrivate : NSView
 @property           CAL * contentLayer,
                         * tabLayer;
-@prop_RO NSIMG * indicator;
-@prop_RO 	NSR	  tabRect;
+_RO NSIMG * indicator;
+_RO 	NSR	  tabRect;
 @property (CP) void(^closedTabDrawBlock)(NSRect tabRect);
 @end
 
@@ -206,7 +206,7 @@
 
 	[self bind:@"indicator" toObject:w withKeyPath:@"insideEdge" transform:^id (id edge) {
 
-    [AZTalker say:$(@"Inside edge:%@", AZAlignToString([edge unsignedIntegerValue]))];
+    [AZTalker say:$(@"Inside edge:%@", AZAlign2Text([edge unsignedIntegerValue]))];
 		return [l setNeedsDisplay], [l setNeedsLayout], [NSIMG imageForSize:AZSizeFromDim(25) withDrawingBlock:^{
 			[[NSBP bezierPathWithTriangleInRect:AZRectFromDim(25)
 											orientation:(AZCompass)AZAlignToNormalBitmask([edge unsignedIntegerValue])]
@@ -454,7 +454,7 @@ x	}
 	self.offset         = AZSubtractPoints ( NSE.mouseLocation, AZSubtractPoints ( _drgStrt, _wOrig));
 //	self.frame          = self.rectForState;
 //	self.slideState     = _slideState;
-//	AZRect * _outFrame  = [self frameInRect:AZScreenFrameUnderMenu() offset:offset insideEdge:ptEdge];	self.insideEdge =  _outFrame .orient; self.frame =  _outFrame .r;	LOGCOLORS(@"newframe:", _outFrame , @"newloc ",AZPositionToString( _outFrame .orient),  zNL, RANDOMPAL, nil);
+//	AZRect * _outFrame  = [self frameInRect:AZScreenFrameUnderMenu() offset:offset insideEdge:ptEdge];	self.insideEdge =  _outFrame .orient; self.frame =  _outFrame .r;	LOGCOLORS(@"newframe:", _outFrame , @"newloc ",AZPosition2Text( _outFrame .orient),  zNL, RANDOMPAL, nil);
 }
 
 

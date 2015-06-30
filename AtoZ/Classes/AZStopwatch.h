@@ -39,8 +39,8 @@
 - (void) startTiming;
 - (void) stopTiming;
 
-@prop_RO AZStopwatchItem * stopWatch;
-@prop_RO             NSS * elapsed;
+_RO AZStopwatchItem * stopWatch;
+_RO            NSS * elapsed;
 @end
 
 //+ (void) timerBlock:((^)(char *file))block;

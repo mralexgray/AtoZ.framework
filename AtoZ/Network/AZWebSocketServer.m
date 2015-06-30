@@ -23,7 +23,7 @@
 #import "AZWebSocketServer.h"														// Originally created by Max Howell in October 2011. This class is in the public domain.
 
 
-JREnumDefine(WebSocketMessageType);
+_EnumPlan(WebSocketMessageType);
 
 @interface AZWebSocketServer ()
 /* Answers to native calls AND responds to all RoutingHttpServer methods 

@@ -2,9 +2,9 @@
 
 @interface AZExpandableView : TUIView
 
-@prop_RO NSIMG	* favicon;
-@prop_RO   NSC	* color;
-@prop_RO  	NSS * string;
+_RO NSIMG	* favicon;
+_RO  NSC	* color;
+_RO 	NSS * string;
 @prop_RO	NSURL	* url;
 @prop_RO	 NSAS	* attrString;
 @prop_RO	 BOOL   faviconOK;

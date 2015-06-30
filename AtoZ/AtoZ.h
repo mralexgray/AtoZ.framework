@@ -34,7 +34,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 //@import AppKit; ObjectiveC; QuartzCore;
 
-@import AtoZIO;  // also handles ExtObjC  + AtoZUniversal + AtoZAutoBox
+@import ToolKit;  // also handles ExtObjC  + AtoZUniversal + AtoZAutoBox
 @import AtoZAutoBox;
 
 @import AtoZAppKit;
@@ -44,6 +44,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import CFAAction;
 @import CocoaPuffs;
 @import CocoatechCore;
+@import CurlHandle;
 @import DrawKit;
 @import FunSize;
 @import KSHTMLWriter;
@@ -171,7 +172,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 #import <AtoZ/AZSyntaxTheme.h>
 #import <AtoZ/AZSynthesize.h>
 #import <AtoZ/AZTimeLineLayout.h>
-#import <AtoZ/AZToggleArrayView.h>
+//#import <AtoZ/AZToggleArrayView.h>
 #import <AtoZ/AZTrackingWindow.h>
 #import <AtoZ/AZURLBar.h>
 #import <AtoZ/AZVeil.h>
@@ -323,7 +324,7 @@ AZNSIFACE(AZClassProxy)
 */
 
 @interface NSObject (AZClassProxy)
-@prop_RO AZClassProxy * classProxy;
+_RO AZClassProxy * classProxy;
 + performSelector:(SEL)sel;
 @end
 
@@ -398,7 +399,7 @@ AZNSIFACE(AZClassProxy)
 
 + (void) randomUrabanDBlock:(void (^)(AZDefinition *definition))block;
 
-@prop_RO  LogEnv   logEnv;
+_RO LogEnv   logEnv;
 
 + (void) logObject:(id)x file:(const char *)f function:(const char *)func line:(int)l;
 
@@ -441,10 +442,10 @@ _NA  NSW * azWindow;
 _NA  NSC * logColor;
 _NA  NSA * fonts,          /// 13 font... names.
               * cachedImages;   /// nil.
-@prop_RO  NSB * bundle;
+_RO NSB * bundle;
 
-@prop_RO NSOS * sharedStack;
-@prop_RO NSOQ * sharedQ,
+_RO NSOS * sharedStack;
+_RO NSOQ * sharedQ,
               * sharedSQ;
 
 @prop_AS IBO  NSTXTV * stdOutView;

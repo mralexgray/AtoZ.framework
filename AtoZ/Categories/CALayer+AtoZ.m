@@ -20,7 +20,9 @@
 
                 SYNTHESIZE_ASC_OBJ(eventMonitor,setEventMonitor);          // Saved Monitor
 
-           SYNTHESIZE_ASC_OBJ_LAZY(eventBlocks,IndexedKeyMap.class);       // Indexed Key Map of handlers
+//           SYNTHESIZE_ASC_OBJ_LAZY(eventBlocks,IndexedKeyMap.class);       // Indexed Key Map of handlers
+
+/**
 
 SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
 
@@ -34,6 +36,8 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
     }];
   }
 });
+*/  // NEEEDs REHAUL
+
 @dynamic onHover, onHit;
 /** TODO : FIX
 - (SenderEvent) onHit { return [self.eventBlocks] setOnHit, SenderEvent, ^{ });
@@ -79,7 +83,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
 - (NSP) layerPoint:(NSE*)e { return [self convertPoint:e.locationInWindow fromLayer:nil]; }
 
 
-//@prop_RO NSA* eventBlocks;//  EventBlock eventBlock;
+//_RO NSA* eventBlocks;//  EventBlock eventBlock;
 //@prop_CP  SenderEvent onHit, onHover;
 //SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,      setEventMask,            NSEventMask,
 //                                        ^{},^{
@@ -1918,10 +1922,10 @@ static const char *kRenderAsciiBlockKey = "-";
 */
 
 
-static CGColorRef CreateDeviceGrayColor(CGF w, CGF a) {	CGColorSpaceRef gray = CGColorSpaceCreateDeviceGray();
+static __unused CGColorRef CreateDeviceGrayColor(CGF w, CGF a) {	CGColorSpaceRef gray = CGColorSpaceCreateDeviceGray();
 	CGF comps[] = {w, a};	CGColorRef color = CGColorCreate(gray, comps);	CGColorSpaceRelease(gray); return color;
 }
-static CGColorRef CreateDeviceRGBColor  (CGF r, CGF g, CGF b, CGF a) {	CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+static __unused CGColorRef CreateDeviceRGBColor  (CGF r, CGF g, CGF b, CGF a) {	CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
 	CGF comps[] = {r, g, b, a};	CGColorRef color = CGColorCreate(rgb, comps);	CGColorSpaceRelease(rgb);	return color;
 }
 CAL * NewLayerInLayer	( CAL *superlayer ) {
@@ -2164,7 +2168,7 @@ CAT3D CA3DxyZRotation       (CAT3D xYR, CAT3D zR) { return CATransform3DConcat(x
 
 + (NSA*) attributesForMask:(AZConstraintMask)mask {
 
-  return [AZConstraintMaskByLabel().allValues.ascending reduce:@[] with:^id(id sum, NSN* bit, NSUInteger idx) {
+  return [AZConstraintMaskxLbl().allValues.ascending reduce:@[] with:^id(id sum, NSN* bit, NSUInteger idx) {
 
     return mask & bit.iV ? [sum arrayByAddingObject:@(idx)] : sum;
   }];
@@ -2267,7 +2271,7 @@ SYNTHESIZE_ASC_PRIMITIVE_KVO(isListItem,setIsListItem,BOOL);
 @end
 
 /*
-@protocol          KeyBoundShape @concrete @prop_RO NSS *binding, *keypath; - (void) remove; @end
+@protocol          KeyBoundShape @concrete _RONSS *binding, *keypath; - (void) remove; @end
 
 @concreteprotocol(KeyBoundShape)                         @dynamic binding,  keypath;
 

@@ -12,12 +12,12 @@
 @property (NA)   NSA * colors;
 @property (NA)  NSS * name,
 								 		    * calulatedBundleID;
-@prop_RO   NSC * labelColor;
+_RO  NSC * labelColor;
 @property (NA) NSIMG * image;
 @property (NA)   AZA   position;
-@prop_RO  NSUI  	labelNumber;
-@prop_RO   CGF   hue;
-@prop_RO  BOOL   hasLabel;
+_RO NSUI  	labelNumber;
+_RO  CGF   hue;
+_RO BOOL   hasLabel;
 
 + (INST)         forAppNamed:(NSS*)appName;
 + (INST)    instanceWithPath:(NSS*)path;
@@ -31,9 +31,9 @@
 
 
 @interface AZFolder : AZFile// <AtoZNodeProtocol> //AZFile
-//@prop_RO NSUI count;
+//_RONSUI count;
 //	@property(NA, readonly) NSMutableArray *children;
-//	@prop_RO NSUI capacity;
+//	_RONSUI capacity;
 - (id) initWithArray:(NSArray*)array;
 + appFolder;
 + samplerWithCount:(NSUInteger)items;
@@ -56,8 +56,8 @@
 @end
 
 @interface AZDock : BaseModel
-@prop_RO NSA *dock;
-@prop_RO NSA *dockSorted;
+_RO NSA *dock;
+_RO NSA *dockSorted;
 @property (NA) AZDockSort sortOrder;
 @end
 
@@ -79,7 +79,7 @@
 //- (void) oadImage;
 //
 //	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-//@prop_RO BOOL imageLoading;
+//_ROBOOL imageLoading;
 //
 //@end
 	//extern NSString *const AtoZFileUpdated;
@@ -110,7 +110,7 @@
 	//- (void) oadImage;
 	//
 	//	// A nil image isn't loaded (or couldn't be loaded). An image that is in the process of loading has imageLoading set to YES
-	//@prop_RO BOOL imageLoading;
+	//_ROBOOL imageLoading;
 	//
 	//@end
 	// Declared constants to avoid typos in KVO. Common prefixes are used for easy code completion.

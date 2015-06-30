@@ -79,8 +79,8 @@ typedef enum {
 #define LEFT_MOUSE 		 1
 #define RIGHT_MOUSE 	  2
 
-#define MOUSE_DOWN 	  0
-#define MOUSE_UP	   1
+//#define MOUSE_DOWN 	  0
+//#define MOUSE_UP	   1
 #define MOUSE_DRAGGED 	2
 #define MOUSE_MOVED 	 2
 

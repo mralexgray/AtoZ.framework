@@ -20,7 +20,7 @@
 @property         FBVC * fbV;
 @property       TUIVVC * tuiVC;
 
-@prop_RO NSMA * windowControllers;
+_RO NSMA * windowControllers;
 @property NST       	 * colorFade;
 
 @property (ASS) IBOutlet NSW * window;
@@ -39,10 +39,10 @@
 @property (STR) CASCRLL  *scrlr;
 @property (NA) CAGL	   *hit;
 @property (NA) NSMD	   *model;
-@prop_RO NSRNG 	visible, front, back;
-@prop_RO NSS	   *fixState;
-@prop_RO ScrollFix scrollFix;
-@prop_RO NSS 		*visibleSubsString;
+_RO NSRNG 	visible, front, back;
+_RO NSS	   *fixState;
+_RO ScrollFix scrollFix;
+_RO NSS 		*visibleSubsString;
 @property (NA) CGF 		off;
 @property (NA)	NSA		*visibleSubs, *subsAscending; // actually visible, and them sorted
 @property (STR) NSS		*actionStatus; 	 					// Just shows what "actions" are happening.
@@ -56,7 +56,7 @@
 //@property (nonatomic, strong) CAScrollLayer *scrollLayer;
 //@property (nonatomic, strong) CAL *scrollLayerContent;
 //
-//@prop_RO NSS* visiRect;
+//_RONSS* visiRect;
 
 //@property (weak) 		 id  					activeView;
 //@property (NA, STR) WeakMutableArray		*vcs;

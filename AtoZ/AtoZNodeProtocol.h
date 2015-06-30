@@ -15,7 +15,7 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 
 @protocol AtoZNodeProtocol	<NSObject>
 @required
-@prop_RO AZNodeProtocolKeyPaths keyPaths;
+_RO AZNodeProtocolKeyPaths keyPaths;
 - (void) addChild:(id<AtoZNodeProtocol>)c;
 @optional
 //@property (readonly) NSString *valuePath, *keyPath, *childrenPath;
@@ -50,7 +50,7 @@ NS_INLINE AZNodeProtocolKeyPaths AZNodeProtocolKeyPathsMake(NSS*kP,NSS*vP,NSS*cP
 @end
 
 
-JREnumDeclare(AZMethod,
+_EnumKind(AZMethod,
 	AZMethodNotFound, 	// method not found (LRMethodNotFound )
 	AZMethodAuthor,    	// first in tree to implement method (LRMethodImplement)
 	AZMethodOverrider,   // class overrides method (LRMethodOverride)

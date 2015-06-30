@@ -5,12 +5,16 @@
 
 @interface AZSimpleView : NSV
 
-@prop_  BOOL clear, glossy, gradient, checkerboard;
-_NA NSC *backgroundColor;
+_AT _IsIt  clear
+__         glossy
+__         gradient
+__         checkerboard ___
 
-+ (instancetype) vWF:(NSR)f c:(NSC*)c;
-+ (instancetype) withFrame:(NSR)f      color:(NSC*)c;
--         (void) setFrameSizePinnedToTopLeft:(NSSZ)size;
+_NA _Colr  backgroundColor ___
+
++ _Kind_       vWF __Rect_ r     c __Colr_ c ___
++ _Kind_ withFrame __Rect_ r color __Colr_ c ___
+_VD    setFrameSizePinnedToTopLeft __Size_ z ___
 
 @end
 
@@ -29,13 +33,13 @@ _NA                CAL * grid;
 
 @interface NSTableRowView (AtoZ)
 
-@prop_RO   NSC * colorForAlternation;
+_RO  NSC * colorForAlternation;
 @prop_     NSC * color,
                * altColor;
-@prop_RO  BOOL   isAlternate;
-@prop_RO    id   object;
-@prop_RO  NSUI   index;
-@prop_RO  NSOV * enclosingView;
+_RO BOOL   isAlternate;
+_RO   id   object;
+_RO NSUI   index;
+_RO NSOV * enclosingView;
 @end
 
 @interface 		ImageTextCell : NSTableCellView

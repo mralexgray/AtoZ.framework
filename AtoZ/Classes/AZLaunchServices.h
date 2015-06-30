@@ -10,7 +10,7 @@ extern CFStringRef  kLSSharedFileListFavoriteVolumes,         kLSSharedFileListF
                     kLSSharedFileListRecentServerItems,       kLSSharedFileListSessionLoginItems,
                     kLSSharedFileListGlobalLoginItems;
 
-JREnumDeclare(AZItemsViewFormat, AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames);
+_EnumKind(AZItemsViewFormat, AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames);
 
 AZNSIFACEDECL(AZLaunchServices)
 

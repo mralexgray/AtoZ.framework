@@ -18,11 +18,11 @@
 //- (id) initWithPoint:(NSP)pt;
 //- (id) initWithX:		(CGF)x y:(CGF)y;
 //
-//@prop_RO CGP cgpoint;
+//_ROCGP cgpoint;
 //@property (ASS) NSP point;
 @property (ASS) CGF x, y;
 //
-//@prop_RO CGF min, max;
+//_ROCGF min, max;
 //
 //- (id) moveTo:(id) object;
 //

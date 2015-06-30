@@ -15,15 +15,15 @@ _NA BOOL debug, needsDisplay;
 _NA    CGF cornerRadius,   // Rounded corners by this amount.  Defaults to 5.
                 handleInset;    // How big are the "hot" edges?   Defaults to 30.
 
-@prop_RO  AZPOS screenEdge,
+_RO AZPOS screenEdge,
                 mouseEdge;
 
-@prop_RO    NSP mouseLocation; /* AOK ... Updates coordinates, in win's bounds whenever mouse moves inside.  */
+_RO   NSP mouseLocation; /* AOK ... Updates coordinates, in win's bounds whenever mouse moves inside.  */
 
-@prop_RO    NSR mouseEdgeRect,
+_RO   NSR mouseEdgeRect,
                 snappedRect;
 
-@prop_RO   BOOL isOnEdge,
+_RO  BOOL isOnEdge,
                 isDragging,
                 isResizing,
                 isClicked,
@@ -36,9 +36,9 @@ _NA    CGF cornerRadius,   // Rounded corners by this amount.  Defaults to 5.
 
 @interface AZMagneticEdgeWindow : AZBorderlessResizeWindow
 _NA   NSSZ   fullSize;
-@prop_RO AZRect * inFrame,
+_RO AZRect * inFrame,
                 * outFrame;
-@prop_RO   CRNR   outsideCorners;
+_RO  CRNR   outsideCorners;
 @end
 
 typedef void (^WindowFrameChange)(id owner, AZBorderlessResizeWindow * w);

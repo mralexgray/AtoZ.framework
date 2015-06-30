@@ -20,8 +20,8 @@
 @property (NA)  		AZOrient		oreo;
 
 @property (UNSF) id <CAScrollViewDelegate>  delegate;
-@prop_RO CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
-@prop_RO NSUI  sublayerCt;
+_RO CGF 	firstLaySpan, sublayerOrig, sublayerSpan, lastLaySpan, superBounds, lastLayOrig;
+_RO NSUI  sublayerCt;
 
 - (IBAction)toggleOrientation _ O ___
                               

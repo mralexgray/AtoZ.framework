@@ -52,7 +52,7 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
   NSIMG *newImg =
       [self imageWithSize:s named:@"AtoZNSImageDrawBlockImageWithFrame"];
   [newImg lockFocus];
-  CLANG_IGNORE(-Wunused - value) blk(originRect);
+  CLANG_IGNORE(-Wunused-value) blk(originRect);
   CLANG_POP;
   [newImg unlockFocus];
   return newImg;
@@ -738,7 +738,7 @@ static NSMutableIndexSet *namedMonos;
       }];
     })); return monos; }
 
-#pragma TODO - NEED to make this shit dynamic , keysubbed, etc.
+#pragma mark - TODO - NEED to make this shit dynamic , keysubbed, etc.
 
 + _Pict_ missing { return [self imageNamed:@"missing.png"]; }
 

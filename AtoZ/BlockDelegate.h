@@ -8,15 +8,16 @@
 + (void)     swapToContextRef:(CGContextRef)ctx      do:(VBlk)shit;
 @end
 
-JREnumDeclare( BlockDelegateType,	
-  UndefinedBlockDelegate    = 0x00000000,
-  CABlockTypeDrawBlock      = 0x00000001, 
-  CABlockTypeDrawInContext  = 0x00000010,
-  CABlockTypeLayoutBlock    = 0x00000100, 
-  CABlockTypeLayerAction    = 0x00001000,
-  CABlockTypeAniStart       = 0x00010000, 
-  CABlockTypeAniComplete    = 0x00100000,
-  KVOChangeBlock            = 0x11111111,
+Ⅲ (BlockDelegateType,
+
+      UndefinedBlockDelegate    = 0x00000000,
+      CABlockTypeDrawBlock      = 0x00000001,
+      CABlockTypeDrawInContext  = 0x00000010,
+      CABlockTypeLayoutBlock    = 0x00000100, 
+      CABlockTypeLayerAction    = 0x00001000,
+      CABlockTypeAniStart       = 0x00010000, 
+      CABlockTypeAniComplete    = 0x00100000,
+      KVOChangeBlock            = 0x11111111,
 );
 
 typedef void(^KVOB)       (id o, NSS *kp, NSD *x);    // KVOChangeBlock         
@@ -53,7 +54,7 @@ typedef  ACT(^CABACTION)  (CAL *l, NSS *k);           // CABlockTypeLayerAction
              drawnUsingBlock:(LayerCTXBlock)drawBlock;
 @end
 
-//@prop_RO NSString * delegateDescription;
+//_RONSString * delegateDescription;
 
 @interface BlockDelegate : NSO
 /*	Determines the delegate type, generates an instance, saves itself as property on layer, declares itself as layers delegate, or layoutmanager, etc.  calls setneeds.... blah blah.
@@ -138,7 +139,7 @@ typedef void(^OutlineViewSelectionDidChangeBlock)(NSOV * ov);
 @property (CP,NA) void(^textDidChange)(NSText*);
 @end
 
-JREnumDeclare( NSOVBlockDelegate,  NSOVBlockDelegateDisclosureTriangle,
+_EnumKind( NSOVBlockDelegate,  NSOVBlockDelegateDisclosureTriangle,
                                       NSOVBlockDelegateGroup,
                                       NSOVBlockDelegateRowViewForItem )
 

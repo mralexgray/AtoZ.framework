@@ -32,7 +32,7 @@ void			NSLogPostLog(char* file, int line);
 @property (STR)		NSFileHandle	*fileHandle;
 
 @property (assign)	unsigned long long	fileOffset;
-@prop_RO 	NSA 				*classes;
+_RO 	NSA 				*classes;
 @property (STR)		NSS				*windowTitle, *logPath;
 + (instancetype) sharedConsole __attribute__((const));;
 - (void) open ___

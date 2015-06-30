@@ -687,7 +687,7 @@ BOOL areSameThenDo(id a, id b, Blk doBlock) { BOOL same = Same(a, b); !same ?: d
  */
 
 
-static NSS *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
+static __unused NSS *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
 {
   while (*ptr == 'r' || *ptr == 'n' || *ptr == 'N' || *ptr == 'o' || *ptr == 'O' || *ptr == 'R' || *ptr == 'V')
     ptr++;
@@ -721,12 +721,12 @@ static NSS *FScriptObjectTemplateForEncodedObjCType(const char *ptr)
   //else if (strcmp(ptr,@encode(_Bool))               == 0) return @"";
    else                                                    return @"";
 }
-#define AZWindowPositionToString AZAlignToString
+#define AZWindowPositionToString AZAlign2Text
 
 //NSS * AZTypeOfValInBlock(NSString* (^)(void))blk {
 //	const char* typecod
 //}
-//		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPositionToString(*(AZWindowPosition *)value)
+//		   : SameChar( typeCode, @encode( AZPOS )) ? AZWindowPosition2Text(*(AZWindowPosition *)value)
 
 NSS * bitString(NSUInteger mask) {
   NSS *str = @"";									 // Prepend "0" or "1", depending on the bit
@@ -2415,7 +2415,7 @@ static int runforpath(const char *path) {
 		: EXIT_FAILURE;
 }
 
-static void logpath(unsigned depth, const char *name) {
+static __unused void logpath(unsigned depth, const char *name) {
   for (unsigned d = 0; d < depth; ++d) fputc('\t', stdout);
   printf("%s\n", name);
 }

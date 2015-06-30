@@ -1,7 +1,7 @@
 
 #define CRNR OSCornerType
 
-JREnumDeclare(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
+_EnumKind(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
                               NSWindowResizeTopRightCorner    = 2,
                               NSWindowResizeBottomRightCorner = 3,
                               NSWindowResizeBottomLeftCorner  = 4);
@@ -85,7 +85,7 @@ _RO CGF   heightOfTitleBar, toolbarHeight;
 
 + desktopWindow;
 
-@prop_RO CAL* veilLayer;
+_RO CAL* veilLayer;
 - (CAL*) veilLayerForView:(NSV*)view;
 
 - (void) addViewToTitleBar:	(NSV*)viewToAdd atXPosition:(CGFloat)x;
@@ -183,8 +183,8 @@ _RO CGF   heightOfTitleBar, toolbarHeight;
 
 @end
 //- (void) setFrame:(NSR)frame;
-//@prop_RO NSR   bounds;
-//@prop_RO CGF   originX, originY;
+//_RONSR   bounds;
+//_ROCGF   originX, originY;
 // Size
 //@property (nonatomic) CGF width;
 //@property (nonatomic) CGF height;

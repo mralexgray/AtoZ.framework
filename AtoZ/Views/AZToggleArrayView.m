@@ -361,7 +361,7 @@ NSString *const AZToggleState		= @"AZToggleState";
 @interface AZToggleControlLayer ()
 @property (NA,STR)	CAL		*thumbLayer, 		*onBackLayer,		*offBackLayer;
 @property (NA,STR)	CATXTL 	*onTextLayer, 		*offTextLayer;
-@prop_RO CGF 				contentsHeight;
+_RO CGF 				contentsHeight;
 @end
 
 @implementation AZToggleControlLayer

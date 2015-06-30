@@ -57,13 +57,13 @@
 - (void) endEvent:(NSE*)e
 {
 	_hit = (AZLayer*)[_content hitTest:[self.contentView convertPoint:e.locationInWindow fromView:nil] forClass:[AZLayer class]] ?: nil;
-	if (_semiResponder  && respondsToString(_semiResponder, @"logString:")) [_semiResponder logString:_hit.debugDescription];//, AZString(e.locationInWindow)];
+	if (_semiResponder  && responds2Text(_semiResponder, @"logString:")) [_semiResponder logString:_hit.debugDescription];//, AZString(e.locationInWindow)];
 	if (_hit) [_hit setBool:YES forKey:@"hovered"];
 	////	_noHit = NSPointInRect(where, _inactiveRect);
 	switch (e.type)  {
 		case NSLeftMouseDown: {
 			if (_semiResponder)
-				if (respondsToString(_semiResponder, @"windowEvent:")) [_semiResponder windowEvent:e];
+				if (responds2Text(_semiResponder, @"windowEvent:")) [_semiResponder windowEvent:e];
 			if (_hit) {
 				[_hit setBool: YES forKey:@"selecte"];
 				[self setIgnoresMouseEvents:NO];

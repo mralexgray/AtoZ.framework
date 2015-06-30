@@ -82,7 +82,7 @@
 #define	SHARED_TEXT_REGION_SIZE		0x10000000
 #define	SHARED_DATA_REGION_SIZE		0x10000000
 
-JREnumDefine(AZProcessState);
+_EnumPlan(AZProcessState);
 
 static unsigned global_shared_text_segment, shared_data_region_size, shared_text_region_size;
 static int argument_buffer_size, major_version, minor_version, update_version;

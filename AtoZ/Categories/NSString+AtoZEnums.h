@@ -168,7 +168,7 @@ ENUM_TYPENAME ENUM_TYPENAME##
 	typedef NS_OPTIONS(NSUInteger, ENUM_TYPENAME) { ENUM_CONSTANTS	};									\
 	extern NSDictionary* ENUM_TYPENAME##ByValue();  														\
 	extern NSDictionary* ENUM_TYPENAME##ByLabel(); 															\
-	extern NSString* ENUM_TYPENAME##ToString(int enumValue);												\
+	extern NSString* ENUM_TYPENAME##2Text(int enumValue);												\
 	extern BOOL ENUM_TYPENAME##FromString(NSString *enumLabel, ENUM_TYPENAME *enumValue);   	\
 	static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS;
 
@@ -212,7 +212,7 @@ NSNumber *value = valueString ? [NSNumber numberWithInt:aNumericValue] 							\
 			[result setObject:(NSNumber*)constants[i+1] forKey:(NSString*)constants[i]];							\
 		return result;	  																  												\
 	}	  																  																	\
-	NSString* ENUM_TYPENAME##ToString(int enumValue) {	  																	\
+	NSString* ENUM_TYPENAME##2Text(int enumValue) {	  																	\
 		NSString *result = [ENUM_TYPENAME##ByValue() objectForKey:[NSNumber numberWithInt:enumValue]];		\
 		return result ?: [NSString stringWithFormat:@"<unknown "#ENUM_TYPENAME": %d>", enumValue];			\
 	}	  																  																	\
@@ -246,7 +246,7 @@ _JREnum_GenerateImplementation(ENUM_TYPENAME)
 
 extern NSDictionary* ENUM_TYPENAME##ByValue();  \
 extern NSDictionary* ENUM_TYPENAME##ByLabel();  \
-extern NSString* ENUM_TYPENAME##ToString(int enumValue);    \
+extern NSString* ENUM_TYPENAME##2Text(int enumValue);    \
 extern BOOL ENUM_TYPENAME##FromString(NSString *enumLabel, ENUM_TYPENAME *enumValue);   \
 static NSString *_##ENUM_TYPENAME##_constants_string = @"" #ENUM_CONSTANTS;
 
@@ -264,7 +264,7 @@ NSString *kViewMaxYMargin = @"kViewMaxYMargin";
 //--
 
 
-#define JREnumDefine(ENUM_TYPENAME) \
+#define _EnumPlan(ENUM_TYPENAME) \
 _JREnum_GenerateImplementation(ENUM_TYPENAME)
 
 //--
@@ -309,7 +309,7 @@ NSNumber *value = [constants objectAtIndex:i+1];	\
 return result;	\
 }	\
 \
-NSString* ENUM_TYPENAME##ToString(int enumValue) {	\
+NSString* ENUM_TYPENAME##2Text(int enumValue) {	\
 NSString *result = [ENUM_TYPENAME##ByValue() objectForKey:[NSNumber numberWithInt:enumValue]];	\
 if (!result) {	\
 result = [NSString stringWithFormat:@"<unknown "#ENUM_TYPENAME": %d>", enumValue];	\

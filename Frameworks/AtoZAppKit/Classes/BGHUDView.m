@@ -17,7 +17,7 @@ NSString *const RedrawContext = @"RedrawContext";
 //		return self;//	}();
 
 - (id)initWithFrame:(NSRect)frame {
-	if (self != [super initWithFrame:frame] ) return nil;
+	if (!(self = [super initWithFrame:frame] )) return nil;
 	_themeKey 		= @"AZFlatTheme";//@"gradientTheme";
 //	_useTheme 		=  _flipGradient 	= YES;
 	_borderColor 	= NSColor.blackColor;
@@ -29,7 +29,7 @@ NSString *const RedrawContext = @"RedrawContext";
 
 - (id)initWithCoder:(NSCoder *)aDecoder {  // This occurs, for realsies when using bghud.
 
-	if (self != [super initWithCoder:aDecoder] ) return nil;
+	if (!(self = [super initWithCoder:aDecoder] )) return nil;
 //	[@[@"themeKey", @"borderColor", @"shadowColor", @"color1"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 //		[aCoder encodeObject:[self valueForKey:obj] forKey:obj]; }];
 //	@"useTheme",

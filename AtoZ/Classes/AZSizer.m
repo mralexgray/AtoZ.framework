@@ -53,7 +53,7 @@
 - (NSS*) description {
 
 	return $(@"Orient:%@, Frame:%@, Q:%ld, R:%ld C:%ld, SZ:%@",
-		AZOrientToString(_orient), AZString(_outerFrame), _quantity,_rows,_columns, AZString(self.size));
+		AZOrient2Text(_orient), AZString(_outerFrame), _quantity,_rows,_columns, AZString(self.size));
 }
 
 

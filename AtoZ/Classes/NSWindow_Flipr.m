@@ -195,7 +195,7 @@
 }
 
 typedef int64_t timestamp_t;
-static inline timestamp_t getUpTime(void)
+static inline __unused timestamp_t getUpTime(void)
 {
   static mach_timebase_info_data_t s_timebase_info;
   if (s_timebase_info.denom == 0) (void) mach_timebase_info(&s_timebase_info);

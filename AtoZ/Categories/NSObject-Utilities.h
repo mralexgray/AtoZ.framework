@@ -160,7 +160,7 @@
 
 /// Access to object essentials for run-time checks. Stored by class in dictionary.
 
-@prop_RO NSD * protocols,
+_RO NSD * protocols,
                       * selectors,
                       * properties,
                       * ivars;

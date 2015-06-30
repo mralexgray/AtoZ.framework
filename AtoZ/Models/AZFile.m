@@ -264,11 +264,11 @@
 
 //@property (nonatomic, retain) NSMutableArray *paths;
 @property (nonatomic, retain) NSMA *backingstore;
-//@prop_RO NSUI count;
-//@prop_RO NSA *files;
-//@prop_RO NSA *folders;
-@prop_RO NSA *appFolder;
-//@prop_RO NSA *categories;
+//_RONSUI count;
+//_RO NSA *files;
+//_RO NSA *folders;
+_RO NSA *appFolder;
+//_RO NSA *categories;
 @end
 
 @implementation AZFolder

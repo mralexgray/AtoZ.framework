@@ -109,7 +109,7 @@
     [rect lineToPoint:NSMakePoint(origin.x-8, origin.y+height)];
     [rect lineToPoint:origin];
     
-    return rect;
+    return [rect copy];
 }
 
 -(void)drawStripesInBounds:(NSRect)frame {

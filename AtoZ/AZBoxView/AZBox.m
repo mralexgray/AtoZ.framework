@@ -1,7 +1,7 @@
 #import "AZBox.h"
 #import <AtoZ/AtoZ.h>
 @interface AZBox ()
-@prop_RO float dynamicStroke;
+_RO float dynamicStroke;
 @end
 
 @implementation AZBox

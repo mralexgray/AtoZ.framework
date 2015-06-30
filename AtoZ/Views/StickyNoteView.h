@@ -3,7 +3,7 @@
 
 #import "StickyNoteView2.h"
 
-JREnumDeclare(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggingModeNone);
+_EnumKind(AZDraggingMode, AZDraggingModeMove, AZDraggingModeResize, AZDraggingModeNone);
 
 @class StickyNote;
 

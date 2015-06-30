@@ -35,8 +35,8 @@
 								  	backing:bufferingType
 									  defer:deferCreation])) return nil;
 
-	self.eventViews = [NSHashTable hashTableWithWeakObjects];
-	self.contentV = [[AZContentView alloc]initWithFrame:contentRect];
+	self.eventViews = NSHashTable.hashTableWithWeakObjects;
+	self.contentV = [AZContentView.alloc initWithFrame:contentRect];
 	return self;
 }
 

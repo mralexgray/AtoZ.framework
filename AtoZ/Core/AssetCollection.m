@@ -2,7 +2,7 @@
 #import <AtoZ/AtoZ.h>
 #import "AssetCollection.h"
 
-JREnumDefine(AssetType);
+_EnumPlan(AssetType);
 
 static NSArray* extensionsForAssetType(AssetType type) {
  return   type == AssetTypeBASH   ? @[@"sh"]

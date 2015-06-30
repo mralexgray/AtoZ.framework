@@ -4,7 +4,7 @@
 
 #define AZSCROLLER_HEIGHT 50.0 // The default height
 
-//JREnumDeclare(AZScrollerMouseDownInput,
+//_EnumKind(AZScrollerMouseDownInput,
 
 typedef NS_OPTIONS(NSUI, AZScrollerMouseDownInput) {
   AZNoInput = 1 << 1,

@@ -19,7 +19,7 @@
 
 @property (ASS) CGF 	width, height;
 @property (ASS) NSSZ size;
-@prop_RO CGF wthRatio, min,	max;
+_RO CGF wthRatio, min,	max;
 
 - (id) growBy:		 (id) object;
 - (id) growByWidth:(CGF)width height:(CGF)height;

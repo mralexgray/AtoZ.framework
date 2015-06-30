@@ -84,7 +84,7 @@
 - (INST)   initWithContentsOfURL:(NSU*)url;
 
 @property (RO,CP)                    NSS * name;
-@prop_RO                       NSU * url;
+_RO                      NSU * url;
 @property (RO,getter = isPlaying)   BOOL   playing;
 @property (NA,getter = isLooping)   BOOL   looping;
 @property (NA,CP) SoundCompletionHandler   completionHandler;

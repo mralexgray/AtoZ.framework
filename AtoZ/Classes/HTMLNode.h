@@ -9,7 +9,7 @@
 #define               EL_TYPE HTMLNodeType
 #define                    EL HTMLNode
 
-JREnumDeclare( HTMLNodeType,  HTMLHrefNode,   HTMLTextNode,   HTMLUnkownNode,
+_EnumKind( HTMLNodeType,  HTMLHrefNode,   HTMLTextNode,   HTMLUnkownNode,
                      HTMLCodeNode,   HTMLSpanNode,        HTMLPNode,
                        HTMLLiNode,     HTMLUlNode,     HTMLImageNode,
                        HTMLOlNode,  HTMLStrongNode, HTMLPreNode,
@@ -18,17 +18,17 @@ JREnumDeclare( HTMLNodeType,  HTMLHrefNode,   HTMLTextNode,   HTMLUnkownNode,
 
 + (INST) instanceWithXMLNode:(void*)xmlNode;
 
-@prop_RO      NSS * contents,         // plaintext contents of node
+_RO     NSS * contents,         // plaintext contents of node
                   * allContents,      // plaintext contents of this node + all children
                   * rawContents,      // html contents of the node
                   * className;
-@prop_RO HTMLNode * firstChild,       // the first child element
+_RO HTMLNode * firstChild,       // the first child element
                   * nextSibling,      // next sibling in tree
                   * previousSibling,  // previous sibling in tree
                   * tagName,
                   * parent;
-@prop_RO      NSA * children;         // the first level of children
-@prop_RO  EL_TYPE   nodetype;         // if known
+_RO     NSA * children;         // the first level of children
+_RO EL_TYPE   nodetype;         // if known
 
 #pragma mark - Single node finders
 

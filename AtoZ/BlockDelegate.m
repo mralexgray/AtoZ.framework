@@ -19,8 +19,8 @@
 }
 @end
 
-JREnumDefine(BlockDelegateType);
-JREnumDefine(NSOVBlockDelegate);
+_EnumPlan(BlockDelegateType);
+_EnumPlan(NSOVBlockDelegate);
 
 //static NSMD *delegations = nil;
 
@@ -71,7 +71,7 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
     if (t & (CABlockTypeDrawBlock|CABlockTypeAniComplete|CABlockTypeLayerAction) && !![(CAL*)x delegate])
       NSLog(@"WARNING*****  Reluctantly willing to override layer (%@)'s previous delegate: %@!", x, [(CAL*)x delegate]);
 
-    if (ISA(x,CAL)) bdel.layer = x; bdel.owner = x;  [bdel sV:blk fK:BlockDelegateTypeToString(t)];
+    if (ISA(x,CAL)) bdel.layer = x; bdel.owner = x;  [bdel sV:blk fK:BlockDelegateType2Text(t)];
     t & (CABlockTypeDrawBlock|CABlockTypeDrawInContext|CABlockTypeAniComplete|CABlockTypeLayerAction) ? ({
 
       [(CAL*)x setDelegate:(id)bdel]; [x setNeedsDisplay]; NSAssert(!![(CAL*)x delegate], @"nil");
@@ -114,7 +114,7 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
 - (void) animationDidStop:  (CAAnimation*)theAnimation
 								 finished:				(BOOL)flag 					{ AZLOGCMD;
 
-	NSLog(@"Block delagate, reporting for duty. Type: %@", BlockDelegateTypeToString(CABlockTypeAniComplete));
+	NSLog(@"Block delagate, reporting for duty. Type: %@", BlockDelegateType2Text(CABlockTypeAniComplete));
 	_CABlockTypeAniComplete ? _CABlockTypeAniComplete	(_layer,flag, theAnimation) : nil;
 
 	//	[[delegations valueForKeyPath:@"aniComplete"] each:^(id sender) { sender ? ((aniComplete)sender)(flag, theAnimation) : nil;	}];
@@ -140,7 +140,7 @@ SYNTHESIZE_ASC_OBJ(blockDelegate, setBlockDelegate);
 - (void)      setLayoutBlock:(LayerBlock)blk    {	[BlockDelegate delegateFor:self ofType:CABlockTypeLayoutBlock withBlock:blk]; }
 - (void)    setAniStartBlock:(CABANIS)blk       { [self addDelegate:CABlockTypeAniStart block:blk]; }
 
-//- (NSString*) delegateDescription {  return CABlockTypeToString(self.blockDelegate.blockType); }
+//- (NSString*) delegateDescription {  return CABlockType2Text(self.blockDelegate.blockType); }
 //- (BlockDelegate*) blockDelegate {   return [self vFK:@"blockDelegate"]; }
 
 + (CAL*) layerWithFrame:(NSR)f drawnUsingBlock:(void(^)(CAL*,CGCREF))drawBlock {

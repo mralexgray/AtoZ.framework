@@ -26,8 +26,8 @@
 @property (NA,ASS)  NSSZ minimumSegmentSize;
 @property (NA,ASS)  NSSZ maximumSegmentSize;
 
-@prop_RO  NSUI segmentCount;
-@prop_RO  NSSZ 	 segmentSize;
+_RO NSUI segmentCount;
+_RO NSSZ 	 segmentSize;
 
 - (id) setCubicSize:	  (NSUInteger) size;
 - (id) setDimensionWidth: (NSUInteger) width 	height: (NSUInteger) height;

@@ -5,7 +5,7 @@
 #import <AtoZ/AtoZ.h>
 #import "AZLaunchServices.h"
 
-JREnumDefine(AZItemsViewFormat);
+_EnumPlan(AZItemsViewFormat);
 
 NSString * CoercePlist (NSString* path) {
 

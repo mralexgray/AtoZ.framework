@@ -142,7 +142,7 @@
 
 //  AZLOG([NSThread  callStackSymbols]);
 
-  XX(AZEventToString(e.type));
+  XX(AZEvent2Text(e.type));
 
   switch (e.type) {
     case NSMouseMoved:    if (self.isHovered || self.isOnEdge) [self setPoint:self.view.windowPoint forKey:@"mouseLocation"]; break;
@@ -180,7 +180,7 @@
 
 @implementation AZMagneticEdgeWindow
 
-#pragma FIX - this looks clean, what happened?
+#pragma mark - FIX - this looks clean, what happened?
 
 + (NSD*) codableProperties { return [super.codableProperties dictionaryWithValue:@"AZRect" forKeys:@[@"outFrame", @"inFrame"]]; }
 + (NSSet*) keyPathsForValuesAffectingValueForKey:(NSS*)k {
@@ -423,7 +423,7 @@ static NSR screenFrame, windowFrame;
   return [NSSet setWithObjects:@"mouseLocation",@"mouseOnEdge",nil]; }
 
 - (AZPOS) activeEdge { AZPOS edge = AZPosOfPointInInsetRects(_mouseLocation,self.contentRect,AZSizeFromDim(_edgeInset));
-  NSLog(@"%@ %@", NSStringFromPoint(_mouseLocation), AZWindowPositionToString(edge));
+  NSLog(@"%@ %@", NSStringFromPoint(_mouseLocation), AZWindowPosition2Text(edge));
   return edge;
 }
 
@@ -485,10 +485,10 @@ static NSR screenFrame, windowFrame;
 //  resizing:{7|if:YES;NO}",
 //
 //  AZString(self.mouseLocation),         /  0 * /   AZString(self.edgeRect),  / * 1 * /
-//  AZPositionToString(self.activeEdge),  / * 2 * /   self.mouseOver,           / * 3 * /
+//  AZPosition2Text(self.activeEdge),  / * 2 * /   self.mouseOver,           / * 3 * /
 //  self.mouseDown,                       / * 4 * /   self.mouseOnEdge,         / * 5 * /
 //  self.dragging,                        / * 6 * /   self.resizing,             / * 7 * /
-//  AZPositionToString(self.insideEdge)   / * 8 * /   );
+//  AZPosition2Text(self.insideEdge)   / * 8 * /   );
 
 //- (void) setIsVisible:(BOOL)v { self.animator.alphaValue = (super.isVisible = v) ? 1. : 0.; }
 

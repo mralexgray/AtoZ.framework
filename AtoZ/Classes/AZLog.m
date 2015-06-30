@@ -16,7 +16,7 @@
 - (void) log { NSLog(@"%@",self);  } // return (void*)nil; }
 @end
 
-JREnumDefine ( LogEnv );
+_EnumPlan( LogEnv );
 
 //@interface AtoZLumberLog() <DDLogFormatter> @end
 
@@ -151,7 +151,7 @@ void QuietLog  (NSS*fmt,...)	{	va_list argList; va_start(argList, fmt);
 
   azva_iterate_list(colorsAndThings, sort);
 
-  if (!words.count)   ({ printf( "WARNING, NO WORDS TO PRINT: %s", pretty); return; });
+  if (!words.count)   { printf( "WARNING, NO WORDS TO PRINT: %s", pretty); return; }
   if (!colors.count)  colors = RANDOMPAL.mutableCopy;
 
   [words addObject:zNL];
@@ -213,7 +213,7 @@ void QuietLog  (NSS*fmt,...)	{	va_list argList; va_start(argList, fmt);
 
 #pragma mark - Properties
 
-JREnum(zLoggingTo,
+_Enum(zLoggingTo,
     kLoggingToOther,
     kLoggingToFile,
     kLoggingToTTY,
@@ -232,22 +232,22 @@ JREnum(zLoggingTo,
       if( isatty(fd) ) {
           const char *xcode_colors = getenv("XcodeColors");
           if (xcode_colors && (strcmp(xcode_colors, "YES") == 0))
-              return zLoggingToToString(kLoggingToColorXcode);
+              return zLoggingTo2Text(kLoggingToColorXcode);
 
           const char *term = getenv("TERM");
           if( term && (strstr(term,"ANSI") || strstr(term,"ansi") || strstr(term,"color")) )
-              return zLoggingToToString(kLoggingToColorTTY);
+              return zLoggingTo2Text(kLoggingToColorTTY);
           else
-              return zLoggingToToString(kLoggingToTTY);
+              return zLoggingTo2Text(kLoggingToTTY);
         } else {
   #if GNUSTEP
-          return zLoggingToToString(kLoggingToFile);
+          return zLoggingTo2Text(kLoggingToFile);
   #else
           char path[MAXPATHLEN];
           if( fcntl(fd, F_GETPATH, path) == 0 )
-              return zLoggingToToString(kLoggingToFile);
+              return zLoggingTo2Text(kLoggingToFile);
           else
-              return zLoggingToToString(kLoggingToOther);
+              return zLoggingTo2Text(kLoggingToOther);
   #endif
         }
   }());
@@ -267,7 +267,7 @@ JREnum(zLoggingTo,
 //  : [term contains:@"color"]								? LogEnvTTYColor
 //  : LogEnvTTY : LogEnvError;  //: LogEnvUnknown
 //
-//  JATLog(@"LOGENV:{0} isXcode:{isXcode} term:{term}", LogEnvToString(_logEnv), isXcode, term);
+//  JATLog(@"LOGENV:{0} isXcode:{isXcode} term:{term}", LogEnv2Text(_logEnv), isXcode, term);
 //
 //  return _logEnv;
 //}

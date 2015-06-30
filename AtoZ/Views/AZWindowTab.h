@@ -4,16 +4,16 @@
 
 
 @interface AZTabView   : AZSimpleView
-@prop_RO NSAS *string;
+_RO NSAS *string;
 @end
 
 @interface AZWindowTab : CAWindow
 
-@prop_RO AZTabView * handle;
+_RO AZTabView * handle;
 _NA       AZR * inFrame, * outFrame, * grabRect, * outerRect;
 _NA      NSSZ   inSize,
                      outSize;
-@prop_RO OSCornerType 	outsideCorners;
+_RO OSCornerType 	outsideCorners;
 
 @property CGP offset;
 - (id)initWithView:(NSV *)v orClass:(Class)k frame:(NSR)r;

@@ -10,10 +10,10 @@
 @property (NA) iCarouselType cType;
 @property (NA) CGF 	fontSize;
 @property (NA) NSUI 	iconStyle, 	selectedIndex, 	tilt;
-@prop_RO NSRNG selectedRange;
+_RO NSRNG selectedRange;
 @property (NA, STR) NSS 		*activeMenuID,	*activeTrackID;
 @property (NA, STR) NSD 		*windowLog;
-@prop_RO 			 NSA 		*menus, 			*tracks;
+_RO 			 NSA 		*menus, 			*tracks;
 
 @property (NA) Option option;
 @property (UNSF) id refToSelf;

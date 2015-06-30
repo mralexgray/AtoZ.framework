@@ -21,8 +21,8 @@
  	[_grid drawRect:rect];
 */
 
-JREnumDeclare( AZGridStyle, AZGridStyleCompact, AZGridStyleHorizontal, AZGridStyleVertical );
-JREnumDeclare( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
+_EnumKind( AZGridStyle, AZGridStyleCompact, AZGridStyleHorizontal, AZGridStyleVertical );
+_EnumKind( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
 
 @class AZPoint, AZSize, AZRect, AZMatrix;
 
@@ -49,8 +49,8 @@ JREnumDeclare( AZGridOrder, AZGridOrderRowMajor, AZGridOrderColumnMajor);
 -    (id) initWithCapacity:(NSUInteger)numItems;
 
 @property (UNSF,RO) AZSize* size;
-@prop_RO NSUI count;
-@prop_RO CGF width, height, min, max;
+_RO NSUI count;
+_RO CGF width, height, min, max;
 
 @property (ASS) NSUI parallels, order, style;
 

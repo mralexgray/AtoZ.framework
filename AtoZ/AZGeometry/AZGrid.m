@@ -10,8 +10,8 @@
 #import <AtoZ/AtoZ.h>
 #import "AZBlockView.h"
 
-JREnumDefine(AZGridStyle);
-JREnumDefine(AZGridOrder);
+_EnumPlan(AZGridStyle);
+_EnumPlan(AZGridOrder);
 
 @interface AZGrid ()
 - (void) _init;

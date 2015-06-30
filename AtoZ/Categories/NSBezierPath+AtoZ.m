@@ -890,7 +890,7 @@ CGF AZAlignToAngle(AZAlign a) { return  a == AZAlignBottom ? 90 : a == AZAlignTo
 extern CGPathRef CGContextCopyPath(CGContextRef context);
 #endif
 
-static void CGPathCallback(void *info, const CGPathElement *element) {
+static __unused void CGPathCallback(void *info, const CGPathElement *element) {
   NSBezierPath *path = (__bridge NSBezierPath *)info;
   CGPoint *points = element->points;
 

@@ -65,7 +65,7 @@
 	if([self arrowsPosition] == NSScrollerArrowsDefaultSetting) {
 		
 		arrowPosition = [[[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain] valueForKey: @"AppleScrollBarVariant"];
-		
+
 		
 		if(arrowPosition == nil) {
 			

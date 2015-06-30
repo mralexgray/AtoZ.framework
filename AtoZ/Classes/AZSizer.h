@@ -20,11 +20,11 @@ NS_INLINE NSI gcdr ( NSI a, NSI b ){ if ( a==0 ) return b; return gcdr ( b%a, a 
 - (NSR)	 	 rectForPoint: (NSP)point;
 
 
-@prop_RO NSUI	rows, columns, capacity;
-@prop_RO NSI	remainder;
-@prop_RO CGF 	width, height;
-@prop_RO NSSZ	size;
-@prop_RO NSS	*aspectRatio;
+_RO NSUI	rows, columns, capacity;
+_RO NSI	remainder;
+_RO CGF 	width, height;
+_RO NSSZ	size;
+_RO NSS	*aspectRatio;
 
 @property (NA) AZOrient		orient;
 @property (NA) NSR		  outerFrame;
@@ -35,7 +35,7 @@ AZPROP (NSA, rects);
 
 @end
 
-//@prop_RO 	NSA 	*paths, 	*boxes;
+//_RO	NSA 	*paths, 	*boxes;
 
 
 NSR 						AZRectForItemsWithColumns	( NSA    *items, NSUI cols );

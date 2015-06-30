@@ -35,11 +35,11 @@ extern NSString * const custCSS,
 #define LIVEQUERY						@"http://mrgray.com/js/jquery.livequery.js"
 
 
-@protocol  AZJS                   @prop_RO NSS * stringValue; @end
+@protocol  AZJS                   _RO _Text stringValue; @end
 
-@interface AZJS : NSString <AZJS> @prop_RO NSS * description; @end
+@interface AZJS : NSString <AZJS> _RO _Text description; @end
 
-@interface        AZJSVar : AZJS   @prop_CP NSS * varName, * value;
+@interface        AZJSVar : AZJS   _CP _Text varName, value;
 
 + (instancetype) varNamed:(NSS*)nm value:(NSS*)val;           @end
 
@@ -66,7 +66,7 @@ extern NSString * const custCSS,
 
 - (void) writeDocReady:(id)a;
 
-@prop_RO NSMS * markup; - (void) preview;
+_RO NSMS * markup; - (void) preview;
 @end
 
 @class ASOCK;

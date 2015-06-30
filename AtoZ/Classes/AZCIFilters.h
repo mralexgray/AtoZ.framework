@@ -8,7 +8,7 @@
 
 
 @interface AZFilters : BaseModel
-@prop_RO NSA *filterNames;
+_RO NSA *filterNames;
 @end
 
 @interface AZIrisOpenFilter : CIFilter

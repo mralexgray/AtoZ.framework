@@ -37,7 +37,7 @@
 @interface AZObject : NSObject <NSCoding, NSCopying> //,NSFastEnumeration>
 + (INST) instanceWithKeysAndObjects:(NSS*)key1,...;
 @property id representedObject;
-@prop_RO NSA *keys;
+_RO NSA *keys;
 @end
 
 // Shared instance is the object modified after each key change

@@ -2,8 +2,8 @@
 #import "AZDebugLayer.h"
 
 @interface  AZDebugLayer ()
-@prop_RO CGF lineWidth;
-@prop_RO NSBP* path;
+_RO CGF lineWidth;
+_RO NSBP* path;
 @end
 
 @implementation AZDebugLayer @dynamic path, lineWidth;

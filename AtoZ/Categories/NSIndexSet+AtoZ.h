@@ -14,12 +14,12 @@
 + (INST) indexPathForIndex:(NSUI)idx inSection:(NSUI)x;
 + (INST) indexPathForSection:(NSUI)section;
 
-@prop_RO NSI index, section, row;
+_RO NSI index, section, row;
 
 #pragma mark - ESExtensions
 
-@prop_RO NSUI firstIndex, lastIndex;
-@prop_RO NSIP *indexPathByIncrementingLastIndex;
+_RO NSUI firstIndex, lastIndex;
+_RO NSIP *indexPathByIncrementingLastIndex;
 
 - (NSIP*) indexPathByReplacingIndexAtPosition:(NSUI)pos withIndex:(NSUI)idx;
 @end

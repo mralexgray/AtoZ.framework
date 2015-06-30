@@ -23,7 +23,7 @@
 @end
 
 @interface WeakMutableSet : NSMutableSet
-@prop_RO id firstObject;
+_RO id firstObject;
 @end
 
 @interface NSArray (WeakMutableFilter)

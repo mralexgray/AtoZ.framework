@@ -63,10 +63,10 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..
 
 @property (NA) NSI tag;
-@prop_RO NSIMG* captureFrame;
+_RO NSIMG* captureFrame;
 @property (NA) BOOL faded;
-@prop_RO NSA* visibleSubviews;
-@prop_RO CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
+_RO NSA* visibleSubviews;
+_RO CGF heightOfSubviews, widthOfSubviews, heightOfVisibleSubviews, widthOfVisibleSubviews;
 
 + (instancetype) viewBy:(NSN*)width,...;
 + (instancetype) viewWithFrame:(NSR)r;
@@ -91,8 +91,8 @@ typedef void (^viewFrameDidChangeBlock)(void);
 
 -(CALayer *)layerFromContents;
 
-@prop_RO NSBP *path;
-@prop_RO CGF maxDim, minDim;
+_RO NSBP *path;
+_RO CGF maxDim, minDim;
 
 - (NSV*) autosizeable;
 // setup 3d transform
@@ -130,12 +130,12 @@ _RO _Layr azLayer,
 
 - _Layr_ setupHostViewNamed:_Text_ name;
 
-@prop_RO NSA * allSubviews, *subviewsRecursive;
+_RO NSA * allSubviews, *subviewsRecursive;
 @property id firstSubview;
-@prop_RO id  lastSubview,  lastSplitPane, lastLastSubview;
+_RO id  lastSubview,  lastSplitPane, lastLastSubview;
 - (void) removeAllSubviews;
 
-@prop_RO NSIMG* snapshot;
+_RO NSIMG* snapshot;
 - (NSIMG*) snapshotFromRect:(NSR) sourceRect;
 - _IsIt_  requestFocus;
 - (NSTA*) trackFullView;
@@ -175,7 +175,7 @@ _RO _Layr azLayer,
 - (NSP) localPoint;
 - (NSP) windowPoint;
 
-@prop_RO CAL* hitTestLayer;
+_RO CAL* hitTestLayer;
 
 @end
 

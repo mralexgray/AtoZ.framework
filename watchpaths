@@ -8,7 +8,7 @@
 #FLAGS=''  #'-0 --event-flags --follow-links'
 INC=(
 '/a2Z/*'
-'/sd/dev/AtoZIO/*'
+'/sd/dev/IO/*'
 )
 EXC=(
 'xcuserdata'
@@ -31,7 +31,7 @@ echo "cmd is $CMD"
 
 while read line; do
 
-  [[ "$line" =~ "AtoZIO" ]] && PROJ=AtoZIO || \
+  [[ "$line" =~ "IO" ]] && PROJ=IO || \
   [[ "$line" =~ "AtoZ"   ]] && PROJ=AtoZ
 
   echo "ptoj: $PROJ  for $line"
@@ -117,7 +117,7 @@ installTouchFramework() {
 #   --event-flags --follow-links \
 #   --event-flag-separator "?" \
 #   -i /a2Z/** \
-#   -i /sd/dev/AtoZIO/** \
+#   -i /sd/dev/IO/** \
 #   -e xcuserdata \
 #   -e .git \
 #   | xargs -I{} $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSNetService (URL)
-@prop_RO NSURL *URL;
+_RO NSURL *URL;
 @end
 
 @interface AZBonjourBlock : NSArrayController <NSNetServiceBrowserDelegate, NSNetServiceDelegate>

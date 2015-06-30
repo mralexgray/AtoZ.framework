@@ -2,7 +2,7 @@
 #import "StickyNoteView.h"
 #import <QuartzCore/QuartzCore.h>
 
-JREnumDefine(AZDraggingMode)
+_EnumPlan(AZDraggingMode)
 
 @interface StickyNoteView ()
 - (void) _doubleMouse:(NSE*)theEvent;
@@ -77,7 +77,7 @@ JREnumDefine(AZDraggingMode)
 //							?	AZDraggingModeResize
 //							:	[self mouse:_eventStartPoint inRect:[self _closeButtonRectForCurrentFrame]]
 //							? 	AZDraggingModeNone :	AZDraggingModeMove;
-//	NSLog(@"DRAGMODE:%@", AZDraggingModeToString(_draggingMode));
+//	NSLog(@"DRAGMODE:%@", AZDraggingMode2Text(_draggingMode));
 }		
 - (void) setAlign:(AZWindowPosition)align{	CGF inset = 20;	NSRect normalRect, edger;
 	
@@ -92,7 +92,7 @@ JREnumDefine(AZDraggingMode)
 	//		NSR edgeRect = AZRectInsideRectOnEdge(edger, fillerRect, edgeD);
 		[_glowBar animate:@"frame" toRect:edger time:.8]; _glowBar.backgroundColor = cgRANDOMGRAY;
 		[_glowBar pulse];
-		NSLog(@"Align:%@ in:%@", AZWindowPositionToString(_align), AZStringFromRect(normalRect));
+		NSLog(@"Align:%@ in:%@", AZWindowPosition2Text(_align), AZStringFromRect(normalRect));
 		[self setFrame: normalRect];
 		[self.superview setNeedsDisplayInRect:normalRect];// NSUnionRect(origFrame, newFrame)];
 		_align = newpos;

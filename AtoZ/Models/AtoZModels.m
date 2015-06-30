@@ -2,7 +2,7 @@
 #import <AtoZ/AtoZ.h>
 #import <CoreServices/CoreServices.h>
 
-JREnumDefine(AZLexicon);
+_EnumPlan(AZLexicon);
 
 #define WikiTempl  @"http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryString=%@&MaxHits=1"
 #define DuckTempl  @"http://api.duckduckgo.com/?q=%@&format=json"
@@ -43,7 +43,7 @@ EXTEND(AZDefinition) @prop_ ASIHTTPRequest *requester; @end
 - (BOOL) fromTheWeb     { return _lexicon & AZLexiconFromTheWeb; }
 - (NSS*) formatted      { return $(@"According to %@, %@ is %@ %@",
 
-  [AZLexiconToString(_lexicon) substringAfter:@"AZLexicon"],
+  [AZLexicon2Text(_lexicon) substringAfter:@"AZLexicon"],
   _word           ?: @"warning: word not set!",
   self.definition     ?: @"undefined!",
   self.fromTheWeb ? @"(Results from the internet)" : @"" );
@@ -101,7 +101,7 @@ SetKPfVA(Definition, @"results");
 
 
           NSS* looker = _lexicon == AZLexiconAppleDictionary ? DCSOxfordDictionaryOfEnglish :
-          _lexicon == zDCSWikipediaDictionaryName ? [AZLexiconToString(zDCSWikipediaDictionaryName) substringFromIndex:1] :
+          _lexicon == zDCSWikipediaDictionaryName ? [AZLexicon2Text(zDCSWikipediaDictionaryName) substringFromIndex:1] :
           DCSOxfordThesaurusOfEnglish;
 
           XX(looker); XX(THIS_FILE);

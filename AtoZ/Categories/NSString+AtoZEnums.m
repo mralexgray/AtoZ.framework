@@ -176,7 +176,7 @@ static NSMutableDictionary *gAllEnums = nil;
 NS_INLINE NSString *getterKey(SEL sel) {    return [NSString stringWithUTF8String:sel_getName(sel)];	}
 // Generic accessor methods for property types id, double, and NSRect.
 static id getProperty(AZEnum *self, SEL name) {    return [self->_eProperties objectForKey:getterKey(name)];	}
-static SEL getSelProperty(AZEnum *self, SEL name) {    return NSSelectorFromString([self->_eProperties objectForKey:getterKey(name)]);	}
+static __unused SEL getSelProperty(AZEnum *self, SEL name) {    return NSSelectorFromString([self->_eProperties objectForKey:getterKey(name)]);	}
 #define TYPEDGETTER(type,Type,typeValue) static type get ## Type ## Property(AZEnum *self, SEL name) { return [[self->_eProperties objectForKey:getterKey(name)] typeValue];	}
 TYPEDGETTER(double, Double, doubleValue)
 TYPEDGETTER(float, Float, floatValue)

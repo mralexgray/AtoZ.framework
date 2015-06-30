@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../dev/AtoZIO/AtoZIO.xcodeproj">
+      location = "group:../dev/ToolKit/ToolKit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../WORK/dispatch/dispatch.xcodeproj">

@@ -1,6 +1,6 @@
 #import "AZScrollerLayer.h"
 #import <AtoZ/AtoZ.h>
-//JREnumDefine(AZScrollerMouseDownInput);
+//_EnumPlan(AZScrollerMouseDownInput);
 
 #define BORDERWIDTH 0.0
 #define ARROW_WIDTH 46.0

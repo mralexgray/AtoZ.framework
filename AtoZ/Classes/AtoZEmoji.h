@@ -9,7 +9,7 @@
 @import AtoZUniversal;
 
 @interface AZEmoji : NSString
-@prop_RO NSS * alias, * group, *code;
+_RO NSS * alias, * group, *code;
 @end
 
 
@@ -81,10 +81,10 @@
 + (NSA*) knownEmoticons;
 + (NSSet*) knownEmojiWithEmoticons;
 
-@prop_RO   NSS * emojify, * stringWithEmoticons4Emoji, * stringWithEmoji4Emoticons;
-@prop_RO   NSA * emojiColors;
-@prop_RO NSIMG * emojiColorPreview;
-@prop_RO  BOOL   isEmoji,
+_RO  NSS * emojify, * stringWithEmoticons4Emoji, * stringWithEmoji4Emoticons;
+_RO  NSA * emojiColors;
+_RO NSIMG * emojiColorPreview;
+_RO BOOL   isEmoji,
                  containsEmoji,
                  containsEmoticon;
 

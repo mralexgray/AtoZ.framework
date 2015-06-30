@@ -1,6 +1,6 @@
 
 
-JREnumDeclare (AZLexicon, AZLexiconUrbanD = 0x10000001,
+_EnumKind (AZLexicon, AZLexiconUrbanD = 0x10000001,
                             AZLexiconWiki = 0x10000002,
                           AZLexiconGoogle = 0x10000003,
                       AZLexiconDuckDuckGo = 0x10000004,
@@ -28,13 +28,13 @@ typedef void (^DefinedBlock)(AZDefinition *def);
 _NA    AZLexicon   lexicon;
 @prop_NC DefinedBlock   completion;
 _NA         NSTI   timeout;
-@prop_RO           id   rawResult;
-@prop_RO         BOOL   fromTheWeb;
+_RO          id   rawResult;
+_RO        BOOL   fromTheWeb;
 @prop_CP        NSERR * error;
-@prop_RO          NSU * query;
-@prop_RO          NSA * results;
+_RO         NSU * query;
+_RO         NSA * results;
 _NA          NSS * word;
-@prop_RO          NSS * definition,
+_RO         NSS * definition,
                       * formatted;
 @end
 

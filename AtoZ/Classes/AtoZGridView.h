@@ -78,8 +78,8 @@ typedef NS_ENUM( NSUInteger, AtoZGridViewItemVisibleContent ) {
 @property (NA, ASS) NSSZ itemSize;
 /**	Returns the number of currently visible items of `AtoZGridView`.
  The returned value of this method is subject to continous variation. It depends on the actual size of its view and will be calculated in realtime. */
-@prop_RO NSUI numberOfVisibleItems;
-@prop_RO NSN *visibleItems;
+_RO NSUI numberOfVisibleItems;
+_RO NSN *visibleItems;
 
 #pragma mark - Creating GridView Items
 /** @name Creating GridView Items */
@@ -146,7 +146,7 @@ __unused static NSS *kAtoZGridViewItemClearSelectionNotification;
 #pragma mark - Reusing Grid View Items
 /** @name Reusing Grid View Items */
 @property NSS *reuseIdentifier;
-@prop_RO BOOL isReuseable;
+_RO BOOL isReuseable;
 - (void) prepareForReuse;
 
 #pragma mark - Item Default Content

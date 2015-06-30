@@ -15,7 +15,7 @@
 
 
 
-JREnumDeclare( LogEnv, LogEnvUnset        = 0,
+_EnumKind( LogEnv, LogEnvUnset        = 0,
                        LogEnvXcode        = 0x00000001,
                        LogEnvXcodeColors  = 0x00000011, 
                        LogEnvTTY          = 0x00000100,
@@ -33,9 +33,9 @@ JREnumDeclare( LogEnv, LogEnvUnset        = 0,
 @interface  NSLogMessage : NSObject
 
 @prop_RO		  id   JSONRepresentation;
-@prop_RO NSDate * date;
-@prop_RO    NSS * message, *severityString, * function, * file;
-@prop_RO NSData * data;
+_RO NSDate * date;
+_RO   NSS * message, *severityString, * function, * file;
+_RO NSData * data;
 @property				     NSN * line, * severity;
 
 + (instancetype) messageWithLog:(id)data file:(char*)file func:(char*)func line:(int)line sev:(NSUInteger)sev;
@@ -76,8 +76,8 @@ JREnumDeclare( LogEnv, LogEnvUnset        = 0,
 @end
 
 @interface		     NSString  (AtoZColorLog)
-@prop_RO const char * cchar;
-@prop_RO 	     NSS * colorLogString;  // TTY formatted NSString with Associated Color Info included
+_RO const char * cchar;
+_RO 	     NSS * colorLogString;  // TTY formatted NSString with Associated Color Info included
 - (void)    setLogBackground : (id)color;
 - (void)    setLogForeground : (id)color;
 @end
