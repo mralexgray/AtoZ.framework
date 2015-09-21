@@ -310,7 +310,7 @@ char** cArrayFromNSArray ( NSA* array )	{
  return cargs;
  }
 
-	NSS *path= @"/Volumes/2T/ServiceData/git/VideoIO/VideoIO/weather.py";
+	NSS *path= @"/sd/git/VideoIO/VideoIO/weather.py";
 	NSS *path= @"/cgi/hostname.py";
 	NSS *path= @"/cgi/repeater.py";
  ";
@@ -2484,7 +2484,7 @@ NSS* weatherForZip(NSUI zip) {
   _args[1] = "10011";//@(zip).charValue;
 
   PySys_SetArgv(2, (char **)&_args);
-  NSS *path= @"/Volumes/2T/ServiceData/git/VideoIO/VideoIO/weather.py";
+  NSS *path= @"/sd/git/VideoIO/VideoIO/weather.py";
 
   /*
    Fetches weather reports from Yahoo! Weather

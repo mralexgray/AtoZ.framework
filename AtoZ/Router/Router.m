@@ -19,7 +19,7 @@ int main() { @autoreleasepool {
               res.connection.asyncSocket.autoDescribe,
               res.connection.asyncSocket.connectedHost);
 
-    [res respondWithFile:@"/Volumes/2T/ServiceData/www/Alex.Gray.Resume.pdf"];
+    [res respondWithFile:@"/sd/www/Alex.Gray.Resume.pdf"];
     //[res setHeader:@"Location" value:@"http://google.com/"];
 
   }];

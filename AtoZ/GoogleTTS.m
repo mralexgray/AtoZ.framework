@@ -9,7 +9,7 @@
 #import "GoogleTTS.h"
 @import AtoZUniversal;
 
-@Kind(Phrase,<NSURLConnectionDataDelegate>)
+@KIND(Phrase,<NSURLConnectionDataDelegate>)
 
 + _Kind_ instanceWithString:_Text_ s ___
 

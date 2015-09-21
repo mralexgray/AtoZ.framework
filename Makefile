@@ -126,7 +126,7 @@ all:
 #ln -s Frameworks ../../
 
 
-#export noitify="/Volumes/2T/ServiceData/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd"
+#export noitify="/sd/UNIX/bin/notifycmd.app/Contents/MacOS/notifycmd"
 ##END FW's
 
 

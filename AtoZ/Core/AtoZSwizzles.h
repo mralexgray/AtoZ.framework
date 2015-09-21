@@ -4,7 +4,7 @@
 #define $$$$ self
 #define AZLogDictsASXML 0
 
-@Kind(AZBlockSwizzle) // was MBBlockSwizzle
+@KIND(AZBlockSwizzle) // was MBBlockSwizzle
 
 typedef void(^AZSwizzleWithOrig)(IMP orig);
 

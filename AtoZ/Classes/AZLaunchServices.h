@@ -1,9 +1,8 @@
 
 /*! @abstract This class allows you to deal with some LaunchServices functions (such a Shared Lists, files types and extension information) via ligth-weight API. You can find the list of all availabe Shared Lists below:
   
-  @see NSBundle+AtoZ.h!
+    @see NSBundle+AtoZ.h!
 */
-
 
 extern CFStringRef  kLSSharedFileListFavoriteVolumes,         kLSSharedFileListFavoriteItems,
                     kLSSharedFileListRecentApplicationItems,  kLSSharedFileListRecentDocumentItems,
@@ -12,47 +11,47 @@ extern CFStringRef  kLSSharedFileListFavoriteVolumes,         kLSSharedFileListF
 
 _EnumKind(AZItemsViewFormat, AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames);
 
-AZNSIFACEDECL(AZLaunchServices)
+@KIND(AZLaunchServices)
 
-+ (NSA*) allApplications; // Conveniencem all apps formatted as AZItemsAsNames
++ _List_ allApplications; // Conveniencem all apps formatted as AZItemsAsNames
 
 /* Application abilities */
 
-+ (NSA*)               allApplicationsFormattedAs:(AZItemsViewFormat) f ___
++ _List_               allApplicationsFormattedAs:(AZItemsViewFormat) f ___
 
-+ (NSA*)   allApplicationsAbleToOpenFileExtension:(NSS*)ext
-                                   responseFormat:(AZItemsViewFormat) f ___
++ _List_     allApplicationsAbleToOpenFileExtension __Text_ ext
+                                     responseFormat:(AZItemsViewFormat) f ___
 
-+ (NSA*)      allAvailableFileTypesForApplication:(NSS*)full_path;
++ _List_        allAvailableFileTypesForApplication __Text_ full_path;
 
-+ (NSA*)      allAvailableMIMETypesForApplication:(NSS*)full_path;
++ _List_        allAvailableMIMETypesForApplication __Text_ full_path;
 
-+ (NSA*) allAvailableFileExtensionsForApplication:(NSS*)full_path;
++ _List_   allAvailableFileExtensionsForApplication __Text_ full_path;
 
 /* General file info - MIME type, preferred extension and human-readable type*/
 
-+ (NSS*)          humanReadableTypeForFile:(NSS*)full_path;
++ _Text_                   humanReadableTypeForFile __Text_ full_path;
 
-+ (NSS*)                   mimeTypeForFile:(NSS*)full_path;
++ _Text_                            mimeTypeForFile __Text_ full_path;
 
-+ (NSS*) preferredFileExtensionForMIMEType:(NSS*)mime_type;
++ _Text_          preferredFileExtensionForMIMEType __Text_ mime_type;
 
-+ (NSA*)           allAvailableFileExtensionsForUTI:(NSS*)file_type;
++ _List_           allAvailableFileExtensionsForUTI __Text_ file_type;
 
-+ (NSA*)      allAvailableFileExtensionsForMIMEType:(NSS*)mime_type;
++ _List_      allAvailableFileExtensionsForMIMEType __Text_ mime_type;
 
-+ (NSA*)    allAvailableFileExtensionsForPboardType:(NSS*)pboard_type;
++ _List_    allAvailableFileExtensionsForPboardType __Text_ pboard_type;
 
-+ (NSA*) allAvailableFileExtensionsForFileExtension:(NSS*)extension;
++ _List_ allAvailableFileExtensionsForFileExtension __Text_ extension;
 
 /* Shared lists */
 
-+ (NSA*)    allItemsFromList:(CFStringRef)list_name;
++ _List_    allItemsFromList:(CFStringRef)list_name;
 
-+ (BOOL)      addItemWithURL:(NSURL*)url
++ _IsIt_      addItemWithURL:(NSURL*)url
                       toList:(CFStringRef)list_name;
 
-+ (BOOL) removeItemWithIndex:(NSInteger)index
++ _IsIt_ removeItemWithIndex:(NSInteger)index
                     fromList:(CFStringRef)list_name;
 
 + (BOOL)   removeItemWithURL:(NSURL*)url
@@ -66,26 +65,26 @@ AZNSIFACEDECL(AZLaunchServices)
  @brief	Methods which Apple should have provided in NSWorkspace	*/
 @interface NSWorkspace (AppleShoulda)
 
-@prop_RC NSString * appSupportSubdirectory;
+_RC _Text appSupportSubdirectory ___
 
-- (void) registerDefaultsFromMainBundleFile:(NSString*)defaultsFilename;
+_VD registerDefaultsFromMainBundleFile __Text_ defaultsFilename ___
 
 /*! [NSWorkspace appNameForBundleIdentifier:@"org.mgorbach.macfusion2"] = Macfusiob */
 
-+ (NSString*) appNameForBundleIdentifier:(NSString*)bundleIdentifier ;
++ _Text_ appNameForBundleIdentifier __Text_ bundleIdentifier ___
 
 /*! [NSWorkspace bundleIdentifierForAppName:@"Macfusion"] = org.mgorbach.macfusion2 */
 
-+ (NSString*) bundleIdentifierForAppName:(NSString*)appName ;
++ _Text_ bundleIdentifierForAppName __Text_ appName ___
 
 
 @end
 
 
-@interface AZLaunchServicesListItem : NSObject
-_NA NSString *name;
-_NA NSURL *url;
-_NA NSImage *icon;
+@KIND(AZLaunchServicesListItem)
+_NA _Text name ___
+_NA _NUrl  url ___
+_NA _Pict icon ___
 @end
 
 /*

@@ -375,7 +375,7 @@ __attribute__((constructor)) static void setupLogger() {
   toLog = $(@"COLOR %@", [(NSC*)x name]);
 
   //  objkind(NSIMG)
-  //   ∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i
+  //   ∂i!!(1)/sd/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒ i
 
   defaultcase
   toLog = [x description];
@@ -419,7 +419,7 @@ __attribute__((constructor)) static void setupLogger() {
 +  (NSD*) macros { AZSTATIC_OBJ(NSD, macros, ({ NSString *e = nil;	NSPropertyListFormat fmt;
 
   macros = [NSPropertyListSerialization propertyListFromData:
-    [NSData dataWithContentsOfFile:@"/Volumes/2T/ServiceData/AtoZ.framework/AtoZMacroDefines.plist"] 
+    [NSData dataWithContentsOfFile:@"/sd/AtoZ.framework/AtoZMacroDefines.plist"] 
                   mutabilityOption:NSPropertyListMutableContainersAndLeaves 
                             format:&fmt errorDescription:&e]; macros; })); return macros;
 } /// parse the plist

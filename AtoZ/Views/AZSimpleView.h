@@ -65,7 +65,7 @@ OR @see NSTableViewRowViewKey
   @param NSTableViewRowViewKey The key associated with the identifier in the NIB containing the template row view.
 
 
-∂i!!(1)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Views.AZSimpleView.ColorTableRowView.pngƒi
+∂i!!(1)/sd/AtoZ.framework/screenshots/AtoZ.Views.AZSimpleView.ColorTableRowView.pngƒi
 
 
   */

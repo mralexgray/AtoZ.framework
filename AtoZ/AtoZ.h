@@ -44,7 +44,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import CFAAction;
 @import CocoaPuffs;
 @import CocoatechCore;
-@import CurlHandle;
+@import CURLHandle;
 @import DrawKit;
 @import FunSize;
 @import KSHTMLWriter;
@@ -53,6 +53,7 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import TwUI;
 @import UAGithubEngine;
 @import NSUIKit;
+@import USBDevice;
 
 @import RoutingHTTPServer; // Includes HTTPServer + AsyncSockset + Lumberjack
 
@@ -258,6 +259,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 #import <AtoZ/TUIView+Dimensions.h>
 #import <AtoZ/Transition.h>
 #import <AtoZ/TransparentWindow.h>
+
 #import <AtoZ/WebView+AtoZ.h>
 #import <AtoZ/XLDragDropView.h>
 #import <AtoZ/iCarousel.h>

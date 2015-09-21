@@ -106,7 +106,7 @@ AZAPPMAIN
 
  NSLog(@"%@", NSStringFromSelector(_cmd));
  NSString *words =  [NSString stringWithContentsOfFile:@"/usr/share/dict/web2" encoding:NSUTF8StringEncoding error:nil];
- //	 @"/Volumes/2T/ServiceData/git/MBWebSocketServer/README.md"
+ //	 @"/sd/git/MBWebSocketServer/README.md"
 
  [connection writeWebSocketFrame:[words dataUsingEncoding:NSUTF8StringEncoding]];
  }

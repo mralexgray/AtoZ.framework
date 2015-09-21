@@ -157,7 +157,7 @@ _RO NSS * asTempFile,
   * dataURL;
 
 + _Kind_ svg2png:(NSString*)inFile out:(NSString*)optionalOutFile;
-/// ∂i!!(.3)/Volumes/2T/ServiceData/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi
+/// ∂i!!(.3)/sd/AtoZ.framework/screenshots/AtoZ.Categories.NSImage+AtoZ.openQuantizedSwatch.pngƒi
 
 - (void) 	  openQuantizedSwatch;
 - (NSIMG*) generateQuantizedSwatch;

@@ -174,7 +174,7 @@
 
 	[@{ NSApplicationWillBecomeActiveNotification	:	@"appWillActivate",
 	 //		NSApplicationDidBecomeActiveNotification	:	@"applicationDidBecomeActive:",
-	 //		NSAppl/Volumes/2T/ServiceData/AtoZ.framework/AtoZ/Views/AZVeil.micationWillResignActiveNotification	:	@"applicationWillResignActive:"}
+	 //		NSAppl/sd/AtoZ.framework/AtoZ/Views/AZVeil.micationWillResignActiveNotification	:	@"applicationWillResignActive:"}
 	 NSApplicationDidResignActiveNotification 	:	@"appWillResign" 	}
 
 	 enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

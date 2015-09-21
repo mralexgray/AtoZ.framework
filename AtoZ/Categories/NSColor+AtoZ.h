@@ -95,7 +95,7 @@ _RO   NSS * crayonName, * toHex;
 
 /* lists all like...  BlueSkyTulips = "NSColorList 0x7fb2963794d0 
 										  name:BlueSkyTulips device:(null)
-										  file:/Volumes/2T/ServiceData/Develo...Build/Products/Debug/AtoZ.framework/Resources/BlueSkyTulips.clr
+										  file:/sd/Develo...Build/Products/Debug/AtoZ.framework/Resources/BlueSkyTulips.clr
 										loaded:1"; */
 + (NSMD*) colorLists;
 +  (NSA*) colorListNames;

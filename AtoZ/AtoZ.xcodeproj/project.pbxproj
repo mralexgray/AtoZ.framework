@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		7BCAD93B1944CE95005E6C4D /* StaticFrameworks */ = {
+		7BCAD93B1944CE95005E6C4D /* Frameworks */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 7BCAD93C1944CE96005E6C4D /* Build configuration list for PBXAggregateTarget "StaticFrameworks" */;
+			buildConfigurationList = 7BCAD93C1944CE96005E6C4D /* Build configuration list for PBXAggregateTarget "Frameworks" */;
 			buildPhases = (
 				7B0E219B1AEBDD1100C955CF /* Run Script OFF */,
 			);
 			dependencies = (
+				7B3F44331BAFD56F0008217A /* PBXTargetDependency */,
 				7BBB09F21B30A2BA00BFEE6A /* PBXTargetDependency */,
 				7B5EEBC41AE33B4500A72BE7 /* PBXTargetDependency */,
 				7B8265991ADEDAA600D61894 /* PBXTargetDependency */,
@@ -39,7 +40,7 @@
 				7BCAD9661944CF7D005E6C4D /* PBXTargetDependency */,
 				7B82659B1ADEDAAA00D61894 /* PBXTargetDependency */,
 			);
-			name = StaticFrameworks;
+			name = Frameworks;
 			productName = StaticFrameworks;
 		};
 		7BE62485192C5E87007C3772 /* OCLint */ = {
@@ -363,6 +364,7 @@
 		7B38982B190B1A6C003DC627 /* MetalUI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBCBADA16713F4500681F2B /* MetalUI.m */; };
 		7B3E09EA18E5FB8600FDE227 /* CPUMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B3E09E818E5FB8600FDE227 /* CPUMonitor.h */; };
 		7B3E09EB18E5FB8600FDE227 /* CPUMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3E09E918E5FB8600FDE227 /* CPUMonitor.m */; };
+		7B3F44101BAFBE3A0008217A /* usbnotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3F440F1BAFBE3A0008217A /* usbnotifier.m */; };
 		7B401FD418287C2F00F24167 /* BETaskHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B401FD118287C2F00F24167 /* BETaskHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B401FD518287C2F00F24167 /* BETaskHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B401FD218287C2F00F24167 /* BETaskHelper.m */; };
 		7B401FD618287C2F00F24167 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7B401FD318287C2F00F24167 /* README.md */; };
@@ -460,6 +462,14 @@
 		7B6D95EF15FA954100972A69 /* XLDragDropView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B6D95ED15FA954100972A69 /* XLDragDropView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B6D95F015FA954100972A69 /* XLDragDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D95EE15FA954100972A69 /* XLDragDropView.m */; };
 		7B6EC191173DBC6800E7C5CA /* AZBeetlejuice.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B1EA04C1732AAC6007AB4E1 /* AZBeetlejuice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B6F00311B9F637200801449 /* Pantone Pastels.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00301B9F637200801449 /* Pantone Pastels.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6F00381B9F638400801449 /* Trumatch Swatches.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00321B9F638400801449 /* Trumatch Swatches.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6F00391B9F638400801449 /* Focoltone Swatches.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00331B9F638400801449 /* Focoltone Swatches.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6F003A1B9F638400801449 /* TOYO Swatches.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00341B9F638400801449 /* TOYO Swatches.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6F003B1B9F638400801449 /* Pantone Metallics.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00351B9F638400801449 /* Pantone Metallics.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6F003C1B9F638400801449 /* Pantone CMYK swatches.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00361B9F638400801449 /* Pantone CMYK swatches.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6F003D1B9F638400801449 /* CSS Colors.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6F00371B9F638400801449 /* CSS Colors.clr */; settings = {ASSET_TAGS = (); }; };
+		7B6FFFE31B9F636700801449 /* Pantone Coated.clr in Resources */ = {isa = PBXBuildFile; fileRef = 7B6FFFE21B9F636700801449 /* Pantone Coated.clr */; settings = {ASSET_TAGS = (); }; };
 		7B71429016627ADB00B7661A /* AZASImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B71428F16627ADB00B7661A /* AZASImageView.m */; };
 		7B71429216627B1B00B7661A /* AZASImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B71429116627AE300B7661A /* AZASImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B714352166411E600B7661A /* plaid.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B714351166411E600B7661A /* plaid.png */; };
@@ -1067,6 +1077,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = MenuApp;
+		};
+		7B3F442E1BAFD5540008217A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B3F44291BAFD5520008217A /* USBDevice.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8A69E48174459CD00B72444;
+			remoteInfo = USBDevice;
+		};
+		7B3F44301BAFD5540008217A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B3F44291BAFD5520008217A /* USBDevice.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D8A69E6817445F8B00B72444;
+			remoteInfo = USBDeviceTestTool;
+		};
+		7B3F44321BAFD56F0008217A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B3F44291BAFD5520008217A /* USBDevice.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D8A69E47174459CD00B72444;
+			remoteInfo = USBDevice;
+		};
+		7B3F44351BAFD6C80008217A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B311947159B6D9E002134C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B311950159B6D9E002134C4;
+			remoteInfo = AtoZ;
 		};
 		7B4113061846FB94009EE3EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2302,6 +2340,9 @@
 		7B3A1564180C79B200F63F4D /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		7B3E09E818E5FB8600FDE227 /* CPUMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPUMonitor.h; sourceTree = "<group>"; };
 		7B3E09E918E5FB8600FDE227 /* CPUMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPUMonitor.m; sourceTree = "<group>"; };
+		7B3F440D1BAFBE390008217A /* usbnotifier */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = usbnotifier; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B3F440F1BAFBE3A0008217A /* usbnotifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = usbnotifier.m; sourceTree = "<group>"; };
+		7B3F44291BAFD5520008217A /* USBDevice.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = USBDevice.xcodeproj; path = ../Frameworks/USBDevice/USBDevice.xcodeproj; sourceTree = "<group>"; };
 		7B401FD118287C2F00F24167 /* BETaskHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BETaskHelper.h; sourceTree = "<group>"; };
 		7B401FD218287C2F00F24167 /* BETaskHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BETaskHelper.m; sourceTree = "<group>"; };
 		7B401FD318287C2F00F24167 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -2523,6 +2564,14 @@
 		7B6BEDD61674B3A700829B8A /* CAScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CAScrollView.m; path = Core/CAScrollView.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B6D95ED15FA954100972A69 /* XLDragDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = XLDragDropView.h; sourceTree = "<group>"; };
 		7B6D95EE15FA954100972A69 /* XLDragDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLDragDropView.m; sourceTree = "<group>"; };
+		7B6F00301B9F637200801449 /* Pantone Pastels.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pantone Pastels.clr"; path = "Pantone Swatches/Pantone Pastels.clr"; sourceTree = "<group>"; };
+		7B6F00321B9F638400801449 /* Trumatch Swatches.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Trumatch Swatches.clr"; path = "extra_swatches/Trumatch Swatches.clr"; sourceTree = "<group>"; };
+		7B6F00331B9F638400801449 /* Focoltone Swatches.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Focoltone Swatches.clr"; path = "extra_swatches/Focoltone Swatches.clr"; sourceTree = "<group>"; };
+		7B6F00341B9F638400801449 /* TOYO Swatches.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TOYO Swatches.clr"; path = "extra_swatches/TOYO Swatches.clr"; sourceTree = "<group>"; };
+		7B6F00351B9F638400801449 /* Pantone Metallics.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pantone Metallics.clr"; path = "Pantone Swatches/Pantone Metallics.clr"; sourceTree = "<group>"; };
+		7B6F00361B9F638400801449 /* Pantone CMYK swatches.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pantone CMYK swatches.clr"; path = "Pantone Swatches/Pantone CMYK swatches.clr"; sourceTree = "<group>"; };
+		7B6F00371B9F638400801449 /* CSS Colors.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CSS Colors.clr"; sourceTree = "<group>"; };
+		7B6FFFE21B9F636700801449 /* Pantone Coated.clr */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pantone Coated.clr"; path = "Pantone Swatches/Pantone Coated.clr"; sourceTree = "<group>"; };
 		7B71428F16627ADB00B7661A /* AZASImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AZASImageView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7B71429116627AE300B7661A /* AZASImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AZASImageView.h; sourceTree = "<group>"; };
 		7B714293166299CF00B7661A /* WebView+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WebView+AtoZ.h"; path = "../WebView+AtoZ.h"; sourceTree = "<group>"; };
@@ -2625,6 +2674,9 @@
 		7B915DAE1AD1DECD006AFC02 /* ColorExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorExplorer.h; sourceTree = "<group>"; };
 		7B915DAF1AD1DECD006AFC02 /* ColorExplorer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorExplorer.m; sourceTree = "<group>"; };
 		7B915DB01AD1DECE006AFC02 /* ColorExplorer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorExplorer.xib; sourceTree = "<group>"; };
+		7B91877C1B867CC800F4E271 /* AtoZUniversal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AtoZUniversal.framework; path = ../../localadmin/Library/Frameworks/AtoZUniversal.framework; sourceTree = "<group>"; };
+		7B91877D1B867CC900F4E271 /* ToolKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ToolKit.framework; path = ../../localadmin/Library/Frameworks/ToolKit.framework; sourceTree = "<group>"; };
+		7B91877E1B867CF800F4E271 /* FunSize.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunSize.framework; path = ../../localadmin/Library/Frameworks/FunSize.framework; sourceTree = "<group>"; };
 		7B92135A15C49B6600862F9D /* NSThread+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSThread+AtoZ.h"; path = "../NSThread+AtoZ.h"; sourceTree = "<group>"; };
 		7B92135B15C49B6600862F9D /* NSThread+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+AtoZ.m"; sourceTree = "<group>"; };
 		7B92135E15C4A03300862F9D /* AZInfiniteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AZInfiniteCell.h; path = Views/AZInfiniteCell.h; sourceTree = SOURCE_ROOT; };
@@ -3011,10 +3063,6 @@
 		7BE801691A9F86DA0033B9BA /* INSTALL_ATOZ.zsh */ = {isa = PBXFileReference; lastKnownFileType = text; name = INSTALL_ATOZ.zsh; path = ../Scripts/INSTALL_ATOZ.zsh; sourceTree = "<group>"; };
 		7BE8F1D3160624DB000D04F6 /* NSTextView+AtoZ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextView+AtoZ.h"; path = "../NSTextView+AtoZ.h"; sourceTree = "<group>"; };
 		7BE8F1D4160624DB000D04F6 /* NSTextView+AtoZ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextView+AtoZ.m"; sourceTree = "<group>"; };
-		7BEA68F81ABC4AE80040B76A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		7BEA68F91ABC4AE80040B76A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		7BEA68FA1ABC4AE80040B76A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = "<absolute>"; };
-		7BEA68FB1ABC4AE80040B76A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<absolute>"; };
 		7BEA68FC1ABC4FAA0040B76A /* xcodebuildenv */ = {isa = PBXFileReference; lastKnownFileType = text; name = xcodebuildenv; path = ../../UNIX/bin/xcodebuildenv; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.sh; };
 		7BEA75A51720CD12000A7D84 /* COLORMATE.CLR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COLORMATE.CLR; sourceTree = "<group>"; };
 		7BEA75A61720CD12000A7D84 /* Classic Crayons.clr */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Classic Crayons.clr"; sourceTree = "<group>"; };
@@ -3389,6 +3437,14 @@
 		7B1528E715F49DCD00027191 /* Palettes */ = {
 			isa = PBXGroup;
 			children = (
+				7B6F00321B9F638400801449 /* Trumatch Swatches.clr */,
+				7B6F00331B9F638400801449 /* Focoltone Swatches.clr */,
+				7B6F00341B9F638400801449 /* TOYO Swatches.clr */,
+				7B6F00351B9F638400801449 /* Pantone Metallics.clr */,
+				7B6F00361B9F638400801449 /* Pantone CMYK swatches.clr */,
+				7B6F00371B9F638400801449 /* CSS Colors.clr */,
+				7B6F00301B9F637200801449 /* Pantone Pastels.clr */,
+				7B6FFFE21B9F636700801449 /* Pantone Coated.clr */,
 				7B3152921AAE3A9700D24878 /* RGB_Named_Colors.clr */,
 				7B52987E195237D8005203F3 /* colors.json */,
 				7B095094194D510600267E09 /* Web Safe & other Hex Colors.clr */,
@@ -3803,6 +3859,9 @@
 		7B311945159B6D9E002134C4 = {
 			isa = PBXGroup;
 			children = (
+				7B91877E1B867CF800F4E271 /* FunSize.framework */,
+				7B91877C1B867CC800F4E271 /* AtoZUniversal.framework */,
+				7B91877D1B867CC900F4E271 /* ToolKit.framework */,
 				7B915DAE1AD1DECD006AFC02 /* ColorExplorer.h */,
 				7B915DAF1AD1DECD006AFC02 /* ColorExplorer.m */,
 				7B915DB01AD1DECE006AFC02 /* ColorExplorer.xib */,
@@ -3827,6 +3886,7 @@
 				7B59C8281600D346009DAFCA /* Models */,
 				7B3777BE16F1BDAD0083CBB5 /* Networking */,
 				7B4112EA1846FB92009EE3EA /* ObjectiveCLI */,
+				7B3F440E1BAFBE390008217A /* usbnotifier */,
 				7B311952159B6D9E002134C4 /* Products */,
 				7B583064159BDAA50039CEED /* Resources */,
 				7B6901BB159E0ADB00D0DA47 /* Views */,
@@ -3854,6 +3914,7 @@
 				7B7C035A1A9FABBC008DAB67 /* AtoZUniversalTests.xctest */,
 				7BE15AF21AA5053A005B997C /* AtoZTouchTester */,
 				7BC7E87E1AA63F7400DDCBD0 /* AtoZTouch.framework */,
+				7B3F440D1BAFBE390008217A /* usbnotifier */,
 			);
 			name = Products;
 			path = ..;
@@ -3862,11 +3923,8 @@
 		7B311953159B6D9E002134C4 /*  Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B3F44291BAFD5520008217A /* USBDevice.xcodeproj */,
 				7BBB09961B30A28A00BFEE6A /* CURLHandle.xcodeproj */,
-				7BEA68F81ABC4AE80040B76A /* QuartzCore.framework */,
-				7BEA68F91ABC4AE80040B76A /* Foundation.framework */,
-				7BEA68FA1ABC4AE80040B76A /* CoreGraphics.framework */,
-				7BEA68FB1ABC4AE80040B76A /* UIKit.framework */,
 				7BFBF4E7175DC860007A84AC /* AtoZAppKit.xcodeproj */,
 				7BC425771776799D00928201 /* AtoZAutoBox.xcodeproj */,
 				7BB8701116384FF00000C242 /* AtoZBezierPath.xcodeproj */,
@@ -4069,6 +4127,23 @@
 				7B3A1564180C79B200F63F4D /* Mac-StaticLibrary.xcconfig */,
 			);
 			path = Mac;
+			sourceTree = "<group>";
+		};
+		7B3F440E1BAFBE390008217A /* usbnotifier */ = {
+			isa = PBXGroup;
+			children = (
+				7B3F440F1BAFBE3A0008217A /* usbnotifier.m */,
+			);
+			path = usbnotifier;
+			sourceTree = "<group>";
+		};
+		7B3F442A1BAFD5520008217A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B3F442F1BAFD5540008217A /* USBDevice.framework */,
+				7B3F44311BAFD5540008217A /* USBDeviceTestTool */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7B401FD018287C2F00F24167 /* BETaskHelper */ = {
@@ -4298,8 +4373,8 @@
 				7B9ADE9F1635C51A0026FA02 /* CTBadge_3.pdf */,
 				7B9ADEA01635C51A0026FA02 /* CTBadge_4.pdf */,
 				7B9ADEA11635C51A0026FA02 /* CTBadge_5.pdf */,
-				7BB0095E16311D7700750FEB /* AZPropellerBadge.png */,
 				7BB0095F16311D7700750FEB /* AZPropellerBar.png */,
+				7BB0095E16311D7700750FEB /* AZPropellerBadge.png */,
 				7B662A15161E3230003D5EE0 /* Sounds */,
 				7B22CA85161B358700D17C40 /* welcome.wav */,
 				7B1528E715F49DCD00027191 /* Palettes */,
@@ -6167,6 +6242,22 @@
 			productReference = 7B311951159B6D9E002134C4 /* AtoZ.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		7B3F440C1BAFBE390008217A /* usbnotifier */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B3F44111BAFBE3A0008217A /* Build configuration list for PBXNativeTarget "usbnotifier" */;
+			buildPhases = (
+				7B3F44091BAFBE390008217A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7B3F44361BAFD6C80008217A /* PBXTargetDependency */,
+			);
+			name = usbnotifier;
+			productName = usbnotifier;
+			productReference = 7B3F440D1BAFBE390008217A /* usbnotifier */;
+			productType = "com.apple.product-type.tool";
+		};
 		7B4112E61846FB91009EE3EA /* ObjectiveCLI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B41135A1846FB97009EE3EA /* Build configuration list for PBXNativeTarget "ObjectiveCLI" */;
@@ -6369,8 +6460,9 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = AZ;
+				LastSwiftUpdateCheck = 0700;
 				LastTestingUpgradeCheck = 0600;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "mrgray.com, inc.";
 				TargetAttributes = {
 					7B2453DE1A83F3B7008EB1AC = {
@@ -6378,6 +6470,9 @@
 					};
 					7B2453E81A83F3BA008EB1AC = {
 						CreatedOnToolsVersion = 6.2;
+					};
+					7B3F440C1BAFBE390008217A = {
+						CreatedOnToolsVersion = 7.0;
 					};
 					7B4113011846FB93009EE3EA = {
 						TestTargetID = 7B311950159B6D9E002134C4;
@@ -6534,6 +6629,10 @@
 					ProjectRef = 7B9D870E181CF37800043489 /* UAGithubEngine.xcodeproj */;
 				},
 				{
+					ProductGroup = 7B3F442A1BAFD5520008217A /* Products */;
+					ProjectRef = 7B3F44291BAFD5520008217A /* USBDevice.xcodeproj */;
+				},
+				{
 					ProductGroup = 7B25862B1718654B00527501 /* Products */;
 					ProjectRef = 7B61E90515EAA8340053BACF /* XPCKit.xcodeproj */;
 				},
@@ -6542,7 +6641,7 @@
 			targets = (
 				7B311950159B6D9E002134C4 /* AtoZ */,
 				7B2453DE1A83F3B7008EB1AC /* AtoZTouch */,
-				7BCAD93B1944CE95005E6C4D /* StaticFrameworks */,
+				7BCAD93B1944CE95005E6C4D /* Frameworks */,
 				7BE15AF11AA5053A005B997C /* AtoZTouchTester */,
 				7B0DA29E174352CC00535483 /* AtoZAgent */,
 				7B789D5B1913A677000615B9 /* Router */,
@@ -6559,6 +6658,7 @@
 				7B7C03591A9FABBC008DAB67 /* AtoZUniversalTests */,
 				7BE62485192C5E87007C3772 /* OCLint */,
 				7B5A71FC178C0A1F00AF9807 /* AtoZDocumentation */,
+				7B3F440C1BAFBE390008217A /* usbnotifier */,
 			);
 		};
 /* End PBXProject section */
@@ -6695,6 +6795,20 @@
 			fileType = wrapper.framework;
 			path = KSHTMLWriter.framework;
 			remoteRef = 7B37786516F1C80B0083CBB5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B3F442F1BAFD5540008217A /* USBDevice.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = USBDevice.framework;
+			remoteRef = 7B3F442E1BAFD5540008217A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7B3F44311BAFD5540008217A /* USBDeviceTestTool */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = USBDeviceTestTool;
+			remoteRef = 7B3F44301BAFD5540008217A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7B427EBE170AF7260052FC31 /* CocoatechCore.framework */ = {
@@ -7213,6 +7327,7 @@
 				7B137CF615A201C00088A630 /* linen.png in Resources */,
 				7B2E9F25195027980075EC79 /* subtle-pattern-8.jpg in Resources */,
 				7B137CF715A201C00088A630 /* darklinen.png in Resources */,
+				7B6F00391B9F638400801449 /* Focoltone Swatches.clr in Resources */,
 				7B8558E915B2CBAF0005F558 /* circle2.tif in Resources */,
 				7B9742D015C697C4006490DD /* 1.pdf in Resources */,
 				7B9742D115C697C4006490DD /* 2.pdf in Resources */,
@@ -7223,6 +7338,7 @@
 				7B1528F715F49DE200027191 /* Bujumbura.clr in Resources */,
 				7B1528F815F49DE200027191 /* CoffeeBeans.clr in Resources */,
 				7B2647A8176E0E220062ECF3 /* pw_maze_white.png in Resources */,
+				7B6FFFE31B9F636700801449 /* Pantone Coated.clr in Resources */,
 				7B1528F915F49DE200027191 /* Daytona.clr in Resources */,
 				7B2E9F23195027980075EC79 /* subtle-pattern-6.jpg in Resources */,
 				7B1528FA15F49DE200027191 /* FengShui.clr in Resources */,
@@ -7249,6 +7365,7 @@
 				7B23C37D15CF318500DD1A9C /* missingdial.png in Resources */,
 				7B2E9F1F195027980075EC79 /* subtle-pattern-2.jpg in Resources */,
 				7BA425BB15E7E87200D2A471 /* tab.png in Resources */,
+				7B6F00311B9F637200801449 /* Pantone Pastels.clr in Resources */,
 				7B45C5EA1625051D00737335 /* Localizable.strings in Resources */,
 				7BAF2F0415E87BB100099C9A /* Growl Registration Ticket.growlRegDict in Resources */,
 				7B475B1315ED65450002137E /* bullseye.png in Resources */,
@@ -7269,7 +7386,12 @@
 				7B43D309164C8D0B00AC4D26 /* black.minimal.jpg in Resources */,
 				7B34822F19DF3FB80088BE9A /* DateTools.bundle in Resources */,
 				7B0E727F1654DA2B00A1A613 /* PicolSingulario.pdf in Resources */,
+				7B6F00381B9F638400801449 /* Trumatch Swatches.clr in Resources */,
+				7B6F003B1B9F638400801449 /* Pantone Metallics.clr in Resources */,
 				7BE62481192C53EF007C3772 /* group.icns in Resources */,
+				7B6F003A1B9F638400801449 /* TOYO Swatches.clr in Resources */,
+				7B6F003C1B9F638400801449 /* Pantone CMYK swatches.clr in Resources */,
+				7B6F003D1B9F638400801449 /* CSS Colors.clr in Resources */,
 				7BE6247C192C53EF007C3772 /* source.pdf in Resources */,
 				7BE62480192C53EF007C3772 /* framework.icns in Resources */,
 				7BC06CDD166214B000B57E3A /* UserAgentStrings.plist in Resources */,
@@ -7858,6 +7980,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B3F44091BAFBE390008217A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B3F44101BAFBE3A0008217A /* usbnotifier.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B4112E31846FB91009EE3EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -7965,6 +8095,16 @@
 			isa = PBXTargetDependency;
 			name = MenuApp;
 			targetProxy = 7B3C7372197CA1F50096522C /* PBXContainerItemProxy */;
+		};
+		7B3F44331BAFD56F0008217A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = USBDevice;
+			targetProxy = 7B3F44321BAFD56F0008217A /* PBXContainerItemProxy */;
+		};
+		7B3F44361BAFD6C80008217A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B311950159B6D9E002134C4 /* AtoZ */;
+			targetProxy = 7B3F44351BAFD6C80008217A /* PBXContainerItemProxy */;
 		};
 		7B4113071846FB94009EE3EA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -8328,6 +8468,7 @@
 					"-framework",
 					AtoZ,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -8370,6 +8511,7 @@
 					"-framework",
 					Carbon,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mrgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
@@ -8463,6 +8605,7 @@
 					"-sub_umbrella",
 					IO,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mrgray.$(PRODUCT_NAME:rfc1034identifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -8511,6 +8654,7 @@
 				INFOPLIST_FILE = AtoZTouchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mrgray.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 			};
@@ -8522,9 +8666,10 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_TESTABILITY = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				SDKROOT = macosx;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -8532,9 +8677,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B3A1563180C79B200F63F4D /* Mac-Framework.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DEPLOYMENT_LOCATION = NO;
-				DSTROOT = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AtoZ-Framework.pch";
 				GCC_WARN_MULTIPLE_DEFINITION_TYPES_FOR_SELECTOR = YES;
@@ -8546,7 +8689,6 @@
 					"$(BUILT_PRODUCTS_DIR)/include",
 				);
 				INFOPLIST_FILE = "Resources/AtoZ-Info.plist";
-				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					"/System/Library//Frameworks/Python.framework/Versions/2.7/lib/python2.7/config",
@@ -8577,6 +8719,8 @@
 					CocoaPuffs,
 					"-framework",
 					CocoatechCore,
+					"-framework",
+					CurlHandle,
 					"-framework",
 					DrawKit,
 					"-framework",
@@ -8638,8 +8782,49 @@
 					"-weak_framework",
 					CocoaHTTPServer,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrgray.AtoZ;
 				RUN_OCLINT = NO;
+				SDKROOT = macosx10.10;
 				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		7B3F44121BAFBE3A0008217A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -8680,6 +8865,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "ObjectiveCLI/ObjectiveCLI-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -8725,6 +8911,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "ObjectiveCLITests/ObjectiveCLITests-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -8789,6 +8976,7 @@
 					"-framework",
 					AtoZ,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -8851,6 +9039,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mrgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -8952,7 +9141,6 @@
 			baseConfigurationReference = 7B3A155C180C79B200F63F4D /* iOS-Application.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -8969,6 +9157,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mrgray.AtoZTouchDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -8986,7 +9175,6 @@
 			buildSettings = {
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -9026,6 +9214,7 @@
 					"-framework",
 					QuartzCore,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.mralexgray.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SKIP_INSTALL = NO;
@@ -9150,6 +9339,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		7B3F44111BAFBE3A0008217A /* Build configuration list for PBXNativeTarget "usbnotifier" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B3F44121BAFBE3A0008217A /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		7B41135A1846FB97009EE3EA /* Build configuration list for PBXNativeTarget "ObjectiveCLI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -9222,7 +9418,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		7BCAD93C1944CE96005E6C4D /* Build configuration list for PBXAggregateTarget "StaticFrameworks" */ = {
+		7BCAD93C1944CE96005E6C4D /* Build configuration list for PBXAggregateTarget "Frameworks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7BCAD93D1944CE96005E6C4D /* Debug */,

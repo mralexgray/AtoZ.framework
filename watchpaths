@@ -24,7 +24,7 @@ CMD=( /usr/local/bin/fswatch --follow-links --event-flags)
 CMD+="${INC[@]/#/ -i }"
 CMD+="${IGNORE[@]/#/ -e }"
 
-#a line: /Volumes/2T/ServiceData/AtoZ.framework/com.mrgray.at
+#a line: /sd/AtoZ.framework/com.mrgray.at
 #CMD="$FLAGS -i $(echo ${(j: -i :)INC}) -e $(echo ${(j: -e :)EXC})"
 
 echo "cmd is $CMD"
@@ -104,7 +104,7 @@ installTouchFramework() {
 # /usr/local/bin/fswatch -iL /dd/AtoZ/**  | xargs -I{} say rebuilding {}
 
 
-# $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
+# $process "$(echo {} | sed 's:/sd/::g')"
 
 # while read -d "" event; do \
   # echo "saving  ${event}" \
@@ -120,7 +120,7 @@ installTouchFramework() {
 #   -i /sd/dev/IO/** \
 #   -e xcuserdata \
 #   -e .git \
-#   | xargs -I{} $process "$(echo {} | sed 's:/Volumes/2T/ServiceData/::g')"
+#   | xargs -I{} $process "$(echo {} | sed 's:/sd/::g')"
 
 
 
