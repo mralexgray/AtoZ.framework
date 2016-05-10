@@ -196,14 +196,14 @@ void	NSLogPostLog(char* file, int line){ if(!inited)return; [AZLogConsole.shared
 	webViewLoaded	= NO;
 
 	// Frame load
-	[self setFrameLoadDelegate:self];
+	[self setFrameLoadDelegate: _ObjC_ self];
 
 	// Load html page
 	id path = [AZBUNDLE pathForResource:@"AZLogConsole" ofType:@"html"];
 	[[self mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path]]];
 
 	// Navigation notification
-	[self setPolicyDelegate:self];
+	[self setPolicyDelegate:_ObjC_ self];
 }
 - (void) webView:(WV*)view windowScriptObjectAvailable:(WebScriptObject*)wso	{	[wso setValue:self forKey:@"AZLogConsoleView"];
 } //	JS avail. Reg. our custom js object in hosted page

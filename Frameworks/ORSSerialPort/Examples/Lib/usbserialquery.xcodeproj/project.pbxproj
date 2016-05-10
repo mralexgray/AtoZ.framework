@@ -1,0 +1,484 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7B2433951C0E510600070564 /* ORSSerialPort+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24338B1C0E4C2B00070564 /* ORSSerialPort+Attributes.m */; };
+		7B2433961C0E510600070564 /* ORSSerialPort.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D2B58081ADC16E200B08D53 /* ORSSerialPort.h */; };
+		7B2433971C0E510600070564 /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2B58091ADC16E200B08D53 /* ORSSerialPort.m */; };
+		7B2433981C0E510600070564 /* ORSSerialPortManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D2B580A1ADC16E200B08D53 /* ORSSerialPortManager.h */; };
+		7B2433991C0E510600070564 /* ORSSerialPortManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2B580B1ADC16E200B08D53 /* ORSSerialPortManager.m */; };
+		7B24339A1C0E510600070564 /* ORSSerialBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2788B8041BA05FFD0018C0E7 /* ORSSerialBuffer.h */; };
+		7B24339B1C0E510600070564 /* ORSSerialBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2788B8051BA05FFD0018C0E7 /* ORSSerialBuffer.m */; };
+		7B24339E1C0E512000070564 /* libusbserialquery.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2433911C0E50D300070564 /* libusbserialquery.dylib */; };
+		7B2433A21C0E562100070564 /* demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF0453C1678336E00DA0CDA /* demo.m */; };
+		7B2433A31C0E563600070564 /* usbserialquery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B24339F1C0E523D00070564 /* usbserialquery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B2433B11C1248BE00070564 /* demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF0453C1678336E00DA0CDA /* demo.m */; };
+		7B2433B21C1248BE00070564 /* ORSSerialPort+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B24338B1C0E4C2B00070564 /* ORSSerialPort+Attributes.m */; };
+		7B2433B31C1248BE00070564 /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2B58091ADC16E200B08D53 /* ORSSerialPort.m */; };
+		7B2433B41C1248BE00070564 /* ORSSerialPortManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2B580B1ADC16E200B08D53 /* ORSSerialPortManager.m */; };
+		7B2433B51C1248BE00070564 /* ORSSerialBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2788B8051BA05FFD0018C0E7 /* ORSSerialBuffer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7B24339C1C0E511700070564 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9DF045221678333000DA0CDA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B2433901C0E50D300070564;
+			remoteInfo = usbserialquery;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2788B8041BA05FFD0018C0E7 /* ORSSerialBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORSSerialBuffer.h; path = ../../Source/ORSSerialBuffer.h; sourceTree = SOURCE_ROOT; };
+		2788B8051BA05FFD0018C0E7 /* ORSSerialBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORSSerialBuffer.m; path = ../../Source/ORSSerialBuffer.m; sourceTree = SOURCE_ROOT; };
+		7B24338B1C0E4C2B00070564 /* ORSSerialPort+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ORSSerialPort+Attributes.m"; path = "../../Source/USBAttributes/ORSSerialPort+Attributes.m"; sourceTree = SOURCE_ROOT; };
+		7B2433911C0E50D300070564 /* libusbserialquery.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libusbserialquery.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B24339F1C0E523D00070564 /* usbserialquery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usbserialquery.h; sourceTree = "<group>"; };
+		7B2433AA1C12436B00070564 /* arduino_usb_profiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = arduino_usb_profiler; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D2B58081ADC16E200B08D53 /* ORSSerialPort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORSSerialPort.h; path = ../../Source/ORSSerialPort.h; sourceTree = SOURCE_ROOT; };
+		9D2B58091ADC16E200B08D53 /* ORSSerialPort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORSSerialPort.m; path = ../../Source/ORSSerialPort.m; sourceTree = SOURCE_ROOT; };
+		9D2B580A1ADC16E200B08D53 /* ORSSerialPortManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ORSSerialPortManager.h; path = ../../Source/ORSSerialPortManager.h; sourceTree = SOURCE_ROOT; };
+		9D2B580B1ADC16E200B08D53 /* ORSSerialPortManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORSSerialPortManager.m; path = ../../Source/ORSSerialPortManager.m; sourceTree = SOURCE_ROOT; };
+		9DF0452A1678333000DA0CDA /* usbserialquery */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = usbserialquery; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DF0453C1678336E00DA0CDA /* demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = demo.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7B24338E1C0E50D300070564 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9D2D68F51AC8524200779F24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B24339E1C0E512000070564 /* libusbserialquery.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9D2B580E1ADC16E500B08D53 /* ORSSerialPort */ = {
+			isa = PBXGroup;
+			children = (
+				7B24338B1C0E4C2B00070564 /* ORSSerialPort+Attributes.m */,
+				9D2B58081ADC16E200B08D53 /* ORSSerialPort.h */,
+				9D2B58091ADC16E200B08D53 /* ORSSerialPort.m */,
+				9D2B580A1ADC16E200B08D53 /* ORSSerialPortManager.h */,
+				9D2B580B1ADC16E200B08D53 /* ORSSerialPortManager.m */,
+				2788B8041BA05FFD0018C0E7 /* ORSSerialBuffer.h */,
+				2788B8051BA05FFD0018C0E7 /* ORSSerialBuffer.m */,
+			);
+			name = ORSSerialPort;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		9DF045211678333000DA0CDA = {
+			isa = PBXGroup;
+			children = (
+				7B24339F1C0E523D00070564 /* usbserialquery.h */,
+				9DF0453C1678336E00DA0CDA /* demo.m */,
+				9D2B580E1ADC16E500B08D53 /* ORSSerialPort */,
+				9DF0452B1678333000DA0CDA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9DF0452B1678333000DA0CDA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DF0452A1678333000DA0CDA /* usbserialquery */,
+				7B2433911C0E50D300070564 /* libusbserialquery.dylib */,
+				7B2433AA1C12436B00070564 /* arduino_usb_profiler */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7B24338F1C0E50D300070564 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2433A31C0E563600070564 /* usbserialquery.h in Headers */,
+				7B2433981C0E510600070564 /* ORSSerialPortManager.h in Headers */,
+				7B2433961C0E510600070564 /* ORSSerialPort.h in Headers */,
+				7B24339A1C0E510600070564 /* ORSSerialBuffer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7B2433901C0E50D300070564 /* usbserialquery */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B2433941C0E50D300070564 /* Build configuration list for PBXNativeTarget "usbserialquery" */;
+			buildPhases = (
+				7B24338D1C0E50D300070564 /* Sources */,
+				7B24338E1C0E50D300070564 /* Frameworks */,
+				7B24338F1C0E50D300070564 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = usbserialquery;
+			productName = usbserialquery;
+			productReference = 7B2433911C0E50D300070564 /* libusbserialquery.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		7B2433A91C12436B00070564 /* arduino_usb_profiler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B2433AE1C12436C00070564 /* Build configuration list for PBXNativeTarget "arduino_usb_profiler" */;
+			buildPhases = (
+				7B2433A61C12436B00070564 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = arduino_usb_profiler;
+			productName = arduino_usb_profiler;
+			productReference = 7B2433AA1C12436B00070564 /* arduino_usb_profiler */;
+			productType = "com.apple.product-type.tool";
+		};
+		9DF045291678333000DA0CDA /* demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DF045381678333000DA0CDA /* Build configuration list for PBXNativeTarget "demo" */;
+			buildPhases = (
+				9DF045261678333000DA0CDA /* Sources */,
+				9D2D68F51AC8524200779F24 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7B24339D1C0E511700070564 /* PBXTargetDependency */,
+			);
+			name = demo;
+			productName = ORSSerialPortCommandLineDemo;
+			productReference = 9DF0452A1678333000DA0CDA /* usbserialquery */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9DF045221678333000DA0CDA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Open Reel Software";
+				TargetAttributes = {
+					7B2433901C0E50D300070564 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+					7B2433A91C12436B00070564 = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 9DF045251678333000DA0CDA /* Build configuration list for PBXProject "usbserialquery" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9DF045211678333000DA0CDA;
+			productRefGroup = 9DF0452B1678333000DA0CDA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9DF045291678333000DA0CDA /* demo */,
+				7B2433901C0E50D300070564 /* usbserialquery */,
+				7B2433A91C12436B00070564 /* arduino_usb_profiler */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7B24338D1C0E50D300070564 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2433991C0E510600070564 /* ORSSerialPortManager.m in Sources */,
+				7B2433951C0E510600070564 /* ORSSerialPort+Attributes.m in Sources */,
+				7B24339B1C0E510600070564 /* ORSSerialBuffer.m in Sources */,
+				7B2433971C0E510600070564 /* ORSSerialPort.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B2433A61C12436B00070564 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2433B11C1248BE00070564 /* demo.m in Sources */,
+				7B2433B21C1248BE00070564 /* ORSSerialPort+Attributes.m in Sources */,
+				7B2433B31C1248BE00070564 /* ORSSerialPort.m in Sources */,
+				7B2433B41C1248BE00070564 /* ORSSerialPortManager.m in Sources */,
+				7B2433B51C1248BE00070564 /* ORSSerialBuffer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DF045261678333000DA0CDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B2433A21C0E562100070564 /* demo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7B24339D1C0E511700070564 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B2433901C0E50D300070564 /* usbserialquery */;
+			targetProxy = 7B24339C1C0E511700070564 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7B2433921C0E50D300070564 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INSTALL_PATH = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7B2433931C0E50D300070564 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INSTALL_PATH = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7B2433AF1C12436C00070564 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				INSTALL_PATH = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7B2433B01C12436C00070564 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				INSTALL_PATH = "$(SRCROOT)";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9DF045361678333000DA0CDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9DF045371678333000DA0CDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9DF045391678333000DA0CDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = usbserialquery;
+			};
+			name = Debug;
+		};
+		9DF0453A1678333000DA0CDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = usbserialquery;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7B2433941C0E50D300070564 /* Build configuration list for PBXNativeTarget "usbserialquery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B2433921C0E50D300070564 /* Debug */,
+				7B2433931C0E50D300070564 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7B2433AE1C12436C00070564 /* Build configuration list for PBXNativeTarget "arduino_usb_profiler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B2433AF1C12436C00070564 /* Debug */,
+				7B2433B01C12436C00070564 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9DF045251678333000DA0CDA /* Build configuration list for PBXProject "usbserialquery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DF045361678333000DA0CDA /* Debug */,
+				9DF045371678333000DA0CDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DF045381678333000DA0CDA /* Build configuration list for PBXNativeTarget "demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DF045391678333000DA0CDA /* Debug */,
+				9DF0453A1678333000DA0CDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9DF045221678333000DA0CDA /* Project object */;
+}

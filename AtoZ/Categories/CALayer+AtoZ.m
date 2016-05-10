@@ -84,7 +84,7 @@ SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,setEventMask,NSEventMask, ^{}, ^{
 
 
 //_RO NSA* eventBlocks;//  EventBlock eventBlock;
-//@prop_CP  SenderEvent onHit, onHover;
+//_CP  SenderEvent onHit, onHover;
 //SYNTHESIZE_ASC_PRIMITIVE_BLOCK_KVO(eventMask,      setEventMask,            NSEventMask,
 //                                        ^{},^{
 

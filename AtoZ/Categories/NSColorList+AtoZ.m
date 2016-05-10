@@ -24,7 +24,7 @@
 
   NSMD* cols = @{}.mC;
 
-  [lines each:^(id x){
+  [lines each:^(_Text x){
       if ([x length] < 11) return;
       int r, b, g; _Text name  = [x substringAfter:@"	"];
       r = [[x substringWithRange:NSMakeRange(0,3)]intValue];

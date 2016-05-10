@@ -20,7 +20,7 @@ CGF                     distance (    _Cord aPnt );				// Just one function to d
 @Xtra (NSImage, AtoZDrawBlock)
 
 + _Kind_ imageWithSize:(NSSZ)size drawnUsingBlock:(Blk)drawBlock;
-+ _Kind_  imageInFrame:(NSR)frame withBlock:(RBlk)drawBlockwithFrame;	@end // (AtoZDrawBlock)
++ _Kind_  imageInFrame:(NSR)frame withBlock ＾Rect_ drawBlockwithFrame;	@end // (AtoZDrawBlock)
 
 #define NSIMGNAMED(x) [NSIMG imageNamed:NSStrigify(x)] /// [NSImage imageNamed:@"document"]
 

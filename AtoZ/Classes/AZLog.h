@@ -32,7 +32,7 @@ _EnumKind( LogEnv, LogEnvUnset        = 0,
 
 @interface  NSLogMessage : NSObject
 
-@prop_RO		  id   JSONRepresentation;
+_RO		  id   JSONRepresentation;
 _RO NSDate * date;
 _RO   NSS * message, *severityString, * function, * file;
 _RO NSData * data;
@@ -43,7 +43,7 @@ _RO NSData * data;
 
 @interface 					   AZLog : BaseModel
 
-@prop_RO			LogEnv   logEnv;
+_RO			LogEnv   logEnv;
 + (NSS*) log;
 
 /*** Get a color from a string, a color, or an rgb tuple.
@@ -160,7 +160,7 @@ CLANG_POP
 @interface          AZASLLogger : NSObject <NSOutlineViewDataSource,NSOutlineViewDelegate>
 
 @property (NA)           NSW * show;        // NSOutlineView in a window.
-@property NSMD* log;
+@property _Dict entry;
 //NSTreeController      // Watch ASL logg without blocking!  Via "watchlog"
 //- (void)                  watch ;
 

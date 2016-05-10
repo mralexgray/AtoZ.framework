@@ -49,11 +49,11 @@
 	//	[self associateValue:urlBar forKey:@"urlBar" policy:OBJC_ASSOCIATION_ASSIGN];
 	if (_urlBar) {
 
-		self.frameLoadDelegate = self;
-		self.UIDelegate = self;
-		self.policyDelegate = self;
-		self.downloadDelegate = self;
-		self.resourceLoadDelegate = self;
+		self.frameLoadDelegate = _ObjC_ self;
+		self.UIDelegate =_ObjC_  self;
+		self.policyDelegate = _ObjC_ self;
+		self.downloadDelegate = _ObjC_ self;
+		self.resourceLoadDelegate = _ObjC_ self;
 		_urlBar.webView = self;
 
 

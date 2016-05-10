@@ -57,6 +57,7 @@
 @interface Colr (AtoZ) <Random, ClassKeyGet>
 
 
+_RC _Pict swatch;
 
 _RO 	BOOL	 isBoring,   isExciting,
                               isDark,
@@ -65,7 +66,7 @@ _RO 	BOOL	 isBoring,   isExciting,
 _RO 	 CGF	 luminance, relativeBrightness,
                            rgbWeight,	hsbWeight;
 
-@prop_RO	  CGCR 	 cgColor;
+_RO	  CGCR 	 cgColor;
 
 _RO 	 NSC * closestWebColor, * closestNamedColor,  * closestColorListColor,
                          * lessOpaque,      * opaque,             * moreOpaque,
@@ -84,7 +85,7 @@ _RO 	 NSC * closestWebColor, * closestNamedColor,  * closestColorListColor,
 
 _RO   NSS * crayonName, * toHex;
 
-@prop_RO	   NSG * gradient;
+_RO	   NSG * gradient;
 
 + (NSA*) subtlePatterns;
 + (INST) subtlePattern;
@@ -284,7 +285,7 @@ _EnumKind(AZeColor, AZeColoraliceblue, AZeColorantiquewhite, AZeColoraqua, AZeCo
 //+ (NSD*) colorsAndNames;
 //- (NSDictionary*)	closestColor;  //name, list, and color
 //+ (NSC*)	colorWithCGColor: (CGColorRef) aColor;
-//@prop_RO	BOOL isBasicallyWhite;
-//@prop_RO	BOOL isBasicallyBlack;
+//_RO	BOOL isBasicallyWhite;
+//_RO	BOOL isBasicallyBlack;
 //#define AZNormalFloat(x) { if (x < 0) {x = 0;} else if (x > 1) {x = 1;} }
 

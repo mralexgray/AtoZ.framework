@@ -221,7 +221,8 @@ __attribute__((constructor)) static void do_the_swizzles() {
 
 @implementation NSD (AtoZSwizzles)
 
-- (NSS*) swizzleDescription {	AZSWIZ //	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
+- (NSS*) swizzleDescription {	// AZSWIZ //	[NSPropertyListWriter_vintage stringWithPropertyList:self];	NSS *normal =
+
   return !AZLogDictsASXML ? self.swizzleDescription
   : [[NSS stringWithData:[AZXMLWriter dataWithPropertyList:(NSD*)self]
                 encoding:NSUTF8StringEncoding]

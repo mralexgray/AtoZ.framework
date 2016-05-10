@@ -34,7 +34,6 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 
 //@import AppKit; ObjectiveC; QuartzCore;
 
-@import ToolKit;  // also handles ExtObjC  + AtoZUniversal + AtoZAutoBox
 @import AtoZAutoBox;
 
 @import AtoZAppKit;
@@ -48,11 +47,14 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 @import DrawKit;
 @import FunSize;
 @import KSHTMLWriter;
+@import MenuApp;
 @import NoodleKit;
+@import NMSSH;
+@import NSUIKit;
+@import ORSSerial;
 @import PhFacebook;
 @import TwUI;
 @import UAGithubEngine;
-@import NSUIKit;
 @import USBDevice;
 
 @import RoutingHTTPServer; // Includes HTTPServer + AsyncSockset + Lumberjack
@@ -60,216 +62,218 @@ Welcome  Bienvenidos! いらっしゃいませ！добро пожаловать
 #define JATEMPLATE_SYNTAX_WARNINGS 1
 #define autorelease self
 
+@import ToolKit;  // also handles ExtObjC  + AtoZUniversal + AtoZAutoBox
+
 @import KVOMap;
 
-#import <AtoZ/BlocksAdditions.h>
-#import <AtoZ/M13OrderedDictionary.h>
+#import "BlocksAdditions.h"
+#import "M13OrderedDictionary.h"
 //#import <CocoaLumberjack/CocoaLumberjack.h>
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE; // Log level for robbie (debug)
 
 #pragma mark - ATOZFRAMEWORK
 
-#import <AtoZ/AutoCoding.h>
-#import <AtoZ/HRCoder.h>
+#import "AutoCoding.h"
+#import "HRCoder.h"
 
+#import "MutableGeometry.h"
 
-#import <AtoZ/MutableGeometry.h>
-
-#import <AtoZ/NSImage+AtoZ.h>
+#import "NSImage+AtoZ.h"
 
 /*! id x = CAL.new; [x setGeos:@"bounds", @"x",@100, @"width", @5000, nil];   NEAT! */
-//#import <AtoZ/AtoZGeometry.h>
-//#import <AtoZ/AZCLI.h>
+//#import "AtoZGeometry.h"
+//#import "AZCLI.h"
 
 
-#import <AtoZ/+.h>
-#import <AtoZ/AFNetworking.h>
-#import <AtoZ/AGNSSplitView.h>
-#import <AtoZ/AGNSSplitViewDelegate.h>
-#import <AtoZ/AHLayout.h>
-#import <AtoZ/ASIDataCompressor.h>
-#import <AtoZ/ASIDataDecompressor.h>
-#import <AtoZ/ASIDownloadCache.h>
-#import <AtoZ/ASIFormDataRequest.h>
-#import <AtoZ/ASIHTTPRequest.h>
-#import <AtoZ/ASIInputStream.h>
-#import <AtoZ/ASINetworkQueue.h>
-#import <AtoZ/AZASImageView.h>
-#import <AtoZ/AZAXAuthorization.h>
-#import <AtoZ/AZApplePrivate.h>
-#import <AtoZ/AZAttachedWindow.h>
-#import <AtoZ/AZBackground.h>
-#import <AtoZ/AZBackgroundProgressBar.h>
-#import <AtoZ/AZBaseModel.h>  // NSDocument / AZDoc
-#import <AtoZ/AZBeetlejuice.h>
-#import <AtoZ/AZBlockView.h>
-#import <AtoZ/AZBonjourBlock.h>
-#import <AtoZ/AZBorderlessResizeWindow.h>
-#import <AtoZ/AZBox.h>
-#import <AtoZ/AZBoxGrid.h>
-#import <AtoZ/AZBoxMagic.h>
-#import <AtoZ/AZButton.h>
-#import <AtoZ/AZCSSColorExtraction.h>
-#import <AtoZ/AZCalculatorController.h>
-#import <AtoZ/AZColor.h>
-#import <AtoZ/AZCoreScrollView.h>
-#import <AtoZ/AZDarkButtonCell.h>
-#import <AtoZ/AZDebugLayer.h>
-#import <AtoZ/AZDockQuery.h>
-#import <AtoZ/AZExpandableView.h>
-#import <AtoZ/AZFacebookConnection.h>
-#import <AtoZ/AZFactoryView.h>
-#import <AtoZ/AZFavIconManager.h>
-#import <AtoZ/AZFoamView.h>
-#import <AtoZ/AZGit.h>
-#import <AtoZ/AZGoogleImages.h>
-#import <AtoZ/AZGrid.h>
-#import <AtoZ/AZHTMLParser.h>
-#import <AtoZ/AZHTTPURLProtocol.h>
-#import <AtoZ/AZHomeBrew.h>
-#import <AtoZ/AZHostView.h>
-#import <AtoZ/AZHoverButton.h>
-#import <AtoZ/AZImageToDataTransformer.h>
-#import <AtoZ/AZIndeterminateIndicator.h>
-#import <AtoZ/AZIndexedObjects.h>
-#import <AtoZ/AZInfiniteCell.h>
-#import <AtoZ/AZInstantApp.h>
-#import <AtoZ/AZLassoView.h>
-#import <AtoZ/AZLaunchServices.h>
-#import <AtoZ/AZLayer.h>
-#import <AtoZ/AZLog.h>
-#import <AtoZ/AZLogConsole.h>
-#import <AtoZ/AZMacTrackBall.h>
-#import <AtoZ/AZMatteButton.h>
-#import <AtoZ/AZMatteFocusedGradientBox.h>
-#import <AtoZ/AZMattePopUpButton.h>
-#import <AtoZ/AZMattePopUpButtonView.h>
-#import <AtoZ/AZMatteSegmentedControl.h>
-#import <AtoZ/AZMedallionView.h>
-#import <AtoZ/AZMouser.h>
-#import <AtoZ/AZNamedColors.h>
-#import <AtoZ/AZObject.h>
-#import <AtoZ/AZPopupWindow.h>
-#import <AtoZ/AZPrismView.h>
-#import <AtoZ/AZProcess.h>
-#import <AtoZ/AZProgressIndicator.h>
-#import <AtoZ/AZPropellerView.h>
-#import <AtoZ/AZProportionalSegmentController.h>
-#import <AtoZ/AZProxy.h>
-#import <AtoZ/AZQueue.h>
-#import <AtoZ/AZScrollPaneLayer.h>
-#import <AtoZ/AZScrollerLayer.h>
-#import <AtoZ/AZSegmentedRect.h>
-#import <AtoZ/AZSemiResponderWindow.h>
-#import <AtoZ/AZSimpleView.h>
-#import <AtoZ/AZSizer.h>
-#import <AtoZ/AZSnapShotLayer.h>
-#import <AtoZ/AZSound.h>
-#import <AtoZ/AZSourceList.h>
-#import <AtoZ/AZSpeechRecognition.h>
-#import <AtoZ/AZSpinnerLayer.h>
-#import <AtoZ/AZStopwatch.h>
-#import <AtoZ/AZSyntaxTheme.h>
-#import <AtoZ/AZSynthesize.h>
-#import <AtoZ/AZTimeLineLayout.h>
-//#import <AtoZ/AZToggleArrayView.h>
-#import <AtoZ/AZTrackingWindow.h>
-#import <AtoZ/AZURLBar.h>
-#import <AtoZ/AZVeil.h>
-#import <AtoZ/AZWeakCollections.h>
-#import <AtoZ/AZWikipedia.h>
-#import <AtoZ/AZWindowExtend.h>
-#import <AtoZ/AZWindowTab.h>
-#import <AtoZ/AZWindowTabViewController.h>
-#import <AtoZ/AZXMLWriter.h>
-#import <AtoZ/AddressBookImageLoader.h>
-#import <AtoZ/AssetCollection.h>
-#import <AtoZ/AtoZColorWell.h>
-#import <AtoZ/AtoZContacts.h>
-#import <AtoZ/AtoZDelegate.h>
-#import <AtoZ/AtoZEmoji.h>
-#import <AtoZ/AtoZFunctions.h>
-#import <AtoZ/AtoZGridView.h>
-#import <AtoZ/AtoZGridViewProtocols.h>
-#import <AtoZ/AtoZInfinity.h>
-#import <AtoZ/AtoZModels.h>
-#import <AtoZ/AtoZStack.h>
-#import <AtoZ/AtoZSwizzles.h>
-#import <AtoZ/AtoZWebSnapper.h>
-#import <AtoZ/AtoZWebSnapperGridViewController.h>
-#import <AtoZ/BBMeshView.h>
-#import <AtoZ/BETaskHelper.h>
-#import <AtoZ/BlockDelegate.h>
-#import <AtoZ/BlocksAdditions.h>
-#import <AtoZ/Bootstrap.h>
-#import <AtoZ/CAScrollView.h>
-#import <AtoZ/CAWindow.h>
-#import <AtoZ/CPAccelerationTimer.h>
-#import <AtoZ/CTBadge.h>
-#import <AtoZ/CTGradient.h>
-#import <AtoZ/CWTask.h>
-#import <AtoZ/CalcModel.h>
-#import <AtoZ/ColorExplorer.h>
-#import <AtoZ/DSSyntaxCollection.h>
-#import <AtoZ/DSSyntaxHighlighter.h>
-#import <AtoZ/DSSyntaxTextView.h>
-#import <AtoZ/DSURLDataSource.h>
-#import <AtoZ/DateTools.h>
-#import <AtoZ/DefinitionController.h>
-#import <AtoZ/EGOCache.h>
-#import <AtoZ/EGOImageLoadConnection.h>
-#import <AtoZ/GTMHTTPFetcher.h>
-#import <AtoZ/HTMLNode.h>
-#import <AtoZ/HTMLParserViewController.h>
-#import <AtoZ/IsometricView.h>
-#import <AtoZ/JSONKit.h>
-#import <AtoZ/KBButton.h>
-#import <AtoZ/KGNoise.h>
-#import <AtoZ/LetterView.h>
-#import <AtoZ/MAAttachedWindow.h>
-#import <AtoZ/MAKVONotificationCenter.h>
-#import <AtoZ/MASShortcut.h>  // SHortcut Manager and View
-#import <AtoZ/MediaServer.h>
-#import <AtoZ/MondoSwitch.h>
-#import <AtoZ/NSOperationStack.h>
-#import <AtoZ/NotificationCenterSpy.h>
-#import <AtoZ/NullSafe.h>
-#import <AtoZ/OperationsRunnerProtocol.h>
-#import <AtoZ/PXListDocumentView.h>
-#import <AtoZ/PXListView.h>
-#import <AtoZ/PXListViewCell.h>
-#import <AtoZ/PythonOperation.h>
-#import <AtoZ/RoundedView.h>
-#import <AtoZ/RuntimeReporter.h>
-#import <AtoZ/SDCloseButtonCell.h>
-#import <AtoZ/SDToolkit.h>
-#import <AtoZ/SIAppCookieJar.h>
-#import <AtoZ/SIAuthController.h>
-#import <AtoZ/SIConstants.h>
-#import <AtoZ/SIInboxDownloader.h>
-#import <AtoZ/SIInboxModel.h>
-#import <AtoZ/SIViewControllers.h>
-#import <AtoZ/SIWindow.h>
-#import <AtoZ/SoundManager.h>
-#import <AtoZ/StandardPaths.h>
-#import <AtoZ/StarLayer.h>
-#import <AtoZ/StickyNoteView.h>
-#import <AtoZ/TUIFastIndexPath.h>
-#import <AtoZ/TUIView+Dimensions.h>
-#import <AtoZ/Transition.h>
-#import <AtoZ/TransparentWindow.h>
+#import "+.h"
+#import "AFNetworking.h"
+#import "AGNSSplitView.h"
+#import "AGNSSplitViewDelegate.h"
+#import "AHLayout.h"
+#import "ASIDataCompressor.h"
+#import "ASIDataDecompressor.h"
+#import "ASIDownloadCache.h"
+#import "ASIFormDataRequest.h"
+#import "ASIHTTPRequest.h"
+#import "ASIInputStream.h"
+#import "ASINetworkQueue.h"
+#import "AZASImageView.h"
+#import "AZAXAuthorization.h"
+#import "AZApplePrivate.h"
+#import "AZAttachedWindow.h"
+#import "AZBackground.h"
+#import "AZBackgroundProgressBar.h"
+#import "AZBaseModel.h"  // NSDocument / AZDoc
+#import "AZBeetlejuice.h"
+#import "AZBlockView.h"
+#import "AZBonjourBlock.h"
+#import "AZBorderlessResizeWindow.h"
+#import "AZBox.h"
+#import "AZBoxGrid.h"
+#import "AZBoxMagic.h"
+#import "AZButton.h"
+#import "AZCSSColorExtraction.h"
+#import "AZCalculatorController.h"
+#import "AZColor.h"
+#import "AZCoreScrollView.h"
+#import "AZDarkButtonCell.h"
+#import "AZDebugLayer.h"
+#import "AZDockQuery.h"
+#import "AZExpandableView.h"
+#import "AZFacebookConnection.h"
+#import "AZFactoryView.h"
+#import "AZFavIconManager.h"
+#import "AZFoamView.h"
+#import "AZGit.h"
+#import "AZGoogleImages.h"
+#import "AZGrid.h"
+#import "AZHTMLParser.h"
+#import "AZHTTPURLProtocol.h"
+#import "AZHomeBrew.h"
+#import "AZHostView.h"
+#import "AZHoverButton.h"
+#import "AZImageToDataTransformer.h"
+#import "AZIndeterminateIndicator.h"
+#import "AZIndexedObjects.h"
+#import "AZInfiniteCell.h"
+#import "AZInstantApp.h"
+#import "AZLassoView.h"
+#import "AZLaunchServices.h"
+#import "AZLayer.h"
+#import "AZLog.h"
+#import "AZLogConsole.h"
+#import "AZMacTrackBall.h"
+#import "AZMatteButton.h"
+#import "AZMatteFocusedGradientBox.h"
+#import "AZMattePopUpButton.h"
+#import "AZMattePopUpButtonView.h"
+#import "AZMatteSegmentedControl.h"
+#import "AZMedallionView.h"
+#import "AZMouser.h"
+#import "AZNamedColors.h"
+#import "AZObject.h"
+#import "AZPopupWindow.h"
+#import "AZPrismView.h"
+#import "AZProcess.h"
+#import "AZProgressIndicator.h"
+#import "AZPropellerView.h"
+#import "AZProportionalSegmentController.h"
+#import "AZProxy.h"
+#import "AZQueue.h"
+#import "AZScrollPaneLayer.h"
+#import "AZScrollerLayer.h"
+#import "AZSegmentedRect.h"
+#import "AZSemiResponderWindow.h"
+#import "AZSimpleView.h"
+#import "AZSizer.h"
+#import "AZSnapShotLayer.h"
+#import "AZSound.h"
+#import "AZSourceList.h"
+#import "AZSpeechRecognition.h"
+#import "AZSpinnerLayer.h"
+#import "AZStopwatch.h"
+#import "AZSyntaxTheme.h"
+#import "AZSynthesize.h"
+#import "AZTimeLineLayout.h"
+//#import "AZToggleArrayView.h"
+#import "AZTrackingWindow.h"
+#import "AZURLBar.h"
+#import "AZVeil.h"
+#import "AZWeakCollections.h"
+#import "AZWikipedia.h"
+#import "AZWindowExtend.h"
+#import "AZWindowTab.h"
+#import "AZWindowTabViewController.h"
+#import "AZXMLWriter.h"
+#import "AddressBookImageLoader.h"
+#import "AssetCollection.h"
+#import "AtoZColorWell.h"
+#import "AtoZContacts.h"
+#import "AtoZDelegate.h"
+#import "AtoZEmoji.h"
+#import "AtoZFunctions.h"
+#import "AtoZGridView.h"
+#import "AtoZGridViewProtocols.h"
+#import "AtoZInfinity.h"
+#import "AtoZModels.h"
+#import "AtoZStack.h"
+#import "AtoZSwizzles.h"
+#import "AtoZWebSnapper.h"
+#import "AtoZWebSnapperGridViewController.h"
+#import "AZUSBMonitor.h"
+#import "BBMeshView.h"
+#import "BETaskHelper.h"
+#import "BlockDelegate.h"
+#import "BlocksAdditions.h"
+#import "Bootstrap.h"
+#import "CAScrollView.h"
+#import "CAWindow.h"
+#import "CPAccelerationTimer.h"
+#import "CTBadge.h"
+#import "CTGradient.h"
+#import "CWTask.h"
+#import "CalcModel.h"
+#import "ColorExplorer.h"
+#import "DSSyntaxCollection.h"
+#import "DSSyntaxHighlighter.h"
+#import "DSSyntaxTextView.h"
+#import "DSURLDataSource.h"
+#import "DateTools.h"
+#import "DefinitionController.h"
+#import "EGOCache.h"
+#import "EGOImageLoadConnection.h"
+#import "GTMHTTPFetcher.h"
+#import "HTMLNode.h"
+#import "HTMLParserViewController.h"
+#import "IsometricView.h"
+#import "JSONKit.h"
+#import "KBButton.h"
+#import "KGNoise.h"
+#import "LetterView.h"
+#import "MAAttachedWindow.h"
+#import "MAKVONotificationCenter.h"
+#import "MASShortcut.h"  // SHortcut Manager and View
+#import "MediaServer.h"
+#import "MondoSwitch.h"
+#import "NSOperationStack.h"
+#import "NotificationCenterSpy.h"
+#import "NullSafe.h"
+#import "OperationsRunnerProtocol.h"
+#import "PXListDocumentView.h"
+#import "PXListView.h"
+#import "PXListViewCell.h"
+#import "PythonOperation.h"
+#import "RoundedView.h"
+#import "RuntimeReporter.h"
+#import "SDCloseButtonCell.h"
+#import "SDToolkit.h"
+#import "SIAppCookieJar.h"
+#import "SIAuthController.h"
+#import "SIConstants.h"
+#import "SIInboxDownloader.h"
+#import "SIInboxModel.h"
+#import "SIViewControllers.h"
+#import "SIWindow.h"
+#import "SoundManager.h"
+#import "StandardPaths.h"
+#import "StarLayer.h"
+#import "StickyNoteView.h"
+#import "TUIFastIndexPath.h"
+#import "TUIView+Dimensions.h"
+#import "Transition.h"
+#import "TransparentWindow.h"
 
-#import <AtoZ/WebView+AtoZ.h>
-#import <AtoZ/XLDragDropView.h>
-#import <AtoZ/iCarousel.h>
+#import "WebView+AtoZ.h"
+#import "XLDragDropView.h"
+#import "iCarousel.h"
 
 
-#import <AtoZ/AZGrid.h>
-#import <AtoZ/AZMatrix.h>
-#import <AtoZ/AZPoint.h>
-#import <AtoZ/AZSize.h>
-#import <AtoZ/AZRect.h>
+#import "AZGrid.h"
+#import "AZMatrix.h"
+#import "AZPoint.h"
+#import "AZSize.h"
+#import "AZRect.h"
 
 @import BlocksKit;
 
@@ -306,7 +310,7 @@ extern NSS *const AtoZSharedInstanceUpdated,
 @end
 
 
-#import <AtoZ/OperationsRunner.h>
+#import "OperationsRunner.h"
 
 
 /*! @abstract AZClassProxy enables `performSelector` to be called on `Class`'s.  Yay!.
@@ -450,7 +454,7 @@ _RO NSOS * sharedStack;
 _RO NSOQ * sharedQ,
               * sharedSQ;
 
-@prop_AS IBO  NSTXTV * stdOutView;
+_AS IBO  NSTXTV * stdOutView;
 
 @prop_ AZBonjourBlock *bonjourBlock;
 

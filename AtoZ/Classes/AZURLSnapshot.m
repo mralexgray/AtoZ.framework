@@ -31,7 +31,7 @@
 		completionBlock = [block copy];
 
 		webView = [WebView.alloc initWithFrame:NSMakeRect(0.0, 0.0, 1000.0, 1000.0) frameName:nil groupName:nil];
-		[webView setFrameLoadDelegate:self];
+		[webView setFrameLoadDelegate:_ObjC_ self];
 	}
 	return self;
 }

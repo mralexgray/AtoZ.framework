@@ -142,7 +142,7 @@
 	CGRect tempBounds;
 	
 	// layout letterLayer
-	tempLayer	 		= layer.sublayers[0];
+	tempLayer	 		= _ObjC_ layer.sublayers[0];
 	tempBounds 			= tempLayer.bounds;
 	tempLayer.fontSize 	= self.layer.height / 1.5;
 	// set the width of the layer to the width of the window so that letters are never cut off by accident
@@ -151,7 +151,7 @@
 	tempLayer.position 	= self.centerPt;
 	
 	// layout extraLayer
-	tempLayer 			= layer.sublayers[1];
+	tempLayer 			= _ObjC_ layer.sublayers[1];
 	tempBounds 			= tempLayer.bounds;
 	tempLayer.fontSize 	= [self layer].bounds.size.height/50.0;
 	tempBounds.size 	= [tempLayer preferredFrameSize];

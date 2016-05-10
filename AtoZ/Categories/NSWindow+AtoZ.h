@@ -2,16 +2,15 @@
 #define CRNR OSCornerType
 
 _EnumKind(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
-                              NSWindowResizeTopRightCorner    = 2,
-                              NSWindowResizeBottomRightCorner = 3,
-                              NSWindowResizeBottomLeftCorner  = 4);
-
+													NSWindowResizeTopRightCorner    = 2,
+													NSWindowResizeBottomRightCorner = 3,
+													NSWindowResizeBottomLeftCorner  = 4);
 
 
 @interface NSAnimationContext (Blocks)
 
 + (void) groupWithDuration:(NSTI)d
-    timingFunctionWithName:(NSS*)tF
+    timingFunctionWithName __Text_ tF
          completionHandler:(VBlk)blk
             animationBlock:(VBlk)aniB;
 
@@ -23,18 +22,19 @@ _EnumKind(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
            animationBlock:(VBlk)an;
 @end
 
-@interface NSResponder (AtoZ)
-- (void)        overrideResponder:(SEL)sel
-                         withBool:(BOOL)accepts;
-- (void) setAcceptsFirstResponder:(BOOL)a;
-- (void)  setPerformKeyEquivalent:(BOOL)p;
+@Xtra(NSResponder,AtoZ)
+
+_VD        overrideResponder __Meth_ sel
+										withBool __IsIt_ accepts ___
+_VD setAcceptsFirstResponder __IsIt_ a ___
+_VD  setPerformKeyEquivalent __IsIt_ p ___
 
 
 /*! [win animateWithDuration:2 block:^(id w){ 
       [w setFrame:AZScreenFrameUnderMenu()]; 
     }]
 */
-- (void) animateWithDuration:(NSTI)d block:(ObjBlk)stuff;
+- (void) animateWithDuration:(NSTI)d block ＾ObjC_ stuff;
 @end
 
 
@@ -56,17 +56,16 @@ _EnumKind(NSWindowResize, NSWindowResizeTopLeftCorner     = 1,
 + (INST) withFrame:(NSR)r mask:(NSUI)m;
 #pragma mark - THE MISSING ACCESSORS
 
-_NA NSA * childWindows;
-_RO NSV * frameView;
-_AT   NSV * view;
-_RO CAL * windowLayer,
-             * contentLayer;
-_RO CGR   contentRect;
-_RO CGF   heightOfTitleBar, toolbarHeight;
+_NA _List childWindows;
+_RO _View frameView;
+_PR _View view;
+_RO _Layr windowLayer, contentLayer;
+_RO _Rect contentRect;
+_RO _Flot  heightOfTitleBar, toolbarHeight;
 
-- (void) toggleVisibility;
+_VD toggleVisibility;
 
-- (void) overrideCanBecomeMainWindow:(BOOL)canBecomeMain;
+_VD overrideCanBecomeMainWindow:(BOOL)canBecomeMain;
 - (void)  overrideCanBecomeKeyWindow:(BOOL)canBecomeKey;
 - (void)               setIgnoresEventsButAcceptsMoved;
 

@@ -168,7 +168,7 @@ static CGEventRef AUWE_OnMouseMovedFactory (
 	// look for mouse down
 	if ([event type] == NSLeftMouseDown) {
 		// look for deepest subview
-		NSView *deepView = [[self contentView] hitTest:[event locationInWindow]];
+		NSView *deepView = [_View_[self contentView] hitTest:[event locationInWindow]];
 		if (deepView) {
 			for (NSView *aClickView in _eventViews) {
 				if ([deepView isDescendantOf:aClickView]) {

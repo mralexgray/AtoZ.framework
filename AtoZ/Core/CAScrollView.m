@@ -12,7 +12,7 @@ _Enum(StateStyle, LassoStyle, InnerShadow, DarkenOthers)
 @property (NA)	 CGF 		offset;
 @property (NA) NSUI 		normalizedCopyIndex;
 @property (NA) BOOL 		recursiveFix, scrolling;
-@prop_RO	CAL	*lastLayer, *firstLayer;
+_RO	CAL	*lastLayer, *firstLayer;
 _RO NSA 	*scrollLayersByAscendingPosition, *sSubs;
 _RO 	BOOL 	isVRT;
 //@property (STR) CWStack *stack;

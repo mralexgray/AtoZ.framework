@@ -59,8 +59,8 @@ NSString * const kAZWebSnapperUseGMTKey					= @"UseGMT";
 	NSR theRect 		= NSMakeRect(-16000.0, -16000.0, 100.0, 100.0);
 	self.webWindow 		= [NSWindow.alloc initWithContentRect:theRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:NO];
 	self.webView 		= [WebView.alloc  initWithFrame:	  theRect];
-	webView.frameLoadDelegate			= self;
-	webView.resourceLoadDelegate		= self;
+	webView.frameLoadDelegate			= _ObjC_ self;
+	webView.resourceLoadDelegate		= _ObjC_ self;
 	webView.applicationNameForUserAgent = kAZWebSnapperUserAgent;
 	webView.maintainsBackForwardList 	= NO;
 

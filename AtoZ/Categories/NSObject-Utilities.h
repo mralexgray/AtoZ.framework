@@ -89,7 +89,7 @@
   }];   
 */
 
-+   invocationWithTarget:t  block:(ObjBlk)b;
++   invocationWithTarget:t  block ＾ObjC_ b;
 // http://www.numbergrinder.com/2008/12/callable-objects-in-cocoa-nsinvocation/
 + (INV*) createInvocationOnTarget:t selector:(SEL)s;
 + (INV*) createInvocationOnTarget:t selector:(SEL)s

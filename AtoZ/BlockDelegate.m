@@ -344,11 +344,11 @@ static NSTableRowView* DynamicRowViewForItem(id self, SEL _cmd, NSOutlineView*ov
 
 + (instancetype) delegateFor:(NSOV*)v ofType:(NSOVBlockDelegate)type withBlock:(id)block {
 
-	NSOutlineViewBlockDelegate *d = self.new;	d.ov = v; d.block = [block copy]; d.blockType = type;	return d;
+	NSOutlineViewBlockDelegate *d = self.new;	d.ov = v; d.block = [(NSObject*)block copy]; d.blockType = type;	return d;
 }
 - (void) outlineView:(NSOV*)v willDisplayOutlineCell:(id)c forTableColumn:(NSTC*)tc item:(id)x {
 	// Approach 1 - Just replace the triangle images with other images. (This requires the image to be the same size as the triangle)
-	if (_disclosureImage) [c setImage:_disclosureImage(c, tc, x)];
+	if (_disclosureImage) [(NSCell*)c setImage:_disclosureImage(c, tc, x)];
 	//Approach 2 -First, hide the triangle completely.	//if (item)[cell setTransparent:YES];
 }
 - (void) outlineView:(NSOV*)v willDisplayCell:(id)c forTableColumn:(NSTC*)tc item:(id)x 	{
@@ -361,7 +361,7 @@ static NSTableRowView* DynamicRowViewForItem(id self, SEL _cmd, NSOutlineView*ov
 //			[c setAction:@selector(toggleItem:) withTarget:self];
 //		}
 	} else
-		[c setImage:[NSImage imageNamed:@"unexpandable"]];
+		[(NSCell*)c setImage:[NSImage imageNamed:@"unexpandable"]];
 }
 - (BOOL) outlineView:(NSOV*)v isGroupItem:(id)x {
 	return YES;

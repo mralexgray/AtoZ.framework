@@ -44,12 +44,12 @@
 //_ROIndexedKeyMap* eventBlocks; // SenderEvent's aka ^(id sender,NSE*ev)
 
 /*! @see swizzleHitTest for swizled implementation enablig this! */
-@prop_CP  ObjBlk onHit, onHover; // SenderEvent
+_CP  ＾ObjC onHit, onHover; // SenderEvent
 
 //- (CAL*) hoverTest:(NSP)pt; // FIX
 
-- (void) setOnHit:(ObjBlk)wasHit;
-- (void) setOnHover:(ObjBlk)wasHit;
+- (void) setOnHit ＾ObjC_ wasHit;
+- (void) setOnHover ＾ObjC_ wasHit;
 
 //- (void) setWasHit:(LayerBlock)b; - (void) setMouseOverBlock:(LayerBlock)b;
 //@property (CP) void(^sublayerMouseOverBlock)(CAL*);

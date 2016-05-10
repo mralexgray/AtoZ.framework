@@ -52,7 +52,14 @@ static __unused NSC * ColorWithCSSString(NSS *str) {
 }
 static __unused CGF   LuminanceFromRGBComponents(const CGF *rgb) { return .3086f*rgb[0] + .6094f*rgb[1] + .0820f*rgb[2]; /* 0.3086 + 0.6094 + 0.0820 = 1.0 */ }
 
-@implementation NSColor (AtoZ) static NSMD *bestMatches, *colorsFromStruct; static NSCL *safe, *named;
+@implementation Colr (AtoZ)
+
+static NSMD *bestMatches, *colorsFromStruct; static NSCL *safe, *named;
+
+- _Pict_ swatch {
+
+  return [Pict swatchWithColor:self size:AZSizeFromDim(1)].resizeWhenScaledImage;
+}
 
 + (NSA*) subtlePatterns { AZSTATIC_OBJ(NSA, subtles, [@11 mapTimes:^id(NSNumber *num) {
   return [self colorWithPatternImage:[NSIMG imageNamed:$(@"subtle-pattern-%@", num.increment)]];

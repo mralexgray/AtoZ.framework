@@ -50,13 +50,13 @@
 	// -- check that integer is within bounds
 	if( index < 0 || index >= [[self sublayers] count] )		return;
 	NSInteger selectedIndex = [self selectedIndex];
-	AZSnapShotLayer* snapShot = [self sublayers][selectedIndex];
+	AZSnapShotLayer* snapShot = (id)self.sublayers[selectedIndex];
 	AZFile *f = snapShot.objectRep;
 	CGColorRef rrr = f.color.CGColor;
 	NSLog(@"selected:%@",f);
 	snapShot.backgroundColor = rrr;
 	snapShot.selected = NO;
-	snapShot = [self sublayers][index];
+	snapShot = _ObjC_ self.sublayers[index];
 	snapShot.selected =YES;
 	[self setValue:@(index) forKey:selectedSnapShot];
 	[self zoomAnimation:snapShot];

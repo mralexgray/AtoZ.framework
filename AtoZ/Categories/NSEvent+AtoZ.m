@@ -90,9 +90,9 @@ CLANG_POP
 
 
 @interface AZDragHandler : BaseModel
-AZPROPERTY(NSE, nonatomic, *click, *now, *mouseUp);
-AZPROPERTY(NSP, readonly,  dragStart, delta);
-AZPROPERTY(void(^handler)(AZDragHandler*), copy);
+_NA NSE *click, *now, *mouseUp;
+_RO NSP  dragStart, delta;
+_CP void(^handler)(AZDragHandler*);
 @end
 
 @implementation AZDragHandler { id internalHandler; }

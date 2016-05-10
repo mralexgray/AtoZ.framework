@@ -72,7 +72,7 @@ NSAnimationBlockingMode AZDefaultAnimationBlockingMode  = NSAnimationNonblocking
   return [NSKeyedUnarchiver unarchiveObjectWithData:archivedView.copy];
 }
 
-- (void) setOnEndLiveResize:(ObjBlk)b {
+- (void) setOnEndLiveResize ＾ObjC_ b {
 
   dispatch_uno(
 

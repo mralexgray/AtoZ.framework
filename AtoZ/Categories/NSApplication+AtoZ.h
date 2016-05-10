@@ -21,18 +21,18 @@
 
 @interface	NSMenuItem   (AtoZ)
 
-- initWithTitle:_Text_ tit target:t action:_Meth_ s keyEquivalent:_Text_ k representedObject:x;
+- initWithTitle __Text_ tit target:t action __Meth_ s keyEquivalent __Text_ k representedObject:x;
 
-+ itemWithTitle:_Text_ title keyEquivalent:_Text_ key block:(MENUBLK)block;
++ itemWithTitle __Text_ title keyEquivalent __Text_ key block:(MENUBLK)block;
 
-@prop_NC MItemBlk actionBlock;
+_NC MItemBlk actionBlock;
 
-+ _Kind_ menuWithTitle:_Text_ tit key:_Text_ k action:blck;
++ _Kind_ menuWithTitle __Text_ tit key __Text_ k action:blck;
 
 @end
 
 @interface NSControl (ActionBlock)
-@prop_NC ObjBlk actionBlock;
+_NC  ＾ObjC actionBlock;
 @end
 
 

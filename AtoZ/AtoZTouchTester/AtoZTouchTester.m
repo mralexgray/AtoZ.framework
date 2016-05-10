@@ -7,6 +7,8 @@
 
 //#import <InstaBanner.h>
 
+#import <_ObjC.h>
+
 @import AtoZTouch;
 
 int main (int argc, const char * argv[]){  @autoreleasepool {

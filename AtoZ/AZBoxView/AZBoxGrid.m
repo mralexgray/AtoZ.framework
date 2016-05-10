@@ -99,7 +99,7 @@
 		AZBox *cell = _self->visibleCells[@(index)];
 		NSLog(@"about your selection: %@", cell.propertiesPlease);
 //		NSLog(@"parent: %@.  siblings:%@", cell.superview,[cell.superview subviews]);
-		[(NSObject*)[NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
+		[(id)[(id)NSApp delegate] setValue:$(@"%ld",cell.superview.subviews.count) forKey:@"activeViews"];
 		NSLog(@"%@", NSStringFromRange([(AZBoxGrid*)cell.superview visibleRange]));
 	NSLog(@"%@",[(AZBoxGrid*)cell.superview propertiesPlease]);
 

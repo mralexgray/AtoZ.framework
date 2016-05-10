@@ -1,0 +1,1167 @@
+// require('coffee-script')
+// require('coffee-cache').setCacheDir('/tmp/atom-coffee-cache')	
+// require('module').globalPaths.push('/usr/local/lib/node_modules')
+
+require('coffee-script').register
+// coffee = require('./start')
+// var $ = require('nodobjc')
+
+var menub = require('menubar');
+
+var	z;
+
+
+var mb = menub({'preloadWindow' : true,
+				'index' : 'http://localhost:55281',
+				'width' : 1360,
+				'height' : 400,
+				'zoom-factor' : 1.3
+				// 'y': -200,
+				// 'x': -15 
+});
+
+
+
+
+mb.on('ready', function ready(){
+
+	console.log('app is ready');
+	
+	require('/node/atoz').console();
+	
+	// $.import('Cocoa')
+	// var pool = $.NSAutoreleasePool('alloc')('init')
+	// $.NSLog($('test'))
+})
+
+	// #$.NSBeep()
+	// #$.NSLog 'whatveHELLL!'
+
+// console.log('done')
+
+// z.console()
+
+
+
+
+/*
+
+# converts serial data to an array of strings
+# each of which is a binary representation of a single byte
+def getArrFromStr(serialData):
+    output = []
+    inputList = serialData.split(" ")
+    for value in inputList:
+        # The [2:] removes the first 2 characters so as to trim off the 0b
+        binStr = bin(int(value, base=16))[2:]
+        # we add enough 0s to the front in order to make it 8 bytes
+        # (since bin() trims off zeros in the start)
+        for i in range(8 - len(binStr)):
+            binStr = '0' + binStr
+        output.append(binStr)
+    return output
+
+
+def processDigit(digitNumber, binArray):
+    decimalPointBool = False
+    # Allows easy detection of failed digit detection
+    digitValue = -1
+    bin = []
+    if digitNumber == 4:
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[2][::-1])
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[3][::-1])
+    if digitNumber == 3:
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[4][::-1])
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[5][::-1])
+    if digitNumber == 2:
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[6][::-1])
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[7][::-1])
+    if digitNumber == 1:
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[8][::-1])
+        # reverse. start with bit 0, not bit 7
+        bin.append(binArray[9][::-1])
+    digitDict = {}
+    # Creates a dictionary where the key;s follow the protocol desc in
+    # readme.md
+    digitDict['A'] = int(bin[0][0])
+    digitDict['F'] = int(bin[0][1])
+    digitDict['E'] = int(bin[0][2])
+    digitDict['B'] = int(bin[1][0])
+    digitDict['G'] = int(bin[1][1])
+    digitDict['C'] = int(bin[1][2])
+    digitDict['D'] = int(bin[1][3])
+    # passes the digit dict to getCharFromDigitDict to decode what the value is
+    digitValue = getCharFromDigitDict(digitDict)
+    # checks if there should be a decimal point
+    decimalPointBool = bool(int(bin[0][3]))
+    # if it is digit 4, a decimal point actually means MAX not decimal pt
+    # (see readme.md for full description of protocol)
+    if digitNumber == 4:
+        decimalPointBool = False
+    # Returns a tuple containing both whether or not to include a decimal pt
+    # and the digit on the display
+    return (decimalPointBool, digitValue)
+
+
+# Returns a char based off of the digitDictionary sent to it
+def getCharFromDigitDict(digitDict):
+    if is9(digitDict):
+        return 9
+    if is8(digitDict):
+        return 8
+    if is7(digitDict):
+        return 7
+    if is6(digitDict):
+        return 6
+    if is5(digitDict):
+        return 5
+    if is4(digitDict):
+        return 4
+    if is3(digitDict):
+        return 3
+    if is2(digitDict):
+        return 2
+    if is1(digitDict):
+        return 1
+    if is0(digitDict):
+        return 0
+    if isC(digitDict):
+        return 'C'
+    if isF(digitDict):
+        return 'F'
+    if isE(digitDict):
+        return 'E'
+    if isP(digitDict):
+        return 'P'
+    if isN(digitDict):
+        return 'N'
+    if isL(digitDict):
+        return 'L'
+
+'''
+All of these is*(digitDict) methods are essentially implementing a
+bitmask to convert a series of bits into characters or numbers
+While this is a horrible format, it works and is unlikely to be changed
+as switching to a more traditional bitmask is not that advantageous
+'''
+
+
+def isE(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 0 and \
+       digitDict['C'] == 0 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def isN(digitDict):
+    if digitDict['A'] == 0 and digitDict['F'] == 0 and \
+       digitDict['G'] == 1 and digitDict['B'] == 0 and \
+       digitDict['C'] == 1 and digitDict['D'] == 0 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def isL(digitDict):
+    if digitDict['A'] == 0 and digitDict['F'] == 1 and \
+       digitDict['G'] == 0 and digitDict['B'] == 0 and \
+       digitDict['C'] == 0 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def isP(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 1 and \
+       digitDict['C'] == 0 and digitDict['D'] == 0 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def isF(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 0 and \
+       digitDict['C'] == 0 and digitDict['D'] == 0 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def isC(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 0 and digitDict['B'] == 0 and \
+       digitDict['C'] == 0 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def is9(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 1 and digitDict['E'] == 0:
+        return True
+    return False
+
+
+def is8(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def is7(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 0 and \
+       digitDict['G'] == 0 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 0 and digitDict['E'] == 0:
+        return True
+    return False
+
+
+def is6(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 0 and \
+       digitDict['C'] == 1 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def is5(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 0 and \
+       digitDict['C'] == 1 and digitDict['D'] == 1 and digitDict['E'] == 0:
+        return True
+    return False
+
+
+def is4(digitDict):
+    if digitDict['A'] == 0 and digitDict['F'] == 1 and \
+       digitDict['G'] == 1 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 0 and digitDict['E'] == 0:
+        return True
+    return False
+
+
+def is3(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 0 and \
+       digitDict['G'] == 1 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 1 and digitDict['E'] == 0:
+        return True
+    return False
+
+
+def is2(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 0 and \
+       digitDict['G'] == 1 and digitDict['B'] == 1 and \
+       digitDict['C'] == 0 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+
+def is1(digitDict):
+    if digitDict['A'] == 0 and digitDict['F'] == 0 and \
+       digitDict['G'] == 0 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 0 and digitDict['E'] == 0:
+        return True
+    return False
+
+
+def is0(digitDict):
+    if digitDict['A'] == 1 and digitDict['F'] == 1 and \
+       digitDict['G'] == 0 and digitDict['B'] == 1 and \
+       digitDict['C'] == 1 and digitDict['D'] == 1 and digitDict['E'] == 1:
+        return True
+    return False
+
+global debug
+debug = False
+
+
+'''
+    Checks all possible flags that might be needed
+    and returns a list containing all currently active flags
+    strToFlags('12 20 37 4d 53 6f 79 8f 97 ad b0 c0 d2 e0'
+    binArray =
+        ['00010010', '00100000', '00110111', '01001101',
+         '01010011', '01101111', '01111001', '10001111',
+         '10010111', '10101101', '10110000', '11000000',
+         '11010010', '11100000']
+'''
+
+
+def strToFlags(strOfBytes):
+
+    flags = []
+    binArray = getArrFromStr(strOfBytes)
+    if debug:
+        print('strToFlags. strOfBytes: {0}\n binarray: {1}',
+              strOfBytes, binArray)
+
+    for index, binStr in enumerate(binArray):
+        binArray[index] = binStr[::-1]
+    if binArray[0][2] == '1':
+        flags.append('AC')
+    # Don't display this because it will always be on since
+    # whenever we are getting input, it will be on.
+    # if binArray[0][1] == '1':
+    #   flags.append('SEND')
+    if binArray[0][0] == '1':
+        flags.append('AUTO')
+    if binArray[1][3] == '1':
+        flags.append('CONTINUITY')
+    if binArray[1][2] == '1':
+        flags.append('DIODE')
+    if binArray[1][1] == '1':
+        flags.append('LOW BATTERY')
+    if binArray[1][0] == '1':
+        flags.append('HOLD')
+    if binArray[10][0] == '1':
+        flags.append('MIN')
+    if binArray[10][1] == '1':
+        flags.append('REL DELTA')
+    if binArray[10][2] == '1':
+        flags.append('HFE')
+    if binArray[10][3] == '1':
+        flags.append('Percent')
+    if binArray[11][0] == '1':
+        flags.append('SECONDS')
+    if binArray[11][1] == '1':
+        flags.append('dBm')
+    if binArray[11][2] == '1':
+        flags.append('n (1e-9)')
+    if binArray[11][3] == '1':
+        flags.append('u (1e-6)')
+    if binArray[12][0] == '1':
+        flags.append('m (1e-3)')
+    if binArray[12][1] == '1':
+        flags.append('VOLTS')
+    if binArray[12][2] == '1':
+        flags.append('AMPS')
+    if binArray[12][3] == '1':
+        flags.append('FARADS')
+    if binArray[13][0] == '1':
+        flags.append('M (1e6)')
+    if binArray[13][1] == '1':
+        flags.append('K (1e3)')
+    if binArray[13][2] == '1':
+        flags.append('OHMS')
+    if binArray[13][3] == '1':
+        flags.append('Hz')
+    return flags
+
+
+'''
+    converts a string of space separated hexadecimal bytes
+    into numbers following the protocol in readme.md
+
+
+    ('strToDigits(strOfBytes = '12 20 37 4d 53 6f 79 8f 97 ad b0 c0 d2 e0')
+    strToDigits got:09.30
+    | 09.30 VOLTS |
+'''
+
+
+def strToDigits(strOfBytes):
+
+    if debug:
+        print('strToDigits(strOfBytes) {0}', strOfBytes)
+    # Create an array of the binary values from those hexadecimal bytes
+    binArray = getArrFromStr(strOfBytes)
+    digits = ""
+    # reversed rabge so that we iterate through values 4,3,2,1 in that order
+    # due to how serial protocol works (see readme.md)
+    for number in reversed(range(1, 5)):
+        out = processDigit(number, binArray)
+        if out[1] == -1:
+            print("Protocol Error: Please start an issue here: \
+                https://github.com/ddworken/2200087-Serial-Protocol/issues \
+                and include the following data: '" + strOfBytes + "'")
+            sys.exit(1)
+        # append the decimal point if the decimalPointBool in the tuple is true
+        if out[0]:
+            digits += "."
+        digits += str(out[1])
+    # following the serial protocol, calc. whether or not a neg sign is needed
+    minusBool = bool(int(binArray[0][::-1][3]))
+    if minusBool:
+        digits = '-' + digits
+    if debug:
+        print('strToDigits got:' + digits)
+    return digits
+
+
+def mainLoop(args):
+    if len(args.port) == 1:
+        ser = serial.Serial(port=args.port[0], baudrate=2400,
+                            bytesize=8, parity='N', stopbits=1, timeout=5,
+                            xonxoff=False, rtscts=False, dsrdtr=False)
+        # global grapher
+        # grapher = grapher([0])
+        # if args.csv:
+        #     print args.port[0] + ','
+        if not args.csv:
+            print("| " + args.port[0] + " |")
+        while(True):
+            chunk = getSerialChunk(ser)
+            digits = strToDigits(chunk)
+            flags = ' '.join(strToFlags(chunk))
+            if "None" not in digits:
+                # if args.csv:
+                #     if not args.quiet:
+                #         print(digits + ' ' + flags + ",")
+                #     if args.quiet:
+                #         print(digits + ",")
+                # if not args.csv:
+                if not args.quiet:
+                    print("| " + digits + ' ' + flags + " |")
+                else:
+                    print("| " + digits + " |")
+
+
+def getSerialChunk(ser):
+    while True:
+        chunk = []
+        for i in range(14):
+            ch = ser.read(1).encode('hex')
+            if debug:
+                print('appending chunk ' + ch)
+            '''
+                appending chunk 12
+                appending chunk 20
+                appending chunk 37
+                appending chunk 4d
+                appending chunk 53
+                appending chunk 6f
+                appending chunk 79
+                appending chunk 8f
+                appending chunk 97
+                appending chunk ad
+                appending chunk b0
+                appending chunk c0
+                appending chunk d2
+                appending chunk e0
+                | 09.30 VOLTS |
+            '''
+            chunk.append(ch)
+        if chunk[0][0] != '1':
+            startChunk = []
+            endChunk = []
+            for index, byte in enumerate(chunk):
+                if byte[0] == '1':
+                    startChunk = chunk[index:]
+                    endChunk = chunk[:index]
+                    chunk = startChunk + endChunk
+                    if debug:
+                        print('startChunk:{0}, endChunk:{1}. chunk;{2}',
+                              startChunk, endChunk, chunk)
+                    return " ".join(chunk)
+
+
+'''
+['13','20','30','42','50','62','70','82','98','a2','b0','c0','d3'],
+['e0'],
+['13','20','30','42','50','62','70','82','98','a2','b0','c0','d3','e0']
+'''
+
+
+# Allows for usage of above methods in a library
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--graph", help="Use this argument if you want \
+                        to display a graph. ",
+                        action="store_true")
+    parser.add_argument("-p", "--port", nargs='*',
+                        help="The serial port to use",
+                        default="/dev/ttyUSB0")
+    parser.add_argument("-q", "--quiet", help="Use this argument if you \
+                        only want the numbers, not the description. ",
+                        action="store_true")
+    parser.add_argument("-c", "--csv", help="Use this argument to enable \
+                        csv output", action="store_true")
+    args = parser.parse_args()
+    mainLoop(args)  # Call the mainLoop method with a list cont. serial data
+
+*/
+
+
+//#define CKSUMOFF	0x57	/* checksum offset */
+//#define SEGBITS		0xf7	/* digit segment bits */
+//#define DPBIT		0x08	/* decimal point bit */
+//#define NODIGIT		-1	/* no digit */
+//#define NMODES		26	/* number of mode values */
+//#define NBYTES		0x100	/* number of possible bytes */
+
+//typedef struct frame_t
+//{
+//  unsigned char mode;     /* multimeter mode */
+//  unsigned char units1;   /* units and other flags */
+//  unsigned char units2;   /* more units and stuff */
+//  unsigned char digit4;   /* digit 4 */
+//  unsigned char digit3;   /* digit 3 */
+//  unsigned char digit2;   /* digit 2 */
+//  unsigned char digit1;   /* digit 1 */
+//  unsigned char flags;    /* flags */
+//  unsigned char cksum;    /* checksum */
+//} frame;
+
+//typedef struct frame frame_t;
+
+//typedef struct digit_t
+//{
+//  unsigned segments;	 /* segment bits */
+//  int digit;		 /* resulting digit */
+//
+//} digit;
+
+//typedef struct digit digit_t;
+
+//static char *modes[] = {
+//  "DC V",
+//  "AC V",
+//  "DC uA",
+//  "DC mA",
+//  "DC A",
+//  "AC uA",
+//  "AC mA",
+//  "AC A",
+//  "OHM",
+//  "CAP",
+//  "HZ",
+//  "NET HZ",
+//  "AMP HZ",
+//  "DUTY",
+//  "NET DUTY",
+//  "AMP DUTY",
+//  "WIDTH",
+//  "NET WIDTH",
+//  "AMP WIDTH",
+//  "DIODE",
+//  "CONT",
+//  "HFE",
+//  "LOGIC",
+//  "DBM",
+//  "EF",
+//  "TEMP"
+//};
+
+//static struct digit_t digits[] = {
+//  {0xd7, '0'},
+//  {0x50, '1'},
+//  {0xb5, '2'},
+//  {0xf1, '3'},
+//  {0x72, '4'},
+//  {0xe3, '5'},
+//  {0xe6, '6'},
+//  {0xe7, '6'},
+//  {0x51, '7'},
+//  {0xf7, '8'},
+//  {0x73, '9'},
+//  {0xf3, '9'},
+//  {0x20, '-'},
+//  {0, NODIGIT}
+//};
+
+
+/*
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <errno.h>
+#include <paths.h>
+#include <termios.h>
+#include <sysexits.h>
+#include <sys/param.h>
+#include <sys/select.h>
+#include <sys/time.h>
+#include <time.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <IOKit/IOKitLib.h>
+#include <IOKit/serial/IOSerialKeys.h>
+#include <IOKit/serial/ioss.h>
+#include <IOKit/IOBSD.h>
+
+
+// Returns an iterator across all known modems. Caller is responsible for releasing the iterator when iteration is complete.
+static kern_return_t findModems(io_iterator_t *matchingServices)
+{
+
+  // Serial devices are instances of class IOSerialBSDClient.
+  // Create a matching dictionary to find those instances.
+  CFMutableDictionaryRef  classesToMatch = IOServiceMatching(kIOSerialBSDServiceValue);
+  !classesToMatch ? printf("IOServiceMatching returned a NULL dictionary.\n")
+                  : // Look for devices that claim to be modems.
+                    CFDictionarySetValue(classesToMatch, CFSTR(kIOSerialBSDTypeKey),
+                                                         CFSTR(kIOSerialBSDAllTypes));
+  // Get an iterator across all matching devices.
+  kern_return_t  kernResult = IOServiceGetMatchingServices(kIOMasterPortDefault, classesToMatch, matchingServices);
+  if (KERN_SUCCESS != kernResult) printf("IOServiceGetMatchingServices returned %d\n", kernResult);
+  return kernResult;
+}
+
+static kern_return_t getModemPath(io_iterator_t serialPortIterator, char *bsdPath, CFIndex maxPathSize)
+{
+  io_object_t     modemService;
+  kern_return_t   kernResult = KERN_FAILURE;
+  Boolean         modemFound = false;
+
+  // Initialize the returned path
+  *bsdPath = '\0';
+
+  // Iterate across all modems found. In this example, we bail after finding the first modem.
+
+  while ((modemService = IOIteratorNext(serialPortIterator))) {
+
+    CFTypeRef bsdPathAsCFString = IORegistryEntryCreateCFProperty(modemService,
+                                                        CFSTR(kIOCalloutDeviceKey),
+                                                        kCFAllocatorDefault,
+                                                        0);
+    if (bsdPathAsCFString) {
+      Boolean result = CFStringGetCString(bsdPathAsCFString, bsdPath, maxPathSize, kCFStringEncodingUTF8);
+      CFRelease(bsdPathAsCFString);
+
+      if (result) {
+        printf("Modem found with BSD path: %s", bsdPath);
+        modemFound = true;
+        kernResult = KERN_SUCCESS;
+      }
+    }
+
+    printf("\n");
+
+    // Release the io_service_t now that we are done with it.
+    (void) IOObjectRelease(modemService);
+  }
+
+  return kernResult;
+}
+*/
+/*
+ int main(int argc, const char * argv[])
+ {
+ kern_return_t   kernResult;
+ io_iterator_t   serialPortIterator;
+ char            bsdPath[MAXPATHLEN];
+
+ kernResult = findModems(&serialPortIterator);
+ if (KERN_SUCCESS != kernResult) {
+ printf("No modems were found.\n");
+ }
+
+ kernResult = getModemPath(serialPortIterator, bsdPath, sizeof(bsdPath));
+ if (KERN_SUCCESS != kernResult) {
+ printf("Could not get path for modem.\n");
+ }
+
+ IOObjectRelease(serialPortIterator);
+
+ return EX_OK;
+ }
+ */
+
+
+
+// APPLLE
+/*
+static kern_return_t MyFindModems(io_iterator_t *matchingServices)
+{
+    kern_return_t       kernResult;
+    mach_port_t         masterPort;
+    CFMutableDictionaryRef  classesToMatch;
+ 
+    kernResult = IOMasterPort(MACH_PORT_NULL, &masterPort);
+    if (KERN_SUCCESS != kernResult)
+    {
+        printf("IOMasterPort returned %d\n", kernResult);
+    goto exit;
+    }
+ 
+    // Serial devices are instances of class IOSerialBSDClient.
+    classesToMatch = IOServiceMatching(kIOSerialBSDServiceValue);
+    if (classesToMatch == NULL)
+    {
+        printf("IOServiceMatching returned a NULL dictionary.\n");
+    }
+    else {
+        CFDictionarySetValue(classesToMatch,
+                             CFSTR(kIOSerialBSDTypeKey),
+                             CFSTR(kIOSerialBSDModemType));
+ 
+        // Each serial device object has a property with key
+        // kIOSerialBSDTypeKey and a value that is one of
+        // kIOSerialBSDAllTypes, kIOSerialBSDModemType,
+        // or kIOSerialBSDRS232Type. You can change the
+        // matching dictionary to find other types of serial
+        // devices by changing the last parameter in the above call
+        // to CFDictionarySetValue.
+    }
+ 
+    kernResult = IOServiceGetMatchingServices(masterPort, classesToMatch, matchingServices);
+    if (KERN_SUCCESS != kernResult)
+    {
+        printf("IOServiceGetMatchingServices returned %d\n", kernResult);
+    goto exit;
+    }
+ 
+exit:
+    return kernResult;
+}
+
+
+static kern_return_t MyGetModemPath(io_iterator_t serialPortIterator, char *deviceFilePath, CFIndex maxPathSize)
+{
+    io_object_t     modemService;
+    kern_return_t   kernResult = KERN_FAILURE;
+    Boolean     modemFound = false;
+ 
+    // Initialize the returned path
+    *deviceFilePath = '\0';
+ 
+    // Iterate across all modems found. In this example, we exit after
+    // finding the first modem.
+ 
+    while ((!modemFound) && (modemService = IOIteratorNext(serialPortIterator)))
+    {
+        CFTypeRef   deviceFilePathAsCFString;
+ 
+    // Get the callout device's path (/dev/cu.xxxxx).
+    // The callout device should almost always be
+    // used. You would use the dialin device (/dev/tty.xxxxx) when
+    // monitoring a serial port for
+    // incoming calls, for example, a fax listener.
+ 
+    deviceFilePathAsCFString = IORegistryEntryCreateCFProperty(modemService,
+                            CFSTR(kIOCalloutDeviceKey),
+                            kCFAllocatorDefault,
+                            0);
+        if (deviceFilePathAsCFString)
+        {
+            Boolean result;
+ 
+        // Convert the path from a CFString to a NULL-terminated C string
+        // for use with the POSIX open() call.
+ 
+        result = CFStringGetCString(deviceFilePathAsCFString,
+                                        deviceFilePath,
+                                        maxPathSize,
+                                        kCFStringEncodingASCII);
+            CFRelease(deviceFilePathAsCFString);
+ 
+            if (result)
+            {
+                printf("BSD path: %s", deviceFilePath);
+                modemFound = true;
+                kernResult = KERN_SUCCESS;
+            }
+        }
+ 
+        printf("\n");
+ 
+        // Release the io_service_t now that we are done with it.
+ 
+    (void) IOObjectRelease(modemService);
+    }
+ 
+    return kernResult;
+}
+
+*/
+
+\
+
+
+#import <IOKit/IOKitLib.h>
+#import <IOKit/usb/IOUSBLib.h> 
+#import <IOKit/serial/IOSerialKeys.h>
+#import <IOKit/IOBSD.h>
+
+
+#include <IOKit/IOKitLib.h>
+#include <IOKit/serial/IOSerialKeys.h>
+
+//  Find list of ports and their /dev paths
+//  NOTE: client is responsible for releasing the CFStrings.
+NSArray* findPorts() { // CFStringRef *stream, CFStringRef *path, int maxDevice )
+
+  NSMutableArray *ports = [NSMutableArray new];
+  int maxDevice  = 32;
+  kern_return_t kernResult ;
+  mach_port_t masterPort ;
+	io_iterator_t serialPortIterator ;
+	io_object_t modemService ;
+  CFMutableDictionaryRef classesToMatch ;
+	CFStringRef cfString ;
+	int count;
+  if (  (    kernResult = IOMasterPort( MACH_PORT_NULL, &masterPort )) != KERN_SUCCESS  ||
+        (classesToMatch = IOServiceMatching(kIOSerialBSDServiceValue)) == NULL) return nil;
+
+	// get iterator for serial ports (including modems)
+	// CFDictionarySetValue( classesToMatch, CFSTR(kIOSerialBSDTypeKey), CFSTR(kIOSerialBSDRS232Type) ) ;	-- use this if modems are not included
+	
+	CFDictionarySetValue( classesToMatch, CFSTR(kIOSerialBSDTypeKey), CFSTR(kIOSerialBSDAllTypes));
+  kernResult = IOServiceGetMatchingServices( masterPort, classesToMatch, &serialPortIterator ) ;    
+    
+	// walk through the iterator
+	count = 0 ;
+	while ((modemService = IOIteratorNext( serialPortIterator ))) {
+		if (count >= maxDevice) break;
+//    if ((cfString = IORegistryEntryCreateCFProperty( modemService, CFSTR(kIOTTYDeviceKey), kCFAllocatorDefault, 0 ))) {
+//      stream[count] = cfString;
+      if ((cfString = IORegistryEntryCreateCFProperty( modemService, CFSTR(kIOCalloutDeviceKey), kCFAllocatorDefault, 0 )))  {
+        ORSSerialPort *p = [ORSSerialPort serialPortWithPath:(__bridge NSString*)cfString];
+        if (p) [ports addObject:p];
+//        path[count] = cfString;
+				count++;
+//			}
+		}
+    IOObjectRelease(modemService);
+  }
+	IOObjectRelease(serialPortIterator);
+	return ports.copy;
+}
+
+@implementation USBWatcher
+//
+//- init { SUPERINIT;
+//
+////	CFStringRef cstream[32], cpath[32] ;
+////
+////	int i, count = findPorts( cstream, cpath, 32 );
+////	for ( i = 0; i < count; i++ ) {
+////		NSLog(@"%@ %@", (__bridge NSString*)cstream[i], (__bridge NSString*)cpath[i]);
+////		CFRelease( cstream[i] );
+////		CFRelease( cpath[i] );
+////	}
+//  return self;
+//}
+//
+#pragma mark ######### static wrappers #########
+
+static void staticDeviceAdded (void *refCon, io_iterator_t iterator){
+  USBWatcher *del = (__bridge USBWatcher *)(refCon);
+  if (del) [del deviceAdded:iterator];
+}
+
+static void staticDeviceRemoved (void *refCon, io_iterator_t iterator){
+  USBWatcher *del = (__bridge USBWatcher *)(refCon);
+  if (del) [del deviceRemoved : iterator];
+}
+#pragma mark ######### hotplug callbacks #########
+
+- (void) deviceAdded:(io_iterator_t)iterator
+{
+
+  NSLog(@"adding!");
+  io_service_t		serviceObject;
+  IOCFPlugInInterface	**plugInInterface = NULL;
+  IOUSBDeviceInterface	**dev = NULL;
+  SInt32			score;
+  kern_return_t		kr;
+  HRESULT			result;
+  CFMutableDictionaryRef	entryProperties = NULL;
+
+  while ((serviceObject = IOIteratorNext(iterator))) {
+
+//      CFTypeRef bsdPathAsCFString = IORegistryEntryCreateCFProperty(serviceObject,
+//                                                        CFSTR(kIOCalloutDeviceKey),
+//                                                        kCFAllocatorDefault,
+//                                                        0);
+//
+//    printf("%s: device added %d.\n", bsdPathAsCFString, (int) serviceObject);
+
+//    //printf("%s(): device added %d.\n", __func__, (int) serviceObject);
+    IORegistryEntryCreateCFProperties(serviceObject, &entryProperties, NULL, 0);
+//
+    kr = IOCreatePlugInInterfaceForService(serviceObject,
+                                           kIOUSBDeviceUserClientTypeID, kIOCFPlugInInterfaceID,
+                                           &plugInInterface, &score);
+//
+    if ((kr != kIOReturnSuccess) || !plugInInterface) {
+      printf("%s(): Unable to create a plug-in (%08x)\n", __func__, kr);
+      continue;
+    }
+
+    result = (*plugInInterface)->QueryInterface(plugInInterface,
+                                                CFUUIDGetUUIDBytes(kIOUSBDeviceInterfaceID),
+                                                (LPVOID *)&dev);
+
+    (*plugInInterface)->Release(plugInInterface);
+
+    if (result || !dev) {
+      printf("%s(): Couldn’t create a device interface (%08x)\n", __func__, (int) result);
+      continue;
+    }
+
+
+    UInt16 vendorID, productID;
+    (*dev)->GetDeviceVendor(dev, &vendorID);
+    (*dev)->GetDeviceProduct(dev, &productID);
+    NSString *name = (NSString *) CFDictionaryGetValue(entryProperties, CFSTR(kUSBProductString));
+////    if (!name) continue;
+//
+//    CFTypeRef bsdPathAsCFString = IORegistryEntryCreateCFProperty(serviceObject,
+//                                                        CFSTR(kIOCalloutDeviceKey),
+//                                                        kCFAllocatorDefault,
+//                                                        0);
+
+//    char bsdPath[MAXPATHLEN];
+//    if (bsdPathAsCFString) {
+//      Boolean result = CFStringGetCString(bsdPathAsCFString, bsdPath, sizeof(bsdPath), kCFStringEncodingUTF8);
+//      CFRelease(bsdPathAsCFString);
+
+      NSLog(@"%s %d v:%d i:%d", name, (int)serviceObject, vendorID, productID);
+//      if (result) {
+//        printf("Modem found with BSD path: %s", bsdPath);
+        ORSSerialPort *x = [ORSSerialPort serialPortWithDevice:serviceObject];//:[NSString stringWithUTF8String:bsdPath]];
+        if (x) {
+          NSLog(@"adding %@,",[x className]);
+          [self addObject:x];
+        }
+
+//        modemFound = true;
+//        kernResult = KERN_SUCCESS;
+      }
+//    }
+
+    //    NSNumber *idVendor = [NSNumber numberWithInteger:vendorID];
+    //    NSNumber *idProduct = [NSNumber numberWithInteger:productID];
+    //    NSString *chip = [self getDeviceChip:idVendor idProduct:idProduct];
+    //    if (chip) {
+//    ORSSerialPort *x = [ORSSerialPort serialPortWithDevice:serviceObject];
+//    if (x) {
+//      NSLog(@"adding %@,",[x className]);
+//      [self addObject:x];
+//    }
+    //
+    //                               @"VID"      : [NSString stringWithFormat: @"0x%04x", vendorID],
+    //                               @"PID"      : [NSString stringWithFormat: @"0x%04x", productID],
+    //                               @"name"     : [NSString stringWithString: name],
+    //                               @"dev"      : [NSValue  valueWithPointer: dev],
+    //                               @"service"  : [NSNumber    numberWithInt: serviceObject],
+    //                               @"chip"     : [NSString stringWithString: chip]}];
+    //
+//        }
+
+//  }
+//
+  //  [self rearrangeObjects];
+}
+
+- (void) deviceRemoved: (io_iterator_t) iterator{
+  io_service_t serviceObject;
+
+  while ((serviceObject = IOIteratorNext(iterator))) {
+    NSEnumerator *enumerator = [self.arrangedObjects objectEnumerator];
+    NSDictionary *dict;
+
+    while (dict = [enumerator nextObject]) {
+      if ((io_service_t) [[dict valueForKey: @"service"] intValue] == serviceObject) {
+        [self removeObject: dict];
+        break;
+      }
+    }
+
+    IOObjectRelease(serviceObject);
+  }
+
+//  [self rearrangeObjects];
+}
+
+#pragma mark ############ The Logic #############
+
+- init {
+  self = super.init;
+  OSStatus ret;
+  CFRunLoopSourceRef runLoopSource;
+  mach_port_t masterPort;
+  kern_return_t kernResult;
+
+  kernResult = IOMasterPort(MACH_PORT_NULL, &masterPort);
+
+  if (kernResult != kIOReturnSuccess) return printf("%s(): IOMasterPort() returned %08x\n", __func__, kernResult), nil;
+
+  classToMatch = IOServiceMatching(kIOUSBDeviceClassName);
+  if (!classToMatch) return printf("%s(): IOServiceMatching returned a NULL dictionary.\n", __func__), nil;
+
+  CFRetain(classToMatch);
+
+  gNotifyPort = IONotificationPortCreate(masterPort);
+  runLoopSource = IONotificationPortGetRunLoopSource(gNotifyPort);
+  CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopDefaultMode);
+
+  ret = IOServiceAddMatchingNotification(gNotifyPort,
+                                         kIOFirstMatchNotification,
+                                         classToMatch,
+                                         staticDeviceAdded,
+                                         (__bridge void *)(self),
+                                         &gNewDeviceAddedIter);
+
+  [self deviceAdded: gNewDeviceAddedIter];
+  ret = IOServiceAddMatchingNotification(gNotifyPort,
+                                         kIOTerminatedNotification,
+                                         classToMatch,
+                                         staticDeviceRemoved,
+                                         (__bridge void *)(self),
+                                         &gNewDeviceRemovedIter);
+
+  [self deviceRemoved : gNewDeviceRemovedIter];
+  mach_port_deallocate(mach_task_self(), masterPort);
+  return self;
+}
+
+
+- (void)portsChanged:(Boolean)added iterator:(io_iterator_t)iterator 
+{
+	io_object_t modemService ;
+	CFStringRef cfString ;
+
+	//  Report to serial port window
+	while ((modemService = IOIteratorNext( iterator ))) {
+		cfString = IORegistryEntryCreateCFProperty( modemService, CFSTR( kIOTTYDeviceKey ), kCFAllocatorDefault, 0 ) ;
+		if ( cfString ) {
+
+//			[ serialPortView insertText:@"--------------\n" ] ;
+			NSLog(@"%s %@", added ? "Added : " : "Removed : ", (__bridge NSString*)cfString);
+			CFRelease( cfString ) ;
+		}
+		IOObjectRelease( modemService ) ;
+	}
+}
+
+//  callback notification when device added
+static void deviceAdded(void *refcon, io_iterator_t iterator )
+{
+	io_object_t modemService ;
+	
+	if ( refcon ) [(__bridge USBWatcher*)refcon portsChanged:YES iterator:iterator ];
+	else {
+		while ((modemService = IOIteratorNext( iterator ))) IOObjectRelease(modemService);
+	}
+}
+
+static void deviceRemoved(void *refcon, io_iterator_t iterator )
+{
+	io_object_t modemService ;
+	
+	if ( refcon ) [(__bridge USBWatcher*)refcon portsChanged:NO iterator:iterator ] ;
+	else {
+		while ((modemService = IOIteratorNext( iterator ))) IOObjectRelease(modemService) ;
+	}
+}
+
+/*
+- (void)startNotification
+{
+	CFMutableDictionaryRef matchingDict ;
+	
+	notifyPort = IONotificationPortCreate( kIOMasterPortDefault ) ;
+	CFRunLoopAddSource( CFRunLoopGetCurrent(), IONotificationPortGetRunLoopSource( notifyPort ), kCFRunLoopDefaultMode ) ;
+	matchingDict = IOServiceMatching( kIOSerialBSDServiceValue ) ;
+	CFRetain( matchingDict ) ;
+	CFDictionarySetValue( matchingDict, CFSTR(kIOSerialBSDTypeKey), CFSTR( kIOSerialBSDAllTypes ) ) ;
+	
+	IOServiceAddMatchingNotification( notifyPort, kIOFirstMatchNotification, matchingDict, deviceAdded, (__bridge void*)self, &addIterator ) ;
+	deviceAdded( nil, addIterator ) ;	//  set up addIterator
+
+	IOServiceAddMatchingNotification( notifyPort, kIOTerminatedNotification, matchingDict, deviceRemoved, (__bridge void*)self, &removeIterator ) ;
+	deviceRemoved( nil, removeIterator ) ;	// set up removeIterator
+}
+
+- (void)stopNotification
+{
+	if ( addIterator ) {
+		IOObjectRelease( addIterator ) ;
+		addIterator = 0 ; 
+	}
+	
+	if ( removeIterator ) {
+		IOObjectRelease( removeIterator ) ;
+		removeIterator = 0 ;
+	}
+	if ( notifyPort ) {
+		CFRunLoopRemoveSource( CFRunLoopGetCurrent(), IONotificationPortGetRunLoopSource( notifyPort ), kCFRunLoopDefaultMode ) ;
+		IONotificationPortDestroy( notifyPort ) ;
+		notifyPort = nil ;
+	}
+}
+*/
+@end
+
+/*
+ @Plan USBSerialPort
+
+
+ - (instancetype)init {	return [self initWithPath:nil]; }
+
+ - (instancetype)initWithPath:(NSString *)devicePath {
+
+	id aPath = devicePath ?: [[SERIALPORTS filterOne:^BOOL(ORSSerialPort *p) {
+ return ![p.name.lowercaseString contains:@"bluetooth"];
+	}] valueForKey:@"path"];
+
+	if (!(self = [super initWithPath:aPath])) return nil;
+
+	NSLog(@"initing with name: %@", self.className);
+
+	return self;
+ }
+
+ void AppleHIDDeviceWasRemovedFunction( void *                  context,
+ IOReturn                result,
+ void *                  sender,
+ IOHIDDeviceRef          device)
+ {
+ NSLog(@"removed");
+ }
+
+ void AppleHIDDeviceWasAddedFunction( void *                  context,
+ IOReturn                result,
+ void *                  sender,
+ IOHIDDeviceRef          device)
+ {
+ NSLog(@"added");
+ }
+
+ - (void) startHIDNotification {
+
+	IOHIDManagerRef ioHIDManager = IOHIDManagerCreate ( kCFAllocatorDefault, kIOHIDManagerOptionNone  );
+
+	CFMutableDictionaryRef matchingDict = IOServiceMatching(kIOHIDDeviceKey);
+	CFDictionaryAddValue(matchingDict, CFSTR(kIOHIDManufacturerKey), CFSTR("Apple"));
+
+	IOHIDManagerSetDeviceMatching (ioHIDManager, matchingDict);
+
+	IOHIDManagerRegisterDeviceMatchingCallback( ioHIDManager, AppleHIDDeviceWasAddedFunction, (__bridge void *)(self) );
+	IOHIDManagerRegisterDeviceRemovalCallback( ioHIDManager, AppleHIDDeviceWasRemovedFunction, (__bridge void *)(self) );
+
+	CFRunLoopRef hidNotificationRunLoop = CFRunLoopGetCurrent();
+
+	IOHIDManagerScheduleWithRunLoop(ioHIDManager,
+ hidNotificationRunLoop,
+ kCFRunLoopDefaultMode);
+ }
+
+*/
+
+
+@interface USBWatcher : NSArrayController
+{
+  io_iterator_t           gNewDeviceAddedIter,
+                          gNewDeviceRemovedIter;
+  IONotificationPortRef   gNotifyPort;
+  CFMutableDictionaryRef  classToMatch;
+}
+//{
+//	IONotificationPortRef notifyPort ;
+//	CFRunLoopSourceRef runLoopSource ;
+//	io_iterator_t addIterator, removeIterator ;
+//}
+@end

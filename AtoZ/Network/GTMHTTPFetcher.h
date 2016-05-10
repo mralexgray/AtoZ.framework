@@ -731,7 +731,7 @@ NSString *GTMApplicationIdentifier(NSBundle *bundle);
 - (void)setCommentWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1, 2);
 
 // Log of request and response, if logging is enabled
-@property (copy) NSString *log;
+@property (copy) NSString *fetchLog;
 
 // Callbacks can be invoked on an operation queue rather than via the run loop,
 // starting on 10.7 and iOS 6.  If a delegate queue is supplied. the run loop

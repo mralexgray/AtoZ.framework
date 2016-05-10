@@ -17,6 +17,8 @@ _EnumKind(AZItemsViewFormat, AZItemsAsBundleIDs,	AZItemsAsPaths,	AZItemsAsNames)
 
 /* Application abilities */
 
++ _List_                 pathsForAppsWithIdentifier __Text_ identifier ___
+
 + _List_               allApplicationsFormattedAs:(AZItemsViewFormat) f ___
 
 + _List_     allApplicationsAbleToOpenFileExtension __Text_ ext

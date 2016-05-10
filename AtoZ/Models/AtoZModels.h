@@ -26,11 +26,11 @@ typedef void (^DefinedBlock)(AZDefinition *def);
 + (INST)     define:(NSS*)term ofType:(AZLexicon)lexicon timeout:(NSTI)ti completion:(DefinedBlock)block;
 
 _NA    AZLexicon   lexicon;
-@prop_NC DefinedBlock   completion;
+_NC DefinedBlock   completion;
 _NA         NSTI   timeout;
 _RO          id   rawResult;
 _RO        BOOL   fromTheWeb;
-@prop_CP        NSERR * error;
+_CP        NSERR * error;
 _RO         NSU * query;
 _RO         NSA * results;
 _NA          NSS * word;

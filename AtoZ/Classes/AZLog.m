@@ -345,7 +345,7 @@ _Enum(zLoggingTo,
 
 //- (Class) objectClass { return NSTN.class; }
 
-- init		{	return self = super.init ? _log = @{}.mC, [self startLogging], self : nil; } // )) self.objectClass = NSTN.class; self.selectsInsertedObjects = YES; [self log]; return self; }
+- init		{	return self = super.init ? _entry = @{}.mC, [self startLogging], self : nil; } // )) self.objectClass = NSTN.class; self.selectsInsertedObjects = YES; [self log]; return self; }
 
 - (void) ConfigureQuery:(aslmsg)query { const char param[] = "5";	// ASL_LEVEL_NOTICE
 
@@ -365,7 +365,7 @@ _Enum(zLoggingTo,
 
   [n setValuesForKeysWithDictionary:@{@"sender":ssender, @"message":$(@"%s", message)}];
 
-  NSMA *senderEntry = _log[ssender] ?: (_log[ssender] = @[].mC);
+  NSMA *senderEntry = _entry[ssender] ?: (_entry[ssender] = @[].mC);
 
   [senderEntry addObject:n];
 

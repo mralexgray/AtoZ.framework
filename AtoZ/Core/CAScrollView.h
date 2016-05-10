@@ -14,7 +14,7 @@
 
 @property (NA)  			NSSZ		unit;
 @property (NA) 		NSUI 		fixWatchdog;
-@prop_RO				NSA 		*allLayers;
+_RO				NSA 		*allLayers;
 @property (NA) 	NSMA 		*layerQueue;
 @property (NA) 	CAL 		*hoveredLayer, *selectedLayer, *scrollLayer;
 @property (NA)  		AZOrient		oreo;

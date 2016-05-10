@@ -24,7 +24,7 @@ _RO OSCornerType 	outsideCorners;
 @end
 
 
-//@prop_NA NSV * view;
+//_NA NSV * view;
 //+ tabWithViewClass:(Class)k;
 
 //@property (STR) 			AZWindowTabController	*vc;

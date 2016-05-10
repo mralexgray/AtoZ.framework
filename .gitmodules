@@ -344,3 +344,6 @@
 	path = Frameworks/USBDevice
 	url = git@github.com:mralexgray/USBDeviceFramework.git
 	branch = rename
+[submodule "Frameworks/ORSSerialPort"]
+	path = Frameworks/ORSSerialPort
+	url = https://github.com/armadsen/ORSSerialPort.git

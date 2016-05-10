@@ -27,13 +27,13 @@
 
 @interface BNRBlockView : NSView
 
-@prop_CP RectBlock   rBlock;          //typedef void(^RectBlock) (NSR rect);
+_CP RectBlock   rBlock;          //typedef void(^RectBlock) (NSR rect);
 
     // typedef void(^BlkViewRectBlock)     (BLKVIEW *v, NSRect r);
 
-@prop_CP BlkViewRectBlock   drawBlock;               // typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
-@prop_CP BlkViewLayerBlock   layerDelBlock;
-@prop_CP ViewBlock   vBlock;
+_CP BlkViewRectBlock   drawBlock;               // typedef void(^BlkViewLayerBlock) (BLKVIEW *v, CALayer *l);
+_CP BlkViewLayerBlock   layerDelBlock;
+_CP ViewBlock   vBlock;
 
 + (INST) drawInView:(NSV*)v                            block:(RectBlock)blk;
 + (INST) vWF:(NSR)f b:(void(^)(id))blk; // alias for vwf:db

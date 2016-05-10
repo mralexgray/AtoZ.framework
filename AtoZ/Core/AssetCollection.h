@@ -30,7 +30,7 @@ _RO AssetType assetType;
 									 		        active;
 @property (STR)				  NSB * bundle;
 @property				  AssetType 	assetType;
-@prop_RO				NSS * markup;
+_RO				NSS * markup;
 + (instancetype) test;
 + (instancetype) instanceOfType:(AssetType)type withPath:(NSS*)path orContents:(NSS*)contents printInline:(BOOL)isit;
 @end

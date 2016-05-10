@@ -8,8 +8,8 @@
 
 @protocol NSActionBlock <NSObject>
 @concrete
-@property (CP) ObjBlk actionBlock;
-@property (CP) VBlk voidActionBlock;
+_CP ＾ObjC actionBlock;
+_CP ＾ voidActionBlock;
 @end
 
 @interface NSControl (AtoZEvent)

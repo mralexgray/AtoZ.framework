@@ -1,0 +1,6 @@
+[submodule "Source/USBAttributes"]
+	path = Source/USBAttributes
+	url = https://gist.github.com/ca489ffda7edf757620a.git
+[submodule "Examples/MultiMeter/rickshaw"]
+	path = Examples/MultiMeter/rickshaw
+	url = https://github.com/shutterstock/rickshaw.git

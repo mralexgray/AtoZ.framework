@@ -45,7 +45,7 @@ respondsToString:@"bounds"] ? [obj sizeForKey:@"bounds"]  : AZRectBy(1, 1).size;
   [newer lockFocus]; dBlk(); [newer unlockFocus]; return newer;
 }
 
-+ _Pict_  imageInFrame: _Rect_ f withBlock:(RBlk)blk {
++ _Pict_  imageInFrame: _Rect_ f withBlock ＾Rect_ blk {
 
   NSR originRect = AZRectFromSize(f.size);
   NSSZ s = originRect.size;
@@ -394,7 +394,7 @@ matchingName:@"/imgres?imgurl=" allowPartial:YES];
                          matchingName:@"Random Image"
                          allowPartial:TRUE] getAttributeNamed:@"src"];
   NSLog(@"imageurl: %@", imageurl);
-  NSIMG *webI = [self.alloc initWithContentsOfURL:$URL(imageurl)];
+  NSIMG *webI = [ _Pict_ self.alloc initWithContentsOfURL:$URL(imageurl)];
   [AZStopwatch stop:@"photoTimer"];
   [webI lockFocusBlock:^(NSImage *i) {
       NSAS *stamp =
@@ -729,7 +729,7 @@ static NSMutableIndexSet *namedMonos;
 
         id name;
         NSN* adjusted = [o plus:@1];
-        BOOL hasName = (( name = [x objectForKey:[adjusted sVal]] ));
+        BOOL hasName = (( name = [ _Dict_ x objectForKey:[adjusted sVal]] ));
         id z = [NSIMG imageFromPDF:myPDF page:o.iV size:AZSizeFromDim(256) named:[@"AtoZMono-" withString:name ?: [adjusted sVal]]];
 
 //          LOGCOLORS(@" Adding Index ", [o minus:@1], nil);
@@ -3449,7 +3449,7 @@ CGContextRef MyCreateBitmapContext(int pixelsWide, int pixelsHigh) {
 
 - (NSC*) averageColor {
 
-  NSBIR *rep = [self representations][0];
+  NSBIR *rep = _ObjC_ [self representations][0];
   //	 filterOne:<#^BOOL(id object)block#>: (NSBIR *)[self
   // bestRepresentationForDevice:nil];
   if (![rep isKindOfClass:[NSBIR class]])
@@ -5100,7 +5100,7 @@ CGImageRef CreateCGImageFromData(NSData *data) {
   // animations.
 
   NSMutableData *GIFRepresentation = nil;
-  NSBIR *bitmap = [[self representations] objectAtIndex:0];
+  NSBIR *bitmap = _ObjC_ self.representations[0];
 
   if (bitmap && [bitmap isKindOfClass:[NSBIR class]]) {
     unsigned frameCount =
@@ -5161,18 +5161,13 @@ CGImageRef CreateCGImageFromData(NSData *data) {
  * other types
  */
 - (NSData*) bestRepresentationByType {
-  NSData *data = nil;
+
   NSBIR *bitmap = nil;
 
-  if ((bitmap = [[self representations] objectAtIndex:0]) &&
-      [bitmap isKindOfClass:[NSBIR class]] &&
-      ([[bitmap valueForProperty:NSImageFrameCount] intValue] > 1)) {
-    data = [self GIFRepresentation];
-  } else {
-    data = [self PNGRepresentation];
-  }
-
-  return data;
+  return (bitmap = _ObjC_ self.representations[0]) && ISA(bitmap,NSBIR) &&
+      ([[bitmap valueForProperty:NSImageFrameCount] intValue] > 1)
+    ? [self GIFRepresentation]
+    : [self PNGRepresentation];
 }
 
 - (NSBIR*) getBitmap {

@@ -25,7 +25,7 @@ _RO NoodleLineNumberView *lineNumberView;
 /// @name Code editing options  
 
 /** Indicates if the line number ruler is visible. */
-_AT BOOL lineNumbersVisible;
+_PR BOOL lineNumbersVisible;
 /** The number of spaces for tab expansion.  A value of 0 indicates no tab expansion. */
 _NA NSInteger tabWidth;
 

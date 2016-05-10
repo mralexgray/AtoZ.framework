@@ -3,7 +3,7 @@
 
 #import <ImageIO/ImageIO.h>
 #import <SpringBoard/SpringBoard.h>
-#import <CaptainHook/CaptainHook.h>
+#import "CaptainHook/CaptainHook.h"
 #import <dlfcn.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <libkern/OSAtomic.h>

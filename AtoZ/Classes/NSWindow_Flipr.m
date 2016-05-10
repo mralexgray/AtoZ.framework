@@ -123,7 +123,7 @@
 		[flipr setFrame:flp display:NO];
 		originalRect.size = frame.size;
 // Here we get an image of the initial window and make a CIImage from it.
-		NSView* view = [[initialWindow contentView] superview];
+		NSView* view = ((NSView*)initialWindow.contentView).superview;
 		flp = [view bounds];
 		NSBitmapImageRep* bitmap = [view bitmapImageRepForCachingDisplayInRect:flp];
 		[view cacheDisplayInRect:flp toBitmapImageRep:bitmap];
@@ -136,7 +136,7 @@
 // We bring the final window to the front in order to build the final image.
 		[finalWindow makeKeyAndOrderFront:self];
 // Here we get an image of the final window and make a CIImage from it.
-		view = [[finalWindow contentView] superview];
+		view = [(NSView*)[finalWindow contentView] superview];
 		flp = [view bounds];
 		bitmap = [view bitmapImageRepForCachingDisplayInRect:flp];
 		[view cacheDisplayInRect:flp toBitmapImageRep:bitmap];

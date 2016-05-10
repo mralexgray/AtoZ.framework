@@ -193,7 +193,7 @@ static  NSP gWindowTrackingEventOrigin, 	gWindowTrackingCurrentWindowOrigin;
 - (void)            setAcceptsFirstResponder:(BOOL)x    { [self overrideResponder:@selector(acceptsFirstResponder) withBool:x]; }
 - (void)             setPerformKeyEquivalent:(BOOL)x    { [self overrideResponder:@selector(performKeyEquivalent:) withBool:x]; }
 
-- (void) animateWithDuration:(NSTI)d block:(ObjBlk)stuff {
+- (void) animateWithDuration:(NSTI)d block ＾ObjC_ stuff {
 
 //  if ([self.class conformsToProtocol:@protocol(NSAnimatablePropertyContainer)])
   //  return XX(@"You dont coform to NSAnimatablePropertyContainer>!");
@@ -458,7 +458,7 @@ typedef void (^notificationObserver_block)(NSNotification *);
 - (void) slideTo:(NSS*)rect 	{
 
 	[NSAnimationContext beginGrouping];
-		[NSAnimationContext.currentContext setKey:kCAMediaTimingFunctionEaseInEaseOut ];
+//		[NSAnimationContext.currentContext setKey:kCAMediaTimingFunctionEaseInEaseOut];
 		if (@"visibleRect") {
 			[self setAlphaValue:0.f];
 			[self makeKeyAndOrderFront:self];

@@ -11,11 +11,11 @@
 
 @interface AtoZContact : BaseModel
 
-@prop_RO	 BOOL   hasImage;
+_RO	 BOOL   hasImage;
 @property  BOOL   cached;
-@prop_NC 	NSIMG * image;
+_NC 	NSIMG * image;
 _RO 	  NSS * fullName;
-@prop_NC 	  NSS * firstName,
+_NC 	  NSS * firstName,
                 * lastName,
                 * company,
                 * tel;

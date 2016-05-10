@@ -5880,7 +5880,7 @@ The numberArray NSArray contains a collection of NSNumbers, The dict NSDictionar
 
 The given iterator runs for each object in the collection.
 
-- `- (void) each:(ObjBlk) block;`
+- `- (void) each ＾ObjC_  block;`
 - `- (void) each:(ObjObjBlk) block;`
 
 Example:

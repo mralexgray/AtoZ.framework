@@ -208,7 +208,7 @@ static NSString *const kCallbackError = @"error";
   [thread_ release];
   [retryTimer_ release];
   [comment_ release];
-  [log_ release];
+  [fetchLog_ release];
 #if !STRIP_GTM_FETCH_LOGGING
   [logRequestBody_ release];
   [logResponseBody_ release];
@@ -1598,7 +1598,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
             delegateQueue = delegateQueue_,
             runLoopModes = runLoopModes_,
             comment = comment_,
-            log = log_,
+            fetchLog = fetchLog_,
             cookieStorage = cookieStorage_;
 
 #if NS_BLOCKS_AVAILABLE

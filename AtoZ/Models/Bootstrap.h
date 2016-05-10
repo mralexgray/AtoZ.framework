@@ -47,7 +47,7 @@ extern NSString * const custCSS,
 
 + (instancetype) withSelector:(NSS*)sel action:(NSS*)f args:(NSA*)a callback:(NSA*)c;
 
-@prop_CP NSS * selector, * action; @prop_CP NSA * callback;   @end
+_CP NSS * selector, * action; _CP NSA * callback;   @end
 
 /**	$(selector).on(event,childSelector,data,function,map)
 	@param event	Required. Specifies one or more event(s) or namespaces to attach to the selected elements. Multiple event values are separated by space. Must be a valid event

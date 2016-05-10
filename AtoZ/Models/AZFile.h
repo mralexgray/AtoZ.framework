@@ -52,7 +52,7 @@ _RO BOOL   hasLabel;
 @property (NA, assign) 	CGPoint		dockPointNew;
 @property (NA, assign) 	NSUInteger	spot;
 @property (NA, assign) 	NSUInteger 	spotNew;
-@prop_RO			BOOL		isRunning;
+_RO			BOOL		isRunning;
 @end
 
 @interface AZDock : BaseModel

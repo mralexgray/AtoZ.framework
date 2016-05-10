@@ -5,6 +5,7 @@
 #import <AtoZ/AtoZ.h>
 #import "AZLaunchServices.h"
 
+
 _EnumPlan(AZItemsViewFormat);
 
 NSString * CoercePlist (NSString* path) {
@@ -86,8 +87,14 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 
 	static NSA * apps = nil;
   if (![apps count]) _LSCopyAllApplicationURLs((CFArrayRef*)&apps);
-	return [AZLaunchServices prepareArray:apps withFormat: response_format];
+	return [self _prepareArray:apps withFormat: response_format];
 
+}
+
++ _List_ pathsForAppsWithIdentifier __Text_ identifier {
+
+  CFArrayRef result = LSCopyApplicationURLsForBundleIdentifier((__bridge CFStringRef)identifier, nil);
+  return !result ? nil : [(__bridge _List) result vFKP:@"path"];
 }
 
 + (NSA*) allApplicationsAbleToOpenFileExtension:(NSS*)extension
@@ -97,20 +104,18 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 															   (CFStringRef)extension, NULL);
 	CFArrayRef bundles = LSCopyAllRoleHandlersForContentType(uttype, kLSRolesAll);
 	CFRelease(uttype);
-	if (!bundles) return nil;
-	return [AZLaunchServices prepareArray: [(NSA*)bundles autorelease]
-							   withFormat: response_format];
+	return !bundles ? nil : [self _prepareArray:(__bridge NSA*)bundles withFormat:response_format];
 }
+
 + (NSA*) allAvailableFileTypesForApplication:(NSS*)full_path
 {
 
+	NSA* all_doc_types = [Dict dictionaryWithContentsOfFile:full_path][@"CFBundleDocumentTypes"];
 
-	NSA*all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
-	if ( ! all_doc_types) return nil;
+	return ! all_doc_types ? nil : [all_doc_types map:^id(_Dict obj){
 
-	return [all_doc_types map:^id(NSDictionary * obj){
-								   /* Use 0 as index because it's highest level of file types' hierarchy */
-								   return obj[@"LSItemContentTypes"][0];
+    /* Use 0 as index because it's highest level of file types' hierarchy */
+    return obj[@"LSItemContentTypes"][0];
 
 	}];
 }
@@ -118,10 +123,9 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 /* Return only MIMEs defined in LaunchService database */
 + (NSA*)allAvailableMIMETypesForApplication:(NSS*)full_path {
 
-	NSA*all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
-	if ( ! all_doc_types) return nil;
+	NSA*all_doc_types = [Dict dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
 
-	return [all_doc_types map:^id(id obj) {
+  return ! all_doc_types ? nil : [all_doc_types map:^id(id obj) {
 
 		NSA* tmp_array = obj[@"LSItemContentTypes"];
 		/* If we can't recognize a MIME type for some file type - take a look on it' parent type */
@@ -137,23 +141,27 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 
 + (NSA*)allAvailableFileExtensionsForApplication:(NSS*)full_path {
 
-	NSA*all_doc_types = [NSDictionary dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
-	if ( !all_doc_types) {
-		return nil;
-	}
-	NSMutableArray *value = NSMA.new;
+	_List all_doc_types = [Dict dictionaryWithContentsOfFile: full_path][@"CFBundleDocumentTypes"];
+
+  if ( !all_doc_types) return nil;
+
+	NEW(ListM,value);
+
 	[all_doc_types enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		[value addObjectsFromArray: obj[@"CFBundleTypeExtensions"]];
-	}];
-	return [value autorelease];
+
+    [value addObjectsFromArray: obj[@"CFBundleTypeExtensions"]];
+
+  }];
+
+  return [value copy];
 }
 
 
 #pragma mark Files
 
-#define fileExists(x) ([[NSFileManager defaultManager] fileExistsAtPath: (x)])
+#define fileExists(x) [AZFILEMANAGER fileExistsAtPath: (x)]
 
-+ (NSS*)humanReadableTypeForFile:(NSS*)full_path {
++ (NSS*) humanReadableTypeForFile:(NSS*)full_path {
 
 	if ( ! fileExists(full_path)) return nil;
 
@@ -165,9 +173,9 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 	return value;
 }
 
-+ (NSS*)mimeTypeForFile:(NSS*)full_path {
++ (NSS*) mimeTypeForFile:(NSS*)full_path {
 
-	if ( ! fileExists(full_path)) return nil;
+	if ( !fileExists(full_path)) return nil;
 
 	NSS * extension = [full_path pathExtension];
 	if (!extension || [extension isEqualToString: @""]) return nil;
@@ -224,31 +232,27 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 
 #pragma mark Private
 
-+ (NSA*) prepareArray:(NSA*)array withFormat:(/*enum */AZItemsViewFormat)format {
++ (NSA*) _prepareArray:(NSA*)arr withFormat:(AZItemsViewFormat)fmt {
 
   return  // [AZLaunchServices mappingArray:array usingBlock:^id(id obj) {
 
-    [array map:^id(id obj){
+    [arr map:^id(id x){
 
-      return format == AZItemsAsPaths ?
+      return fmt == AZItemsAsPaths ? ISA(x, NUrl) ? [_NUrl_ x path] : x : // [AZWORKSPACE absolutePathForAppBundleWithIdentifier: obj] :
 
-      ISA(obj, NSURL) ? [(NSURL*)obj path] : @"poop" : // [AZWORKSPACE absolutePathForAppBundleWithIdentifier: obj] :
+             fmt == AZItemsAsNames  ? [AZFILEMANAGER displayNameAtPath: ISA(x,NUrl) ? [x path] : [AZWORKSPACE absolutePathForAppBundleWithIdentifier:x]] // name
 
-           format == AZItemsAsNames ?
-
-      [AZFILEMANAGER displayNameAtPath: ISA(obj, NSURL) ? [obj path] :
-						   [AZWORKSPACE absolutePathForAppBundleWithIdentifier:obj]] // name
-
-    : obj; }];
+                                      : x; }];
 }
 
 + (NSInteger)indexOfItemWithURL:(NSURL*)url inList:(CFStringRef)list_name {
 
-	NSA*tmp = [AZLaunchServices allItemsFromList: list_name];
-	NSInteger __unused idx = -1;
-	return [tmp indexOfObjectPassingTest: ^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+	return [[AZLaunchServices allItemsFromList: list_name]
+                    indexOfObjectPassingTest: ^_IsIt(id obj, _UInt idx, _IsIt *stop) {
+
 		return [[(AZLaunchServicesListItem*)obj url] isEqualTo: url];
-	}]; // idx
+
+	}];
 }
 
 /* Going throw an array's elements doing something with them, and create items for a new array */

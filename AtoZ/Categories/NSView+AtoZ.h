@@ -59,7 +59,7 @@ typedef void (^viewFrameDidChangeBlock)(void);
 @class AZWT;
 @interface NSView  (AtoZ) <NSCopying>
 
-@property (NA) ObjBlk onEndLiveResize;
+_NA ＾ObjC onEndLiveResize;
 @property (getter = isOpaque) BOOL opaque;  // overrides isOpaque method..
 
 @property (NA) NSI tag;

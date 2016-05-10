@@ -5,7 +5,7 @@
 
 @interface AZSimpleView : NSV
 
-_AT _IsIt  clear
+_PR _IsIt  clear
 __         glossy
 __         gradient
 __         checkerboard ___
@@ -19,15 +19,15 @@ _VD    setFrameSizePinnedToTopLeft __Size_ z ___
 @end
 
 @interface AZSimpleGridView : NSView 
-//@prop_NA               NSSZ   dimensions;
-//@prop_NA               NSUI   rows, columns;
+//_NA               NSSZ   dimensions;
+//_NA               NSUI   rows, columns;
 _NA                CAL * grid;
 
 @end
 
 
 //@interface NSOutlineView (D2Row)
-//@prop_NC NSTableRowView*(^rowViewBlock)(id item, int row);
+//_NC NSTableRowView*(^rowViewBlock)(id item, int row);
 //- (void) setRowViewBlock:(NSTableRowView*(^)(id item, int row))b;
 //@end
 

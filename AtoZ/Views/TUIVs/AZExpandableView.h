@@ -5,9 +5,9 @@
 _RO NSIMG	* favicon;
 _RO  NSC	* color;
 _RO 	NSS * string;
-@prop_RO	NSURL	* url;
-@prop_RO	 NSAS	* attrString;
-@prop_RO	 BOOL   faviconOK;
+_RO	NSURL	* url;
+_RO	 NSAS	* attrString;
+_RO	 BOOL   faviconOK;
 @property (NA)  NSMD * dictionary;
 
 @end
